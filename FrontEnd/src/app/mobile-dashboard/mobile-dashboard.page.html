@@ -1,0 +1,239 @@
+
+
+
+<ion-content>
+  <ion-header color="primary" class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button auto-hide="false"></ion-menu-button>
+      </ion-buttons>
+      
+      <ion-buttons slot="primary">
+        <ion-button (click)="notification($event)">
+          <ion-icon slot="icon-only" ios="notifications-sharp" md="notifications-sharp"></ion-icon>
+        </ion-button>
+        <ion-button (click)="presentPopover($event)">
+          <ion-icon slot="icon-only" ios="person-sharp" md="person-sharp"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <ion-title>Dashboard</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-xs="12" size-sm="12" size-md="4">
+          
+            <ion-row>
+              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6">
+                <ion-list class="survey-list" routerLink="//voterdata-management/voterby-user">
+                    <ion-item lines="none">
+                      <ion-label class="search">
+                          <i class="icofont icofont-search-document"></i>
+                          <img src="/assets/img/statistics.png" alt="">
+                          <h3> शोधा </h3>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+
+              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6">
+                <ion-list class="survey-list" routerLink="/list">
+                    <ion-item lines="none">
+                      <ion-label>
+                        <div class="user">
+                          <i class="icofont icofont-ui-user-group"></i>
+                          <img src="/assets/img/lists.png" alt="">
+                          <h3> याद्या </h3>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+
+              <!-- <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="4">
+                <ion-list class="survey-list" routerLink="/user">
+                    <ion-item lines="none">
+                      <ion-label>
+                        <div class="user">
+                          <i class="icofont icofont-ui-user-group"></i>
+                          <h3> युजर </h3>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col> -->
+
+              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6">
+                <ion-list class="survey-list" routerLink="/contact">
+                    <ion-item lines="none">
+                      <ion-label>
+                        <!-- <img src="assets/img/contact-book.png" alt="" class="brightness"> -->
+                        <div class="contact">
+                          <i class="icofont icofont-contact-add"></i>
+                          <img src="/assets/img/contact11.png" alt="">
+                          <h3> कॉन्टॅक्ट </h3>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+      
+              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6">
+                <ion-list class="survey-list" routerLink="/home/birthday">
+                  <ion-item lines="none">
+                      <ion-label>
+                        <div class="birthday">
+                          <!-- <img src="assets/img/cake.png" alt=""> -->
+                          <i class="icofont icofont-birthday-cake"></i>
+                          <img src="/assets/img/statistics.png" alt="">
+                          <h3> वाढदिवस </h3>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6"> 
+                <ion-list class="survey-list" routerLink="/home/anniversary">
+                  <ion-item lines="none" >
+                      <ion-label>
+                        <!-- <img src="assets/img/anniversary.png" alt=""> -->
+                        <div class="anniversary">
+                          <i class="icofont icofont-calendar"></i>
+                          <img src="/assets/img/statistics.png" alt="">
+                          <h3> लग्नाचा वाढदिवस </h3>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+
+              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6">
+                <ion-list class="survey-list" routerLink="/survey">
+                  <ion-item lines="none">
+                      <ion-label>
+                        <!-- <img src="assets/img/anniversary.png" alt=""> -->
+                        <div class="event">
+                          <i class="icofont icofont-calendar"></i>
+                          <img src="/assets/img/completed-task.png" alt="">
+                          <h3> सर्वे </h3>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+            </ion-row>
+         
+        </ion-col>
+
+        <ion-col size-xs="12" size-sm="12" size-md="8" size-lg="8">
+            <ion-list class="graphDiv">
+              <ejs-chart height='370' id="chart" style='display:block;' [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis' [palettes]='palette' [title]='title'  [chartArea]='chartArea' >
+                <e-series-collection>
+                    <e-series groupName="A" [dataSource]='birthData' type='Column' xName='x' yName='y' name='Birthday' width='1'> </e-series>
+                    <e-series groupName="B" [dataSource]='anniData' type='Column' columnWidth='0.6' xName='x' yName='y' name='Anniversary' width='1'> </e-series>
+                  </e-series-collection>
+              </ejs-chart>
+            </ion-list>
+        </ion-col>
+      </ion-row>
+
+      <!-- <ion-row>
+        <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4"> 
+          <ion-list>
+            <ejs-accumulationchart height='300' id="totalData" [tooltip]='tooltip' [title]='title1' >
+              <e-accumulation-series-collection>
+                  <e-accumulation-series [dataSource]='totalData' xName='x' yName='y' [dataLabel]='totalDataLael' radius="80%" [palettes]='palette1'></e-accumulation-series>
+              </e-accumulation-series-collection>
+            </ejs-accumulationchart>      
+          </ion-list>
+        </ion-col>
+        <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4"> 
+          <ion-list>
+            <ejs-accumulationchart height='300' id="ageData" [tooltip]='tooltip' [title]='title2' >
+              <e-accumulation-series-collection>
+                  <e-accumulation-series [dataSource]='ageData' xName='x' yName='y' [dataLabel]='ageDataLabel' radius="80%" [palettes]='palette2'></e-accumulation-series>
+              </e-accumulation-series-collection>
+            </ejs-accumulationchart>      
+          </ion-list>
+        </ion-col>
+        <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4"> 
+          <ion-list>
+            <ejs-accumulationchart height='300' id="occupationData" [tooltip]='tooltip2' [title]='title3'>
+              <e-accumulation-series-collection>
+                  <e-accumulation-series [dataSource]='occuData' xName='x' yName='y' [dataLabel]='occuDataLabel' radius="80%"></e-accumulation-series>
+              </e-accumulation-series-collection>
+            </ejs-accumulationchart>      
+          </ion-list>
+        </ion-col>
+      </ion-row> -->
+    </ion-grid>
+
+    <ion-grid class="logReport">
+      <ion-row>
+        <ion-col size-xl="12" class="ion-padding">
+          <ion-list>
+            <h3> Log Report </h3>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Sr. No.</th>
+                  <th>Name</th>
+                  <th>Username</th>
+                  <th>Password</th>
+                  <th>Role</th>
+                  <th>Logged In</th>
+                  <th>Logged Out</th>
+                  <th>IP Address</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Sagar Salunkhe</td>
+                  <td>9158490455</td>
+                  <td>Sagar@123</td>
+                  <td>Admin</td>
+                  <td>10:00 AM</td>
+                  <td>11:00 AM</td>
+                  <td></td>
+                  <td>
+                    <div class="d-flex justify-content-space-between">
+                      <ion-label>Deactivate</ion-label>
+                      <ion-toggle slot="start" name="blueberry" checked></ion-toggle>
+                      <ion-label>Activate</ion-label>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Sagar Salunkhe</td>
+                  <td>9158490455</td>
+                  <td>Sagar@123</td>
+                  <td>Admin</td>
+                  <td>10:00 AM</td>
+                  <td>11:00 AM</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Sagar Salunkhe</td>
+                  <td>9158490455</td>
+                  <td>Sagar@123</td>
+                  <td>Admin</td>
+                  <td>10:00 AM</td>
+                  <td>11:00 AM</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

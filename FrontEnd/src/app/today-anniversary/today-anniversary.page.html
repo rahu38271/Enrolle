@@ -1,0 +1,176 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title></ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button color="primary" auto-hide="false"></ion-menu-button>
+      </ion-buttons>
+
+      <ion-title>आज लग्नाचा वाढदिवस</ion-title>
+
+      <ion-buttons slot="primary">
+        <ion-button (click)="search()">
+          <ion-icon name="search-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <!-- <ion-searchbar></ion-searchbar> -->
+    <ion-grid class="web">
+      <ion-row>
+        <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
+          <ion-grid class="header">
+            <ion-row>
+              <ion-col size-xs="12" size-sm="12">
+                <ion-card-header>
+                  <!--  -->
+                  <ion-card-title> आज लग्नाचा वाढदिवस <span> ( {{currentDate | date:'dd MMMM yyyy'}} ) </span>
+                  </ion-card-title>
+                  <div class="headerLine"></div>
+                </ion-card-header>
+              </ion-col>
+              
+            </ion-row>
+          </ion-grid>
+          <ion-card>
+            <ion-card-content>
+              <div class="headSection">
+                <div class="search">
+                  <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+                </div>
+                <div class="btns">
+                  <ion-button class="button-download" color="success" (click)="exportExcel()">
+                    <ion-icon name="document-sharp"></ion-icon>Excel
+                  </ion-button>
+                  <ion-button class="button-download" color="success" (click)="exportToCSV()" id="export">
+                    <ion-icon name="document-sharp"></ion-icon>CSV
+                  </ion-button>
+                </div>
+              </div>
+              <div class="horizontal-scroll">
+                <table id="AnniTable" #epltable class="table">
+                  <thead>
+                    <tr>
+
+                      <th style="width: 20px !important;">
+                        अ.क्र.
+                      </th>
+                      <th>
+                        संपूर्ण नाव
+                      </th>
+                      <th>
+                        गावाचे नाव
+                      </th>
+                      <th>
+                        लग्नाचा वाढदिवस
+                      </th>
+                      <th>
+                        मोबाइल
+                      </th>
+                      <th>
+                        पर्यायी मोबाइल
+                      </th>
+                      <th>
+                        पत्ता
+                      </th>
+
+                    </tr>
+                    <!-- <tr>
+                      <th style="width: 20px !important;">
+                        Sr.No.
+                      </th>
+                      <th>
+                        Full Name
+                      </th>
+                      <th>
+                        Village
+                      </th>
+                      <th>
+                        Anniversary Date
+                      </th>
+                      <th>
+                        Mobile
+                      </th>
+                      <th>
+                        Alt. Mobile
+                      </th>
+                      <th>
+                        Address
+                      </th>
+
+                    </tr> -->
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let item of getAnniversary | filter:searchWeb | paginate: { itemsPerPage: 10, currentPage: cp  }; let i=index">
+                      <td> {{ (cp - 1) * 10 + i + 1 }} </td>
+                      <td class="text-capitalize"> {{ item.fullName }} </td>
+                      <td class="text-capitalize"> {{ item.vilageName }} </td>
+                      <td> {{ item.anniversary }} </td>
+                      <td> {{ item.mobileNo }} </td>
+                      <td> {{ item.alternativeMobileNo }} </td>
+                      <td> {{ item.address }} </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div *ngIf="!getAnniversary || getAnniversary.length === 0" class="text-center">
+                  <p>No data available</p>
+                </div>
+                <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+              </div>
+            </ion-card-content>
+
+          </ion-card>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="android">
+      <ion-searchbar *ngIf="isShow" [(ngModel)]="searchMob"></ion-searchbar>
+      <ion-list>
+        <!-- <ion-item  routerLink="/voterdata-management/voter-details"> -->
+        <ion-item-sliding *ngFor="let item of getAnniversary | filter:searchMob">
+          <ion-item-options side="end">
+            <a href="tel:+91{{ item.mobileNo }}">
+              <ion-icon class="call" name="call-sharp"></ion-icon>
+            </a>
+            <a href="sms://+91{{ item.mobileNo }}">
+              <ion-icon class="message" name="mail-sharp"></ion-icon>
+            </a>
+            <a href="https://wa.me/+91{{ item.mobileNo }}" target="_blank">
+              <ion-icon class="whatsapp" name="logo-whatsapp"></ion-icon>
+            </a>
+          </ion-item-options>
+
+          <!-- routerLink="/voterdata-management/voter-details" -->
+          <ion-item>
+            <ion-avatar slot="start">
+              <img src="assets/img/profile.png" />
+            </ion-avatar>
+            <ion-label>
+              <div class="nameDate">
+                <h3 class="text-capitalize">{{ item.fullName }}</h3>
+                <h4 class="date">{{ item.anniversary }}</h4>
+              </div>
+              <h4> {{ item.address }} </h4>
+            </ion-label>
+          </ion-item>
+        </ion-item-sliding>
+        <div *ngIf="!getAnniversary || getAnniversary.length === 0" class="text-center noData">
+          <img src="assets/img/question.png" />
+          <p>No data available</p>
+          <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
+        </div>
+      </ion-list>
+    </ion-grid>
+
+  </div>
+</ion-content>

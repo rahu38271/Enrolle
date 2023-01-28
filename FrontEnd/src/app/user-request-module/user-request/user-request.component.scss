@@ -1,0 +1,28 @@
+
+
+
+ion-item { --background: #fff; border: solid 1px #cccccc; height: 40px; ; }
+
+h2 { color: #435fbe; padding-left: 10px; font-weight: 500; }
+
+.header { width: 100%;}
+
+table { margin-top: 10px; }
+
+td ion-icon { cursor: pointer; font-size: 12px; font-weight: 600;  }
+
+table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !important; }
+
+.file { font-size: 20px !important; color: #3880ff !important; font-weight: 600;}
+
+table td i {
+    color: #3c7ff9;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+@media screen and (max-width:576px){
+    .web {
+        display: none;
+    }
+}

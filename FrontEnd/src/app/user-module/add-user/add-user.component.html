@@ -1,0 +1,185 @@
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/user"></ion-back-button>
+      </ion-buttons>
+      <ion-title> Add User </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <ion-grid class="grid-bg">
+      <ion-row>
+        <ion-text class="form-header pl-10">
+          <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>Add User
+        </ion-text>
+      </ion-row>
+      <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+        <ion-row>
+          <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>Name</ion-label>
+            <ion-input name="Name" [(ngModel)]="addUserModal.Name" #Name="ngModel"
+              [ngClass]="{'is-invalid': f.submitted && Name.invalid}" required class="form-control text-capitalize"></ion-input>
+            <div *ngIf="f.submitted && Name.invalid" class="invalid-feedback">
+              <div *ngIf="Name.errors.required">
+                Name is required
+              </div>
+            </div>
+          </ion-col>
+
+          <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>User Role</ion-label>
+            <ion-select name="RoleId" [(ngModel)]="addUserModal.RoleId" #RoleId="ngModel"
+              [ngClass]="{'is-invalid': f.submitted && RoleId.invalid}" required class="form-control"
+              placeholder="Select User Role" interface="popover">
+              <ion-select-option class="select_option" value="1">SuperAdmin</ion-select-option>
+              <ion-select-option class="select_option" value="2">Admin</ion-select-option>
+              <ion-select-option class="select_option" value="3">Volunteer</ion-select-option>
+            </ion-select>
+            <div *ngIf="f.submitted && RoleId.invalid" class="invalid-feedback">
+              <div *ngIf="RoleId.errors.required">
+                Role is required
+              </div>
+            </div>
+          </ion-col>
+
+          <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>Username / 10 digit mob. no.</ion-label>
+            <ion-input name="Contact" [(ngModel)]="addUserModal.Contact" #Contact="ngModel"
+              [ngClass]="{'is-invalid': f.submitted && contact.invalid}" required maxlength="10"
+              (keypress)="keyPressNumbers($event)" class="form-control">
+            </ion-input>
+            <div *ngIf="f.submitted && Contact.invalid" class="invalid-feedback">
+              <div *ngIf="Contact.errors.required">
+                Username is required
+              </div>
+            </div>
+          </ion-col>
+
+          <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+            <div class="form-outline">
+              <ion-label>Password</ion-label>
+              <ion-input [type]="ismyTextFieldType ? 'text' : 'password' " name="Password"
+                [(ngModel)]="addUserModal.Password" #Password="ngModel"
+                [ngClass]="{'is-invalid': f.submitted && Password.invalid}" required class="form-control"></ion-input>
+              <div *ngIf="f.submitted && Password.invalid" class="invalid-feedback">
+                <div *ngIf="Password.errors.required">
+                  Password is required
+                </div>
+              </div>
+              <ion-icon (click)="togglemyPasswordFieldType()" [name]="ismyTextFieldType ? 'eye-off' : 'eye'">
+              </ion-icon>
+            </div>
+          </ion-col>
+
+
+
+          <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>Email</ion-label>
+            <ion-input type="email" name="Email" [(ngModel)]="addUserModal.Email" #Email="ngModel" class="form-control">
+            </ion-input>
+          </ion-col>
+
+
+
+          <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>State</ion-label>
+            <ion-select name="State" [(ngModel)]="addUserModal.State" #State="ngModel" interface="popover"
+              placeholder="Select State" class="form-control">
+              <ion-select-option class="select_option" value="Maharashtra">Maharashtra</ion-select-option>
+            </ion-select>
+          </ion-col> -->
+
+          <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>District</ion-label>
+            <ion-select name="District" [(ngModel)]="addUserModal.DistrictId" #District="ngModel"
+              (ionChange)="getTaluka(addUserModal.DistrictId)" placeholder="Select District" interface="popover" class="form-control">
+              <ion-select-option class="select_option" *ngFor="let item of districtList" [value]="item.dId" >
+                {{ item.districtName }}
+              </ion-select-option>
+            </ion-select>
+          </ion-col> -->
+
+          <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>District</ion-label>
+            <ng-select name="District"  [(ngModel)]="addUserModal.DistrictId" #District="ngModel"
+            (change)="getTaluka(addUserModal.DistrictId)" placeholder="Select District">
+              <ng-option *ngFor="let item of districtList" [value]="item.dId">
+                {{ item.districtName }}
+              </ng-option>
+           </ng-select>
+          </ion-col> -->
+
+          <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>Assembly</ion-label>
+            <ion-select name="AssemblyName" [(ngModel)]="addUserModal.AssemblyName" #AssemblyName="ngModel" interface="popover" placeholder="Select Assembly"
+              class="form-control">
+              <ion-select-option class="select_option" *ngFor="let item of assemblyList" [value]="item.assemblyName">
+                {{item.assemblyNo}} {{item.assemblyName}}
+              </ion-select-option>
+            </ion-select>
+          </ion-col> -->
+
+          <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>Taluka</ion-label>
+            <ion-select name="Taluka" [(ngModel)]="addUserModal.Taluka" #Taluka="ngModel" interface="popover" placeholder="Select Taluka"
+              class="form-control">
+              <ion-select-option class="select_option" *ngFor="let item of talukaList" [value]="item.talukaName">
+                {{ item.talukaName }}
+              </ion-select-option>
+            </ion-select>
+          </ion-col> -->
+
+          <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>Taluka</ion-label>
+            <ng-select name="Taluka" [(ngModel)]="addUserModal.Taluka" #Taluka="ngModel" placeholder="Select Taluka">
+              <ng-option *ngFor="let item of talukaList" [value]="item.talukaName">
+                {{ item.talukaName }}
+              </ng-option>
+           </ng-select>
+          </ion-col> -->
+
+
+          <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>Ward</ion-label>
+            <ion-select name="Ward" [(ngModel)]="addUserModal.Ward" #Ward="ngModel" interface="popover" class="form-control"
+              placeholder="Select Ward">
+              <ion-select-option class="select_option" *ngFor="let item of wardList" [value]="item.wardName">
+                {{item.wardName}}
+              </ion-select-option>
+            </ion-select>
+          </ion-col> -->
+
+          <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>Booth</ion-label>
+            <ion-select name="Booth" [(ngModel)]="addUserModal.Booth" #Booth="ngModel" interface="popover" class="form-control"
+              placeholder="Select Booth">
+              <ion-select-option class="select_option" *ngFor="let item of boothList" [value]="item.boothName">
+                {{item.boothName}}
+              </ion-select-option>
+            </ion-select>
+          </ion-col> -->
+
+          <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>Candidate</ion-label>
+            <ion-input name="Candidate" [(ngModel)]="addUserModal.Candidate" class="form-control"></ion-input>
+          </ion-col> -->
+
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+            <ion-label>Quote</ion-label>
+            <ion-textarea name="Quote" [(ngModel)]="addUserModal.Quote" #Quote="ngModel" class="form-control" rows="3"></ion-textarea>
+          </ion-col>
+
+          <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+            <div class="ion-text-center">
+              <ion-button type="reset" color="danger" size="medium" (click)="resetForm()">Clear</ion-button>
+              <ion-button type="submit" size="medium" [disabled]="!f.form.valid" (click)="save()">Add User</ion-button>
+              <ion-button routerLink="/user" color="success" type="button" size="medium">Back To List</ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+
+      </form>
+    </ion-grid>
+  </div>
+</ion-content>

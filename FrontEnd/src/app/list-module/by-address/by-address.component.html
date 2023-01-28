@@ -1,0 +1,143 @@
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button auto-hide="false"></ion-menu-button>
+      </ion-buttons>
+      <ion-title> पत्त्यानुसार </ion-title>
+      <ion-buttons slot="primary">
+        <ion-button (click)="search()">
+          <ion-icon name="search-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <!-- <ion-searchbar></ion-searchbar> -->
+    <ion-grid class="web">
+      <ion-row>
+        <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
+          <ion-grid class="header">
+            <ion-row>
+              <ion-col size-xs="12" size-sm="6">
+                <ion-card-header>
+                  <ion-card-title class="header1">पत्त्यानुसार <span> ( 44 ) </span> </ion-card-title>
+                  <div class="headerLine"></div>
+                </ion-card-header>
+              </ion-col>
+              <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+                <!-- <ion-button class="button-download" fill="outline" color="success" >
+                  <ion-icon name="document-sharp"></ion-icon>Excel
+                </ion-button>
+                <ion-button class="button-download" fill="outline" color="danger" >
+                  <ion-icon name="cloud-download-sharp"></ion-icon>PDF
+                </ion-button>
+                 -->
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-card>
+
+            <ion-card-content>
+              <div class="headSection">
+                <div class="search">
+                  <ion-searchbar animated="true"></ion-searchbar>
+                </div>
+                <ion-button class="button-download" color="success" >
+                  <ion-icon name="document-sharp"></ion-icon>Excel
+                </ion-button>
+              </div>
+              <div class="horizontal-scroll">
+                <table id="villageTable" #epltable class="table">
+                  <thead>
+                    <tr>
+
+                      <th>
+                        अ.क्र.
+                      </th>
+                      <th>
+                        पत्ता
+                      </th>
+                      <th>
+                        एकूण
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+
+                      <td>1</td>
+                      <td>काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160)</td>
+                      <td>1398</td>
+                    </tr>
+                    <tr>
+
+                      <td>2</td>
+                      <td>काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160)</td>
+                      <td>1244</td>
+                    </tr>
+                    <tr>
+
+                      <td>3</td>
+                      <td>काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160)</td>
+                      <td>610</td>
+                    </tr>
+                    <tr>
+
+                      <td>4</td>
+                      <td>काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160)</td>
+                      <td>1099</td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </ion-card-content>
+
+          </ion-card>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="android">
+      <ion-searchbar [(ngModel)]="searchMob" animated="true" *ngIf="isShow"></ion-searchbar>
+
+      <ion-list *ngFor="let item of adrsData | filter:searchMob" (click)="address(item.columnName, item.columnValue)">
+        <ion-item lines="none" class="ion-text-center">
+          <ion-label>
+            <h3>{{item.columnName }}</h3>
+            <h4> एकूण : <span> {{item.count}} </span> </h4>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-grid>
+  </div>
+
+
+</ion-content>
+
+
+<!-- <table datatable class="row-border hover">
+  <thead>
+    <tr>
+      <th>Sr.No.</th>
+      <th>Name</th>
+      <th>Country</th>
+      <th>IPL Team</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Virat Kohli</td>
+      <td>India</td>
+      <td>Banglore</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>MS Dhoni</td>
+      <td>India</td>
+      <td>Chennai</td>
+    </tr>
+    </tbody>
+    </table> -->

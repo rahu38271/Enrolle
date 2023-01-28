@@ -1,0 +1,97 @@
+
+
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button color="primary" defaultHref="/daily-news"></ion-back-button>
+      </ion-buttons>
+      <ion-title> दैनंदिन बातम्या </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <ion-grid>
+      <ion-row>
+        <ion-text class="form-header pl-10">
+          <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>दैनंदिन बातम्या
+        </ion-text>
+      </ion-row>
+      <form #myForm="ngForm">
+        <ion-row>
+          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> दिनांक <span>*</span></ion-label>
+            <ion-input value="{{ BirthDate | date: 'yyyy-MM-dd' }}" id="BirthDate" class="form-control" required>
+            </ion-input>
+
+            <ion-modal trigger="BirthDate" size="cover">
+              <ng-template>
+                <ion-datetime presentation="date" [(ngModel)]="BirthDate" name="BirthDate">
+                  <span slot="title"> {{ year }} </span>
+                </ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-col>
+          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>  बातमी विषय  <span>*</span> </ion-label>
+              <ion-input [(ngModel)]="subject" name="program" class="form-control" subject></ion-input>
+          </ion-col>
+          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>     माध्यम  <span>*</span></ion-label>
+              <ion-select placeholder="Select" interface="popover" name="mode" [(ngModel)]="mode" class="form-control" required>
+                <ion-select-option class="select_option" value="वृत्तपत्र"> वृत्तपत्र</ion-select-option>
+                <ion-select-option class="select_option" value=" वृत्तवाहिनी"> वृत्तवाहिनी</ion-select-option>
+                <ion-select-option class="select_option" value=" साप्ताहिक"> साप्ताहिक</ion-select-option>
+                <ion-select-option class="select_option" value=" मासिक"> मासिक</ion-select-option>
+                <ion-select-option class="select_option" value=" युट्यूब वाहिनी"> युट्यूब वाहिनी</ion-select-option>
+                <ion-select-option class="select_option" value=" वेब पोर्टल"> वेब पोर्टल</ion-select-option>
+              </ion-select>
+          </ion-col>
+          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>   माध्यमाचे नाव  <span>*</span></ion-label>
+              <ion-select placeholder="Select" interface="popover" required name="modeType" [(ngModel)]="modeType" class="form-control">
+                <ion-select-option class="select_option" value="v1"> माध्यमाचे नाव   1</ion-select-option>
+                <ion-select-option class="select_option" value="v2"> माध्यमाचे नाव   2 </ion-select-option>
+              </ion-select>
+          </ion-col>
+          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>   पत्रकार <span>*</span> </ion-label>
+              <ion-select placeholder="Select" interface="popover" name="reporter" [(ngModel)]="reporter" class="form-control" required>
+                <ion-select-option class="select_option" value="  पत्रकार 1">   पत्रकार  1</ion-select-option>
+                <ion-select-option class="select_option" value="  पत्रकार 2">   पत्रकार  2 </ion-select-option>
+              </ion-select>
+          </ion-col>
+          
+          <ion-col size-xl="6" size-lg="12" size-md="12" size-sm="12" size-xs="12" class="file">
+            <ion-label> बातमी कात्रण / व्हिडीओ <span>*</span> </ion-label>
+              <input type="file" name="file" class="form-control" required>
+          </ion-col>
+          
+          
+          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label position="floating">    बातमी लिंक    </ion-label>
+              <ion-input [(ngModel)]="link" name="link" class="form-control"></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+              <div class="checkbox">
+                <ion-checkbox></ion-checkbox>
+                <ion-label >   विरोधात   </ion-label>
+              </div>
+              <div class="checkbox ml-3">
+                <ion-checkbox></ion-checkbox>
+                <ion-label>   इतर   </ion-label>
+              </div>
+          </ion-col>
+          
+          <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+            <div class="ion-text-center">
+              <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
+              <ion-button [disabled]="!myForm.form.valid"  type="submit" size="medium">Save</ion-button>
+              <ion-button routerLink="/daily-news" color="success" type="button" size="medium">Back To List</ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-grid>
+  </div>
+</ion-content>

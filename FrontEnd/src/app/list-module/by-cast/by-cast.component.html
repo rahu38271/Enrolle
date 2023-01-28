@@ -1,0 +1,152 @@
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button color="primary" auto-hide="false"></ion-menu-button>
+      </ion-buttons>
+      <ion-title> जातीनुसार </ion-title>
+      <ion-buttons slot="primary">
+        <ion-button (click)="search()">
+          <ion-icon name="search-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <!-- <ion-searchbar></ion-searchbar> -->
+    <ion-grid class="web">
+      <ion-row>
+        <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
+          <ion-grid class="header">
+            <ion-row>
+              <ion-col size-xs="12" size-sm="6">
+                <ion-card-header>
+                  <ion-card-title class="header1">जातीनुसार  <span>  ( 44 ) </span> </ion-card-title>
+                  <div class="headerLine"></div>
+                </ion-card-header>
+                
+              </ion-col>
+              <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+                <!-- <ion-button class="button-download" fill="outline" color="success" >
+                  <ion-icon name="document-sharp"></ion-icon>Excel
+                </ion-button>
+                <ion-button class="button-download" fill="outline" color="danger" >
+                  <ion-icon name="cloud-download-sharp"></ion-icon>PDF
+                </ion-button>
+                 -->
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-card>
+            <ion-card-content>
+              <div class="headSection">
+                <div class="search">
+                  <ion-searchbar animated="true"></ion-searchbar>
+                </div>
+                <ion-button class="button-download" color="success" (click)="exportExcel()">
+                  <ion-icon name="document-sharp"></ion-icon>Excel
+                </ion-button>
+              </div>
+              <div class="horizontal-scroll">
+                <table id="villageTable" #epltable class="table">
+                  <thead>
+                    <tr>
+                      
+                      <th>
+                        अ.क्र.
+                      </th>
+                      <th>
+                        जात
+                      </th>
+                      <th>
+                        एकूण
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      
+                      <td>1</td>
+                      <td routerLink="/list/castwise-list">मराठा</td>
+                      <td>1398</td>
+                    </tr>
+                    <tr>
+                      
+                      <td>2</td>
+                      <td>शिंपी</td>
+                      <td>1244</td>
+                    </tr>
+                    <tr>
+                      
+                      <td>3</td>
+                      <td>चांभार</td>
+                      <td>610</td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </ion-card-content>
+            
+          </ion-card>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="android">
+      <ion-searchbar *ngIf="isShow"></ion-searchbar>
+
+                <ion-list>
+                  <ion-item  routerLink="/list/castwise-list">
+                    <ion-label class="ion-text-center">
+                      <h3>मराठा</h3>
+                      <h4> एकूण : <span> 1398 </span> </h4>
+                    </ion-label>
+                  </ion-item>
+          
+                  <ion-item>
+                    <ion-label class="ion-text-center">
+                      <h3>शिंपी</h3>
+                      <h4> एकूण : <span> 1244 </span> </h4>
+                    </ion-label>
+                  </ion-item>
+          
+                  <ion-item >
+                    <ion-label class="ion-text-center">
+                      <h3>चांभार</h3>
+                      <h4> एकूण : <span> 871 </span> </h4>
+                    </ion-label>
+                  </ion-item>
+                </ion-list>
+
+    </ion-grid>
+  </div>
+ 
+  
+</ion-content>
+
+
+<!-- <table datatable class="row-border hover">
+  <thead>
+    <tr>
+      <th>Sr.No.</th>
+      <th>Name</th>
+      <th>Country</th>
+      <th>IPL Team</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Virat Kohli</td>
+      <td>India</td>
+      <td>Banglore</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>MS Dhoni</td>
+      <td>India</td>
+      <td>Chennai</td>
+    </tr>
+    </tbody>
+    </table> -->

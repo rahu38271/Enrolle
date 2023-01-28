@@ -1,0 +1,368 @@
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/user"></ion-back-button>
+      </ion-buttons>
+      <ion-title> Edit User </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <ion-grid class="grid-bg">
+      <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+        <ion-row>
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+            <ion-grid class="leftDiv">
+              <ion-row>
+                <ion-text class="form-header pl-10">
+                  <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>Edit User
+                </ion-text>
+              </ion-row>
+
+              <ion-row>
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                  <ion-label>Name</ion-label>
+                  <ion-input name="name" [(ngModel)]="EditData.name" #name="ngModel"
+                    required class="form-control text-capitalize"></ion-input>
+                  <!-- <div *ngIf="f.submitted && name.invalid" class="invalid-feedback">
+                    <div *ngIf="name.errors.required">
+                      Name is required
+                    </div>
+                  </div> -->
+                </ion-col>
+
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                  <ion-label>User Role</ion-label>
+                  <ion-select name="Role" [(ngModel)]="EditData.roleId" #Role="ngModel" 
+                    required interface="popover"
+                    class="form-control" >
+                    <ion-select-option *ngFor="let item of roleList"  class="select_option" [value]="item.roleId">{{item.roleName}}</ion-select-option>
+                   
+                  </ion-select>
+                </ion-col>
+
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                  <ion-label>Username / 10 digit mob. no.</ion-label>
+                  <ion-input name="contact" [(ngModel)]="EditData.contact" #contact="ngModel"
+                    required maxlength="10"
+                    (keypress)="keyPressNumbers($event)" class="form-control">
+                  </ion-input>
+                  <!-- <div *ngIf="f.submitted && userName.invalid" class="invalid-feedback">
+                    <div *ngIf="userName.errors.required">
+                      Username is required
+                    </div>
+                  </div> -->
+                </ion-col>
+
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                  <ion-label>Password</ion-label>
+                  <ion-input name="password" [(ngModel)]="EditData.password" #password="ngModel"
+                     required class="form-control">
+                  </ion-input>
+                  <!-- <div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
+                    <div *ngIf="password.errors.required">
+                      Password is required
+                    </div>
+                  </div> -->
+                </ion-col>
+
+
+
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                  <ion-label>Email</ion-label>
+                  <ion-input type="email" name="email" [(ngModel)]="EditData.email" #email="ngModel"
+                    class="form-control">
+                  </ion-input>
+                </ion-col>
+
+
+
+                <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                  <ion-label>State</ion-label>
+                  <ion-select name="state" [(ngModel)]="EditData.state" #state="ngModel" interface="popover"
+                    placeholder="Select State" class="form-control">
+                    <ion-select-option class="select_option" value="Maharashtra">Maharashtra</ion-select-option>
+                  </ion-select>
+                </ion-col> -->
+
+                <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                  <ion-label>District</ion-label>
+                  <ion-select name="district" 
+                    [(ngModel)]="EditData.districtId" 
+                    #district="ngModel" 
+                    (ionChange)="getTaluka(EditData.districtId)" 
+                    placeholder="Select District" 
+                    interface="popover" 
+                    class="form-control"
+                  >
+                    <ion-select-option 
+                      class="select_option" 
+                      *ngFor="let item of districtList"  
+                      [value]="item.dId"
+                    >
+                      {{ item.districtName }}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-col> -->
+
+                <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                  <ion-label>Assembly</ion-label>
+                  <ion-select 
+                    name="assembly" 
+                    [(ngModel)]="EditData.assemblyName" 
+                    #assemblyName="ngModel"
+                    placeholder="Select Assembly" 
+                    interface="popover" 
+                    class="form-control"
+                    
+                  >
+                    <ion-select-option 
+                      class="select_option" 
+                      *ngFor="let item of assemblyList"
+                      [value]="item.assemblyName"
+                      
+                    >
+                      {{item.assemblyNo}} {{item.assemblyName}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-col> -->
+
+                <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                  <ion-label>Taluka</ion-label>
+                  <ion-select name="taluka" [(ngModel)]="EditData.taluka" #taluka="ngModel"
+                    placeholder="Select Taluka" interface="popover" class="form-control">
+                    <ion-select-option class="select_option" *ngFor="let item of talukaList" [value]="item.talukaName">
+                      {{ item.talukaName }}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-col> -->
+
+                
+                <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                  <ion-label>Ward</ion-label>
+                  <ion-select multiple="true" name="ward" [(ngModel)]="EditData.ward" #ward="ngModel"
+                    class="form-control" interface="popover" placeholder="Select Ward">
+                    <ion-select-option class="select_option" *ngFor="let item of wardList" [value]="item.wardName">
+                      {{item.wardName}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-col> -->
+
+                <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                  <ion-label>Booth</ion-label>
+                  <ion-select multiple="true" name="booth" [(ngModel)]="EditData.booth" #booth="ngModel"
+                    class="form-control" interface="popover" placeholder="Select Booth">
+                    <ion-select-option class="select_option" *ngFor="let item of boothList" [value]="item.boothName">
+                      {{item.boothName}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-col> -->
+
+                
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <ion-label>Quote</ion-label>
+                  <ion-textarea name="quote" [(ngModel)]="EditData.quote" #quote="ngModel" class="form-control"
+                    rows="3"></ion-textarea>
+                </ion-col>
+
+                <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="file">
+                  <ion-label>image 1</ion-label>
+                    <ion-input type="file" class="form-control"></ion-input>
+                </ion-col>
+
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="file">
+                  <ion-label>image 2</ion-label>
+                    <ion-input type="file" class="form-control"></ion-input>
+                </ion-col>
+
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="file">
+                  <ion-label>image 3</ion-label>
+                    <ion-input type="file" class="form-control"></ion-input>
+                </ion-col> -->
+
+                <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <div class="ion-text-center">
+                    <ion-button type="reset" color="danger" size="medium" (click)="resetForm()">Clear</ion-button>
+                    <ion-button type="submit" size="medium" (click)="save()">Save User</ion-button>
+                    <ion-button routerLink="/user" color="success" type="button" size="medium">Back To List</ion-button>
+                  </div>
+                </ion-col>
+              </ion-row>
+
+            </ion-grid>
+          </ion-col>
+
+          <!-- <table>
+              <thead>
+                <tr>
+                  <th>Tasks Allowed </th>
+                  <th>Create</th>
+                  <th>Delete </th>
+                  <th>Export</th>
+                  <th>Send SMS</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Superadmin</td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Admin</td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td>User</td>
+                  <td>
+                    <ion-checkbox disabled></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox disabled></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox disabled></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox disabled></ion-checkbox>
+                  </td>
+                </tr>
+              </tbody>
+            </table> -->
+          <!-- <table>
+              <thead>
+                <tr>
+                  <th>Tasks Allowed </th>
+                  <th>Superadmin</th>
+                  <th>Admin </th>
+                  <th>User</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Create Superadmin</td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Delete Superadmin</td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                </tr>
+                
+                <tr>
+                  <td>Create Admin</td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Delete Admin</td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                </tr>
+                
+                <tr>
+                  <td>Create User</td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Delete User</td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Export Data</td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                </tr>
+                <tr>
+                  <td>Send SMS</td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                  <td>
+                    <ion-checkbox></ion-checkbox>
+                  </td>
+                </tr>
+              </tbody>
+            </table> -->
+
+        </ion-row>
+      </form>
+    </ion-grid>
+  </div>
+</ion-content>

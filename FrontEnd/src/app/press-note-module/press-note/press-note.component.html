@@ -1,0 +1,134 @@
+
+
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button color="primary" auto-hide="false"></ion-menu-button>
+      </ion-buttons>
+      <ion-title> प्रेस नोट </ion-title>
+      <ion-buttons slot="primary">
+        <ion-button (click)="search()">
+          <ion-icon name="search-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <ion-grid class="web header">
+      <ion-row>
+        <ion-col size-xs="12" size-sm="6">
+          <ion-card-header>
+            <ion-card-title>प्रेस नोट <span> ( 1 ) </span></ion-card-title>
+            <div class="headerLine"></div>
+          </ion-card-header>
+        </ion-col>
+        <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+          <ion-button class="button-download" color="primary" routerLink="/press-note/add-press-note"><ion-icon name="add-circle-sharp"></ion-icon>Press Note</ion-button>
+          <ion-button class="button-download" fill="outline" color="primary" ><ion-icon name="refresh-circle-sharp"></ion-icon>Refresh</ion-button>
+          <!-- <ion-button class="button-download" fill="outline" color="danger" (click)="downloadPDF()"><ion-icon name="cloud-download-sharp"></ion-icon>PDF</ion-button> -->
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="topForm">
+      <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+        <ion-row>
+          <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
+            <ion-label>  प्रेस नोट सामायिक पत्रकार   </ion-label>
+              <ion-select name="Mode" [(ngModel)]="Mode" placeholder="Select" interface="popover" class="form-control" required>
+                <ion-select-option class="select_option" value="पत्रकार 1"> पत्रकार 1</ion-select-option>
+                <ion-select-option class="select_option" value=" पत्रकार 2"> पत्रकार 2</ion-select-option>
+              </ion-select>
+          </ion-col>
+          <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
+            <ion-label>    दिनांक    </ion-label>
+            <ion-input value="{{ BirthDate | date: 'yyyy-MM-dd' }}" id="BirthDate" class="form-control" required>
+            </ion-input>
+
+            <ion-modal trigger="BirthDate" size="cover">
+              <ng-template>
+                <ion-datetime presentation="date" [(ngModel)]="BirthDate" name="BirthDate">
+                  <span slot="title"> {{ year }} </span>
+                </ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-col>
+          <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
+            <ion-label>   प्रेस नोट विषय   </ion-label>
+              <ion-input name="Subject" [(ngModel)]="Subject" class="form-control"></ion-input>
+          </ion-col>
+          <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
+            <ion-label>   पत्रकार    </ion-label>
+              <ion-select name="Journalist" [(ngModel)]="Journalist" placeholder="Select" interface="popover" class="form-control">
+                <ion-select-option class="select_option" value="पत्रकार 1"> पत्रकार 1</ion-select-option>
+                <ion-select-option class="select_option" value=" पत्रकार 2"> पत्रकार 2</ion-select-option>
+              </ion-select>
+          </ion-col>
+          
+          <ion-col size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="12">
+              <ion-button class="searchBtn" type="submit" (click)="presentLoading()" [disabled]="!f.form.valid">Search</ion-button>
+              <ion-button type="reset" (click)="resetForm()" class="searchBtn" color="danger">Clear</ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-grid>
+
+    <ion-card>
+      
+      <ion-card-content>
+        <div class="headSection">
+          <div class="search">
+            <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+          </div>
+          <ion-button class="button-download" color="success" (click)="downloadExcel()" ><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
+        </div>
+        <div class="horizontal-scroll">
+          <table id="table12" #epltable>
+            <thead>
+              <tr>
+                <th style="width: 40px;">
+                  अ.क्र. 
+                </th>
+                <th>
+                  दिनांक	
+                </th>
+                <th>
+                  प्रेस नोट विषय			
+                </th>
+                <th>
+                  प्रेस नोट सामायिक पत्रकार				
+                </th>
+                
+                <th id="element-to-hide" data-html2canvas-ignore="true">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>24/01/2022</td>
+                <td>test</td>
+                <td>test</td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-button routerLink="/press-note/edit-press-note" color="success" size="small"><ion-icon name="pencil-sharp"></ion-icon></ion-button>
+                  <ion-button color="danger" size="small" (click)="deletePressnote()"><ion-icon name="trash-sharp"></ion-icon></ion-button>
+                </td>
+              </tr>
+              
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+						
+
+<ion-fab horizontal="end" vertical="bottom" slot="fixed" routerLink="/press-note/add-press-note">
+  <ion-fab-button color="primary">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

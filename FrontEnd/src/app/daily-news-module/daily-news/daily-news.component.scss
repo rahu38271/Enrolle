@@ -1,0 +1,40 @@
+
+
+
+table { margin-top: 10px; }
+
+td ion-icon { cursor: pointer; font-size: 12px; font-weight: 600;  }
+
+table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !important; }
+
+.file { font-size: 20px !important; color: #3880ff !important; font-weight: 600;}
+
+@media screen and (max-width:1200px) {
+    table { width: 900px; }
+  }
+
+  ion-modal {
+    --width: 290px;
+  --border-radius: 8px;
+  --height: auto !important;
+ }
+
+ .headSection {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search { width: 250px; }
+
+
+@media screen and (max-width:576px){
+  .web {
+    display: none;
+  }
+}
+
+ion-checkbox { --background: #fff; }
+
+.ml-3 {
+  margin-left: 5px;
+}

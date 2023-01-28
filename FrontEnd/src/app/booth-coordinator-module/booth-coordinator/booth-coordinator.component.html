@@ -1,0 +1,141 @@
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button color="primary" defaultHref="/home/mobile-dashboard"></ion-back-button>
+      </ion-buttons>
+      <ion-title> बूथ समन्वयक </ion-title>
+      <ion-buttons slot="primary">
+        <ion-button (click)="search()">
+          <ion-icon name="search-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <ion-grid class="web">
+      <ion-row>
+        <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
+          <ion-grid class="header">
+            <ion-row>
+              <ion-col>
+                <ion-card-header>
+                  <ion-card-title>बूथ समन्वयक <span>( 11 )</span></ion-card-title>
+                  <div class="headerLine"></div>
+                </ion-card-header>
+              </ion-col>
+              <ion-col class="ion-text-right">
+                <ion-button class="button-download" color="primary"
+                  routerLink="/booth-coordinator/add-booth-coordinator">
+                  <ion-icon name="add-circle-sharp"></ion-icon>Booth Coordinator
+                </ion-button>
+                <ion-button class="button-download" fill="outline" color="primary">
+                  <ion-icon name="refresh-circle-sharp"></ion-icon>Refresh
+                </ion-button>
+                <!-- <ion-button class="button-download" fill="outline" color="danger" (click)="downloadPDF()"><ion-icon name="cloud-download-sharp"></ion-icon>PDF</ion-button> -->
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="topForm">
+      <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+        <ion-row>
+          <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+            <ion-label> एरिया नाव </ion-label>
+            <ion-select name="Area" [(ngModel)]="Area" placeholder="Select" interface="popover" class="form-control"
+              required>
+              <ion-select-option class="select_option" value="f"> एरिया नाव 1</ion-select-option>
+              <ion-select-option class="select_option" value="m"> एरिया नाव 2</ion-select-option>
+            </ion-select>
+          </ion-col>
+
+
+          <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+            <ion-label> विधानसभा बूथ क्रमांक </ion-label>
+            <ion-select name="Assembly" [(ngModel)]="Assembly" placeholder="Select" interface="popover"
+              class="form-control">
+              <ion-select-option class="select_option" value="f">विधानसभा 1</ion-select-option>
+              <ion-select-option class="select_option" value="m">विधानसभा 2</ion-select-option>
+            </ion-select>
+          </ion-col>
+          <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+            <ion-label> मोबाईल क्रमांक </ion-label>
+            <ion-input type="text" maxlength="10" name="mobile" [(ngModel)]="mobile" (keypress)="numberOnly($event)"
+              class="form-control"></ion-input>
+          </ion-col>
+          <ion-col size-xl="3" size-lg="3" size-md="3" size-sm="12" size-xs="12">
+            <ion-button class="searchBtn" type="submit" (click)="presentLoading()" [disabled]="!f.form.valid">Search</ion-button>
+            <ion-button type="reset" (click)="resetForm1()" class="searchBtn" color="danger">Clear</ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-grid>
+
+    <ion-card>
+      <ion-card-content>
+        <div class="headSection">
+          <div class="search">
+            <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+          </div>
+          <ion-button class="button-download" color="success" (click)="exportExcel()">
+            <ion-icon name="document-sharp"></ion-icon>Excel
+          </ion-button>
+        </div>
+        <div class="horizontal-scroll">
+          <table class="table" id="table35" #epltable>
+            <thead>
+              <tr>
+
+                <th style="width: 40px;">
+                  अ.क्र.
+                </th>
+                <th>
+                  गावाचे नाव
+                </th>
+                <th>
+                  विधानसभा बूथ क्रमांक
+                </th>
+                <th>
+                  मुख्य समन्वयक
+                </th>
+                <th>
+                  मोबाईल क्रमांक
+                </th>
+
+                <th id="element-to-hide" data-html2canvas-ignore="true">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+
+                <td>1</td>
+                <td>Katraj</td>
+                <td>123</td>
+                <td>
+                  <span>Sagar Salunkhe</span>
+                </td>
+                <td>9158490455</td>
+
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-button routerLink="/booth-coordinator/edit-booth-coordinator" color="success" size="small">
+                    <ion-icon name="pencil-sharp"></ion-icon>
+                  </ion-button>
+                  <ion-button color="danger" size="small" (click)="deleteCoordinator()">
+                    <ion-icon name="trash-sharp"></ion-icon>
+                  </ion-button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

@@ -1,0 +1,175 @@
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button color="primary" auto-hide="false"></ion-menu-button>
+      </ion-buttons>
+      <ion-title> कार्यकर्ते </ion-title>
+      <ion-buttons slot="primary">
+        <ion-button>
+          <ion-icon name="search-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <ion-grid class="web header">
+      <ion-row>
+        <ion-col size-xs="12" size-sm="5">  
+          <ion-card-header>
+            <ion-card-title>कार्यकर्ते <span> ( 1 ) </span></ion-card-title>
+            <div class="headerLine"></div>
+          </ion-card-header>
+        </ion-col>
+        <ion-col size-xs="12" size-sm="7" class="ion-text-right">
+          <ion-button class="button-download" routerLink="/karyakarta/add-karyakarta" color="primary"><ion-icon name="add-circle-sharp"></ion-icon>Karyakarta</ion-button>
+          <ion-button class="button-download" routerLink="/karyakarta/import-karyakarta" fill="outline" color="primary"><ion-icon name="add-circle-sharp"></ion-icon>Import</ion-button>
+          <ion-button class="button-download" color="primary"><ion-icon name="cloud-download-sharp"></ion-icon>Refresh</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-card>
+      
+      <!-- <ion-grid class="topForm">
+        <form name="KaryakartaForm" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+          <ion-row>
+            <ion-col size-lg="2" size-md="3" size-sm="6" size-xs="12">
+              <ion-label>  वाढदिवस </ion-label>
+              <ion-item lines="none">
+                <ion-datetime name="Bdate" [(ngModel)]="Bdate" display-format="DD/MM/YYYY"></ion-datetime>
+              </ion-item>
+            </ion-col>
+            <ion-col size-lg="2" size-md="3" size-sm="6" size-xs="12">
+              <ion-label>  एरिया नाव </ion-label>
+              <ion-item lines="none">
+                <ion-select name="area" [(ngModel)]="area" placeholder="Select" [interfaceOptions]="areaHeader"  required>
+                  <ion-select-option value="f">एरिया 1</ion-select-option>
+                  <ion-select-option value="m">एरिया 2</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+            <ion-col size-lg="2" size-md="3" size-sm="6" size-xs="12">
+              <ion-label> रक्तगट </ion-label>
+              <ion-item lines="none">
+                <ion-select name="Bgroup" [(ngModel)]="Bgroup"  placeholder="Select" [interfaceOptions]="bloodgroup" >
+                  <ion-select-option value="A+">A +</ion-select-option>
+                  <ion-select-option value="A-">A -</ion-select-option>
+                  <ion-select-option value="B+">B +</ion-select-option>
+                  <ion-select-option value="B-">B -</ion-select-option>
+                  <ion-select-option value="O+">O +</ion-select-option>
+                  <ion-select-option value="O-">O -</ion-select-option>
+                  <ion-select-option value="AB+">AB +</ion-select-option>
+                  <ion-select-option value="AB-">AB -</ion-select-option>
+                  <ion-select-option value="उपलब्ध नाही">उपलब्ध नाही</ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+            
+            <ion-col size-lg="2" size-md="3" size-sm="6" size-xs="12">
+              <ion-label>    मोबाइल क्रमांक  </ion-label>
+              <div>
+                <ion-input name="Mobile" maxlength="10" (keypress)="keyPressNumbers($event)"  [(ngModel)]="karyakartaModel.Mobile" #Mobile="ngModel" [ngClass]="{'is-invalid': f.submitted && Mobile.invalid}" required></ion-input>
+                <div *ngIf="f.submitted && Mobile.invalid" class="invalid-feedback">
+                  <div *ngIf="Mobile.errors.required">
+                    Mobile is required
+                  </div>
+                </div>
+              </div>
+              
+            </ion-col>
+            
+            
+            <ion-col size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                <ion-button shape="round" type="submit" class="mt-10">Search</ion-button>
+                <ion-button shape="round" type="reset" color="danger" class="mt-10">Clear</ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-grid> -->
+      <ion-card-content>
+        <div class="headSection">
+          <div class="search">
+            <ion-searchbar animated="true"></ion-searchbar>
+          </div>
+          <div class="btns">
+            <ion-button class="button-download" color="success" (click)="exportExcel()">
+              <ion-icon name="document-sharp"></ion-icon>Excel
+            </ion-button>
+            <ion-button class="button-download" color="success" id="export">
+              <ion-icon name="document-sharp"></ion-icon>CSV
+            </ion-button>
+          </div>
+        </div>
+        <div class="horizontal-scroll">
+          <table id="table6" #epltable>
+            <thead>
+              <tr>
+                <th style="width: 40px;">
+                  अ.क्र.		
+                </th>
+                <th>
+                  संपूर्ण नाव	
+                </th>
+                <th>
+                  वाढदिवस	
+                </th>
+                <th>
+                  वय	
+                </th>
+                <th>
+                  ज्येष्ठता	
+                </th>
+                <th>
+                  एरिया नाव	
+                </th>
+                <th>
+                  रक्तगट	
+                </th>
+                <th>
+                  मोबाइल क्रमांक	
+                </th>
+                <th>
+                  व्हॉट्सअँप क्रमांक
+                </th>
+                <th id="element-to-hide" data-html2canvas-ignore="true">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>
+                  <span>rahul gaikwad</span>
+                </td>
+                <td>10/10/1993</td>
+                <td>29</td>
+                <td>lagn</td>
+                <td>talegoan</td>
+                <td>A+</td>
+                <td>
+                  9762589597
+                </td>
+                <td>
+                  9762589597
+                </td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-button routerLink="/karyakarta/edit-karyakarta" color="success" size="small"><ion-icon name="pencil-sharp"></ion-icon></ion-button>
+                  <ion-button color="danger" size="small" (click)="deleteKaryakarta()"><ion-icon name="trash-sharp"></ion-icon></ion-button>
+                </td>
+              </tr>
+              
+            </tbody>
+          </table>
+          <pagination-controls ></pagination-controls>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+						
+<ion-fab horizontal="end" vertical="bottom" slot="fixed" routerLink="/karyakarta/add-karyakarta">
+  <ion-fab-button color="primary">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

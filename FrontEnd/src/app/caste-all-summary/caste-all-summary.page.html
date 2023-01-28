@@ -1,0 +1,65 @@
+
+
+<ion-content [fullscreen]="true">
+  <div class="main-content">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-lg="6">
+          <div class="title">
+            <h2><ion-icon name="home-sharp"></ion-icon> Caste All Summary</h2>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-lg="6">
+          <table class="table bg-white">
+            <thead>
+              <tr>
+                <th>Caste</th>
+                <th>Count</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Baniya</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>Bari</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Buddha</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Jain</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Maratha</td>
+                <td>1</td>
+              </tr>
+              <tr>
+                <td>Unassigned</td>
+                <td>25890</td>
+              </tr>
+              <tr>
+                <td>Total</td>
+                <td>25896</td>
+              </tr>
+            </tbody>
+          </table>
+        </ion-col>
+        <ion-col size-lg="6">
+          <ejs-accumulationchart id="chart-container" [tooltip]='tooltip' [title]='title' (pointClick)='pointClick($event)' [legendSettings]='legendSettings'>
+            <e-accumulation-series-collection>
+                <e-accumulation-series [dataSource]='piedata' xName='x' yName='y' [dataLabel]='datalabel' radius="70%"></e-accumulation-series>
+            </e-accumulation-series-collection>
+        </ejs-accumulationchart>
+         
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

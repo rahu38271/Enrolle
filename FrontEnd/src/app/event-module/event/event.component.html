@@ -1,0 +1,106 @@
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button color="primary" auto-hide="false"></ion-menu-button>
+      </ion-buttons>
+      <ion-title> Events </ion-title>
+      <ion-buttons slot="primary">
+        <ion-button (click)="search()">
+          <ion-icon name="search-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <ion-grid class="header">
+      <ion-row>
+        <ion-col size-xs="12" size-sm="5">  
+          <ion-card-header>
+            <ion-card-title>Events <span> ( 1 ) </span></ion-card-title>
+            <div class="headerLine"></div>
+          </ion-card-header>
+        </ion-col>
+        <ion-col size-xs="12" size-sm="7" class="ion-text-right">
+          <ion-button class="button-download" routerLink="/event/add-event" color="primary"><ion-icon name="add-circle-sharp"></ion-icon>Event</ion-button>
+          <!-- <ion-button class="button-download" (click)="pdf()" fill="outline" ><ion-icon name="cloud-download-sharp"></ion-icon>PDF</ion-button> -->
+          <ion-button class="button-download" fill="outline" color="primary"><ion-icon name="cloud-download-sharp"></ion-icon>Refresh</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-card>
+      
+      <ion-card-content>
+        <div class="headSection">
+          <div class="search">
+            <ion-searchbar animated="true"></ion-searchbar>
+          </div>
+          <ion-button class="button-download" color="success" (click)="downloadExcel()"><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
+        </div>
+        <div class="horizontal-scroll">
+          <table id="table6" #epltable>
+            <thead>
+              <tr>
+                <th>
+                  अ.क्र.		
+                </th>
+                <th>
+                  आजचा कार्यक्रम
+                </th>
+                <th>
+                  दिनांक
+                </th>
+                
+                <th id="element-to-hide" data-html2canvas-ignore="true">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>
+                  <span>
+                    आजचा कार्यक्रम
+                  </span>
+                </td>
+                <td>10/10/1993</td>
+                
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-icon routerLink="/event/event-details" name="eye-sharp"></ion-icon>
+                  <ion-icon routerLink="/event/edit-event" name="pencil-sharp"></ion-icon>
+                  <ion-icon name="trash-sharp" (click)="deleteEvent()"></ion-icon>
+                </td>
+              </tr>
+
+              <tr>
+                <td>2</td>
+                <td>
+                  <span>
+                    आजचा कार्यक्रम
+                  </span>
+                </td>
+                <td>10/10/1993</td>
+                
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-icon routerLink="/event/event-details" name="eye-sharp"></ion-icon>
+                  <ion-icon routerLink="/event/edit-event" name="pencil-sharp"></ion-icon>
+                  <ion-icon name="trash-sharp" (click)="deleteEvent()"></ion-icon>
+                </td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </div>
+        <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+
+<ion-fab horizontal="end" vertical="bottom" slot="fixed" routerLink="/event/add-event">
+  <ion-fab-button color="primary">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+						

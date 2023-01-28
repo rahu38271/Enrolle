@@ -1,0 +1,27 @@
+ion-grid { width: 97%; margin-top: 10px; background: #FFF;  box-shadow: 0 0 10px rgb(232 234 237 / 50%); }
+
+@media screen and (min-width:768px) {
+    ion-grid { width: 60%; }
+}
+
+ion-item { --background: #fafafa; border: solid 1px #cccccc; }
+
+ion-radio-group ion-item { --background: none !important; border: none !important; }
+
+h2 { color: #435fbe; padding-left: 10px; font-weight: 500; padding-top: 10px; }
+
+.pl-10 { padding-left: 10px; }
+
+ion-grid form { padding: 5px; }
+
+ion-label span {  color: #F00 !important; font-weight: 500;}
+
+ion-modal {
+    --width: 290px;
+  --border-radius: 8px;
+  --height: auto !important;
+ }
+
+ .ml-3 {
+    margin-left: 5px;
+  }

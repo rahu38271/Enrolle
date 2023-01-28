@@ -1,0 +1,328 @@
+
+
+<ion-content>
+  <div class="main-content">
+    <ion-card>
+      <ion-grid class="header">
+        <ion-row>
+          <ion-col size-xs="12" size-sm="5">
+            <ion-card-header>
+              <ion-card-title>दैनंदिन कार्यक्रम <span>( 11 )</span></ion-card-title>
+            </ion-card-header>
+          </ion-col >
+          <ion-col size-xs="12" size-sm="7" class="ion-text-right">
+            
+            <ion-button class="button-download" routerLink="/daily-routine/add-routine" fill="outline" color="primary"><ion-icon name="add-circle-sharp"></ion-icon> Routine</ion-button>
+            <ion-button class="button-download" fill="outline" color="success" (click)="downloadExcel()"><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
+            <!-- <ion-button color="success" (click)="exportexcel()" shape="round"><ion-icon name="document-sharp"></ion-icon>Excel</ion-button> -->
+            <ion-button class="button-download" (click)="downloadPDF()" color="danger" fill="outline"><ion-icon name="cloud-download-sharp"></ion-icon>PDF</ion-button>
+            <!-- <ion-button (click)="pdf()" shape="round"><ion-icon name="cloud-download-sharp"></ion-icon>PDF</ion-button> -->
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="topForm">
+        <form #myForm1="ngForm">
+          <ion-row>
+            <ion-col size-lg="2" size-md="3" size-sm="6" size-xs="12">
+              <ion-label> कार्यक्रमाचे ठिकाण </ion-label>
+                <ion-select name="place" [(ngModel)]="place" placeholder="Select" class="form-control" interface="popover" required>
+                  <ion-select-option value="f">ठिकाण 1</ion-select-option>
+                  <ion-select-option value="m">ठिकाण 2</ion-select-option>
+                </ion-select>
+            </ion-col>
+            <ion-col size-lg="2" size-md="3" size-sm="6" size-xs="12">
+              <ion-label> कार्यक्रमाचे स्वरूप   </ion-label>
+                <ion-select name="purpose" [(ngModel)]="purpose" placeholder="Select" class="form-control" interface="popover">
+                  <ion-select-option value="f">स्वरूप 1</ion-select-option>
+                  <ion-select-option value="m">स्वरूप 2</ion-select-option>
+                </ion-select>
+            </ion-col>
+            <ion-col size-lg="2" size-md="3" size-sm="6" size-xs="12">
+              <ion-label>  कार्यक्रम दिनांक   </ion-label>
+                <ion-input
+                  value="{{ progDate | date: 'dd/MM/yyyy' }}"
+                  id="progDate"
+                  class="form-control"
+                ></ion-input>
+                <ion-modal trigger="progDate" size="cover">
+                  <ng-template>
+                    <ion-datetime
+                      presentation="date"
+                      [(ngModel)]="progDate"
+                      name="progDate"
+                    >
+                    <div slot="title"></div>
+                  </ion-datetime>
+                  </ng-template>
+                </ion-modal>
+            </ion-col>
+            <ion-col size-lg="2" size-md="3" size-sm="6" size-xs="12">
+              <ion-label> वापरकर्ता </ion-label>
+                <ion-select name="User" [(ngModel)]="User" placeholder="Select" interface="popover" class="form-control">
+                  <ion-select-option value="f">वापरकर्ता 1</ion-select-option>
+                  <ion-select-option value="m">वापरकर्ता 2</ion-select-option>
+                </ion-select>
+            </ion-col>
+            <ion-col size-lg="4" size-md="4" size-sm="6" size-xs="12">
+                <ion-button shape="round" class="mt-5" type="submit" (click)="presentLoading()">Search</ion-button>
+                <ion-button shape="round" type="reset" (click)="resetForm1()" class="mt-5" color="danger">Clear</ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-grid>
+      <ion-card-content>
+        <div class="horizontal-scroll">
+        
+          <table id="table5" #epltable>
+            <thead>
+              <tr>
+                <!-- <th id="element-to-hide" data-html2canvas-ignore="true"></th> -->
+                <th style="width: 40px;">
+                  अ.क्र.
+                </th>
+                <th>
+                  कार्यक्रम दिनांक
+                </th>
+                <th>
+                  कार्यक्रम वेळ
+                </th>
+                <th>
+                  कार्यक्रमाचे स्वरूप
+                </th>
+                <th>
+                  कार्यक्रम
+                </th>
+                <th>
+                  कार्यक्रमाचे ठिकाण
+                </th>
+                <th>
+                  वापरकर्ता
+                </th>
+                <th style="width: 30px;" id="element-to-hide" data-html2canvas-ignore="true">
+                  निमंत्रण पत्रिका
+                </th>
+                <th id="element-to-hide" data-html2canvas-ignore="true">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <!-- <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-checkbox></ion-checkbox>
+                </td> -->
+                <td>1</td>
+                <td>15/08/2021</td>
+                <td>07:00 AM</td>
+                <td>
+                  <span>विवाह/साखरपुडा</span>
+                </td>
+                <td>lagn</td>
+                <td>पुणे-Pune</td>
+                <td>test</td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-icon class="file" name="cloud-download-sharp"></ion-icon>
+                </td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-button routerLink="/daily-routine/edit-routine" color="success" size="small"><ion-icon name="pencil-sharp"></ion-icon></ion-button>
+                  <ion-button color="danger" size="small" (click)="deleteRoutine()"><ion-icon name="trash-sharp"></ion-icon></ion-button>
+                </td>
+              </tr>
+              <tr>
+                
+                <td>2</td>
+                <td>15/08/2021</td>
+                <td>07:00 AM</td>
+                <td>
+                  <span>विवाह/साखरपुडा</span>
+                </td>
+                <td>lagn</td>
+                <td>पुणे-Pune</td>
+                <td>test</td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-icon class="file" name="cloud-download-sharp"></ion-icon>
+                </td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-button routerLink="/daily-routine/edit-routine" color="success" size="small"><ion-icon name="pencil-sharp"></ion-icon></ion-button>
+                  <ion-button color="danger" size="small"><ion-icon name="trash-sharp"></ion-icon></ion-button>
+                </td>
+              </tr>
+              <tr>
+               
+                <td>3</td>
+                <td>15/08/2021</td>
+                <td>07:00 AM</td>
+                <td>
+                  <span>विवाह/साखरपुडा</span>
+                </td>
+                <td>lagn</td>
+                <td>पुणे-Pune</td>
+                <td>test</td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-icon class="file" name="cloud-download-sharp"></ion-icon>
+                </td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-button routerLink="/daily-routine/edit-routine" color="success" size="small"><ion-icon name="pencil-sharp"></ion-icon></ion-button>
+                  <ion-button color="danger" size="small"><ion-icon name="trash-sharp"></ion-icon></ion-button>
+                </td>
+              </tr>
+              <tr>
+                
+                <td>4</td>
+                <td>15/08/2021</td>
+                <td>07:00 AM</td>
+                <td>
+                  <span>विवाह/साखरपुडा</span>
+                </td>
+                <td>lagn</td>
+                <td>पुणे-Pune</td>
+                <td>test</td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-icon class="file" name="cloud-download-sharp"></ion-icon>
+                </td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-button routerLink="/daily-routine/edit-routine" color="success" size="small"><ion-icon name="pencil-sharp"></ion-icon></ion-button>
+                  <ion-button color="danger" size="small"><ion-icon name="trash-sharp"></ion-icon></ion-button>
+                </td>
+              </tr>
+              <tr>
+                
+                <td>5</td>
+                <td>15/08/2021</td>
+                <td>07:00 AM</td>
+                <td>
+                  <span>विवाह/साखरपुडा</span>
+                </td>
+                <td>lagn</td>
+                <td>पुणे-Pune</td>
+                <td>test</td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-icon class="file" name="cloud-download-sharp"></ion-icon>
+                </td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-button routerLink="/daily-routine/edit-routine" color="success" size="small"><ion-icon name="pencil-sharp"></ion-icon></ion-button>
+                  <ion-button color="danger" size="small"><ion-icon name="trash-sharp"></ion-icon></ion-button>
+                </td>
+              </tr>
+              <tr>
+                
+                <td>6</td>
+                <td>15/08/2021</td>
+                <td>07:00 AM</td>
+                <td>
+                  <span>विवाह/साखरपुडा</span>
+                </td>
+                <td>lagn</td>
+                <td>पुणे-Pune</td>
+                <td>test</td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-icon class="file" name="cloud-download-sharp"></ion-icon>
+                </td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-button routerLink="/daily-routine/edit-routine" color="success" size="small"><ion-icon name="pencil-sharp"></ion-icon></ion-button>
+                  <ion-button color="danger" size="small"><ion-icon name="trash-sharp"></ion-icon></ion-button>
+                </td>
+              </tr>
+              <tr>
+                
+                <td>7</td>
+                <td>15/08/2021</td>
+                <td>07:00 AM</td>
+                <td>
+                  <span>विवाह/साखरपुडा</span>
+                </td>
+                <td>lagn</td>
+                <td>पुणे-Pune</td>
+                <td>test</td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-icon class="file" name="cloud-download-sharp"></ion-icon>
+                </td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-button routerLink="/daily-routine/edit-routine" color="success" size="small"><ion-icon name="pencil-sharp"></ion-icon></ion-button>
+                  <ion-button color="danger" size="small"><ion-icon name="trash-sharp"></ion-icon></ion-button>
+                </td>
+              </tr>
+              <tr>
+                
+                <td>8</td>
+                <td>15/08/2021</td>
+                <td>07:00 AM</td>
+                <td>
+                  <span>विवाह/साखरपुडा</span>
+                </td>
+                <td>lagn</td>
+                <td>पुणे-Pune</td>
+                <td>test</td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-icon class="file" name="cloud-download-sharp"></ion-icon>
+                </td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-button routerLink="/daily-routine/edit-routine" color="success" size="small"><ion-icon name="pencil-sharp"></ion-icon></ion-button>
+                  <ion-button color="danger" size="small"><ion-icon name="trash-sharp"></ion-icon></ion-button>
+                </td>
+              </tr>
+              <tr>
+                
+                <td>9</td>
+                <td>15/08/2021</td>
+                <td>07:00 AM</td>
+                <td>
+                  <span>विवाह/साखरपुडा</span>
+                </td>
+                <td>lagn</td>
+                <td>पुणे-Pune</td>
+                <td>test</td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-icon class="file" name="cloud-download-sharp"></ion-icon>
+                </td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-button routerLink="/daily-routine/edit-routine" color="success" size="small"><ion-icon name="pencil-sharp"></ion-icon></ion-button>
+                  <ion-button color="danger" size="small"><ion-icon name="trash-sharp"></ion-icon></ion-button>
+                </td>
+              </tr>
+              <tr>
+                
+                <td>10</td>
+                <td>15/08/2021</td>
+                <td>07:00 AM</td>
+                <td>
+                  <span>विवाह/साखरपुडा</span>
+                </td>
+                <td>lagn</td>
+                <td>पुणे-Pune</td>
+                <td>test</td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-icon class="file" name="cloud-download-sharp"></ion-icon>
+                </td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-button routerLink="/daily-routine/edit-routine" color="success" size="small"><ion-icon name="pencil-sharp"></ion-icon></ion-button>
+                  <ion-button color="danger" size="small"><ion-icon name="trash-sharp"></ion-icon></ion-button>
+                </td>
+              </tr>
+              <tr>
+                
+                <td>11</td>
+                <td>15/08/2021</td>
+                <td>07:00 AM</td>
+                <td>
+                  <span>विवाह/साखरपुडा</span>
+                </td>
+                <td>lagn</td>
+                <td>पुणे-Pune</td>
+                <td>test</td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-icon class="file" name="cloud-download-sharp"></ion-icon>
+                </td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-button routerLink="/daily-routine/edit-routine" color="success" size="small"><ion-icon name="pencil-sharp"></ion-icon></ion-button>
+                  <ion-button color="danger" size="small"><ion-icon name="trash-sharp"></ion-icon></ion-button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+						

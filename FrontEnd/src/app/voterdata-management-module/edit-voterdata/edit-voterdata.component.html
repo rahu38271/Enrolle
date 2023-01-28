@@ -1,0 +1,391 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>Add User</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button color="primary" defaultHref="/voterdata-management"></ion-back-button>
+      </ion-buttons>
+      <ion-title> Edit Voter  </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <ion-grid>
+      <ion-row>
+        <ion-text class="form-header pl-10">
+          Edit Voter 
+        </ion-text>
+      </ion-row>
+      <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+        <ion-row>
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>Full Name <span>*</span> </ion-label>
+              <ion-input [(ngModel)]="EditData.fullName" name="fullName" (keypress)="onKeyPress($event)" class="form-control text-capitalize" required></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> DOB  </ion-label>
+            <ion-input
+              value="{{ birthDate | date: 'yyyy-MM-dd' }}"
+              id="birthDate"
+              class="form-control"
+              name="birthDate"
+              [(ngModel)]="EditData.birthDate" 
+              required
+            ></ion-input>
+            
+            <ion-modal trigger="birthDate" size="cover">
+              <ng-template>
+                <ion-datetime
+                  presentation="date"
+                  [(ngModel)]="birthDate"
+                  name="birthDate"
+                  (click)="cal_Age()"
+                >
+                <span slot="title"> {{ year }} </span>
+              </ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Age </ion-label>
+              <ion-input [(ngModel)]="EditData.age" name="Age" maxlength="3" class="form-control"></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Gender <span>*</span> </ion-label>
+              <ion-select name="Gender" [(ngModel)]="EditData.gender" placeholder="Select" class="form-control">
+                <ion-select-option class="select_option"> Male</ion-select-option>
+                <ion-select-option class="select_option"> Female</ion-select-option>
+              </ion-select>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> House No. </ion-label>
+              <ion-input [(ngModel)]="EditData.houseNo" name="House" class="form-control"></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Voting Card No. <span>*</span></ion-label>
+              <ion-input [(ngModel)]="EditData.votingCardNo" name="votingCard" class="form-control"></ion-input>
+          </ion-col>
+
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Mobile No. </ion-label>
+              <ion-input [(ngModel)]="EditData.mobileNo" name="Mobile" maxlength="10" (keypress)="keyPressNumbers($event)" class="form-control"></ion-input>
+          </ion-col>
+
+          
+
+          <!-- <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Caste</ion-label>
+              <ion-select name="Caste" [(ngModel)]="editVoter.Caste" #Caste="ngModel" placeholder="Select" interface="popover" class="form-control">
+                <ion-select-option class="select_option" value="Baniya"> Baniya</ion-select-option>
+                <ion-select-option class="select_option" value="Banjara"> Banjara</ion-select-option>
+                <ion-select-option class="select_option" value="Bari"> Bari</ion-select-option>
+                <ion-select-option class="select_option" value="Berad"> Berad</ion-select-option>
+                <ion-select-option class="select_option" value="Bhoi"> Bhoi</ion-select-option>
+                <ion-select-option class="select_option" value="Brahman"> Brahman</ion-select-option>
+                <ion-select-option class="select_option" value="Buddha"> Buddha</ion-select-option>
+                <ion-select-option class="select_option" value="Burud"> Burud</ion-select-option>
+                <ion-select-option class="select_option" value="Chambhar"> Chambhar</ion-select-option>
+                <ion-select-option class="select_option" value="Christian"> Christian</ion-select-option>
+                <ion-select-option class="select_option" value="Dhangar"> Dhangar</ion-select-option>
+                <ion-select-option class="select_option" value="Dhiwar"> Dhiwar</ion-select-option>
+                <ion-select-option class="select_option" value="Dhobi"> Dhobi</ion-select-option>
+                <ion-select-option class="select_option" value="Chambhar"> Chambhar</ion-select-option>
+                <ion-select-option class="select_option" value="Dombari"> Dombari</ion-select-option>
+                <ion-select-option class="select_option" value="Gandali"> Gandali</ion-select-option>
+                <ion-select-option class="select_option" value="Gavali"> Gavali</ion-select-option>
+                <ion-select-option class="select_option" value="Golkar"> Golkar</ion-select-option>
+                <ion-select-option class="select_option" value="Gond"> Gond</ion-select-option>
+                <ion-select-option class="select_option" value="Gondhali"> Gondhali</ion-select-option>
+                <ion-select-option class="select_option" value="Gosavi"> Gosavi</ion-select-option>
+                <ion-select-option class="select_option" value="Govind"> Govind</ion-select-option>
+                <ion-select-option class="select_option" value="Gowari"> Gowari</ion-select-option>
+                <ion-select-option class="select_option" value="Gujrati"> Gujrati</ion-select-option>
+                <ion-select-option class="select_option" value="Gurav"> Gurav</ion-select-option>
+                <ion-select-option class="select_option" value="Hanber"> Hanber</ion-select-option>
+                <ion-select-option class="select_option" value="Holar"> Holar</ion-select-option>
+                <ion-select-option class="select_option" value="Gujrati"> Gujrati</ion-select-option>
+                <ion-select-option class="select_option" value="Holi"> Holi</ion-select-option>
+                <ion-select-option class="select_option" value="Jain"> Jain</ion-select-option>
+                <ion-select-option class="select_option" value="Kaikadi"> Kaikadi</ion-select-option>
+                <ion-select-option class="select_option" value="Kalar"> Kalar</ion-select-option>
+                <ion-select-option class="select_option" value="Karvi"> Karvi</ion-select-option>
+                <ion-select-option class="select_option" value="Kohali"> Kohali</ion-select-option>
+                <ion-select-option class="select_option" value="Kolam"> Kolam</ion-select-option>
+                <ion-select-option class="select_option" value="Koli"> Koli</ion-select-option>
+                <ion-select-option class="select_option" value="Konkani"> Konkani</ion-select-option>
+                <ion-select-option class="select_option" value="Korku"> Korku</ion-select-option>
+                <ion-select-option class="select_option" value="Koshti"> Koshti</ion-select-option>
+                <ion-select-option class="select_option" value="Kunbi"> Kunbi</ion-select-option>
+                <ion-select-option class="select_option" value="Laman"> Laman</ion-select-option>
+                <ion-select-option class="select_option" value="Lingayat"> Lingayat</ion-select-option>
+                <ion-select-option class="select_option" value="Koshti"> Koshti</ion-select-option>
+                <ion-select-option class="select_option" value="Mali"> Mali</ion-select-option>
+                <ion-select-option class="select_option" value="Maratha"> Maratha</ion-select-option>
+                <ion-select-option class="select_option" value="Muslim"> Muslim</ion-select-option>
+                <ion-select-option class="select_option" value="Other"> Other</ion-select-option>
+                <ion-select-option class="select_option" value="Panchal"> Panchal</ion-select-option>
+                <ion-select-option class="select_option" value="Pardeshi"> Pardeshi</ion-select-option>
+                <ion-select-option class="select_option" value="Pardi"> Pardi</ion-select-option>
+                <ion-select-option class="select_option" value="Parit"> Parit</ion-select-option>
+                <ion-select-option class="select_option" value="Pathan"> Pathan</ion-select-option>
+                <ion-select-option class="select_option" value="Pawar"> Pawar</ion-select-option>
+                <ion-select-option class="select_option" value="Pinjara"> Pinjara</ion-select-option>
+                <ion-select-option class="select_option" value="Powar"> Powar</ion-select-option>
+                <ion-select-option class="select_option" value="Pradhan"> Pradhan</ion-select-option>
+                <ion-select-option class="select_option" value="Rajastani"> Rajastani</ion-select-option>
+                <ion-select-option class="select_option" value="Rajput"> Rajput</ion-select-option>
+                <ion-select-option class="select_option" value="Ramoshi"> Ramoshi</ion-select-option>
+                <ion-select-option class="select_option" value="Sayed"> Sayed</ion-select-option>
+                <ion-select-option class="select_option" value="SC"> SC</ion-select-option>
+                <ion-select-option class="select_option" value="Shetty"> Shetty</ion-select-option>
+                <ion-select-option class="select_option" value="Sikaghar"> Sikaghar</ion-select-option>
+                <ion-select-option class="select_option" value="Shimpi"> Shimpi</ion-select-option>
+                <ion-select-option class="select_option" value="Sikh"> Sikh</ion-select-option>
+                <ion-select-option class="select_option" value="Sindhi"> Sindhi</ion-select-option>
+                <ion-select-option class="select_option" value="Sonar"> Sonar</ion-select-option>
+                <ion-select-option class="select_option" value="ST"> ST</ion-select-option>
+                <ion-select-option class="select_option" value="Sutar"> Sutar</ion-select-option>
+                <ion-select-option class="select_option" value="Teli"> Teli</ion-select-option>
+                <ion-select-option class="select_option" value="Valmiki"> Valmiki</ion-select-option>
+                <ion-select-option class="select_option" value="Vani"> Vani</ion-select-option>
+                <ion-select-option class="select_option" value="Wadar"> Wadar</ion-select-option>
+                <ion-select-option class="select_option" value="Wadhi"> Wadhi</ion-select-option>
+                <ion-select-option class="select_option" value="Wami"> Wami</ion-select-option>
+                <ion-select-option class="select_option" value="Wanjari"> Wanjari</ion-select-option>
+                <ion-select-option class="select_option" value="Wathi"> Wathi</ion-select-option>
+              </ion-select>
+          </ion-col> -->
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Cast </ion-label>
+              <ion-input [(ngModel)]="EditData.caste" name="Cast" class="form-control"></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> District  </ion-label>
+              <ion-select
+                idlDefault 
+                name="District" 
+                [(ngModel)]="EditData.district" 
+                (ionChange)="getTaluka(EditData.DistrictId)" 
+                placeholder="Select"  
+                class="form-control"
+              >
+                <ion-select-option class="select_option" *ngFor="let item of districtList" [value]="item.dId">
+                  {{ item.districtName }}
+                </ion-select-option>
+              </ion-select>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Assembly </ion-label>
+              <ion-select
+                idlDefault 
+                name="Assembly" 
+                [(ngModel)]="EditData.assembly" 
+                placeholder="Select" 
+                class="form-control"
+              >
+                <ion-select-option 
+                  class="select_option" 
+                  *ngFor="let item of assemblyList" 
+                  [value]="item.assemblyName"
+                  
+                > 
+                  {{item.assemblyName}}
+                </ion-select-option>
+              </ion-select>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Part No. </ion-label>
+              <ion-select name="partNo" [(ngModel)]="editVoter.partNo" placeholder="Select" class="form-control">
+                <ion-select-option class="select_option" value="Part No. 1"> Part No. 1</ion-select-option>
+                <ion-select-option class="select_option" value="Part No. 2">Part No. 2</ion-select-option>
+              </ion-select>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Taluka  </ion-label>
+              <ion-select
+                idlDefault 
+                name="Taluka" 
+                [(ngModel)]="EditData.taluka" 
+                placeholder="Select"  
+                class="form-control"
+              >
+                <ion-select-option class="select_option" *ngFor="let item of talukaList" [value]="item.talukaName">
+                  {{ item.talukaName }}
+                </ion-select-option>
+              </ion-select>
+          </ion-col>
+
+          
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Ward </ion-label>
+              <ion-select
+                idlDefault 
+                name="Ward" 
+                [(ngModel)]="EditData.ward" 
+                placeholder="Select"  
+                class="form-control"
+              >
+                <ion-select-option class="select_option" *ngFor="let item of wardList" [value]="item.wardName"> 
+                  {{item.wardName}}
+                </ion-select-option>
+              </ion-select>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Booth </ion-label>
+              <ion-select
+                idlDefault 
+                name="Booth" 
+                [(ngModel)]="EditData.booth" 
+                placeholder="Select" 
+                class="form-control"
+              >
+                <ion-select-option 
+                  class="select_option" 
+                  *ngFor="let item of boothList"
+                  [value]="item.boothName"
+                > 
+                  {{item.boothName}}
+                </ion-select-option>
+              </ion-select>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Village </ion-label>
+              <ion-input [(ngModel)]="EditData.village" name="Village" class="form-control"></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Pin Code </ion-label>
+              <ion-input [(ngModel)]="EditData.pincode" name="pinCode" maxlength="6" (keypress)="keyPressNumbers($event)" class="form-control"></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Address  </ion-label>
+              <ion-input [(ngModel)]="EditData.address" name="Address" class="form-control"></ion-input>
+          </ion-col>
+
+          <!-- <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Whatsapp No. </ion-label>
+              <ion-input [(ngModel)]="Whatsapp" name="Whatsapp" maxlength="10" (keypress)="keyPressNumbers($event)" class="form-control"></ion-input>
+          </ion-col> -->
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Email </ion-label>
+              <ion-input [(ngModel)]="EditData.email" name="Email" class="form-control"></ion-input>
+          </ion-col>
+
+     
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Is Family Head </ion-label>
+              <ion-select name="FamilyHead" [(ngModel)]="EditData.familyHead" placeholder="Select" class="form-control">
+                <ion-select-option class="select_option" value="Yes"> Yes</ion-select-option>
+                <ion-select-option class="select_option" value="No"> No</ion-select-option>
+              </ion-select>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Is Suspicious </ion-label>
+              <ion-select name="Suspicious" [(ngModel)]="EditData.isSuspisious" placeholder="Select" class="form-control">
+                <ion-select-option class="select_option" value="Yes"> Yes</ion-select-option>
+                <ion-select-option class="select_option" value="No"> No</ion-select-option>
+              </ion-select>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Is Out Station </ion-label>
+              <ion-select name="Station" [(ngModel)]="EditData.isOutStation" placeholder="Select" class="form-control">
+                <ion-select-option class="select_option" value="Yes"> Yes</ion-select-option>
+                <ion-select-option class="select_option" value="No"> No</ion-select-option>
+              </ion-select>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Alive/Dead </ion-label>
+              <ion-select name="AliveDead" [(ngModel)]="EditData.isAlive" placeholder="Select" class="form-control">
+                <ion-select-option class="select_option" value="Alive"> Alive</ion-select-option>
+                <ion-select-option class="select_option" value="Dead"> Dead</ion-select-option>
+              </ion-select>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Occupation </ion-label>
+              <ion-select name="Occupation" [(ngModel)]="EditData.occupation" placeholder="Select" class="form-control">
+                <ion-select-option class="select_option" value="Job Person"> Job Person</ion-select-option>
+                <ion-select-option class="select_option" value="Business"> Business</ion-select-option>
+                <ion-select-option class="select_option" value="Engineer"> Engineer</ion-select-option>
+                <ion-select-option class="select_option" value="Doctor"> Doctor</ion-select-option>
+                <ion-select-option class="select_option" value="Housewife"> Housewife</ion-select-option>
+                <ion-select-option class="select_option" value="Lawyer"> Lawyer</ion-select-option>
+                <ion-select-option class="select_option" value="Other"> Other</ion-select-option>
+              </ion-select>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Karyakarta </ion-label>
+              <ion-select name="Karyakarta" [(ngModel)]="EditData.partyWorker" placeholder="Select" class="form-control">
+                <ion-select-option class="select_option" value="Karyakarta 1"> Karyakarta 1</ion-select-option>
+                <ion-select-option class="select_option" value="Karyakarta 2"> Karyakarta 2</ion-select-option>
+              </ion-select>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Voting inclination</ion-label>
+              <ion-select name="Inclination" [(ngModel)]="EditData.votingInclination" placeholder="Select" class="form-control">
+                <ion-select-option class="select_option" value="Supporter"> Supporter</ion-select-option>
+                <ion-select-option class="select_option" value="Opponent"> Opponent</ion-select-option>
+                <ion-select-option class="select_option" value="Neutral"> Neutral</ion-select-option>
+                <ion-select-option class="select_option" value="Special"> Special</ion-select-option>
+              </ion-select>
+          </ion-col>
+
+          
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>Political Party </ion-label>
+              <ion-select
+                idlDefault 
+                name="Party" 
+                [(ngModel)]="EditData.politicalParty" 
+                placeholder="Select" 
+                class="form-control"
+              >
+                <ion-select-option class="select_option" value="BJP"> BJP</ion-select-option>
+                <ion-select-option class="select_option" value="NCP"> NCP</ion-select-option>
+                <ion-select-option class="select_option" value="Congress"> Congress</ion-select-option>
+                <ion-select-option class="select_option" value="Shivsena"> Shivsena</ion-select-option>
+                <ion-select-option class="select_option" value="RPI"> RPI</ion-select-option>
+                <ion-select-option class="select_option" value="RSP"> RSP</ion-select-option>
+                <ion-select-option class="select_option" value="BSP"> BSP</ion-select-option>
+                <ion-select-option class="select_option" value="Other"> Other</ion-select-option>
+              </ion-select>
+          </ion-col>
+          
+          <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+            <div class="ion-text-center">
+              <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
+              <ion-button type="submit" size="medium" (click)="save()">Save</ion-button>
+              <ion-button color="success" type="button" size="medium">Back To List</ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-grid>
+  </div>
+</ion-content>

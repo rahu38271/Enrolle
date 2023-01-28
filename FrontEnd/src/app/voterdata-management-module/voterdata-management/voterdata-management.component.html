@@ -1,0 +1,343 @@
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button color="light" auto-hide="false"></ion-menu-button>
+      </ion-buttons>
+      <!-- <ion-title *ngIf="totalCount"> <strong>Total : {{totalCount.totalCount}}</strong> </ion-title> -->
+      <ion-title> <strong>Total : {{voterByPart.length}}</strong> </ion-title>
+      
+      <ion-buttons slot="primary">
+        <ion-button (click)="search()">
+          <ion-icon name="search-sharp"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <div class="webView">
+      <ion-grid class="header">
+        <ion-row>
+          <ion-col>
+            <ion-card-header>
+              <div class="flex">
+                <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
+                <div>
+                  <ion-card-title>Voter Data Management</ion-card-title>
+                  <div class="headerLine"></div>
+                </div>
+              </div>
+            </ion-card-header>
+          </ion-col>
+          <ion-col class="ion-text-right">
+            <ion-button class="button-download" color="primary"
+              routerLink="/voterdata-management/add-voter">
+              <ion-icon name="add-circle-sharp"></ion-icon>Voter
+            </ion-button>
+            <ion-button class="button-download" routerLink="/voterdata-management/import-voter" fill="outline"
+              color="primary">
+              <ion-icon name="document-sharp"></ion-icon>Import
+            </ion-button>
+          </ion-col>
+  
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="topForm">
+        <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+          <ion-row>
+  
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Last Name </ion-label>
+              <ion-input name="Lastname" [(ngModel)]="searchModal.LastName" (keypress)="onKeyPress($event)"
+                class="form-control text-capitalize"></ion-input>
+            </ion-col>
+  
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> First Name </ion-label>
+              <ion-input name="Firstname" [(ngModel)]="searchModal.FirstName" (keypress)="onKeyPress($event)"
+                class="form-control text-capitalize"></ion-input>
+            </ion-col>
+  
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Father / Husbands Name </ion-label>
+              <ion-input name="FHname" [(ngModel)]="searchModal.MiddleName" (keypress)="onKeyPress($event)"
+                class="form-control text-capitalize"></ion-input>
+            </ion-col>
+  
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> VotingCard No. </ion-label>
+              <ion-input name="VotingCard" [(ngModel)]="searchModal.VotingCardNo" maxlength="10" class="form-control"></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label>From Age  </ion-label>
+              <ion-input name="ageFrom" type="number" [(ngModel)]="searchModal.FromAge" (keypress)="keyPressNumbers($event)" maxlength="3"
+                class="form-control"></ion-input>
+            </ion-col>
+  
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label>To Age  </ion-label>
+              <ion-input name="ageTo" type="number" [(ngModel)]="searchModal.ToAge" (keypress)="keyPressNumbers($event)" maxlength="3"
+                class="form-control"></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
+            <ion-label>  Gender  </ion-label>
+            <ion-radio-group name="Gender" [(ngModel)]="searchModal.Gender">
+              <div class="radioBtn" >
+                <div>
+                  <ion-radio value="M" ></ion-radio>
+                  <ion-label>Male</ion-label>
+                </div>
+
+                <div>
+                  <ion-radio value="F" ></ion-radio>
+                  <ion-label>Female</ion-label>
+                </div>
+
+                <!-- <div>
+                  <ion-radio value="O" ></ion-radio>
+                  <ion-label>Other</ion-label>
+                </div> -->
+              </div>
+            </ion-radio-group>
+          </ion-col>
+  
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Mobile No. </ion-label>
+              <ion-input name="MobileNumber" [(ngModel)]="searchModal.MobileNo" (keypress)="keyPressNumbers($event)"
+                class="form-control" maxlength="10"></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Part No. </ion-label>
+              <ion-input name="partNumber" [(ngModel)]="searchModal.PartNo" (keypress)="keyPressNumbers($event)"
+                class="form-control" maxlength="10"></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
+            <ion-label>   Village </ion-label>
+              <ion-input name="Village" [(ngModel)]="searchModal.Village" class="form-control"></ion-input>
+          </ion-col>
+
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> House No. </ion-label>
+              <ion-input name="houseNumber" [(ngModel)]="searchModal.HouseNo" (keypress)="keyPressNumbers($event)"
+                class="form-control" maxlength="10"></ion-input>
+            </ion-col>
+  
+            
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+              <div class="text-center">
+                <ion-button class="searchBtn" type="submit" (click)="searchData()">Search</ion-button>
+                <ion-button type="reset" (click)="resetForm()" class="searchBtn" color="danger">Clear
+                </ion-button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-grid>
+      <!-- <ion-grid class="topForm">
+        <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+          <ion-row>
+  
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Name </ion-label>
+              <ion-input name="fullName" [(ngModel)]="fullName" (keypress)="onKeyPress($event)"
+                class="form-control text-capitalize" required></ion-input>
+            </ion-col>
+  
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Father/Husband </ion-label>
+              <ion-input name="FatherHusband" [(ngModel)]="FatherHusband" (keypress)="onKeyPress($event)"
+                class="form-control text-capitalize"></ion-input>
+            </ion-col>
+  
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Surname </ion-label>
+              <ion-input name="Surname" [(ngModel)]="Surname" (keypress)="onKeyPress($event)"
+                class="form-control text-capitalize"></ion-input>
+            </ion-col>
+  
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> VotingCard No. </ion-label>
+              <ion-input name="VotingCard" [(ngModel)]="VotingCard" maxlength="10" class="form-control"></ion-input>
+            </ion-col>
+  
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Gender </ion-label>
+              <ion-select name="Gender" [(ngModel)]="Gender" placeholder="Select" interface="popover"
+                class="form-control">
+                <ion-select-option value="Male" class="select_option">Male</ion-select-option>
+                <ion-select-option value="Female" class="select_option">Female</ion-select-option>
+              </ion-select>
+            </ion-col>
+  
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Matched/NotMatched</ion-label>
+              <ion-select name="area" [(ngModel)]="area" placeholder="Select" interface="popover" class="form-control"
+                required>
+                <ion-select-option value="all" class="select_option">All</ion-select-option>
+                <ion-select-option value="matched" class="select_option">Matched</ion-select-option>
+                <ion-select-option value="notmatched" class="select_option">Not Matched</ion-select-option>
+              </ion-select>
+            </ion-col>
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Mobile Group </ion-label>
+              <ion-select name="Bgroup" [(ngModel)]="Bgroup" placeholder="Select" interface="popover"
+                class="form-control">
+                <ion-select-option value="m1" class="select_option">Mobile Group 1</ion-select-option>
+                <ion-select-option value="m2" class="select_option">Mobile Group 2</ion-select-option>
+              </ion-select>
+            </ion-col>
+  
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> karyakarta</ion-label>
+              <ion-select name="karyakarta" [(ngModel)]="karyakarta" placeholder="Select" interface="popover"
+                class="form-control">
+                <ion-select-option value="karyakarta 1" class="select_option">Sagar Manaji Salunkhe</ion-select-option>
+                <ion-select-option value="karyakarta 2" class="select_option">karyakarta 2</ion-select-option>
+              </ion-select>
+            </ion-col>
+  
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Mobile No. </ion-label>
+              <ion-input name="MobileNumber" [(ngModel)]="MobileNumber" (keypress)="keyPressNumbers($event)"
+                class="form-control" maxlength="10"></ion-input>
+            </ion-col>
+  
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Age From </ion-label>
+              <ion-input name="ageFrom" [(ngModel)]="ageFrom" (keypress)="keyPressNumbers($event)" maxlength="3"
+                class="form-control"></ion-input>
+            </ion-col>
+  
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Age To </ion-label>
+              <ion-input name="ageTo" [(ngModel)]="ageTo" (keypress)="keyPressNumbers($event)" maxlength="3"
+                class="form-control"></ion-input>
+            </ion-col>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+              <div class="text-center">
+                <ion-button class="searchBtn" type="submit" (click)="searchData()">Search</ion-button>
+                <ion-button type="reset" (click)="resetForm()" class="searchBtn" color="danger">Clear
+                </ion-button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-grid> -->
+      <ion-card>
+       
+  
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col size-lg="2"> 
+                <ion-text> Part No. : {{partNo}}</ion-text>
+              </ion-col>
+              <ion-col size-lg="2">
+                <ion-text>Total Count : {{voterByPart.length}} </ion-text>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-grid class="header">
+            <ion-row>
+              <ion-col>
+                <div class="search">
+                  <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+                </div>
+              </ion-col>
+              <ion-col class="ion-text-right">
+                <!-- <ion-button class="button-download" color="success" (click)="exportExcel()">
+                  <ion-icon name="document-sharp"></ion-icon>Excel
+                </ion-button> -->
+                <ion-button class="button-download" color="success">
+                  <ion-icon name="document-sharp"></ion-icon>Excel
+                </ion-button>
+                <!-- <ion-button class="button-download" fill="outline" color="danger" (click)="downloadPDF()">
+                  <ion-icon name="cloud-download-sharp"></ion-icon>PDF
+                </ion-button> -->
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <div class="horizontal-scroll" id="table" #epltable>
+            <!-- <h3 class="ion-text-center"><span> ( 334 ) </span>जिल्हा परिषद शाळा, खडकवासला, उत्तरमुखी पूर्वेकडून खोली क्र.1
+            </h3> -->
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Sr.No.</th>
+                  <th>Name</th>
+                  <!-- <th>Booth No.</th> -->
+                  <th>Booth Name</th>
+                  <th>Age</th>
+                  <th>Gender</th>
+                  <th>House</th>
+                  <th>Voting Card No.</th>
+                  <th>Village</th>
+                  <th>Address</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of voterByPart | filter:searchWeb">
+                  <td>{{item.id}}</td>
+                  <td class="text-capitalize">{{item.fullName}}</td>
+                  <td>{{item.booth}}</td>
+                  <td>{{item.age}}</td>
+                  <td>{{item.gender}}</td>
+                  <td>{{item.houseNo}}</td>
+                  <td>{{item.votingCardNo}}</td>
+                  <td>{{item.village}}</td>
+                  <td>{{item.address}}</td>
+                  <td>
+                    <ion-icon name="create-sharp" (click)="EditVoter(item)"></ion-icon>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="!voterByPart || voterByPart.length === 0" class="ion-text-center">
+              <p>
+                No data available
+              </p>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+    
+    <!-- routerLink="/voterdata-management/voter-details" -->
+
+    <ion-grid class="android userList">
+      <ion-searchbar *ngIf="isShow" [(ngModel)]="searchWeb"></ion-searchbar>
+      <ion-list *ngFor="let item of voterByPart | filter:searchWeb" (click)="voterDetails(item.id)">
+        <ion-item lines="none">
+          <ion-label>
+            <div class="firstLine">
+              <h3 class="text-capitalize">
+                {{item.fullName}}
+              </h3>
+            </div>
+            <!-- <div class="details">
+              <p>Part No. : <span> {{item.partNo}} </span> </p>
+              <p> Age : <span> {{item.age}} </span> </p>
+              <p>Gender : <span> {{item.gender}} </span></p>
+            </div> -->
+            <div class="details">
+              <p>Part No. :  {{item.partNo}}  </p>
+              <p> Age :  {{item.age}}  </p>
+              <p>Gender :  {{item.gender}} </p>
+            </div>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-grid>
+  </div>
+</ion-content>
+
+<!-- <ion-fab horizontal="end" vertical="bottom" slot="fixed" routerLink="/voterdata-management/add-voter">
+  <ion-fab-button color="primary">
+    <ion-icon name="add-sharp"></ion-icon>
+  </ion-fab-button>
+</ion-fab> -->

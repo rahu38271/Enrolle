@@ -1,0 +1,45 @@
+
+
+ion-input {
+    color: #4e4e4e !important;
+    background: #fafafa;
+    border: solid 1px #cccccc;
+}
+//ion-item { --background: #fff; border: solid 1px #cccccc; height: 40px;  }
+
+h2 { color: #435fbe; padding-left: 10px; font-weight: 500; }
+
+.sc-ion-input-md-h {
+    --padding-top: 4px !important;
+    --padding-bottom: 4px !important;
+}
+
+.header { width: 100%; margin: 0 auto; }
+
+ion-label { color: #737373; font-weight: 600; }
+
+ion-card { margin-top: 0px !important;  }
+
+table { margin-top: 10px; }
+
+td ion-icon { cursor: pointer; font-size: 12px; font-weight: 600;  }
+
+table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !important; }
+
+table td:last-child { padding: 0.25rem 0.1rem !important; width: 58px !important; }
+
+.file { font-size: 20px !important; color: #3880ff !important; font-weight: 600;}
+
+
+@media screen and (max-width:1200px) {
+    table { width: 900px; }
+  }
+
+  .mt-10 {
+      margin-top: 17px !important;
+  }
+
+  .headSection {
+    display: flex;
+    justify-content: space-between;
+  }

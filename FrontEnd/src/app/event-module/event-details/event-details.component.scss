@@ -1,0 +1,236 @@
+
+
+table { margin-top: 10px; }
+
+td ion-icon { cursor: pointer; font-size: 12px; font-weight: 600;  }
+
+table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !important; }
+
+.file { font-size: 20px !important; color: #3880ff !important; font-weight: 600;}
+
+thead tr {
+    background: #fff;
+    color: #7a7373;
+    font-weight: 400;
+}
+
+table {
+    border: solid 1px #8d9092;
+    border-collapse: collapse;
+}
+
+table td {
+    border: solid 1px #8d9092;
+    padding: 5px 5px 5px 10px;
+    font-size: 14px !important;
+}
+
+td ion-icon { 
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    background: #e5e5e5;
+    padding: 5px;
+    border-radius: 20px;
+    margin-left: 3px;
+ }
+
+table thead th {
+    border: solid 1px #8d9092;
+    padding: 10px 15px 10px 12px !important;
+}
+
+table th:first-child {
+    width: 110px;
+}
+
+table td:first-child {
+    width: 122px;
+}
+
+table thead,tbody {
+    border: solid 1px #8d9092;
+    border-collapse: collapse;
+}
+
+tr:nth-child(even) {
+    background: #FFF !important;
+}
+
+.date p {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.phone {
+    text-align: center;
+}
+
+.phone p {
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.pdfTitle p {
+    font-size: 14px;
+    width: 85%;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: 600;
+    margin-top: 15px;
+    line-height: 25px !important;
+}
+
+.logo {
+    text-align: center;
+}
+
+.logo img {
+    width: 32px;
+}
+
+.note p {
+    margin-top: 7px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.note ul li {
+    list-style-type: none;
+    display: table-cell;
+    margin-top: 7px;
+    font-weight: 600;
+    color: #737373;
+}
+
+.note ul li:first-child {
+    width: 35px;
+}
+
+.note ul {
+    padding-left: 0px !important;
+    padding-top: 16px;
+}
+
+.conDetails ul li {
+    list-style-type: none;
+}
+
+.details {
+    text-align: center;
+    width: 300px;
+    float: right;
+    padding-top: 50px;
+}
+
+.clearfix {
+    clear: both;
+}
+
+ion-accordion ion-item {
+    border: solid 1px #ced4da;
+    margin-top: 7px;
+    height: 35px;
+    --background: #fff;
+}
+
+ion-accordion ion-list {
+    border-bottom: solid 1px #ced4da;
+    border-left: solid 1px #ced4da;
+    border-right: solid 1px #ced4da;
+    padding: 8px 4px;
+}
+
+ion-accordion ion-icon {
+    --margin-top: 7px !important;
+    --margin-bottom: 7px !important;
+}
+
+ion-accordion ion-label {
+    margin: 1px 0px 10px !important;
+    font-size: 14px;
+}
+
+ion-label {
+    color: #6688fb !important;
+    --font-weight: 400 !important;
+}
+
+.mainDiv {
+    width: 95%;
+    margin: 0 auto;
+}
+
+
+
+ion-card-title {
+    color: #1a3353;
+}
+
+.topForm {
+    width: 100%;
+}
+
+.topForm ion-label {
+    color: #737373 !important;
+}
+
+ion-card {
+    margin-top: 0px !important;
+    margin-inline: 0px;
+}
+
+// @media screen and (min-width:992px) {
+//     .form1 {
+//         position: fixed;
+//         right: 30px;
+//         width: 325px;
+//     }
+// }
+
+
+@media screen and (max-width: 1200px){
+    .contatacDetails ion-list .w-48 {
+        width: 100%;
+        float: none;
+        margin-top: 10px;
+    }
+}
+
+
+.contatacDetails ion-list .w-48 {
+    width: 48%;
+    float: left;
+    margin-top: 10px;
+}
+
+.ml-2 {
+    margin-left: 5px;
+}
+
+@media screen and (min-width:992px){
+    .mobile {
+        display: none;
+    }
+}
+
+@media screen and (max-width:991px){
+    .web {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .mainDiv {
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    .horizontal-scroll ion-grid {
+        width: 450px;
+    }
+}
+
+#eventDetails1 { display: none; }
+

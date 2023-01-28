@@ -1,0 +1,144 @@
+<ion-content>
+    <ion-header class="android">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button auto-hide="false"></ion-menu-button>
+        </ion-buttons>
+        <ion-title> Colourwise </ion-title>
+        <ion-buttons slot="primary">
+          <ion-button (click)="search()">
+            <ion-icon name="search-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <div class="main-content">
+      <!-- <ion-searchbar></ion-searchbar> -->
+      <ion-grid class="web">
+        <ion-row>
+          <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
+            <ion-grid class="header">
+              <ion-row>
+                <ion-col size-xs="12" size-sm="6">
+                  <ion-card-header>
+                    <ion-card-title class="header1">बूथनुसार <span> ( 44 ) </span> </ion-card-title>
+                    <div class="headerLine"></div>
+                  </ion-card-header>
+  
+                </ion-col>
+                <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+                  <!-- <ion-button class="button-download" fill="outline" color="success" >
+                    <ion-icon name="document-sharp"></ion-icon>Excel
+                  </ion-button>
+                  <ion-button class="button-download" fill="outline" color="danger" >
+                    <ion-icon name="cloud-download-sharp"></ion-icon>PDF
+                  </ion-button>
+                   -->
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card>
+              <ion-card-content>
+                <div class="headSection">
+                  <div class="search">
+                    <ion-searchbar animated="true"></ion-searchbar>
+                  </div>
+                  <ion-button class="button-download" color="success" (click)="exportExcel()">
+                    <ion-icon name="document-sharp"></ion-icon>Excel
+                  </ion-button>
+                </div>
+                <div class="horizontal-scroll">
+                  <table id="villageTable" #epltable class="table">
+                    <thead>
+                      <tr>
+  
+                        <th>
+                          अ.क्र.
+                        </th>
+                        <th>
+                          बूथ
+                        </th>
+                        <th>
+                          एकूण
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+  
+                        <td>1</td>
+                        <td routerLink="/list/boothwise-list">
+                          काळेवाडी ; बी. टी . मेमोरियल इंग्लिश मिडीयम स्कूल ( ओम सेण्टस हायस्कूल ), दक्षिण उत्तर इमारत ,
+                          तळमजला ,दक्षिणेकडून खोली क्र. 8
+                        </td>
+                        <td>1398</td>
+                      </tr>
+                      <tr>
+  
+                        <td>2</td>
+                        <td>
+                          काळेवाडी ; बी. टी . मेमोरियल इंग्लिश मिडीयम स्कूल ( ओम सेण्टस हायस्कूल ), दक्षिण उत्तर इमारत ,
+                          तळमजला ,दक्षिणेकडून खोली क्र. 9
+                        </td>
+                        <td>1244</td>
+                      </tr>
+  
+  
+                    </tbody>
+                  </table>
+                </div>
+              </ion-card-content>
+  
+            </ion-card>
+          </ion-col>
+  
+        </ion-row>
+      </ion-grid>
+  
+      <ion-grid class="android">
+        <ion-searchbar [(ngModel)]="searchMob" animated="true" *ngIf="isShow"></ion-searchbar>
+        <div *ngFor="let item of colorList">
+            <ion-list>
+                <ion-item lines="none" class="ion-text-center">
+                    <ion-label>
+                        <h3>
+                            Supporter
+                        </h3>
+                        <h4> Total : <span> {{item.supporter}} </span> </h4>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+            <ion-list (click)="opposition(item)">
+                <ion-item lines="none" class="ion-text-center">
+                    <ion-label>
+                        <h3>
+                            Opposite
+                        </h3>
+                        <h4> Total : <span> {{item.opposition}} </span> </h4>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+            <ion-list >
+                <ion-item lines="none" class="ion-text-center">
+                    <ion-label>
+                        <h3>
+                            Doubtful
+                        </h3>
+                        <h4> Total : <span> {{item.doubtful}} </span> </h4>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+            <ion-list >
+                <ion-item lines="none" class="ion-text-center">
+                    <ion-label>
+                        <h3>
+                            Other
+                        </h3>
+                        <h4> Total : <span> {{item.other}} </span> </h4>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+        </div>
+      </ion-grid>
+    </div>
+  </ion-content>

@@ -1,0 +1,21 @@
+<ion-list class="userDetails">
+  <ion-item lines="full">
+    <ion-avatar slot="start">
+      <img src="/assets/img/user.jpg" />
+    </ion-avatar>
+    <ion-label>
+      <h2 class="text-capitalize">{{name}}</h2>
+      <h3>{{roleName}}</h3>
+    </ion-label>
+  </ion-item>
+  </ion-list>
+<ion-list>
+
+  <div class="list">
+    <!-- <ion-item><ion-icon name="person-sharp"></ion-icon> <span>My Account</span></ion-item> -->
+    <ion-item lines="none" (click)="userDetails(this.id);DismissClick()"><i class="icofont icofont-ui-user"></i> <span>My Account</span></ion-item>
+    <ion-item lines="none" (click)="DismissClick();EditUser(this.id)" > <i class="icofont icofont-edit"></i> <span> Edit </span></ion-item>
+    <ion-item lines="full" routerLink="/password" (click)="DismissClick()"> <i class="icofont icofont-lock"></i><span> Change Password</span></ion-item>
+    <ion-item lines="none" (click)="DismissClick(); LogOut()" >  <i class="icofont icofont-power"></i> <span> Log Out </span></ion-item>
+  </div>
+</ion-list>

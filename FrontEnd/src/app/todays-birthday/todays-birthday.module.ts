@@ -1,0 +1,29 @@
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+import { IonicModule } from '@ionic/angular';
+
+import { TodaysBirthdayPageRoutingModule } from './todays-birthday-routing.module';
+
+import { TodaysBirthdayPage } from './todays-birthday.page';
+import { DataTablesModule } from 'angular-datatables';
+import { HttpClientModule } from '@angular/common/http';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import {NgxPaginationModule} from 'ngx-pagination';
+
+
+@NgModule({
+  imports: [
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    HttpClientModule,
+    Ng2SearchPipeModule,
+    NgxPaginationModule,
+    TodaysBirthdayPageRoutingModule,
+    DataTablesModule
+  ],
+  declarations: [TodaysBirthdayPage]
+})
+export class TodaysBirthdayPageModule {}

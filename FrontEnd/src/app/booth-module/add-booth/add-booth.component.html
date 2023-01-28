@@ -1,0 +1,70 @@
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button color="primary" defaultHref="/user"></ion-back-button>
+      </ion-buttons>
+      <ion-title> Add Booth </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <ion-grid class="grid-bg">
+      <ion-row>
+        <ion-text class="form-header pl-10">
+          <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>Add Booth
+        </ion-text>
+      </ion-row>
+      <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+        <ion-row>
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+            <ion-grid class="leftDiv">
+              <ion-row>
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <ion-label> Assembly <span>*</span> </ion-label>
+                  <!-- <ion-input name="AssemblyName" [(ngModel)]="addBoothModal.AssemblyName" #AssemblyName="ngModel" class="form-control" required></ion-input> -->
+                  <ion-select
+                    idlDefault 
+                    name="AssemblyName" 
+                    [(ngModel)]="addBoothModal.AssemblyName" 
+                    #AssemblyName="ngModel"
+                    placeholder="Select"  
+                    class="form-control" 
+                    required
+                  >
+                    <ion-select-option class="select_option" *ngFor="let item of assemblyList" [value]="item.assemblyName">
+                      {{item.assemblyName}}
+                    </ion-select-option>
+                  </ion-select>
+                </ion-col>
+
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <ion-label> Booth No. </ion-label>
+                  <ion-input type="number" [(ngModel)]="addBoothModal.BoothNo" #BoothNo="ngModel" name="BoothNumber"
+                    class="text-capitalize form-control" required></ion-input>
+                </ion-col>
+
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <ion-label> Booth Name </ion-label>
+                  <ion-input [(ngModel)]="addBoothModal.BoothName" #BoothName="ngModel" name="BoothName"
+                    class="text-capitalize form-control" required></ion-input>
+                </ion-col>
+
+                <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <div class="ion-text-center">
+                    <ion-button type="reset" color="danger" size="medium" (click)="resetForm()">Clear</ion-button>
+                    <ion-button type="submit" size="medium" [disabled]="!f.form.valid" (click)="addBooth()">Save
+                    </ion-button>
+                    <ion-button routerLink="/Booth" color="success" type="button" size="medium">Back To List
+                    </ion-button>
+                  </div>
+                </ion-col>
+              </ion-row>
+
+            </ion-grid>
+          </ion-col>
+
+        </ion-row>
+      </form>
+    </ion-grid>
+  </div>
+</ion-content>

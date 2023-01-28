@@ -1,0 +1,74 @@
+#table h2 { text-align: center; padding: 10px 0px; }
+
+#table h2 span { color: #f55e91 !important; }
+
+ion-label { color: #737373; }
+    
+ion-select { color: #a7a7a7 !important; width: 100%; --font-weight: 400 !important; --placeholder-color: #a7a7a7; --placeholder-opacity: 1; }
+
+ion-input { --color: #a7a7a7 !important; --padding-top: 4px;  --padding-bottom: 4px;}
+
+ion-item { --background: #fff; height: 40px; ; }
+
+// .userList ion-item:nth-child(odd) { --background: #f6f3ff;  } 
+
+h2 { color: #454545; font-weight: 600; }
+
+h3 { color: #3880ff; font-size: 15px;  line-height: 20px; width: 51%; float: left;  }
+
+h4 {  margin-bottom: 0px !important; font-size: 14px;  color: #81767a; line-height: 20px; }
+
+.sc-ion-input-md-h {
+    --padding-top: 4px !important;
+    --padding-bottom: 4px !important;
+}
+
+ion-card-title { font-weight: 600; color: #687fcd; }
+
+.header { border-bottom: solid 1px #dee2e6; }
+
+ion-label { color: #737373;  }
+
+table { margin-top: 10px; }
+
+td ion-icon { cursor: pointer; font-size: 12px; font-weight: 600;  }
+
+table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !important; }
+
+table td:last-child { padding: 0.25rem 0.1rem !important; width: 58px !important; }
+
+.file { font-size: 20px !important; color: #3880ff !important; font-weight: 600;}
+
+#table19 th span { color: #ffcd82 !important;}
+
+ion-col img { width: 38px; }
+
+ion-grid ion-item { height: auto !important; }
+
+.middlepart li { float: left; list-style-type: none; padding-left: 7px; color: #6c757d; }
+
+.middlepart li:nth-child(1) { padding-left: 0px !important;}
+
+.rightpart { width: 30% !important; background-color: #0F0; }
+
+.part { color: #6c757d ; font-weight: 600; }
+
+.age { color: #6c757d ; font-weight: 600; }
+
+.gender { color: #6c757d ; font-weight: 600; }
+
+ion-avatar { --border-radius: 50% !important; background: #f0f3ff; text-align: center; }
+
+ion-avatar ion-icon { padding-top: 11px; }
+
+ion-list ion-item { height: auto; border: none; }
+
+ion-list-header {  font-size: 15px; color: #3e4684; padding-inline-start:10px; min-height: 28px; }
+
+ion-label p { float: left; margin-bottom: 1px !important; padding-left: 10px;  color: #a2989c; line-height: 18px; }
+
+@media screen and (max-width:576px) {
+    ion-card-title {
+        font-size: 18px;
+    }
+}

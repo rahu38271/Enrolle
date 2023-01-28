@@ -1,0 +1,773 @@
+
+<ion-app>
+  
+  <ion-header *ngIf="showHead" class="web">
+    <div class="navbar">
+      <div class="leftnav">
+        
+        <div class="subnav" routerLink="/home">
+          <button class="subnavbtn"> <img src="assets/img/home.png" alt=""> <br>Home </button>
+        </div>
+        <div class="subnav" routerLink="/contact" *ngIf="isContact">
+          <button class="subnavbtn"> <img src="assets/img/contact-book.png" alt=""> <br>Contact </button>
+        </div>
+        <!-- <div class="subnav" routerLink="/letterhead">
+          <button class="subnavbtn"> <img src="assets/img/letterhead.png" alt=""> <br>Letterhead </button>
+        </div> -->
+        <div class="subnav" routerLink="/user" *ngIf="isUser">
+          <button class="subnavbtn"><img src="assets/img/user.png" alt=""><br>User  </button>
+        </div>
+
+        <div class="subnav" routerLink="/event" *ngIf="isDailyRoutine">
+          <button class="subnavbtn"><img src="assets/img/calendar.png" alt=""><br>दैनंदिन कार्यक्रम </button>
+        </div>
+        
+        <div class="subnav" routerLink="/home/birthday" *ngIf="isBirthday">
+          <button class="subnavbtn"><img src="assets/img/cake.png" alt=""><br>वाढदिवस </button>
+        </div>
+
+        <div class="subnav" routerLink="/home/anniversary" *ngIf="isAnniversary">
+          <button class="subnavbtn"><img src="assets/img/calendar.png" alt=""><br>लग्नाचा वाढदिवस </button>
+        </div>
+
+        
+      
+        <!-- <div class="subnav">
+          <button class="subnavbtn"><img src="assets/img/diary.png" alt=""><br>Directory </button>
+          <div class="subnav-content">
+            <ion-item lines="full" class="sub-menu" routerLink="/karyakarta">
+              Volunteers
+            </ion-item>
+            
+            <ion-item lines="full" class="sub-menu" routerLink="/officer-directory">
+              Officer Directory
+            </ion-item>
+      
+            <ion-item lines="full" class="sub-menu" routerLink="/other-directory">
+              Other Directory
+            </ion-item>
+      
+      
+            <ion-item lines="none" class="sub-menu">
+              एसएमएस पाठवा
+            </ion-item>
+      
+          </div>
+        </div> -->
+
+        
+      
+        <div class="subnav" *ngIf="isMedia">
+          <button class="subnavbtn"><img src="assets/img/tv-monitor.png" alt=""><br>प्रसार माध्यम </button>
+          <div class="subnav-content">
+            <ion-item lines="full" class="sub-menu" [routerLink]="['/daily-news']">
+              दैनंदिन बातम्या
+            </ion-item>
+      
+            <ion-item lines="full" class="sub-menu" [routerLink]="['/journalist']">
+              पत्रकार सूची
+            </ion-item>
+      
+            <ion-item lines="none" class="sub-menu" [routerLink]="['/press-note']">
+              प्रेस नोट
+            </ion-item>
+      
+          </div>
+        </div>
+
+        
+      
+        <div class="subnav" *ngIf="isOther">
+          <button class="subnavbtn"><img src="assets/img/file.png" alt=""><br> Other </button>
+          <div class="subnav-content">
+            <ion-item lines="full" class="sub-menu" routerLink="/appointment">
+              <!-- बैठक नोंदी -->
+              Appointments
+            </ion-item>
+            <!-- शासन निर्णय -->
+            <!-- <ion-item lines="full" class="sub-menu" routerLink="/govt-rules">
+              Govt. Rules
+            </ion-item> -->
+      
+            <ion-item lines="full" class="sub-menu" routerLink="/personal-records">
+              <!-- वैयक्तिक नोंदी -->
+              Personal Records
+            </ion-item>
+      
+            <ion-item lines="full" class="sub-menu" routerLink="/document-repository">
+              <!-- डॉक्युमेंट रेपोसिटोरी -->
+              Document Repository
+            </ion-item>
+      
+            <ion-item lines="full" class="sub-menu" routerLink="/beneficiaries">
+              Beneficiary
+            </ion-item>
+            
+            <ion-item lines="none" class="sub-menu" routerLink="/survey">
+              Survey
+            </ion-item>
+      
+          </div>
+        </div>
+
+        
+        <!-- <div class="subnav" [routerLink]="['/user-request']">
+          <button class="subnavbtn"><img src="assets/img/list1.png" alt=""> <br>वापरकर्ता विनंती </button>
+        </div> -->
+
+        
+      
+        <!-- <div class="subnav">
+          <button class="subnavbtn"><img src="assets/img/shopping-list.png" alt=""><br> मतदार यादी </button>
+          <div class="subnav-content">
+            <ion-item lines="full" class="sub-menu" routerLink="/dashboard">
+              Dashboard
+            </ion-item>
+
+            <ion-item lines="full" class="sub-menu" routerLink="/voter-summary">
+              Voter List
+            </ion-item>
+      
+            <ion-item lines="full" class="sub-menu" routerLink="/mobile-match">
+              Match Mobile No.
+            </ion-item>
+      
+            <ion-item lines="full" class="sub-menu" routerLink="/family-list">
+              Family List
+            </ion-item>
+      
+            <ion-item lines="full" class="sub-menu" routerLink="/list/by-surname">
+              Surname Report
+            </ion-item>
+      
+            <ion-item lines="full" class="sub-menu" routerLink="/family-report">
+              Family Report
+            </ion-item>
+      
+            <ion-item lines="full" class="sub-menu" routerLink="/caste-summary">
+              Caste Summary
+            </ion-item>
+      
+            <ion-item lines="full"  class="sub-menu" routerLink="/voter-inclination-list">
+              Voter Inclination List
+            </ion-item>
+
+            <ion-item lines="full" class="sub-menu"  routerLink="/booth-coordinator">
+              बूथ समन्वयक
+            </ion-item>
+      
+            <ion-item lines="none" class="sub-menu">
+              User Complaints
+            </ion-item>
+          </div>
+        </div> -->
+
+        <div class="subnav" *ngIf="isVoterList">
+          <button class="subnavbtn"><img src="assets/img/shopping-list.png" alt=""><br> मतदार यादी </button>
+          <div class="subnav-content">
+            <ion-item lines="full" class="sub-menu" routerLink="/dashboard">
+              Dashboard
+            </ion-item>
+
+            <ion-item lines="full" class="sub-menu" routerLink="/voter-summary">
+              Voter List
+            </ion-item>
+      
+            <ion-item lines="full" class="sub-menu" routerLink="/mobile-match">
+              Match Mobile No.
+            </ion-item>
+      
+            <ion-item lines="full" class="sub-menu" routerLink="/list">
+              Search
+            </ion-item>
+      
+            <ion-item lines="full" class="sub-menu"  routerLink="/booth-coordinator">
+              Booth Co-ordinator
+            </ion-item>
+      
+            <ion-item lines="none" class="sub-menu">
+              User Complaints
+            </ion-item>
+          </div>
+        </div>
+
+        <div class="subnav" routerLink="/user-request" *ngIf="isRequest">
+          <button class="subnavbtn"><img src="assets/img/list1.png" alt=""><br>User Request </button>
+        </div>
+
+
+        <!-- <div class="subnav">
+          <button class="subnavbtn"><img src="assets/img/setting.png" alt=""> <br>Settings </button>
+          <div class="subnav-content">
+            <ion-item routerLink="/setting/sms-setting" lines="full" class="sub-menu">
+              SMS Setting
+            </ion-item>
+      
+            <ion-item routerLink="/setting/voice-setting" lines="full" class="sub-menu">
+              Voice Setting
+            </ion-item>
+      
+            <ion-item routerLink="/setting/whatsapp-setting" lines="full" class="sub-menu">
+              Whatsapp Setting
+            </ion-item>
+      
+            <ion-item routerLink="/setting/email-setting" lines="full" class="sub-menu">
+              Email Setting
+            </ion-item>
+            
+          </div>
+        </div> -->
+
+        <!-- <div class="subnav">
+          <button class="subnavbtn"><img src="assets/img/smartphone.png" alt=""> <br>Reports </button>
+          <div class="subnav-content">
+            <ion-item routerLink="/sms-report" lines="full" class="sub-menu">
+              SMS Reports
+            </ion-item>
+          </div>
+        </div> -->
+      
+        <!-- <div class="subnav">
+          <button class="subnavbtn"><img src="assets/img/smartphone.png" alt=""> <br>मोबाईल डेटा </button>
+          <div class="subnav-content">
+            <ion-item [routerLink]="['/mobile-data']" lines="full" class="sub-menu">
+              Add/Delete Mobile Data
+            </ion-item>
+      
+            <ion-item [routerLink]="['/mobiledata-group']" lines="full" class="sub-menu">
+              Create Group Mobile Data
+            </ion-item>
+      
+            <ion-item [routerLink]="['/assign-mobiledata']" lines="full" class="sub-menu">
+              Assign Group Mobile Data
+            </ion-item>
+      
+            <ion-item [routerLink]="['/view-mobileGroup']" lines="full"  class="sub-menu">
+              View Group Mobile Data
+            </ion-item>
+      
+            <ion-item lines="none" class="sub-menu">
+              Data Mapping Users
+            </ion-item>
+      
+          </div>
+        </div> -->
+      
+        <!-- <div class="subnav">
+          <button class="subnavbtn"><img src="assets/img/send-mail.png" alt=""><br> Sms पाठवा </button>
+          <div class="subnav-content">
+      
+            
+            <ion-item lines="full" class="sub-menu" [routerLink]="['/sms-voterlist']">
+              SMS To Voterlist
+            </ion-item>
+      
+            
+            <ion-item lines="full" class="sub-menu" [routerLink]="['/view-reports']">
+              View Reports
+            </ion-item>
+      
+            
+            <ion-item lines="none" class="sub-menu" [routerLink]="['/home']">
+              Send Bulk Voterslip
+            </ion-item>
+          </div>
+        </div> -->
+
+      </div>
+      <div class="rightnav">
+        <!-- <div class="logout">
+          <div class="subnav" [routerLink]="['/']">
+            <button class="subnavbtn"><ion-icon name="log-out-outline"></ion-icon><br> Log Out </button>
+          </div>
+        </div> -->
+        <ion-buttons slot="end">
+          <ion-button (click)="notification($event)">
+            <!-- <ion-icon name="notifications-outline"></ion-icon> -->
+            <img src="/assets/img/notification.png" alt="">
+          </ion-button>
+          <ion-button (click)="presentPopover($event)">
+            <img src="/assets/img/user.png" alt="">
+          </ion-button>
+        </ion-buttons>
+      
+      </div>
+    </div>
+    
+  </ion-header>
+
+  <!-- <ion-header color="primary" class="android" *ngIf="showHead">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button color="light" auto-hide="false"></ion-menu-button>
+      </ion-buttons>
+      
+      <ion-buttons slot="primary">
+        <ion-button (click)="notification($event)">
+          <ion-icon color="light" slot="icon-only" ios="notifications-sharp" md="notifications-sharp"></ion-icon>
+        </ion-button>
+        <ion-button (click)="presentPopover($event)">
+          <ion-icon color="light" slot="icon-only" ios="person-sharp" md="person-sharp"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+
+      <ion-title color="light"></ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+  
+<!-- <ion-item lines="none" routerLink="/home">
+      <ion-label>Home</ion-label>
+    </ion-item>
+
+    <ion-item lines="none" (click)="isRemainder7 === 1 ? isRemainder7 = 0 : isRemainder7 = 1">
+      User
+      <ion-icon slot="end" [name]="isRemainder7? 'chevron-down-sharp' : 'chevron-back-sharp'"></ion-icon>
+    </ion-item>
+
+    <ion-item lines="none" routerLink="/daily-routine">
+      <ion-label>दैनंदिन कार्यक्रम</ion-label>
+    </ion-item>
+
+    <ion-item lines="none" (click)="isRemainder === 1 ? isRemainder = 0 : isRemainder = 1">
+      निर्देशिका
+      <ion-icon slot="end" [name]="isRemainder? 'chevron-down-sharp' : 'chevron-back-sharp'"></ion-icon>
+    </ion-item>
+
+    <ion-item lines="none" (click)="isRemainder1 === 1 ? isRemainder1 = 0 : isRemainder1 = 1">
+      प्रसार माध्यम
+      <ion-icon slot="end" [name]="isRemainder1? 'chevron-down-sharp' : 'chevron-back-sharp'"></ion-icon>
+    </ion-item>
+
+    <ion-item lines="none" (click)="isRemainder2 === 1 ? isRemainder2 = 0 : isRemainder2 = 1">
+      इतर
+      <ion-icon slot="end" [name]="isRemainder2? 'chevron-down-sharp' : 'chevron-back-sharp'"></ion-icon>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-label>वापरकर्ता विनंती</ion-label>
+    </ion-item>
+
+    <ion-item lines="none" (click)="isRemainder3 === 1 ? isRemainder3 = 0 : isRemainder3 = 1">
+      मतदार यादी
+      <ion-icon slot="end" [name]="isRemainder3? 'chevron-down-sharp' : 'chevron-back-sharp'"></ion-icon>
+    </ion-item>
+
+    <ion-item lines="none" (click)="isRemainder4 === 1 ? isRemainder4 = 0 : isRemainder4 = 1">
+      मोबाईल डेटा
+      <ion-icon slot="end" [name]="isRemainder4? 'chevron-down-sharp' : 'chevron-back-sharp'"></ion-icon>
+    </ion-item>
+
+    <ion-item lines="none" (click)="isRemainder5 === 1 ? isRemainder5 = 0 : isRemainder5 = 1">
+      Sms पाठवा
+      <ion-icon slot="end" [name]="isRemainder5? 'chevron-down-sharp' : 'chevron-back-sharp'"></ion-icon>
+    </ion-item>
+
+    <ion-menu-toggle auto-hide="false" class="treeview">
+      <ion-item lines="none" [hidden]="!isRemainder7" [routerLink]="['/user/addUser']" class="sub-menu">
+        Add User
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder7" [routerLink]="['/user/viewUser']" class="sub-menu">
+        View User
+      </ion-item>
+    </ion-menu-toggle>
+
+    <ion-menu-toggle auto-hide="false" class="treeview">
+      <ion-item lines="none" [hidden]="!isRemainder" [routerLink]="['/section']" class="sub-menu">
+        कार्यकर्ते
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder" [routerLink]="['/class']" class="sub-menu">
+        ऑफिसर डिरेक्टरी
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder" [routerLink]="['/subject']" class="sub-menu">
+        इतर डिरेक्टरी
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder" [routerLink]="['/teacher']" class="sub-menu">
+        इतर डिरेक्टरी एसएमएस पाठवा
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder" [routerLink]="['/teacher']" class="sub-menu">
+        इतर डिरेक्टरी एसएमएस पाठवा कस्टम एसएमएस पाठवा
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder" [routerLink]="['/teacher']" class="sub-menu">
+        whatsapp स्कॅन QR
+      </ion-item>
+    </ion-menu-toggle>
+
+    
+
+    <ion-menu-toggle auto-hide="false" class="treeview">
+      <ion-item lines="none" [hidden]="!isRemainder1" [routerLink]="['/section']" class="sub-menu">
+        दैनंदिन बातम्या
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder1" [routerLink]="['/class']" class="sub-menu">
+        दैनंदिन बातम्या पत्रकार सूची
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder1" [routerLink]="['/subject']" class="sub-menu">
+        दैनंदिन बातम्या पत्रकार सूची प्रेस नोट
+      </ion-item>
+    </ion-menu-toggle>
+
+    
+
+    <ion-menu-toggle auto-hide="false" class="treeview">
+
+      <ion-item lines="none" [hidden]="!isRemainder2" [routerLink]="['/section']" class="sub-menu">
+        बैठक नोंदी
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder2" [routerLink]="['/class']" class="sub-menu">
+        बैठक नोंदी शासन निर्णय
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder2" [routerLink]="['/subject']" class="sub-menu">
+        बैठक नोंदी शासन निर्णय वैयक्तिक नोंदी
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder2" [routerLink]="['/subject']" class="sub-menu">
+        बैठक नोंदी शासन निर्णय वैयक्तिक नोंदी डॉक्युमेंट रेपोसिटोरी
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder2" [routerLink]="['/subject']" class="sub-menu">
+        बैठक नोंदी शासन निर्णय वैयक्तिक नोंदी डॉक्युमेंट रेपोसिटोरी लाभार्थी
+      </ion-item>
+
+    </ion-menu-toggle>
+    
+
+    
+
+    <ion-menu-toggle auto-hide="false" class="treeview">
+      <ion-item lines="none" [hidden]="!isRemainder3" [routerLink]="['/section']" class="sub-menu">
+        Dashboard
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder3" [routerLink]="['/class']" class="sub-menu">
+        Dashboard Voter List
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder3" [routerLink]="['/subject']" class="sub-menu">
+        Dashboard Voter List Match Mobile No.
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder3" [routerLink]="['/subject']" class="sub-menu">
+        Dashboard Voter List Match Mobile No. Family List
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder3" [routerLink]="['/subject']" class="sub-menu">
+        Dashboard Voter List Match Mobile No. Family List Surname Report
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder3" [routerLink]="['/subject']" class="sub-menu">
+        Dashboard Voter List Match Mobile No. Family List Surname Report Family Report
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder3" [routerLink]="['/subject']" class="sub-menu">
+        Dashboard Voter List Match Mobile No. Family List Surname Report Family Report Caste Summary
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder3" [routerLink]="['/subject']" class="sub-menu">
+        Dashboard Voter List Match Mobile No. Family List Surname Report Family Report Caste Summary Voter Inclination List
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder3" [routerLink]="['/subject']" class="sub-menu">
+       Dashboard Voter List Match Mobile No. Family List Surname Report Family Report Caste Summary Voter Inclination List  बूथ समन्वयक
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder3" [routerLink]="['/subject']" class="sub-menu">
+        Dashboard Voter List Match Mobile No. Family List Surname Report Family Report Caste Summary Voter Inclination List  बूथ समन्वयक User Complaints
+      </ion-item>
+    </ion-menu-toggle>
+
+    
+
+    <ion-menu-toggle auto-hide="false" class="treeview">
+      <ion-item lines="none" [hidden]="!isRemainder4" [routerLink]="['/section']" class="sub-menu">
+        Add/Delete
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder4" [routerLink]="['/class']" class="sub-menu">
+        Add/Delete Create Group
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder4" [routerLink]="['/subject']" class="sub-menu">
+        Add/Delete Create Group Assign Group
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder4" [routerLink]="['/subject']" class="sub-menu">
+        Add/Delete Create Group Assign Group View Group
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder4" [routerLink]="['/subject']" class="sub-menu">
+        Add/Delete Create Group Assign Group View Group Data Mapping Users
+      </ion-item>
+    </ion-menu-toggle>
+
+    
+
+    <ion-menu-toggle auto-hide="false" class="treeview">
+
+      <ion-item lines="none" [hidden]="!isRemainder5" [routerLink]="['/section']" class="sub-menu">
+        SMS To Voterlist
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder5" [routerLink]="['/class']" class="sub-menu">
+        <ion-icon name="bar-chart-sharp" slot="start"></ion-icon>
+        SMS To Voterlist View Reports
+      </ion-item>
+      <ion-item lines="none" [hidden]="!isRemainder5" [routerLink]="['/subject']" class="sub-menu">
+        SMS To Voterlist View Reports Send Bulk Voterslip
+      </ion-item>
+    </ion-menu-toggle>
+    <ion-item lines="none" (click)="logout()">
+      <ion-label>Log Out</ion-label>
+    </ion-item> -->
+
+    <ion-split-pane content-id="main-content">
+      <ion-menu [type]="menuType" side="start" content-id="main-content" auto-hide="false">
+        <!-- <ion-header>
+          <ion-toolbar>
+            <ion-title>Menu</ion-title>
+          </ion-toolbar>
+        </ion-header> -->
+        <ion-content class="mobileMenu">
+          <ion-menu-toggle autoHide="false">
+            <ion-list>
+              <ion-item lines="full" class="birthday user-info">
+                <ion-avatar slot="start">
+                  <img src="/assets/img/user.jpg" alt="">
+                </ion-avatar>
+                <ion-label class="ion-text-center">
+                  <h3 class="text-capitalize">{{name}}</h3>
+                  <h4 class="text-capitalize">{{roleType}}</h4>
+                </ion-label>
+              </ion-item>
+
+              <ion-item routerLink="/home/mobile-dashboard" routerLinkActive="active">
+                <i class="icofont icofont-home"></i>
+                <ion-label>Home</ion-label>
+              </ion-item>
+
+              <!-- <ion-item routerLink="/useradmin" [routerLinkActive]="'active'">
+                <i class="icofont icofont-ui-user"></i>
+                <ion-label>Admin</ion-label>
+              </ion-item> -->
+
+              <ion-item routerLink="/voterdata-management/voterby-user" [routerLinkActive]="'active'" *ngIf="isSearch">
+                <i class="icofont icofont-search-user"></i>
+                <ion-label> search </ion-label>
+              </ion-item>
+
+              <ion-item routerLink="/list" [routerLinkActive]="'active'" *ngIf="isLists">
+                <i class="icofont icofont-list"></i>
+                <ion-label> Lists </ion-label>
+              </ion-item>
+
+              <ion-item routerLink="/survey" [routerLinkActive]="'active'" *ngIf="isSurvey">
+                <i class="icofont icofont-notepad"></i>
+                <ion-label> Survey </ion-label><i class=""></i>
+              </ion-item>
+
+              
+              <!-- <ion-item routerLink="/superadmin" [routerLinkActive]="'active'" class="mobView">
+                <i class="icofont icofont-ui-user"></i>
+                <ion-label>SuperAdmin </ion-label>
+              </ion-item> -->
+
+              <!-- <ion-item routerLink="/db" [routerLinkActive]="'active'" class="mobView">
+                <i class="icofont icofont-ui-user"></i>
+                <ion-label>Configure DB </ion-label>
+              </ion-item> -->
+
+
+              <ion-item routerLink="/user" [routerLinkActive]="'active'" *ngIf="isUser">
+                <i class="icofont icofont-ui-user"></i>
+                <ion-label>User</ion-label>
+              </ion-item>
+
+              <!-- <ion-item routerLink="/assembly" [routerLinkActive]="'active'" class="mobView">
+                <i class="icofont icofont-building-alt"></i>
+                <ion-label>Assembly</ion-label>
+              </ion-item>
+
+              <ion-item routerLink="/Booth" [routerLinkActive]="'active'" class="mobView">
+                <i class="icofont icofont-building-alt"></i>
+                <ion-label>Booth</ion-label>
+              </ion-item>
+
+              <ion-item routerLink="/ward" [routerLinkActive]="'active'" class="mobView">
+                <i class="icofont icofont-building-alt"></i>
+                <ion-label>Ward</ion-label>
+              </ion-item> -->
+
+              
+
+              <ion-item routerLink="/contact" [routerLinkActive]="'active'" *ngIf="isContact">
+                <i class="icofont icofont-contacts"></i>
+                    <ion-label> Contact </ion-label>
+              </ion-item>
+              
+              <ion-item routerLink="/home/birthday" [routerLinkActive]="'active'" *ngIf="isBirthday">
+                <i class="icofont icofont-birthday-cake"></i>
+                <ion-label> वाढदिवस </ion-label>
+              </ion-item>
+
+              <ion-item routerLink="/home/anniversary" [routerLinkActive]="'active'" *ngIf="isAnniversary">
+                <i class="icofont icofont-calendar"></i>
+                <ion-label>लग्नाचा वाढदिवस </ion-label>
+              </ion-item>
+
+              <ion-item routerLink="/event" [routerLinkActive]="'active'" *ngIf="isDailyRoutine">
+                <i class="icofont icofont-calendar"></i>
+                <ion-label>दैनंदिन कार्यक्रम </ion-label>
+              </ion-item>
+
+              
+              <!-- <ion-accordion-group class="mobView">
+                <ion-accordion value="List" >
+                  <ion-item slot="header" color="light" >
+                    <i class="icofont icofont-contacts"></i>
+                    <ion-label> Directory </ion-label>
+                  </ion-item>
+                  <div slot="content">
+                    <ion-item color="light" lines="none" routerLink="/karyakarta">
+                      <i class="icofont icofont-users-alt-3"></i>
+                      <ion-label> Volunteers </ion-label>
+                    </ion-item>
+                    <ion-item color="light" lines="none" routerLink="/officer-directory"> 
+                      <i class="icofont icofont-ui-user"></i>
+                      <ion-label>Officer Directory</ion-label>
+                    </ion-item>
+                    <ion-item color="light" lines="none" routerLink="/other-directory"> 
+                      <i class="icofont icofont-book-alt"></i>
+                      <ion-label>Other Directory</ion-label>
+                    </ion-item>
+                    <ion-item color="light" lines="none" > 
+                      <i class="icofont icofont-ui-text-chat"></i>
+                      <ion-label>एसएमएस पाठवा</ion-label>
+                    </ion-item>
+                  </div>
+                </ion-accordion>
+              </ion-accordion-group> -->
+
+              <ion-accordion-group *ngIf="isMedia">
+                <ion-accordion value="media">
+                  <ion-item slot="header" color="light">
+                    <i class="icofont icofont-network"></i>
+                    <ion-label> प्रसार माध्यम </ion-label>
+                  </ion-item>
+                  <div slot="content">
+                    <ion-item color="light" lines="none" routerLink="/daily-news">
+                      <i class="icofont icofont-newspaper"></i>
+                      <ion-label> दैनंदिन बातम्या </ion-label>
+                    </ion-item>
+                    <ion-item color="light" lines="none" routerLink="/journalist"> 
+                      <i class="icofont icofont-contact-add"></i>
+                      <ion-label>पत्रकार सूची</ion-label>
+                    </ion-item>
+                    <ion-item color="light" lines="none" routerLink="/press-note"> 
+                      <i class="icofont icofont-ui-note"></i>
+                      <ion-label>प्रेस नोट</ion-label>
+                    </ion-item>
+                  </div>
+                </ion-accordion>
+              </ion-accordion-group>
+
+
+              <ion-accordion-group *ngIf="isOther">
+                <ion-accordion value="media">
+                  <ion-item slot="header" color="light">
+                    <i class="icofont icofont-network"></i>
+                    <ion-label> Other </ion-label>
+                  </ion-item>
+                  <div slot="content">
+                    <ion-item color="light" lines="none" routerLink="/appointment">
+                      <i class="icofont icofont-clock-time"></i>
+                      <ion-label>Appointments </ion-label>
+                    </ion-item>
+                    <!-- <ion-item color="light" lines="none" routerLink="/govt-rules"> 
+                      <i class="icofont icofont-contact-add"></i>
+                      <ion-label>Govt. Rules</ion-label>
+                    </ion-item> -->
+                    <ion-item color="light" lines="none" routerLink="/personal-records"> 
+                      <i class="icofont icofont-notepad"></i>
+                      <ion-label>Personal Records</ion-label>
+                    </ion-item>
+                    <ion-item color="light" lines="none" routerLink="/document-repository"> 
+                      <i class="icofont icofont-files-stack"></i>
+                      <ion-label>Document Repository</ion-label>
+                    </ion-item>
+                    <ion-item color="light" lines="none" routerLink="/beneficiaries"> 
+                      <i class="icofont icofont-ui-user"></i>
+                      <ion-label>Beneficiary</ion-label>
+                    </ion-item>
+                    <ion-item color="light" lines="none" routerLink="/survey"> 
+                      <i class="icofont icofont-list"></i>
+                      <ion-label>Survey</ion-label>
+                    </ion-item>
+                  </div>
+                </ion-accordion>
+              </ion-accordion-group>
+
+            
+
+              <ion-accordion-group *ngIf="isSetting">
+                <ion-accordion value="setting">
+                  <ion-item slot="header" color="light">
+                    <i class="icofont icofont-ui-settings"></i>
+                    <ion-label> Settings </ion-label>
+                  </ion-item>
+                  <div slot="content">
+                    <ion-item color="light" lines="none" routerLink="/setting/sms-setting">
+                      <i class="icofont icofont-ui-text-chat"></i>
+                      <ion-label>SMS Setting</ion-label>
+                    </ion-item>
+                    <ion-item color="light" lines="none" routerLink="/setting/voice-setting"> 
+                      <i class="icofont icofont-sound-wave-alt"></i>
+                      <ion-label>Voice Setting</ion-label>
+                    </ion-item>
+                    <ion-item color="light" lines="none" routerLink="/setting/whatsapp-setting"> 
+                      <i class="icofont icofont-brand-whatsapp"></i>
+                      <ion-label>Whatsapp Setting</ion-label>
+                    </ion-item>
+                    <ion-item color="light" routerLink="/setting/email-setting"> 
+                      <i class="icofont icofont-send-mail"></i>
+                      <ion-label>Email Setting</ion-label>
+                    </ion-item>
+                  </div>
+                </ion-accordion>
+              </ion-accordion-group>
+
+              <!-- <ion-item routerLink="/survey" [routerLinkActive]="'active'">
+                <i class="icofont icofont-list"></i>
+                <ion-label>Survey </ion-label>
+              </ion-item> -->
+
+              <!-- <ion-item routerLink="/list" [routerLinkActive]="'active'">
+                <i class="icofont icofont-search-user"></i>
+                <ion-label>Search </ion-label>
+              </ion-item> -->
+
+              <!-- <ion-item (click)="share()" class="share">
+                <i class="icofont icofont-share"></i>
+                <ion-label>Share App </ion-label>
+              </ion-item> -->
+
+              <ion-item (click)="logout()">
+                <i class="icofont icofont-power"></i>
+                <ion-label>Log Out </ion-label>
+              </ion-item>
+
+                <!-- <ion-footer>
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col size-xs="8">
+                        <ion-text class="obicas">
+                          Obicas Infotech
+                        </ion-text>
+                      </ion-col>
+                      <ion-col size-xs="4" class="ion-text-right">
+                        <ion-text>
+                          v1.1.1
+                        </ion-text>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-footer> -->
+            </ion-list>
+          </ion-menu-toggle>
+        </ion-content>
+      </ion-menu>
+
+      <ion-router-outlet id="main-content"></ion-router-outlet>
+      
+    </ion-split-pane>
+
+    <!-- Fade Footer -->
+<!-- <ion-footer collapse="fade">
+  <ion-toolbar>
+    <ion-title>Footer</ion-title>
+  </ion-toolbar>
+</ion-footer> -->
+  
+</ion-app>

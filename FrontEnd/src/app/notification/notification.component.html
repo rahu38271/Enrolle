@@ -1,0 +1,34 @@
+<ion-list class="userDetails">
+  <ion-item lines="full">
+    <ion-label>
+      <h2>Notifications</h2>
+    </ion-label>
+  </ion-item>
+  </ion-list>
+<ion-list>
+
+  <div class="list">
+    <ion-list>
+      <ion-item lines="full" class="birthday" (click)="DismissClick()">
+        <ion-avatar slot="start">
+          <ion-icon name="person-outline"></ion-icon>
+        </ion-avatar>
+        <ion-label routerLink="/home/birthday">
+          <h2>Birthday</h2>
+          <h3>Today, 22 people have birthday</h3>
+        </ion-label>
+      </ion-item>
+
+      <ion-item lines="full" class="anniversary" (click)="DismissClick()">
+        <ion-avatar slot="start">
+          <ion-icon name="person-outline"></ion-icon>
+        </ion-avatar>
+        <ion-label routerLink="/home/anniversary">
+          <h2>Anniversary</h2>
+          <h3>Today, 22 people have anniversary</h3>
+        </ion-label>
+      </ion-item>
+
+    </ion-list>
+  </div>
+</ion-list>

@@ -1,0 +1,47 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>Add User</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+    <div class="main-content">
+      <ion-grid>
+        <ion-row>
+          <ion-text class="form-header">
+            <ion-icon name="add-circle-sharp" class="pr-1"></ion-icon>Upload Ward Data
+          </ion-text>
+        </ion-row>
+        <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+          <ion-row>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12">
+              <ion-label>
+                <span>
+                  * To upload ward data, please download template file and fill data in exact format to get correct data. 
+                </span>
+              </ion-label>
+            </ion-col>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12">
+              <ion-label>Template  File  </ion-label><br>
+                <a href="assets/excel/ward.xlsx" download>
+                  <ion-button><i class="icofont icofont-download pr-2"></i>Download Template File</ion-button>
+                </a>
+            </ion-col>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12">
+              <ion-label>  Choose File </ion-label>
+              <ion-input type="file" name="file" id="file" (ngModel)="modal.file" (change)="onFileChange($event)" class="form-control"></ion-input>
+            </ion-col>
+   
+           
+            <ion-col size-lg="12" size-md="12" size-sm="12">
+              <div class="ion-text-center">
+                <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
+                <ion-button type="submit" size="medium" (click)="upload(f)" [disabled]="disabled">Upload</ion-button>
+                <ion-button routerLink="/ward" color="success" type="button" size="medium">Back To List</ion-button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-grid>
+    </div>
+  </ion-content>
