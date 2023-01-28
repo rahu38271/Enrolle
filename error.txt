@@ -1,0 +1,42 @@
+API URL - https://wbs.rmlconnect.net/#a5a83ddd-170c-45af-80de-a5009740feca
+
+Username - ETTELWBS
+
+Password - Ett@1234
+
+json data-
+
+{
+    "template_name": "test",
+    "language": [
+        "en"
+    ],
+    "template_type": "template",
+    "template_category": "MARKETING",
+    "components": {
+        "header": {
+            "type": "image",
+            "example": "https://ettelmedia.com/img/content/1.png"
+        },
+        "body": {
+            "text": "test body text"
+        },
+        "footer": {
+            "text": "test footer text"
+        },
+        "buttons": {
+            "type": "call_to_action",
+            "elements": [
+                {
+                    "label": "call now",
+                    "contact_no": "+919579743709"
+                },
+                {
+                    "label": "Visit Now",
+                    "type": "static",
+                    "website": "https://ettelmedia.com/"
+                }
+            ]
+        }
+    }
+}
