@@ -1,0 +1,110 @@
+
+Log Entry : 5:06:38 PM Friday, January 27, 2023
+  :
+  :while
+-------------------------------
+
+Log Entry : 5:06:39 PM Friday, January 27, 2023
+  :
+  :System date: 17 6
+-------------------------------
+
+Log Entry : 5:06:40 PM Friday, January 27, 2023
+  :
+  :Schedule date: 17 0
+-------------------------------
+
+Log Entry : 5:06:42 PM Friday, January 27, 2023
+  :
+  :17 IF
+-------------------------------
+
+Log Entry : 5:07:27 PM Friday, January 27, 2023
+  :
+  :Send Aniversary SMS
+-------------------------------
+
+Log Entry : 5:10:34 PM Friday, January 27, 2023
+  :
+  :while
+-------------------------------
+
+Log Entry : 5:10:34 PM Friday, January 27, 2023
+  :
+  :System date: 17 10
+-------------------------------
+
+Log Entry : 5:10:34 PM Friday, January 27, 2023
+  :
+  :Schedule date: 17 0
+-------------------------------
+
+Log Entry : 5:10:37 PM Friday, January 27, 2023
+  :
+  :17 IF
+-------------------------------
+
+Log Entry : 5:11:07 PM Friday, January 27, 2023
+  :
+  :Send Aniversary SMS
+-------------------------------
+
+Log Entry : 5:15:34 PM Friday, January 27, 2023
+  :
+  :while
+-------------------------------
+
+Log Entry : 5:15:35 PM Friday, January 27, 2023
+  :
+  :System date: 17 15
+-------------------------------
+
+Log Entry : 5:15:35 PM Friday, January 27, 2023
+  :
+  :Schedule date: 17 0
+-------------------------------
+
+Log Entry : 5:15:37 PM Friday, January 27, 2023
+  :
+  :17 IF
+-------------------------------
+
+Log Entry : 5:15:51 PM Friday, January 27, 2023
+  :
+  :Send BirthDay SMS
+-------------------------------
+
+Log Entry : 5:16:04 PM Friday, January 27, 2023
+  :
+  :Send Aniversary SMS
+-------------------------------
+
+Log Entry : 5:18:18 PM Friday, January 27, 2023
+  :
+  :while
+-------------------------------
+
+Log Entry : 5:18:19 PM Friday, January 27, 2023
+  :
+  :System date: 17 18
+-------------------------------
+
+Log Entry : 5:18:20 PM Friday, January 27, 2023
+  :
+  :Schedule date: 17 0
+-------------------------------
+
+Log Entry : 5:18:21 PM Friday, January 27, 2023
+  :
+  :17 IF
+-------------------------------
+
+Log Entry : 5:18:43 PM Friday, January 27, 2023
+  :
+  :Send BirthDay SMS
+-------------------------------
+
+Log Entry : 5:18:56 PM Friday, January 27, 2023
+  :
+  :Send Aniversary SMS
+-------------------------------

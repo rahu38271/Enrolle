@@ -1,0 +1,37 @@
+
+
+
+Log Entry : 2:23:16 PM Friday, January 27, 2023
+  :
+  :while
+-------------------------------
+
+Log Entry : 2:23:18 PM Friday, January 27, 2023
+  :
+  :System date: 14 23
+-------------------------------
+
+Log Entry : 2:23:19 PM Friday, January 27, 2023
+  :
+  :Schedule date: 13 0
+-------------------------------
+
+Log Entry : 2:24:05 PM Friday, January 27, 2023
+  :
+  :while
+-------------------------------
+
+Log Entry : 2:24:06 PM Friday, January 27, 2023
+  :
+  :System date: 14 24
+-------------------------------
+
+Log Entry : 2:24:07 PM Friday, January 27, 2023
+  :
+  :Schedule date: 14 30
+-------------------------------
+
+Log Entry : 2:24:10 PM Friday, January 27, 2023
+  :
+  :14 IF
+-------------------------------
