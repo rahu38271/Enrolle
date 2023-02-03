@@ -36,8 +36,10 @@ export class UserService {
     return this.http.get<any>(this.url+'Auth/GetPartNumberbyId?userid='+id)
   }
 
-  assignPart(assignPart:any){
-    return this.http.post<any>(this.url+'Auth/InsertUserAssigned', assignPart)
+  // assign booths to volunteers
+
+  assignPart(assignmodal:any):Observable<any>{
+    return this.http.post<any>(this.url+'Auth/InsertUpdateUserAssigned' ,assignmodal)
   }
 
   // getVoterByPart(id:any){

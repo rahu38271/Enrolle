@@ -25,7 +25,14 @@ import { AssignDataComponent } from './assign-data/assign-data.component';
     NgSelectModule,
     Ng2SearchPipeModule,
     NgxPaginationModule,
-    RouterModule.forChild([{path:'', component:UserComponent}, {path:'addUser', component:AddUserComponent}, {path:'edit-user/:id', component:EditUserComponent},{path:'view-user', component:ViewUserComponent},  {path:'account/:id', component:AccountComponent}, {path:'setting', component:UserSettingComponent}, {path:'assign-data/:id', component:AssignDataComponent}])
+    RouterModule.forChild([{path:'', component:UserComponent}, 
+    {path:'addUser', component:AddUserComponent}, 
+    {path:'edit-user', component:EditUserComponent},
+    {path:'view-user', component:ViewUserComponent},  
+    {path:'account/:id', component:AccountComponent}, 
+    {path:'setting', component:UserSettingComponent}, 
+    {path:'assign-data/:id/:partNoAssigned',component:AssignDataComponent}
+    ])
   ]
 })
 export class UserModuleModule { }
