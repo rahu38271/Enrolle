@@ -37,6 +37,4 @@ export class SupporterListComponent implements OnInit {
       }
     })
   }
-
-
 }
