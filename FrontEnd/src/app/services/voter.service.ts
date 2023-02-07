@@ -65,8 +65,8 @@ export class VoterService {
     return this.http.post<any>(this.url+'Voter/UpdateAltMobileVoter?Id='+id+'&AlternateMobileNo='+AltMobile+'',id)
   }
 
-  updateStar(id:any, yesNo:any){
-    return this.http.post<any>(this.url+'Voter/UpdateStarVoter?Id='+id+'&YesNo='+yesNo+'', id)
+  updateStar(id:any, YesNo:any){
+    return this.http.post<any>(this.url+'Voter/UpdateStarVoter?Id='+id+'&YesNo='+YesNo+'', id)
   }
 
   // update voter colour
@@ -103,7 +103,7 @@ export class VoterService {
   // Imp Voter Data
 
   impVoter(userId:number){
-    return this.http.get<any>(this.url+'Voter/GetStarVoterbyUserId?UserId='+userId)
+    return this.http.get<any>(this.url+'Voter/GetStarVoterbyUserId?UserId='+userId);
   }
 
   // lastname and count
@@ -184,12 +184,34 @@ export class VoterService {
     return this.http.post<any>(this.url+'Voter/FilterVoterList', searchModal)
   }
 
-  getVoterByColor(){
-    return this.http.get<any>(this.url+'Voter/GetVoterInclination')
+  // voter by color
+
+  getVoterByColor(userId:number){
+    return this.http.get<any>(this.url+'Voter/GetVoterInclination?UserId='+userId)
   }
 
-  colorWiseVoterList(inclination:any, id:number){
-    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination='+inclination+'&UserId='+id)
+  // supporter voter list
+
+  supporter(userId:number){
+    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Supporter&UserId='+userId);
+  }
+
+  // opposition voter list
+
+  opposition(userId:number){
+    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Opposition&UserId='+userId);
+  }
+
+  // doubtful voter list
+
+  doubtful(userId:number){
+    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Doubtful&UserId='+userId);
+  }
+
+  // other voter list
+
+  other(userId:number){
+    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Other&UserId='+userId);
   }
 
 }

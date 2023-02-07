@@ -2,9 +2,9 @@
     <ion-header class="android">
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-menu-button auto-hide="false"></ion-menu-button>
+          <ion-back-button defaultHref="/list"></ion-back-button>
         </ion-buttons>
-        <ion-title>  Total - {{colorWiseVoter.length}} </ion-title>
+        <ion-title>  Other, Total - {{otherVoter.length}}</ion-title>
         <ion-buttons slot="primary">
           <ion-button (click)="search()">
             <ion-icon name="search-outline"></ion-icon>
@@ -12,9 +12,7 @@
         </ion-buttons>
       </ion-toolbar>
     </ion-header>
-  
     <div class="main-content">
-  
       <ion-grid class="web">
         <ion-row>
           <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
@@ -22,7 +20,7 @@
               <ion-row>
                 <ion-col size-xs="12" size-sm="6">
                   <ion-card-header>
-                    <ion-card-title class="header1">चिंचवड <span> ( 44 ) </span> </ion-card-title>
+                    <ion-card-title class="header1"> <span>  </span> </ion-card-title>
                     <div class="headerLine"></div>
                   </ion-card-header>
   
@@ -109,7 +107,7 @@
                           <ion-button routerLink="/daily-news/edit-daily-news" color="success" size="small">
                             <ion-icon name="pencil-sharp"></ion-icon>
                           </ion-button>
-                          <ion-button color="danger" size="small" (click)="deleteNews()">
+                          <ion-button color="danger" size="small">
                             <ion-icon name="trash-sharp"></ion-icon>
                           </ion-button>
                         </td>
@@ -124,28 +122,29 @@
   
         </ion-row>
       </ion-grid>
-
-      <!-- <ion-grid class="android userList">
+  
+      <ion-grid class="android userList">
         <ion-searchbar [(ngModel)]="searchMob" animated="true" *ngIf="isShow"></ion-searchbar>
-        <ion-list (click)="voterDetails(item.id)" *ngFor="let item of colorWiseVoter | filter:searchMob">
+        <ion-list *ngFor="let item of otherVoter" (click)="voterDetails(item.id)">
           <ion-item lines="none">
             <ion-label>
               <div class="firstLine">
                 <h3>{{item.fullName}}</h3>
               </div>
               <div class="details">
-                <p>Part No. : <span> {{item.partNo}} </span></p>
-                <p> Age : <span> {{item.age}}</span> </p>
-                <p>Gender : <span> {{item.gender}} </span></p>
+                <p> Part No. : <span>{{item.partNo}}</span> </p>
+                <p> Age : <span> {{item.age}} </span> </p>
+                <p> Gender : <span> {{item.gender}} </span></p>
               </div>
+  
             </ion-label>
           </ion-item>
         </ion-list>
-        <div *ngIf="!colorWiseVoter || colorWiseVoter.length === 0" class="text-center noData">
-          <img src="assets/img/question.png" />
-          <p>No data available</p>
-          <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
-        </div>
-      </ion-grid> -->
+        <div *ngIf="!otherVoter || otherVoter.length === 0" class="text-center noData">
+            <img src="assets/img/question.png" />
+            <p>No data available</p>
+            <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
+          </div>
+      </ion-grid>
     </div>
   </ion-content>

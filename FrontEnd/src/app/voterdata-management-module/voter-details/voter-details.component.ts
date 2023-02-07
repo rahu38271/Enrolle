@@ -25,8 +25,7 @@ export class VoterDetailsComponent {
   VoterListByUser: any;
   Id: any;
   id: any;
-  starUpdate: any = {};
-  colorUpdate: any;
+  colorUpdate: any = { };
   YesNo: any;
 
   @ViewChild('slipDesign') slipDesign: ElementRef;
@@ -54,6 +53,7 @@ export class VoterDetailsComponent {
   }
   adrsUpdate: any = {}
   altmobUpdate: any = {};
+  starUpdare:any = {};
   showStar: boolean;
   showVote: boolean;
 
@@ -108,6 +108,8 @@ export class VoterDetailsComponent {
     this.router.navigate(['/voterdata-management/family', {Id: id}])
   }
 
+  // edit mobile number
+
   saveMobile() {
     const Vid = this.route.snapshot.paramMap.get('id');
     this.mobUpdate.Id = Number(Vid);
@@ -124,6 +126,8 @@ export class VoterDetailsComponent {
       this.toast.presentToast("Mobile No. not updated", "danger", 'alert-circle-sharp');
     })
   }
+
+  // edit alt. mob.
 
   saveAltMobile() {
     const Vid = this.route.snapshot.paramMap.get('id');
@@ -142,7 +146,7 @@ export class VoterDetailsComponent {
     })
   }
   
-
+  // edit voter address
 
   saveAddress() {
     const Vid = this.route.snapshot.paramMap.get('id');
@@ -160,25 +164,61 @@ export class VoterDetailsComponent {
       this.toast.presentToast("Address not updated", "danger", 'alert-circle-sharp');
     })
   }
+ 
+  // voter select color for supporter
 
   supporter() {
+    debugger;
     this.bgColor = '#0bbb5f'
     const Vid = this.route.snapshot.paramMap.get('id');
-    this.colorUpdate.Id = Number(Vid);
-    this.voter.updateColor(this.colorUpdate.Id,this.colorUpdate.Colour).subscribe(data=>{
+    this.colorUpdate.id = Number(Vid);
+    this.colorUpdate.colour = 'Supporter'
+    this.voter.updateColor(this.colorUpdate.id,this.colorUpdate.colour).subscribe(data=>{
+      if(data){
+        this.voterDetails();
+      }
     })
   }
 
+  // voter select color for opposition
+
   opposition() {
+    debugger;
     this.bgColor = '#F00'
+    const Vid = this.route.snapshot.paramMap.get('id');
+    this.colorUpdate.id = Number(Vid);
+    this.colorUpdate.colour = 'Opposition'
+    this.voter.updateColor(this.colorUpdate.id,this.colorUpdate.colour).subscribe(data=>{
+      if(data){
+        this.voterDetails();
+      }
+    })
   }
 
   doubtful() {
+    debugger;
     this.bgColor = '#ffd34f'
+    const Vid = this.route.snapshot.paramMap.get('id');
+    this.colorUpdate.id = Number(Vid);
+    this.colorUpdate.colour = 'Doubtful'
+    this.voter.updateColor(this.colorUpdate.id,this.colorUpdate.colour).subscribe(data=>{
+      if(data){
+        this.voterDetails();
+      }
+    })
   }
 
   other() {
+    debugger;
     this.bgColor = '#fff'
+    const Vid = this.route.snapshot.paramMap.get('id');
+    this.colorUpdate.id = Number(Vid);
+    this.colorUpdate.colour = 'Other'
+    this.voter.updateColor(this.colorUpdate.id,this.colorUpdate.colour).subscribe(data=>{
+      if(data){
+        this.voterDetails();
+      }
+    })
   }
 
  
@@ -204,11 +244,14 @@ export class VoterDetailsComponent {
     this.location.back();
   }
 
+  // update star voter
+
   toggleStar() {
     this.showStar = !this.showStar;
     const Vid = this.route.snapshot.paramMap.get('id');
-    this.id = Number(Vid);
-    this.voter.updateStar(this.id, this.YesNo).subscribe(data => {
+    this.starUpdare.id = Number(Vid);
+    this.starUpdare.YesNo = 'Y';
+    this.voter.updateStar(this.starUpdare.id, this.starUpdare.YesNo).subscribe(data => {
       if (data) {
         this.voterDetails();
         this.toast.presentToast("Starred successfully!", "success", 'checkmark-circle-sharp');

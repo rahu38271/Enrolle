@@ -66,6 +66,9 @@ export class UserComponent implements OnInit {
             e = { ...e, roleName: ""};
           }
           this.getUserData.push(e);
+          this.getUserData.forEach(e => {
+            e.createdDate = e.createdDate.split('T')[0];
+          });
         });
       }
     })

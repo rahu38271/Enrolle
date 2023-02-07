@@ -127,6 +127,7 @@ export class EditUserComponent implements OnInit {
       if(data){
         this.loader.hideLoader();
         this.EditData ={};
+        this.router.navigate(['/user']);
         this.toast.presentToast("User updated successfully!", "success", 'checkmark-circle-sharp');
       }
     }, (err) =>{

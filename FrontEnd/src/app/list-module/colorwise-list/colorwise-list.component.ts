@@ -25,10 +25,7 @@ export class ColorwiseListComponent implements OnInit {
    }
 
   colorVoterList(){
-    this.voter.colorWiseVoterList(this.inclination, this.id).subscribe(data=>{
-      console.log(data);
-      this.colorWiseVoter = data;
-    })
+    
   }
 
 }

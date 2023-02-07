@@ -19,7 +19,7 @@
             name="star" 
             src="{{ showStar ? 'assets/img/star.png' : 'assets/img/star1.png'}}" 
             width="32" height="32"
-            [(ngModel)]="YesNo"
+            [(ngModel)]="starUpdare.YesNo"
             (click)="toggleStar()"
           >
           </form>
@@ -87,7 +87,7 @@
                     </ion-item>
                   </ion-col>
                   <ion-col>
-                    <ion-item lines="none" class="doubtful" (click)="DismissClick();doubtfull()">
+                    <ion-item lines="none" class="doubtful" (click)="DismissClick();doubtful()">
                       <ion-label class="Doubtful" name="Doubtful" [(ngModel)]="colorUpdate.Colour">Doubtful</ion-label>
                     </ion-item>
                   </ion-col>
