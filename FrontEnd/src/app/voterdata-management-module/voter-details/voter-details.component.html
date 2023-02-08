@@ -12,8 +12,6 @@
     <ion-grid class="userContact">
       <ion-row class="mt-2">
         <ion-col class="star">
-          <!-- <img src="{{ showStar ? 'assets/img/star.png' : 'assets/img/star1.png'}}" 
-          type="button" (click)="toggleStar()" alt=""> -->
           <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
             <input type="image"
             name="star" 
@@ -37,14 +35,8 @@
             <img src="/assets/img/phone-call.png" alt="">
           </a>
         </ion-col>
-        
+
         <!-- <ion-col>
-          <a href="sms:+919158490455">
-            <img src="/assets/img/SMS.png" alt="">
-            <ion-label>Text</ion-label>
-          </a>
-        </ion-col>
-        <ion-col>
           <a href="https://wa.me/+918390755001">
             <img src="/assets/img/whatsapp.png" alt="">
             <ion-label>Whatsapp</ion-label>
@@ -348,7 +340,16 @@
                 <ion-row>
                   <ion-col size="12">
                       <div>
-                        <ion-input maxlength="10" minlength="10" name="Mobile" [(ngModel)]="mobUpdate.Mobile" (keypress)="keyPressNumbers($event)" class="form-control" required></ion-input>
+                        <ion-input 
+                          maxlength="10" 
+                          minlength="10" 
+                          name="Mobile" 
+                          [(ngModel)]="mobUpdate.Mobile" 
+                          (keypress)="keyPressNumbers($event)" 
+                          class="form-control" 
+                          required
+                        >
+                        </ion-input>
                       </div>
                   </ion-col>
                   <ion-col size="12">
@@ -561,14 +562,14 @@
     </ion-grid>
 
     <div #slipDesign id="slipDesign">
-      <div class="body" *ngIf="VoterListByUser">
+      <div class="body" *ngIf="VoterListByUser" #myDiv id="myDiv">
         <div class="text-center">
           <h6>
             Assembly : {{ VoterListByUser.assemblyNo }} {{ VoterListByUser.assembly }}
           </h6>
         </div>
         <div class="name">
-          <table>
+          <table >
             <tr>
               <th> Part No. </th>
               <th> : </th>

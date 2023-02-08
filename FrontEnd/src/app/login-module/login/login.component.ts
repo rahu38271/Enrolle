@@ -93,9 +93,9 @@ export class LoginComponent implements OnInit {
         // this.auth.sendOtp(this.loginModal.Username).subscribe((data) => {
         //    this.otpverify(data);
         // });
-          this.loader.hideLoader();
           this.router.navigate(['/home/mobile-dashboard']);
           this.toast.presentToast("Logged In Succesfully", "success", 'checkmark-circle-outline');
+          this.loader.hideLoader();
       }
     },
     (err)=>{

@@ -72,7 +72,6 @@ export class VoterService {
   // update voter colour
 
   updateColor(id:any, color:any){
-    debugger;
     return this.http.post<any>(this.url+'Voter/UpdateVoterInclination?Id='+id+'&Colour='+color+'', id)
   }
 
