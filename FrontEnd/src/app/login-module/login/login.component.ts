@@ -62,6 +62,10 @@ export class LoginComponent implements OnInit {
 
   }
 
+  ngOnInit() {
+    //this.login();
+  }
+
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
   }
@@ -76,9 +80,7 @@ export class LoginComponent implements OnInit {
   }
 
 
-  ngOnInit() {
-    //this.login();
-  }
+  
 
   login() {
     this.loader.showLoading();

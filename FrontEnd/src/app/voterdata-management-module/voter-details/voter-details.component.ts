@@ -22,6 +22,15 @@ export class VoterDetailsComponent {
 
   @ViewChild(IonModal) modal: IonModal;
   @ViewChild('myDiv') myDiv: ElementRef;
+  @ViewChild('tr1') tr1: ElementRef;
+  @ViewChild('tr2') tr2: ElementRef;
+  @ViewChild('tr3') tr3: ElementRef;
+  @ViewChild('tr4') tr4: ElementRef;
+  @ViewChild('tr5') tr5: ElementRef;
+  @ViewChild('tr6') tr6: ElementRef;
+  @ViewChild('tr7') tr7: ElementRef;
+  @ViewChild('myImg') myImg: ElementRef;
+  
   VoterListByUser: any;
   Id: any;
   id: any;
@@ -29,6 +38,7 @@ export class VoterDetailsComponent {
   YesNo: any;
 
   @ViewChild('slipDesign') slipDesign: ElementRef;
+  ImagePath: string;
 
   ngAfterViewInit() {
     //console.log(this.slipDesign.nativeElement.innerHTML);
@@ -93,7 +103,7 @@ export class VoterDetailsComponent {
       public modalCtrl: ModalController,
       private location: Location
     ) {
-
+      this.ImagePath = 'assets/img/sms1.jpg'
   }
 
   ngOnInit() {
@@ -297,9 +307,26 @@ export class VoterDetailsComponent {
   //   this.socialSharing.shareWithOptions(options);
   // }
 
-  ShareWhatsapp() {
-    this.socialSharing.shareViaWhatsApp(this.myDiv.nativeElement.innerText);
-    console.log(this.myDiv.nativeElement.innerText)
-  }
+//   ShareWhatsapp() {
+//     this.socialSharing.shareViaWhatsApp(this.ImagePath);
+//     console.log(this.ImagePath)
+//   }
+// }
 
+  ShareWhatsapp() {
+    this.socialSharing.shareViaWhatsApp
+      (
+            this.ImagePath
+    + '\n' +this.myDiv.nativeElement.innerText  
+    + '\n' +this.tr1.nativeElement.innerText 
+    + '\n' +this.tr2.nativeElement.innerText 
+    + '\n' +this.tr3.nativeElement.innerText
+    + '\n' +this.tr4.nativeElement.innerText 
+    + '\n' +this.tr5.nativeElement.innerText 
+    + '\n' +this.tr6.nativeElement.innerText 
+    + '\n' +this.tr7.nativeElement.innerText
+      );
+    //console.log(this.tr1.nativeElement.innerText);
+  }
 }
+

@@ -562,45 +562,47 @@
     </ion-grid>
 
     <div #slipDesign id="slipDesign">
-      <div class="body" *ngIf="VoterListByUser" #myDiv id="myDiv">
-        <div class="text-center">
+      <div class="body" *ngIf="VoterListByUser">
+        <!-- <img myImg src="/assets/img/111.jpeg" alt=""> -->
+        <img myImg [src]="ImagePath" alt="" style="width: 300px;height: 200px;">
+        <div class="text-center" #myDiv id="myDiv">
           <h6>
             Assembly : {{ VoterListByUser.assemblyNo }} {{ VoterListByUser.assembly }}
           </h6>
         </div>
         <div class="name">
           <table >
-            <tr>
+            <tr #tr1>
               <th> Part No. </th>
               <th> : </th>
               <td> {{VoterListByUser.partNo}} </td>
             </tr>
-            <tr>
+            <tr #tr2>
               <th> Name </th>
               <th> : </th>
               <td> {{VoterListByUser.fullName}}</td>
             </tr>
-            <tr>
+            <tr #tr3>
               <th> Age </th>
               <th> : </th>
               <td> {{VoterListByUser.age}} </td>
             </tr>
-            <tr>
+            <tr #tr4>
               <th> Gender </th>
               <th> : </th>
               <td> {{VoterListByUser.gender}} </td>
             </tr>
-            <tr>
+            <tr #tr5>
               <th> Voter ID  </th>
               <th> : </th>
               <td> {{VoterListByUser.votingCardNo}} </td>
             </tr>
-            <tr>
+            <tr #tr6>
               <th> Address </th>
               <th> : </th>
               <td> {{VoterListByUser.address}} </td>
             </tr>
-            <tr>
+            <tr #tr7>
               <th> Village </th>
               <th> : </th>
               <td> {{VoterListByUser.village}} </td>
