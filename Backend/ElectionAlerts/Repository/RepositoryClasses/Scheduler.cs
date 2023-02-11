@@ -19,10 +19,16 @@ namespace ElectionAlerts.Repository
     {
         private IConfiguration _configuration;
         private IHostEnvironment hostEnvironment;
+        private readonly INotificationRepository _notificationRepository;
+
+        public Scheduler()
+        {
+                
+        }
         public Scheduler(IConfiguration configuration, IHostEnvironment env)
         {
             _configuration = configuration;
-             hostEnvironment = env;
+            hostEnvironment = env;
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {

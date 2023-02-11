@@ -6,15 +6,15 @@ using ElectionAlerts.Model;
 using ElectionAlerts.Model.Data;
 using ElectionAlerts.Repository.Interface;
 using ElectionAlerts.Services.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace ElectionAlerts.Repository.RepositoryClasses
 {
     public class NotificationRepository: INotificationRepository
     {
-        private CustomContext _customContext = new CustomContext();
-        
-
+       
+        private CustomContext _customContext=new CustomContext();
         public IEnumerable<Contact> GetTodaysNotifications(string NotifiactionType)
         {
             try

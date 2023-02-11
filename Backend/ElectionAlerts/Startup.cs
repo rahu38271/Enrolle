@@ -62,7 +62,7 @@ namespace ElectionAlerts
                        .AllowAnyHeader();
             }));
 
-
+            services.AddHttpContextAccessor();
             services.AddScoped<IContactService, ContactService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<INotificationService, NotificationService>();
@@ -74,6 +74,7 @@ namespace ElectionAlerts
             services.AddScoped<IWardService, WardService>();
             services.AddScoped<ISuperAdminService, SuperAdminService>();
             services.AddScoped<IVillageService, VillageService>();
+            services.AddScoped<ILoginService, LoginService>();
 
             services.AddScoped<IContactReposritory, ContactRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
@@ -86,6 +87,7 @@ namespace ElectionAlerts
             services.AddScoped<IWardRepository, WardRepository>();
             services.AddScoped<ISuperAdminRepository, SuperAdminRepository>();
             services.AddScoped<IVillageRepository, VillageRepository>();
+            services.AddScoped<ILoginRepository, LoginRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

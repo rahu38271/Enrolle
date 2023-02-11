@@ -2,6 +2,7 @@
 using ElectionAlerts.Model;
 using ElectionAlerts.Model.Data;
 using ElectionAlerts.Repository.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,7 +17,6 @@ namespace ElectionAlerts.Repository.RepositoryClasses
     public class BoothRespository : IBoothRepository
     {
         private CustomContext _cuctomContext = new CustomContext();
-
         public IEnumerable<Booth> FilterBoothList(Table table)
         {
             try

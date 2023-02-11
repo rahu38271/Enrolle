@@ -215,5 +215,19 @@ namespace ElectionAlerts.Controller
             }
         }
 
+        [HttpGet("GetPartNoAssigned")]
+        public IActionResult GetAllPartNumber()
+        {
+            try
+            {
+                return Ok(_iauthservice.GetPartNoAssigned());
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "AuthenticationController/GetAllPartNumber");
+                return BadRequest(ex);
+            }
+        }
+
     }
 }

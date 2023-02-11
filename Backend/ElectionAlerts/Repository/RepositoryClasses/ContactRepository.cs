@@ -8,6 +8,7 @@ using ElectionAlerts.Dto;
 using ElectionAlerts.Model;
 using ElectionAlerts.Model.Data;
 using ElectionAlerts.Repository.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,8 +17,6 @@ namespace ElectionAlerts.Repository.RepositoryClasses
     public class ContactRepository:IContactReposritory
     {
         private CustomContext _customContext = new CustomContext();
-     
-
         public IEnumerable<Contact> GetContacts()
         {
             try
