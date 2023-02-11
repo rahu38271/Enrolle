@@ -5,7 +5,15 @@ h2 { color: #4e7db4; padding-left: 10px; font-weight: 500; }
 
 ion-label span {  color: #F00 !important; font-weight: 500;}
 
-table { margin-top: 10px; }
+table { margin-top: 10px; border: 1px solid #dee2e6;}
+
+table th {
+  border: 1px solid #dee2e6;
+}
+
+table td {
+  border: 1px solid #dee2e6;
+}
 
 td ion-icon { 
     cursor: pointer;
@@ -138,4 +146,27 @@ ion-item-options ion-icon {
   font-size: 19px;
   color: #ff4646;
   cursor: pointer;
+}
+
+@media screen and (min-width:768px){
+  table {
+    width: 60%;
+  }
+
+  table thead th:nth-child(1) {
+    width: 100px;
+    text-align: center;
+  }
+  table thead th:nth-child(2) {
+    width: 100px;
+    text-align: center;
+  }
+  table tbody td:nth-child(1) {
+    width: 100px;
+    text-align: center;
+  }
+  table tbody td:nth-child(2) {
+    width: 100px;
+    text-align: center;
+  }
 }

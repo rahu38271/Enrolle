@@ -130,7 +130,7 @@
                     <tbody>
                       <tr *ngFor="let item of getUserData  | filter:searchWeb  | paginate: { itemsPerPage: 10, currentPage: cp  }">
                         <td>{{item.id}}</td>
-                        <td class="text-capitalize" routerLink="/user/assign-data/{{item.id}}">
+                        <td class="text-capitalize" [routerLink]="['/user/assign-data',item.id,item.partNoAssigned]">
                           <a>{{item.name}}</a>
                         </td>
                         <td>{{item.contact}}</td>

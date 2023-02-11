@@ -122,11 +122,12 @@ export class EditUserComponent implements OnInit {
 
   save(){
     this.loader.showLoading();
-    this.EditData.RoleId = Number(this.EditData.RoleId);
+    this.EditData.roleName = this.EditData.roleName;
     this.user.update(this.EditData).subscribe(data=>{
       if(data){
         this.loader.hideLoader();
         this.EditData ={};
+        this.router.navigate(['/user']);
         this.toast.presentToast("User updated successfully!", "success", 'checkmark-circle-sharp');
       }
     }, (err) =>{

@@ -24,14 +24,27 @@ export class ByColorComponent implements OnInit {
     this.colorWiseVoterList();
   }
 
-  opposition() {
-    this.router.navigate(['/list/colorwise-list'])
-  }
 
   colorWiseVoterList() {
-    this.voter.getVoterByColor().subscribe(data => {
+    this.voter.getVoterByColor(this.userId).subscribe(data => {
       this.colorList = data;
     })
+  }
+
+  supporter(){
+    this.router.navigate(['/list/supporter']);
+  }
+
+  opposition(){
+    this.router.navigate(['/list/opposition']);
+  }
+
+  doubtful(){
+    this.router.navigate(['/list/doubtful']);
+  }
+
+  other(){
+    this.router.navigate(['/list/other']);
   }
 
 

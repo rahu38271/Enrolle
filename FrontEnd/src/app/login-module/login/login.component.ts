@@ -62,6 +62,10 @@ export class LoginComponent implements OnInit {
 
   }
 
+  ngOnInit() {
+    //this.login();
+  }
+
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
   }
@@ -76,9 +80,7 @@ export class LoginComponent implements OnInit {
   }
 
 
-  ngOnInit() {
-    //this.login();
-  }
+  
 
   login() {
     this.loader.showLoading();
@@ -93,9 +95,9 @@ export class LoginComponent implements OnInit {
         // this.auth.sendOtp(this.loginModal.Username).subscribe((data) => {
         //    this.otpverify(data);
         // });
-          this.loader.hideLoader();
           this.router.navigate(['/home/mobile-dashboard']);
           this.toast.presentToast("Logged In Succesfully", "success", 'checkmark-circle-outline');
+          this.loader.hideLoader();
       }
     },
     (err)=>{

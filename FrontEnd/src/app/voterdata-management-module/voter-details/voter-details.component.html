@@ -12,14 +12,12 @@
     <ion-grid class="userContact">
       <ion-row class="mt-2">
         <ion-col class="star">
-          <!-- <img src="{{ showStar ? 'assets/img/star.png' : 'assets/img/star1.png'}}" 
-          type="button" (click)="toggleStar()" alt=""> -->
           <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
             <input type="image"
             name="star" 
             src="{{ showStar ? 'assets/img/star.png' : 'assets/img/star1.png'}}" 
             width="32" height="32"
-            [(ngModel)]="YesNo"
+            [(ngModel)]="starUpdare.YesNo"
             (click)="toggleStar()"
           >
           </form>
@@ -37,14 +35,8 @@
             <img src="/assets/img/phone-call.png" alt="">
           </a>
         </ion-col>
-        
+
         <!-- <ion-col>
-          <a href="sms:+919158490455">
-            <img src="/assets/img/SMS.png" alt="">
-            <ion-label>Text</ion-label>
-          </a>
-        </ion-col>
-        <ion-col>
           <a href="https://wa.me/+918390755001">
             <img src="/assets/img/whatsapp.png" alt="">
             <ion-label>Whatsapp</ion-label>
@@ -87,7 +79,7 @@
                     </ion-item>
                   </ion-col>
                   <ion-col>
-                    <ion-item lines="none" class="doubtful" (click)="DismissClick();doubtfull()">
+                    <ion-item lines="none" class="doubtful" (click)="DismissClick();doubtful()">
                       <ion-label class="Doubtful" name="Doubtful" [(ngModel)]="colorUpdate.Colour">Doubtful</ion-label>
                     </ion-item>
                   </ion-col>
@@ -348,7 +340,16 @@
                 <ion-row>
                   <ion-col size="12">
                       <div>
-                        <ion-input maxlength="10" minlength="10" name="Mobile" [(ngModel)]="mobUpdate.Mobile" (keypress)="keyPressNumbers($event)" class="form-control" required></ion-input>
+                        <ion-input 
+                          maxlength="10" 
+                          minlength="10" 
+                          name="Mobile" 
+                          [(ngModel)]="mobUpdate.Mobile" 
+                          (keypress)="keyPressNumbers($event)" 
+                          class="form-control" 
+                          required
+                        >
+                        </ion-input>
                       </div>
                   </ion-col>
                   <ion-col size="12">
@@ -562,44 +563,46 @@
 
     <div #slipDesign id="slipDesign">
       <div class="body" *ngIf="VoterListByUser">
-        <div class="text-center">
+        <!-- <img myImg src="/assets/img/111.jpeg" alt=""> -->
+        <ion-img style="width: 200px;" [src]="ImagePath"></ion-img>
+        <div class="text-center" #myDiv id="myDiv">
           <h6>
             Assembly : {{ VoterListByUser.assemblyNo }} {{ VoterListByUser.assembly }}
           </h6>
         </div>
         <div class="name">
-          <table>
-            <tr>
+          <table >
+            <tr #tr1>
               <th> Part No. </th>
               <th> : </th>
               <td> {{VoterListByUser.partNo}} </td>
             </tr>
-            <tr>
+            <tr #tr2>
               <th> Name </th>
               <th> : </th>
               <td> {{VoterListByUser.fullName}}</td>
             </tr>
-            <tr>
+            <tr #tr3>
               <th> Age </th>
               <th> : </th>
               <td> {{VoterListByUser.age}} </td>
             </tr>
-            <tr>
+            <tr #tr4>
               <th> Gender </th>
               <th> : </th>
               <td> {{VoterListByUser.gender}} </td>
             </tr>
-            <tr>
+            <tr #tr5>
               <th> Voter ID  </th>
               <th> : </th>
               <td> {{VoterListByUser.votingCardNo}} </td>
             </tr>
-            <tr>
+            <tr #tr6>
               <th> Address </th>
               <th> : </th>
               <td> {{VoterListByUser.address}} </td>
             </tr>
-            <tr>
+            <tr #tr7>
               <th> Village </th>
               <th> : </th>
               <td> {{VoterListByUser.village}} </td>
@@ -609,8 +612,23 @@
       </div>
     </div>
 
-  </div>
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="8" style="height: 200px;">
+          <ion-img style="height: 200px;" [src]="imgurl"></ion-img>
+        </ion-col>
+        <ion-col size="4">
+            <ion-text>{{text}}</ion-text>
+        </ion-col>  
+      </ion-row>
+      <ion-row class="ion-align-items-center">
 
+        <ion-col size="2">
+            <ion-button color="success" (click)="ShareWhatsapp1()"><ion-icon name="logo-whatsapp"></ion-icon></ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>  
+  </div>
 </ion-content>
 
 <!-- <ion-fab horizontal="end" vertical="bottom" slot="fixed" routerLink="/voterdata-management/edit-voterdata">

@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, Input, AfterViewInit, ElementRef } from '@angular/core';
 import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
-//import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
@@ -22,19 +21,32 @@ import { Location } from '@angular/common';
 export class VoterDetailsComponent {
 
   @ViewChild(IonModal) modal: IonModal;
+  @ViewChild('myDiv') myDiv: ElementRef;
+  @ViewChild('tr1') tr1: ElementRef;
+  @ViewChild('tr2') tr2: ElementRef;
+  @ViewChild('tr3') tr3: ElementRef;
+  @ViewChild('tr4') tr4: ElementRef;
+  @ViewChild('tr5') tr5: ElementRef;
+  @ViewChild('tr6') tr6: ElementRef;
+  @ViewChild('tr7') tr7: ElementRef;
+  //@ViewChild('myImg') myImg: ElementRef;
+ 
+  text: string=''
+  imgurl:string= 'https://cdn.pixabay.com/photo/2019/12/26/05/10/pink-4719682_960_720.jpg'
+  
+  
   VoterListByUser: any;
   Id: any;
   id: any;
-  starUpdate: any = {};
-  colorUpdate: any;
+  colorUpdate: any = {};
   YesNo: any;
 
   @ViewChild('slipDesign') slipDesign: ElementRef;
 
   ngAfterViewInit() {
     //console.log(this.slipDesign.nativeElement.innerHTML);
-}
-  
+  }
+
   onWillDismiss(event: Event) {
     const ev = event as CustomEvent<OverlayEventDetail<string>>;
     if (ev.detail.role === 'confirm') {
@@ -46,7 +58,7 @@ export class VoterDetailsComponent {
     await this.popoverController.dismiss();
   }
 
-  isStar: boolean;
+  isStar: any;
   Voter: any = ''
   Vid: any;
   mobUpdate: any = {
@@ -54,14 +66,15 @@ export class VoterDetailsComponent {
   }
   adrsUpdate: any = {}
   altmobUpdate: any = {};
-  showStar: boolean;
+  starUpdare: any = {};
+  showStar: any;
   showVote: boolean;
 
   toggleVote() {
     this.showVote = !this.showVote;
   }
 
-  bgColor = '#FFF';
+  bgColor ='#FFF';
 
   closeModal() {
     this.modalCtrl.dismiss();
@@ -93,7 +106,7 @@ export class VoterDetailsComponent {
       public modalCtrl: ModalController,
       private location: Location
     ) {
-
+      
   }
 
   ngOnInit() {
@@ -104,9 +117,11 @@ export class VoterDetailsComponent {
     this.router.navigate(['/voterdata-management/family', { Id: id }])
   }
 
-  sameAddressVoter(id:any){
-    this.router.navigate(['/voterdata-management/family', {Id: id}])
+  sameAddressVoter(id: any) {
+    this.router.navigate(['/voterdata-management/family', { Id: id }])
   }
+
+  // edit mobile number
 
   saveMobile() {
     const Vid = this.route.snapshot.paramMap.get('id');
@@ -125,6 +140,8 @@ export class VoterDetailsComponent {
     })
   }
 
+  // edit alt. mob.
+
   saveAltMobile() {
     const Vid = this.route.snapshot.paramMap.get('id');
     this.altmobUpdate.Id = Number(Vid);
@@ -141,8 +158,8 @@ export class VoterDetailsComponent {
       this.toast.presentToast("Mobile No. not updated", "danger", 'alert-circle-sharp');
     })
   }
-  
 
+  // edit voter address
 
   saveAddress() {
     const Vid = this.route.snapshot.paramMap.get('id');
@@ -153,62 +170,74 @@ export class VoterDetailsComponent {
         this.closeModal();
         this.toast.presentToast("Address updated successfully!", "success", 'checkmark-circle-sharp');
       }
-      else{
+      else {
         this.toast.presentToast("Address not updated", "danger", 'alert-circle-sharp');
       }
-    },(err)=>{
+    }, (err) => {
       this.toast.presentToast("Address not updated", "danger", 'alert-circle-sharp');
     })
   }
 
+  // voter select color for supporter
+
   supporter() {
     this.bgColor = '#0bbb5f'
     const Vid = this.route.snapshot.paramMap.get('id');
-    this.colorUpdate.Id = Number(Vid);
-    this.voter.updateColor(this.colorUpdate.Id,this.colorUpdate.Colour).subscribe(data=>{
+    this.colorUpdate.id = Number(Vid);
+    this.colorUpdate.colour = 'Supporter'
+    this.voter.updateColor(this.colorUpdate.id, this.colorUpdate.colour).subscribe(data => {
+      if (data) {
+        this.voterDetails();
+      }
     })
   }
 
+  // voter select color for opposition
+
   opposition() {
     this.bgColor = '#F00'
+    const Vid = this.route.snapshot.paramMap.get('id');
+    this.colorUpdate.id = Number(Vid);
+    this.colorUpdate.colour = 'Opposition'
+    this.voter.updateColor(this.colorUpdate.id, this.colorUpdate.colour).subscribe(data => {
+      if (data) {
+        this.voterDetails();
+      }
+    })
   }
 
   doubtful() {
     this.bgColor = '#ffd34f'
+    const Vid = this.route.snapshot.paramMap.get('id');
+    this.colorUpdate.id = Number(Vid);
+    this.colorUpdate.colour = 'Doubtful'
+    this.voter.updateColor(this.colorUpdate.id, this.colorUpdate.colour).subscribe(data => {
+      if (data) {
+        this.voterDetails();
+      }
+    })
   }
 
   other() {
     this.bgColor = '#fff'
-  }
-
- 
-
-  voterDetails() {
-    this.loader.showLoading();
-    this.id = localStorage.getItem("loginId");
-    this.voter.getVoterByUser(this.id).subscribe((data) => {
-      this.loader.hideLoader();
-      const Vid = this.route.snapshot.paramMap.get('id');
-      [this.Voter] = data.filter((Voter) => Voter.id == Vid);
-      this.VoterListByUser = this.Voter;
+    const Vid = this.route.snapshot.paramMap.get('id');
+    this.colorUpdate.id = Number(Vid);
+    this.colorUpdate.colour = 'Other'
+    this.voter.updateColor(this.colorUpdate.id, this.colorUpdate.colour).subscribe(data => {
+      if (data) {
+        this.voterDetails();
+      }
     })
   }
 
-  sameBoothVoter(id:any){
-    debugger;
-    const coloumnValue = this.VoterListByUser.partNo;
-    this.router.navigate(['/list/boothwise-list', {Id: id}])
-  }
-
-  goback(){
-    this.location.back();
-  }
+   // update star voter
 
   toggleStar() {
     this.showStar = !this.showStar;
     const Vid = this.route.snapshot.paramMap.get('id');
-    this.id = Number(Vid);
-    this.voter.updateStar(this.id, this.YesNo).subscribe(data => {
+    this.starUpdare.id = Number(Vid);
+    this.starUpdare.YesNo = 'Y';
+    this.voter.updateStar(this.starUpdare.id, this.starUpdare.YesNo).subscribe(data => {
       if (data) {
         this.voterDetails();
         this.toast.presentToast("Starred successfully!", "success", 'checkmark-circle-sharp');
@@ -219,6 +248,41 @@ export class VoterDetailsComponent {
     }, (err) => {
       this.toast.presentToast("Starred not updated", "danger", 'alert-circle-sharp');
     })
+  }
+
+  voterDetails() {
+    this.loader.showLoading();
+    this.id = localStorage.getItem("loginId");
+    this.voter.getVoterByUser(this.id).subscribe((data) => {
+      this.loader.hideLoader();
+      const Vid = this.route.snapshot.paramMap.get('id');
+      [this.Voter] = data.filter((Voter) => Voter.id == Vid);
+      this.VoterListByUser = this.Voter;
+      if (this.VoterListByUser.starVoter = "Y"){
+        // this.showStar = "{{ showStar ? 'assets/img/star1.png' : 'assets/img/star.png'}}" 
+      }
+      if (this.VoterListByUser.votingInclination == "Supporter") {
+         this.bgColor = '#0bbb5f'
+      }
+      else if (this.VoterListByUser.votingInclination == "Opposition") {
+        this.bgColor = '#F00'
+      }
+      else if (this.VoterListByUser.votingInclination == "Doubtful") {
+        this.bgColor = '#ffd34f'
+      }
+      else if (this.VoterListByUser.votingInclination == "Other") {
+        this.bgColor = '#fff'
+      }
+    })
+  }
+
+  sameBoothVoter(id: any) {
+    const coloumnValue = this.VoterListByUser.partNo;
+    this.router.navigate(['/list/boothwise-list', { Id: id }])
+  }
+
+  goback() {
+    this.location.back();
   }
 
   printSlip() {
@@ -246,9 +310,37 @@ export class VoterDetailsComponent {
   //   this.socialSharing.shareWithOptions(options);
   // }
 
-  ShareWhatsapp(){
-    console.log(this.slipDesign.nativeElement.innerHTML);
-    //this.socialSharing.shareViaWhatsApp(this.slipDesign.nativeElement.innerHTML)
+//   ShareWhatsapp() {
+//     this.socialSharing.shareViaWhatsApp(this.ImagePath);
+//     console.log(this.ImagePath)
+//   }
+// }
+
+  ShareWhatsapp() {
+    this.socialSharing.shareViaWhatsApp
+      (
+    this.myDiv.nativeElement.innerText  
+    + '\n' +this.tr1.nativeElement.innerText 
+    + '\n' +this.tr2.nativeElement.innerText 
+    + '\n' +this.tr3.nativeElement.innerText
+    + '\n' +this.tr4.nativeElement.innerText 
+    + '\n' +this.tr5.nativeElement.innerText 
+    + '\n' +this.tr6.nativeElement.innerText 
+    + '\n' +this.tr7.nativeElement.innerText
+      );
+    //console.log(this.tr1.nativeElement.innerText);
+  }
+
+  ShareWhatsapp1(){
+    this.socialSharing.shareViaWhatsApp(this.myDiv.nativeElement.innerText  
+    + '\n' +this.tr1.nativeElement.innerText 
+    + '\n' +this.tr2.nativeElement.innerText 
+    + '\n' +this.tr3.nativeElement.innerText
+    + '\n' +this.tr4.nativeElement.innerText 
+    + '\n' +this.tr5.nativeElement.innerText 
+    + '\n' +this.tr6.nativeElement.innerText 
+    + '\n' +this.tr7.nativeElement.innerText, this.imgurl)
   }
 
 }
+

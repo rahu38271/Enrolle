@@ -6,7 +6,7 @@ import {
   NavigationStart,
   NavigationEnd,
   NavigationCancel,
-  NavigationError
+  NavigationError, 
 } from '@angular/router';
 import { MenuController, PopoverController, AlertController  } from '@ionic/angular';
 import { NotificationComponent } from './notification/notification.component';
@@ -39,23 +39,22 @@ export class AppComponent implements OnInit {
   user: any;
   roleType: string;
   isContact: any;
-  isBirthday: boolean;
-  isAnniversary: boolean;
-  isDailyRoutine: boolean;
-  isMedia: boolean;
-  isOther: boolean;
-  isSetting: boolean;
-  isUser: boolean;
-  isSurvey: boolean;
-  isLists: boolean;
-  isSearch: boolean;
-  isVoterList: boolean;
+  isBirthday: any;
+  isAnniversary: any;
+  isDailyRoutine: any;
+  isMedia: any;
+  isOther: any;
+  isSetting: any;
+  isUser: any;
+  isSurvey: any;
+  isLists: any;
+  isSearch: any;
+  isVoterList: any;
   getClass() {
     return "active"
   }
   menuType: string = 'overlay'
   
-
   constructor(
     private router: Router,
     private menu: MenuController,
@@ -71,6 +70,7 @@ export class AppComponent implements OnInit {
     private alertController:AlertController,
     private platform: Platform) {
       this.auth.userType = "";
+      
       this.initializeApp();
 
     // platform.ready().then(() => {
@@ -96,6 +96,39 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
+  ngOnInit() {
+    this.name = localStorage.getItem("loginUser");
+    var roleName = localStorage.getItem("userType");
+    this.roleType = roleName
+    var isSuperAdmin = roleName == "SuperAdmin"
+    var isAdmin = roleName == "Admin";
+    var isVolunteer = roleName == "Volunteer"
+    this.isContact = isSuperAdmin || isAdmin;
+    this.isBirthday = isSuperAdmin || isAdmin;
+    this.isAnniversary = isSuperAdmin || isAdmin;
+    this.isDailyRoutine = isSuperAdmin || isAdmin;
+    this.isMedia = isSuperAdmin || isAdmin;
+    this.isOther = isSuperAdmin || isAdmin;
+    this.isSetting = isSuperAdmin || isAdmin;
+    this.isUser = isSuperAdmin || isAdmin;
+    this.isSurvey = isVolunteer;
+    this.isLists = isSuperAdmin || isAdmin || isVolunteer;
+    this.isSearch = isSuperAdmin || isAdmin || isVolunteer;
+    this.isVoterList = isSuperAdmin || isAdmin;
+
+    this.firebaseX.getToken()
+      .then(token => console.log(`The token is ${token}`)) // save the token server-side and use it to push notifications to this device
+      .catch(error => console.error('Error getting token', error));
+
+    this.firebaseX.onMessageReceived()
+      .subscribe(data => console.log(`User opened a notification ${data}`));
+
+    this.firebaseX.onTokenRefresh()
+      .subscribe((token: string) => console.log(`Got a new token ${token}`));
+  }
+  
+
 
   initializeApp() {
     this.platform.ready().then(() => {
@@ -158,37 +191,7 @@ export class AppComponent implements OnInit {
       });
   }
 
-  ngOnInit() {
-    this.name = localStorage.getItem("loginUser");
-    var roleName = localStorage.getItem("userType");
-    this.roleType = roleName
-    var isSuperAdmin = roleName == "SuperAdmin"
-    var isAdmin = roleName == "Admin";
-    var isVolunteer = roleName == "Volunteer"
-
-    this.isContact = isSuperAdmin || isAdmin;
-    this.isBirthday = isSuperAdmin || isAdmin;
-    this.isAnniversary = isSuperAdmin || isAdmin;
-    this.isDailyRoutine = isSuperAdmin || isAdmin;
-    this.isMedia = isSuperAdmin || isAdmin;
-    this.isOther = isSuperAdmin || isAdmin;
-    this.isSetting = isSuperAdmin || isAdmin;
-    this.isUser = isSuperAdmin || isAdmin;
-    this.isSurvey = isVolunteer;
-    this.isLists = isSuperAdmin || isAdmin || isVolunteer;
-    this.isSearch = isSuperAdmin || isAdmin || isVolunteer;
-    this.isVoterList = isSuperAdmin || isAdmin;
-
-    this.firebaseX.getToken()
-      .then(token => console.log(`The token is ${token}`)) // save the token server-side and use it to push notifications to this device
-      .catch(error => console.error('Error getting token', error));
-
-    this.firebaseX.onMessageReceived()
-      .subscribe(data => console.log(`User opened a notification ${data}`));
-
-    this.firebaseX.onTokenRefresh()
-      .subscribe((token: string) => console.log(`Got a new token ${token}`));
-  }
+  
 
     
   openFirst() {

@@ -7,6 +7,7 @@ import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { AssemblyService } from 'src/app/services/assembly.service'
 import { WardService } from 'src/app/services/ward.service'
 import { BoothService } from 'src/app/services/booth.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-add-user',
@@ -79,7 +80,8 @@ export class AddUserComponent implements OnInit {
       private toast:IonicToastService,
       private assembly:AssemblyService,
       private ward:WardService,
-      private booth:BoothService
+      private booth:BoothService,
+      private router:Router,
     ) 
     {
 
@@ -162,6 +164,7 @@ export class AddUserComponent implements OnInit {
       if(data){
         this.loader.hideLoader();
         this.addUserModal = {};
+        this.router.navigate(['/user']);
         this.toast.presentToast("User added successfully!", "success", 'checkmark-circle-sharp');
       }
       else{
