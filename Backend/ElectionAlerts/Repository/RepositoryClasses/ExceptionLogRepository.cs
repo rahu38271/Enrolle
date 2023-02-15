@@ -21,8 +21,8 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             try
             {
                 DateTime today = DateTime.Now;
-                _customContext.Database.ExecuteSqlRaw("EXEC USP_InsertErrorLog {0},{1},{2},{3},{4},{5}",
-                    ex.Message, ex.StackTrace, LogType, ExLocation, "1", today.ToString());
+                _customContext.Database.ExecuteSqlRaw("EXEC USP_InsertErrorLogs {0},{1},{2},{3},{4},{5}",
+                    ex.Message, ex.StackTrace, LogType, ExLocation, 1, today.ToString());
                 //DateTime today = DateTime.Now;
                 //_customContext.Database.ExecuteSqlRaw("EXEC USP_InsertErrorLog {0},{1},{2},{3},{4},{5}",
                 //    ex.Message, ex.StackTrace, LogType, ExLocation, "1", string.Empty);

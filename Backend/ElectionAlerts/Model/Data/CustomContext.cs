@@ -47,8 +47,8 @@ namespace ElectionAlerts.Model.Data
         public DbSet<VoterInclination> VoterInclinations { get; set; }
         public DbSet<BoothName> BoothNames { get; set; }
         public DbSet<ConfigureDB> ConfigureDBs { get; set; }
-
         public DbSet<PartNoAssigned> PartNoAssigneds { get; set; }
+        public DbSet<AdminUser> AdminUsers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Districts>().HasNoKey();
@@ -61,7 +61,6 @@ namespace ElectionAlerts.Model.Data
             modelBuilder.Entity<VoterInclination>().HasNoKey();
             modelBuilder.Entity<BoothName>().HasNoKey();
             modelBuilder.Entity<PartNoAssigned>().HasNoKey();
-            modelBuilder.Entity<User>().HasNoKey();
         }
     }
 }

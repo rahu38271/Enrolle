@@ -16,8 +16,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                var user = _customContext.Set<SuperAdmin>().FromSqlRaw("EXEC USP_Login {0},{1}", username, password).ToList().FirstOrDefault();
-                return user;
+                return  _customContext.Set<SuperAdmin>().FromSqlRaw("EXEC USP_Login {0},{1}", username, password).ToList().FirstOrDefault();
             }
             catch(Exception ex)
             {
@@ -40,7 +39,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _customContext.Database.ExecuteSqlRaw("EXEC Usp_InsertDBConfigure {0},{1},{2},{3},{4},{5},{6}", configureDB.DBName, configureDB.IPAddress, configureDB.HostName, configureDB.UserName, configureDB.Password, configureDB.SuperAdminId,DateTime.Now.ToString());
+                return _customContext.Database.ExecuteSqlRaw("EXEC Usp_InsertDBConfigure {0},{1},{2},{3},{4},{5},{6},{7}", configureDB.Id,configureDB.DBName, configureDB.IPAddress, configureDB.HostName, configureDB.UserName, configureDB.Password, configureDB.SuperAdminId,DateTime.Now.ToString());
             }
             catch (Exception ex)
             {
@@ -49,11 +48,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public int InsertUser(User user)
+        public int InsertUser(AdminUser user)
         {
             try
             {
-                return _customContext.Database.ExecuteSqlRaw("EXEC Usp_InsertUser {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17}", user.Name, user.Contact, user.UserName, user.Address, user.Password, user.Email, user.State, user.District, user.Taluka,user.AssemblyName,user.Ward, user.Booth,user.Candidate,user.Quote,user.RoleId,user.CreatedDate,user.IsActive, user.IsDeleted);
+                return _customContext.Database.ExecuteSqlRaw("EXEC Usp_InsertUser {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14}",user.Id,user.Name, user.Contact, user.UserName, user.Password, user.Email, user.State, user.Taluka,user.AssemblyName,user.Village, user.District, user.RoleId,DateTime.Now,user.IsActive,user.AdminId);
             }
             catch (Exception ex)
             {
@@ -61,19 +60,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 throw ex;
             }
         }
-
-        public int UpdateUser(User user)
-        {
-            try
-            {
-                return _customContext.Database.ExecuteSqlRaw("EXEC Usp_UpdateUser {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18}", user.Id, user.Name, user.Contact, user.UserName, user.Address, user.Password, user.Email, user.State, user.District, user.Taluka, user.AssemblyName, user.Ward, user.Booth, user.Candidate, user.Quote, user.RoleId, user.CreatedDate, user.IsActive, user.IsDeleted);
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-        }
+    
 
         public int DeleteUser(int Id)
         {
@@ -101,14 +88,38 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public User LoginUser(string username, string password)
+        public AdminUser LoginUser(string username, string password)
         {
             try
             {
-                var user = _customContext.Set<User>().FromSqlRaw("EXEC USP_UserLogin {0},{1}", username, password).ToList().FirstOrDefault();
+                var user = _customContext.Set<AdminUser>().FromSqlRaw("EXEC USP_UserLogin {0},{1}", username, password).ToList().FirstOrDefault();
                 return user;
             }
             catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<AdminUser> GetAllUsers()
+        {
+            try
+            {
+                return _customContext.Set<AdminUser>().FromSqlRaw("EXEC USP_GetAllUser").ToList();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int DeleteConfigureDBbyUser(int Id)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("EXEC Usp_DeleteDBConfigure {0}", Id);
+            }
+            catch(Exception ex)
             {
                 throw ex;
             }

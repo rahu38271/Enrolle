@@ -31,41 +31,39 @@ namespace ElectionAlerts.Controller
             _exceptionLogService = exceptionLogService;
         }
 
-        [HttpGet("LoginAdmin")]
-        public IActionResult Login(string Username, string Password)
-        {
-            var user = _loginService.Login(Username, Password);
-            if (user != null)
-            {
-                var token = GenerateJSONWebToken();
-                return Ok(new { token = token, ExpiryTime = 1800, User = user });
-            }
-            else
-            {
-                return Ok("Invalid Username or Password!");
-            }
-        }
-
         [HttpGet("LoginUser")]
         public IActionResult LoginUser(string Username, string Password)
         {
+            string msg="DB Changed";
             var user = _loginService.LoginUser(Username, Password);
             if (user != null)
             {
-                if (user.AdminId != null)
+                msg = "User Logined";
+                if (user.RoleId==3)
                 {
-                    var configDB = _loginService.GetConfigureDBbyUser(Convert.ToInt32(user.AdminId));
-                    ReadConfiguration(configDB);
+                    try
+                    {
+                        var configDB = _loginService.GetConfigureDBbyUser(Convert.ToInt32(user.AdminId));
+                        if (configDB != null)
+                            ReadConfiguration(configDB);
+                        else
+                            msg = "No DB Config Found";
+                    }
+                    catch(Exception ex)
+                    {
+                        msg = ex.InnerException + "  Message : " + ex.Message;
+                    }
+                    return Ok(new { msg , User=user});
                 }
-                return (Ok());
             }
             else
             {
                 return Ok("Invalid Username or Password!");
             }
+            return Ok(new { msg, User = user });
         }
 
-        [HttpPost("InsertDBConfigure")]
+        [HttpPost("InsertUpdateDBConfigure")]
         public IActionResult InsertDBConfigure(ConfigureDB configureDB)
         {
             try
@@ -74,13 +72,27 @@ namespace ElectionAlerts.Controller
             }
             catch(Exception ex)
             {
-                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/InsertDBConfigure");
+                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/InsertUpdateDBConfigure");
                 return BadRequest(ex);
             }
         }
 
-        [HttpPost("CreateUser")]
-        public IActionResult CreateUser(User user)
+        [HttpGet("DeleteDBConfigure")]
+        public IActionResult DeleteDBConfigure(int Id)
+        {
+            try
+            {
+                return Ok(_loginService.DeleteConfigureDBbyUser(Id));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/DeleteDBConfigure");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPost("CreateUpdateUser")]
+        public IActionResult CreateUser(AdminUser user)
         {
             try
             {
@@ -93,19 +105,6 @@ namespace ElectionAlerts.Controller
             }
         }
 
-        [HttpPost("UpdateUser")]
-        public IActionResult UpdateUser(User user)
-        {
-            try
-            {
-                return Ok(_loginService.UpdateUser(user));
-            }
-            catch (Exception ex)
-            {
-                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/UpdateUser");
-                return BadRequest(ex);
-            }
-        }
         
         [HttpPost("UpdatePassword")]
         public IActionResult UpdatePassword(int Id,string PassWord )
@@ -148,21 +147,42 @@ namespace ElectionAlerts.Controller
 
         public void ReadConfiguration(ConfigureDB configureDB)
         {
-            var appSettingsPath = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "appsettings.json");
-            var json = System.IO.File.ReadAllText(appSettingsPath);
+            try
+            {
+                var appSettingsPath = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "appsettings.json");
+                var json = System.IO.File.ReadAllText(appSettingsPath);
 
-            var jsonSettings = new JsonSerializerSettings();
-            jsonSettings.Converters.Add(new ExpandoObjectConverter());
-            jsonSettings.Converters.Add(new StringEnumConverter());
+                var jsonSettings = new JsonSerializerSettings();
+                jsonSettings.Converters.Add(new ExpandoObjectConverter());
+                jsonSettings.Converters.Add(new StringEnumConverter());
 
-            dynamic config = JsonConvert.DeserializeObject<ExpandoObject>(json, jsonSettings);
+                dynamic config = JsonConvert.DeserializeObject<ExpandoObject>(json, jsonSettings);
 
-            config.DebugEnabled = true;
-            config.ConnectionStrings.DBCon = $"Server={configureDB.IPAddress};Database={configureDB.DBName};User Id={configureDB.UserName}; Password ={configureDB.Password};pooling=false;";
+                config.DebugEnabled = true;
+                config.ConnectionStrings.DBCon = $"Server={configureDB.IPAddress};Database={configureDB.DBName};User Id={configureDB.UserName}; Password ={configureDB.Password};pooling=false;";
 
-            var newJson = JsonConvert.SerializeObject(config, Formatting.Indented, jsonSettings);
+                var newJson = JsonConvert.SerializeObject(config, Formatting.Indented, jsonSettings);
 
-            System.IO.File.WriteAllText(appSettingsPath, newJson);
+                System.IO.File.WriteAllText(appSettingsPath, newJson);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        [HttpGet("GetAllAdminUser")]
+        public IActionResult GetAllUser()
+        {
+            try
+            {
+                return Ok(_loginService.GetAllUser());
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/GetAllUser");
+                return BadRequest(ex);
+            }
         }
     }
 }

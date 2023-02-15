@@ -31,14 +31,9 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _loginRepository.InsertConfigureDBbyUser(configureDB);
         }
 
-        public int InsertUser(User user)
+        public int InsertUser(AdminUser user)
         {
             return _loginRepository.InsertUser(user);
-        }
-
-        public int UpdateUser(User user)
-        {
-            return _loginRepository.UpdateUser(user);
         }
 
         public int DeleteUser(int Id)
@@ -51,9 +46,19 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _loginRepository.ChangeUserPassword(id, password);
         }
 
-        public User LoginUser(string username, string password)
+        public AdminUser LoginUser(string username, string password)
         {
             return _loginRepository.LoginUser(username, password);
+        }
+
+        public IEnumerable<AdminUser> GetAllUser()
+        {
+            return _loginRepository.GetAllUsers();
+        }
+
+        public int DeleteConfigureDBbyUser(int Id)
+        {
+            return _loginRepository.DeleteConfigureDBbyUser(Id);
         }
     }
 }

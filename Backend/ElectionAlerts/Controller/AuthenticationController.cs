@@ -201,7 +201,6 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetPartNumberbyId")]
-
         public IActionResult GetPartNumberbyId(int userid)
         {
             try

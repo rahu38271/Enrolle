@@ -20,8 +20,12 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _customContext.Set<Village>().FromSqlRaw("EXEC USP_GetAllVillagebyTaluka {0}", taluka);
+                return _customContext.Set<Village>().FromSqlRaw("USP_GetAllVillagebyTaluka {0}", taluka);
             }
+            //catch(SqlException e)
+            //{
+            //    throw e;
+            //}
             catch(Exception ex)
             {
                 throw ex;
