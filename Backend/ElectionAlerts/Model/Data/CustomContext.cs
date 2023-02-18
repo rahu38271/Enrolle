@@ -1,25 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ElectionAlerts.Dto;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace ElectionAlerts.Model.Data
 {
     public class CustomContext : DbContext
-    {
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {    
+       protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
             if (!optionsBuilder.IsConfigured)
-
             {
-
-                optionsBuilder.UseSqlServer("Server=184.168.194.78;Database=ElectionAlertsQa;User Id=ElectionAlerts; Password=ElectionAlerts@1112;pooling=false;", x => x.EnableRetryOnFailure());
+                var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
+                var config = builder.Build();
+                var connectionString = config.GetConnectionString("DBCon");
+                //constr = "Server=184.168.194.78;Database=ElectionAlertsQa;User Id=ElectionAlerts; Password=ElectionAlerts@1112;pooling=false;";
+                optionsBuilder.UseSqlServer(connectionString, x => x.EnableRetryOnFailure());               
             }
-
         }
         public DbSet<Village> Villages { get; set; }
         public DbSet<Contact> Contact { get; set; }
@@ -43,6 +46,9 @@ namespace ElectionAlerts.Model.Data
         public DbSet<UserDetail> UserDetails { get; set; }
         public DbSet<VoterInclination> VoterInclinations { get; set; }
         public DbSet<BoothName> BoothNames { get; set; }
+        public DbSet<ConfigureDB> ConfigureDBs { get; set; }
+
+        public DbSet<PartNoAssigned> PartNoAssigneds { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Districts>().HasNoKey();
@@ -54,6 +60,8 @@ namespace ElectionAlerts.Model.Data
             modelBuilder.Entity<VoterbyBooth>().HasNoKey();
             modelBuilder.Entity<VoterInclination>().HasNoKey();
             modelBuilder.Entity<BoothName>().HasNoKey();
+            modelBuilder.Entity<PartNoAssigned>().HasNoKey();
+            modelBuilder.Entity<User>().HasNoKey();
         }
     }
 }

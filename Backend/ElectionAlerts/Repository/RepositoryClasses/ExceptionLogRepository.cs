@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ElectionAlerts.Model.Data;
 using ElectionAlerts.Repository.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace ElectionAlerts.Repository.RepositoryClasses
@@ -11,7 +12,6 @@ namespace ElectionAlerts.Repository.RepositoryClasses
     public class ExceptionLogRepository: IExceptionLogRepository
     {
         private CustomContext _customContext = new CustomContext();
-
         //public void ErrorLog(Exception ex, string LogName, string LogType)
         //{
         //    throw new NotImplementedException();

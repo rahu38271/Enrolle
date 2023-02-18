@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ElectionAlerts.Model;
 using ElectionAlerts.Model.Data;
 using ElectionAlerts.Repository.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 
 namespace ElectionAlerts.Repository.RepositoryClasses
@@ -12,9 +13,8 @@ namespace ElectionAlerts.Repository.RepositoryClasses
     public class SettingRepository: ISettingRepository
     {
         private CustomContext _customContext = new CustomContext();
-        
-      public List<Districts> GetAllDistricts()
-       {
+        public List<Districts> GetAllDistricts()
+        {
             try
             {
                 return _customContext.Set<Districts>().FromSqlRaw("EXEC USP_GetAllDistricts").ToList();

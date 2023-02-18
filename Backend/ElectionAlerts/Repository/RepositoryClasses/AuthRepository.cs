@@ -9,6 +9,7 @@ using ElectionAlerts.Dto;
 using ElectionAlerts.Model;
 using ElectionAlerts.Model.Data;
 using ElectionAlerts.Repository.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -20,7 +21,6 @@ namespace ElectionAlerts.Repository.RepositoryClasses
     {
         private CustomContext _customContext = new CustomContext();
         private readonly IMapper _mapper;
-
         public AuthRepository(IMapper mapper)
         {
             _mapper = mapper;
@@ -35,7 +35,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 //return userdetail;
                 //var RoleName = ((Role)1).ToString();
                 //var userdetails= user.Select(x => new UserModel { Id = x.Id, Username = x.Name, Contact = x.Contact, Email = x.Email, Name = x.Name, RoleId = x.RoleId, RoleName = ((Role)x.RoleId).ToString() });
-                var userdetails = from u in user join r in role on u.RoleId equals r.RoleID select new UserModel{Id=u.Id,Username=u.UserName,Contact=u.Contact,Email=u.Email,Name=u.Name,RoleId=u.RoleId,RoleName=r.RoleName };
+                var userdetails = from u in user join r in role on u.RoleId equals r.RoleID select new UserModel{Id=u.Id,Username=u.UserName,Contact=u.Contact,Email=u.Email,Name=u.Name,RoleId=u.RoleId,RoleName=r.RoleName, AdminId=u.AdminId };
                 return userdetails;
             }
             catch (Exception ex)
@@ -111,7 +111,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _customContext.Database.ExecuteSqlRaw("EXEC Usp_InsertUser {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17}", user.Name, user.Contact, user.UserName, user.Address, user.Password,user.Email,user.State,user.District,user.Taluka,user.AssemblyName,user.Ward,user.Booth,user.Candidate,user.Quote, user.RoleId, user.CreatedDate, user.IsActive, user.IsDeleted);
+                return _customContext.Database.ExecuteSqlRaw("EXEC Usp_InsertUser {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18}", user.Name, user.Contact, user.UserName, user.Address, user.Password,user.Email,user.State,user.District,user.Taluka,user.AssemblyName,user.Ward,user.Booth,user.Candidate,user.Quote, user.RoleId, user.CreatedDate, user.IsActive, user.IsDeleted,user.AdminId);
             }
             catch (Exception ex)
             {
@@ -124,7 +124,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _customContext.Database.ExecuteSqlRaw("EXEC Usp_UpdateUser {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18}", user.Id, user.Name, user.Contact, user.UserName, user.Address, user.Password, user.Email, user.State, user.District, user.Taluka, user.AssemblyName, user.Ward, user.Booth, user.Candidate, user.Quote, user.RoleId, user.CreatedDate, user.IsActive, user.IsDeleted);
+                return _customContext.Database.ExecuteSqlRaw("EXEC Usp_UpdateUser {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19}", user.Id, user.Name, user.Contact, user.UserName, user.Address, user.Password, user.Email, user.State, user.District, user.Taluka, user.AssemblyName, user.Ward, user.Booth, user.Candidate, user.Quote, user.RoleId, user.CreatedDate, user.IsActive, user.IsDeleted,user.AdminId);
             }
             catch (Exception ex)
             {
@@ -222,6 +222,19 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 return string.Empty;
             }
             catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public PartNoAssigned GetPartNoAssigned()
+        {
+            try
+            {
+                var result = _customContext.Set<PartNoAssigned>().FromSqlRaw("USP_GetAllAssignedPartNo").ToList().FirstOrDefault();
+                return result;
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }

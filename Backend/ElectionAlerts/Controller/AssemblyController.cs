@@ -37,6 +37,7 @@ namespace ElectionAlerts.Controller
         /// Abhay
         /// </summary>
         /// <returns>GetAllAssembly</returns>
+        ///Added in git
         [HttpGet("GetAllAssembly")]
         public IActionResult GetAllAssembly()
         {

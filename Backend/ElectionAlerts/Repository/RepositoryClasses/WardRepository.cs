@@ -2,6 +2,7 @@
 using ElectionAlerts.Model;
 using ElectionAlerts.Model.Data;
 using ElectionAlerts.Repository.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -16,7 +17,6 @@ namespace ElectionAlerts.Repository.RepositoryClasses
     public class WardRepository : IWardRepository
     {
         private CustomContext _customContext = new CustomContext();
-
         public int DeleteWardbyId(int Id)
         {
             try

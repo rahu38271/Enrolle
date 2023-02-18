@@ -33,17 +33,19 @@ namespace ElectionAlerts.Services.ServiceClasses
         {
             return _iauthRepo.FilterUserList(table);
         }
-
-       
-
+   
         public IEnumerable<UserDetail> GetAllUser()
         {
             return _iauthRepo.GetAllUser();
         }
-
         public string GetOtp(string contact)
         {
             return _iauthRepo.GetOtp(contact);
+        }
+
+        public PartNoAssigned GetPartNoAssigned()
+        {
+            return _iauthRepo.GetPartNoAssigned();
         }
 
         public string GetPartNobyId(int userid)

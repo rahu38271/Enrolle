@@ -26,5 +26,7 @@ namespace ElectionAlerts.Model
         public DateTime? CreatedDate { get; set; }
         public string IsActive { get; set; }
         public string IsDeleted { get; set; }
+        public int? AdminId { get; set; }
+
     }
 }

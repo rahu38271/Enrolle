@@ -14,7 +14,7 @@ namespace ElectionAlerts.Dto
         public string Contact { get; set; }
         public string Email { get; set; }
         public string RoleName { get; set; }
-
+        public int? AdminId { get; set; }
 
     }
 }
