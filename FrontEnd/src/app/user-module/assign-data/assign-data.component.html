@@ -56,7 +56,14 @@
                     <tbody>
                       <tr *ngFor="let item of allBooths; index as i">
                         <td>
-                          <input type="checkbox" name="booth"  value="{{item.partNo}}" (change)="getBoothPart($event)" [checked]="item.checked">
+                          <input 
+                            type="checkbox" 
+                            name="booth"  
+                            value="{{item.partNo}}" 
+                            (change)="getBoothPart($event)" 
+                            [checked]="item.checked"
+                            [disabled]="disabled"
+                          >
                           <!-- [(ngModel)]="item.checked" -->
                         </td>
                         <td>{{item.partNo}}</td>

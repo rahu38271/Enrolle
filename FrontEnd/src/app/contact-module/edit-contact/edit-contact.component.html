@@ -33,7 +33,7 @@
           </ion-col> -->
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" >
-            <ion-label position="floating">  संपूर्ण नाव  <span>*</span> </ion-label>
+            <ion-label position="floating">  Full Name  <span>*</span> </ion-label>
               <ion-input name="fullName" [(ngModel)]="EditData.fullName" #fullName="ngModel" (keypress)="onKeyPress($event)" class="text-capitalize form-control" required></ion-input>
           </ion-col>
 
@@ -49,12 +49,12 @@
           </ion-col> -->
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
-            <ion-label position="floating"> गावाचे नाव <span>*</span> </ion-label>
+            <ion-label position="floating"> Village Name <span>*</span> </ion-label>
               <ion-input name="vilageName" [(ngModel)]="EditData.vilageName" #vilageName="ngModel" class="form-control" required ></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="calendar">
-            <ion-label>वाढदिवस </ion-label>
+            <ion-label>BirthDate </ion-label>
               <ion-input
                   value="{{ birthDate | date: 'yyyy-MM-dd' }}"
                   id="birthDate"
@@ -100,17 +100,17 @@
 
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
-            <ion-label position="floating">  मोबाइल क्रमांक <span>*</span> </ion-label>
+            <ion-label position="floating">  Mobile No. <span>*</span> </ion-label>
               <ion-input maxlength="10" minlength="10" (keypress)="keyPressNumbers($event)" name="mobileNo" [(ngModel)]="EditData.mobileNo" #mobileNo="ngModel" class="form-control"  required></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
-            <ion-label> पर्यायी मोबाइल </ion-label>
+            <ion-label> Alternate Mobile </ion-label>
               <ion-input maxlength="10" (keypress)="keyPressNumbers($event)" name="alternativeMobileNo" [(ngModel)]="EditData.alternativeMobileNo" #alternativeMobileNo="ngModel" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
-            <ion-label>  जिल्हा <span>*</span></ion-label>
+            <ion-label>  District <span>*</span></ion-label>
               <ng-select
                 placeholder="Please Select" 
                 name="district" 
@@ -129,7 +129,7 @@
           
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
-            <ion-label>  तालुका <span>*</span></ion-label>
+            <ion-label>  Taluka <span>*</span></ion-label>
               <ng-select 
                 placeholder="Please Select" 
                 name="taluka" 
@@ -156,7 +156,7 @@
           </ion-col>  -->
 
           <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
-            <ion-label position="floating">  पत्ता <span>*</span>  </ion-label>
+            <ion-label position="floating">  Address <span>*</span>  </ion-label>
               <ion-textarea name="address" [(ngModel)]="EditData.address" #address="ngModel" rows="3" class="form-control" required></ion-textarea>
           </ion-col> 
           

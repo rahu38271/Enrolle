@@ -12,6 +12,7 @@ export class ProfileComponent implements OnInit {
   name: any;
   roleName: string;
   id: any;
+  roleId:any;
 
   constructor(public popoverController: PopoverController, private router: Router, private route:ActivatedRoute) { }
 
@@ -22,7 +23,21 @@ export class ProfileComponent implements OnInit {
   ngOnInit() {
     this.id = localStorage.getItem("loginId");
     this.name = localStorage.getItem("loginUser")
-    this.roleName = localStorage.getItem("userType");
+    //this.roleName = localStorage.getItem("userType");
+    this.roleId = localStorage.getItem("loginRole");
+
+    if(this.roleId == 1){
+      this.roleName = "MasterAdmin"
+    }
+    if(this.roleId == 2){
+      this.roleName = "SuperAdmin"
+    }
+    if(this.roleId == 3){
+      this.roleName = "Admin"
+    }
+    if(this.roleId == 4){
+      this.roleName = "Volunteer"
+    }
   }
 
   userDetails(id: number) {
@@ -37,7 +52,7 @@ export class ProfileComponent implements OnInit {
 
   LogOut(){
     localStorage.removeItem("loginUser");
-    localStorage.removeItem("userType");
+    localStorage.removeItem("loginId");
     this.router.navigateByUrl('/');
   }
 

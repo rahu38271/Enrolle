@@ -12,15 +12,22 @@ export class SuperadminService {
 
   constructor(private http:HttpClient) { }
 
-  getAllMAdmin():Observable<any>{
-    return this.http.get<any>(this.url+'SuperAdmin/GetAllSuperAdmin')
+  getAllAdmin():Observable<any>{
+    return this.http.get<any>(this.url+'Login/GetAllAdminUser')
   }
 
   addMAdminData(addMAmodal:any){
-    return this.http.post<any>(this.url+'SuperAdmin/InsertSuperAdmin', addMAmodal)
+    debugger;
+    return this.http.post<any>(this.url+'Login/CreateUpdateUser', addMAmodal)
   }
 
   edit(edModal:any):Observable<any>{
-    return this.http.post<any>(this.url + 'SuperAdmin/UpdateSuperAdmin', edModal);
+    debugger;
+    return this.http.post<any>(this.url + 'Login/CreateUpdateUser', edModal);
   }
+
+  delete(id:any){
+    return this.http.get<any>(this.url + 'Login/DeleteUser?Id='+id)
+  }
+  
 }

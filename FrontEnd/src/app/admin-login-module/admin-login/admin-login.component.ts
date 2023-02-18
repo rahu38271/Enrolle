@@ -8,11 +8,11 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: 'app-admin-login',
+  templateUrl: './admin-login.component.html',
+  styleUrls: ['./admin-login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class AdminLoginComponent implements OnInit {
 
   generatedOtp:any;
 
@@ -30,7 +30,6 @@ export class LoginComponent implements OnInit {
   };
 
   @ViewChild('f', {static: false}) f: NgForm;
-  roleName: any;
 
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -81,22 +80,19 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    debugger;
     this.loader.showLoading();
-    this.auth.loginUser(this.loginModal.Username, this.loginModal.Password).subscribe(data => {
+    this.auth.loginAdmin(this.loginModal.Username, this.loginModal.Password).subscribe(data => {
       this.loader.hideLoader();
       if (typeof data ==="object") {
-        // localStorage.setItem("loginUser", data.user.name);
-        // localStorage.setItem("loginId", data.user.id);
-        // localStorage.setItem("loginRole", data.user.roleId);
-
-
-        //localStorage.setItem("userType", data.user.userRole);
-        localStorage.setItem("loginUser", data.user[0].name);
-        localStorage.setItem("loginId", data.user[0].id);
-        localStorage.setItem("userType", data.user[0].roleName);
-        //this.auth.sendOtp(this.loginModal.Username).subscribe((data) => {
-        //   this.otpverify(data);
-        //});
+        this.auth.userType = data.roleName;
+        console.log(data);
+        localStorage.setItem("loginUser", data.user.name);
+        localStorage.setItem("loginId", data.user.id);
+        localStorage.setItem("userType", data.user.userRole);
+        // this.auth.sendOtp(this.loginModal.Username).subscribe((data) => {
+        //    this.otpverify(data);
+        // });
           this.toast.presentToast("Logged In Succesfully", "success", 'checkmark-circle-outline');
           this.loader.hideLoader();
           this.router.navigate(['/home/mobile-dashboard']);
@@ -109,42 +105,8 @@ export class LoginComponent implements OnInit {
     );
   }
 
-
-
-
-
-  async otpverify(otp:any) {
-    const modal = await this.modalController.create({
-      component: OtpPage,
-      componentProps: {
-        'otp': otp,
-      },
-      cssClass: 'my-custom-class',
-      swipeToClose: true,
-      presentingElement: await this.modalController.getTop(),
-    });
-    modal.onDidDismiss().then((modelData) => {
-      this.loader.showLoading();
-      if (modelData !== null) {
-        if (modelData.data.status) {
-          this.otpIsCheck = 1 // valid otp
-          this.router.navigate(['/home/mobile-dashboard']);
-          this.loader.hideLoader();
-          this.toast.presentToast("Logged In Succesfully", "success", 'checkmark-circle-outline')
-        }
-        else {
-          this.loader.hideLoader();
-          this.toast.presentToast("Invalid OTP!", "danger", 'alert-circle-outline');
-        }
-      }
-
-    });
-    return await modal.present();
-  }
-
   onSubmit() {
     
   }
 
 }
- 

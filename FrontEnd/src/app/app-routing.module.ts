@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { AuthGuard } from './services/auth.guard';
+
 
 const routes: Routes = [
   {
@@ -14,6 +14,10 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./login-module/login-module.module').then( m => m.LoginModuleModule)
+  },
+  {
+    path: 'adminLogin',
+    loadChildren: () => import('./admin-login-module/admin-login-module.module').then( m => m.AdminLoginModuleModule)
   },
   // {
   //   path: 'otp',
@@ -86,7 +90,7 @@ const routes: Routes = [
  
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: '',
     pathMatch: 'full'
   },
   {
@@ -311,8 +315,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    // RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
-    RouterModule.forRoot(routes, { useHash: true, onSameUrlNavigation: 'reload' }),
+    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    //RouterModule.forRoot(routes, { useHash: true, onSameUrlNavigation: 'reload' }),
   ],
   exports: [RouterModule]
 })

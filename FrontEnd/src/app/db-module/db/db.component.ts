@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { PopoverController, ToastController } from '@ionic/angular';
-
+import { PopoverController } from '@ionic/angular';
+import { AuthenticationService } from 'src/app/services/authentication.service'
+import { LoaderService } from 'src/app/services/loader.service'
+import { IonicToastService } from 'src/app/services/ionic-toast.service'
 
 @Component({
   selector: 'app-db',
@@ -9,7 +11,11 @@ import { PopoverController, ToastController } from '@ionic/angular';
   styleUrls: ['./db.component.css']
 })
 export class DbComponent implements OnInit {
+  superAdminId:any;
 
+  DBConfigModal:any = {
+    
+  }
 
   onKeyPress(event) {
     if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {
@@ -36,21 +42,44 @@ export class DbComponent implements OnInit {
   constructor
     (
       public popoverController: PopoverController,
-      public toastController: ToastController,
+      private auth:AuthenticationService,
+      private loader:LoaderService,
+      private toast:IonicToastService
     ) {
       
   }
 
-
-
-
-
   ngOnInit() {
+    this.superAdminId = localStorage.getItem("loginId");
+    //this.dbAssign();
+  }
 
+  dbAssign(){
+    this.DBConfigModal.superAdminId = Number(this.superAdminId);
+    this.loader.showLoading();
+    this.auth.DBConfig(this.DBConfigModal).subscribe(data=>{
+      if(data){
+        this.loader.hideLoader();
+        this.DBConfigModal = { };
+        this.toast.presentToast("DB assigned successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("DB not assigned", "danger", 'alert-circle-sharp');
+      }
+    }, (err)=>{
+      this.loader.hideLoader();
+      //this.toast.presentToast("Contact not saved", "danger", 'alert-circle-sharp');
+    })
   }
 
   resetForm() {
     this.myForm.reset();
+  }
+
+
+  onSubmit(f){
+
   }
 
 

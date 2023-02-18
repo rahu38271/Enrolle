@@ -100,7 +100,7 @@ export class ContactComponent implements OnInit {
       }
     }, (err)=>{
       this.loader.hideLoader();
-      this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      this.toast.presentToast("Something went wrong !", "danger", 'alert-circle-outline');
     });
   }
 

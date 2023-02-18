@@ -83,7 +83,7 @@ export class EditSuperadminComponent implements OnInit {
     this.contact.getTalukaData(dId).subscribe((data) => {
       if (data.length > 0) {
         //console.log(data);
-        this.editData.District = this.districtList.find(x => x.dId == dId).districtName;
+        this.editData.district = this.districtList.find(x => x.dId == dId).districtName;
         this.talukaList = data;
       }
     }, (error) => {
@@ -107,13 +107,15 @@ export class EditSuperadminComponent implements OnInit {
   }
 
   editAdmin(){
-    this.editData.validity = Number(this.editData.validity);
+    debugger;
+    this.editData.id = Number(this.editData.id);
     this.loader.showLoading();
     this.sadmin.edit(this.editData).subscribe(data=>{
       if(data){
         this.editData = {};
         this.loader.hideLoader();
         this.toast.presentToast("Superadmin updated successfully!", "success", 'checkmark-circle-sharp');
+        this.router.navigate(['/superadmin']);
       }
       else{
         this.loader.hideLoader();

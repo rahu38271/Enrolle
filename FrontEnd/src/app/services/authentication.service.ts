@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 export class AuthenticationService {
 
   // login url = "http://eaapi.test.obicas.in/api/Auth/Login?Username=7219171929&Password=Niki@123"
+    //Superadmin login url =  "http://eaapi.test.obicas.in/api/Login/LoginAdmin?Username=8800122455&Password=password13"
 
   // password url = "http://eaapi.test.obicas.in/api/Auth/ChangeUserPassword?Id=5&Password=user@123"
 
@@ -19,8 +20,21 @@ export class AuthenticationService {
 
   constructor(public http: HttpClient) { }
 
+  // // step - 1.  admin Login API 
+
+  loginAdmin(Username:string,Password:string):Observable<any>{
+    return this.http.get<any>(this.url+'Login/LoginUser?Username='+Username+'&Password='+Password+'');
+  }
+
+  //user login page
+
   loginUser(Username:string,Password:string):Observable<any>{
     return this.http.get<any>(this.url+'Auth/Login?Username='+Username+'&Password='+Password+'');
+  }
+
+  // step - 2. DB configure 
+  DBConfig(DBConfigModal:any){
+    return this.http.post<any>(this.url+'Login/InsertUpdateDBConfigure', DBConfigModal)
   }
 
   sendOtp(Contact:any){

@@ -27,7 +27,7 @@ export class AccountComponent implements OnInit {
   }
 
   details(){
-    this.sadmin.getAllMAdmin().subscribe((data) =>{
+    this.sadmin.getAllAdmin().subscribe((data) =>{
       const Sid = this.route.snapshot.paramMap.get('id') || "";
       [this.Sadmin] = data.filter((Sadmin) => Sadmin.id == Sid);
       this.getSAData = this.Sadmin

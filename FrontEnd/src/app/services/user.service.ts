@@ -42,6 +42,10 @@ export class UserService {
     return this.http.post<any>(this.url+'Auth/InsertUpdateUserAssigned' ,assignmodal)
   }
 
+  getAllAssignedPart(){
+    return this.http.get<any>(this.url+'auth/GetPartNoAssigned')
+  }
+  
   // getVoterByPart(id:any){
   //   return this.http.get<any>(this.url+'Voter/GetVoterbyUserId?userid='+id)
   // }

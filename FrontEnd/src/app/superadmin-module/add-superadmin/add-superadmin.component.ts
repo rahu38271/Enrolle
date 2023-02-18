@@ -5,6 +5,7 @@ import { SuperadminService } from 'src/app/services/superadmin.service'
 import { LoaderService } from 'src/app/services/loader.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { ContactService } from 'src/app/services/contact.service';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-add-superadmin',
@@ -13,7 +14,7 @@ import { ContactService } from 'src/app/services/contact.service';
 })
 export class AddSuperadminComponent implements OnInit {
 
-  addMAmodal: any = {};
+  addMAmodal: any = { };
   myForm;
   Quote;
   assemblyList: any;
@@ -48,6 +49,7 @@ export class AddSuperadminComponent implements OnInit {
       private loader: LoaderService,
       private toast: IonicToastService,
       public contact: ContactService,
+      private router: Router
   ) { }
 
   ismyTextFieldType: boolean;
@@ -103,13 +105,14 @@ export class AddSuperadminComponent implements OnInit {
   }
 
   addMAdmin() {
-    this.addMAmodal.Validity = Number(this.addMAmodal.Validity);
+    this.addMAmodal.RoleId = Number(this.addMAmodal.RoleId)
     this.loader.showLoading();
     this.sadmin.addMAdminData(this.addMAmodal).subscribe(data => {
       if (data) {
         this.addMAmodal = {};
         this.loader.hideLoader();
         this.toast.presentToast("Superadmin added successfully!", "success", 'checkmark-circle-sharp');
+        this.router.navigate(['/superadmin']);
       }
       else {
         this.loader.hideLoader();

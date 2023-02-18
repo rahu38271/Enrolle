@@ -2,7 +2,7 @@
   <ion-header class="android">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button color="primary" defaultHref="/home/mobile-dashboard"></ion-back-button>
+        <ion-back-button defaultHref="/home/mobile-dashboard"></ion-back-button>
       </ion-buttons>
       <ion-title> Superadmin </ion-title>
       <ion-buttons slot="primary">
@@ -92,14 +92,12 @@
                       <!-- <th>
                             Booth
                           </th> -->
-                      <th>Validity</th>
+                      <!-- <th>Validity</th> -->
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr
-                      *ngFor="let item of getAllMAdmin | filter:searchWeb | paginate: { itemsPerPage: 10, currentPage: cp }">
-
+                    <!-- <tr>
                       <td>{{item.id}}</td>
                       <td class="text-capitalize">{{item.name}}</td>
                       <td>{{item.mobile_Id}}</td>
@@ -112,15 +110,32 @@
                       <td>{{item.village}}</td>
                       <td>{{item.validity}} year</td>
                       <td class="action">
-                        <!-- <ion-icon routerLink="/useradmin/edit-useradmin" name="pencil-sharp"></ion-icon> -->
+                        <ion-icon routerLink="/useradmin/edit-useradmin" name="pencil-sharp"></ion-icon> 
                         <ion-icon (click)="EditSA(item)" name="create-sharp"></ion-icon>
-                        <!-- <ion-icon class="delete" (click)="deleteSA()" name="trash-bin-sharp"></ion-icon> -->
+                        <ion-icon class="delete" (click)="deleteSA()" name="trash-bin-sharp"></ion-icon> 
+                      </td>
+                    </tr> -->
+                    <tr *ngFor="let item of getAdminList">
+                      <td>{{item.id}}</td>
+                      <td class="text-capitalize">{{item.name}}</td>
+                      <td>{{item.contact}}</td>
+                      <td>{{item.password}}</td>
+                      <td>{{item.roleName}}</td>
+                      <td>{{item.state}}</td>
+                      <td>{{item.district}}</td>
+                      <td>{{item.assemblyName}}</td>
+                      <td>{{item.taluka}}</td>
+                      <td>{{item.village}}</td>
+                      <!-- <td>Katraj</td>
+                      <td>1 year</td> -->
+                      <td class="action"> 
+                        <ion-icon (click)="EditSA(item)" name="create-sharp"></ion-icon>
+                        <!-- <ion-icon (click)="deleteSA()" class="delete" name="trash-bin-sharp"></ion-icon>  -->
                       </td>
                     </tr>
-
                   </tbody>
                 </table>
-                <div *ngIf="!getAllMAdmin || getAllMAdmin.length === 0">
+                <div *ngIf="!getAdminList || getAdminList.length === 0 " class="text-center">
                   <p>No data available</p>
                 </div>
                 <pagination-controls (pageChange)="cp = $event"></pagination-controls>
