@@ -1,4 +1,5 @@
 using AutoMapper;
+using ElectionAlerts.Model;
 using ElectionAlerts.Repository;
 using ElectionAlerts.Repository.Interface;
 using ElectionAlerts.Repository.RepositoryClasses;
@@ -26,13 +27,14 @@ namespace ElectionAlerts
 
         public Startup(IConfiguration configuration)
         {
+            SchedulerTask.StartAsync().GetAwaiter().GetResult();
             _configuration = configuration;
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddHostedService<Scheduler>();
+           // services.AddHostedService<Scheduler>();
             //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -75,6 +77,7 @@ namespace ElectionAlerts
             services.AddScoped<ISuperAdminService, SuperAdminService>();
             services.AddScoped<IVillageService, VillageService>();
             services.AddScoped<ILoginService, LoginService>();
+            services.AddScoped<IWhatRespository, WhatRepository>();
 
             services.AddScoped<IContactReposritory, ContactRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
@@ -88,6 +91,7 @@ namespace ElectionAlerts
             services.AddScoped<ISuperAdminRepository, SuperAdminRepository>();
             services.AddScoped<IVillageRepository, VillageRepository>();
             services.AddScoped<ILoginRepository, LoginRepository>();
+            services.AddScoped<IWhatUpService, WhatUpService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
