@@ -19,11 +19,15 @@ namespace ElectionAlerts.Repository.RepositoryClasses
     //public enum Role { SuperAdmin = 1, Admin = 2, Volunteer = 3,Default=0};
     public class AuthRepository : IAuthRepository
     {
-        private CustomContext _customContext = new CustomContext();
+        private CustomContext _customContext;
         private readonly IMapper _mapper;
-        public AuthRepository(IMapper mapper)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public AuthRepository(IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
+            _customContext = new CustomContext(_httpContextAccessor);
         }
         public IEnumerable<UserModel> Login(string username, string password)
         {

@@ -17,7 +17,13 @@ namespace ElectionAlerts.Repository.RepositoryClasses
 {
     public class AssemblyRepository : IAssemblyRepository
     {
-        private CustomContext _customContext = new CustomContext();
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private CustomContext _customContext;
+        public AssemblyRepository(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            _customContext = new CustomContext(_httpContextAccessor);
+        }
         public int DeleteAssemblybyId(int id)
         {
             try

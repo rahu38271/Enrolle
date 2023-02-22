@@ -16,7 +16,14 @@ namespace ElectionAlerts.Repository.RepositoryClasses
 {
     public class BoothRespository : IBoothRepository
     {
-        private CustomContext _cuctomContext = new CustomContext();
+        private CustomContext _cuctomContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public BoothRespository(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            _cuctomContext = new CustomContext(_httpContextAccessor);
+        }
         public IEnumerable<Booth> FilterBoothList(Table table)
         {
             try

@@ -18,10 +18,13 @@ namespace ElectionAlerts.Repository.RepositoryClasses
     public class VoterRepository : IVoterRepository
     {
         private readonly IMapper _mapper;
-        private CustomContext _customContext = new CustomContext();
-        public VoterRepository(IMapper mapper)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private CustomContext _customContext;
+        public VoterRepository(IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
+            _customContext = new CustomContext(_httpContextAccessor);
         }
         public int CreateVoter(Voter voter)
         {

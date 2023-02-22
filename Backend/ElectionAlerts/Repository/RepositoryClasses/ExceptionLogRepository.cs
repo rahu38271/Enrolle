@@ -11,7 +11,13 @@ namespace ElectionAlerts.Repository.RepositoryClasses
 {
     public class ExceptionLogRepository: IExceptionLogRepository
     {
-        private CustomContext _customContext = new CustomContext();
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private CustomContext _customContext;
+        public ExceptionLogRepository(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            _customContext = new CustomContext(_httpContextAccessor);
+        }
         //public void ErrorLog(Exception ex, string LogName, string LogType)
         //{
         //    throw new NotImplementedException();

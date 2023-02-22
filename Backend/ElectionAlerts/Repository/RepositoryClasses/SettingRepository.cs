@@ -12,7 +12,13 @@ namespace ElectionAlerts.Repository.RepositoryClasses
 {
     public class SettingRepository: ISettingRepository
     {
-        private CustomContext _customContext = new CustomContext();
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private CustomContext _customContext;
+        public SettingRepository(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            _customContext = new CustomContext(_httpContextAccessor);
+        }
         public List<Districts> GetAllDistricts()
         {
             try

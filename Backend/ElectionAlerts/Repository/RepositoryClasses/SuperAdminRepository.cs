@@ -12,7 +12,13 @@ namespace ElectionAlerts.Repository.RepositoryClasses
 {
     public class SuperAdminRepository : ISuperAdminRepository
     {
-        private CustomContext _customContext = new CustomContext();
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private CustomContext _customContext;
+        public SuperAdminRepository(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            _customContext = new CustomContext(_httpContextAccessor);
+        }
         public IEnumerable<SuperAdmin> GetAllSuperAdmin()
         {
             try

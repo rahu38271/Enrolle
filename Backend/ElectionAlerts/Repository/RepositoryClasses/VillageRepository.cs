@@ -15,7 +15,13 @@ namespace ElectionAlerts.Repository.RepositoryClasses
 {
     public class VillageRepository : IVillageRepository
     {
-        private CustomContext _customContext = new CustomContext();
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private CustomContext _customContext;
+        public VillageRepository(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            _customContext = new CustomContext(_httpContextAccessor);
+        }
         public IEnumerable<Village> GetVillage(string taluka)
         {
             try
