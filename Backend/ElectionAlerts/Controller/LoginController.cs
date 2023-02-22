@@ -35,17 +35,20 @@ namespace ElectionAlerts.Controller
         public IActionResult LoginUser(string Username, string Password)
         {
             string msg="DB Changed";
+            string token = "";
             var user = _loginService.LoginUser(Username, Password);
             if (user != null)
             {
                 msg = "User Logined";
-                if (user.RoleId==3)
+                if (user.RoleId>1)
                 {
                     try
                     {
                         var configDB = _loginService.GetConfigureDBbyUser(Convert.ToInt32(user.AdminId));
                         if (configDB != null)
-                            ReadConfiguration(configDB);
+                        {
+                            token = GenerateJSONWebToken(configDB);
+                        }
                         else
                             msg = "No DB Config Found";
                     }
@@ -53,7 +56,7 @@ namespace ElectionAlerts.Controller
                     {
                         msg = ex.InnerException + "  Message : " + ex.Message;
                     }
-                    return Ok(new { msg , User=user});
+                    return Ok(new { token = token, ExpiryTime = 1800, User = user });
                 }
             }
             else
@@ -134,15 +137,15 @@ namespace ElectionAlerts.Controller
             }
         }
 
-        private string GenerateJSONWebToken()
+        private string GenerateJSONWebToken(ConfigureDB ConfigureDB)
         {
-            //var claims = new[] { new Claim(ClaimTypes.PrimarySid, configure.IPAddress), new Claim(ClaimTypes.Name, configure.DBName), new Claim(ClaimTypes.Role,configure.UserName), new Claim(ClaimTypes.Authentication, configure.Password) };
+            var claims = new[] { new Claim(ClaimTypes.PrimarySid, ConfigureDB.IPAddress), new Claim(ClaimTypes.Name, ConfigureDB.DBName), new Claim(ClaimTypes.Role, ConfigureDB.UserName), new Claim(ClaimTypes.Authentication, ConfigureDB.Password) };
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken(issuer: _config["Jwt:Issuer"], audience: _config["Jwt:Audience"],
-            expires: DateTime.Now.AddMinutes(30));
+            expires: DateTime.Now.AddMinutes(30), claims: claims,
+            signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
-
         }
 
         public void ReadConfiguration(ConfigureDB configureDB)

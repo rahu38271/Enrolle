@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
@@ -12,21 +13,64 @@ using Microsoft.Extensions.Configuration;
 namespace ElectionAlerts.Model.Data
 {
     public class CustomContext : DbContext
-    {    
-       protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public CustomContext()
         {
+
+        }
+        public CustomContext(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+
+            //if (!optionsBuilder.IsConfigured)
+            //{
+            //    var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
+            //    var config = builder.Build();
+            //    var connectionString = config.GetConnectionString("DBCon");
+            //    //constr = "Server=184.168.194.78;Database=ElectionAlertsQa;User Id=ElectionAlerts; Password=ElectionAlerts@1112;pooling=false;";
+
+            //    optionsBuilder.UseSqlServer(connectionString, x => x.EnableRetryOnFailure());
+            //}
+            string constr;
+
             if (!optionsBuilder.IsConfigured)
             {
-                var builder = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json");
-                var config = builder.Build();
-                var connectionString = config.GetConnectionString("DBCon");
-                //constr = "Server=184.168.194.78;Database=ElectionAlertsQa;User Id=ElectionAlerts; Password=ElectionAlerts@1112;pooling=false;";
-                optionsBuilder.UseSqlServer(connectionString, x => x.EnableRetryOnFailure());               
+                constr = "Server=184.168.194.78;Database=EnrolleMasterQA;User Id=EnrolleMasterQA; Password=EnrolleMasterQA@123;pooling=false;";
+
+                if (_httpContextAccessor!=null)
+                { 
+                var identity = _httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
+
+                    if (identity.Claims.Count() > 0)
+                    {
+                        var token = new JwtSecurityToken();
+                        ConfigureDB configure = new ConfigureDB();
+                        IEnumerable<Claim> claims = identity.Claims;
+                        foreach (var c in claims)
+                        {
+                            if (c.Type.Contains("primarysid"))
+                                configure.IPAddress = c.Value;
+                            if (c.Type.Contains("name"))
+                                configure.DBName = c.Value;
+                            if (c.Type.Contains("role"))
+                                configure.UserName = c.Value;
+                            if (c.Type.Contains("authentication"))
+                                configure.Password = c.Value;
+                        }
+                        constr = $"Server={configure.IPAddress};Database= {configure.DBName};User Id={ configure.UserName};Password={configure.Password};pooling=false;";
+                    }
+                }
+                optionsBuilder.UseSqlServer(constr, x => x.EnableRetryOnFailure());
             }
         }
         public DbSet<Village> Villages { get; set; }
         public DbSet<Contact> Contact { get; set; }
-        public DbSet<User> User { get; set; }
+        public DbSet<User> UsersDetails { get; set; }
         public DbSet<Voter> Voter { get; set; }
         public DbSet<Districts> Districts { get; set; }
         public DbSet<Taluka> Talukas { get; set; }
@@ -49,6 +93,8 @@ namespace ElectionAlerts.Model.Data
         public DbSet<ConfigureDB> ConfigureDBs { get; set; }
         public DbSet<PartNoAssigned> PartNoAssigneds { get; set; }
         public DbSet<AdminUser> AdminUsers { get; set; }
+        public DbSet<WhatUpSetting> WhatUpSettings { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Districts>().HasNoKey();

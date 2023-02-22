@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -58,23 +59,15 @@ namespace ElectionAlerts.Controller
             }
         }
 
-        private string GenerateJSONWebToken(User userInfo)
+        private string GenerateJSONWebToken(ConfigureDB ConfigureDB)
         {
+            var claims = new[] { new Claim(ClaimTypes.PrimarySid, ConfigureDB.IPAddress), new Claim(ClaimTypes.Name, ConfigureDB.DBName), new Claim(ClaimTypes.Role, ConfigureDB.UserName), new Claim(ClaimTypes.Authentication, ConfigureDB.Password) };
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken(issuer: _config["Jwt:Issuer"], audience: _config["Jwt:Audience"],
-            expires: DateTime.Now.AddMinutes(30),
+            expires: DateTime.Now.AddMinutes(30), claims: claims,
             signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
-
-            //var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
-            //var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            //var token = new JwtSecurityToken(_config["Jwt:Issuer"],
-            //  _config["Jwt:Issuer"],
-            //  null,
-            //  expires: DateTime.Now.AddMinutes(30),
-            //  signingCredentials: credentials);
-            //return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
         private UserModel AuthenticateUser(UserModel login)
