@@ -54,29 +54,9 @@ export class ViewMobileGroupComponent implements OnInit {
   }
 
   ngOnInit() {
-    $('#table40').DataTable({
-      lengthMenu: [ [25, 50, 100, -1], [25, 50, 100, "All"] ],
-      pageLength: 25,
-      autoWidth: false,
-      "columnDefs": [
-        { "width": "50px", "targets": 0 },
-        { "width": "200px", "targets": 1 },
-        { "width": "100px", "targets": 2 },
-        { "width": "200px", "targets": 3 },
-        { "width": "100px", "targets": 4 },
-      ],
-    });
-    $('#table37').DataTable({
+  
+    
       
-      autoWidth: false,
-      "columnDefs": [
-        { "width": "100px", "targets": 0 },
-        { "width": "100px", "targets": 1 },
-        { "width": "200px", "targets": 2 },
-        { "width": "200px", "targets": 3 },
-        { "width": "200px", "targets": 4 },
-      ],
-    });
    }
 
   async deleteRules() {

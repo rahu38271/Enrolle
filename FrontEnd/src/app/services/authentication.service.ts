@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -23,14 +23,10 @@ export class AuthenticationService {
   // // step - 1.  admin Login API 
 
   loginAdmin(Username:string,Password:string):Observable<any>{
+    debugger;
     return this.http.get<any>(this.url+'Login/LoginUser?Username='+Username+'&Password='+Password+'');
   }
 
-  //user login page
-
-  loginUser(Username:string,Password:string):Observable<any>{
-    return this.http.get<any>(this.url+'Auth/Login?Username='+Username+'&Password='+Password+'');
-  }
 
   // step - 2. DB configure 
   DBConfig(DBConfigModal:any){

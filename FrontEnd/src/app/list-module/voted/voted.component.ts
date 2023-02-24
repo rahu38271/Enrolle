@@ -16,16 +16,7 @@ export class VotedComponent implements OnInit {
   }
 
   ngOnInit() {
-    $('#villageTable').DataTable({
-      lengthMenu: [ [25, 50, 100, -1], [25, 50, 100, "All"] ],
-      pageLength: 25,
-      autoWidth: false,
-      "columnDefs": [
-        { "width": "20px", "targets": 0 },
-        { "width": "100px", "targets": 1 },
-        { "width": "70px", "targets": 2 }
-      ],
-    });
+    
   }
 
 }

@@ -32,7 +32,6 @@
             <ion-select name="RoleId" [(ngModel)]="addUserModal.RoleId" #RoleId="ngModel"
               [ngClass]="{'is-invalid': f.submitted && RoleId.invalid}" required class="form-control"
               placeholder="Select User Role" interface="popover">
-              <ion-select-option class="select_option" value="2">SuperAdmin</ion-select-option>
               <ion-select-option class="select_option" value="3">Admin</ion-select-option>
               <ion-select-option class="select_option" value="4">Volunteer</ion-select-option>
             </ion-select>

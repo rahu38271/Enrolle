@@ -68,22 +68,7 @@ export class DailyRoutineComponent implements OnInit {
   }
 
   ngOnInit() { 
-    $('#table5').DataTable({
-      lengthMenu: [ [5, 50, 100, -1], [25, 50, 100, "All"] ],
-      pageLength: 5,
-      autoWidth: false,
-      "columnDefs": [
-        { "width": "40px", "targets": 0 },
-        { "width": "100px", "targets": 1 },
-        { "width": "80px", "targets": 2 },
-        { "width": "100px", "targets": 3 },
-        { "width": "100px", "targets": 4 },
-        { "width": "100px", "targets": 5 },
-        { "width": "100px", "targets": 6 },
-        { "width": "75px", "targets": 7 },
-        { "width": "40px", "targets": 8 }
-      ],
-    });
+    
   }
 
   async deleteRoutine() {

@@ -8,7 +8,7 @@
   <ion-header class="android">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button color="primary" defaultHref="/contact"></ion-back-button>
+        <ion-back-button defaultHref="/contact"></ion-back-button>
       </ion-buttons>
       <ion-title> Edit Contact </ion-title>
     </ion-toolbar>
@@ -116,7 +116,7 @@
                 name="district" 
                 [(ngModel)]="EditData.district" 
                 #district="ngModel" 
-                (ionChange)="getTaluka(EditData.districtId)" 
+                (change)="getTaluka(EditData.district)" 
                 
                 required
               >

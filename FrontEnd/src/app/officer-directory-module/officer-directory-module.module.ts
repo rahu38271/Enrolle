@@ -7,7 +7,7 @@ import { OfficeDirectoryComponent } from './office-directory/office-directory.co
 import { AddOfficerComponent } from './add-officer/add-officer.component'
 import { EditOfficerComponent } from './edit-officer/edit-officer.component'
 import { ImportOfficerComponent } from './import-officer/import-officer.component'
-import { DataTablesModule } from 'angular-datatables';
+
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -19,7 +19,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
     CommonModule,
     IonicModule,
     FormsModule,
-    DataTablesModule,
     NgxDropzoneModule,
     Ng2SearchPipeModule,
     NgxPaginationModule,

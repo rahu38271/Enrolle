@@ -7,6 +7,7 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { AssemblyService} from 'src/app/services/assembly.service'
 import {WardService } from 'src/app/services/ward.service'
 import { BoothService } from 'src/app/services/booth.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-add-voter',
@@ -59,7 +60,8 @@ export class AddVoterComponent implements OnInit {
       private toast:IonicToastService,
       private assembly:AssemblyService,
       private ward:WardService,
-      private booth:BoothService
+      private booth:BoothService,
+      private router:Router
     )
      {
 
@@ -140,6 +142,7 @@ export class AddVoterComponent implements OnInit {
         console.log(data);
         this.addVoterModal = {};
         this.loader.hideLoader();
+        this.router.navigate(['/voter-summary'])
         this.toast.presentToast("Voter added successfully!", "success", 'checkmark-circle-sharp');
       }
       else{

@@ -6,7 +6,7 @@ import {FormsModule } from '@angular/forms'
 import {JournalistComponent } from './journalist/journalist.component'
 import {AddJournalistComponent } from './add-journalist/add-journalist.component'
 import {EditJournalistComponent } from './edit-journalist/edit-journalist.component'
-import { DataTablesModule } from 'angular-datatables';
+
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {NgxPaginationModule} from 'ngx-pagination';
 
@@ -16,7 +16,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
     CommonModule,
     FormsModule,
     IonicModule,
-    DataTablesModule,
     Ng2SearchPipeModule,
     NgxPaginationModule,
     RouterModule.forChild([{path:'', component:JournalistComponent},{path:'add-journalist', component:AddJournalistComponent },{path:'edit-journalist', component:EditJournalistComponent}])

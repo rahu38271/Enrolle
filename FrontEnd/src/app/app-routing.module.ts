@@ -90,7 +90,7 @@ const routes: Routes = [
  
   {
     path: '',
-    redirectTo: '',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -315,8 +315,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
-    //RouterModule.forRoot(routes, { useHash: true, onSameUrlNavigation: 'reload' }),
+    //RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    RouterModule.forRoot(routes, { useHash: true }),
   ],
   exports: [RouterModule]
 })

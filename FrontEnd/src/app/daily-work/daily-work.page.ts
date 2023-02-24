@@ -66,16 +66,7 @@ export class DailyWorkPage implements OnInit {
   }
 
   ngOnInit() {
-    $('#table2').DataTable({
-      lengthMenu: [ [25, 50, 100, -1], [25, 50, 100, "All"] ],
-      pageLength: 25,
-      autoWidth: false,
-      "columnDefs": [
-        { "width": "40px", "targets": 0 },
-        { "width": "500px", "targets": 1 },
-        { "width": "300px", "targets": 2 }
-      ],
-    });
+    
   }
 
 }

@@ -70,10 +70,6 @@ export class LoginComponent implements OnInit {
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
   }
-  
- ionViewDidLeave() {
-    this.menuCtrl.enable(true);
- } 
 
   ismyTextFieldType: boolean;
   togglemyPasswordFieldType() {
@@ -81,25 +77,28 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    debugger;
+    
     this.loader.showLoading();
-    this.auth.loginUser(this.loginModal.Username, this.loginModal.Password).subscribe(data => {
+    this.auth.loginAdmin(this.loginModal.Username, this.loginModal.Password).subscribe(data => {
       this.loader.hideLoader();
       if (typeof data ==="object") {
         // localStorage.setItem("loginUser", data.user.name);
         // localStorage.setItem("loginId", data.user.id);
         // localStorage.setItem("loginRole", data.user.roleId);
-
-
-        //localStorage.setItem("userType", data.user.userRole);
+        
+        
         localStorage.setItem("loginUser", data.user[0].name);
         localStorage.setItem("loginId", data.user[0].id);
-        localStorage.setItem("userType", data.user[0].roleName);
+        localStorage.setItem("userType", data.user[0].roleId);
         //this.auth.sendOtp(this.loginModal.Username).subscribe((data) => {
         //   this.otpverify(data);
         //});
           this.toast.presentToast("Logged In Succesfully", "success", 'checkmark-circle-outline');
           this.loader.hideLoader();
-          this.router.navigate(['/home/mobile-dashboard']);
+          //this.router.navigate(['/home/mobile-dashboard']);
+          // if we use router.navigate to redirect to dashboard page we need to refresh to see menubar based on user role.
+          location.href = "#/home/mobile-dashboard";
       }
     },
     (err)=>{

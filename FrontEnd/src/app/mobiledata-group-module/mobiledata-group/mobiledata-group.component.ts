@@ -43,16 +43,7 @@ export class MobiledataGroupComponent implements OnInit {
   }
 
   ngOnInit() { 
-    $('#table33').DataTable({
-      lengthMenu: [ [25, 50, 100, -1], [25, 50, 100, "All"] ],
-      pageLength: 25,
-      autoWidth: false,
-      "columnDefs": [
-        { "width": "50px", "targets": 0 },
-        { "width": "400px", "targets": 1 },
-        { "width": "50px", "targets": 2 },
-      ],
-    });
+    
   }
 
   async deleteMdataGroup() {

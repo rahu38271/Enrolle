@@ -4,6 +4,7 @@ import { PopoverController, ToastController } from '@ionic/angular';
 import { ContactService } from 'src/app/services/contact.service';
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { LoaderService } from 'src/app/services/loader.service';
+import { Router } from '@angular/router';
 
 class Port {
   public id: number;
@@ -52,7 +53,8 @@ export class AddContactComponent implements OnInit {
       public toastController: ToastController,
       public contact: ContactService,
       private toast: IonicToastService,
-      private loader:LoaderService
+      private loader:LoaderService,
+      private router:Router
     ) {
       
   }
@@ -115,6 +117,7 @@ export class AddContactComponent implements OnInit {
         this.toast.presentToast("Conact added successfully!", "success", 'checkmark-circle-sharp');
         this.contactModal = {};
         this.loader.hideLoader();
+        this.router.navigate(['/contact']);
       }
       else {
         this.toast.presentToast("Contact not saved", "danger", 'alert-circle-sharp');

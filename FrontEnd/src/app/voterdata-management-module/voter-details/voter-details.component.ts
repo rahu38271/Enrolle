@@ -11,6 +11,8 @@ import { Router } from '@angular/router'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { ModalController } from '@ionic/angular';
 import { Location } from '@angular/common';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
+import { AlertController, ToastController } from '@ionic/angular';
 
 
 @Component({
@@ -104,7 +106,10 @@ export class VoterDetailsComponent {
       private router: Router,
       private toast: IonicToastService,
       public modalCtrl: ModalController,
-      private location: Location
+      private location: Location,
+      private alertController: AlertController, 
+      private bluetoothSerial: BluetoothSerial, 
+      private toastCtrl: ToastController,
     ) {
       
   }
@@ -135,7 +140,7 @@ export class VoterDetailsComponent {
       else {
         this.toast.presentToast("Mobile No. not updated", "danger", 'alert-circle-sharp');
       }
-    }, (err) => {
+    }, (_err) => {
       this.toast.presentToast("Mobile No. not updated", "danger", 'alert-circle-sharp');
     })
   }
@@ -154,7 +159,7 @@ export class VoterDetailsComponent {
       else {
         this.toast.presentToast("Mobile No. not updated", "danger", 'alert-circle-sharp');
       }
-    }, (err) => {
+    }, (_err) => {
       this.toast.presentToast("Mobile No. not updated", "danger", 'alert-circle-sharp');
     })
   }
@@ -173,7 +178,7 @@ export class VoterDetailsComponent {
       else {
         this.toast.presentToast("Address not updated", "danger", 'alert-circle-sharp');
       }
-    }, (err) => {
+    }, (_err) => {
       this.toast.presentToast("Address not updated", "danger", 'alert-circle-sharp');
     })
   }
@@ -245,7 +250,7 @@ export class VoterDetailsComponent {
       else {
         this.toast.presentToast("Starred not updated", "danger", 'alert-circle-sharp');
       }
-    }, (err) => {
+    }, (_err) => {
       this.toast.presentToast("Starred not updated", "danger", 'alert-circle-sharp');
     })
   }
@@ -286,21 +291,25 @@ export class VoterDetailsComponent {
   }
 
   printSlip() {
-    this.content = document.getElementById('slipDesign').innerHTML;
-    let options = {
-      documentSize: 'a7',
-      type: 'share',
-      // landscape: 'portrait', 86mm x 54mm
-      fileName: 'voter slip.pdf'
-    };
-    this.pdfGenerator.fromData(this.content, options)
-      .then((base64) => {
-        console.log('OK', base64);
-      }).catch((error) => {
-        console.log('error', error);
-      });
-
+    
   }
+
+  // printSlip() {
+  //   this.content = document.getElementById('slipDesign').innerHTML;
+  //   let options = {
+  //     documentSize: 'a7',
+  //     type: 'share',
+  //     landscape: 'portrait', 86mm x 54mm
+  //     fileName: 'voter slip.pdf'
+  //   };
+  //   this.pdfGenerator.fromData(this.content, options)
+  //     .then((base64) => {
+  //       console.log('OK', base64);
+  //     }).catch((error) => {
+  //       console.log('error', error);
+  //     });
+
+  // }
 
   // share() {
   //   var options = {
@@ -343,4 +352,7 @@ export class VoterDetailsComponent {
   }
 
 }
+
+
+
 

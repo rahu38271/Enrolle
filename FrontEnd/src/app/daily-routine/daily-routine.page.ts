@@ -37,20 +37,7 @@ export class DailyRoutinePage implements OnInit {
   }
 
   ngOnInit() {
-    $('#table4').DataTable({
-      lengthMenu: [ [25, 50, 100, -1], [25, 50, 100, "All"] ],
-      pageLength: 25,
-      autoWidth: false,
-      "columnDefs": [
-        { "width": "40px", "targets": 0 },
-        { "width": "100px", "targets": 1 },
-        { "width": "200px", "targets": 2 },
-        { "width": "200px", "targets": 3 },
-        { "width": "200px", "targets": 4 },
-        { "width": "200px", "targets": 5 },
-        { "width": "200px", "targets": 6 }
-      ],
-    });
+    
   }
   
 

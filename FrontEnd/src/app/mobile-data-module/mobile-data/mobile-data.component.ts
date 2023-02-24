@@ -48,23 +48,7 @@ export class MobileDataComponent implements OnInit {
   }
 
   ngOnInit() { 
-    $('#table31').DataTable({
-      lengthMenu: [ [25, 50, 100, -1], [25, 50, 100, "All"] ],
-      pageLength: 25,
-      autoWidth: false,
-      "columnDefs": [
-        { "width": "20px", "targets": 0 },
-        { "width": "80px", "targets": 1 },
-        { "width": "150px", "targets": 2 },
-        { "width": "40px", "targets": 3 },
-        { "width": "50px", "targets": 4 },
-        { "width": "50px", "targets": 5 },
-        { "width": "100px", "targets": 6 },
-        { "width": "20px", "targets": 7 },
-        { "width": "50px", "targets": 8 },
-        { "width": "20px", "targets": 9 }
-      ],
-    });
+    
   }
 
   async deleteMdata() {

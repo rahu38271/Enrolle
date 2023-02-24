@@ -5,19 +5,19 @@
     <div class="navbar">
       <div class="leftnav">
         
-        <div class="subnav" routerLink="/home">
+        <div  class="subnav" routerLink="/home">
           <button class="subnavbtn"> <img src="assets/img/home.png" alt=""> <br>Dashboard </button>
         </div>
-        <div class="subnav" routerLink="/appointment">
+        <div  class="subnav" routerLink="/appointment">
           <button class="subnavbtn"> <img src="assets/img/contact-book.png" alt=""> <br>Appointment </button>
         </div>
-        <div class="subnav" routerLink="/contact">
+        <div  class="subnav" routerLink="/contact">
           <button class="subnavbtn"> <img src="assets/img/contact-book.png" alt=""> <br>Contact </button>
         </div>
         <!-- <div class="subnav" routerLink="/letterhead">
           <button class="subnavbtn"> <img src="assets/img/letterhead.png" alt=""> <br>Letterhead </button>
         </div> -->
-        <div class="subnav" routerLink="/user">
+        <div  class="subnav" routerLink="/user">
           <button class="subnavbtn"><img src="assets/img/user.png" alt=""><br>User  </button>
         </div>
 
@@ -33,7 +33,6 @@
           <button class="subnavbtn"><img src="assets/img/calendar.png" alt=""><br>लग्नाचा वाढदिवस </button>
         </div>
 
-        
       
         <!-- <div class="subnav">
           <button class="subnavbtn"><img src="assets/img/diary.png" alt=""><br>Directory </button>
@@ -134,7 +133,7 @@
           </div>
         </div> -->
 
-        <div class="subnav">
+        <div class="subnav" >
           <button class="subnavbtn"><img src="assets/img/shopping-list.png" alt=""><br> मतदार यादी </button>
           <div class="subnav-content">
             <ion-item lines="full" class="sub-menu" routerLink="/dashboard">
@@ -163,11 +162,11 @@
           </div>
         </div>
 
-        <div class="subnav" routerLink="/user-request" >
+        <div class="subnav" routerLink="/user-request"  >
           <button class="subnavbtn"><img src="assets/img/list1.png" alt=""><br>User Request </button>
         </div>
 
-        <div class="subnav">
+        <div class="subnav"  >
           <button class="subnavbtn"><img src="assets/img/file.png" alt=""><br> Other </button>
           <div class="subnav-content">
             <ion-item lines="full" class="sub-menu" routerLink="/appointment">
@@ -528,7 +527,7 @@
                 </ion-label>
               </ion-item>
 
-              <ion-item  routerLink="/home/mobile-dashboard" routerDirection="root" routerLinkActive="active">
+              <ion-item *ngIf="roleName === 'MasterAdmin' || roleName === 'SuperAdmin' || roleName === 'Admin' || roleName === 'Volunteer'" routerLink="/home/mobile-dashboard" routerDirection="root" routerLinkActive="active">
                 <i class="icofont icofont-home"></i>
                 <ion-label>Dashboard</ion-label>
               </ion-item>
@@ -539,17 +538,17 @@
               </ion-item> -->
 
 
-              <ion-item routerDirection="root" routerLink="/voterdata-management/voterby-user" [routerLinkActive]="'active'" >
+              <ion-item *ngIf="roleName === 'SuperAdmin' || roleName === 'Admin' || roleName === 'Volunteer'" routerDirection="root" routerLink="/voterdata-management/voterby-user" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-search-user"></i>
                 <ion-label> search </ion-label>
               </ion-item>
 
-              <ion-item routerDirection="root" routerLink="/list" [routerLinkActive]="'active'" >
+              <ion-item *ngIf="roleName === 'SuperAdmin' || roleName === 'Admin' || roleName === 'Volunteer'" routerDirection="root" routerLink="/list" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-list"></i>
                 <ion-label> Lists </ion-label>
               </ion-item>
 
-              <ion-item routerDirection="root" routerLink="/survey" [routerLinkActive]="'active'" >
+              <ion-item *ngIf="roleName === 'Volunteer'" routerDirection="root" routerLink="/survey" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-notepad"></i>
                 <ion-label> Survey </ion-label><i class=""></i>
               </ion-item>
@@ -559,13 +558,13 @@
                 <ion-label>SuperAdmin </ion-label>
               </ion-item>
 
-              <ion-item routerLink="/db" [routerLinkActive]="'active'">
+              <ion-item *ngIf="roleName === 'MasterAdmin'" routerLink="/db" [routerLinkActive]="'active'">
                 <i class="icofont icofont-ui-user"></i>
                 <ion-label>Configure DB </ion-label>
               </ion-item>
 
 
-              <ion-item routerDirection="root" routerLink="/user" [routerLinkActive]="'active'" >
+              <ion-item *ngIf="roleName === 'SuperAdmin' || roleName === 'Admin'" routerDirection="root" routerLink="/user" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-ui-user"></i>
                 <ion-label>User</ion-label>
               </ion-item>
@@ -585,27 +584,27 @@
                 <ion-label>Ward</ion-label>
               </ion-item> -->
 
-              <ion-item routerLink="/appointment" [routerLinkActive]="'active'">
+              <ion-item *ngIf="roleName === 'SuperAdmin' || roleName === 'Admin'" routerLink="/appointment" [routerLinkActive]="'active'">
                 <i class="icofont icofont-ui-user"></i>
                 <ion-label>Appointment </ion-label>
               </ion-item>
 
-              <ion-item routerDirection="root" routerLink="/contact" [routerLinkActive]="'active'" >
+              <ion-item *ngIf="roleName === 'SuperAdmin' || roleName === 'Admin'" routerDirection="root" routerLink="/contact" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-contacts"></i>
                     <ion-label> Contact </ion-label>
               </ion-item>
               
-              <ion-item routerDirection="root" routerLink="/home/birthday" [routerLinkActive]="'active'" >
+              <ion-item *ngIf="roleName === 'SuperAdmin' || roleName === 'Admin'" routerDirection="root" routerLink="/home/birthday" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-birthday-cake"></i>
                 <ion-label> वाढदिवस </ion-label>
               </ion-item>
 
-              <ion-item routerDirection="root" routerLink="/home/anniversary" [routerLinkActive]="'active'" >
+              <ion-item *ngIf="roleName === 'SuperAdmin' || roleName === 'Admin'" routerDirection="root" routerLink="/home/anniversary" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-calendar"></i>
                 <ion-label>लग्नाचा वाढदिवस </ion-label>
               </ion-item>
 
-              <ion-item routerDirection="root" routerLink="/event" [routerLinkActive]="'active'" >
+              <ion-item *ngIf="roleName === 'SuperAdmin' || roleName === 'Admin'" routerDirection="root" routerLink="/event" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-calendar"></i>
                 <ion-label>दैनंदिन कार्यक्रम </ion-label>
               </ion-item>
@@ -638,7 +637,7 @@
                 </ion-accordion>
               </ion-accordion-group> -->
 
-              <ion-accordion-group >
+              <ion-accordion-group *ngIf="roleName === 'SuperAdmin' || roleName === 'Admin'">
                 <ion-accordion value="media">
                   <ion-item slot="header" color="light">
                     <i class="icofont icofont-network"></i>
@@ -662,7 +661,7 @@
               </ion-accordion-group>
 
 
-              <ion-accordion-group >
+              <ion-accordion-group *ngIf="roleName === 'SuperAdmin' || roleName === 'Admin'">
                 <ion-accordion value="media">
                   <ion-item slot="header" color="light">
                     <i class="icofont icofont-network"></i>
@@ -699,7 +698,7 @@
 
             
 
-              <ion-accordion-group >
+              <ion-accordion-group *ngIf="roleName === 'SuperAdmin' || roleName === 'Admin'">
                 <ion-accordion value="setting">
                   <ion-item slot="header" color="light">
                     <i class="icofont icofont-ui-settings"></i>

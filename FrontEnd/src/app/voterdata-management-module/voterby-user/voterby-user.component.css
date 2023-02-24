@@ -176,3 +176,14 @@ ion-grid ion-text {
  .noData img {
   width: 125px !important;
  }
+
+ ion-searchbar {
+   position: relative;
+ }
+
+ .mike {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 12;
+ }

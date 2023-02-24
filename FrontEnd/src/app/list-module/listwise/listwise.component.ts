@@ -28,20 +28,7 @@ export class ListwiseComponent implements OnInit {
   constructor(public toastController: ToastController,public loadingController: LoadingController) { }
 
   ngOnInit() {
-    $('#table61').DataTable({
-      lengthMenu: [ [25, 50, 100, -1], [25, 50, 100, "All"] ],
-      pageLength: 25,
-      autoWidth: false,
-      "columnDefs": [
-        { "width": "40px", "targets": 0 },
-        { "width": "40px", "targets": 1 },
-        { "width": "200px", "targets": 2 },
-        { "width": "300px", "targets": 3 },
-        { "width": "100px", "targets": 4 },
-        { "width": "100px", "targets": 5 },
-        { "width": "300px", "targets": 6 }
-      ],
-    });
+    
   }
 
   exportexcel() {

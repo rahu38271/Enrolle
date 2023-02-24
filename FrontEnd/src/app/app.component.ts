@@ -19,7 +19,8 @@ import { LoaderService } from 'src/app/services/loader.service'
 import { FirebaseX } from '@awesome-cordova-plugins/firebase-x/ngx';
 import { AuthenticationService } from 'src/app/services/authentication.service'
 import { Location } from '@angular/common'
-//import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 //import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 
@@ -30,29 +31,36 @@ import { Location } from '@angular/common'
   styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
-  showHead: boolean = false;
+  name: any;
+  roleName: string;
+  id: any;
+  showHead:boolean=false;
   DashboardMenu: any;
   AdminMenu: any;
   UserMenu: any;
-  name = '';
-  roleName: string;
   user: any;
   roleType: string;
-  id: any;
   contact: string;
   roleId:any;
-  // isContact: any;
-  // isBirthday: any;
-  // isAnniversary: any;
-  // isDailyRoutine: any;
-  // isMedia: any;
-  // isOther: any;
-  // isSetting: any;
-  // isUser: any;
-  // isSurvey: any;
-  // isLists: any;
-  // isSearch: any;
-  // isVoterList: any;
+  isDashboard: any;
+  isContact: any;
+  isBirthday: any;
+  isAnniversary: any;
+  isDailyRoutine: any;
+  isMedia: any;
+  isOther: any;
+  isSetting: any;
+  isUser: any;
+  isSurvey: any;
+  isLists: any;
+  isSearch: any;
+  isVoterList: any;
+  isAppointment:any;
+  isSuperAdmin:any;
+  isconfigureDB:any;
+  isRequest:any;
+  isTab:any;
+
   getClass() {
     return "active"
   }
@@ -68,12 +76,12 @@ export class AppComponent implements OnInit {
     private loader: LoaderService,
     private auth: AuthenticationService,
     private _location: Location,
-    //private splashScreen: SplashScreen,
+    private splashScreen: SplashScreen,
     //private statusBar: StatusBar,
     private alertController: AlertController,
     private platform: Platform) {
     this.auth.userType = "";
-
+    
     this.initializeApp();
 
     // platform.ready().then(() => {
@@ -90,7 +98,7 @@ export class AppComponent implements OnInit {
     // on route change to '/login', set the variable showHead to false
     router.events.forEach((event) => {
       if (event instanceof NavigationStart) {
-        if (event['url'] == '/' || event['url'] == '/adminLogin' || event['url'] == '/otp') {
+        if (event['url'] == '/' || event['url'] == '/otp') {
           this.showHead = false;
         } else {
           // console.log("NU")
@@ -103,7 +111,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.id = localStorage.getItem("loginId");
     this.name = localStorage.getItem("loginUser");
-    this.roleId = localStorage.getItem("loginRole");
+    this.roleId = localStorage.getItem("userType");
     if(this.roleId == 1){
       this.roleName = "MasterAdmin"
     }
@@ -117,17 +125,24 @@ export class AppComponent implements OnInit {
       this.roleName = "Volunteer"
     }
 
+    // keeps user logged in for android app so that user doesnt have to login every time app opens
+    // but dont use this code for web view bcoz when i refresh from any page in the app, it redirects me to dashboard page
     if (localStorage.getItem('loginId') != undefined || null) {
       this.router.navigate(['/home/mobile-dashboard']);
     }
     else {
       this.router.navigate(['/']);
     }
+
+   
+    
     // var roleName = localStorage.getItem("userType");
-    // this.roleType = roleName
+    // this.roleId = roleName
+    // var isMasterAdmin = roleName == "MasterAdmin"
     // var isSuperAdmin = roleName == "SuperAdmin"
     // var isAdmin = roleName == "Admin";
     // var isVolunteer = roleName == "Volunteer"
+    // this.isDashboard = isMasterAdmin || isSuperAdmin || isAdmin || isVolunteer;
     // this.isContact = isSuperAdmin || isAdmin;
     // this.isBirthday = isSuperAdmin || isAdmin;
     // this.isAnniversary = isSuperAdmin || isAdmin;
@@ -137,10 +152,15 @@ export class AppComponent implements OnInit {
     // this.isSetting = isSuperAdmin || isAdmin;
     // this.isUser = isSuperAdmin || isAdmin;
     // this.isSurvey = isVolunteer;
-    // this.isLists = isSuperAdmin || isAdmin || isVolunteer;
-    // this.isSearch = isSuperAdmin || isAdmin || isVolunteer;
+    // this.isLists = isAdmin || isVolunteer;
+    // this.isSearch = isAdmin || isVolunteer;
     // this.isVoterList = isSuperAdmin || isAdmin;
-
+    // this.isRequest = isSuperAdmin || isAdmin;
+    // this.isAppointment = isSuperAdmin || isAdmin;
+    // this.isSuperAdmin = isMasterAdmin;
+    // this.isconfigureDB = isMasterAdmin;
+    // this.isTab = isSuperAdmin || isAdmin;
+    
     this.firebaseX.getToken()
       .then(token => console.log(`The token is ${token}`)) // save the token server-side and use it to push notifications to this device
       .catch(error => console.error('Error getting token', error));
@@ -156,8 +176,7 @@ export class AppComponent implements OnInit {
   initializeApp() {
     this.platform.ready().then(() => {
       //this.statusBar.styleDefault();
-      //this.splashScreen.hide();
-
+      this.splashScreen.hide();
     });
 
 
@@ -215,24 +234,6 @@ export class AppComponent implements OnInit {
       });
   }
 
-
-
-
-  openFirst() {
-
-    this.menu.enable(true, 'first');
-    this.menu.open('first');
-  }
-
-  openEnd() {
-    this.menu.open('end');
-  }
-
-  openCustom() {
-    this.menu.enable(true, 'custom');
-    this.menu.open('custom');
-  }
-
   // share() {
   //   var options = {
   //     message: 'Share this App', 
@@ -244,7 +245,8 @@ export class AppComponent implements OnInit {
   logOut() {
     localStorage.removeItem("loginUser");
     localStorage.removeItem("loginId");
-    //localStorage.removeItem("loginRole");
+    localStorage.removeItem("userType");
+    localStorage.clear();
     this.router.navigateByUrl('/');
   }
 

@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
     this.id = localStorage.getItem("loginId");
     this.name = localStorage.getItem("loginUser")
     //this.roleName = localStorage.getItem("userType");
-    this.roleId = localStorage.getItem("loginRole");
+    this.roleId = localStorage.getItem("userType");
 
     if(this.roleId == 1){
       this.roleName = "MasterAdmin"

@@ -6,7 +6,6 @@ import { RouterModule} from '@angular/router'
 import { PersonalRecordsComponent } from './personal-records/personal-records.component'
 import { AddPersonalRecordsComponent } from './add-personal-records/add-personal-records.component'
 import {EditPersonalRecordsComponent } from './edit-personal-records/edit-personal-records.component'
-import { DataTablesModule } from 'angular-datatables';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {NgxPaginationModule} from 'ngx-pagination';
 
@@ -16,7 +15,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
     CommonModule,
     IonicModule,
     FormsModule,
-    DataTablesModule,
     Ng2SearchPipeModule,
     NgxPaginationModule,
     RouterModule.forChild([{path:'', component:PersonalRecordsComponent},{path:'add-personal-records',component:AddPersonalRecordsComponent},{path:'edit-personal-records',component:EditPersonalRecordsComponent}])
