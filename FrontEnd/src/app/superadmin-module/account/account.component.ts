@@ -8,9 +8,11 @@ import { ActivatedRoute } from '@angular/router'
   styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
-  getSAData: any;
-  Sadmin: any;
 
+  getAllAdmin: any;
+  Sadmin: any;
+  roleId:any;
+  roleName:any;
   constructor
     (
       private sadmin:SuperadminService,
@@ -24,13 +26,26 @@ export class AccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.details();
+    this.roleId = localStorage.getItem("userType");
+    if(this.roleId == 1){
+      this.roleName = "MasterAdmin"
+    }
+    if(this.roleId == 2){
+      this.roleName = "SuperAdmin"
+    }
+    if(this.roleId == 3){
+      this.roleName = "Admin"
+    }
+    if(this.roleId == 4){
+      this.roleName = "Volunteer"
+    }
   }
 
   details(){
     this.sadmin.getAllAdmin().subscribe((data) =>{
-      const Sid = this.route.snapshot.paramMap.get('id') || "";
+      const Sid = this.route.snapshot.paramMap.get('id');
       [this.Sadmin] = data.filter((Sadmin) => Sadmin.id == Sid);
-      this.getSAData = this.Sadmin
+      this.getAllAdmin = this.Sadmin;
     })
   }
 

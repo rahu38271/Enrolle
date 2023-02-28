@@ -117,7 +117,9 @@
                     </tr> -->
                     <tr *ngFor="let item of getAdminList">
                       <td>{{item.id}}</td>
-                      <td class="text-capitalize">{{item.name}}</td>
+                      <td class="text-capitalize" [routerLink]="['/superadmin/assign-data',item.id,item.partNoAssigned]">
+                        <a>{{item.name}}</a>
+                      </td>
                       <td>{{item.contact}}</td>
                       <td>{{item.password}}</td>
                       <td>{{item.roleName}}</td>
@@ -129,7 +131,8 @@
                       <!-- <td>Katraj</td>
                       <td>1 year</td> -->
                       <td class="action"> 
-                        <ion-icon (click)="EditSA(item)" name="create-sharp"></ion-icon>
+                        <ion-icon (click)="EditSA(item)" name="create-sharp"></ion-icon> 
+                        <ion-icon (click)="LinkDB(item.id)" name="server-sharp"></ion-icon>
                         <!-- <ion-icon (click)="deleteSA()" class="delete" name="trash-bin-sharp"></ion-icon>  -->
                       </td>
                     </tr>

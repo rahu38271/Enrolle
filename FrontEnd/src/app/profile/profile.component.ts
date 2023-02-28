@@ -41,7 +41,7 @@ export class ProfileComponent implements OnInit {
   }
 
   userDetails(id: number) {
-    this.router.navigate(['/user/account', id])
+    this.router.navigate(['/superadmin/account', id])
   }
 
   EditUser(id:number){

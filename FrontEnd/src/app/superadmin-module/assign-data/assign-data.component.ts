@@ -4,6 +4,7 @@ import { UserService } from 'src/app/services/user.service'
 import { ActivatedRoute, Router } from '@angular/router'
 import { LoaderService } from 'src/app/services/loader.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
+import { SuperadminService } from 'src/app/services/superadmin.service'
 
 @Component({
   selector: 'app-assign-data',
@@ -25,19 +26,20 @@ export class AssignDataComponent implements OnInit {
   Uid: any;
   id: number;
   alreadyAssignedPart:any={};
+  superadminId:any;
   constructor
     (
       private user: UserService,
       private route: ActivatedRoute,
       private toast: IonicToastService,
       private loader: LoaderService,
-      private router: Router
+      private router: Router,
+      private sadmin:SuperadminService
     ) { }
 
   ngOnInit() {
-    
     this.SelectedPartNo = [];
-    this.user.getBooths().subscribe(data => {
+    this.sadmin.getBooths().subscribe(data => {
       //console.log(data);
       this.allBooths = data;
       this.allBooths.reduce((acc, allboothitem) => {
@@ -56,7 +58,7 @@ export class AssignDataComponent implements OnInit {
             allboothitem.checked = false; 
           }
           this.allBooths.forEach(element => {
-            this.user.getAllAssignedPart().subscribe(data=>{
+            this.sadmin.getAllAssignedPart().subscribe(data=>{
                       
               var Dispart = data.split(',');
             
@@ -124,7 +126,7 @@ export class AssignDataComponent implements OnInit {
   }
 
   allAssignedPart(){
-    this.user.getAllAssignedPart().subscribe(data=>{
+    this.sadmin.getAllAssignedPart().subscribe(data=>{
       this.alreadyAssignedPart = data;
       //this.disabled = true;
       
@@ -137,14 +139,14 @@ export class AssignDataComponent implements OnInit {
   assign() {
     this.loader.showLoading();
     this.id = Number(this.Userid);
-    this.user.assignPart({
+    this.sadmin.assignPart({
       UserId: this.id,
       PartNoAssigned: this.SelectedPartNo.toString()
     }).subscribe(data => {
       if (data == 1) {
         this.loader.hideLoader();
         console.log("sucess");
-        this.router.navigate(['/user']);
+        this.router.navigate(['/superadmin']);
         this.toast.presentToast("Part no. assigned successfully!", "success", 'checkmark-circle-sharp');
         //edit the response from api --string like "Record added succesfully "
       }
@@ -155,7 +157,7 @@ export class AssignDataComponent implements OnInit {
       console.log(data);
     }, (err) => {
       this.loader.hideLoader();
-      this.toast.presentToast("User not saved", "danger", 'alert-circle-sharp');
+      //this.toast.presentToast("User not saved", "danger", 'alert-circle-sharp');
     })
   }
 

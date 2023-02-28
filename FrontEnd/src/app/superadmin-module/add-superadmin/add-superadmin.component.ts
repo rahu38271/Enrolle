@@ -21,6 +21,9 @@ export class AddSuperadminComponent implements OnInit {
   districtList: any;
   talukaList: any;
   villageList: any;
+  adminId: any;
+  loginId:any;
+  superAdminId:any;
 
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -69,7 +72,6 @@ export class AddSuperadminComponent implements OnInit {
   getDistrict() {
     this.contact.getDistrictData().subscribe((data) => {
       if (data.length > 0) {
-        //console.log(data);
         this.districtList = data;
       }
     }, (error) => {
@@ -80,9 +82,7 @@ export class AddSuperadminComponent implements OnInit {
   getTaluka(dId: any) {
     this.contact.getTalukaData(dId).subscribe((data) => {
       if (data.length > 0) {
-        //console.log(data);
         this.addMAmodal.District = this.districtList.find(x => x.dId == dId).districtName;
-        //this.addMAmodal.Taluka = this.talukaList.find( x=> x.taluka = taluka).talukaName;
         this.talukaList = data;
       }
     }, (error) => {
@@ -100,14 +100,28 @@ export class AddSuperadminComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loginId = localStorage.getItem("loginId");
+    this.adminId = localStorage.getItem("adminId");
+    this.superAdminId = localStorage.getItem("superAdminId")
     this.getAssembly();
     this.getDistrict();
   }
 
   addMAdmin() {
-    this.addMAmodal.RoleId = Number(this.addMAmodal.RoleId)
+    debugger;
+    this.addMAmodal.RoleId = Number(this.addMAmodal.RoleId);
+    if(this.addMAmodal.RoleId == 2){
+      this.addMAmodal.SuperAdminId = Number(this.loginId);
+    }
+    if(this.addMAmodal.RoleId == 3){
+      this.addMAmodal.SuperAdminId = Number(this.loginId);
+    }
+    if(this.addMAmodal.RoleId == 4){
+      this.addMAmodal.SuperAdminId = Number(this.superAdminId);
+      this.addMAmodal.AdminId = Number(this.loginId);
+    }
     this.loader.showLoading();
-    this.sadmin.addMAdminData(this.addMAmodal).subscribe(data => {
+    this.sadmin.addMAdminData(this.addMAmodal).subscribe((data) => {
       if (data) {
         this.addMAmodal = {};
         this.loader.hideLoader();

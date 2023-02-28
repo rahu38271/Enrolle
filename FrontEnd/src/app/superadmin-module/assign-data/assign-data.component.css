@@ -1,45 +1,32 @@
 .send-sms { width: 100%; background: #FFF !important; height: 400px; overflow: hidden;  }
 
-ion-label { color: #6688fb !important; --font-weight: 400 !important; }
 
 h2 { color: #4e7db4; padding-left: 10px; font-weight: 500; }
 
-h3 { color: #ff5151;  }
-
-h4 { color: #7a7a7a; }
-
-.sc-ion-input-md-h {
-    --padding-top: 4px !important;
-    --padding-bottom: 4px !important;
-}
-
-.flex ion-icon {
-  font-size: 25px;
-  margin-right: 10px;
-  color: #3c7ff9;
-}
-
-ion-card-title { font-weight: 600; color: #1a3353; }
-
-.header { border-bottom: solid 1px #dee2e6; width: 100% !important; }
-
 ion-label span {  color: #F00 !important; font-weight: 500;}
 
-table { margin-top: 10px; }
+table { margin-top: 10px; border: 1px solid #dee2e6;}
 
-/* td ion-icon { 
+table th {
+  border: 1px solid #dee2e6;
+}
+
+table td {
+  border: 1px solid #dee2e6;
+}
+
+td ion-icon { 
     cursor: pointer;
     font-size: 13px;
     font-weight: 600;
-    background: #f1f2f2;
-    padding: 6px;
     border-radius: 20px;
     margin-left: 3px;
- } */
+ }
 
 table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !important; }
 
 .file { font-size: 20px !important; color: #3880ff !important; font-weight: 600;}
+
 
 #slide-nav{
     position: absolute;
@@ -52,15 +39,9 @@ table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !impo
     border: 1px solid #e1d1a1;
   }
 
-  .flex {
-    display: flex;
-  }
-
-  .search { width: 250px; }
-
   .close { color: #1c1a1a !important; padding: 4px 5px; background: #e1e1e1 !important; cursor: pointer; }
 
-  ion-card { margin-inline: 1px; margin-top: 1px; width: 100%; margin: 0 auto; }
+  ion-card { margin-inline: 1px; margin-top: 0px; width: 100%; margin: 0 auto; }
 
   @media screen and (max-width:576px){
     ion-card-title {
@@ -77,8 +58,6 @@ table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !impo
       padding-inline-end: var(--ion-grid-column-padding-xs, var(--ion-grid-column-padding, 4px));
   }
 
-  h4 { margin-bottom: 1px; font-size: 14px !important; }
-
   ion-avatar img { width: 40px; }
 
   @media screen and (max-width:576px){
@@ -89,6 +68,7 @@ table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !impo
       border: 1px solid #e6ebf1;
       border-radius: 0.625rem;
       margin-top: 3px;
+      padding-bottom: 0px !important;
      }
     .header1 {
       color: #f03d9e !important;
@@ -133,12 +113,6 @@ table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !impo
     font-size: 20px;
   }
 
-  .header1 {
-    color: #f03d9e !important;
-    width: 60%;
-    float: left;
-    font-size: 20px;
-}
 
 table ion-button  {
     font-size: 11px;
@@ -154,8 +128,16 @@ ion-item-options ion-icon {
   font-weight: 500;
 }
 
-.action ion-icon {
-  font-size: 20px;
+
+.headSection {
+  display: flex;
+  justify-content: space-between;
+}
+
+.search { width: 250px; }
+
+.action .edit {
+  font-size: 19px;
   color: #3c7ff9;
   cursor: pointer;
 }
@@ -166,13 +148,25 @@ ion-item-options ion-icon {
   cursor: pointer;
 }
 
-td a {
-  cursor: pointer;
-  color: #3774e3;
-  text-decoration: underline;
-}
+@media screen and (min-width:768px){
+  table {
+    width: 60%;
+  }
 
-.action {
-  display: flex;
-    justify-content: space-around;
+  table thead th:nth-child(1) {
+    width: 100px;
+    text-align: center;
+  }
+  table thead th:nth-child(2) {
+    width: 100px;
+    text-align: center;
+  }
+  table tbody td:nth-child(1) {
+    width: 100px;
+    text-align: center;
+  }
+  table tbody td:nth-child(2) {
+    width: 100px;
+    text-align: center;
+  }
 }

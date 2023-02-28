@@ -37,6 +37,8 @@
                   <ng-select name="RoleId" [(ngModel)]="addMAmodal.RoleId" #RoleId="ngModel"
                   required placeholder="Select User Role">
                     <ng-option value="2">Superadmin </ng-option>
+                    <ng-option value="3">Admin </ng-option>
+                    <ng-option value="4">Volunteer </ng-option>
                  </ng-select>
                   <!-- <div *ngIf="f.submitted && Role.invalid" class="invalid-feedback">
                         <div *ngIf="Role.errors.required">
@@ -137,6 +139,24 @@
                       {{item.villageName}}
                     </ng-option>
                  </ng-select>
+                </ion-col>
+
+                <ion-col size-xl="2" size-lg="2" size-md="4" size-sm="6" size-xs="6">
+                  <ion-label> Is Active </ion-label>
+                  <ion-radio-group name="msgType" [(ngModel)]="addMAmodal.isActive">
+                    <div class="radioBtn">
+                      <div>
+                        <ion-radio value="Y"></ion-radio>
+                        <ion-label>Yes </ion-label>
+                      </div>
+                
+                      <div>
+                        <ion-radio value="N"></ion-radio>
+                        <ion-label>No </ion-label>
+                      </div>
+                
+                    </div>
+                  </ion-radio-group>
                 </ion-col>
 
 

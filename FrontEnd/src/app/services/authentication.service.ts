@@ -30,6 +30,7 @@ export class AuthenticationService {
 
   // step - 2. DB configure 
   DBConfig(DBConfigModal:any){
+    debugger;
     return this.http.post<any>(this.url+'Login/InsertUpdateDBConfigure', DBConfigModal)
   }
 
@@ -37,8 +38,8 @@ export class AuthenticationService {
     return this.http.get(this.url+'Auth/Otp?Contact='+Contact);
   }
 
-  changePassword(id:any,Password:any){
-    return this.http.post(this.url+"Auth/ChangeUserPassword?Id="+id+"&Password="+Password, {id,Password})
-  }
-  
+  changePassword(id:any,PassWord:any){
+    debugger;
+    return this.http.post(this.url+"Login/UpdatePassword?Id="+id+"&PassWord="+PassWord, {id,PassWord})
+  } 
 }

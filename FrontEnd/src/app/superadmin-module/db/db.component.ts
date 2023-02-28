@@ -12,7 +12,9 @@ import { ActivatedRoute } from '@angular/router'
   styleUrls: ['./db.component.css']
 })
 export class DbComponent implements OnInit {
+
   loginId:any;
+  id:any;
   superadminId:any;
   DBConfigModal:any = {
     
@@ -53,29 +55,28 @@ export class DbComponent implements OnInit {
 
   ngOnInit() {
     debugger;
-    this.loginId = localStorage.getItem("loginId");
-    this.superadminId = this.route.snapshot.paramMap.get('id')
+    this.id = this.route.snapshot.paramMap.get('id')
     //this.dbAssign();
   }
 
   dbAssign(){
     debugger;
-    this.DBConfigModal.superAdminId = Number(this.loginId);
-    // this.loader.showLoading();
-    // this.auth.DBConfig(this.DBConfigModal).subscribe(data=>{
-    //   if(data){
-    //     this.loader.hideLoader();
-    //     this.DBConfigModal = { };
-    //     this.toast.presentToast("DB assigned successfully!", "success", 'checkmark-circle-sharp');
-    //   }
-    //   else{
-    //     this.loader.hideLoader();
-    //     this.toast.presentToast("DB not assigned", "danger", 'alert-circle-sharp');
-    //   }
-    // }, (err)=>{
-    //   this.loader.hideLoader();
-    //   this.toast.presentToast("Contact not saved", "danger", 'alert-circle-sharp');
-    // })
+    this.DBConfigModal.superAdminId = Number(this.id);
+    this.loader.showLoading();
+    this.auth.DBConfig(this.DBConfigModal).subscribe(data=>{
+      if(data){
+        this.loader.hideLoader();
+        this.DBConfigModal = { };
+        this.toast.presentToast("DB assigned successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("DB not assigned", "danger", 'alert-circle-sharp');
+      }
+    }, (err)=>{
+      this.loader.hideLoader();
+      this.toast.presentToast("Contact not saved", "danger", 'alert-circle-sharp');
+    })
   }
 
   resetForm() {
@@ -86,6 +87,5 @@ export class DbComponent implements OnInit {
   onSubmit(f){
 
   }
-
 
 }

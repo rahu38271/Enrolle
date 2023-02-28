@@ -11,13 +11,17 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { AccountComponent } from './account/account.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { AssignDataComponent } from './assign-data/assign-data.component';
+import { DbComponent } from './db/db.component';
 
 @NgModule({
   declarations: [
     SuperadminComponent,
     AddSuperadminComponent,
     EditSuperadminComponent,
-    AccountComponent
+    AccountComponent,
+    AssignDataComponent,
+    DbComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +31,14 @@ import { NgSelectModule } from '@ng-select/ng-select';
     Ng2SearchPipeModule,
     NgxPaginationModule,
     NgSelectModule,
-    RouterModule.forChild([{path:'', component:SuperadminComponent}, {path:'add-superadmin', component:AddSuperadminComponent}, {path:'edit-superadmin', component:EditSuperadminComponent}, {path:'account/:id', component:AccountComponent}])
+    RouterModule.forChild([
+      {path:'', component:SuperadminComponent}, 
+      {path:'add-superadmin', component:AddSuperadminComponent}, 
+      {path:'edit-superadmin', component:EditSuperadminComponent}, 
+      {path:'account/:id', component:AccountComponent},
+      {path:'assign-data/:id/:partNoAssigned',component:AssignDataComponent},
+      {path:'db/:id', component:DbComponent}
+    ])
   ]
 })
 export class SuperadminModuleModule { }

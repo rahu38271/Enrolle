@@ -12,7 +12,7 @@ export class PasswordComponent implements OnInit {
 
   myForm;
  
-  Password:any;
+  PassWord:any;
   confirmPassword:any;
   isPasswordNotMatched:any=false;
 
@@ -36,7 +36,7 @@ export class PasswordComponent implements OnInit {
     { }
 
   checkPassword(){
-    this.isPasswordNotMatched = this.Password != this.confirmPassword;
+    this.isPasswordNotMatched = this.PassWord != this.confirmPassword;
   }
 
 
@@ -53,11 +53,12 @@ export class PasswordComponent implements OnInit {
   }
 
   savePassword(){
+    debugger;
     if(this.isPasswordNotMatched){
       this.toast.presentToast("Password not matched with confirm password", "danger", 'alert-circle-sharp');
       return;
     }
-    this.auth.changePassword(parseInt(this.loginId),this.Password).subscribe((data)=>{
+    this.auth.changePassword(parseInt(this.loginId),this.PassWord).subscribe((data)=>{
       this.toast.presentToast("Password changed successfully!", "success", 'checkmark-circle-sharp');
     },(err)=>{
       this.toast.presentToast("Password not changed", "danger", 'alert-circle-sharp');

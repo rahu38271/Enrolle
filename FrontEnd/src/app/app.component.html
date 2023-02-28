@@ -5,31 +5,31 @@
     <div class="navbar">
       <div class="leftnav">
         
-        <div  class="subnav" routerLink="/home">
+        <div *ngIf="roleName === 'MasterAdmin' || roleName === 'SuperAdmin' || roleName === 'Admin' || roleName === 'Volunteer'" class="subnav" routerLink="/home">
           <button class="subnavbtn"> <img src="assets/img/home.png" alt=""> <br>Dashboard </button>
         </div>
-        <div  class="subnav" routerLink="/appointment">
+        <div *ngIf="roleName === 'MasterAdmin' || roleName === 'SuperAdmin' || roleName === 'Admin'" class="subnav" routerLink="/appointment">
           <button class="subnavbtn"> <img src="assets/img/contact-book.png" alt=""> <br>Appointment </button>
         </div>
-        <div  class="subnav" routerLink="/contact">
+        <div *ngIf="roleName === 'MasterAdmin' || roleName === 'SuperAdmin' || roleName === 'Admin'" class="subnav" routerLink="/contact">
           <button class="subnavbtn"> <img src="assets/img/contact-book.png" alt=""> <br>Contact </button>
         </div>
         <!-- <div class="subnav" routerLink="/letterhead">
           <button class="subnavbtn"> <img src="assets/img/letterhead.png" alt=""> <br>Letterhead </button>
         </div> -->
-        <div  class="subnav" routerLink="/user">
+        <div *ngIf="roleName === 'MasterAdmin' ||roleName === 'SuperAdmin' || roleName === 'Admin'" class="subnav" routerLink="/user">
           <button class="subnavbtn"><img src="assets/img/user.png" alt=""><br>User  </button>
         </div>
 
-        <div class="subnav" routerLink="/event">
+        <div *ngIf="roleName === 'MasterAdmin' || roleName === 'SuperAdmin' || roleName === 'Admin'" class="subnav" routerLink="/event">
           <button class="subnavbtn"><img src="assets/img/calendar.png" alt=""><br>दैनंदिन कार्यक्रम </button>
         </div>
         
-        <div class="subnav" routerLink="/home/birthday" >
+        <div *ngIf="roleName === 'MasterAdmin' || roleName === 'SuperAdmin' || roleName === 'Admin'" class="subnav" routerLink="/home/birthday" >
           <button class="subnavbtn"><img src="assets/img/cake.png" alt=""><br>वाढदिवस </button>
         </div>
 
-        <div class="subnav" routerLink="/home/anniversary">
+        <div *ngIf="roleName === 'MasterAdmin' || roleName === 'SuperAdmin' || roleName === 'Admin'" class="subnav" routerLink="/home/anniversary">
           <button class="subnavbtn"><img src="assets/img/calendar.png" alt=""><br>लग्नाचा वाढदिवस </button>
         </div>
 
@@ -59,7 +59,7 @@
 
         
       
-        <div class="subnav" >
+        <div class="subnav" *ngIf="roleName === 'MasterAdmin' || roleName === 'SuperAdmin' || roleName === 'Admin'">
           <button class="subnavbtn"><img src="assets/img/tv-monitor.png" alt=""><br>प्रसार माध्यम </button>
           <div class="subnav-content">
             <ion-item lines="full" class="sub-menu" [routerLink]="['/daily-news']">
@@ -133,7 +133,7 @@
           </div>
         </div> -->
 
-        <div class="subnav" >
+        <div *ngIf="roleName === 'MasterAdmin' || roleName === 'SuperAdmin' || roleName === 'Admin'" class="subnav" >
           <button class="subnavbtn"><img src="assets/img/shopping-list.png" alt=""><br> मतदार यादी </button>
           <div class="subnav-content">
             <ion-item lines="full" class="sub-menu" routerLink="/dashboard">
@@ -162,11 +162,11 @@
           </div>
         </div>
 
-        <div class="subnav" routerLink="/user-request"  >
+        <div *ngIf="roleName === 'MasterAdmin' || roleName === 'SuperAdmin' || roleName === 'Admin'" class="subnav" routerLink="/user-request"  >
           <button class="subnavbtn"><img src="assets/img/list1.png" alt=""><br>User Request </button>
         </div>
 
-        <div class="subnav"  >
+        <div *ngIf="roleName === 'MasterAdmin' || roleName === 'SuperAdmin' || roleName === 'Admin'" class="subnav"  >
           <button class="subnavbtn"><img src="assets/img/file.png" alt=""><br> Other </button>
           <div class="subnav-content">
             <ion-item lines="full" class="sub-menu" routerLink="/appointment">
@@ -553,18 +553,18 @@
                 <ion-label> Survey </ion-label><i class=""></i>
               </ion-item>
 
-              <ion-item routerLink="/superadmin" [routerLinkActive]="'active'">
+              <ion-item *ngIf="roleName === 'MasterAdmin' || roleName === 'SuperAdmin' || roleName === 'Admin'" routerLink="/superadmin" [routerLinkActive]="'active'">
                 <i class="icofont icofont-ui-user"></i>
                 <ion-label>SuperAdmin </ion-label>
               </ion-item>
 
-              <ion-item *ngIf="roleName === 'MasterAdmin'" routerLink="/db" [routerLinkActive]="'active'">
-                <i class="icofont icofont-ui-user"></i>
+              <ion-item  *ngIf="roleName === 'MasterAdmin'" routerLink="/db" [routerLinkActive]="'active'">
+                <i class="icofont icofont-database-add"></i>
                 <ion-label>Configure DB </ion-label>
               </ion-item>
 
 
-              <ion-item *ngIf="roleName === 'SuperAdmin' || roleName === 'Admin'" routerDirection="root" routerLink="/user" [routerLinkActive]="'active'" >
+              <ion-item *ngIf="roleName === 'MasterAdmin' ||roleName === 'SuperAdmin' || roleName === 'Admin'" routerDirection="root" routerLink="/user" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-ui-user"></i>
                 <ion-label>User</ion-label>
               </ion-item>
@@ -584,27 +584,27 @@
                 <ion-label>Ward</ion-label>
               </ion-item> -->
 
-              <ion-item *ngIf="roleName === 'SuperAdmin' || roleName === 'Admin'" routerLink="/appointment" [routerLinkActive]="'active'">
-                <i class="icofont icofont-ui-user"></i>
+              <ion-item *ngIf="roleName === 'MasterAdmin' || roleName === 'SuperAdmin' || roleName === 'Admin'" routerLink="/appointment" [routerLinkActive]="'active'">
+                <i class="icofont icofont-ui-clock"></i>
                 <ion-label>Appointment </ion-label>
               </ion-item>
 
-              <ion-item *ngIf="roleName === 'SuperAdmin' || roleName === 'Admin'" routerDirection="root" routerLink="/contact" [routerLinkActive]="'active'" >
+              <ion-item *ngIf="roleName === 'MasterAdmin' || roleName === 'SuperAdmin' || roleName === 'Admin'" routerDirection="root" routerLink="/contact" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-contacts"></i>
                     <ion-label> Contact </ion-label>
               </ion-item>
               
-              <ion-item *ngIf="roleName === 'SuperAdmin' || roleName === 'Admin'" routerDirection="root" routerLink="/home/birthday" [routerLinkActive]="'active'" >
+              <ion-item *ngIf="roleName === 'MasterAdmin' || roleName === 'SuperAdmin' || roleName === 'Admin'" routerDirection="root" routerLink="/home/birthday" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-birthday-cake"></i>
                 <ion-label> वाढदिवस </ion-label>
               </ion-item>
 
-              <ion-item *ngIf="roleName === 'SuperAdmin' || roleName === 'Admin'" routerDirection="root" routerLink="/home/anniversary" [routerLinkActive]="'active'" >
+              <ion-item *ngIf="roleName === 'MasterAdmin' || roleName === 'SuperAdmin' || roleName === 'Admin'" routerDirection="root" routerLink="/home/anniversary" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-calendar"></i>
                 <ion-label>लग्नाचा वाढदिवस </ion-label>
               </ion-item>
 
-              <ion-item *ngIf="roleName === 'SuperAdmin' || roleName === 'Admin'" routerDirection="root" routerLink="/event" [routerLinkActive]="'active'" >
+              <ion-item *ngIf="roleName === 'MasterAdmin' || roleName === 'SuperAdmin' || roleName === 'Admin'" routerDirection="root" routerLink="/event" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-calendar"></i>
                 <ion-label>दैनंदिन कार्यक्रम </ion-label>
               </ion-item>
@@ -637,7 +637,7 @@
                 </ion-accordion>
               </ion-accordion-group> -->
 
-              <ion-accordion-group *ngIf="roleName === 'SuperAdmin' || roleName === 'Admin'">
+              <ion-accordion-group *ngIf="roleName === 'MasterAdmin' || roleName === 'SuperAdmin' || roleName === 'Admin'">
                 <ion-accordion value="media">
                   <ion-item slot="header" color="light">
                     <i class="icofont icofont-network"></i>
@@ -661,7 +661,7 @@
               </ion-accordion-group>
 
 
-              <ion-accordion-group *ngIf="roleName === 'SuperAdmin' || roleName === 'Admin'">
+              <ion-accordion-group *ngIf="roleName === 'MasterAdmin' || roleName === 'SuperAdmin' || roleName === 'Admin'">
                 <ion-accordion value="media">
                   <ion-item slot="header" color="light">
                     <i class="icofont icofont-network"></i>
@@ -698,7 +698,7 @@
 
             
 
-              <ion-accordion-group *ngIf="roleName === 'SuperAdmin' || roleName === 'Admin'">
+              <ion-accordion-group *ngIf="roleName === 'MasterAdmin' || roleName === 'SuperAdmin' || roleName === 'Admin'">
                 <ion-accordion value="setting">
                   <ion-item slot="header" color="light">
                     <i class="icofont icofont-ui-settings"></i>

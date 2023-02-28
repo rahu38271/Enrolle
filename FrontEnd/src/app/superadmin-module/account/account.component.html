@@ -4,7 +4,7 @@
     <ion-header class="android">
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-back-button color="primary" defaultHref="/user"></ion-back-button>
+          <ion-back-button defaultHref="/superadmin"></ion-back-button>
         </ion-buttons>
         <ion-title> Details </ion-title>
       </ion-toolbar>
@@ -12,7 +12,7 @@
     <div class="main-content">
       <div class="banner">
         <div class="details">
-          <ion-grid *ngIf="getSAData">
+          <ion-grid *ngIf="getAllAdmin">
             <ion-row>
               <ion-col size-lg="3" size-md="3" size-sm="3" size-xs="5">
                 <div class="profileImg">
@@ -21,8 +21,8 @@
               </ion-col>
               <ion-col size-lg="6" size-md="6" size-sm="5" size-xs="7">
                 <div class="name">
-                  <h2>{{getSAData.name}}</h2>
-                  <h3>{{getSAData.userRole}}</h3>
+                  <h2>{{getAllAdmin.name}}</h2>
+                  <h3>{{getAllAdmin.roleName}}</h3>
                 </div>
               </ion-col>
               <ion-col size-lg="3" size-md="3" size-sm="4" size-xs="12" class="ion-text-right">
@@ -39,7 +39,7 @@
                     </ion-col>
                     
                     <ion-col size-lg="9" size-md="8" size-sm="8" size-xs="8">
-                      <ion-text> {{getSAData.name}} </ion-text>
+                      <ion-text> {{getAllAdmin.name}} </ion-text>
                     </ion-col>
                   </ion-row>
                   <ion-row>
@@ -48,7 +48,7 @@
                     </ion-col>
                     
                     <ion-col size-lg="9" size-md="8" size-sm="8" size-xs="8">
-                      <ion-text> {{getSAData.userRole}} </ion-text>
+                      <ion-text> {{getAllAdmin.roleName}} </ion-text>
                     </ion-col>
                   </ion-row>
                   <ion-row>
@@ -57,7 +57,7 @@
                     </ion-col>
                     
                     <ion-col size-lg="9" size-md="8" size-sm="8" size-xs="8">
-                      <ion-text> {{getSAData.mobile_Id}}  </ion-text>
+                      <ion-text> {{getAllAdmin.mobile_Id}}  </ion-text>
                     </ion-col>
                   </ion-row>
                   <ion-row>
@@ -66,7 +66,7 @@
                     </ion-col>
                     
                     <ion-col size-lg="9" size-md="8" size-sm="8" size-xs="8">
-                      <ion-text> {{getSAData.password}}  </ion-text>
+                      <ion-text> {{getAllAdmin.password}}  </ion-text>
                     </ion-col>
                   </ion-row>
                   <ion-row>
@@ -75,7 +75,7 @@
                     </ion-col>
                     
                     <ion-col size-lg="9" size-md="8" size-sm="8" size-xs="8">
-                      <ion-text> {{getSAData.email}} </ion-text>
+                      <ion-text> {{getAllAdmin.email}} </ion-text>
                     </ion-col>
                   </ion-row>
                 </ion-grid>
@@ -89,7 +89,7 @@
                     </ion-col>
                     
                     <ion-col size-lg="9" size-md="8" size-sm="8" size-xs="8">
-                      <ion-text> {{getSAData.state}}  </ion-text>
+                      <ion-text> {{getAllAdmin.state}}  </ion-text>
                     </ion-col>
                   </ion-row>
                   <ion-row>
@@ -98,7 +98,7 @@
                     </ion-col>
                     
                     <ion-col size-lg="9" size-md="8" size-sm="8" size-xs="8">
-                      <ion-text> {{getSAData.district}}  </ion-text>
+                      <ion-text> {{getAllAdmin.district}}  </ion-text>
                     </ion-col>
                   </ion-row>
                   
@@ -108,8 +108,7 @@
                     </ion-col>
                     
                     <ion-col size-lg="9" size-lg="9" size-md="8" size-sm="8" size-xs="8">
-                      <!-- <ion-text> Hadapsar Assembly </ion-text> -->
-                      <ion-text>{{getSAData.assemblyName}} </ion-text>
+                      <ion-text>{{getAllAdmin.assemblyName}} </ion-text>
                     </ion-col>
                   </ion-row>
                   <ion-row>
@@ -118,7 +117,7 @@
                     </ion-col>
                     
                     <ion-col size-lg="9" size-md="8" size-sm="8" size-xs="8">
-                      <ion-text> {{getSAData.taluka}}  </ion-text>
+                      <ion-text> {{getAllAdmin.taluka}}  </ion-text>
                     </ion-col>
                   </ion-row>
                   <ion-row>
@@ -127,7 +126,7 @@
                     </ion-col>
                     
                     <ion-col size-lg="9" size-md="8" size-sm="8" size-xs="8">
-                      <ion-text> {{getSAData.village}}  </ion-text>
+                      <ion-text> {{getAllAdmin.village}}  </ion-text>
                     </ion-col>
                   </ion-row>
                   <ion-row>
@@ -136,25 +135,16 @@
                     </ion-col>
                     
                     <ion-col size-lg="9" size-lg="9" size-md="8" size-sm="8" size-xs="8">
-                      <ion-text> {{getSAData.booth}} </ion-text>
+                      <ion-text> {{getAllAdmin.booth}} </ion-text>
                     </ion-col>
                   </ion-row>
-                  <!-- <ion-row>
-                    <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="4" class="leftSide">
-                      <ion-text> <strong> Candidate : </strong> </ion-text>
-                    </ion-col>
-                    
-                    <ion-col size-lg="9"  size-lg="9" size-md="8" size-sm="8" size-xs="8">
-                      <ion-text> {{getSAData.candidate}} </ion-text>
-                    </ion-col>
-                  </ion-row> -->
                   <ion-row>
                     <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="4" class="leftSide">
                       <ion-text> <strong> Validity : </strong> </ion-text>
                     </ion-col>
                     
                     <ion-col size-lg="9" size-lg="9" size-md="8" size-sm="8" size-xs="8">
-                      <ion-text> {{getSAData.validity}} yr</ion-text>
+                      <ion-text> {{getAllAdmin.validity}} yr</ion-text>
                     </ion-col>
                   </ion-row>
                   

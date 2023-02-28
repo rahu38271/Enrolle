@@ -67,7 +67,7 @@ export class MobileDashboardPage implements OnInit {
     public popoverController: PopoverController,
     public refresh : RefreshService
     ) {
-
+      //window.location.reload();
   }
 
 

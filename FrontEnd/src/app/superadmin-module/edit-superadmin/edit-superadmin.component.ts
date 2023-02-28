@@ -21,6 +21,9 @@ export class EditSuperadminComponent implements OnInit {
   districtList: any;
   talukaList: any;
   villageList: any;
+  adminId: any;
+  loginId:any;
+  superAdminId:any;
   
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -71,7 +74,6 @@ export class EditSuperadminComponent implements OnInit {
     this.editData = this.router.getCurrentNavigation().extras.state;
     this.contact.getDistrictData().subscribe((data) => {
       if (data.length > 0) {
-        //console.log(data);
         this.districtList = data;
       }
     }, (error) => {
@@ -102,6 +104,9 @@ export class EditSuperadminComponent implements OnInit {
 
 
   ngOnInit() {
+    this.loginId = localStorage.getItem("loginId")
+    this.adminId = localStorage.getItem("adminId")
+    this.superAdminId = localStorage.getItem("superAdminId")
     this.getAssembly();
     this.getDistrict();
   }
@@ -109,8 +114,19 @@ export class EditSuperadminComponent implements OnInit {
   editAdmin(){
     debugger;
     this.editData.id = Number(this.editData.id);
+    this.editData.roleId = Number(this.editData.roleId);
+    if(this.editData.roleId == 2){
+      this.editData.superAdminId = Number(this.loginId);
+    }
+    if(this.editData.roleId == 3){
+      this.editData.superAdminId = Number(this.loginId);
+    }
+    if(this.editData.roleId == 4){
+      this.editData.superAdminId = Number(this.superAdminId);
+      this.editData.adminId = Number(this.loginId);
+    }
     this.loader.showLoading();
-    this.sadmin.edit(this.editData).subscribe(data=>{
+    this.sadmin.edit(this.editData).subscribe((data)=>{
       if(data){
         this.editData = {};
         this.loader.hideLoader();

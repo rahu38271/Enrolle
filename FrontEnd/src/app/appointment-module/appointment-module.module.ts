@@ -8,6 +8,7 @@ import { AddAppointmentComponent } from './add-appointment/add-appointment.compo
 import { EditAppointmentComponent} from './edit-appointment/edit-appointment.component'
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {NgxPaginationModule} from 'ngx-pagination';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [AppointmentComponent,AddAppointmentComponent,EditAppointmentComponent],
@@ -17,6 +18,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     IonicModule,
     NgxPaginationModule,
     Ng2SearchPipeModule,
+    NgSelectModule,
     RouterModule.forChild([{path: '', component:AppointmentComponent}, {path:'add-appointment', component:AddAppointmentComponent},{path:'edit-appointment', component:EditAppointmentComponent}])
   ]
 })
