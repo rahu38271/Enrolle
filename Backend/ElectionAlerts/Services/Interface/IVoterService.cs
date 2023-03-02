@@ -9,19 +9,19 @@ namespace ElectionAlerts.Services.Interface
 {
     public interface IVoterService
     {
-        IEnumerable<VoterAssembly> GetAllVoter(int UserId);
+        IEnumerable<VoterAssembly> GetAllVoter(int UserId, int RoleId);
         int CreateVoter(Voter voter);
         int UpadateVoter(Voter voter);
         int InsertBulkVoter(List<Voter> voters);
         IEnumerable<Voter> FilterVoterbyCondition(VoterTable table);
         IEnumerable<Voter> FilterVoterList(VoterTable table);
         VoterDTO GetVoterDetailbyId(int Id);
-        IEnumerable<VoterDTO> GetVoterbyRelation(int Id,int UserId);
+        IEnumerable<VoterDTO> GetVoterbyRelation(int Id,int UserId,int RoleId);
         IEnumerable<Table> FilterColoumnCount(VoterTable table);
-        IEnumerable<Table> GetVoterCountbyLastName(int userid);
-        IEnumerable<VoterDTO> VoterDetailsbyColumn(string ColoumnName, string ColoumnValue, int UserId);
-        IEnumerable<VoterDTO> VoterDetailsbyLastName(string LName, int UserId);
-        IEnumerable<VoterDTO> VoterwithMobileNo(int UserId);
+        IEnumerable<Table> GetVoterCountbyLastName(int userid, int RoleId);
+        IEnumerable<VoterDTO> VoterDetailsbyColumn(string ColoumnName, string ColoumnValue, int UserId,int RoleId);
+        IEnumerable<VoterDTO> VoterDetailsbyLastName(string LName, int UserId,int RoleId);
+        IEnumerable<VoterDTO> VoterwithMobileNo(int UserId,int RoleId);
         IEnumerable<Voter> GetVoterbyRole(VoterSuperDto voterSuperDto);
         int UpadateMobileVoter(int Id, string MobileNo);
         int UpadateAltMobileVoter(int Id, string AltMobileNo);
@@ -33,15 +33,15 @@ namespace ElectionAlerts.Services.Interface
         int UpdateVoterInclination(int id, string Colour);
         IEnumerable<VoterPPBooth> GetDistinctPartNo();
         IEnumerable<MemberDetail> GetMemberDetailsbyVId(int voterid);
-        IEnumerable<Voter> GetVoterByUserId(int userid);
-        IEnumerable<Voter> GetVoterAgeBetween(int Age1, int Age2,string Gender, int UserId);
+        IEnumerable<Voter> GetVoterByUserId(int userid,int roleid);
+        IEnumerable<Voter> GetVoterAgeBetween(int Age1, int Age2,string Gender, int UserId,int RoleId);
         VoterCount GetTotalVoterCount();
-        IEnumerable<VoterbyBooth> GetVoterbybooth(int userid);
-        IEnumerable<VoterInclination> VoterInclination(int userid);
+        IEnumerable<VoterbyBooth> GetVoterbybooth(int userid,int roleid);
+        IEnumerable<VoterInclination> VoterInclination(int userid,int roleid);
         IEnumerable<Voter> AdvancedSearch(AdvanceSearchDTO searchDTO);
-        IEnumerable<VoterDTO> GetVoterInclinationUserId(string inclination, int userid);
-        IEnumerable<VoterDTO> GetStarVoterbyUserId(int userid);
-        IEnumerable<BoothName> GetBoothNamebyUserId(int userid);
+        IEnumerable<VoterDTO> GetVoterInclinationUserId(string inclination, int userid,int roleid);
+        IEnumerable<VoterDTO> GetStarVoterbyUserId(int userid,int roleid);
+        IEnumerable<BoothName> GetBoothNamebyUserId(int userid,int roleid);
         IEnumerable<Voter> GetVoterByPartNo(int partno);
 
     }

@@ -24,7 +24,7 @@ namespace ElectionAlerts
     public class Startup
     {
         private readonly IConfiguration _configuration;
-
+        public static string ElectionAlertConStr = "";
         public Startup(IConfiguration configuration)
         {
             SchedulerTask.StartAsync().GetAwaiter().GetResult();

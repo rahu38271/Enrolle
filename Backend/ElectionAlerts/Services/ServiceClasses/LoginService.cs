@@ -60,5 +60,15 @@ namespace ElectionAlerts.Services.ServiceClasses
         {
             return _loginRepository.DeleteConfigureDBbyUser(Id);
         }
+
+        public IEnumerable<AdminUser> GetAllAdminbySuperAdminId(int superid)
+        {
+            return _loginRepository.GetAllAdminbySuperAdminId(superid);
+        }
+
+        public IEnumerable<AdminUser> GetAllVolunterbyAdminId(int adminid)
+        {
+            return _loginRepository.GetAllVolunterbyAdminId(adminid);
+        }
     }
 }

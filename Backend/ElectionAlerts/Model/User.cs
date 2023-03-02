@@ -19,7 +19,7 @@ namespace ElectionAlerts.Model
         public string Taluka { get; set; }
         public string AssemblyName { get; set; }
         public string Ward { get; set; }
-        public string Booth { get; set; }
+        public string village { get; set; }
         public string Candidate { get; set; }
         public string Quote { get; set; }
         public int? RoleId { get; set; }

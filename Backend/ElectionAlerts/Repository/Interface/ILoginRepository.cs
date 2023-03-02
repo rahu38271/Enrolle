@@ -18,5 +18,7 @@ namespace ElectionAlerts.Repository.Interface
         int ChangeUserPassword(int id, string password);
         AdminUser LoginUser(string username, string password);
         IEnumerable<AdminUser> GetAllUsers();
+        IEnumerable<AdminUser> GetAllAdminbySuperAdminId( int superid);
+        IEnumerable<AdminUser> GetAllVolunterbyAdminId(int adminid);
     }
 }

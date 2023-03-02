@@ -12,13 +12,14 @@ namespace ElectionAlerts.Repository.RepositoryClasses
 {
     public class LoginRepository : ILoginRepository
     {
-        private CustomContext _customContext;
+       private MasterCustomContext _customContext;
+       // private CustomContext _customContext;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
         public LoginRepository(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
-            _customContext = new CustomContext(_httpContextAccessor);
+            _customContext = new MasterCustomContext(_httpContextAccessor);
         }
         public SuperAdmin Login(string username, string password)
         {
@@ -60,7 +61,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _customContext.Database.ExecuteSqlRaw("EXEC Usp_InsertUser {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14}",user.Id,user.Name, user.Contact, user.UserName, user.Password, user.Email, user.State, user.Taluka,user.AssemblyName,user.Village, user.District, user.RoleId,DateTime.Now,user.IsActive,user.AdminId);
+                return _customContext.Database.ExecuteSqlRaw("EXEC Usp_InsertUser {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15}",user.Id,user.Name, user.Contact, user.UserName, user.Password, user.Email, user.State, user.Taluka,user.AssemblyName,user.Village, user.District, user.RoleId,DateTime.Now,user.IsActive,user.AdminId,user.SuperAdminId);
             }
             catch (Exception ex)
             {
@@ -128,6 +129,30 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 return _customContext.Database.ExecuteSqlRaw("EXEC Usp_DeleteDBConfigure {0}", Id);
             }
             catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<AdminUser> GetAllAdminbySuperAdminId(int superid)
+        {
+            try
+            {
+                return _customContext.Set<AdminUser>().FromSqlRaw("EXEC USP_GetAllAdminbySuperId {0}", superid).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<AdminUser> GetAllVolunterbyAdminId(int adminid)
+        {
+            try
+            {
+                return _customContext.Set<AdminUser>().FromSqlRaw("EXEC USP_GetAllVolunterbyAdminId {0}", adminid).ToList();
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }

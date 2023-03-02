@@ -29,9 +29,9 @@ namespace ElectionAlerts.Controller
             _exceptionLogService = exceptionLogService;
             _hostingEnvironment = hostingEnvironment;
         }
-
+        
         [HttpPost("FilterVoterbyCondition")]
-
+                
         public IActionResult FilterVoterbyCondition(VoterTable table)
         {
             try
@@ -79,11 +79,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetAllVoter")]
-        public IActionResult GetAllVoter(int UserId)
+        public IActionResult GetAllVoter(int UserId,int RoleId)
         {
             try
             {
-                return Ok(_voterService.GetAllVoter(UserId));
+                return Ok(_voterService.GetAllVoter(UserId, RoleId));
             }
             catch (Exception ex)
             {
@@ -135,11 +135,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetVoterbyRelation")]
-        public IActionResult GetVoterbyRelation(int Id, int UserId)
+        public IActionResult GetVoterbyRelation(int Id, int UserId,int RoleId)
         {
             try
             {
-                return Ok(_voterService.GetVoterbyRelation(Id, UserId));
+                return Ok(_voterService.GetVoterbyRelation(Id, UserId, RoleId));
             }
             catch (Exception ex)
             {
@@ -310,11 +310,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetVoterCountbyLastName")]
-        public IActionResult GetVoterCountbyLastName(int userid)
+        public IActionResult GetVoterCountbyLastName(int userid,int roleid)
         {
             try
             {
-                return Ok(_voterService.GetVoterCountbyLastName(userid));
+                return Ok(_voterService.GetVoterCountbyLastName(userid,roleid));
             }
             catch(Exception ex)
             {
@@ -394,11 +394,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("VoterDetailsbyLastName")]
-        public IActionResult VoterDetailsbyLastName(string Name,int UserId)
+        public IActionResult VoterDetailsbyLastName(string Name,int UserId,int RoleId)
         {
             try
             {
-                return Ok(_voterService.VoterDetailsbyLastName(Name, UserId));
+                return Ok(_voterService.VoterDetailsbyLastName(Name, UserId, RoleId));
             }
             catch(Exception ex)
             {
@@ -408,11 +408,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("VoterDetailsbyColumn")]
-        public IActionResult VoterDetailsbyColumn(string ColoumnName, string ColoumnValue,int UserId)
+        public IActionResult VoterDetailsbyColumn(string ColoumnName, string ColoumnValue,int UserId,int RoleId)
         {
             try
             {
-                return Ok(_voterService.VoterDetailsbyColumn(ColoumnName, ColoumnValue, UserId));
+                return Ok(_voterService.VoterDetailsbyColumn(ColoumnName, ColoumnValue, UserId, RoleId));
             }
             catch(Exception ex)
             {
@@ -436,11 +436,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetVoterbyUserId")]
-        public IActionResult GetVoterbyUserId(int userid)
+        public IActionResult GetVoterbyUserId(int userid,int roleid)
         {
             try
             {
-                return Ok(_voterService.GetVoterByUserId(userid));
+                return Ok(_voterService.GetVoterByUserId(userid, roleid));
             }
             catch(Exception ex)
             {
@@ -450,11 +450,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetVoterBetweenAge")]
-        public IActionResult GetVoterBetweenAge(int age1,int age2,string gender,int UserId)
+        public IActionResult GetVoterBetweenAge(int age1,int age2,string gender,int UserId,int RoleId)
         {
             try
             {
-                return Ok(_voterService.GetVoterAgeBetween(age1, age2, gender, UserId));
+                return Ok(_voterService.GetVoterAgeBetween(age1, age2, gender, UserId, RoleId));
             }
             catch(Exception ex)
             {
@@ -478,11 +478,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("VoterwithMobileNo")]
-        public IActionResult VoterwithMobileNo(int UserId)
+        public IActionResult VoterwithMobileNo(int UserId,int RoleId)
         {
             try
             {
-                return Ok(_voterService.VoterwithMobileNo(UserId));
+                return Ok(_voterService.VoterwithMobileNo(UserId,RoleId));
             }
             catch(Exception ex)
             {
@@ -493,11 +493,11 @@ namespace ElectionAlerts.Controller
 
 
         [HttpGet("VoterCountbyBooth")]
-        public IActionResult VoterCountbyBooth(int userid)
+        public IActionResult VoterCountbyBooth(int userid,int roleid)
         {
             try
             {
-                return Ok(_voterService.GetVoterbybooth(userid));
+                return Ok(_voterService.GetVoterbybooth(userid, roleid));
             }
             catch (Exception ex)
             {
@@ -521,11 +521,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetVoterInclination")]
-        public IActionResult GetVoterInclination(int UserId)
+        public IActionResult GetVoterInclination(int UserId,int RoleId)
         {
             try
             {
-                return Ok(_voterService.VoterInclination(UserId));
+                return Ok(_voterService.VoterInclination(UserId, RoleId));
             }
             catch(Exception ex)
             {
@@ -549,11 +549,11 @@ namespace ElectionAlerts.Controller
         }
 
             [HttpGet("GetVoterInclinationUserId")]
-            public IActionResult GetVoterInclinationUserId(string inclination,int UserId)
+            public IActionResult GetVoterInclinationUserId(string Inclination,int UserId,int RoleId)
             {
                 try
                 {
-                    return Ok(_voterService.GetVoterInclinationUserId(inclination,UserId));
+                    return Ok(_voterService.GetVoterInclinationUserId(Inclination, UserId, RoleId));
                 }
                 catch (Exception ex)
                 {
@@ -563,11 +563,11 @@ namespace ElectionAlerts.Controller
             }
 
         [HttpGet("GetStarVoterbyUserId")]
-        public IActionResult GetStarVoterbyUserId(int userid)
+        public IActionResult GetStarVoterbyUserId(int userid, int roleid)
         {
             try
             {
-                return Ok(_voterService.GetStarVoterbyUserId(userid));
+                return Ok(_voterService.GetStarVoterbyUserId(userid, roleid));
             }
             catch(Exception ex)
             {
@@ -578,11 +578,11 @@ namespace ElectionAlerts.Controller
 
         [HttpGet("GetBoothNamebyUserId")]
 
-        public IActionResult GetBoothNamebyUserId(int userid)
+        public IActionResult GetBoothNamebyUserId(int userid,int roleid)
         {
             try
             {
-                return Ok(_voterService.GetBoothNamebyUserId(userid));
+                return Ok(_voterService.GetBoothNamebyUserId(userid, roleid));
             }
             catch(Exception ex)
             {

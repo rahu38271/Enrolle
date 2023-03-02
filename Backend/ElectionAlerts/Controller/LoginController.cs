@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System;
+using System.Collections.Generic;
 using System.Dynamic;
 using System.IdentityModel.Tokens.Jwt;
 using System.IO;
@@ -36,17 +37,32 @@ namespace ElectionAlerts.Controller
         {
             string msg="DB Changed";
             string token = "";
+            Startup.ElectionAlertConStr = null;
+            var Users = new List<AdminUser>();
             var user = _loginService.LoginUser(Username, Password);
             if (user != null)
-            {
+            {            
+                Users.Add(user);
                 msg = "User Logined";
                 if (user.RoleId>1)
                 {
                     try
                     {
-                        var configDB = _loginService.GetConfigureDBbyUser(Convert.ToInt32(user.AdminId));
+                        ConfigureDB configDB = null;
+                        if (user.RoleId == 2)
+                        {
+
+                             configDB = _loginService.GetConfigureDBbyUser(Convert.ToInt32(user.Id));
+                        }
+                        else
+                        {
+                             configDB = _loginService.GetConfigureDBbyUser(Convert.ToInt32(user.AdminId));
+                        }
+                        
                         if (configDB != null)
                         {
+                            string cnstr = "Server=" + configDB.IPAddress + ";Database=" + configDB.DBName + ";User Id=" + configDB.UserName + ";Password =" + configDB.Password + ";pooling=false;";
+                            Startup.ElectionAlertConStr = cnstr;
                             token = GenerateJSONWebToken(configDB);
                         }
                         else
@@ -55,15 +71,15 @@ namespace ElectionAlerts.Controller
                     catch(Exception ex)
                     {
                         msg = ex.InnerException + "  Message : " + ex.Message;
-                    }
-                    return Ok(new { token = token, ExpiryTime = 1800, User = user });
+                    }         
+                    return Ok(new { token = token, ExpiryTime = 1800, User = Users});
                 }
             }
             else
             {
                 return Ok("Invalid Username or Password!");
             }
-            return Ok(new { msg, User = user });
+            return Ok(new { token = token, ExpiryTime = 1800, User = Users });
         }
 
         [HttpPost("InsertUpdateDBConfigure")]
@@ -140,6 +156,7 @@ namespace ElectionAlerts.Controller
         private string GenerateJSONWebToken(ConfigureDB ConfigureDB)
         {
             var claims = new[] { new Claim(ClaimTypes.PrimarySid, ConfigureDB.IPAddress), new Claim(ClaimTypes.Name, ConfigureDB.DBName), new Claim(ClaimTypes.Role, ConfigureDB.UserName), new Claim(ClaimTypes.Authentication, ConfigureDB.Password) };
+            // var claims = new[] { new Claim("IP", ConfigureDB.IPAddress), new Claim("DBname", ConfigureDB.DBName), new Claim("UserName", ConfigureDB.UserName), new Claim("Password", ConfigureDB.Password) };
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken(issuer: _config["Jwt:Issuer"], audience: _config["Jwt:Audience"],
@@ -174,7 +191,7 @@ namespace ElectionAlerts.Controller
             }
         }
 
-        [HttpGet("GetAllAdminUser")]
+        [HttpGet("GetAllUser")]
         public IActionResult GetAllUser()
         {
             try
@@ -182,6 +199,34 @@ namespace ElectionAlerts.Controller
                 return Ok(_loginService.GetAllUser());
             }
             catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/GetAllUser");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetAdminbySuperAdminId")]
+        public IActionResult GetAdminbySuperAdminId(int superid)
+        {
+            try
+            {
+                return Ok(_loginService.GetAllAdminbySuperAdminId(superid));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/GetAllUser");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetVolunterbyAdminId")]
+        public IActionResult GetVolunterbyAdminId(int adminid)
+        {
+            try
+            {
+                return Ok(_loginService.GetAllVolunterbyAdminId(adminid));
+            }
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/GetAllUser");
                 return BadRequest(ex);

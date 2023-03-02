@@ -19,6 +19,8 @@ namespace ElectionAlerts.Dto
         public string Gender { get; set; }
         public string Village { get; set; }
         public int UserId { get; set; }
+        public int RoleId { get; set; }
+
 
     }
 }

@@ -12,5 +12,6 @@ namespace ElectionAlerts.Dto
         public string ColumnValue { get; set; }
         public string Condition { get; set; }
         public int UserId { get; set; }
+        public int RoleId { get; set; }
     }
 }

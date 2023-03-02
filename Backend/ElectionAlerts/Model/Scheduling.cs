@@ -18,7 +18,7 @@ namespace ElectionAlerts.Model
 {
     public class Task1 : IJob
     {
-        private CustomContext _cuctomContext = new CustomContext();
+        private MasterCustomContext _cuctomContext = new MasterCustomContext();
         private static TimeZoneInfo INDIAN_ZONE = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
         public Task Execute(IJobExecutionContext context)
         {
@@ -151,7 +151,7 @@ namespace ElectionAlerts.Model
         }
 
         public List<ConfigureDB> GetConnection()
-        {
+         {
             List<ConfigureDB> configureDBs = new List<ConfigureDB>();
             try
             {
@@ -254,8 +254,9 @@ namespace ElectionAlerts.Model
     public class SchedulerTask
     {
         // private static  string ScheduleCronExpression = "0 0 18 * * ?";
-        private static string ScheduleCronExpression = "0 0,00 0,19 ? * * *";
-       // private static string ScheduleCronExpression = "0 0,00 0,19 ? * * *";
+        //private static string ScheduleCronExpression = "0 0 1 * * ?";
+        private static string ScheduleCronExpression = "0 0,14 0,14 ? * * *";
+        // private static string ScheduleCronExpression = "0 0,00 0,19 ? * * *";
         public static async System.Threading.Tasks.Task StartAsync()
         {
             try

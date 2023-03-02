@@ -43,9 +43,9 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _iauthRepo.GetOtp(contact);
         }
 
-        public PartNoAssigned GetPartNoAssigned()
+        public PartNoAssigned GetPartNoAssigned(int userid)
         {
-            return _iauthRepo.GetPartNoAssigned();
+            return _iauthRepo.GetPartNoAssigned(userid);
         }
 
         public string GetPartNobyId(int userid)
