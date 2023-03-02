@@ -6,6 +6,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service'
 import { OtpPage } from 'src/app/otp/otp.page';
 import { LoaderService } from 'src/app/services/loader.service';
 import { NgForm } from '@angular/forms';
+import { loginResponce } from 'src/app/models/loginResponce'
 
 @Component({
   selector: 'app-login',
@@ -28,6 +29,8 @@ export class LoginComponent implements OnInit {
     speed: 400,
     autoplay: true
   };
+
+  loginResModal:loginResponce[]
 
   @ViewChild('f', {static: false}) f: NgForm;
   roleName: any;
@@ -78,16 +81,13 @@ export class LoginComponent implements OnInit {
 
   login() {
     debugger;
-  
     this.loader.showLoading();
     this.auth.loginAdmin(this.loginModal.Username, this.loginModal.Password).subscribe(data => {
       this.loader.hideLoader();
       if (typeof data ==="object") {
-        // localStorage.setItem("loginUser", data.user.name);
-        // localStorage.setItem("loginId", data.user.id);
-        // localStorage.setItem("loginRole", data.user.roleId);
-        
-        
+        this.loginResModal = data;
+        var jtoken=data.token;
+        localStorage.setItem('token' ,data.token);
         localStorage.setItem("loginUser", data.user[0].name);
         localStorage.setItem("loginId", data.user[0].id);
         localStorage.setItem("userType", data.user[0].roleId);
@@ -100,7 +100,9 @@ export class LoginComponent implements OnInit {
           this.loader.hideLoader();
           //this.router.navigate(['/home/mobile-dashboard']);
           // if we use router.navigate to redirect to dashboard page we need to refresh to see menubar based on user role.
-          location.href = "#/home/mobile-dashboard";
+          //window.location.href = "#/home/mobile-dashboard";
+          window.location.href = "#/home/mobile-dashboard";
+          
       }
     },
     (err)=>{
@@ -109,10 +111,6 @@ export class LoginComponent implements OnInit {
     }
     );
   }
-
-
-
-
 
   async otpverify(otp:any) {
     const modal = await this.modalController.create({

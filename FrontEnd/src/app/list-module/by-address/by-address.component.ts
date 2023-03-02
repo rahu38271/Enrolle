@@ -13,11 +13,13 @@ export class ByAddressComponent implements OnInit {
   adrsData: any;
   searchMob:string;
   id:any
-
+  roleId:any;
+  
   constructor(private voter:VoterService, private router:Router) { }
 
   ngOnInit() {
     this.id = localStorage.getItem("loginId");
+    this.roleId = localStorage.getItem("userType");
     this.addressData();
   }
 
@@ -34,7 +36,8 @@ export class ByAddressComponent implements OnInit {
     this.voter.addressData({
       TableName: "Tbl_Voter",
       ColumnName: "Address",
-      UserId : Number(this.id)
+      UserId : Number(this.id),
+      roleID: Number(this.roleId)
     }).subscribe(data=>{
       this.adrsData = data;
     })

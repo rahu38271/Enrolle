@@ -2,7 +2,7 @@
   <ion-header class="android">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button defaultHref="/user"></ion-back-button>
+        <ion-back-button defaultHref="/superadmin"></ion-back-button>
       </ion-buttons>
       <ion-title> Edit Superadmin </ion-title>
     </ion-toolbar>
@@ -33,11 +33,11 @@
 
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
                   <ion-label>User Role</ion-label>
-                  <ng-select name="roleId" [(ngModel)]="editData.roleName" interface="popover" required
+                  <ng-select name="roleId" [(ngModel)]="editData.roleName"  interface="popover" required
                     placeholder="Select User Role">
-                    <ng-option value="2">Superadmin </ng-option>
-                    <ng-option value="3">Admin </ng-option>
-                    <ng-option value="4">Volunteer </ng-option>
+                    <ng-option value="Superadmin">Superadmin </ng-option>
+                    <ng-option value="Admin" >Admin </ng-option>
+                    <ng-option value="Volunteer">Volunteer </ng-option>
                   </ng-select>
                   <!-- <div *ngIf="f.submitted && Role.invalid" class="invalid-feedback">
                                             <div *ngIf="Role.errors.required">
@@ -74,13 +74,19 @@
                 </ion-col>
 
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                  <ion-label>Email</ion-label>
+                  <ion-input name="Email" [(ngModel)]="editData.email"
+                    class="form-control"></ion-input>
+                </ion-col>
+
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="editData.roleName == '2'">
                   <ion-label>State</ion-label>
                   <ng-select name="state" [(ngModel)]="editData.state" interface="popover" placeholder="Select State">
                     <ng-option value="Maharashtra">Maharashtra </ng-option>
                   </ng-select>
                 </ion-col>
 
-                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="editData.roleName == '2'">
                   <ion-label>Assign Data</ion-label>
                   <ng-select name="assign" [(ngModel)]="editData.assign" #assign="ngModel" 
                   placeholder="Assign Data">
@@ -90,7 +96,7 @@
                  </ng-select>
                 </ion-col>
 
-                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="editData.assign == 'District' || 'Assembly'">
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="editData.assign == 'District' || 'Assembly' && editData.roleName == '2'">
                   <ion-label>District</ion-label>
                   <ng-select name="district" [(ngModel)]="editData.district"
                     (change)="getTaluka(editData.district)">
@@ -175,6 +181,24 @@
                         <input type="file">
                       </ion-item>
                     </ion-col> -->
+
+                    <ion-col size-xl="2" size-lg="2" size-md="4" size-sm="6" size-xs="6" *ngIf="editData.roleName == '2'">
+                      <ion-label> Is Active </ion-label>
+                      <ion-radio-group name="msgType" [(ngModel)]="editData.isActive">
+                        <div class="radioBtn">
+                          <div>
+                            <ion-radio value="Y"></ion-radio>
+                            <ion-label>Yes </ion-label>
+                          </div>
+                    
+                          <div>
+                            <ion-radio value="N"></ion-radio>
+                            <ion-label>No </ion-label>
+                          </div>
+                    
+                        </div>
+                      </ion-radio-group>
+                    </ion-col>
 
                 <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
                   <div class="ion-text-center">

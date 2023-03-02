@@ -12,6 +12,7 @@ export class MobileListComponent implements OnInit {
   isShow = false;
   voterMobile: any[] = [];
   id: any;
+  roleID:any;
   searchMob:string;
    
   search(){
@@ -28,11 +29,12 @@ export class MobileListComponent implements OnInit {
 
   ngOnInit(): void {
     this.id = localStorage.getItem("loginId");
+    this.roleID = localStorage.getItem("userType")
     this.mobileList();
     }
 
   mobileList(){
-    this.voter.voterWithMobile(this.id).subscribe(data=>{
+    this.voter.voterWithMobile(this.id,this.roleID).subscribe(data=>{
       this.voterMobile = data;
     })
   }

@@ -14,6 +14,7 @@ export class VillagewiseListComponent implements OnInit {
   villageWiseVoter: any[] = [];
   searchMob:string;
   userId: any;
+  roleID:any;
    
   search(){
     this.isShow = !this.isShow
@@ -29,15 +30,13 @@ export class VillagewiseListComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = localStorage.getItem("loginId");
+    this.roleID = localStorage.getItem("userType");
     this.villageName = this.route.snapshot.paramMap.get('villageName');
     //this.village = this.route.snapshot.paramMap.get('village');
-    this.voter.voterByVillage(this.villageName,this.userId).subscribe(data=>{
+    this.voter.voterByVillage(this.villageName,this.userId, this.roleID).subscribe(data=>{
       this.villageWiseVoter = data;
     })
   }
-
-
-  
 
 }
 

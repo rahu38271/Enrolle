@@ -12,6 +12,7 @@ export class FamilyComponent {
   id: any;
   familyData: any[]=[];
   userId: any;
+  roleID:any;
   
   constructor(private loader:LoaderService, private voter:VoterService,private route:ActivatedRoute, private router:Router ) { 
       
@@ -23,8 +24,9 @@ export class FamilyComponent {
 
   ngOnInit(): void {
     this.userId = localStorage.getItem("loginId");
+    this.roleID = localStorage.getItem("userType");
     this.id = this.route.snapshot.paramMap.get('Id');
-    this.voter.getByRelation(this.id, this.userId).subscribe(data=>{
+    this.voter.getByRelation(this.id, this.userId,this.roleID).subscribe(data=>{
       if(data){
         this.familyData= data;
       }else{

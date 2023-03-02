@@ -21,10 +21,10 @@ export class VoterService {
 
   // voter by user id
 
-  getVoterByUser(id:number){
+  getVoterByUser(id:number, roleID:number){
     //return this.http.get<any[]>(this.url+'Voter/GetVoterbyUserId?userid='+id);
-    return this.http.get<any[]>(this.url+'Voter/GetAllVoter?UserId='+id);
-    
+    //return this.http.get<any[]>(this.url+'Voter/GetAllVoter?UserId='+id);
+    return this.http.get<any[]>(this.url+'Voter/GetAllVoter?UserId='+id+'&RoleId='+roleID)
   }
 
   // total voter count
@@ -47,9 +47,9 @@ export class VoterService {
 
   // get list by family
 
-  getByRelation(id:any,userId:number){
+  getByRelation(id:any,userId:number,roleID:any){
     // return this.http.get<any[]>(this.url+'Voter/GetVoterbyRelation?Id='+id);
-    return this.http.get<any[]>(this.url+'Voter/GetVoterbyRelation?Id='+id+'&UserId='+userId);
+    return this.http.get<any[]>(this.url+'Voter/GetVoterbyRelation?Id='+id+'&UserId='+userId+'&RoleId='+roleID);
     
   }
 
@@ -101,44 +101,43 @@ export class VoterService {
 
   // Imp Voter Data
 
-  impVoter(userId:number){
-    return this.http.get<any>(this.url+'Voter/GetStarVoterbyUserId?UserId='+userId);
+  impVoter(userId:number, roleID:number){
+    return this.http.get<any>(this.url+'Voter/GetStarVoterbyUserId?UserId='+userId+'&RoleId='+roleID);
   }
 
   // lastname and count
 
-  lastNameData(id:number){
+  lastNameData(userid:number,roleID:number){
     //return this.http.get<any>(this.url+'Voter/GetVoterCountbyLastName');
-    return this.http.get<any>(this.url+'Voter/GetVoterCountbyLastName?userid='+id);
+    return this.http.get<any>(this.url+'Voter/GetVoterCountbyLastName?userid='+userid+'&RoleId='+roleID);
     
   }
 
   // all voter by lastname
 
-  voterByLastName(lastName:any, id:number){
+  voterByLastName(lastName:any, userid:number, roleID:number){
     // return this.http.get<any>(this.url+'Voter/VoterDetailsbyLastName?Name='+lastName);
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyLastName?Name='+lastName+'&UserId='+id);
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyLastName?Name='+lastName+'&UserId='+userid+'&RoleId='+roleID);
     
   }
 
   // all voter by villages
 
-  voterByVillage(villageName:any, userId:number){
-    // return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Village&ColoumnValue='+villageName);
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Village&ColoumnValue='+villageName+'&UserId='+userId);
+  voterByVillage(villageName:any, userId:number, roleID:number){
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Village&ColoumnValue='+villageName+'&UserId='+userId+'&RoleId='+roleID);
     
   }
 
   // all voter by address
 
-  voterByAddress(addressName:any,userId:number){
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Address&ColoumnValue='+addressName+'&UserId='+userId)
+  voterByAddress(addressName:any,userId:number, roleID:number){
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Address&ColoumnValue='+addressName+'&UserId='+userId+'&RoleId='+roleID)
   }
 
    // all voter by part no
 
-   voterByPart(partNumber:number,userId:number){
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=PartNo&ColoumnValue='+partNumber+'&UserId='+userId)
+   voterByPart(partNumber:number,userId:number, roleID:number){
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=PartNo&ColoumnValue='+partNumber+'&UserId='+userId+'&RoleId='+roleID)
   }
 
   // advance search voter
@@ -149,17 +148,16 @@ export class VoterService {
 
   // all voter with Mobile
 
-  voterWithMobile(id:number){
+  voterWithMobile(userId:number, roleID:number){
     // return this.http.get<any>(this.url+'Voter/VoterwithMobileNo');
-    return this.http.get<any>(this.url+'Voter/VoterwithMobileNo?UserId='+id);
+    return this.http.get<any>(this.url+'Voter/VoterwithMobileNo?UserId='+userId+'&RoleId='+roleID);
     
   }
 
   // boothwise voter count
 
-  boothWiseVoterCount(id:number){
-    //return this.http.get<any>(this.url+'Voter/VoterCountbyBooth');
-    return this.http.get<any>(this.url+'Voter/VoterCountbyBooth?userid='+id);
+  boothWiseVoterCount(userID,roleID:number){
+    return this.http.get<any>(this.url+'Voter/VoterCountbyBooth?userid='+userID+'&roleid='+roleID);
     
   }
 
@@ -171,9 +169,9 @@ export class VoterService {
 
   // all voter by age
 
-  voterBetweenAge(age1:number, age2:number, gender:string, id:number){
+  voterBetweenAge(age1:number, age2:number, gender:string, userId:number, roleID:number){
     // return this.http.get<any>(this.url+'Voter/GetVoterBetweenAge?age1='+age1+'&age2='+age2+'&gender='+gender+'');
-    return this.http.get<any>(this.url+'Voter/GetVoterBetweenAge?age1='+age1+'&age2='+age2+'&gender='+gender+'&UserId='+id);
+    return this.http.get<any>(this.url+'Voter/GetVoterBetweenAge?age1='+age1+'&age2='+age2+'&gender='+gender+'&UserId='+userId+'&roleid='+roleID);
    
   }
 
@@ -185,32 +183,32 @@ export class VoterService {
 
   // voter by color
 
-  getVoterByColor(userId:number){
-    return this.http.get<any>(this.url+'Voter/GetVoterInclination?UserId='+userId)
+  getVoterByColor(userId:number,roleID:number){
+    return this.http.get<any>(this.url+'Voter/GetVoterInclination?UserId='+userId+'&RoleId='+roleID)
   }
 
   // supporter voter list
 
-  supporter(userId:number){
-    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Supporter&UserId='+userId);
+  supporter(userId:number, roleID:number){
+    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Supporter&UserId='+userId+'&RoleId='+roleID);
   }
 
   // opposition voter list
 
-  opposition(userId:number){
-    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Opposition&UserId='+userId);
+  opposition(userId:number, roleID:number){
+    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Opposition&UserId='+userId+'&RoleId='+roleID);
   }
 
   // doubtful voter list
 
-  doubtful(userId:number){
-    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Doubtful&UserId='+userId);
+  doubtful(userId:number, roleID:number){
+    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Doubtful&UserId='+userId+'&RoleId='+roleID);
   }
 
   // other voter list
 
-  other(userId:number){
-    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Other&UserId='+userId);
+  other(userId:number,roleID:number){
+    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Other&UserId='+userId+'&RoleId='+roleID);
   }
 
 }

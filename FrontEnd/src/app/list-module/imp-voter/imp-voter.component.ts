@@ -13,6 +13,7 @@ export class ImpVoterComponent implements OnInit {
   isShow = false;
   impVoterData: any[] = [];
   userId: any;
+  roleID:any;
   searchMob:string;
    
   search(){
@@ -25,6 +26,7 @@ export class ImpVoterComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = localStorage.getItem("loginId");
+    this.roleID = localStorage.getItem("userType")
     this.impVoterList();
     }
 
@@ -34,7 +36,7 @@ export class ImpVoterComponent implements OnInit {
 
   impVoterList(){
     this.loader.showLoading();
-    this.voter.impVoter(this.userId).subscribe(data=>{
+    this.voter.impVoter(this.userId, this.roleID).subscribe(data=>{
       this.loader.hideLoader();
       this.impVoterData = data;
     })

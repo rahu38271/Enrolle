@@ -11,6 +11,7 @@ import { LoaderService } from 'src/app/services/loader.service'
 })
 export class VoterbyUserComponent  {
   id: any;
+  roleID:any;
   voterListByUser: any[]=[];
   isShow = true;
   isMike : boolean;
@@ -34,8 +35,9 @@ export class VoterbyUserComponent  {
 
    ngOnInit(){
     this.id = localStorage.getItem("loginId");
+    this.roleID = localStorage.getItem("userType");
     this.loader.showLoading();
-    this.voter.getVoterByUser(this.id).subscribe(data=>{
+    this.voter.getVoterByUser(this.id,this.roleID).subscribe(data=>{
       if(data){
         this.loader.hideLoader();
         this.voterListByUser = data;

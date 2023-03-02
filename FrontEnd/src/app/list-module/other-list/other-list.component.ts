@@ -11,6 +11,7 @@ import { LoaderService } from 'src/app/services/loader.service'
 export class OtherListComponent implements OnInit {
 
   userId: any;
+  roleID:any;
   otherVoter: any[]=[];
 
   constructor(
@@ -21,6 +22,7 @@ export class OtherListComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('loginId');
+    this.roleID = localStorage.getItem('userType');
     this.otherList();
   }
 
@@ -30,7 +32,7 @@ export class OtherListComponent implements OnInit {
 
   otherList(){
     this.loader.showLoading();
-    this.voter.other(this.userId).subscribe(data=>{
+    this.voter.other(this.userId,this.roleID).subscribe(data=>{
       if(data){
         this.loader.hideLoader();
         this.otherVoter = data;

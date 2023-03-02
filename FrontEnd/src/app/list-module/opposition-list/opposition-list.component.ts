@@ -11,6 +11,7 @@ import { VoterService } from 'src/app/services/voter.service'
 export class OppositionListComponent implements OnInit {
 
   userId: any;
+  roleID:any;
   oppositeVoter: any[]=[];
   searchMob: string;
 
@@ -22,6 +23,7 @@ export class OppositionListComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('loginId');
+    this.roleID = localStorage.getItem('userType')
     this.opposite();
   }
 
@@ -31,7 +33,7 @@ export class OppositionListComponent implements OnInit {
 
   opposite(){
     this.loader.showLoading();
-    this.voter.opposition(this.userId).subscribe(data=>{
+    this.voter.opposition(this.userId,this.roleID).subscribe(data=>{
       if(data){
         this.loader.hideLoader();
         this.oppositeVoter = data;

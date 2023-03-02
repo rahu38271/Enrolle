@@ -55,5 +55,9 @@ export class SuperadminService {
   getAllAssignedPart(){
     return this.http.get<any>(this.url+'auth/GetPartNoAssigned')
   }
+
+  getAssignedPartByUser(userID:any){
+    return this.http.get<any>(this.url+'Auth/GetPartNoAssigned?userid='+userID)
+  }
   
 }

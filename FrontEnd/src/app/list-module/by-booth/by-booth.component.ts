@@ -13,6 +13,7 @@ export class ByBoothComponent implements OnInit {
   partData: any;
   searchMob:string;
   id:any;
+  roleId:any;
 
   constructor(private voter: VoterService, private router:Router) { }
 
@@ -22,6 +23,7 @@ export class ByBoothComponent implements OnInit {
 
   ngOnInit() {
     this.id = localStorage.getItem("loginId");
+    this.roleId = localStorage.getItem("userType");
     this.allParts();
    }
 
@@ -33,7 +35,8 @@ export class ByBoothComponent implements OnInit {
     this.voter.partNoData({
       TableName: "Tbl_Voter",
       ColumnName: "PartNo",
-      UserId : Number(this.id)
+      UserId : Number(this.id),
+      roleID: Number(this.roleId)
     }).subscribe(data => {
       this.partData = data;
     })

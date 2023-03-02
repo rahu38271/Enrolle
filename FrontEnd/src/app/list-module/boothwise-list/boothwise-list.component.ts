@@ -14,6 +14,7 @@ export class BoothwiseListComponent implements OnInit {
   partWiseVoter: any[]=[];
   userId:any;
   searchMob:string;
+  roleID:any;
    
   search(){
     this.isShow = !this.isShow
@@ -23,8 +24,9 @@ export class BoothwiseListComponent implements OnInit {
 
   ngOnInit() {
     this.userId = localStorage.getItem("loginId");
+    this.roleID = localStorage.getItem("userType")
     this.partNumber = this.route.snapshot.paramMap.get('partNumber');
-    this.voter.voterByPart(this.partNumber,this.userId).subscribe(data=>{
+    this.voter.voterByPart(this.partNumber,this.userId, this.roleID).subscribe(data=>{
       this.partWiseVoter = data;
     })
   }

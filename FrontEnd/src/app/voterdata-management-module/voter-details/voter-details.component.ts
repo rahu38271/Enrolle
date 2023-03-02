@@ -63,6 +63,7 @@ export class VoterDetailsComponent {
   isStar: any;
   Voter: any = ''
   Vid: any;
+  roleID:any;
   mobUpdate: any = {
 
   }
@@ -258,7 +259,8 @@ export class VoterDetailsComponent {
   voterDetails() {
     this.loader.showLoading();
     this.id = localStorage.getItem("loginId");
-    this.voter.getVoterByUser(this.id).subscribe((data) => {
+    this.roleID = localStorage.getItem("userType");
+    this.voter.getVoterByUser(this.id, this.roleID).subscribe((data) => {
       this.loader.hideLoader();
       const Vid = this.route.snapshot.paramMap.get('id');
       [this.Voter] = data.filter((Voter) => Voter.id == Vid);
@@ -278,6 +280,8 @@ export class VoterDetailsComponent {
       else if (this.VoterListByUser.votingInclination == "Other") {
         this.bgColor = '#fff'
       }
+    },(err)=>{
+      this.loader.hideLoader();
     })
   }
 

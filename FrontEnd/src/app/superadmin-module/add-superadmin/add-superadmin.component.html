@@ -2,7 +2,7 @@
   <ion-header class="android">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button defaultHref="/user"></ion-back-button>
+        <ion-back-button defaultHref="/superadmin"></ion-back-button>
       </ion-buttons>
       <ion-title> Add Superadmin </ion-title>
     </ion-toolbar>
@@ -36,9 +36,9 @@
                   <ion-label>User Role</ion-label>
                   <ng-select name="RoleId" [(ngModel)]="addMAmodal.RoleId" #RoleId="ngModel"
                   required placeholder="Select User Role">
-                    <ng-option value="2">Superadmin </ng-option>
-                    <ng-option value="3">Admin </ng-option>
-                    <ng-option value="4">Volunteer </ng-option>
+                    <ng-option value="2" *ngIf="isSA">Superadmin </ng-option>
+                    <ng-option value="3" *ngIf="isA">Admin </ng-option>
+                    <ng-option value="4" *ngIf="isV">Volunteer </ng-option>
                  </ng-select>
                   <!-- <div *ngIf="f.submitted && Role.invalid" class="invalid-feedback">
                         <div *ngIf="Role.errors.required">
@@ -80,7 +80,7 @@
                     class="form-control"></ion-input>
                 </ion-col>
 
-                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="addMAmodal.RoleId == '2'">
                   <ion-label>State</ion-label>
                   <ng-select name="State" [(ngModel)]="addMAmodal.State" #State="ngModel" interface="popover"
                   placeholder="Select State">
@@ -88,7 +88,7 @@
                  </ng-select>
                 </ion-col>
 
-                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="addMAmodal.RoleId == '2'">
                   <ion-label>Assign Data</ion-label>
                   <ng-select name="assign" [(ngModel)]="addMAmodal.assign" #assign="ngModel" 
                   placeholder="Assign Data">
@@ -99,7 +99,7 @@
                 </ion-col>
 
 
-                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="addMAmodal.assign == 'District' || 'Assembly'">
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="addMAmodal.assign == 'District' || 'Assembly' && addMAmodal.RoleId == '2'" >
                   <ion-label>District</ion-label>
                   <ng-select name="District" [(ngModel)]="addMAmodal.DistrictId" 
                   (change)="getTaluka(addMAmodal.DistrictId)"
@@ -110,7 +110,7 @@
                  </ng-select>
                 </ion-col>
 
-                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="addMAmodal.assign == 'Assembly' ">
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="addMAmodal.assign == 'Assembly'" >
                   <ion-label>Assembly</ion-label>
                   <ng-select name="Assembly" [(ngModel)]="addMAmodal.AssemblyName" AssemblyName="ngModel"
                   placeholder="Select Assembly" >
@@ -121,7 +121,7 @@
                 </ion-col>
 
 
-                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="addMAmodal.assign == 'Village'">
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="addMAmodal.assign == 'Village'" >
                   <ion-label>Taluka</ion-label>
                   <ng-select name="Taluka" [(ngModel)]="addMAmodal.Taluka" #Taluka="ngModel" (change)="getVillage(addMAmodal.Taluka)" placeholder="Select Taluka">
                     <ng-option *ngFor="let item of talukaList" [value]="item.talukaName">
@@ -131,7 +131,7 @@
                 </ion-col>
                 
 
-                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="addMAmodal.assign == 'Village'">
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="addMAmodal.assign == 'Village'" >
                   <ion-label> Village </ion-label>
                   <ng-select placeholder="Please Select" name="Village" [(ngModel)]="addMAmodal.Village"
                   #Village="ngModel" [ngClass]="{'is-invalid': f.submitted && Village.invalid}">
@@ -141,7 +141,7 @@
                  </ng-select>
                 </ion-col>
 
-                <ion-col size-xl="2" size-lg="2" size-md="4" size-sm="6" size-xs="6">
+                <ion-col size-xl="2" size-lg="2" size-md="4" size-sm="6" size-xs="6" *ngIf="addMAmodal.RoleId == '2'">
                   <ion-label> Is Active </ion-label>
                   <ion-radio-group name="msgType" [(ngModel)]="addMAmodal.isActive">
                     <div class="radioBtn">

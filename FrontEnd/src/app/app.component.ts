@@ -7,6 +7,7 @@ import {
   NavigationEnd,
   NavigationCancel,
   NavigationError,
+  ActivatedRoute
 } from '@angular/router';
 import { MenuController, PopoverController, AlertController } from '@ionic/angular';
 import { NotificationComponent } from './notification/notification.component';
@@ -35,7 +36,6 @@ export class AppComponent implements OnInit {
   roleName: string;
   id: any;
   showHead:boolean=false;
-  DashboardMenu: any;
   AdminMenu: any;
   UserMenu: any;
   user: any;
@@ -60,6 +60,8 @@ export class AppComponent implements OnInit {
   isconfigureDB:any;
   isRequest:any;
   isTab:any;
+  role:any;
+ 
 
   getClass() {
     return "active"
@@ -79,8 +81,9 @@ export class AppComponent implements OnInit {
     private splashScreen: SplashScreen,
     //private statusBar: StatusBar,
     private alertController: AlertController,
+    private activatedRoute: ActivatedRoute,
     private platform: Platform) {
-    this.auth.userType = "";
+    
     
     this.initializeApp();
 
@@ -125,6 +128,29 @@ export class AppComponent implements OnInit {
       this.roleName = "Volunteer"
     }
 
+    var roleId = localStorage.getItem("userType");
+    //this.roleType = roleName
+    var isMasterAdmin = roleId == "1"
+    var isSuperAdmin = roleId == "2"
+    var isAdmin = roleId == "3";
+    var isVolunteer = roleId == "4"
+
+    this.isDashboard = isMasterAdmin|| isSuperAdmin || isAdmin || isVolunteer;
+    this.isSuperAdmin = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isContact = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isBirthday = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isAnniversary = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isMedia = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isOther = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isSetting = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isSurvey = isMasterAdmin|| isSuperAdmin || isAdmin  || isVolunteer;
+    this.isSearch = isMasterAdmin|| isSuperAdmin || isAdmin  || isVolunteer;
+    this.isLists = isMasterAdmin|| isSuperAdmin || isAdmin  || isVolunteer;
+    this.isUser = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isAppointment = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isDailyRoutine = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isVoterList = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isRequest = isMasterAdmin|| isSuperAdmin || isAdmin;
     // keeps user logged in for android app so that user doesnt have to login every time app opens
     // but dont use this code for web view bcoz when i refresh from any page in the app, it redirects me to dashboard page
     // if (localStorage.getItem('loginId') != undefined || null) {
@@ -134,32 +160,6 @@ export class AppComponent implements OnInit {
     //   this.router.navigate(['/']);
     // }
 
-   
-    
-    // var roleName = localStorage.getItem("userType");
-    // this.roleId = roleName
-    // var isMasterAdmin = roleName == "MasterAdmin"
-    // var isSuperAdmin = roleName == "SuperAdmin"
-    // var isAdmin = roleName == "Admin";
-    // var isVolunteer = roleName == "Volunteer"
-    // this.isDashboard = isMasterAdmin || isSuperAdmin || isAdmin || isVolunteer;
-    // this.isContact = isSuperAdmin || isAdmin;
-    // this.isBirthday = isSuperAdmin || isAdmin;
-    // this.isAnniversary = isSuperAdmin || isAdmin;
-    // this.isDailyRoutine = isSuperAdmin || isAdmin;
-    // this.isMedia = isSuperAdmin || isAdmin;
-    // this.isOther = isSuperAdmin || isAdmin;
-    // this.isSetting = isSuperAdmin || isAdmin;
-    // this.isUser = isSuperAdmin || isAdmin;
-    // this.isSurvey = isVolunteer;
-    // this.isLists = isAdmin || isVolunteer;
-    // this.isSearch = isAdmin || isVolunteer;
-    // this.isVoterList = isSuperAdmin || isAdmin;
-    // this.isRequest = isSuperAdmin || isAdmin;
-    // this.isAppointment = isSuperAdmin || isAdmin;
-    // this.isSuperAdmin = isMasterAdmin;
-    // this.isconfigureDB = isMasterAdmin;
-    // this.isTab = isSuperAdmin || isAdmin;
     
     this.firebaseX.getToken()
       .then(token => console.log(`The token is ${token}`)) // save the token server-side and use it to push notifications to this device

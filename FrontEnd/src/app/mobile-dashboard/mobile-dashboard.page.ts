@@ -25,6 +25,7 @@ export class MobileDashboardPage implements OnInit {
   id:any;
   name: any;
   roleName: string;
+  roleId:any;
 
   public birthData: Object[];
   public anniData: Object[];
@@ -67,26 +68,21 @@ export class MobileDashboardPage implements OnInit {
     public popoverController: PopoverController,
     public refresh : RefreshService
     ) {
-      //window.location.reload();
-  }
-
-
-  ionViewWillEnter() {
-    this.menuCtrl.enable(true);
+     
   }
 
 
   ngOnInit(): void {
     this.id = localStorage.getItem("loginId");
     this.name = localStorage.getItem("loginUser");
-    this.roleName = localStorage.getItem("userType")
+    this.roleId = localStorage.getItem("userType")
 
-    var roleName = localStorage.getItem("userType");
+    var roleId = localStorage.getItem("userType");
     //this.roleType = roleName
-    var isMasterAdmin = roleName == "MasterAdmin"
-    var isSuperAdmin = roleName == "SuperAdmin"
-    var isAdmin = roleName == "Admin";
-    var isVolunteer = roleName == "Volunteer"
+    var isMasterAdmin = roleId == "MasterAdmin"
+    var isSuperAdmin = roleId == "SuperAdmin"
+    var isAdmin = roleId == "Admin";
+    var isVolunteer = roleId == "Volunteer"
     
     this.isSearch = isSuperAdmin || isAdmin || isVolunteer;
     this.isList = isSuperAdmin || isAdmin  || isVolunteer;
@@ -94,8 +90,8 @@ export class MobileDashboardPage implements OnInit {
     this.isBirthDay = isSuperAdmin || isAdmin;
     this.isAnniversary = isSuperAdmin || isAdmin;
     this.isSurvey = isSuperAdmin || isAdmin || isVolunteer;
-    this.isGraph = isSuperAdmin || isAdmin;
-    this.isLogReport = isSuperAdmin || isAdmin;
+    this.isGraph =isMasterAdmin || isSuperAdmin || isAdmin;
+    this.isLogReport =isMasterAdmin || isSuperAdmin || isAdmin;
     
 
     this.primaryXAxis = {

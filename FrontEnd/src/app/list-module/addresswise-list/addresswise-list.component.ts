@@ -15,6 +15,7 @@ export class AddresswiseListComponent implements OnInit {
   addressWiseList: any[]=[];
   searchMob:string;
   userId:any;
+  roleID:any;
    
   search(){
     this.isShow = !this.isShow
@@ -24,8 +25,9 @@ export class AddresswiseListComponent implements OnInit {
 
   ngOnInit() {
     this.userId = localStorage.getItem("loginId");
+    this.roleID = localStorage.getItem("userType");
     this.addressName= this.route.snapshot.paramMap.get('addressName')
-    this.voter.voterByAddress(this.addressName,this.userId).subscribe(data=>{
+    this.voter.voterByAddress(this.addressName,this.userId, this.roleID).subscribe(data=>{
       this.addressWiseList = data;
     })
   }

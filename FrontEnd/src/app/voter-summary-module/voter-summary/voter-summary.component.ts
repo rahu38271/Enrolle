@@ -14,12 +14,14 @@ export class VoterSummaryComponent implements OnInit {
 
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
   voterCount: any[]=[];
-  id: any;
+  userID: any;
+  roleID:any;
 
   constructor(public alertController: AlertController, private voter:VoterService, private router:Router) { }
 
   ngOnInit() { 
-    this.id = localStorage.getItem("loginId");
+    this.userID = localStorage.getItem("loginId");
+    this.roleID = localStorage.getItem("userType");
     this.voterByBooth();
   }
 
@@ -28,7 +30,7 @@ export class VoterSummaryComponent implements OnInit {
    }
 
   voterByBooth(){
-    this.voter.boothWiseVoterCount(this.id).subscribe(data=>{
+    this.voter.boothWiseVoterCount(this.userID,this.roleID).subscribe(data=>{
       this.voterCount = data;
     })
   }

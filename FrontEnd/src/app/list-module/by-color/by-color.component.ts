@@ -12,6 +12,7 @@ export class ByColorComponent implements OnInit {
   isShow = false;
   colorList: any;
   userId: any;
+  roleID:any;
 
   constructor(private voter: VoterService, private router: Router) { }
 
@@ -21,12 +22,13 @@ export class ByColorComponent implements OnInit {
 
   ngOnInit() {
     this.userId = localStorage.getItem("loginId");
+    this.roleID = localStorage.getItem("userType");
     this.colorWiseVoterList();
   }
 
 
   colorWiseVoterList() {
-    this.voter.getVoterByColor(this.userId).subscribe(data => {
+    this.voter.getVoterByColor(this.userId,this.roleID).subscribe(data => {
       this.colorList = data;
     })
   }

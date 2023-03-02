@@ -88,7 +88,9 @@
                       <th>
                         Village
                       </th>
-                      
+                      <th>
+                        Part Assigned
+                      </th>
                       <!-- <th>
                             Booth
                           </th> -->
@@ -117,7 +119,7 @@
                     </tr> -->
                     <tr *ngFor="let item of getAdminList">
                       <td>{{item.id}}</td>
-                      <td class="text-capitalize" [routerLink]="['/superadmin/assign-data',item.id,item.partNoAssigned]">
+                      <td class="text-capitalize" [routerLink]="['/superadmin/assign-data',item.id,item.Partnoassigned]">
                         <a>{{item.name}}</a>
                       </td>
                       <td>{{item.contact}}</td>
@@ -128,11 +130,12 @@
                       <td>{{item.assemblyName}}</td>
                       <td>{{item.taluka}}</td>
                       <td>{{item.village}}</td>
+                      <td>{{item.Partnoassigned}}</td>
                       <!-- <td>Katraj</td>
                       <td>1 year</td> -->
                       <td class="action"> 
                         <ion-icon (click)="EditSA(item)" name="create-sharp"></ion-icon> 
-                        <ion-icon (click)="LinkDB(item.id)" name="server-sharp"></ion-icon>
+                        <ion-icon *ngIf="isDB" (click)="LinkDB(item.id)" name="server-sharp"></ion-icon>
                         <!-- <ion-icon (click)="deleteSA()" class="delete" name="trash-bin-sharp"></ion-icon>  -->
                       </td>
                     </tr>

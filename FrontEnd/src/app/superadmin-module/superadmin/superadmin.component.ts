@@ -29,8 +29,10 @@ export class SuperadminComponent implements OnInit {
   roleId: any;
   superId:any;
   adminid:any;
+  Partnoassigned:string;
   superadminId:any;
   id:any;
+  roleName: string;
   search() {
     this.isShow = !this.isShow
   }
@@ -57,6 +59,12 @@ export class SuperadminComponent implements OnInit {
     this.roleId = Number(this.roleId)
     this.id = localStorage.getItem("loginId");
     this.getAllAdminList();
+    if(this.roleId == 1){
+      this.isDB = !this.isDB;
+    }
+    else{
+      this.isDB = this.isDB;
+    }
   }
 
   // getAllAdminList() {
@@ -130,6 +138,7 @@ export class SuperadminComponent implements OnInit {
         if (data != 0) {
           this.loader.hideLoader();
           var list = data.forEach(e => {
+            
             if (e.roleId == 1) {
               e = { ...e, roleName: "MasterAdmin" };
             }
@@ -146,6 +155,7 @@ export class SuperadminComponent implements OnInit {
             this.getAdminList.forEach(e => {
               e.createdDate = e.createdDate.split('T')[0];
             });
+            
           });
         }
         else {
@@ -156,10 +166,16 @@ export class SuperadminComponent implements OnInit {
 
     //All users list for Admin
     if(this.roleId == 3){
+      debugger;
       this.sadmin.GetVolunterbyAdminId(this.adminid).subscribe(data => {
         if (data != 0) {
           //this.loader.hideLoader();
           var list = data.forEach(e => {
+            this.sadmin.partByUser(e.id).subscribe(data=>{
+              debugger;
+               this.Partnoassigned=data;
+                e.Partnoassigned=data;
+            })
             if (e.roleId == 1) {
               e = { ...e, roleName: "MasterAdmin" };
             }

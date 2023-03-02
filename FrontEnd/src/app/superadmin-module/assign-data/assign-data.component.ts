@@ -13,7 +13,7 @@ import { SuperadminService } from 'src/app/services/superadmin.service'
 })
 export class AssignDataComponent implements OnInit {
 
-  disabled:boolean= false;
+  disabled: boolean = false;
 
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
   assignPart: any = {};
@@ -25,16 +25,15 @@ export class AssignDataComponent implements OnInit {
   SelectedPartNo = [];
   Uid: any;
   id: number;
-  alreadyAssignedPart:any={};
-  superadminId:any;
+  alreadyAssignedPart: any = {};
+  superadminId: any;
   constructor
     (
-      private user: UserService,
       private route: ActivatedRoute,
       private toast: IonicToastService,
       private loader: LoaderService,
       private router: Router,
-      private sadmin:SuperadminService
+      private sadmin: SuperadminService
     ) { }
 
   ngOnInit() {
@@ -46,38 +45,37 @@ export class AssignDataComponent implements OnInit {
         debugger;
         for (let item in this.UserpartNoAssignedarray) {
           if (allboothitem.partNo == Number(this.UserpartNoAssignedarray[item])) {
-            allboothitem.checked = true; 
-           
-           debugger;
+            allboothitem.checked = true;
+
+            debugger;
             this.SelectedPartNo.push(allboothitem.partNo);
-           
+
             //item.checked=true;
-            
+
           }
-          else{
-            allboothitem.checked = false; 
+          else {
+            allboothitem.checked = false;
           }
           this.allBooths.forEach(element => {
-            this.sadmin.getAllAssignedPart().subscribe(data=>{
-                      
+            this.sadmin.getAllAssignedPart().subscribe(data => {
+
               var Dispart = data.split(',');
-            
-            if(!element.checked)
-            Dispart.forEach(el => {
-              debugger;
-              if(el ==element.partNo )
-              {
-                element.disable = true;
-              }
-              else{
-                element.disable= false;
-              }
-              
+
+              if (!element.checked)
+                Dispart.forEach(el => {
+                  debugger;
+                  if (el == element.partNo) {
+                    element.disable = true;
+                  }
+                  else {
+                    element.disable = false;
+                  }
+
+                });
+
             });
-               
-            });
-             
-           });
+
+          });
         }
       }, []);
     });
@@ -85,8 +83,8 @@ export class AssignDataComponent implements OnInit {
     this.Userid = this.route.snapshot.paramMap.get('id');
     this.UserpartNoAssigned = this.route.snapshot.paramMap.get('partNoAssigned');
     this.UserpartNoAssignedarray = this.UserpartNoAssigned.split(',');
-    
-  
+
+
     //for(let allBooths of this.allBooths )
 
     //this.UserpartNoAssigned.reduce(item)
@@ -99,18 +97,18 @@ export class AssignDataComponent implements OnInit {
     debugger;
     this.SelectedBooth = [];
     // this.SelectedPartNo=[];
-    
+
     if (event.target.checked) {
       var a = Number(event.target.value);
       this.SelectedPartNo.push(a);
-      
+
     }
     else {
       const index = this.SelectedPartNo.indexOf(Number(event.target.value));
-      
+
       if (index > -1) {
         this.SelectedPartNo.splice(index, 1);
-        
+
       }
     }
     // let checkedStrings = this.allBooths.reduce((acc, item) => {
@@ -125,18 +123,19 @@ export class AssignDataComponent implements OnInit {
     console.log(this.SelectedPartNo);
   }
 
-  allAssignedPart(){
-    this.sadmin.getAllAssignedPart().subscribe(data=>{
+  allAssignedPart() {
+    this.sadmin.getAllAssignedPart().subscribe(data => {
       this.alreadyAssignedPart = data;
       //this.disabled = true;
-      
-      if(this.alreadyAssignedPart){
+
+      if (this.alreadyAssignedPart) {
         this.disabled = true;
       }
     })
   }
 
   assign() {
+    debugger;
     this.loader.showLoading();
     this.id = Number(this.Userid);
     this.sadmin.assignPart({
@@ -159,6 +158,10 @@ export class AssignDataComponent implements OnInit {
       this.loader.hideLoader();
       //this.toast.presentToast("User not saved", "danger", 'alert-circle-sharp');
     })
+  }
+
+  editPartyRolesSubmit() {
+
   }
 
 }

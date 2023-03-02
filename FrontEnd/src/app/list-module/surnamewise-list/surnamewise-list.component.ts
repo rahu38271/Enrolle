@@ -13,7 +13,8 @@ export class SurnamewiseListComponent implements OnInit {
   lastName: any;
   surnameWiseData = [];
   searchMob:string;
-  id: any;
+  userId: any;
+  roleID:any;
 
   search() {
     this.isShow = !this.isShow
@@ -28,11 +29,12 @@ export class SurnamewiseListComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.id = localStorage.getItem("loginId");
+    this.userId = localStorage.getItem("loginId");
+    this.roleID = localStorage.getItem("userType");
     this.lastName= this.route.snapshot.paramMap.get('lastName')
    // this.route.queryParams.subscribe(params => {
       //this.lastName //= params['lastName'];
-      this.voter.voterByLastName(this.lastName,this.id).subscribe(data => {
+      this.voter.voterByLastName(this.lastName,this.userId,this.roleID).subscribe(data => {
         this.surnameWiseData = data;
     //  })
     });

@@ -12,7 +12,8 @@ export class ByVillageComponent implements OnInit {
   isShow = false;
   vilModal: any;
   searchMob:string;
-  id:any
+  id:any;
+  roleId:any;
 
   constructor(private voter: VoterService, private router:Router) { }
 
@@ -22,6 +23,7 @@ export class ByVillageComponent implements OnInit {
 
   ngOnInit() {
     this.id = localStorage.getItem("loginId");
+    this.roleId = localStorage.getItem("userType");
     this.allVillages();
   }
 
@@ -33,7 +35,8 @@ export class ByVillageComponent implements OnInit {
     this.voter.villagedata({
       TableName: "Tbl_Voter",
       ColumnName: "Village",
-      UserId : Number(this.id)
+      UserId : Number(this.id),
+      roleID: Number(this.roleId)
     }).subscribe(data => {
       this.vilModal = data;
     })
