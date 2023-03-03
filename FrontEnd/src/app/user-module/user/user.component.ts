@@ -71,6 +71,13 @@ export class UserComponent implements OnInit {
           });
         });
       }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+      }
+    }, (err) =>{
+        this.loader.hideLoader();
+        this.toast.presentToast("Something went wrong !", "danger", 'alert-circle-sharp');
     })
   }
 

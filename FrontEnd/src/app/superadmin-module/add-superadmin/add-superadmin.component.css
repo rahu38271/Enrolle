@@ -46,3 +46,16 @@ h3 {
 }
 
 .file ion-input { --padding-top: 4px;}
+
+.radioBtn {
+    display: flex;
+  justify-content: space-between;
+  }
+  
+  .radioBtn ion-label {
+    padding-left: 8px;
+  }
+  
+  ion-radio {
+    background: #FFF;
+  }

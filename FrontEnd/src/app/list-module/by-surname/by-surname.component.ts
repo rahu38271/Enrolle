@@ -12,7 +12,8 @@ export class BySurnameComponent implements OnInit {
   isShow = false;
   allData: any;
   searchMob:string;
-  id: any;
+  userId: any;
+  roleID:any;
 
   constructor(private voter:VoterService, private router:Router) { }
 
@@ -25,12 +26,13 @@ export class BySurnameComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.id = localStorage.getItem("loginId");
+    this.userId = localStorage.getItem("loginId");
+    this.roleID = localStorage.getItem('userType')
     this.allLastName();
   }
 
   allLastName(){
-    this.voter.lastNameData(this.id).subscribe(data=>{
+    this.voter.lastNameData(this.userId,this.roleID).subscribe(data=>{
       this.allData = data;
     })
   }

@@ -77,19 +77,7 @@ export class AssignMobiledataComponent implements OnInit {
   }
 
   ngOnInit() {
-    $('#table37').DataTable({
-      lengthMenu: [ [25, 50, 100, -1], [25, 50, 100, "All"] ],
-      pageLength: 25,
-      autoWidth: false,
-      "columnDefs": [
-        { "width": "30px", "targets": 0 },
-        { "width": "150px", "targets": 1 },
-        { "width": "100px", "targets": 2 },
-        { "width": "200px", "targets": 3 },
-        { "width": "40px", "targets": 4 },
-        { "width": "40px", "targets": 5 },
-      ],
-    });
+    
    }
 
   async deleteAmobiledata() {

@@ -24,12 +24,14 @@ export class AgewiseListComponent implements OnInit {
     gender: ''
   };
   ageList: any[] = [];
-  id: any;
+  userId: any;
+  roleID:any;
   
   constructor(private toast:IonicToastService, private router: Router,private loader:LoaderService, public alertController: AlertController,public loadingController: LoadingController,public toastController: ToastController, private voter:VoterService) { }
 
   ngOnInit() {
-    this.id = localStorage.getItem("loginId");
+    this.userId = localStorage.getItem("loginId");
+    this.roleID = localStorage.getItem("userType");
     this.agewiseSearch();
   }
 
@@ -38,7 +40,7 @@ export class AgewiseListComponent implements OnInit {
    }
 
    agewiseSearch() {
-    this.voter.voterBetweenAge(this.ageModal.age1, this.ageModal.age2, this.ageModal.gender, this.id).subscribe(data => {
+    this.voter.voterBetweenAge(this.ageModal.age1, this.ageModal.age2, this.ageModal.gender, this.userId, this.roleID).subscribe(data => {
       this.loader.showLoading();
       if (data.length > 0) {
         this.loader.hideLoader();

@@ -44,9 +44,9 @@ export class EditUserComponent implements OnInit {
   
   ngOnInit() {
     this.EditData = this.router.getCurrentNavigation().extras.state;
-    this.roleList =[{"roleId":1,"roleName":"SuperAdmin"},
-    {"roleId":2,"roleName":"Admin"},
-    {"roleId":3,"roleName":"Volunteer"}]
+    this.roleList =[{"roleId":2,"roleName":"SuperAdmin"},
+    {"roleId":3,"roleName":"Admin"},
+    {"roleId":4,"roleName":"Volunteer"}]
   //  this.getDistrict();
    // this.getAssembly();
    // this.getWard();

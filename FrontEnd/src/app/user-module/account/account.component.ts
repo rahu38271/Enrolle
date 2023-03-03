@@ -48,6 +48,14 @@ export class AccountComponent implements OnInit {
     this.userDetails();
   }
 
+  // userDetails(){
+  //   this.user.getUserData().subscribe((data) =>{
+  //     const Uid = this.route.snapshot.paramMap.get('id');
+  //     [this.User] = data.filter((User) => User.id == Uid);
+  //     this.getUserData = this.User;
+  //   })
+  // }
+
   userDetails(){
     this.user.getUserData().subscribe((data) =>{
       const Uid = this.route.snapshot.paramMap.get('id');

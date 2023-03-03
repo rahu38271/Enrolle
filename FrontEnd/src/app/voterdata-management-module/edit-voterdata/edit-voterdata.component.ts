@@ -140,6 +140,7 @@ export class EditVoterdataComponent implements OnInit {
       this.EditData = {};
         this.loader.hideLoader();
         this.toast.presentToast("Voter updated successfully!", "success", 'checkmark-circle-sharp');
+        this.router.navigate(['/voter-summary'])
     },(err)=>{
       this.toast.presentToast("Voter not updated!", "danger", 'checkmark-circle-sharp');
       this.loader.hideLoader();

@@ -5,6 +5,7 @@ import { SuperadminService } from 'src/app/services/superadmin.service'
 import { LoaderService } from 'src/app/services/loader.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { ContactService } from 'src/app/services/contact.service';
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-add-superadmin',
@@ -13,13 +14,20 @@ import { ContactService } from 'src/app/services/contact.service';
 })
 export class AddSuperadminComponent implements OnInit {
 
-  addMAmodal: any = {};
+  addMAmodal: any = { };
   myForm;
   Quote;
   assemblyList: any;
   districtList: any;
   talukaList: any;
   villageList: any;
+  adminId: any;
+  loginId:any;
+  superAdminId:any;
+  roleId:any;
+  isSA = false
+  isA = false
+  isV = false
 
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -48,6 +56,7 @@ export class AddSuperadminComponent implements OnInit {
       private loader: LoaderService,
       private toast: IonicToastService,
       public contact: ContactService,
+      private router: Router
   ) { }
 
   ismyTextFieldType: boolean;
@@ -67,7 +76,6 @@ export class AddSuperadminComponent implements OnInit {
   getDistrict() {
     this.contact.getDistrictData().subscribe((data) => {
       if (data.length > 0) {
-        //console.log(data);
         this.districtList = data;
       }
     }, (error) => {
@@ -78,9 +86,7 @@ export class AddSuperadminComponent implements OnInit {
   getTaluka(dId: any) {
     this.contact.getTalukaData(dId).subscribe((data) => {
       if (data.length > 0) {
-        //console.log(data);
         this.addMAmodal.District = this.districtList.find(x => x.dId == dId).districtName;
-        //this.addMAmodal.Taluka = this.talukaList.find( x=> x.taluka = taluka).talukaName;
         this.talukaList = data;
       }
     }, (error) => {
@@ -98,18 +104,51 @@ export class AddSuperadminComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.loginId = localStorage.getItem("loginId");
+    this.adminId = localStorage.getItem("adminId");
+    this.superAdminId = localStorage.getItem("superAdminId")
+    this.roleId = localStorage.getItem("userType")
+    this.roleId = Number(this.roleId);
+    if(this.roleId == 1){
+      this.isSA = !this.isSA;
+      this.isA = !this.isA;
+      this.isV = !this.isV;
+    }
+    
+    if(this.roleId == 2){
+      this.isA = !this.isA;
+      this.isV = !this.isV;
+    }
+    
+    if(this.roleId == 3){
+      this.isV = !this.isV;
+    }
+    
+
     this.getAssembly();
     this.getDistrict();
   }
 
   addMAdmin() {
-    this.addMAmodal.Validity = Number(this.addMAmodal.Validity);
+    debugger;
+    this.addMAmodal.RoleId = Number(this.addMAmodal.RoleId);
+    if(this.addMAmodal.RoleId == 2){
+      this.addMAmodal.SuperAdminId = Number(this.loginId);
+    }
+    if(this.addMAmodal.RoleId == 3){
+      this.addMAmodal.SuperAdminId = Number(this.loginId);
+    }
+    if(this.addMAmodal.RoleId == 4){
+      this.addMAmodal.SuperAdminId = Number(this.superAdminId);
+      this.addMAmodal.AdminId = Number(this.loginId);
+    }
     this.loader.showLoading();
-    this.sadmin.addMAdminData(this.addMAmodal).subscribe(data => {
+    this.sadmin.addMAdminData(this.addMAmodal).subscribe((data) => {
       if (data) {
         this.addMAmodal = {};
         this.loader.hideLoader();
         this.toast.presentToast("Superadmin added successfully!", "success", 'checkmark-circle-sharp');
+        this.router.navigate(['/superadmin']);
       }
       else {
         this.loader.hideLoader();

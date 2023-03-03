@@ -16,11 +16,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { FirebaseX } from '@awesome-cordova-plugins/firebase-x/ngx';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';	
 import {NgxPaginationModule} from 'ngx-pagination';
-import {DataTablesModule} from 'angular-datatables';
 import { MustMatchDirective } from './directives/must-match.directive';
-import { IonSelectSearchLibModule } from 'ionic-select-search';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
+import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 
 @NgModule({
   declarations: [AppComponent,PopoverComponent,ProfileComponent, MustMatchDirective],
@@ -29,16 +29,14 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
     BrowserModule, 
     IonicModule.forRoot(), 
     AppRoutingModule, 
-    NgbModule, 
-    DataTablesModule,
+    NgbModule,
     BrowserAnimationsModule, 
     Ng2SearchPipeModule,
     NgxPaginationModule,
     FormsModule,
-    IonSelectSearchLibModule,
     NgSelectModule,
     HttpClientModule],
-  providers: [ PDFGenerator,SocialSharing,AndroidPermissions,FirebaseX, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [ PDFGenerator,SocialSharing,AndroidPermissions,FirebaseX,BluetoothSerial,SplashScreen, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

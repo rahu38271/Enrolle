@@ -12,15 +12,52 @@ export class SuperadminService {
 
   constructor(private http:HttpClient) { }
 
-  getAllMAdmin():Observable<any>{
-    return this.http.get<any>(this.url+'SuperAdmin/GetAllSuperAdmin')
+  getAllAdmin():Observable<any>{
+    return this.http.get<any>(this.url+'Login/GetAllUser')
+  }
+
+  GetAdminbySuperAdminId(superId:any){
+    return this.http.get<any>(this.url+'Login/GetAdminbySuperAdminId?superid='+superId)
+  }
+
+  GetVolunterbyAdminId(adminid:any){
+    return this.http.get<any>(this.url+'Login/GetVolunterbyAdminId?adminid='+adminid)
   }
 
   addMAdminData(addMAmodal:any){
-    return this.http.post<any>(this.url+'SuperAdmin/InsertSuperAdmin', addMAmodal)
+    debugger;
+    return this.http.post<any>(this.url+'Login/CreateUpdateUser', addMAmodal)
   }
 
   edit(edModal:any):Observable<any>{
-    return this.http.post<any>(this.url + 'SuperAdmin/UpdateSuperAdmin', edModal);
+    debugger;
+    return this.http.post<any>(this.url + 'Login/CreateUpdateUser', edModal);
   }
+
+  delete(id:any){
+    return this.http.get<any>(this.url + 'Login/DeleteUser?Id='+id)
+  }
+
+  getBooths(){
+    return this.http.get<any>(this.url+'Voter/GetDistinctPartNumber')
+  }
+
+  partByUser(id:any){
+    return this.http.get<any>(this.url+'Auth/GetPartNumberbyId?userid='+id)
+  }
+
+  // assign booths to volunteers
+
+  assignPart(assignmodal:any):Observable<any>{
+    return this.http.post<any>(this.url+'Auth/InsertUpdateUserAssigned' ,assignmodal)
+  }
+
+  getAllAssignedPart(){
+    return this.http.get<any>(this.url+'auth/GetPartNoAssigned')
+  }
+
+  getAssignedPartByUser(userID:any){
+    return this.http.get<any>(this.url+'Auth/GetPartNoAssigned?userid='+userID)
+  }
+  
 }

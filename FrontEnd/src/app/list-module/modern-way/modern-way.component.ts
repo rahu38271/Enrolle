@@ -33,6 +33,7 @@ export class ModernWayComponent implements OnInit {
   };
   searchList: any[] =[];
   id: any;
+  roleID:any;
 
   constructor
     (
@@ -47,6 +48,7 @@ export class ModernWayComponent implements OnInit {
 
   ngOnInit() {
     this.id = localStorage.getItem("loginId");
+    this.roleID = localStorage.getItem("userType");
   }
 
   voterDetails(id:number){
@@ -121,6 +123,7 @@ export class ModernWayComponent implements OnInit {
       this.searchModal.Village = this.searchModal.Village;
     }
     this.searchModal.UserId = Number(this.id);
+    this.searchModal.roleID = Number(this.roleID);
     this.loader.showLoading();
      this.voter.advanceSearch(this.searchModal).subscribe(data=>{
        if(data.length > 0){

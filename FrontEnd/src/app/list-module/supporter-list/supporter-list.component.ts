@@ -11,6 +11,7 @@ import { VoterService } from 'src/app/services/voter.service'
 export class SupporterListComponent implements OnInit {
 
   userId:any;
+  roleID:any;
   supportVoter: any[] = [];
 
   constructor(
@@ -21,6 +22,7 @@ export class SupporterListComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = localStorage.getItem('loginId');
+    this.roleID = localStorage.getItem('userType');
     this.supporterList();
   }
 
@@ -30,7 +32,7 @@ export class SupporterListComponent implements OnInit {
 
   supporterList(){
     this.loader.showLoading();
-    this.voter.supporter(this.userId).subscribe(data=>{
+    this.voter.supporter(this.userId,this.roleID).subscribe(data=>{
       if(data){
         this.loader.hideLoader();
         this.supportVoter = data;

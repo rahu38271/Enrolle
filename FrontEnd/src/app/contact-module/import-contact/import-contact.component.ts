@@ -6,6 +6,7 @@ import { ContactService } from 'src/app/services/contact.service';
 import { HttpClient } from '@angular/common/http';
 import * as  XLSX from 'xlsx';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-import-contact',
@@ -26,7 +27,7 @@ export class ImportContactComponent implements OnInit {
   disabled:boolean= true;
   myForm: any;
 
-  constructor(public loadingController: LoadingController, private toast: IonicToastService, private loader: LoaderService, private contact: ContactService, private http: HttpClient) { }
+  constructor(private router:Router, public loadingController: LoadingController, private toast: IonicToastService, private loader: LoaderService, private contact: ContactService, private http: HttpClient) { }
 
   ngOnInit() {
 
@@ -140,6 +141,7 @@ export class ImportContactComponent implements OnInit {
       if (data) {
         this.loader.hideLoader();
         this.toast.presentToast("File uploded successfully!", "success", 'checkmark-circle-sharp');
+        this.router.navigate(['/contact']);
         f.resetForm();
       }
       else {

@@ -2,7 +2,7 @@
   <ion-header class="android">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button color="primary" defaultHref="/user"></ion-back-button>
+        <ion-back-button defaultHref="/superadmin"></ion-back-button>
       </ion-buttons>
       <ion-title> Edit Superadmin </ion-title>
     </ion-toolbar>
@@ -22,7 +22,7 @@
               <ion-row>
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
                   <ion-label>Name</ion-label>
-                  <ion-input name="name" [(ngModel)]="editData.name" #name="ngModel" required
+                  <ion-input name="name" [(ngModel)]="editData.name" #name="ngModel"
                     class="text-capitalize form-control" required></ion-input>
                   <!-- <div *ngIf="f.submitted && Name.invalid" class="invalid-feedback">
                       <div *ngIf="Name.errors.required">
@@ -33,9 +33,11 @@
 
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
                   <ion-label>User Role</ion-label>
-                  <ng-select name="userRole" [(ngModel)]="editData.userRole" interface="popover" required
+                  <ng-select name="roleId" [(ngModel)]="editData.roleName"  interface="popover" required
                     placeholder="Select User Role">
                     <ng-option value="Superadmin">Superadmin </ng-option>
+                    <ng-option value="Admin" >Admin </ng-option>
+                    <ng-option value="Volunteer">Volunteer </ng-option>
                   </ng-select>
                   <!-- <div *ngIf="f.submitted && Role.invalid" class="invalid-feedback">
                                             <div *ngIf="Role.errors.required">
@@ -46,7 +48,7 @@
 
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
                   <ion-label>UserID/10 digit mob. no.</ion-label>
-                  <ion-input name="mobile_Id" [(ngModel)]="editData.mobile_Id" required maxlength="10"
+                  <ion-input name="contact" [(ngModel)]="editData.contact" required maxlength="10"
                     (keypress)="keyPressNumbers($event)" class="form-control">
                   </ion-input>
                   <!-- <div *ngIf="f.submitted && userID.invalid" class="invalid-feedback">
@@ -72,13 +74,19 @@
                 </ion-col>
 
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                  <ion-label>Email</ion-label>
+                  <ion-input name="Email" [(ngModel)]="editData.email"
+                    class="form-control"></ion-input>
+                </ion-col>
+
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="editData.roleName == '2'">
                   <ion-label>State</ion-label>
                   <ng-select name="state" [(ngModel)]="editData.state" interface="popover" placeholder="Select State">
                     <ng-option value="Maharashtra">Maharashtra </ng-option>
                   </ng-select>
                 </ion-col>
 
-                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="editData.roleName == '2'">
                   <ion-label>Assign Data</ion-label>
                   <ng-select name="assign" [(ngModel)]="editData.assign" #assign="ngModel" 
                   placeholder="Assign Data">
@@ -88,10 +96,10 @@
                  </ng-select>
                 </ion-col>
 
-                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="editData.assign == 'District' || 'Assembly'">
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="editData.assign == 'District' || 'Assembly' && editData.roleName == '2'">
                   <ion-label>District</ion-label>
-                  <ng-select name="district" [(ngModel)]="editData.DistrictId"
-                    (change)="getTaluka(editData.DistrictId)">
+                  <ng-select name="district" [(ngModel)]="editData.district"
+                    (change)="getTaluka(editData.district)">
                     <ng-option *ngFor="let item of districtList" [value]="item.dId">
                       {{ item.districtName }}
                     </ng-option>
@@ -111,7 +119,7 @@
 
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="editData.assign == 'Village'">
                   <ion-label> Taluka </ion-label>
-                  <ng-select name="taluka" [(ngModel)]="editData.Taluka" (ionChange)="getVillage(editData.taluka)">
+                  <ng-select name="taluka" [(ngModel)]="editData.taluka" (change)="getVillage(editData.taluka)">
                     <ng-option *ngFor="let item of talukaList" [value]="item.talukaName">
                       {{ item.talukaName }}
                     </ng-option>
@@ -166,17 +174,6 @@
                         <ion-input type="file" class="form-control"></ion-input>
                     </ion-col> -->
 
-                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
-                  <ion-label>Validity</ion-label>
-                  <ng-select name="validity" [(ngModel)]="editData.validity"
-                  placeholder="Select Validity">
-                    <ng-option value="1">1 yr </ng-option>
-                    <ng-option value="2">2 yrs </ng-option>
-                    <ng-option value="3">3 yrs </ng-option>
-                    <ng-option value="4">4 yrs </ng-option>
-                    <ng-option value="5">5 yrs </ng-option>
-                 </ng-select>
-                </ion-col>
 
                 <!-- <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
                       <ion-label>Banner Image 1</ion-label>
@@ -185,10 +182,28 @@
                       </ion-item>
                     </ion-col> -->
 
+                    <ion-col size-xl="2" size-lg="2" size-md="4" size-sm="6" size-xs="6" *ngIf="editData.roleName == '2'">
+                      <ion-label> Is Active </ion-label>
+                      <ion-radio-group name="msgType" [(ngModel)]="editData.isActive">
+                        <div class="radioBtn">
+                          <div>
+                            <ion-radio value="Y"></ion-radio>
+                            <ion-label>Yes </ion-label>
+                          </div>
+                    
+                          <div>
+                            <ion-radio value="N"></ion-radio>
+                            <ion-label>No </ion-label>
+                          </div>
+                    
+                        </div>
+                      </ion-radio-group>
+                    </ion-col>
+
                 <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
                   <div class="ion-text-center">
                     <ion-button type="reset" color="danger" size="medium" (click)="resetForm()">Clear</ion-button>
-                    <ion-button type="submit" size="medium" (click)="editAdmin()" [disabled]="!f.form.valid">Add
+                    <ion-button type="submit" size="medium" (click)="editAdmin()" [disabled]="!f.form.valid">Update
                       Superadmin</ion-button>
                     <ion-button routerLink="/superadmin" color="success" type="button" size="medium">Back To List
                     </ion-button>

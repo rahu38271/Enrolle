@@ -37,19 +37,7 @@ export class DailyNewsPage implements OnInit {
   }
 
   ngOnInit() {
-    $('#table3').DataTable({
-      lengthMenu: [ [25, 50, 100, -1], [25, 50, 100, "All"] ],
-      pageLength: 25,
-      autoWidth: false,
-      "columnDefs": [
-        { "width": "40px", "targets": 0 },
-        { "width": "300px", "targets": 1 },
-        { "width": "200px", "targets": 2 },
-        { "width": "200px", "targets": 3 },
-        { "width": "200px", "targets": 4 },
-        { "width": "200px", "targets": 5 }
-      ],
-    });
+    
   }
 
   exportexcel() {

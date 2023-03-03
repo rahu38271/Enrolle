@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular'
 import { FormsModule } from '@angular/forms'
 import {RouterModule } from '@angular/router';
 import { ImporBoothComponent } from './impor-booth/impor-booth.component'
-import { IonSelectSearchLibModule } from 'ionic-select-search';
 
 
 @NgModule({
@@ -21,7 +20,6 @@ import { IonSelectSearchLibModule } from 'ionic-select-search';
     CommonModule,
     IonicModule,
     FormsModule,
-    IonSelectSearchLibModule,
     RouterModule.forChild([{path:'', component:BoothComponent}, {path:'add-booth', component:AddBoothComponent}, {path:'edit-booth', component:EditBoothComponent}, {path:'impor-booth', component:ImporBoothComponent}])
   ]
 })

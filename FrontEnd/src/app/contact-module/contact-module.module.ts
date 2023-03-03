@@ -12,7 +12,6 @@ import { ContactDetailsComponent } from './contact-details/contact-details.compo
 import { HttpClientModule } from '@angular/common/http';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {NgxPaginationModule} from 'ngx-pagination';
-import { IonSelectSearchLibModule } from 'ionic-select-search';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
@@ -26,7 +25,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
     NgxPaginationModule,
     HttpClientModule,
     NgSelectModule,
-    IonSelectSearchLibModule,
     RouterModule.forChild([{path:'', component:ContactComponent}, { path:'add-contact', component:AddContactComponent}, {path:'import-contact', component:ImportContactComponent},{path:'edit-contact', component:EditContactComponent}, {path:'contact-details/:id', component:ContactDetailsComponent}])
   ],
   exports: [ RouterModule ],

@@ -8,7 +8,7 @@ import { WhatsappSettingComponent } from './whatsapp-setting/whatsapp-setting.co
 import { VoiceSettingComponent } from './voice-setting/voice-setting.component';
 import { EmailSettingComponent } from './email-setting/email-setting.component';
 import { SmsSettingComponent } from './sms-setting/sms-setting.component';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -17,6 +17,7 @@ import { SmsSettingComponent } from './sms-setting/sms-setting.component';
     CommonModule,
     IonicModule,
     FormsModule,
+    NgSelectModule,
     RouterModule.forChild([{path:'', component: SettingComponent},{path:'sms-setting', component: SmsSettingComponent}, {path:'whatsapp-setting', component: WhatsappSettingComponent}, {path:'voice-setting', component: VoiceSettingComponent}, {path:'email-setting', component: EmailSettingComponent}])
   ]
 })

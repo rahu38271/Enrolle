@@ -7,14 +7,13 @@ import { IonicModule } from '@ionic/angular';
 import { DailyNewsPageRoutingModule } from './daily-news-routing.module';
 
 import { DailyNewsPage } from './daily-news.page';
-import { DataTablesModule } from 'angular-datatables';
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DataTablesModule,
     DailyNewsPageRoutingModule
   ],
   declarations: [DailyNewsPage]

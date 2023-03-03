@@ -15,7 +15,6 @@ import { MatInputModule } from '@angular/material/input';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 //import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { IonSelectSearchLibModule } from 'ionic-select-search';
 import { FamilyComponent } from './family/family.component';
 import { VoterbyUserComponent } from './voterby-user/voterby-user.component';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
@@ -33,7 +32,6 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
     NgxDropzoneModule,
     MatPaginatorModule,
     Ng2SearchPipeModule,
-    IonSelectSearchLibModule,
     RouterModule.forChild([{path:'', component:VoterdataManagementComponent},{path:'edit-voterdata', component:EditVoterdataComponent},{path:'add-voter', component:AddVoterComponent},{path:'import-voter', component:ImportVoterdataComponent},{path:'voter-details/:id', component:VoterDetailsComponent}, {path:'family', component:FamilyComponent}, {path:'voterby-user', component:VoterbyUserComponent} ])
   ],
   providers: [SocialSharing],

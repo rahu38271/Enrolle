@@ -21,6 +21,11 @@ export class EditSuperadminComponent implements OnInit {
   districtList: any;
   talukaList: any;
   villageList: any;
+  adminId: any;
+  loginId:any;
+  superAdminId:any;
+  roleId:any;
+  roleName:any;
   
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -53,9 +58,33 @@ export class EditSuperadminComponent implements OnInit {
     ) 
     { }
 
+    ngOnInit() {
+      this.loginId = localStorage.getItem("loginId")
+      this.adminId = localStorage.getItem("adminId")
+      this.superAdminId = localStorage.getItem("superAdminId");
+  
+      this.roleId = localStorage.getItem("userType")
+      this.roleId = Number(this.roleId);
+      
+
+      this.getAssembly();
+      this.getDistrict();
+    }
+
   ismyTextFieldType: boolean;
   togglemyPasswordFieldType(){
     this.ismyTextFieldType = !this.ismyTextFieldType;
+  }
+
+  getDistrict() {
+    this.editData = this.router.getCurrentNavigation().extras.state;
+    this.contact.getDistrictData().subscribe((data) => {
+      if (data.length > 0) {
+        this.districtList = data;
+      }
+    }, (error) => {
+
+    })
   }
 
   getAssembly(){
@@ -67,23 +96,11 @@ export class EditSuperadminComponent implements OnInit {
     })
   }
 
-  getDistrict() {
-    this.editData = this.router.getCurrentNavigation().extras.state;
-    this.contact.getDistrictData().subscribe((data) => {
-      if (data.length > 0) {
-        //console.log(data);
-        this.districtList = data;
-      }
-    }, (error) => {
-
-    })
-  }
-
   getTaluka(dId: any) {
     this.contact.getTalukaData(dId).subscribe((data) => {
       if (data.length > 0) {
         //console.log(data);
-        this.editData.District = this.districtList.find(x => x.dId == dId).districtName;
+        this.editData.district = this.districtList.find(x => x.dId == dId).districtName;
         this.talukaList = data;
       }
     }, (error) => {
@@ -100,30 +117,80 @@ export class EditSuperadminComponent implements OnInit {
     })
   }
 
-
-  ngOnInit() {
-    this.getAssembly();
-    this.getDistrict();
-  }
-
   editAdmin(){
-    this.editData.validity = Number(this.editData.validity);
+    debugger;
+    this.editData.id = Number(this.editData.id);
+    if(this.editData.roleName == "MasterAdmin"){
+      this.editData.roleId = 1
+    }
+    if(this.editData.roleName == "SuperAdmin"){
+      this.editData.roleId = 2
+    }
+    if(this.editData.roleName == "Admin"){
+      this.editData.roleId = 3
+    }
+    if(this.editData.roleName == "Volunteer"){
+      this.editData.roleId = 4
+    }
+    this.editData.roleName = this.editData.roleName
+    
+    if(this.editData.roleId == 2){
+      this.editData.superAdminId = Number(this.loginId);
+    }
+    if(this.editData.roleId == 3){
+      this.editData.superAdminId = Number(this.loginId);
+    }
+    if(this.editData.roleId == 4){
+      this.editData.superAdminId = Number(this.superAdminId);
+      this.editData.adminId = Number(this.loginId);
+    }
+
     this.loader.showLoading();
-    this.sadmin.edit(this.editData).subscribe(data=>{
-      if(data){
-        this.editData = {};
+    this.sadmin.edit(this.editData).subscribe((data)=>{
+      this.editData={};
         this.loader.hideLoader();
         this.toast.presentToast("Superadmin updated successfully!", "success", 'checkmark-circle-sharp');
-      }
-      else{
-        this.loader.hideLoader();
-        this.toast.presentToast("Superadmin not updated", "danger", 'alert-circle-sharp');
-      }
+        this.router.navigate(['/superadmin']);
     }, (err)=>{
       this.loader.hideLoader();
       this.toast.presentToast("Superadmin not updated", "danger", 'alert-circle-sharp');
     })
   }
+  
+
+  // editAdmin(){
+  //   debugger;
+  //   this.editData.id = Number(this.editData.id);
+  //   this.editData.roleId = Number(this.editData.roleId);
+  //   if(this.editData.roleId == 2){
+  //     this.editData.superAdminId = Number(this.loginId);
+  //   }
+  //   if(this.editData.roleId == 3){
+  //     this.editData.superAdminId = Number(this.loginId);
+  //   }
+  //   if(this.editData.roleId == 4){
+  //     this.editData.superAdminId = Number(this.superAdminId);
+  //     this.editData.adminId = Number(this.loginId);
+  //   }
+
+  //   this.loader.showLoading();
+  //   this.sadmin.edit(this.editData).subscribe((data)=>{
+  //     if(data){
+  //       this.editData={};
+  //       this.loader.hideLoader();
+  //       this.toast.presentToast("Superadmin updated successfully!", "success", 'checkmark-circle-sharp');
+  //       this.router.navigate(['/superadmin']);
+        
+  //     }
+  //     else{
+  //       this.loader.hideLoader();
+  //       this.toast.presentToast("Superadmin not updated", "danger", 'alert-circle-sharp');
+  //     }
+  //   }, (err)=>{
+  //     this.loader.hideLoader();
+  //     this.toast.presentToast("Superadmin not updated", "danger", 'alert-circle-sharp');
+  //   })
+  // }
 
   
 

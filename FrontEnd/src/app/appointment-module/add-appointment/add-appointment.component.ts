@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddAppointmentComponent implements OnInit {
 
+  apmModal:any;
+
   year : number = new Date().getFullYear();
 
   myForm;

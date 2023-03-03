@@ -8,7 +8,7 @@
   <ion-header class="android">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button color="primary" defaultHref="/home"></ion-back-button>
+        <ion-back-button defaultHref="/home"></ion-back-button>
       </ion-buttons>
       <ion-title>Whatsapp Setting</ion-title>
     </ion-toolbar>
@@ -22,9 +22,28 @@
       </ion-row>
       <form name="smsForm" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
         <ion-row>
-          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
-            <ion-label>  URL </ion-label>
-              <ion-input name="url" [(ngModel)]="whatsappModel.url" #url="ngModel" [ngClass]="{'is-invalid': f.submitted && url.invalid}" class="form-control"></ion-input>
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="6" size-xs="8">
+            <ion-radio-group name="msgType" [(ngModel)]="whatsappSetting.msgType">
+              <div class="radioBtn">
+                <div>
+                  <ion-radio value="Birthday"></ion-radio>
+                  <ion-label>Birthday </ion-label>
+                </div>
+          
+                <div>
+                  <ion-radio value="Anniversary"></ion-radio>
+                  <ion-label>Anniversary </ion-label>
+                </div>
+          
+              </div>
+            </ion-radio-group>
+          </ion-col>
+
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" >
+            <ion-label> URL <span>*</span> </ion-label>
+              <ion-input name="url" [(ngModel)]="whatsappSetting.url" #url="ngModel" [ngClass]="{'is-invalid': f.submitted && url.invalid}" class="form-control" readonly>
+                https://app.imsscall.in/api/send.php
+              </ion-input>
               <div *ngIf="f.submitted && url.invalid" class="invalid-feedback">
                 <div *ngIf="url.errors.required">
                    url is required
@@ -32,55 +51,87 @@
               </div>
           </ion-col>
 
-          
-          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
-            <ion-label> Username <span>*</span> </ion-label>
-              <ion-input name="Username" [(ngModel)]="whatsappModel.Username" #Username="ngModel" [ngClass]="{'is-invalid': f.submitted && Username.invalid}" class="form-control" ></ion-input>
-              <div *ngIf="f.submitted && Username.invalid" class="invalid-feedback">
-                <div *ngIf="Username.errors.required">
-                  Username is required
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
+            <ion-label> Mobile No. <span>*</span></ion-label>
+              <ion-input name="number" placeholder="911234567890" [(ngModel)]="whatsappSetting.number" #number="ngModel" [ngClass]="{'is-invalid': f.submitted && number.invalid}" class="form-control">
+              </ion-input>
+              <div *ngIf="f.submitted && number.invalid" class="invalid-feedback">
+                <div *ngIf="number.errors.required">
+                   url is required
                 </div>
               </div>
           </ion-col>
 
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
+            <ion-label> Type <span>*</span></ion-label>
+            <ng-select 
+            name="Type" 
+            [(ngModel)]="whatsappSetting.type" 
+            #Taluka="ngModel"  
+            placeholder="Select Type"
+          >
+            <ng-option class="select_option" value="text">Text</ng-option>
+            <ng-option class="select_option" value="media">Media</ng-option>
+         </ng-select>
+          </ion-col>
 
-          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
-            <ion-label>Password <span>*</span></ion-label>
-            <ion-input [type]="ismyTextFieldType ? 'text' : 'password'" name="Password" [(ngModel)]="whatsappModel.Password" #Password="ngModel" [ngClass]="{'is-invalid': f.submitted && Password.invalid}" class="form-control"></ion-input>
-            <div *ngIf="f.submitted && Password.invalid" class="invalid-feedback">
-              <div *ngIf="Password.errors.required">
-                Password is required
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" *ngIf="whatsappSetting.type == 'media'">
+            <ion-label> Media URL <span>*</span> </ion-label>
+              <ion-input name="media_url" [(ngModel)]="whatsappSetting.media_url" #media_url="ngModel" [ngClass]="{'is-invalid': f.submitted && media_url.invalid}" class="form-control"></ion-input>
+              <div *ngIf="f.submitted && media_url.invalid" class="invalid-feedback">
+                <div *ngIf="media_url.errors.required">
+                  Media url is required
+                </div>
               </div>
-            </div>
-            <ion-icon (click)="togglemyPasswordFieldType()" [name]="ismyTextFieldType ? 'eye-off' : 'eye'">
-            </ion-icon>
           </ion-col>
 
-          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12" class="file">
-            <ion-label> File <span>*</span> </ion-label>
-              <input type="file" name="File" [(ngModel)]="whatsappModel.File" #File="ngModel" [ngClass]="{'is-invalid': f.submitted && File.invalid}" class="form-control" />
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" *ngIf="whatsappSetting.type == 'media'">
+            <ion-label> File Name <span>*</span></ion-label>
+              <ion-input name="filename" [(ngModel)]="whatsappSetting.filename" #fileName="ngModel" [ngClass]="{'is-invalid': f.submitted && filename.invalid}" class="form-control"></ion-input>
+              <div *ngIf="f.submitted && filename.invalid" class="invalid-feedback">
+                <div *ngIf="filename.errors.required">
+                  Filename is required
+                </div>
+              </div>
           </ion-col>
 
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
+            <ion-label> Instance Id <span>*</span> </ion-label>
+              <ion-input name="instance_id" [(ngModel)]="whatsappSetting.instance_id" #instance_id="ngModel" [ngClass]="{'is-invalid': f.submitted && instance_id.invalid}" class="form-control"></ion-input>
+              <div *ngIf="f.submitted && instance_id.invalid" class="invalid-feedback">
+                <div *ngIf="instance_id.errors.required">
+                  InstanceId is required
+                </div>
+              </div>
+          </ion-col>
+
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
+            <ion-label> Access Token <span>*</span></ion-label>
+              <ion-input name="access_token" [(ngModel)]="whatsappSetting.access_token" #access_token="ngModel" [ngClass]="{'is-invalid': f.submitted && access_token.invalid}" class="form-control"></ion-input>
+              <div *ngIf="f.submitted && access_token.invalid" class="invalid-feedback">
+                <div *ngIf="access_token.errors.required">
+                  Access token is required
+                </div>
+              </div>
+          </ion-col>
+         
           <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
             <div class="d-flex labels"> 
-              <ion-label>  Template<span>*</span>  </ion-label>
-              <!-- <ion-label> Add New Template </ion-label> -->
+              <ion-label>  Message <span>*</span>  </ion-label>
             </div>
-              <ion-textarea name="Template" [(ngModel)]="whatsappModel.Template" #Template="ngModel" [ngClass]="{'is-invalid': f.submitted && Template.invalid}" class="form-control" rows="3"></ion-textarea>
-              <div *ngIf="f.submitted && Template.invalid" class="invalid-feedback">
-                <div *ngIf="Template.errors.required">
-                  Template is required
+              <ion-textarea name="message" [(ngModel)]="whatsappSetting.message" #message="ngModel" [ngClass]="{'is-invalid': f.submitted && message.invalid}" class="form-control text-style" rows="3"></ion-textarea>
+              <div *ngIf="f.submitted && message.invalid" class="invalid-feedback">
+                <div *ngIf="message.errors.required">
+                  Message is required
                 </div>
               </div>
           </ion-col>
-
-
           
           <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
             <div class="ion-text-center">
               <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
-              <ion-button  type="submit" size="medium">Save</ion-button>
-              <ion-button routerLink="/setting" color="success" type="button" size="medium">Back To List</ion-button>
+              <ion-button  type="submit" size="medium" (click)="whastappSetting()">Add Whatsapp Setting</ion-button>
+              <!-- <ion-button routerLink="/setting" color="success" type="button" size="medium">Back To List</ion-button> -->
             </div>
           </ion-col>
         </ion-row>

@@ -6,6 +6,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service'
 import { OtpPage } from 'src/app/otp/otp.page';
 import { LoaderService } from 'src/app/services/loader.service';
 import { NgForm } from '@angular/forms';
+import { loginResponce } from 'src/app/models/loginResponce'
 
 @Component({
   selector: 'app-login',
@@ -29,7 +30,10 @@ export class LoginComponent implements OnInit {
     autoplay: true
   };
 
+  loginResModal:loginResponce[]
+
   @ViewChild('f', {static: false}) f: NgForm;
+  roleName: any;
 
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -69,46 +73,44 @@ export class LoginComponent implements OnInit {
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
   }
-  
- ionViewDidLeave() {
-    this.menuCtrl.enable(true);
- } 
 
   ismyTextFieldType: boolean;
   togglemyPasswordFieldType() {
     this.ismyTextFieldType = !this.ismyTextFieldType;
   }
 
-
-  
-
   login() {
+    debugger;
     this.loader.showLoading();
-    this.auth.loginUser(this.loginModal.Username, this.loginModal.Password).subscribe(data => {
+    this.auth.loginAdmin(this.loginModal.Username, this.loginModal.Password).subscribe(data => {
       this.loader.hideLoader();
       if (typeof data ==="object") {
-        this.auth.userType = data.roleName;
+        this.loginResModal = data;
+        var jtoken=data.token;
+        localStorage.setItem('token' ,data.token);
         localStorage.setItem("loginUser", data.user[0].name);
         localStorage.setItem("loginId", data.user[0].id);
-        localStorage.setItem("userType", data.user[0].roleName);
-        //localStorage.setItem("password", data.user[0].password);
-        // this.auth.sendOtp(this.loginModal.Username).subscribe((data) => {
-        //    this.otpverify(data);
-        // });
-          this.router.navigate(['/home/mobile-dashboard']);
+        localStorage.setItem("userType", data.user[0].roleId);
+        localStorage.setItem("adminId", data.user[0].adminId);
+        localStorage.setItem("superAdminId", data.user[0].superAdminId)
+        //this.auth.sendOtp(this.loginModal.Username).subscribe((data) => {
+        //   this.otpverify(data);
+        //});
           this.toast.presentToast("Logged In Succesfully", "success", 'checkmark-circle-outline');
           this.loader.hideLoader();
+          //this.router.navigate(['/home/mobile-dashboard']);
+          // if we use router.navigate to redirect to dashboard page we need to refresh to see menubar based on user role.
+          //window.location.href = "#/home/mobile-dashboard";
+          window.location.href = "#/home/mobile-dashboard";
+          
       }
     },
     (err)=>{
       this.loader.hideLoader();
       this.toast.presentToast("Invalid Username or Password!", "danger", 'alert-circle-sharp');
-      
     }
     );
   }
-
-
 
   async otpverify(otp:any) {
     const modal = await this.modalController.create({

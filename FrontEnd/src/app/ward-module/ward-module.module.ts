@@ -7,7 +7,6 @@ import { ImportWardComponent } from './import-ward/import-ward.component';
 import {IonicModule } from '@ionic/angular'
 import { FormsModule } from '@angular/forms'
 import {RouterModule } from '@angular/router'
-import { IonSelectSearchLibModule } from 'ionic-select-search';
 
 
 @NgModule({
@@ -21,7 +20,6 @@ import { IonSelectSearchLibModule } from 'ionic-select-search';
     CommonModule,
     IonicModule,
     FormsModule,
-    IonSelectSearchLibModule,
     RouterModule.forChild([{path:'', component: WardComponent}, {path:'add-ward', component: AddWardComponent}, {path:'edit-ward', component: EditWardComponent}, {path:'import-ward', component: ImportWardComponent} ])
   ]
 })

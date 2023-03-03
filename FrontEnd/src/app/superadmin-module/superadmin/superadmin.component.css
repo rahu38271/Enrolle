@@ -165,3 +165,14 @@ ion-item-options ion-icon {
   color: #ff4646;
   cursor: pointer;
 }
+
+td a {
+  cursor: pointer;
+  color: #3774e3;
+  text-decoration: underline;
+}
+
+.action {
+  display: flex;
+    justify-content: space-around;
+}

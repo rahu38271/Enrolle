@@ -11,6 +11,7 @@ import { Router } from '@angular/router'
 export class DoubtfulListComponent implements OnInit {
 
   userId: any;
+  roleID:any;
   doubtfulVoter: any[]=[];
   searchMob:string;
 
@@ -21,7 +22,8 @@ export class DoubtfulListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.userId = localStorage.getItem('loginId')
+    this.userId = localStorage.getItem('loginId');
+    this.roleID = localStorage.getItem('userType');
     this.doubtfulList();
   }
 
@@ -31,7 +33,7 @@ export class DoubtfulListComponent implements OnInit {
 
   doubtfulList(){
     this.loader.showLoading();
-    this.voter.doubtful(this.userId).subscribe(data=>{
+    this.voter.doubtful(this.userId,this.roleID).subscribe(data=>{
       if(data){
         this.loader.hideLoader();
         this.doubtfulVoter = data

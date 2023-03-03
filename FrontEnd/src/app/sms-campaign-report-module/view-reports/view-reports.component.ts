@@ -68,21 +68,7 @@ export class ViewReportsComponent implements OnInit {
   }
 
   ngOnInit() {
-    $('#table39').DataTable({
-      lengthMenu: [ [25, 50, 100, -1], [25, 50, 100, "All"] ],
-      pageLength: 25,
-      autoWidth: false,
-      "columnDefs": [
-        { "width": "150px", "targets": 0 },
-        { "width": "100px", "targets": 1 },
-        { "width": "200px", "targets": 2 },
-        { "width": "100px", "targets": 3 },
-        { "width": "100px", "targets": 4 },
-        { "width": "100px", "targets": 5 },
-        { "width": "100px", "targets": 6 },
-        { "width": "100px", "targets": 7 },
-      ],
-    });
+    
    }
 
    async presentLoading() {

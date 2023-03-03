@@ -1,36 +1,37 @@
-
 <ion-app>
   
   <ion-header *ngIf="showHead" class="web">
     <div class="navbar">
       <div class="leftnav">
         
-        <div class="subnav" routerLink="/home">
-          <button class="subnavbtn"> <img src="assets/img/home.png" alt=""> <br>Home </button>
+        <div *ngIf="isDashboard" class="subnav" routerLink="/home">
+          <button class="subnavbtn"> <img src="assets/img/home.png" alt=""> <br>Dashboard </button>
         </div>
-        <div class="subnav" routerLink="/contact" *ngIf="isContact">
+        <div *ngIf="isAppointment" class="subnav" routerLink="/appointment">
+          <button class="subnavbtn"> <img src="assets/img/contact-book.png" alt=""> <br>Appointment </button>
+        </div>
+        <div *ngIf="isContact" class="subnav" routerLink="/contact">
           <button class="subnavbtn"> <img src="assets/img/contact-book.png" alt=""> <br>Contact </button>
         </div>
         <!-- <div class="subnav" routerLink="/letterhead">
           <button class="subnavbtn"> <img src="assets/img/letterhead.png" alt=""> <br>Letterhead </button>
         </div> -->
-        <div class="subnav" routerLink="/user" *ngIf="isUser">
+        <div *ngIf="isUser" class="subnav" routerLink="/user">
           <button class="subnavbtn"><img src="assets/img/user.png" alt=""><br>User  </button>
         </div>
 
-        <div class="subnav" routerLink="/event" *ngIf="isDailyRoutine">
+        <div *ngIf="isDailyRoutine" class="subnav" routerLink="/event">
           <button class="subnavbtn"><img src="assets/img/calendar.png" alt=""><br>दैनंदिन कार्यक्रम </button>
         </div>
         
-        <div class="subnav" routerLink="/home/birthday" *ngIf="isBirthday">
+        <div *ngIf="isBirthday" class="subnav" routerLink="/home/birthday" >
           <button class="subnavbtn"><img src="assets/img/cake.png" alt=""><br>वाढदिवस </button>
         </div>
 
-        <div class="subnav" routerLink="/home/anniversary" *ngIf="isAnniversary">
+        <div *ngIf="isAnniversary" class="subnav" routerLink="/home/anniversary">
           <button class="subnavbtn"><img src="assets/img/calendar.png" alt=""><br>लग्नाचा वाढदिवस </button>
         </div>
 
-        
       
         <!-- <div class="subnav">
           <button class="subnavbtn"><img src="assets/img/diary.png" alt=""><br>Directory </button>
@@ -64,51 +65,20 @@
               दैनंदिन बातम्या
             </ion-item>
       
-            <ion-item lines="full" class="sub-menu" [routerLink]="['/journalist']">
+            <!-- <ion-item lines="full" class="sub-menu" [routerLink]="['/journalist']">
               पत्रकार सूची
-            </ion-item>
+            </ion-item> -->
       
-            <ion-item lines="none" class="sub-menu" [routerLink]="['/press-note']">
+            <!-- <ion-item lines="none" class="sub-menu" [routerLink]="['/press-note']">
               प्रेस नोट
-            </ion-item>
+            </ion-item> -->
       
           </div>
         </div>
 
         
       
-        <div class="subnav" *ngIf="isOther">
-          <button class="subnavbtn"><img src="assets/img/file.png" alt=""><br> Other </button>
-          <div class="subnav-content">
-            <ion-item lines="full" class="sub-menu" routerLink="/appointment">
-              <!-- बैठक नोंदी -->
-              Appointments
-            </ion-item>
-            <!-- शासन निर्णय -->
-            <!-- <ion-item lines="full" class="sub-menu" routerLink="/govt-rules">
-              Govt. Rules
-            </ion-item> -->
-      
-            <ion-item lines="full" class="sub-menu" routerLink="/personal-records">
-              <!-- वैयक्तिक नोंदी -->
-              Personal Records
-            </ion-item>
-      
-            <ion-item lines="full" class="sub-menu" routerLink="/document-repository">
-              <!-- डॉक्युमेंट रेपोसिटोरी -->
-              Document Repository
-            </ion-item>
-      
-            <ion-item lines="full" class="sub-menu" routerLink="/beneficiaries">
-              Beneficiary
-            </ion-item>
-            
-            <ion-item lines="none" class="sub-menu" routerLink="/survey">
-              Survey
-            </ion-item>
-      
-          </div>
-        </div>
+        
 
         
         <!-- <div class="subnav" [routerLink]="['/user-request']">
@@ -162,7 +132,7 @@
           </div>
         </div> -->
 
-        <div class="subnav" *ngIf="isVoterList">
+        <div *ngIf="isVoterList" class="subnav" >
           <button class="subnavbtn"><img src="assets/img/shopping-list.png" alt=""><br> मतदार यादी </button>
           <div class="subnav-content">
             <ion-item lines="full" class="sub-menu" routerLink="/dashboard">
@@ -191,8 +161,41 @@
           </div>
         </div>
 
-        <div class="subnav" routerLink="/user-request" *ngIf="isRequest">
+        <div *ngIf="isRequest" class="subnav" routerLink="/user-request"  >
           <button class="subnavbtn"><img src="assets/img/list1.png" alt=""><br>User Request </button>
+        </div>
+
+        <div *ngIf="isOther" class="subnav"  >
+          <button class="subnavbtn"><img src="assets/img/file.png" alt=""><br> Other </button>
+          <div class="subnav-content">
+            <ion-item lines="full" class="sub-menu" routerLink="/appointment">
+              <!-- बैठक नोंदी -->
+              Appointments
+            </ion-item>
+            <!-- शासन निर्णय -->
+            <!-- <ion-item lines="full" class="sub-menu" routerLink="/govt-rules">
+              Govt. Rules
+            </ion-item> -->
+      
+            <!-- <ion-item lines="full" class="sub-menu" routerLink="/personal-records">
+              वैयक्तिक नोंदी
+              Personal Records
+            </ion-item> -->
+      
+            <!-- <ion-item lines="full" class="sub-menu" routerLink="/document-repository">
+              डॉक्युमेंट रेपोसिटोरी
+              Document Repository
+            </ion-item> -->
+      
+            <!-- <ion-item lines="full" class="sub-menu" routerLink="/beneficiaries">
+              Beneficiary
+            </ion-item> -->
+            
+            <ion-item lines="none" class="sub-menu" routerLink="/survey">
+              Survey
+            </ion-item>
+      
+          </div>
         </div>
 
 
@@ -519,13 +522,13 @@
                 </ion-avatar>
                 <ion-label class="ion-text-center">
                   <h3 class="text-capitalize">{{name}}</h3>
-                  <h4 class="text-capitalize">{{roleType}}</h4>
+                  <h4 class="text-capitalize">{{roleName}}</h4>
                 </ion-label>
               </ion-item>
 
-              <ion-item routerLink="/home/mobile-dashboard" routerLinkActive="active">
+              <ion-item *ngIf="isDashboard" routerLink="/home/mobile-dashboard" routerDirection="root" routerLinkActive="active">
                 <i class="icofont icofont-home"></i>
-                <ion-label>Home</ion-label>
+                <ion-label>Dashboard</ion-label>
               </ion-item>
 
               <!-- <ion-item routerLink="/useradmin" [routerLinkActive]="'active'">
@@ -534,37 +537,36 @@
               </ion-item> -->
 
 
-              <ion-item *ngIf="isSearch" routerLink="/voterdata-management/voterby-user" [routerLinkActive]="'active'" >
+              <ion-item *ngIf="isSearch" routerDirection="root" routerLink="/voterdata-management/voterby-user" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-search-user"></i>
                 <ion-label> search </ion-label>
               </ion-item>
 
-              <ion-item *ngIf="isLists" routerLink="/list" [routerLinkActive]="'active'" >
+              <ion-item *ngIf="isLists" routerDirection="root" routerLink="/list" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-list"></i>
                 <ion-label> Lists </ion-label>
               </ion-item>
 
-              <ion-item *ngIf="isSurvey" routerLink="/survey" [routerLinkActive]="'active'" >
+              <ion-item *ngIf="isSurvey" routerDirection="root" routerLink="/survey" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-notepad"></i>
                 <ion-label> Survey </ion-label><i class=""></i>
               </ion-item>
 
-              
-              <!-- <ion-item routerLink="/superadmin" [routerLinkActive]="'active'" class="mobView">
+              <ion-item *ngIf="isUser" routerLink="/superadmin" [routerLinkActive]="'active'">
                 <i class="icofont icofont-ui-user"></i>
-                <ion-label>SuperAdmin </ion-label>
-              </ion-item> -->
+                <ion-label>User </ion-label>
+              </ion-item>
 
-              <!-- <ion-item routerLink="/db" [routerLinkActive]="'active'" class="mobView">
-                <i class="icofont icofont-ui-user"></i>
+              <!-- <ion-item  *ngIf="roleName === 'MasterAdmin'" routerLink="/db" [routerLinkActive]="'active'">
+                <i class="icofont icofont-database-add"></i>
                 <ion-label>Configure DB </ion-label>
               </ion-item> -->
 
 
-              <ion-item *ngIf="isUser" routerLink="/user" [routerLinkActive]="'active'" >
+              <!-- <ion-item *ngIf="roleName === 'MasterAdmin' ||roleName === 'SuperAdmin' || roleName === 'Admin'" routerDirection="root" routerLink="/user" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-ui-user"></i>
                 <ion-label>User</ion-label>
-              </ion-item>
+              </ion-item> -->
 
               <!-- <ion-item routerLink="/assembly" [routerLinkActive]="'active'" class="mobView">
                 <i class="icofont icofont-building-alt"></i>
@@ -581,24 +583,27 @@
                 <ion-label>Ward</ion-label>
               </ion-item> -->
 
-              
+              <ion-item *ngIf="isAppointment" routerLink="/appointment" [routerLinkActive]="'active'">
+                <i class="icofont icofont-ui-clock"></i>
+                <ion-label>Appointment </ion-label>
+              </ion-item>
 
-              <ion-item *ngIf="isContact" routerLink="/contact" [routerLinkActive]="'active'" >
+              <ion-item *ngIf="isContact" routerDirection="root" routerLink="/contact" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-contacts"></i>
                     <ion-label> Contact </ion-label>
               </ion-item>
               
-              <ion-item *ngIf="isBirthday" routerLink="/home/birthday" [routerLinkActive]="'active'" >
+              <ion-item *ngIf="isBirthday" routerDirection="root" routerLink="/home/birthday" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-birthday-cake"></i>
                 <ion-label> वाढदिवस </ion-label>
               </ion-item>
 
-              <ion-item *ngIf="isAnniversary" routerLink="/home/anniversary" [routerLinkActive]="'active'" >
+              <ion-item *ngIf="isAnniversary" routerDirection="root" routerLink="/home/anniversary" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-calendar"></i>
                 <ion-label>लग्नाचा वाढदिवस </ion-label>
               </ion-item>
 
-              <ion-item *ngIf="isDailyRoutine" routerLink="/event" [routerLinkActive]="'active'" >
+              <ion-item *ngIf="isDailyRoutine" routerDirection="root" routerLink="/event" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-calendar"></i>
                 <ion-label>दैनंदिन कार्यक्रम </ion-label>
               </ion-item>
@@ -638,18 +643,18 @@
                     <ion-label> प्रसार माध्यम </ion-label>
                   </ion-item>
                   <div slot="content">
-                    <ion-item color="light" lines="none" routerLink="/daily-news">
+                    <ion-item color="light" lines="none" routerDirection="root" routerLink="/daily-news">
                       <i class="icofont icofont-newspaper"></i>
                       <ion-label> दैनंदिन बातम्या </ion-label>
                     </ion-item>
-                    <ion-item color="light" lines="none" routerLink="/journalist"> 
+                    <!-- <ion-item color="light" lines="none" routerDirection="root" routerLink="/journalist"> 
                       <i class="icofont icofont-contact-add"></i>
                       <ion-label>पत्रकार सूची</ion-label>
                     </ion-item>
-                    <ion-item color="light" lines="none" routerLink="/press-note"> 
+                    <ion-item color="light" lines="none" routerDirection="root" routerLink="/press-note"> 
                       <i class="icofont icofont-ui-note"></i>
                       <ion-label>प्रेस नोट</ion-label>
-                    </ion-item>
+                    </ion-item> -->
                   </div>
                 </ion-accordion>
               </ion-accordion-group>
@@ -662,7 +667,7 @@
                     <ion-label> Other </ion-label>
                   </ion-item>
                   <div slot="content">
-                    <ion-item color="light" lines="none" routerLink="/appointment">
+                    <ion-item color="light" lines="none" routerDirection="root" routerLink="/appointment">
                       <i class="icofont icofont-clock-time"></i>
                       <ion-label>Appointments </ion-label>
                     </ion-item>
@@ -670,19 +675,19 @@
                       <i class="icofont icofont-contact-add"></i>
                       <ion-label>Govt. Rules</ion-label>
                     </ion-item> -->
-                    <ion-item color="light" lines="none" routerLink="/personal-records"> 
+                    <!-- <ion-item color="light" lines="none" routerDirection="root" routerLink="/personal-records"> 
                       <i class="icofont icofont-notepad"></i>
                       <ion-label>Personal Records</ion-label>
                     </ion-item>
-                    <ion-item color="light" lines="none" routerLink="/document-repository"> 
+                    <ion-item color="light" lines="none" routerDirection="root" routerLink="/document-repository"> 
                       <i class="icofont icofont-files-stack"></i>
                       <ion-label>Document Repository</ion-label>
                     </ion-item>
-                    <ion-item color="light" lines="none" routerLink="/beneficiaries"> 
+                    <ion-item color="light" lines="none" routerDirection="root" routerLink="/beneficiaries"> 
                       <i class="icofont icofont-ui-user"></i>
                       <ion-label>Beneficiary</ion-label>
-                    </ion-item>
-                    <ion-item color="light" lines="none" routerLink="/survey"> 
+                    </ion-item> -->
+                    <ion-item color="light" lines="none" routerDirection="root" routerLink="/survey"> 
                       <i class="icofont icofont-list"></i>
                       <ion-label>Survey</ion-label>
                     </ion-item>
@@ -699,19 +704,19 @@
                     <ion-label> Settings </ion-label>
                   </ion-item>
                   <div slot="content">
-                    <ion-item color="light" lines="none" routerLink="/setting/sms-setting">
+                    <ion-item color="light" lines="none" routerDirection="root" routerLink="/setting/sms-setting">
                       <i class="icofont icofont-ui-text-chat"></i>
                       <ion-label>SMS Setting</ion-label>
                     </ion-item>
-                    <ion-item color="light" lines="none" routerLink="/setting/voice-setting"> 
+                    <ion-item color="light" lines="none" routerDirection="root" routerLink="/setting/voice-setting"> 
                       <i class="icofont icofont-sound-wave-alt"></i>
                       <ion-label>Voice Setting</ion-label>
                     </ion-item>
-                    <ion-item color="light" lines="none" routerLink="/setting/whatsapp-setting"> 
+                    <ion-item color="light" lines="none" routerDirection="root" routerLink="/setting/whatsapp-setting"> 
                       <i class="icofont icofont-brand-whatsapp"></i>
                       <ion-label>Whatsapp Setting</ion-label>
                     </ion-item>
-                    <ion-item color="light" routerLink="/setting/email-setting"> 
+                    <ion-item color="light" routerDirection="root" routerLink="/setting/email-setting"> 
                       <i class="icofont icofont-send-mail"></i>
                       <ion-label>Email Setting</ion-label>
                     </ion-item>
@@ -734,7 +739,7 @@
                 <ion-label>Share App </ion-label>
               </ion-item> -->
 
-              <ion-item (click)="logout()">
+              <ion-item (click)="logOut()">
                 <i class="icofont icofont-power"></i>
                 <ion-label>Log Out </ion-label>
               </ion-item>
@@ -763,12 +768,5 @@
       <ion-router-outlet id="main-content"></ion-router-outlet>
       
     </ion-split-pane>
-
-    <!-- Fade Footer -->
-<!-- <ion-footer collapse="fade">
-  <ion-toolbar>
-    <ion-title>Footer</ion-title>
-  </ion-toolbar>
-</ion-footer> -->
   
 </ion-app>

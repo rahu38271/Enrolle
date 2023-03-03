@@ -46,6 +46,10 @@ export class EditContactComponent implements OnInit {
 
       }
 
+      ngOnInit() { 
+        this.getDistrict();
+      }
+
   getDistrict(){
     this.EditData = this.router.getCurrentNavigation().extras.state;
     this.contact.getDistrictData().subscribe((data)=>{
@@ -60,15 +64,13 @@ export class EditContactComponent implements OnInit {
   getTaluka(dId:any){
     this.contact.getTalukaData(dId).subscribe((data)=>{
       if(data.length > 0){
-        this.edModal.District = this.districtList.find(x => x.dId=dId).districtName;
+        this.EditData.district = this.districtList.find(x => x.dId == dId).districtName;
         this.talukaList = data;
       }
     })
   }
 
-  ngOnInit() { 
-    this.getDistrict();
-  }
+  
 
   save(){
     //debugger;
@@ -78,6 +80,7 @@ export class EditContactComponent implements OnInit {
       this.loader.hideLoader();
       this.EditData ={};
       this.toast.presentToast("Conact updated successfully!", "success", 'checkmark-circle-sharp');
+      this.router.navigate(['/contact']);
     },(err)=>{
       this.toast.presentToast("Contact not updated", "danger", 'alert-circle-sharp');
     })

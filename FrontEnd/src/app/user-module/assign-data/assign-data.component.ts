@@ -12,6 +12,8 @@ import { IonicToastService } from 'src/app/services/ionic-toast.service'
 })
 export class AssignDataComponent implements OnInit {
 
+  disabled:boolean= false;
+
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
   assignPart: any = {};
   Userid: any;
@@ -22,7 +24,7 @@ export class AssignDataComponent implements OnInit {
   SelectedPartNo = [];
   Uid: any;
   id: number;
-
+  alreadyAssignedPart:any={};
   constructor
     (
       private user: UserService,
@@ -33,6 +35,7 @@ export class AssignDataComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    
     this.SelectedPartNo = [];
     this.user.getBooths().subscribe(data => {
       //console.log(data);
@@ -41,10 +44,38 @@ export class AssignDataComponent implements OnInit {
         debugger;
         for (let item in this.UserpartNoAssignedarray) {
           if (allboothitem.partNo == Number(this.UserpartNoAssignedarray[item])) {
-            allboothitem.checked = true;
+            allboothitem.checked = true; 
+           
+           debugger;
             this.SelectedPartNo.push(allboothitem.partNo);
+           
             //item.checked=true;
+            
           }
+          else{
+            allboothitem.checked = false; 
+          }
+          this.allBooths.forEach(element => {
+            this.user.getAllAssignedPart().subscribe(data=>{
+                      
+              var Dispart = data.split(',');
+            
+            if(!element.checked)
+            Dispart.forEach(el => {
+              debugger;
+              if(el ==element.partNo )
+              {
+                element.disable = true;
+              }
+              else{
+                element.disable= false;
+              }
+              
+            });
+               
+            });
+             
+           });
         }
       }, []);
     });
@@ -52,6 +83,8 @@ export class AssignDataComponent implements OnInit {
     this.Userid = this.route.snapshot.paramMap.get('id');
     this.UserpartNoAssigned = this.route.snapshot.paramMap.get('partNoAssigned');
     this.UserpartNoAssignedarray = this.UserpartNoAssigned.split(',');
+    
+  
     //for(let allBooths of this.allBooths )
 
     //this.UserpartNoAssigned.reduce(item)
@@ -64,15 +97,18 @@ export class AssignDataComponent implements OnInit {
     debugger;
     this.SelectedBooth = [];
     // this.SelectedPartNo=[];
-    debugger;
+    
     if (event.target.checked) {
       var a = Number(event.target.value);
       this.SelectedPartNo.push(a);
+      
     }
     else {
       const index = this.SelectedPartNo.indexOf(Number(event.target.value));
+      
       if (index > -1) {
         this.SelectedPartNo.splice(index, 1);
+        
       }
     }
     // let checkedStrings = this.allBooths.reduce((acc, item) => {
@@ -87,7 +123,16 @@ export class AssignDataComponent implements OnInit {
     console.log(this.SelectedPartNo);
   }
 
-
+  allAssignedPart(){
+    this.user.getAllAssignedPart().subscribe(data=>{
+      this.alreadyAssignedPart = data;
+      //this.disabled = true;
+      
+      if(this.alreadyAssignedPart){
+        this.disabled = true;
+      }
+    })
+  }
 
   assign() {
     this.loader.showLoading();
@@ -112,15 +157,6 @@ export class AssignDataComponent implements OnInit {
       this.loader.hideLoader();
       this.toast.presentToast("User not saved", "danger", 'alert-circle-sharp');
     })
-  }
-
-
-  exportexcel() {
-    const ws: xlsx.WorkSheet =
-      xlsx.utils.table_to_sheet(this.epltable.nativeElement);
-    const wb: xlsx.WorkBook = xlsx.utils.book_new();
-    xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
-    xlsx.writeFile(wb, 'users.xlsx');
   }
 
 }

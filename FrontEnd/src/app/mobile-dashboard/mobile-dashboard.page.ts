@@ -3,6 +3,7 @@ import { IAccTooltipRenderEventArgs, IPointEventArgs } from '@syncfusion/ej2-ang
 import { MenuController,PopoverController } from '@ionic/angular'
 import { NotificationComponent } from '../notification/notification.component';
 import { ProfileComponent } from '../profile/profile.component'; 
+import { RefreshService } from 'src/app/services/refresh.service'
 
 
 @Component({
@@ -13,6 +14,18 @@ import { ProfileComponent } from '../profile/profile.component';
 export class MobileDashboardPage implements OnInit {
 
   showHead: boolean = false;
+  isSearch:any;
+  isList:any;
+  isContact:any;
+  isBirthDay:any;
+  isAnniversary:any;
+  isSurvey:any;
+  isGraph:any;
+  isLogReport:any;
+  id:any;
+  name: any;
+  roleName: string;
+  roleId:any;
 
   public birthData: Object[];
   public anniData: Object[];
@@ -28,6 +41,7 @@ export class MobileDashboardPage implements OnInit {
   public title1: String;
   public palette1: string[];
   ageDataLabel: { visible: boolean; };
+  
   public pointClick(args: IPointEventArgs): void {
     document.getElementById("lbl").innerText = "X : " + args.point.x + "\nY : " + args.point.y;
   };
@@ -49,17 +63,37 @@ export class MobileDashboardPage implements OnInit {
     document.getElementById("lbl").innerText = "X : " + args.point.x + "\nY : " + args.point.y;
   };
 
-  constructor(public menuCtrl: MenuController,public popoverController: PopoverController) {
-
-  }
-
-
-  ionViewWillEnter() {
-    this.menuCtrl.enable(true);
+  constructor(
+    public menuCtrl: MenuController,
+    public popoverController: PopoverController,
+    public refresh : RefreshService
+    ) {
+     
   }
 
 
   ngOnInit(): void {
+    this.id = localStorage.getItem("loginId");
+    this.name = localStorage.getItem("loginUser");
+    this.roleId = localStorage.getItem("userType")
+
+    var roleId = localStorage.getItem("userType");
+    //this.roleType = roleName
+    var isMasterAdmin = roleId == "MasterAdmin"
+    var isSuperAdmin = roleId == "SuperAdmin"
+    var isAdmin = roleId == "Admin";
+    var isVolunteer = roleId == "Volunteer"
+    
+    this.isSearch = isSuperAdmin || isAdmin || isVolunteer;
+    this.isList = isSuperAdmin || isAdmin  || isVolunteer;
+    this.isContact = isSuperAdmin || isAdmin;
+    this.isBirthDay = isSuperAdmin || isAdmin;
+    this.isAnniversary = isSuperAdmin || isAdmin;
+    this.isSurvey = isSuperAdmin || isAdmin || isVolunteer;
+    this.isGraph =isMasterAdmin || isSuperAdmin || isAdmin;
+    this.isLogReport =isMasterAdmin || isSuperAdmin || isAdmin;
+    
+
     this.primaryXAxis = {
       majorGridLines: { width: 0 },
       minorGridLines: { width: 0 },
