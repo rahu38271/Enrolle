@@ -67,38 +67,6 @@ export class SuperadminComponent implements OnInit {
     }
   }
 
-  // getAllAdminList() {
-  //   this.loader.showLoading();
-  //   this.sadmin.getAllAdmin().subscribe(data => {
-  //     if (data != 0) {
-  //       this.loader.hideLoader();
-  //       var list = data.forEach(e => {
-  //         if (e.roleId == 1) {
-  //           e = { ...e, roleName: "MasterAdmin" };
-  //         }
-  //         else if (e.roleId == 2) {
-  //           e = { ...e, roleName: "SuperAdmin" };
-  //         }
-  //         else if (e.roleId == 3) {
-  //           e = { ...e, roleName: "Admin" };
-  //         }
-  //         else if (e.roleId == 4) {
-  //           e = { ...e, roleName: "Volunteer" };
-  //         }
-  //         this.getAdminList.push(e);
-  //         this.getAdminList.forEach(e => {
-  //           e.createdDate = e.createdDate.split('T')[0];
-  //         });
-  //       });
-  //     }
-  //     else {
-  //       this.loader.hideLoader();
-  //     }
-  //   }, (err) => {
-  //     this.loader.hideLoader();
-  //     this.toast.presentToast("Something went wrong !", "danger", 'alert-circle-sharp');
-  //   })
-  // }
 
 
   getAllAdminList() {
@@ -134,11 +102,15 @@ export class SuperadminComponent implements OnInit {
 
     //All users list for Superadmin
     if(this.roleId == 2){
-      this.sadmin.GetAdminbySuperAdminId(this.superId).subscribe(data => {
-        if (data != 0) {
+      this.sadmin.GetAdminbySuperAdminId(this.superId).subscribe(AdminbyS => {
+        if (AdminbyS != 0) {
           this.loader.hideLoader();
-          var list = data.forEach(e => {
-            
+          var list = AdminbyS.forEach(e => {
+            this.sadmin.GetpartByUserid(e.id).subscribe(data=>{
+              debugger;
+              // this.Partnoassigned=data;
+                e.Partnoassigned=data.partNo;
+            })
             if (e.roleId == 1) {
               e = { ...e, roleName: "MasterAdmin" };
             }
@@ -171,10 +143,10 @@ export class SuperadminComponent implements OnInit {
         if (data != 0) {
           //this.loader.hideLoader();
           var list = data.forEach(e => {
-            this.sadmin.partByUser(e.id).subscribe(data=>{
+            this.sadmin.GetpartByUserid(e.id).subscribe(data=>{
               debugger;
-               this.Partnoassigned=data;
-                e.Partnoassigned=data;
+              // this.Partnoassigned=data;
+                e.Partnoassigned=data.partNo;
             })
             if (e.roleId == 1) {
               e = { ...e, roleName: "MasterAdmin" };
