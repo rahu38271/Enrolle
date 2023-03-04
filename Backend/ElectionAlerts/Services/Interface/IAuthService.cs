@@ -21,6 +21,7 @@ namespace ElectionAlerts.Services.Interface
         int InsertUserAssigned(UserAssigned userAssigned);
         string GetPartNobyId(int userid);
         PartNoAssigned GetPartNoAssigned(int userid);
+        PartNoAssigned GetPartNoAssignedOtherthanThisuser(int userid);
 
     }
 }

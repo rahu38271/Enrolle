@@ -199,7 +199,7 @@ namespace ElectionAlerts.Controller
         {
             try
             {
-                return Ok(_iauthservice.GetPartNobyId(userid));
+                return Ok(new { partNo= _iauthservice.GetPartNobyId(userid)});
             }
             catch (Exception ex)
             {
@@ -218,6 +218,19 @@ namespace ElectionAlerts.Controller
             catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "AuthenticationController/GetAllPartNumber");
+                return BadRequest(ex);
+            }
+        }
+        [HttpGet("GetPartNoAssignedOtherthanThisuser")]
+        public IActionResult GetPartNoAssignedOtherthanThisuser(int userid)
+        {
+            try
+            {
+                return Ok(_iauthservice.GetPartNoAssignedOtherthanThisuser(userid));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "AuthenticationController/GetPartNoAssignedOtherthanThisuser");
                 return BadRequest(ex);
             }
         }

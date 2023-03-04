@@ -56,7 +56,7 @@ namespace ElectionAlerts.Controller
                         }
                         else
                         {
-                             configDB = _loginService.GetConfigureDBbyUser(Convert.ToInt32(user.AdminId));
+                             configDB = _loginService.GetConfigureDBbyUser(Convert.ToInt32(user.SuperAdminId));
                         }
                         
                         if (configDB != null)
@@ -110,6 +110,33 @@ namespace ElectionAlerts.Controller
             }
         }
 
+        [HttpGet("GetAllConfigureDB")]
+        public IActionResult GetAllConfigureDB()
+        {
+            try
+            {
+                return Ok(_loginService.GetConfigureDB());
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/GetAllConfigureDB");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetConfigureDBbyUser")]
+        public IActionResult GetConfigureDBbyUser(int SuperAdminId)
+        {
+            try
+            {
+                return Ok(_loginService.GetConfigureDBbyUser(SuperAdminId));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/GetConfigureDBbyUser");
+                return BadRequest(ex);
+            }
+        }
         [HttpPost("CreateUpdateUser")]
         public IActionResult CreateUser(AdminUser user)
         {
@@ -229,6 +256,62 @@ namespace ElectionAlerts.Controller
             catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/GetAllUser");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetAllDistricts")]
+        public IActionResult GetAllDistricts()
+        {
+            try
+            {
+                return Ok(_loginService.GetAllDistricts());
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/GetAllDistricts");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetAllTaluka")]
+        public IActionResult GetAllTaluka(int id)
+        {
+            try
+            {
+                return Ok(_loginService.GetAllTaluka(id));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/GetAllTaluka");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetVillage")]
+        public IActionResult GetVillage(string taluka)
+        {
+            try
+            {
+                return Ok(_loginService.GetVillage(taluka));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/GetVillage");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetAllassembly")]
+        public IActionResult GetAllassembly( )
+        {
+            try
+            {
+                return Ok(_loginService.GetAssembly());
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/GetAllassembly");
                 return BadRequest(ex);
             }
         }

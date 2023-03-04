@@ -10,6 +10,7 @@ namespace ElectionAlerts.Services.Interface
     {
         SuperAdmin Login(string username, string password);
         ConfigureDB GetConfigureDBbyUser(int SuperAdmin);
+        IEnumerable<ConfigureDB> GetConfigureDB();
         int InsertConfigureDBbyUser(ConfigureDB configureDB);
         int DeleteConfigureDBbyUser(int Id);
         int InsertUser(AdminUser user);
@@ -19,5 +20,9 @@ namespace ElectionAlerts.Services.Interface
         IEnumerable<AdminUser> GetAllUser();
         IEnumerable<AdminUser> GetAllAdminbySuperAdminId(int superid);
         IEnumerable<AdminUser> GetAllVolunterbyAdminId(int adminid);
+        IEnumerable<Village> GetVillage(string taluka);
+        List<Districts> GetAllDistricts();
+        List<Taluka> GetAllTaluka(int DId);
+        IEnumerable<Assembly> GetAssembly();
     }
 }
