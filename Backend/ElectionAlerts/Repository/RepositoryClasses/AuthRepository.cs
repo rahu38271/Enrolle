@@ -246,5 +246,18 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 throw ex;
             }
         }
+
+        public PartNoAssigned GetPartNoAssignedOtherthanThisuser(int userid)
+        {
+            try
+            {
+                var result = _customContext.Set<PartNoAssigned>().FromSqlRaw("USP_GetPartNoAssignedOtherthanThisuser {0}", userid).ToList().FirstOrDefault();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

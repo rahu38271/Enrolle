@@ -70,5 +70,30 @@ namespace ElectionAlerts.Services.ServiceClasses
         {
             return _loginRepository.GetAllVolunterbyAdminId(adminid);
         }
+
+        public IEnumerable<Village> GetVillage(string taluka)
+        {
+            return _loginRepository.GetVillage(taluka);
+        }
+
+        public List<Districts> GetAllDistricts()
+        {
+            return _loginRepository.GetAllDistricts();
+        }
+
+        public List<Taluka> GetAllTaluka(int DId)
+        {
+            return _loginRepository.GetAllTaluka(DId);
+        }
+
+        public IEnumerable<Assembly> GetAssembly()
+        {
+            return _loginRepository.GetAssembly();
+        }
+
+        public IEnumerable<ConfigureDB> GetConfigureDB()
+        {
+            return _loginRepository.GetConfigureDB();
+        }
     }
 }

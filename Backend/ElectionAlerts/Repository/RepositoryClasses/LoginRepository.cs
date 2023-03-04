@@ -157,5 +157,65 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 throw ex;
             }
         }
+
+        public IEnumerable<Village> GetVillage(string taluka)
+        {
+            try
+            {
+                return _customContext.Set<Village>().FromSqlRaw("USP_GetAllVillagebyTaluka {0}", taluka);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<Districts> GetAllDistricts()
+        {
+            try
+            {
+                return _customContext.Set<Districts>().FromSqlRaw("EXEC USP_GetAllDistricts").ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public List<Taluka> GetAllTaluka(int DId)
+        {
+            try
+            {
+                return _customContext.Set<Taluka>().FromSqlRaw("EXEC USP_GetAllTaluka {0}", DId).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<Assembly> GetAssembly()
+        {
+            try
+            {
+                return _customContext.Set<Assembly>().FromSqlRaw("EXEC USP_GetAllAssembly").ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<ConfigureDB> GetConfigureDB()
+        {
+            try
+            {
+                return _customContext.Set<ConfigureDB>().FromSqlRaw("EXEC USP_GetAllDBConfig").ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
