@@ -8,7 +8,7 @@ namespace ElectionAlerts.Services.Interface
 {
     public interface IContactService
     {
-        IEnumerable<Contact> GetContacts();
+        IEnumerable<Contact> GetContacts(int PageNo, int NoofRow, string SearchText);
         int InsertSingleContact(Contact contact);
         int InsertBulkContact(List<Contact> contact);
         int UpdateSingleContact(Contact contact);

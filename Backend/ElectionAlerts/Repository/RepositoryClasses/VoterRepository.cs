@@ -105,11 +105,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 throw ex;
             }       
         }
-        public IEnumerable<VoterAssembly> GetAllVoter(int userid,int roleid)
+        public IEnumerable<VoterAssembly> GetAllVoter(int userid,int roleid, int PageNo, int NoofRow)
         {
             try
             {
-                return _customContext.Set<VoterAssembly>().FromSqlRaw("USP_GetAllVoter {0},{1}",userid, roleid).ToList();
+                return _customContext.Set<VoterAssembly>().FromSqlRaw("USP_GetAllVoter_Page {0},{1},{2},{3}", userid, roleid, PageNo, NoofRow).ToList();
             }
             catch (Exception ex)
             {

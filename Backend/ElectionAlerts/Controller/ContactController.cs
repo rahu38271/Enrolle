@@ -28,11 +28,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get(int PageNo, int NoofRow, string SearchText)
         {
             try
             {
-                return Ok(_contactService.GetContacts());
+                return Ok(_contactService.GetContacts(PageNo, NoofRow, SearchText));
             }
             catch(Exception ex)
             {
@@ -84,8 +84,5 @@ namespace ElectionAlerts.Controller
                 return BadRequest(ex);
             }
         }
-
-
-
     }
 }

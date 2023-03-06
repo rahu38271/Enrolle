@@ -44,9 +44,9 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.FilterVoterList(table);
         }
 
-        public IEnumerable<VoterAssembly> GetAllVoter(int UserId, int RoleId)
+        public IEnumerable<VoterAssembly> GetAllVoter(int UserId, int RoleId ,int PageNo, int NoofRow)
         {
-            return _voterRepository.GetAllVoter(UserId,RoleId);
+            return _voterRepository.GetAllVoter(UserId,RoleId, PageNo,NoofRow);
         }
 
         public IEnumerable<BoothName> GetBoothNamebyUserId(int userid,int roleid)

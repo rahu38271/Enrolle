@@ -16,9 +16,9 @@ namespace ElectionAlerts.Services.ServiceClasses
             _icontactreposritory = contactreposritory;
         }
 
-        public IEnumerable<Contact> GetContacts()
+        public IEnumerable<Contact> GetContacts(int PageNo, int NoofRow, string SearchText)
         {
-            return _icontactreposritory.GetContacts();
+            return _icontactreposritory.GetContacts(PageNo, NoofRow, SearchText);
         }
         public int InsertSingleContact(Contact contact)
         {

@@ -79,11 +79,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetAllVoter")]
-        public IActionResult GetAllVoter(int UserId,int RoleId)
+        public IActionResult GetAllVoter(int UserId,int RoleId, int PageNo, int NoofRow)
         {
             try
             {
-                return Ok(_voterService.GetAllVoter(UserId, RoleId));
+                return Ok(_voterService.GetAllVoter(UserId, RoleId,PageNo,NoofRow));
             }
             catch (Exception ex)
             {

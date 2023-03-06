@@ -9,7 +9,7 @@ namespace ElectionAlerts.Services.Interface
 {
     public interface IVoterService
     {
-        IEnumerable<VoterAssembly> GetAllVoter(int UserId, int RoleId);
+        IEnumerable<VoterAssembly> GetAllVoter(int UserId, int RoleId, int PageNo, int NoofRow);
         int CreateVoter(Voter voter);
         int UpadateVoter(Voter voter);
         int InsertBulkVoter(List<Voter> voters);
