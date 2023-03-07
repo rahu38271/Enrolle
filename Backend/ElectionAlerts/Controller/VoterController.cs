@@ -422,11 +422,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetDistinctPartNumber")]
-        public IActionResult GetDistinctPartNumber()
+        public IActionResult GetDistinctPartNumber(int Role, int UserId)
         {
             try
             {
-                return Ok(_voterService.GetDistinctPartNo());
+                return Ok(_voterService.GetDistinctPartNo(Role, UserId));
             }
             catch (Exception ex)
             {

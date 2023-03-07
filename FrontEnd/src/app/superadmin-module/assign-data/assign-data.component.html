@@ -55,7 +55,7 @@
                       </thead>
                       <tbody>
                         <tr *ngFor="let item of allBooths; index as i" >
-                          <ng-container *ngIf="item.hide">
+                         
                           <td>
                             <input 
                               type="checkbox" 
@@ -63,7 +63,7 @@
                               value="{{item.partNo}}" 
                               (change)="getBoothPart($event)" 
                               [checked]="item.checked"
-                              [disabled]="item.disable"
+                              [disabled]="item.disable && !item.checked"
                               
                             >
                             <!-- [(ngModel)]="item.checked" -->
@@ -72,7 +72,6 @@
                           <td>
                             {{item.booth}}
                           </td>
-                          </ng-container>
                         </tr>
                       </tbody>
                     </table>

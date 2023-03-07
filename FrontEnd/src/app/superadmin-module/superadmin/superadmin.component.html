@@ -119,7 +119,7 @@
                     </tr> -->
                     <tr *ngFor="let item of getAdminList">
                       <td>{{item.id}}</td>
-                      <td class="text-capitalize" [routerLink]="['/superadmin/assign-data',item.id,item.Partnoassigned]">
+                      <td class="text-capitalize" [routerLink]="['/superadmin/assign-data',item.id,item.Partnoassigned?item.Partnoassigned:0,item.roleId]">
                         <a>{{item.name}}</a>
                       </td>
                       <td>{{item.contact}}</td>

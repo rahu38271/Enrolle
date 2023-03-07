@@ -222,11 +222,11 @@ namespace ElectionAlerts.Controller
             }
         }
         [HttpGet("GetPartNoAssignedOtherthanThisuser")]
-        public IActionResult GetPartNoAssignedOtherthanThisuser(int userid)
+        public IActionResult GetPartNoAssignedOtherthanThisuser(int userid, int roleId)
         {
             try
             {
-                return Ok(_iauthservice.GetPartNoAssignedOtherthanThisuser(userid));
+                return Ok(_iauthservice.GetPartNoAssignedOtherthanThisuser(userid, roleId));
             }
             catch (Exception ex)
             {
