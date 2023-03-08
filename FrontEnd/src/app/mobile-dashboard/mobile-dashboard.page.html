@@ -26,7 +26,7 @@
         <ion-col size-xs="12" size-sm="12" size-md="4">
           
             <ion-row>
-              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" >
+              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" *ngIf="isSearch">
                 <ion-list class="survey-list" routerLink="/voterdata-management/voterby-user">
                     <ion-item lines="none">
                       <ion-label class="search">
@@ -38,7 +38,7 @@
                 </ion-list>
               </ion-col>
 
-              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" >
+              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" *ngIf="isList">
                 <ion-list class="survey-list" routerLink="/list">
                     <ion-item lines="none">
                       <ion-label>
@@ -65,7 +65,7 @@
                 </ion-list>
               </ion-col> -->
 
-              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" >
+              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" *ngIf="isContact">
                 <ion-list class="survey-list" routerLink="/contact">
                     <ion-item lines="none">
                       <ion-label>
@@ -80,7 +80,7 @@
                 </ion-list>
               </ion-col>
       
-              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" >
+              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" *ngIf="isBirthDay">
                 <ion-list class="survey-list" routerLink="/home/birthday">
                   <ion-item lines="none">
                       <ion-label>
@@ -94,7 +94,7 @@
                     </ion-item>
                 </ion-list>
               </ion-col>
-              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" > 
+              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" *ngIf="isAnniversary"> 
                 <ion-list class="survey-list" routerLink="/home/anniversary">
                   <ion-item lines="none" >
                       <ion-label>
@@ -109,7 +109,7 @@
                 </ion-list>
               </ion-col>
 
-              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" >
+              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" *ngIf="isSurvey">
                 <ion-list class="survey-list" routerLink="/survey">
                   <ion-item lines="none">
                       <ion-label>
@@ -127,7 +127,7 @@
          
         </ion-col>
 
-        <ion-col size-xs="12" size-sm="12" size-md="8" size-lg="8" >
+        <ion-col size-xs="12" size-sm="12" size-md="8" size-lg="8" *ngIf="isGraph">
             <ion-list class="graphDiv">
               <ejs-chart height='370' id="chart" style='display:block;' [primaryXAxis]='primaryXAxis' [primaryYAxis]='primaryYAxis' [palettes]='palette' [title]='title'  [chartArea]='chartArea' >
                 <e-series-collection>
@@ -170,7 +170,7 @@
       </ion-row> -->
     </ion-grid>
 
-    <ion-grid class="logReport" >
+    <ion-grid class="logReport" *ngIf="isLogReport">
       <ion-row>
         <ion-col size-xl="12" class="ion-padding">
           <ion-list>

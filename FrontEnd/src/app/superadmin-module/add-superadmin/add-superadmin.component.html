@@ -4,14 +4,14 @@
       <ion-buttons slot="start">
         <ion-back-button defaultHref="/superadmin"></ion-back-button>
       </ion-buttons>
-      <ion-title> Add Superadmin </ion-title>
+      <ion-title> Add User </ion-title>
     </ion-toolbar>
   </ion-header>
   <div class="main-content">
     <ion-grid class="grid-bg">
       <ion-row>
         <ion-text class="form-header pl-10">
-          <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>Add Superadmin
+          <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>Add User
         </ion-text>
       </ion-row>
       <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
@@ -21,7 +21,7 @@
 
               <ion-row>
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
-                  <ion-label>Name</ion-label>
+                  <ion-label>Name <span>*</span></ion-label>
                   <ion-input name="name" [(ngModel)]="addMAmodal.Name" #Name="ngModel"
                     [ngClass]="{'is-invalid': f.submitted && Name.invalid}" required
                     class="text-capitalize form-control" required></ion-input>
@@ -33,7 +33,7 @@
                 </ion-col>
 
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
-                  <ion-label>User Role</ion-label>
+                  <ion-label>User Role <span>*</span></ion-label>
                   <ng-select name="RoleId" [(ngModel)]="addMAmodal.RoleId" #RoleId="ngModel"
                   required placeholder="Select User Role">
                     <ng-option value="2" *ngIf="isSA">Superadmin </ng-option>
@@ -48,7 +48,7 @@
                 </ion-col>
 
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
-                  <ion-label>UserID/10 digit mob. no.</ion-label>
+                  <ion-label>UserID/10 digit mob. no. <span>*</span></ion-label>
                   <ion-input name="Contact" [(ngModel)]="addMAmodal.Contact" #Contact="ngModel" required
                     maxlength="10" (keypress)="keyPressNumbers($event)" class="form-control">
                   </ion-input>
@@ -61,7 +61,7 @@
 
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
                   <div class="form-outline">
-                    <ion-label>Password</ion-label>
+                    <ion-label>Password <span>*</span></ion-label>
                     <ion-input [type]="ismyTextFieldType ? 'text' : 'password' " name="Password"
                       [(ngModel)]="addMAmodal.Password" #Password="ngModel" required class="form-control"></ion-input>
                     <div *ngIf="f.submitted && Password.invalid" class="invalid-feedback">
@@ -164,7 +164,7 @@
                   <div class="ion-text-center">
                     <ion-button type="reset" color="danger" size="medium" (click)="resetForm()">Clear</ion-button>
                     <ion-button type="submit" size="medium" (click)="addMAdmin()" [disabled]="!f.form.valid">Add
-                      Superadmin</ion-button>
+                      User</ion-button>
                     <ion-button routerLink="/superadmin" color="success" type="button" size="medium">Back To List
                     </ion-button>
                   </div>

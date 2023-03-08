@@ -1,8 +1,16 @@
 
 ion-grid { width: 95%; margin-top: 10px; background: #FFF;  box-shadow: 0 0 10px rgb(232 234 237 / 50%); }
 
-@media screen and (min-width:768px) {
-    ion-grid { width: 60%; }
+@media screen and (min-width:768px) and (max-width:991px) {
+    ion-grid { width: 75%; }
+}
+
+@media screen and (min-width:992px) and (max-width:1199px) {
+  ion-grid { width: 70%; }
+}
+
+@media screen and (min-width:1200px) {
+  ion-grid { width: 60%; }
 }
 
 ion-radio-group ion-item { --background: none !important; border: none !important; }

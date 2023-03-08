@@ -32,6 +32,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
+
   name: any;
   roleName: string;
   id: any;
@@ -143,9 +144,9 @@ export class AppComponent implements OnInit {
     this.isMedia = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isOther = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isSetting = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isSurvey = isMasterAdmin|| isSuperAdmin || isAdmin  || isVolunteer;
-    this.isSearch = isMasterAdmin|| isSuperAdmin || isAdmin  || isVolunteer;
-    this.isLists = isMasterAdmin|| isSuperAdmin || isAdmin  || isVolunteer;
+    this.isSurvey = isVolunteer;
+    this.isSearch = isSuperAdmin || isAdmin  || isVolunteer;
+    this.isLists = isSuperAdmin || isAdmin  || isVolunteer;
     this.isUser = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isAppointment = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isDailyRoutine = isMasterAdmin|| isSuperAdmin || isAdmin;
@@ -171,7 +172,6 @@ export class AppComponent implements OnInit {
     this.firebaseX.onTokenRefresh()
       .subscribe((token: string) => console.log(`Got a new token ${token}`));
   }
-
 
   initializeApp() {
     this.platform.ready().then(() => {

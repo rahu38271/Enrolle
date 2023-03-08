@@ -27,7 +27,15 @@ export class AgewiseListComponent implements OnInit {
   userId: any;
   roleID:any;
   
-  constructor(private toast:IonicToastService, private router: Router,private loader:LoaderService, public alertController: AlertController,public loadingController: LoadingController,public toastController: ToastController, private voter:VoterService) { }
+  constructor(
+    private toast:IonicToastService, 
+    private router: Router,
+    private loader:LoaderService, 
+    public alertController: AlertController,
+    public loadingController: LoadingController,
+    public toastController: ToastController, 
+    private voter:VoterService
+    ) { }
 
   ngOnInit() {
     this.userId = localStorage.getItem("loginId");

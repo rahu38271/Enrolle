@@ -310,6 +310,10 @@ const routes: Routes = [
   {
     path: 'superadmin',
     loadChildren: () => import('./superadmin-module/superadmin-module.module').then( m => m.SuperadminModuleModule)
+  },
+  {
+    path: 'annapurna',
+    loadChildren: () => import('./annapurna-module/annapurna-module.module').then( m => m.AnnapurnaModuleModule)
   }
 ];
 

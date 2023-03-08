@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Router, } from '@angular/router';
+import { Router,NavigationExtras } from '@angular/router';
 import { MenuController, ModalController } from '@ionic/angular';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { AuthenticationService } from 'src/app/services/authentication.service'
@@ -7,6 +7,7 @@ import { OtpPage } from 'src/app/otp/otp.page';
 import { LoaderService } from 'src/app/services/loader.service';
 import { NgForm } from '@angular/forms';
 import { loginResponce } from 'src/app/models/loginResponce'
+
 
 @Component({
   selector: 'app-login',
@@ -70,6 +71,7 @@ export class LoginComponent implements OnInit {
     //this.login();
   }
 
+
   ionViewWillEnter() {
     this.menuCtrl.enable(false);
   }
@@ -98,10 +100,11 @@ export class LoginComponent implements OnInit {
         //});
           this.toast.presentToast("Logged In Succesfully", "success", 'checkmark-circle-outline');
           this.loader.hideLoader();
-          //this.router.navigate(['/home/mobile-dashboard']);
+          this.router.navigate(['/home/mobile-dashboard']);
           // if we use router.navigate to redirect to dashboard page we need to refresh to see menubar based on user role.
           //window.location.href = "#/home/mobile-dashboard";
-          window.location.href = "#/home/mobile-dashboard";
+
+          
           
       }
     },

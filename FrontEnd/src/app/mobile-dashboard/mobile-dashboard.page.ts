@@ -71,27 +71,42 @@ export class MobileDashboardPage implements OnInit {
      
   }
 
+  ionViewWillEnter() {
+    this.menuCtrl.enable(true);
+  }
 
-  ngOnInit(): void {
+   ngOnInit(): void {
     this.id = localStorage.getItem("loginId");
     this.name = localStorage.getItem("loginUser");
-    this.roleId = localStorage.getItem("userType")
+    this.roleId = localStorage.getItem("userType");
+    if(this.roleId == 1){
+      this.roleName = "MasterAdmin"
+    }
+    if(this.roleId == 2){
+      this.roleName = "SuperAdmin"
+    }
+    if(this.roleId == 3){
+      this.roleName = "Admin"
+    }
+    if(this.roleId == 4){
+      this.roleName = "Volunteer"
+    }
 
     var roleId = localStorage.getItem("userType");
     //this.roleType = roleName
-    var isMasterAdmin = roleId == "MasterAdmin"
-    var isSuperAdmin = roleId == "SuperAdmin"
-    var isAdmin = roleId == "Admin";
-    var isVolunteer = roleId == "Volunteer"
+    var isMasterAdmin = roleId == "1"
+    var isSuperAdmin = roleId == "2"
+    var isAdmin = roleId == "3";
+    var isVolunteer = roleId == "4"
     
-    this.isSearch = isSuperAdmin || isAdmin || isVolunteer;
-    this.isList = isSuperAdmin || isAdmin  || isVolunteer;
-    this.isContact = isSuperAdmin || isAdmin;
-    this.isBirthDay = isSuperAdmin || isAdmin;
-    this.isAnniversary = isSuperAdmin || isAdmin;
-    this.isSurvey = isSuperAdmin || isAdmin || isVolunteer;
-    this.isGraph =isMasterAdmin || isSuperAdmin || isAdmin;
-    this.isLogReport =isMasterAdmin || isSuperAdmin || isAdmin;
+    this.isSearch = isMasterAdmin || isSuperAdmin || isAdmin || isVolunteer;
+    this.isList = isMasterAdmin|| isSuperAdmin || isAdmin  || isVolunteer;
+    this.isContact =isMasterAdmin || isSuperAdmin || isAdmin;
+    this.isBirthDay = isMasterAdmin || isSuperAdmin || isAdmin;
+    this.isAnniversary = isMasterAdmin || isSuperAdmin || isAdmin;
+    this.isSurvey = isMasterAdmin || isSuperAdmin || isAdmin || isVolunteer;
+    this.isGraph = isMasterAdmin || isSuperAdmin || isAdmin;
+    this.isLogReport = isMasterAdmin || isSuperAdmin || isAdmin;
     
 
     this.primaryXAxis = {
@@ -175,9 +190,9 @@ export class MobileDashboardPage implements OnInit {
       { 'x': 'Business', y: 5, text: '5%' },{ 'x': 'Housewife', y: 5, text: '5%' },
       { 'x': 'Social Worker', y: 5, text: '5%' },{ 'x': 'Other', y: 5, text: '5%' }
     ];
-
   }
 
+  
   async notification(ev: any) {
     const popover = await this.popoverController.create({
       component: NotificationComponent,

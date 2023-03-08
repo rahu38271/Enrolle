@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { VoterService } from 'src/app/services/voter.service'
 import { Router } from '@angular/router'
+import { IonicToastService} from 'src/app/services/ionic-toast.service'
+import { LoaderService } from 'src/app/services/loader.service'
 
 @Component({
   selector: 'app-by-village',
@@ -15,7 +17,12 @@ export class ByVillageComponent implements OnInit {
   id:any;
   roleId:any;
 
-  constructor(private voter: VoterService, private router:Router) { }
+  constructor(
+    private voter: VoterService, 
+    private router:Router,
+    private toast:IonicToastService,
+    private loader:LoaderService 
+    ) { }
 
   search() {
     this.isShow = !this.isShow
@@ -32,13 +39,21 @@ export class ByVillageComponent implements OnInit {
    }
 
   allVillages() {
+    this.loader.showLoading();
     this.voter.villagedata({
       TableName: "Tbl_Voter",
       ColumnName: "Village",
       UserId : Number(this.id),
       roleID: Number(this.roleId)
     }).subscribe(data => {
-      this.vilModal = data;
+      if(data.length > 0){
+        this.vilModal = data;
+        this.loader.hideLoader();
+      }
+      else{
+        this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+        this.loader.hideLoader();
+      }
     })
   }
 

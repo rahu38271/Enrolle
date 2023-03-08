@@ -37,8 +37,13 @@ export class ImpVoterComponent implements OnInit {
   impVoterList(){
     this.loader.showLoading();
     this.voter.impVoter(this.userId, this.roleID).subscribe(data=>{
-      this.loader.hideLoader();
-      this.impVoterData = data;
+      if(data){
+        this.loader.hideLoader();
+        this.impVoterData = data;
+      }
+      else{
+        this.loader.hideLoader();
+      }
     })
   }
 

@@ -39,6 +39,7 @@ export class AuthenticationService {
   }
 
   changePassword(id:any,PassWord:any){
+    
     return this.http.post(this.url+"Login/UpdatePassword?Id="+id+"&PassWord="+PassWord, {id,PassWord})
   } 
 }
