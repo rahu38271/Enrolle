@@ -41,11 +41,9 @@ export class SuperadminService {
     return this.http.get<any>(this.url+'Voter/GetDistinctPartNumber')
   }
 
-  partByUser(id:any):Observable<any>{
+  GetpartByUserid(id:any){
     return this.http.get<any>(this.url+'Auth/GetPartNumberbyId?userid='+id)
   }
-
-  // assign booths to volunteers
 
   assignPart(assignmodal:any):Observable<any>{
     return this.http.post<any>(this.url+'Auth/InsertUpdateUserAssigned' ,assignmodal)
@@ -59,5 +57,8 @@ export class SuperadminService {
     debugger;
     return this.http.get<any>(this.url+'Auth/GetPartNoAssigned?userid='+Userid)
   }
-  
+
+  GetPartNoAssignedOtherthanThisuser(userID:any){
+    return this.http.get<any>(this.url+'Auth/GetPartNoAssignedOtherthanThisuser?userid='+userID)
+  }
 }

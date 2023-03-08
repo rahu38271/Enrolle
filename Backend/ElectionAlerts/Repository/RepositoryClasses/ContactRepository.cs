@@ -16,7 +16,14 @@ namespace ElectionAlerts.Repository.RepositoryClasses
 {
     public class ContactRepository:IContactReposritory
     {
-        private CustomContext _customContext = new CustomContext();
+        private CustomContext _customContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public ContactRepository(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            _customContext = new CustomContext(_httpContextAccessor);
+        }
         public IEnumerable<Contact> GetContacts()
         {
             try

@@ -20,7 +20,8 @@ namespace ElectionAlerts.Services.Interface
         IEnumerable<UserDetail> GetAllUser();    
         int InsertUserAssigned(UserAssigned userAssigned);
         string GetPartNobyId(int userid);
-        PartNoAssigned GetPartNoAssigned();
+        PartNoAssigned GetPartNoAssigned(int userid);
+        PartNoAssigned GetPartNoAssignedOtherthanThisuser(int userid);
 
     }
 }

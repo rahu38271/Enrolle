@@ -12,6 +12,7 @@ using ElectionAlerts.Repository.Interface;
 using ElectionAlerts.Repository.RepositoryClasses;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 
 namespace ElectionAlerts.Repository
 {
@@ -21,10 +22,6 @@ namespace ElectionAlerts.Repository
         private IHostEnvironment hostEnvironment;
         private readonly INotificationRepository _notificationRepository;
 
-        public Scheduler()
-        {
-                
-        }
         public Scheduler(IConfiguration configuration, IHostEnvironment env)
         {
             _configuration = configuration;
@@ -47,7 +44,7 @@ namespace ElectionAlerts.Repository
                     {
                         LogWrite(TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, INDIAN_ZONE).Hour + " IF");
 
-                        NotificationRepository _notificationRepository = new NotificationRepository();
+                        NotificationRepository _notificationRepository = new NotificationRepository(null);
                         var BirthdayList = _notificationRepository.GetTodaysNotifications("Birthday");
                         var AnniversaryList = _notificationRepository.GetTodaysNotifications("Anniversary");
                         //call your function here
@@ -142,8 +139,12 @@ namespace ElectionAlerts.Repository
                 {
                     WebClient web = new WebClient();
                     string msg = "http://45.114.143.189/api/mt/SendSMS?username=prolittechnologies&password=prolit3214&senderid=Prolit&type=8&destination=" + contact.MobileNo + "&text=प्रिय " + contact.FullName + ", आपणास जन्मदिवसानिमित्त्य मनःपूर्वक हार्दिक शुभेच्छा. Prolit Technologies.&peid=1301165123633080685";
-                    web.OpenRead(msg);
-                    LogWrite("Send BirthDay SMS");
+                    Stream myStream=web.OpenRead(msg);
+                    StreamReader sr = new StreamReader(myStream);
+                    string data = sr.ReadToEnd();
+                    string[] lines = data.Split('\n');
+                    var data1 = JsonConvert.DeserializeObject<dynamic>(lines[3]);
+                    LogWrite("Send BirthDay SMS Response : "+ data1);
                 }
             
         }
@@ -159,8 +160,12 @@ namespace ElectionAlerts.Repository
                 {
                     WebClient web = new WebClient();
                     string msg = "http://45.114.143.189/api/mt/SendSMS?username=prolittechnologies&password=prolit3214&senderid=Prolit&type=8&destination=" + contact.MobileNo + "&text=प्रिय " + contact.FullName + ", आपणास Anniverssary मनःपूर्वक हार्दिक शुभेच्छा. Prolit Technologies.&peid=1301165123633080685";
-                    web.OpenRead(msg);
-                    LogWrite("Send Aniversary SMS");
+                    Stream myStream=web.OpenRead(msg);
+                    StreamReader sr = new StreamReader(myStream);
+                    string data = sr.ReadToEnd();
+                    string[] lines = data.Split('\n');
+                    var data1 = JsonConvert.DeserializeObject<dynamic>(lines[3]);
+                    LogWrite("Send Aniversary SMS Response : " + data1);
                 }
             }
             catch(Exception ex)

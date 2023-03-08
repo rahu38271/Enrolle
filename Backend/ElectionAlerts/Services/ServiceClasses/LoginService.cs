@@ -31,14 +31,9 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _loginRepository.InsertConfigureDBbyUser(configureDB);
         }
 
-        public int InsertUser(User user)
+        public int InsertUser(AdminUser user)
         {
             return _loginRepository.InsertUser(user);
-        }
-
-        public int UpdateUser(User user)
-        {
-            return _loginRepository.UpdateUser(user);
         }
 
         public int DeleteUser(int Id)
@@ -51,9 +46,54 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _loginRepository.ChangeUserPassword(id, password);
         }
 
-        public User LoginUser(string username, string password)
+        public AdminUser LoginUser(string username, string password)
         {
             return _loginRepository.LoginUser(username, password);
+        }
+
+        public IEnumerable<AdminUser> GetAllUser()
+        {
+            return _loginRepository.GetAllUsers();
+        }
+
+        public int DeleteConfigureDBbyUser(int Id)
+        {
+            return _loginRepository.DeleteConfigureDBbyUser(Id);
+        }
+
+        public IEnumerable<AdminUser> GetAllAdminbySuperAdminId(int superid)
+        {
+            return _loginRepository.GetAllAdminbySuperAdminId(superid);
+        }
+
+        public IEnumerable<AdminUser> GetAllVolunterbyAdminId(int adminid)
+        {
+            return _loginRepository.GetAllVolunterbyAdminId(adminid);
+        }
+
+        public IEnumerable<Village> GetVillage(string taluka)
+        {
+            return _loginRepository.GetVillage(taluka);
+        }
+
+        public List<Districts> GetAllDistricts()
+        {
+            return _loginRepository.GetAllDistricts();
+        }
+
+        public List<Taluka> GetAllTaluka(int DId)
+        {
+            return _loginRepository.GetAllTaluka(DId);
+        }
+
+        public IEnumerable<Assembly> GetAssembly()
+        {
+            return _loginRepository.GetAssembly();
+        }
+
+        public IEnumerable<ConfigureDB> GetConfigureDB()
+        {
+            return _loginRepository.GetConfigureDB();
         }
     }
 }

@@ -15,13 +15,23 @@ namespace ElectionAlerts.Repository.RepositoryClasses
 {
     public class VillageRepository : IVillageRepository
     {
-        private CustomContext _customContext = new CustomContext();
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private CustomContext _customContext;
+        public VillageRepository(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            _customContext = new CustomContext(_httpContextAccessor);
+        }
         public IEnumerable<Village> GetVillage(string taluka)
         {
             try
             {
-                return _customContext.Set<Village>().FromSqlRaw("EXEC USP_GetAllVillagebyTaluka {0}", taluka);
+                return _customContext.Set<Village>().FromSqlRaw("USP_GetAllVillagebyTaluka {0}", taluka);
             }
+            //catch(SqlException e)
+            //{
+            //    throw e;
+            //}
             catch(Exception ex)
             {
                 throw ex;

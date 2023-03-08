@@ -19,11 +19,17 @@ namespace ElectionAlerts.Repository.RepositoryClasses
     //public enum Role { SuperAdmin = 1, Admin = 2, Volunteer = 3,Default=0};
     public class AuthRepository : IAuthRepository
     {
-        private CustomContext _customContext = new CustomContext();
+        private CustomContext _customContext;
+        private MasterCustomContext _MastercustomContext;
         private readonly IMapper _mapper;
-        public AuthRepository(IMapper mapper)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+
+        public AuthRepository(IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
+            _customContext = new CustomContext(_httpContextAccessor);
+            _MastercustomContext = new MasterCustomContext(_httpContextAccessor);
         }
         public IEnumerable<UserModel> Login(string username, string password)
         {
@@ -111,7 +117,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _customContext.Database.ExecuteSqlRaw("EXEC Usp_InsertUser {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18}", user.Name, user.Contact, user.UserName, user.Address, user.Password,user.Email,user.State,user.District,user.Taluka,user.AssemblyName,user.Ward,user.Booth,user.Candidate,user.Quote, user.RoleId, user.CreatedDate, user.IsActive, user.IsDeleted,user.AdminId);
+                return _MastercustomContext.Database.ExecuteSqlRaw("EXEC Usp_InsertUser {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14}", user.Id,user.Name, user.Contact, user.UserName,  user.Password,user.Email,user.State,user.Taluka,user.AssemblyName,user.village, user.District, user.RoleId, user.CreatedDate, user.IsActive,user.AdminId);
             }
             catch (Exception ex)
             {
@@ -124,7 +130,8 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _customContext.Database.ExecuteSqlRaw("EXEC Usp_UpdateUser {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19}", user.Id, user.Name, user.Contact, user.UserName, user.Address, user.Password, user.Email, user.State, user.District, user.Taluka, user.AssemblyName, user.Ward, user.Booth, user.Candidate, user.Quote, user.RoleId, user.CreatedDate, user.IsActive, user.IsDeleted,user.AdminId);
+                return _MastercustomContext.Database.ExecuteSqlRaw("EXEC Usp_InsertUser {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14}", user.Id, user.Name, user.Contact, user.UserName, user.Password, user.Email, user.State, user.Taluka, user.AssemblyName, user.village, user.District, user.RoleId, user.CreatedDate, user.IsActive, user.AdminId);
+                //"EXEC Usp_UpdateUser {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19}", user.Id, user.Name, user.Contact, user.UserName, user.Address, user.Password, user.Email, user.State, user.District, user.Taluka, user.AssemblyName, user.Ward, user.village, user.Candidate, user.Quote, user.RoleId, user.CreatedDate, user.IsActive, user.IsDeleted,user.AdminId);
             }
             catch (Exception ex)
             {
@@ -137,7 +144,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _customContext.Database.ExecuteSqlRaw("EXEC Usp_DeleteUser {0}", Id);
+                return _MastercustomContext.Database.ExecuteSqlRaw("EXEC Usp_DeleteUser {0}", Id);
             }
             catch (Exception ex)
             {
@@ -150,7 +157,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _customContext.Set<User>().FromSqlRaw("EXEC Usp_GetUserbyId {0}", Id).AsEnumerable().First();
+                return _MastercustomContext.Set<User>().FromSqlRaw("EXEC Usp_GetUserbyId {0}", Id).AsEnumerable().First();
             }
             catch (Exception ex)
             {
@@ -162,7 +169,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _customContext.Database.ExecuteSqlRaw("EXEC Usp_ChangeUserPassword {0},{1}", id, password);
+                return _MastercustomContext.Database.ExecuteSqlRaw("EXEC Usp_ChangeUserPassword {0},{1}", id, password);
             }
             catch (Exception ex)
             {
@@ -174,7 +181,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _customContext.Set<User>().FromSqlRaw("EXEC USP_FilterSP {0},{1},{2}",table.TableName,table.ColumnName,table.ColumnValue).ToList();
+                return _MastercustomContext.Set<User>().FromSqlRaw("EXEC USP_FilterSP {0},{1},{2}",table.TableName,table.ColumnName,table.ColumnValue).ToList();
             }
             catch(Exception Ex)
             {
@@ -186,7 +193,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _customContext.Set<UserDetail>().FromSqlRaw("USP_GetAllUser").ToList();
+                return _MastercustomContext.Set<UserDetail>().FromSqlRaw("USP_GetAllUser").ToList();
             }
             catch(Exception ex)
             {
@@ -199,7 +206,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _customContext.Database.ExecuteSqlRaw("EXEC USP_InsertUserDetail {0},{1},{2}", userAssigned.UserId, userAssigned.PartNoAssigned,DateTime.Now);
+                return _customContext.Database.ExecuteSqlRaw("EXEC USP_InsertUserDetail {0},{1},{2},{3}", userAssigned.UserId, userAssigned.PartNoAssigned,DateTime.Now,userAssigned.AdminId);
             }
             catch(Exception ex)
             {
@@ -227,11 +234,24 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public PartNoAssigned GetPartNoAssigned()
+        public PartNoAssigned GetPartNoAssigned(int userid)
         {
             try
             {
-                var result = _customContext.Set<PartNoAssigned>().FromSqlRaw("USP_GetAllAssignedPartNo").ToList().FirstOrDefault();
+                var result = _customContext.Set<PartNoAssigned>().FromSqlRaw("USP_GetAllAssignedPartNo {0}", userid).ToList().FirstOrDefault();
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public PartNoAssigned GetPartNoAssignedOtherthanThisuser(int userid)
+        {
+            try
+            {
+                var result = _customContext.Set<PartNoAssigned>().FromSqlRaw("USP_GetPartNoAssignedOtherthanThisuser {0}", userid).ToList().FirstOrDefault();
                 return result;
             }
             catch (Exception ex)

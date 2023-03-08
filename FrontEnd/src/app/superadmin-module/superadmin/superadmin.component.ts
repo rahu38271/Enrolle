@@ -1,10 +1,11 @@
+
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import * as xlsx from 'xlsx';
 import html2pdf from 'html2pdf.js'
 import { AlertController } from '@ionic/angular';
 import { SuperadminService } from 'src/app/services/superadmin.service'
 import { LoaderService } from 'src/app/services/loader.service'
-import { Router, ActivatedRoute, Route } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router'
 import { Location } from '@angular/common';
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 
@@ -33,9 +34,6 @@ export class SuperadminComponent implements OnInit {
   superadminId:any;
   id:any;
   roleName: string;
-  deleteModal:any = {
-    id:''
-  }
   search() {
     this.isShow = !this.isShow
   }
@@ -52,7 +50,7 @@ export class SuperadminComponent implements OnInit {
       private toast: IonicToastService,
        private route: ActivatedRoute,
     ) {
-      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+
   }
 
   ngOnInit() {
@@ -69,6 +67,8 @@ export class SuperadminComponent implements OnInit {
       this.isDB = this.isDB;
     }
   }
+
+
 
   getAllAdminList() {
     
@@ -103,11 +103,15 @@ export class SuperadminComponent implements OnInit {
 
     //All users list for Superadmin
     if(this.roleId == 2){
-      this.sadmin.GetAdminbySuperAdminId(this.superId).subscribe(data => {
-        if (data != 0) {
+      this.sadmin.GetAdminbySuperAdminId(this.superId).subscribe(AdminbyS => {
+        if (AdminbyS != 0) {
           this.loader.hideLoader();
-          var list = data.forEach(e => {
-            
+          var list = AdminbyS.forEach(e => {
+            this.sadmin.GetpartByUserid(e.id).subscribe(data=>{
+              debugger;
+              // this.Partnoassigned=data;
+                e.Partnoassigned=data.partNo;
+            })
             if (e.roleId == 1) {
               e = { ...e, roleName: "MasterAdmin" };
             }
@@ -140,10 +144,10 @@ export class SuperadminComponent implements OnInit {
         if (data != 0) {
           //this.loader.hideLoader();
           var list = data.forEach(e => {
-            this.sadmin.getAssignedPartByUser(e.id).subscribe(data=>{
+            this.sadmin.GetpartByUserid(e.id).subscribe(data=>{
               debugger;
-               this.Partnoassigned=data;
-                e.Partnoassigned=data;
+              // this.Partnoassigned=data;
+                e.Partnoassigned=data.partNo;
             })
             if (e.roleId == 1) {
               e = { ...e, roleName: "MasterAdmin" };
@@ -170,16 +174,18 @@ export class SuperadminComponent implements OnInit {
     }
   }
 
-  
-
   EditSA(data: any) {
+    debugger;
     this.router.navigateByUrl('/superadmin/edit-superadmin', { state: data })
   }
 
   LinkDB(id:any){
+    debugger;
     this.router.navigate(['superadmin/db', id])
   }
-
+  // SAdetails(id:number){
+  //   this.router.navigate(['/superadmin/account', id])
+  // }
 
   
 
@@ -187,12 +193,9 @@ export class SuperadminComponent implements OnInit {
     this.location.back();
   }
 
-  // delete(){
-  //   debugger;
-  //   this.sadmin.deleteUser(this.deleteModal).subscribe(data=>{
-  //     console.log(data);
-  //   })
-  // }
+  deleteSA(){
+    
+  }
 
   // async deleteSA() {
   //   const alert = await this.alertController.create({

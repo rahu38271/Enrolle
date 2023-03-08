@@ -11,7 +11,13 @@ namespace ElectionAlerts.Repository.RepositoryClasses
 {
     public class ExceptionLogRepository: IExceptionLogRepository
     {
-        private CustomContext _customContext = new CustomContext();
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private CustomContext _customContext;
+        public ExceptionLogRepository(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            _customContext = new CustomContext(_httpContextAccessor);
+        }
         //public void ErrorLog(Exception ex, string LogName, string LogType)
         //{
         //    throw new NotImplementedException();
@@ -21,8 +27,8 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             try
             {
                 DateTime today = DateTime.Now;
-                _customContext.Database.ExecuteSqlRaw("EXEC USP_InsertErrorLog {0},{1},{2},{3},{4},{5}",
-                    ex.Message, ex.StackTrace, LogType, ExLocation, "1", today.ToString());
+                _customContext.Database.ExecuteSqlRaw("EXEC USP_InsertErrorLogs {0},{1},{2},{3},{4},{5}",
+                    ex.Message, ex.StackTrace, LogType, ExLocation, 1, today.ToString());
                 //DateTime today = DateTime.Now;
                 //_customContext.Database.ExecuteSqlRaw("EXEC USP_InsertErrorLog {0},{1},{2},{3},{4},{5}",
                 //    ex.Message, ex.StackTrace, LogType, ExLocation, "1", string.Empty);
