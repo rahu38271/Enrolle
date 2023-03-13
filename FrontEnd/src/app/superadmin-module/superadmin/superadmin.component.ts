@@ -182,9 +182,10 @@ export class SuperadminComponent implements OnInit {
     debugger;
     this.router.navigate(['superadmin/db', id])
   }
-  // SAdetails(id:number){
-  //   this.router.navigate(['/superadmin/account', id])
-  // }
+  
+  SAdetails(id:number){
+    this.router.navigate(['/superadmin/account', id])
+  }
 
   
 
@@ -193,7 +194,9 @@ export class SuperadminComponent implements OnInit {
   }
 
   deleteSA(){
-    
+    // this.sadmin.delete(this.id).subscribe(data=>{
+    //   console.log(data);
+    // })
   }
 
   // async deleteSA() {

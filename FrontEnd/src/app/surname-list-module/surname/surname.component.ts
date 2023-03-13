@@ -14,7 +14,7 @@ export class SurnameComponent implements OnInit {
   booth = '';
   Surname = '';
   Caste = '';
- 
+  search = ''
 
   boothHeader: any = {
     header: 'Booth',

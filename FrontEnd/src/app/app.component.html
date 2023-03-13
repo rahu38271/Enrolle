@@ -588,6 +588,16 @@
                 <ion-label>Appointment </ion-label>
               </ion-item>
 
+              <ion-item *ngIf="isAnnapurna" routerLink="/annapurna" [routerLinkActive]="'active'">
+                <i class="icofont icofont-ui-clock"></i>
+                <ion-label>Annapurna </ion-label>
+              </ion-item>
+
+              <ion-item *ngIf="isNewVoter" routerLink="/new-voter" [routerLinkActive]="'active'">
+                <i class="icofont icofont-ui-clock"></i>
+                <ion-label>New Voter </ion-label>
+              </ion-item>
+
               <ion-item *ngIf="isContact" routerDirection="root" routerLink="/contact" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-contacts"></i>
                     <ion-label> Contact </ion-label>

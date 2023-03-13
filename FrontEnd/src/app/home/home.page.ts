@@ -27,10 +27,10 @@ export class HomePage implements AfterViewInit {
 
     var roleName = localStorage.getItem("userType");
     //this.roleType = roleName
-    var isMasterAdmin = roleName == "MasterAdmin"
-    var isSuperAdmin = roleName == "SuperAdmin"
-    var isAdmin = roleName == "Admin";
-    var isVolunteer = roleName == "Volunteer"
+    var isMasterAdmin = roleName == "1"
+    var isSuperAdmin = roleName == "2"
+    var isAdmin = roleName == "3";
+    var isVolunteer = roleName == "4"
     
     this.isTab = isSuperAdmin || isAdmin;
   }

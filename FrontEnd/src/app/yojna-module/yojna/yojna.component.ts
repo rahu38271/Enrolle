@@ -19,7 +19,7 @@ export class YojnaComponent implements OnInit {
   Status = '';
   Yojna = '';
   Area = '';
-
+  cp: number = 1;
 
 
   constructor(public alertController: AlertController,public loadingController: LoadingController,public toastController: ToastController) { }
@@ -30,6 +30,10 @@ export class YojnaComponent implements OnInit {
 
   resetForm(){
     this.myForm1.reset();
+  }
+
+  exportExcel(){
+    
   }
 
   async downloadExcel() {

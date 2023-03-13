@@ -36,7 +36,7 @@ export class VoterDetailsComponent {
   text: string=''
   imgurl:string= 'https://cdn.pixabay.com/photo/2019/12/26/05/10/pink-4719682_960_720.jpg'
   
-  
+  ImagePath = ''
   VoterListByUser: any;
   Id: any;
   id: any;
@@ -294,26 +294,26 @@ export class VoterDetailsComponent {
     this.location.back();
   }
 
-  printSlip() {
+  onSubmit(){
     
   }
 
-  // printSlip() {
-  //   this.content = document.getElementById('slipDesign').innerHTML;
-  //   let options = {
-  //     documentSize: 'a7',
-  //     type: 'share',
-  //     landscape: 'portrait', 86mm x 54mm
-  //     fileName: 'voter slip.pdf'
-  //   };
-  //   this.pdfGenerator.fromData(this.content, options)
-  //     .then((base64) => {
-  //       console.log('OK', base64);
-  //     }).catch((error) => {
-  //       console.log('error', error);
-  //     });
+  printSlip() {
+    this.content = document.getElementById('slipDesign').innerHTML;
+    let options = {
+      documentSize: 'a7',
+      type: 'share',
+      //landscape: 'portrait', 86mm x 54mm
+      fileName: 'voter slip.pdf'
+    };
+    this.pdfGenerator.fromData(this.content, options)
+      .then((base64) => {
+        console.log('OK', base64);
+      }).catch((error) => {
+        console.log('error', error);
+      });
 
-  // }
+  }
 
   // share() {
   //   var options = {

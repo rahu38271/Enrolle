@@ -15,6 +15,9 @@ import { IonicToastService } from 'src/app/services/ionic-toast.service';
 export class ContactDetailsComponent implements OnInit {
 
   getContacts:any;
+  PageNo:any;
+  NoofRow:any;
+  SearchText:any;
 
   constructor
   (
@@ -28,7 +31,7 @@ export class ContactDetailsComponent implements OnInit {
     ) 
    { 
     this.loader.showLoading();
-    this.contact.getContacts().subscribe(data=>{
+    this.contact.getContacts(this.PageNo,this.NoofRow,this.SearchText).subscribe(data=>{
       this.loader.hideLoader();
       if(data != 0){
         this.getContacts = data;

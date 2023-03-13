@@ -31,6 +31,9 @@ export class EditVoterdataComponent implements OnInit {
   wardList: any;
   boothList: any;
   EditData:any = {};
+  birthDate= ''
+  CreatedDate = ''
+  // CreatedDate
  
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -115,7 +118,7 @@ export class EditVoterdataComponent implements OnInit {
     this.getDistrict();
     this.getAssembly();
     this.getWard();
-    this.getBooth();
+    this.getBooth()
     
   }
 
@@ -130,6 +133,10 @@ export class EditVoterdataComponent implements OnInit {
        const timeDiff = Math.abs(Date.now() - bdate.getTime() );
        this.Age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
     }
+  }
+
+  onSubmit(){
+
   }
 
   save(){

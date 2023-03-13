@@ -24,7 +24,9 @@ export class AssignDataComponent implements OnInit {
   SelectedPartNo = [];
   Uid: any;
   id: number;
+  cp: number = 1;
   alreadyAssignedPart:any={};
+  searchWeb:string;
   constructor
     (
       private user: UserService,
@@ -102,6 +104,10 @@ export class AssignDataComponent implements OnInit {
 
     console.log("data", this.SelectedPartNo.toString());
     console.log(this.SelectedPartNo);
+  }
+
+  editPartyRolesSubmit(){
+
   }
 
   allAssignedPart(){

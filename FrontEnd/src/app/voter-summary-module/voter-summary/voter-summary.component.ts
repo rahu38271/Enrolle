@@ -5,6 +5,7 @@ import html2pdf from 'html2pdf.js'
 import { VoterService } from 'src/app/services/voter.service'
 import { Router } from '@angular/router'
 
+
 @Component({
   selector: 'app-voter-summary',
   templateUrl: './voter-summary.component.html',
@@ -16,7 +17,7 @@ export class VoterSummaryComponent implements OnInit {
   voterCount: any[]=[];
   userID: any;
   roleID:any;
-
+  searchWeb:string;
   constructor(public alertController: AlertController, private voter:VoterService, private router:Router) { }
 
   ngOnInit() { 

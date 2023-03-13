@@ -128,6 +128,10 @@ export class AddVoterComponent implements OnInit {
     }
   }
 
+  onSubmit(){
+    
+  }
+
   addVoter(){
     debugger;
     this.loader.showLoading();

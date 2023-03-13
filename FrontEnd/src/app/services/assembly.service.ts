@@ -14,7 +14,7 @@ export class AssemblyService {
   constructor(private http:HttpClient) { }
 
   getAssemblyData():Observable<any>{
-    return this.http.get<any>(this.url + 'Assembly/GetAllAssembly')
+    return this.http.get<any>(this.url + 'Login/GetAllAssembly')
   }
 
   addSingleAssembly(asemblyModal:any):Observable<any>{

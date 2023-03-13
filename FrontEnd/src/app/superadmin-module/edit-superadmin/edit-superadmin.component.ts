@@ -26,7 +26,10 @@ export class EditSuperadminComponent implements OnInit {
   superAdminId:any;
   roleId:any;
   roleName:any;
-  
+  isSA = false
+  isA = false
+  isV = false
+ 
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
@@ -65,7 +68,20 @@ export class EditSuperadminComponent implements OnInit {
   
       this.roleId = localStorage.getItem("userType")
       this.roleId = Number(this.roleId);
+      if(this.roleId == 1){
+        this.isSA = !this.isSA;
+        this.isA = !this.isA;
+        this.isV = !this.isV;
+      }
       
+      if(this.roleId == 2){
+        this.isA = !this.isA;
+        this.isV = !this.isV;
+      }
+      
+      if(this.roleId == 3){
+        this.isV = !this.isV;
+      }
 
       this.getAssembly();
       this.getDistrict();

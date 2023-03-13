@@ -12,6 +12,10 @@ export class EditWardComponent implements OnInit {
   userModel: any = {};
   myForm;
   Quote;
+  Ward = '';
+  WardNumber = '';
+  boothName = '';
+  boothNumber = '';
   
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;

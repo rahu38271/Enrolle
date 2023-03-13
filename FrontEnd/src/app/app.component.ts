@@ -56,6 +56,8 @@ export class AppComponent implements OnInit {
   isSearch: any;
   isVoterList: any;
   isAppointment:any;
+  isAnnapurna:any;
+  isNewVoter:any;
   isSuperAdmin:any;
   isconfigureDB:any;
   isRequest:any;
@@ -82,6 +84,7 @@ export class AppComponent implements OnInit {
     //private statusBar: StatusBar,
     private alertController: AlertController,
     private activatedRoute: ActivatedRoute,
+    public menuCtrl: MenuController,
     private platform: Platform) {
     
     
@@ -143,11 +146,13 @@ export class AppComponent implements OnInit {
     this.isMedia = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isOther = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isSetting = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isSurvey = isMasterAdmin|| isSuperAdmin || isAdmin  || isVolunteer;
-    this.isSearch = isMasterAdmin|| isSuperAdmin || isAdmin  || isVolunteer;
-    this.isLists = isMasterAdmin|| isSuperAdmin || isAdmin  || isVolunteer;
+    this.isSurvey = isSuperAdmin || isAdmin  || isVolunteer;
+    this.isSearch = isSuperAdmin || isAdmin  || isVolunteer;
+    this.isLists = isSuperAdmin || isAdmin  || isVolunteer;
     this.isUser = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isAppointment = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isAnnapurna = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isNewVoter = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isDailyRoutine = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isVoterList = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isRequest = isMasterAdmin|| isSuperAdmin || isAdmin;
@@ -170,6 +175,10 @@ export class AppComponent implements OnInit {
 
     this.firebaseX.onTokenRefresh()
       .subscribe((token: string) => console.log(`Got a new token ${token}`));
+  }
+
+  ionViewWillEnter() {
+    this.menuCtrl.enable(true);
   }
 
 

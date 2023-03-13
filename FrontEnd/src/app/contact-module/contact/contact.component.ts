@@ -24,7 +24,10 @@ export class ContactComponent implements OnInit {
   searchWeb: string;
   cp: number = 1;
   Cid:any;
-  fileName= 'Contact.xlsx'; 
+  fileName= 'Contact.xlsx';
+  PageNo:any=1;
+  NoofRow:any=25; 
+  SearchText:any;
 
   currentDate = new Date();
   birthDate: any;
@@ -62,30 +65,24 @@ export class ContactComponent implements OnInit {
  
 
   ngOnInit() {
-    this.contactList();
-    // $('#contactTable').DataTable({
-    //   lengthMenu: [ [25, 50, 100, -1], [25, 50, 100, "All"] ],
-    //   pageLength: 25,
-    //   autoWidth: false,
-    //   "columnDefs": [
-    //     { "width": "20px", "targets": 0 },
-    //     { "width": "40px", "targets": 1 },
-    //     { "width": "100px", "targets": 2 },
-    //     { "width": "70px", "targets": 3 },
-    //     { "width": "70px", "targets": 4 },
-    //     { "width": "70px", "targets": 5 },
-    //     { "width": "70px", "targets": 6 },
-    //     { "width": "200px", "targets": 7 },
-    //     { "width": "40px", "targets": 8 },
-    //     { "width": "40px", "targets": 9 }
-        
-    //   ],
-    // });
+    if(this.SearchText == undefined){
+      this.SearchText = ''
+    }
+    else{
+      this.SearchText = this.SearchText 
+    }
+    this.contactList(this.PageNo,this.NoofRow,this.SearchText);
+    
   }
 
-  contactList(){
+  event(event:any){
+    this.PageNo = event;
+    this.contactList(event,this.NoofRow,this.SearchText)
+  }
+
+  contactList(PageNo:any,NoofRow:any,SearchText:any){
     this.loader.showLoading();
-    this.contact.getContacts().subscribe(data=>{
+    this.contact.getContacts(PageNo,NoofRow,SearchText).subscribe(data=>{
       this.loader.hideLoader();
       if(data != 0){
         this.getContacts = data;

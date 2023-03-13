@@ -1,0 +1,196 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>Add User</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+    <ion-header class="android">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/appointment"></ion-back-button>
+        </ion-buttons>
+        <ion-title> New Voter </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <div class="main-content">
+      <ion-grid>
+        <ion-row>
+          <ion-text class="form-header pl-10">
+            <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>New Voter
+          </ion-text>
+        </ion-row>
+        <form #myForm="ngForm">
+          <ion-row>
+  
+            <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+              <ion-label> AC No. </ion-label>
+              <ion-input name="acNo"  class="form-control"></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Part No. </ion-label>
+                <ion-input name="partNo"  class="form-control"></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Voter </ion-label>
+                <ion-input name="voter"  class="form-control"></ion-input>
+              </ion-col>
+  
+            <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+              <ion-label>Full Name  </ion-label>
+              <ion-input name="fullName" class="form-control"></ion-input>
+            </ion-col>
+  
+            <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Mobile No. 1 </ion-label>
+                <ion-input name="mobile1" class="form-control" required></ion-input>
+              </ion-col>
+            
+              <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Mobile No. 2 </ion-label>
+                <ion-input name="mobile2" class="form-control" required></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Mobile No. 3 </ion-label>
+                <ion-input name="mobile3" class="form-control" required></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Mobile No. 4 </ion-label>
+                <ion-input name="mobile4" class="form-control" required></ion-input>
+              </ion-col>
+  
+            <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+              <ion-label> DOB </ion-label>
+              <ion-input value="{{ dob | date: 'yyyy-MM-dd' }}" id="dob" name="dob" class="form-control" required>
+              </ion-input>
+  
+              <ion-modal trigger="dob" size="cover">
+                <ng-template>
+                  <ion-datetime presentation="date" name="dob">
+                    <span slot="title"> {{ year }} </span>
+                  </ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </ion-col>
+  
+            <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+              <ion-label> House No. </ion-label>
+              <ion-input name="houseNo"  class="form-control" required></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+                <ion-label>Card No. </ion-label>
+                <ion-input name="houseNo"  class="form-control" required></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+                <ion-label>Gender </ion-label>
+                <ion-radio-group name="Gender" >
+                    <div class="radioBtn" >
+                      <div>
+                        <ion-radio value="M" ></ion-radio>
+                        <ion-label>Male</ion-label>
+                      </div>
+      
+                      <div>
+                        <ion-radio value="F" ></ion-radio>
+                        <ion-label>Female</ion-label>
+                      </div>
+      
+                      <div>
+                        <ion-radio value="O" ></ion-radio>
+                        <ion-label>Other</ion-label>
+                      </div>
+                    </div>
+                  </ion-radio-group>
+              </ion-col>
+
+              
+
+              <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Age </ion-label>
+                <ion-input name="age"  class="form-control"></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Society Name </ion-label>
+                <ion-input  name="Society" class="form-control" ></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Zone </ion-label>
+                <ion-input  name="Zone" class="form-control" ></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Address </ion-label>
+                <ion-input  name="Address" class="form-control" ></ion-input>
+              </ion-col>
+              
+              <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Modified Address </ion-label>
+                <ion-input  name="modifiedAddress" class="form-control" ></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Area </ion-label>
+                <ion-input  name="Area" class="form-control" ></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Favour </ion-label>
+                <ion-input  name="Favour" class="form-control" ></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Data Type </ion-label>
+                <ion-select name="category" placeholder="Select" class="form-control"
+                  interface="popover">
+                  <ion-select-option class="select_option" value="Annapurna"> Annapurna</ion-select-option>
+                  <ion-select-option class="select_option" value="Combined Data"> Combined Data</ion-select-option>
+                </ion-select>
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Remark </ion-label>
+                <ion-input  name="Remark" class="form-control" ></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Reference Name </ion-label>
+                <ion-input  name="Reference" class="form-control" ></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Position </ion-label>
+                <ion-input  name="Position" class="form-control" ></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Voting Card </ion-label>
+                <ion-input  name="VotingCard" class="form-control" ></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Personal Relations</ion-label>
+                <ion-input  name="VotingCard" class="form-control" ></ion-input>
+              </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col size-xl="4" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                <div class="ion-text-center">
+                  <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
+                  <ion-button [disabled]="!myForm.form.valid" type="submit" size="medium">Save</ion-button>
+                  <ion-button routerLink="/new-voter" color="success" type="button" size="medium">Back To List
+                  </ion-button>
+                </div>
+              </ion-col>
+          </ion-row>
+        </form>
+      </ion-grid>
+    </div>
+  </ion-content>

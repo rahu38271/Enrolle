@@ -4,14 +4,14 @@
       <ion-buttons slot="start">
         <ion-back-button defaultHref="/superadmin"></ion-back-button>
       </ion-buttons>
-      <ion-title> Edit Superadmin </ion-title>
+      <ion-title> Edit User </ion-title>
     </ion-toolbar>
   </ion-header>
   <div class="main-content">
     <ion-grid class="grid-bg">
       <ion-row>
         <ion-text class="form-header pl-10">
-          <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>Edit Superadmin
+          <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>Edit User
         </ion-text>
       </ion-row>
       <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
@@ -35,9 +35,9 @@
                   <ion-label>User Role</ion-label>
                   <ng-select name="roleId" [(ngModel)]="editData.roleName"  interface="popover" required
                     placeholder="Select User Role">
-                    <ng-option value="Superadmin">Superadmin </ng-option>
-                    <ng-option value="Admin" >Admin </ng-option>
-                    <ng-option value="Volunteer">Volunteer </ng-option>
+                    <ng-option value="Superadmin" *ngIf="isSA" >Superadmin </ng-option>
+                    <ng-option value="Admin" *ngIf="isA">Admin </ng-option>
+                    <ng-option value="Volunteer" *ngIf="isV">Volunteer </ng-option>
                   </ng-select>
                   <!-- <div *ngIf="f.submitted && Role.invalid" class="invalid-feedback">
                                             <div *ngIf="Role.errors.required">
@@ -79,14 +79,14 @@
                     class="form-control"></ion-input>
                 </ion-col>
 
-                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="editData.roleName == '2'">
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="editData.roleName == 'Superadmin'">
                   <ion-label>State</ion-label>
                   <ng-select name="state" [(ngModel)]="editData.state" interface="popover" placeholder="Select State">
                     <ng-option value="Maharashtra">Maharashtra </ng-option>
                   </ng-select>
                 </ion-col>
 
-                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="editData.roleName == '2'">
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="editData.roleName == 'Superadmin'">
                   <ion-label>Assign Data</ion-label>
                   <ng-select name="assign" [(ngModel)]="editData.assign" #assign="ngModel" 
                   placeholder="Assign Data">
@@ -96,7 +96,7 @@
                  </ng-select>
                 </ion-col>
 
-                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="editData.assign == 'District' || 'Assembly' && editData.roleName == '2'">
+                <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="editData.assign == 'District' || 'Assembly' && editData.roleName == 'Superadmin'">
                   <ion-label>District</ion-label>
                   <ng-select name="district" [(ngModel)]="editData.district"
                     (change)="getTaluka(editData.district)">
@@ -182,7 +182,7 @@
                       </ion-item>
                     </ion-col> -->
 
-                    <ion-col size-xl="2" size-lg="2" size-md="4" size-sm="6" size-xs="6" *ngIf="editData.roleName == '2'">
+                    <ion-col size-xl="2" size-lg="2" size-md="4" size-sm="6" size-xs="6" *ngIf="editData.roleName == 'Superadmin'">
                       <ion-label> Is Active </ion-label>
                       <ion-radio-group name="msgType" [(ngModel)]="editData.isActive">
                         <div class="radioBtn">
@@ -204,7 +204,7 @@
                   <div class="ion-text-center">
                     <ion-button type="reset" color="danger" size="medium" (click)="resetForm()">Clear</ion-button>
                     <ion-button type="submit" size="medium" (click)="editAdmin()" [disabled]="!f.form.valid">Update
-                      Superadmin</ion-button>
+                      User</ion-button>
                     <ion-button routerLink="/superadmin" color="success" type="button" size="medium">Back To List
                     </ion-button>
                   </div>

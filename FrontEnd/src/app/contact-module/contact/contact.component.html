@@ -133,8 +133,8 @@
                   </thead>
                   <tbody>
                     <!-- <tr *ngFor="let item of getContacts | filter:searchWeb | paginate: { itemsPerPage: 10, currentPage: cp  }; let i=index"> -->
-                      <tr *ngFor="let item of getContacts | filter:searchWeb | paginate: { itemsPerPage: 10, currentPage: cp  }; let i=index" >
-                      <td> {{ (cp - 1) * 10 + i + 1  }} </td>
+                      <tr *ngFor="let item of getContacts | paginate: { itemsPerPage: 10, currentPage: PageNo  }; let i=index" >
+                      <td> {{ item.id  }} </td>
                       <td class="text-capitalize"> {{ item.fullName }} </td>
                       <td class="text-capitalize"> {{ item.vilageName }} </td>
                       <!-- <td> {{ item.birthDate | date:'yyyy-MM-dd' }} </td> -->
@@ -155,7 +155,7 @@
                 <div *ngIf="!getContacts || getContacts.length === 0">
                   <p>No data</p>
                 </div>
-                <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+                <pagination-controls (pageChange)="event($event)"></pagination-controls>
               </div>
             </ion-card-content>
           </ion-card>

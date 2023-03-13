@@ -1,0 +1,136 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>Add User</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+    <ion-header class="android">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/annapurna"></ion-back-button>
+        </ion-buttons>
+        <ion-title> Annapurna </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <div class="main-content">
+      <ion-grid>
+        <ion-row>
+          <ion-text class="form-header pl-10">
+            <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>Annapurna
+          </ion-text>
+        </ion-row>
+        <form #myForm="ngForm">
+          <ion-row>
+  
+            <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+              <ion-label> First Name <span>*</span> </ion-label>
+              <ion-input name="firstName"  class="form-control" required></ion-input>
+            </ion-col>
+  
+            <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+              <ion-label> Middle Name  </ion-label>
+              <ion-input name="middleName" class="form-control"></ion-input>
+            </ion-col>
+  
+            <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+              <ion-label> Last Name <span>*</span> </ion-label>
+              <ion-input name="lastName" class="form-control" required></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Phone No.  <span>*</span> </ion-label>
+                <ion-input name="phone" class="form-control" required></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Alt. Phone No. </ion-label>
+                <ion-input name="altPhone" class="form-control" required></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Chal / Society Name </ion-label>
+                <ion-input name="Society" class="form-control" required></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <ion-label>Present Address / Near Landmark </ion-label>
+                <ion-input name="address" class="form-control" required></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Area </ion-label>
+                <ion-input name="Area" class="form-control" required></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Yadi No. / Part No. </ion-label>
+                <ion-input name="Yadi" class="form-control" required></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Sr. No. </ion-label>
+                <ion-input name="serialNo" class="form-control" required></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Epic No. </ion-label>
+                <ion-input name="epicNo" class="form-control" required></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Voters No. </ion-label>
+                <ion-input name="epicNo" class="form-control" required></ion-input>
+              </ion-col>
+  
+            <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+              <ion-label> Token Date </ion-label>
+              <ion-input value="{{ TD | date: 'yyyy-MM-dd' }}" id="TD" name="TD" class="form-control" required>
+              </ion-input>
+  
+              <ion-modal trigger="TD" size="cover">
+                <ng-template>
+                  <ion-datetime presentation="date" name="TD">
+                    <span slot="title"> {{ year }} </span>
+                  </ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </ion-col>
+  
+            <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+              <ion-label> Token No. </ion-label>
+              <ion-input name="tokenNo" class="form-control" required></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Volunteer's Name </ion-label>
+                <ion-input name="vName" class="form-control" required></ion-input>
+              </ion-col>
+  
+  
+            <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <div class="checkbox">
+                    <ion-checkbox name="cardDone" ></ion-checkbox>
+                    <ion-label>  Card Done  </ion-label>
+                  </div>
+            </ion-col>
+  
+            <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+              <ion-label>New Entry ( Remark ) </ion-label>
+              <ion-input name="Remark" class="form-control" required></ion-input>
+            </ion-col>
+  
+  
+            <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+              <div class="ion-text-center">
+                <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
+                <ion-button [disabled]="!myForm.form.valid" type="submit" size="medium">Save</ion-button>
+                <ion-button routerLink="/annapurna" color="success" type="button" size="medium">Back To List
+                </ion-button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-grid>
+    </div>
+  </ion-content>

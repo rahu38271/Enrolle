@@ -79,10 +79,10 @@ export class MobileDashboardPage implements OnInit {
 
     var roleId = localStorage.getItem("userType");
     //this.roleType = roleName
-    var isMasterAdmin = roleId == "MasterAdmin"
-    var isSuperAdmin = roleId == "SuperAdmin"
-    var isAdmin = roleId == "Admin";
-    var isVolunteer = roleId == "Volunteer"
+    var isMasterAdmin = roleId == "1"
+    var isSuperAdmin = roleId == "2"
+    var isAdmin = roleId == "3";
+    var isVolunteer = roleId == "4"
     
     this.isSearch = isSuperAdmin || isAdmin || isVolunteer;
     this.isList = isSuperAdmin || isAdmin  || isVolunteer;

@@ -34,9 +34,9 @@ export class SuperadminService {
     return this.http.post<any>(this.url + 'Login/CreateUpdateUser', edModal);
   }
 
-  delete(id:any){
-    return this.http.get<any>(this.url + 'Login/DeleteUser?Id='+id)
-  }
+  // delete(id:any){
+  //   return this.http.get<any>(this.url + 'Login/DeleteUser?Id='+id)
+  // }
 
   getBooths(Role:any, UserId:any){
     return this.http.get<any>(this.url+'Voter/GetDistinctPartNumber?Role='+Role+'&UserId='+UserId)

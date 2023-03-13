@@ -36,7 +36,7 @@
           <div class="search">
             <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
           </div>
-          <ion-button class="button-download" color="success" (click)="exportExcel()">
+          <ion-button class="button-download" color="success" >
             <ion-icon name="document-sharp"></ion-icon>Excel
           </ion-button>
         </div>
@@ -93,6 +93,11 @@
             </tr>
           </tbody>
         </table>
+        <div *ngIf="!voterCount || voterCount.length === 0" class="noData text-center">
+          <p>
+            No data available
+          </p>
+        </div>
         </div>
       </ion-card-content>
     </ion-card>

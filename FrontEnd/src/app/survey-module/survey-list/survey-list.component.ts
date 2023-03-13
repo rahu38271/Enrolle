@@ -16,7 +16,7 @@ export class SurveyListComponent implements OnInit {
 
   isShow = false;
   allVoters: any;
-  searcMob: string;
+  searchMob: string;
 
   search(){
     this.isShow = !this.isShow

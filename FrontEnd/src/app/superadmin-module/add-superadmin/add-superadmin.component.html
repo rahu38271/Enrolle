@@ -4,14 +4,14 @@
       <ion-buttons slot="start">
         <ion-back-button defaultHref="/superadmin"></ion-back-button>
       </ion-buttons>
-      <ion-title> Add Superadmin </ion-title>
+      <ion-title> Add User </ion-title>
     </ion-toolbar>
   </ion-header>
   <div class="main-content">
     <ion-grid class="grid-bg">
       <ion-row>
         <ion-text class="form-header pl-10">
-          <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>Add Superadmin
+          <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>Add User
         </ion-text>
       </ion-row>
       <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
@@ -164,7 +164,7 @@
                   <div class="ion-text-center">
                     <ion-button type="reset" color="danger" size="medium" (click)="resetForm()">Clear</ion-button>
                     <ion-button type="submit" size="medium" (click)="addMAdmin()" [disabled]="!f.form.valid">Add
-                      Superadmin</ion-button>
+                      User</ion-button>
                     <ion-button routerLink="/superadmin" color="success" type="button" size="medium">Back To List
                     </ion-button>
                   </div>

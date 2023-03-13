@@ -44,7 +44,7 @@
         <ion-card-content>
           <div class="headSection">
             <div class="search">
-              <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+              <ion-searchbar ></ion-searchbar>
             </div>
             <ion-button class="button-download" color="success" (click)="exportExcel()">
               <ion-icon name="document-sharp"></ion-icon>Excel
@@ -104,7 +104,7 @@
                     
                     <td id="element-to-hide" data-html2canvas-ignore="true">
                       <ion-button routerLink="/beneficiaries/edit-beneficiaries" color="success" size="small"><ion-icon name="pencil-sharp"></ion-icon></ion-button>
-                      <ion-button color="danger" size="small" (click)="deleteBeneficiaries()"><ion-icon name="trash-sharp"></ion-icon></ion-button>
+                      <ion-button color="danger" size="small" (click)="deleteYojna()"><ion-icon name="trash-sharp"></ion-icon></ion-button>
                     </td>
                   </tr>
 

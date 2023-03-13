@@ -1,0 +1,279 @@
+
+
+<ion-content>
+    <ion-header class="android">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button color="primary" auto-hide="false"></ion-menu-button>
+        </ion-buttons>
+        <ion-title> Annapurna </ion-title>
+        <ion-buttons slot="primary">
+          <ion-button (click)="search()">
+            <ion-icon name="search-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <div class="main-content">
+      <div class="web">
+        <ion-grid class="header">
+          <ion-row>
+            <ion-col size-xs="12" size-sm="6">
+              <ion-card-header>
+                <ion-card-title>Annapurna <span> </span></ion-card-title>
+                <div class="headerLine"></div>
+              </ion-card-header>
+            </ion-col>
+            <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+              <ion-button class="button-download" color="primary" routerLink="/annapurna/add-annapurna"><ion-icon name="add-circle-sharp"></ion-icon>Annapurna</ion-button>
+              <!-- <ion-button class="button-download" fill="outline" color="primary" ><ion-icon name="refresh-circle-sharp"></ion-icon>Refresh</ion-button> -->
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+  
+      <!-- <ion-grid class="topForm">
+        <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+          <ion-row>
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
+              <ion-label>   Appointment Date   </ion-label>
+              <ion-input value="{{ appoDate | date: 'yyyy-MM-dd' }}" id="appoDate" class="form-control" required>
+              </ion-input>
+  
+              <ion-modal trigger="appoDate" size="cover">
+                <ng-template>
+                  <ion-datetime presentation="date" [(ngModel)]="appoDate" name="appoDate">
+                    <span slot="title"> {{ year }} </span>
+                  </ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </ion-col>
+            
+            <ion-col size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="12">
+                <ion-button class="searchBtn" type="submit" (click)="presentLoading()" [disabled]="!f.form.valid">Search</ion-button>
+                <ion-button type="reset" (click)="resetForm()" class="searchBtn" color="danger">Clear</ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-grid> -->
+  
+      <ion-card>
+        <ion-card-content>
+          <div class="headSection">
+            <div class="search">
+              <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+            </div>
+            <ion-button class="button-download" color="success" (click)="downloadExcel()" ><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
+          </div>
+          <div class="horizontal-scroll">
+            <table class="table" id="table13" #epltable>
+              <thead>
+                <tr>
+                  <th style="width: 40px;">
+                    Sr.No.		
+                  </th>
+                  <th>
+                    Name
+                  </th>
+                  <th>
+                    Phone No.	
+                  </th>
+                  <th>
+                    Alt. Phone No.	
+                  </th>
+                  <th>
+                    Chal / Society Name				
+                  </th>
+                  <th>
+                    Present Address Near Landmark
+                  </th>
+                  <th>
+                    Area
+                  </th>
+                  <th>
+                    Yadi No.
+                  </th>
+                  <th>Sr. No.</th>
+                  <th>Epic No. </th>
+                  <th>Voters No. </th>
+                  <th>Token Date</th>
+                  <th>Token No.</th>
+                  <th>Volunteers Name</th>
+                  <th>Card Done</th>
+                  <th>New Entry ( Remark )</th>
+                  <th id="element-to-hide" data-html2canvas-ignore="true">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>Sagar Manaji Salunkhe</td>
+                  <td>
+                    9158490455
+                  </td>
+                  <td>9579743709</td>
+                  <td>kk Market</td>
+                  <td>kk Market</td>
+                  <td>kk Market</td>
+                  <td>123</td>
+                  <td>123</td>
+                  <td>123</td>
+                  <td>12345678</td>
+                  <td>11/03/2023</td>
+                  <td>1212</td>
+                  <td>Sagar Salunkhe</td>
+                  <td>
+                      <input type="checkbox">
+                  </td>
+                  <td>New entry added</td>
+                  <td id="element-to-hide" data-html2canvas-ignore="true">
+                    <ion-icon routerLink="/annapurna/edit-annapurna" name="create-sharp"></ion-icon>
+                    <ion-icon id="open-modal" expand="block" name="add-circle-sharp"></ion-icon>
+                    <!-- <ion-button color="danger" size="small" ><ion-icon name="trash-sharp"></ion-icon></ion-button> -->
+                    
+                  </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Sagar Manaji Salunkhe</td>
+                    <td>
+                      9158490455
+                    </td>
+                    <td>9579743709</td>
+                    <td>kk Market</td>
+                    <td>kk Market</td>
+                    <td>kk Market</td>
+                    <td>123</td>
+                    <td>123</td>
+                    <td>123</td>
+                    <td>12345678</td>
+                    <td>11/03/2023</td>
+                    <td>1212</td>
+                    <td>Sagar Salunkhe</td>
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td>New entry added</td>
+                    <td id="element-to-hide" data-html2canvas-ignore="true">
+                      <ion-icon routerLink="/annapurna/edit-annapurna" name="create-sharp"></ion-icon>
+                      <!-- <ion-button color="danger" size="small" ><ion-icon name="trash-sharp"></ion-icon></ion-button> -->
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>Sagar Manaji Salunkhe</td>
+                    <td>
+                      9158490455
+                    </td>
+                    <td>9579743709</td>
+                    <td>kk Market</td>
+                    <td>kk Market</td>
+                    <td>kk Market</td>
+                    <td>123</td>
+                    <td>123</td>
+                    <td>123</td>
+                    <td>12345678</td>
+                    <td>11/03/2023</td>
+                    <td>1212</td>
+                    <td>Sagar Salunkhe</td>
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td>New entry added</td>
+                    <td id="element-to-hide" data-html2canvas-ignore="true">
+                      
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>Sagar Manaji Salunkhe</td>
+                    <td>
+                      9158490455
+                    </td>
+                    <td>9579743709</td>
+                    <td>kk Market</td>
+                    <td>kk Market</td>
+                    <td>kk Market</td>
+                    <td>123</td>
+                    <td>123</td>
+                    <td>123</td>
+                    <td>12345678</td>
+                    <td>11/03/2023</td>
+                    <td>1212</td>
+                    <td>Sagar Salunkhe</td>
+                    <td>
+                        <input type="checkbox">
+                    </td>
+                    <td>New entry added</td>
+                    <td id="element-to-hide" data-html2canvas-ignore="true">
+                      
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+            
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>Add Family</ion-title>
+              <ion-buttons slot="end">
+                <ion-button (click)="closeModal()" [strong]="true">
+                    <ion-icon name="close-sharp"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+            <form #myForm="ngForm">
+                <ion-row>
+                  <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
+                    <ion-label> Name <span>*</span> </ion-label>
+                    <ion-input name="Name"  class="form-control" required></ion-input>
+                  </ion-col>
+
+                  <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
+                    <ion-label> Phone No.  <span>*</span> </ion-label>
+                    <ion-input name="phone" class="form-control" required></ion-input>
+                  </ion-col>
+    
+                  <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
+                    <ion-label> Alt. Phone No. </ion-label>
+                    <ion-input name="altPhone" class="form-control" required></ion-input>
+                  </ion-col>
+
+                  <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
+                    <ion-label>Present Address / Near Landmark </ion-label>
+                    <ion-input name="address" class="form-control" required></ion-input>
+                  </ion-col>
+
+                  <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                    <div>
+                      <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
+                      <ion-button [disabled]="!myForm.form.valid" type="submit" size="medium">Save</ion-button>
+                    </div>
+                  </ion-col>
+                      
+            </ion-row>
+            </form>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    
+
+  </ion-content>
+
+  
+                          
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed" routerLink="/appointment/add-appointment">
+    <ion-fab-button color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>

@@ -16,6 +16,8 @@ export class VoterbyUserComponent  {
   isShow = true;
   isMike : boolean;
   isRecording = false;
+  searchWeb:string;
+  EditVoter:any;
 
   search(){
     this.isShow = !this.isShow
