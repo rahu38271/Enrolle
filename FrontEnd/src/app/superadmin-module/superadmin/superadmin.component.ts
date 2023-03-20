@@ -107,7 +107,6 @@ export class SuperadminComponent implements OnInit {
           this.loader.hideLoader();
           var list = AdminbyS.forEach(e => {
             this.sadmin.GetpartByUserid(e.id).subscribe(data=>{
-              debugger;
               // this.Partnoassigned=data;
                 e.Partnoassigned=data.partNo;
             })
@@ -144,7 +143,6 @@ export class SuperadminComponent implements OnInit {
           //this.loader.hideLoader();
           var list = data.forEach(e => {
             this.sadmin.GetpartByUserid(e.id).subscribe(data=>{
-              debugger;
               // this.Partnoassigned=data;
                 e.Partnoassigned=data.partNo;
             })
@@ -174,12 +172,10 @@ export class SuperadminComponent implements OnInit {
   }
 
   EditSA(data: any) {
-    debugger;
     this.router.navigateByUrl('/superadmin/edit-superadmin', { state: data })
   }
 
   LinkDB(id:any){
-    debugger;
     this.router.navigate(['superadmin/db', id])
   }
   

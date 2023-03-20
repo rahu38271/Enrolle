@@ -93,6 +93,7 @@ keyPressNumbers(event) {
     this.voter.boothWiseVoterList(this.partNo).subscribe((data)=>{
       this.loader.hideLoader();
       if(data){
+        this.partNo = this.partNo
         this.voterByPart = data;
       }
       else{

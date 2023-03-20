@@ -4,7 +4,7 @@
   <ion-header class="android">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-menu-button color="primary" auto-hide="false"></ion-menu-button>
+        <ion-menu-button auto-hide="false"></ion-menu-button>
       </ion-buttons>
       <ion-title> Appointments </ion-title>
       <ion-buttons slot="primary">
@@ -101,6 +101,7 @@
                 <th>Ward</th>
                 <th>Pincode</th>
                 <th>City / Village</th>
+                <th>File</th>
                 <th>Remark</th>
                 <th id="element-to-hide" data-html2canvas-ignore="true">
                   Action
@@ -108,7 +109,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <!-- <tr>
                 <td>1</td>
                 <td>Sagar Manaji Salunkhe</td>
                 <td></td>
@@ -128,76 +129,29 @@
                 <td></td>
                 <td id="element-to-hide" data-html2canvas-ignore="true">
                   <ion-icon routerLink="/appointment/edit-appointment" name="create-sharp"></ion-icon>
-                  <!-- <ion-button color="danger" size="small" (click)="deleteAppointment()"><ion-icon name="trash-sharp"></ion-icon></ion-button> -->
                 </td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Sagar Manaji Salunkhe</td>
-                <td></td>
-                <td>11/03/2023</td>
+              </tr> -->
+              <tr *ngFor="let item of getApmList">
+                <td>{{item.id}}</td>
+                <td>{{item.firstName}} {{item.middleName}} {{item.lastName}}</td>
+                <td>{{item.category}}</td>
+                <td>{{item.appointmentDate}}</td>
                 <td>
-                  9158490455
+                  {{item.phoneNo}}
                 </td>
-                <td>11/06/1994</td>
-                <td>Aadhar Card</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>{{item.birthDate}}</td>
+                <td>{{item.work}}</td>
+                <td>{{item.district}}</td>
+                <td>{{item.taluka}}</td>
+                <td>{{item.houseNo}}</td>
+                <td>{{item.soc_BldgName}}</td>
+                <td>{{item.wardNo}}</td>
+                <td>{{item.pinCode}}</td>
+                <td>{{item.city_Village}}</td>
+                <td>{{item.fileName}}</td>
+                <td>{{item.remark}}</td>
                 <td id="element-to-hide" data-html2canvas-ignore="true">
-                 <ion-icon routerLink="/appointment/edit-appointment" name="create-sharp"></ion-icon>
-                  <!-- <ion-button color="danger" size="small" (click)="deleteAppointment()"><ion-icon name="trash-sharp"></ion-icon></ion-button> -->
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Sagar Manaji Salunkhe</td>
-                <td></td>
-                <td>11/03/2023</td>
-                <td>
-                  9158490455
-                </td>
-                <td>11/06/1994</td>
-                <td>Aadhar Card</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td id="element-to-hide" data-html2canvas-ignore="true">
-                  <ion-icon routerLink="/appointment/edit-appointment"  name="create-sharp"></ion-icon>
-                  <!-- <ion-button color="danger" size="small" (click)="deleteAppointment()"><ion-icon name="trash-sharp"></ion-icon></ion-button> -->
-                </td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>Sagar Manaji Salunkhe</td>
-                <td></td>
-                <td>11/03/2023</td>
-                <td>
-                  9158490455
-                </td>
-                <td>11/06/1994</td>
-                <td>Aadhar Card</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td id="element-to-hide" data-html2canvas-ignore="true">
-                  <ion-icon routerLink="/appointment/edit-appointment" name="create-sharp"></ion-icon>
-                  <!-- <ion-button color="danger" size="small" (click)="deleteAppointment()"><ion-icon name="trash-sharp"></ion-icon></ion-button> -->
+                  <ion-icon (click)="editAppointment(item)" name="create-sharp"></ion-icon>
                 </td>
               </tr>
             </tbody>

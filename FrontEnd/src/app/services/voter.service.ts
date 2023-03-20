@@ -21,10 +21,12 @@ export class VoterService {
 
   // voter by user id
 
-  getVoterByUser(id:number, roleID:number){
-    //return this.http.get<any[]>(this.url+'Voter/GetVoterbyUserId?userid='+id);
-    //return this.http.get<any[]>(this.url+'Voter/GetAllVoter?UserId='+id);
-    return this.http.get<any[]>(this.url+'Voter/GetAllVoter?UserId='+id+'&RoleId='+roleID)
+  // getVoterByUser(id:number, roleID:number){
+  //   return this.http.get<any[]>(this.url+'Voter/GetAllVoter?UserId='+id+'&RoleId='+roleID)
+  // }
+  
+  getVoterByUser(id:any,RoleId:any,pageNo:any,NoofRow:any):Observable<any>{
+    return this.http.get<any[]>(this.url+'Voter/GetAllVoter?UserId='+id+'&RoleId='+RoleId+'&PageNo='+pageNo+'&NoofRow='+NoofRow)
   }
 
   // total voter count

@@ -38,9 +38,15 @@ export class SuperadminService {
   //   return this.http.get<any>(this.url + 'Login/DeleteUser?Id='+id)
   // }
 
+  // old code
   getBooths(Role:any, UserId:any){
     return this.http.get<any>(this.url+'Voter/GetDistinctPartNumber?Role='+Role+'&UserId='+UserId)
   }
+
+  // new code 
+  // getBooths(Role:any, UserId:any){
+  //   return this.http.get<any>(this.url+'Voter/GetDistinctPartNumber?roleid='+Role+'&UserId='+UserId)
+  // }
 
   getBoothsbyroleandUserId(userid:any,userrole:any){
     if(userrole==2)

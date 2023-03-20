@@ -74,7 +74,7 @@ export class AddContactComponent implements OnInit {
     this.contact.getTalukaData(dId).subscribe((data) => {
       if (data.length > 0) {
         //console.log(data);
-        this.contactModal.District = this.districtList.find(x => x.dId = dId).districtName;
+        this.contactModal.District = this.districtList.find(x => x.dId == dId).districtName;
         this.talukaList = data;
       }
     }, (error) => {
@@ -120,9 +120,11 @@ export class AddContactComponent implements OnInit {
         this.router.navigate(['/contact']);
       }
       else {
+        this.loader.hideLoader();
         this.toast.presentToast("Contact not saved", "danger", 'alert-circle-sharp');
       }
     }, (err) => {
+      this.loader.hideLoader();
       this.toast.presentToast("Contact not saved!", "danger", 'alert-circle-sharp');
     });
   }

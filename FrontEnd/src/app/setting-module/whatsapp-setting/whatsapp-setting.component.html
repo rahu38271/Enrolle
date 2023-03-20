@@ -41,8 +41,8 @@
 
           <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" >
             <ion-label> URL <span>*</span> </ion-label>
-              <ion-input name="url" [(ngModel)]="whatsappSetting.url" #url="ngModel" [ngClass]="{'is-invalid': f.submitted && url.invalid}" class="form-control" readonly>
-                https://app.imsscall.in/api/send.php
+              <ion-input name="url" [(ngModel)]="whatsappSetting.url" #url="ngModel" [ngClass]="{'is-invalid': f.submitted && url.invalid}" class="form-control">
+                <!-- https://app.imsscall.in/api/send.php -->
               </ion-input>
               <div *ngIf="f.submitted && url.invalid" class="invalid-feedback">
                 <div *ngIf="url.errors.required">
@@ -51,7 +51,7 @@
               </div>
           </ion-col>
 
-          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
+          <!-- <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
             <ion-label> Mobile No. <span>*</span></ion-label>
               <ion-input name="number" placeholder="911234567890" [(ngModel)]="whatsappSetting.number" #number="ngModel" [ngClass]="{'is-invalid': f.submitted && number.invalid}" class="form-control">
               </ion-input>
@@ -60,36 +60,56 @@
                    url is required
                 </div>
               </div>
-          </ion-col>
+          </ion-col> -->
 
           <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
             <ion-label> Type <span>*</span></ion-label>
             <ng-select 
-            name="Type" 
-            [(ngModel)]="whatsappSetting.type" 
+            name="mtype" 
+            [(ngModel)]="whatsappSetting.mtype" 
             #Taluka="ngModel"  
             placeholder="Select Type"
           >
-            <ng-option class="select_option" value="text">Text</ng-option>
-            <ng-option class="select_option" value="media">Media</ng-option>
+            <ng-option class="select_option" value="Text">Text</ng-option>
+            <ng-option class="select_option" value="Media">Media</ng-option>
          </ng-select>
           </ion-col>
 
-          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" *ngIf="whatsappSetting.type == 'media'">
-            <ion-label> Media URL <span>*</span> </ion-label>
-              <ion-input name="media_url" [(ngModel)]="whatsappSetting.media_url" #media_url="ngModel" [ngClass]="{'is-invalid': f.submitted && media_url.invalid}" class="form-control"></ion-input>
-              <div *ngIf="f.submitted && media_url.invalid" class="invalid-feedback">
-                <div *ngIf="media_url.errors.required">
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" *ngIf="whatsappSetting.mtype == 'Media' && whatsappSetting.msgType =='Birthday'">
+            <ion-label>Birthday Media URL <span>*</span> </ion-label>
+              <ion-input name="bithDayMediaurl" [(ngModel)]="whatsappSetting.bithDayMediaurl" #bithDayMediaurl="ngModel" [ngClass]="{'is-invalid': f.submitted && bithDayMediaurl.invalid}" class="form-control"></ion-input>
+              <div *ngIf="f.submitted && bithDayMediaurl.invalid" class="invalid-feedback">
+                <div *ngIf="bithDayMediaurl.errors.required">
                   Media url is required
                 </div>
               </div>
           </ion-col>
 
-          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" *ngIf="whatsappSetting.type == 'media'">
-            <ion-label> File Name <span>*</span></ion-label>
-              <ion-input name="filename" [(ngModel)]="whatsappSetting.filename" #fileName="ngModel" [ngClass]="{'is-invalid': f.submitted && filename.invalid}" class="form-control"></ion-input>
-              <div *ngIf="f.submitted && filename.invalid" class="invalid-feedback">
-                <div *ngIf="filename.errors.required">
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" *ngIf="whatsappSetting.mtype == 'Media' && whatsappSetting.msgType =='Anniversary'">
+            <ion-label>Anniversary Media URL <span>*</span> </ion-label>
+              <ion-input name="anniverDayMediaurl" [(ngModel)]="whatsappSetting.anniverDayMediaurl" #anniverDayMediaurl="ngModel" [ngClass]="{'is-invalid': f.submitted && anniverDayMediaurl.invalid}" class="form-control"></ion-input>
+              <div *ngIf="f.submitted && anniverDayMediaurl.invalid" class="invalid-feedback">
+                <div *ngIf="anniverDayMediaurl.errors.required">
+                  Media url is required
+                </div>
+              </div>
+          </ion-col>
+
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" *ngIf="whatsappSetting.mtype == 'Media' && whatsappSetting.msgType =='Birthday'">
+            <ion-label>Birthday File Name <span>*</span></ion-label>
+              <ion-input name="bithDayFileName" [(ngModel)]="whatsappSetting.bithDayFileName" #bithDayFileName="ngModel" [ngClass]="{'is-invalid': f.submitted && bithDayFileName.invalid}" class="form-control"></ion-input>
+              <div *ngIf="f.submitted && bithDayFileName.invalid" class="invalid-feedback">
+                <div *ngIf="bithDayFileName.errors.required">
+                  Filename is required
+                </div>
+              </div>
+          </ion-col>
+
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" *ngIf="whatsappSetting.mtype == 'Media' && whatsappSetting.msgType =='Anniversary'">
+            <ion-label>Anniversary File Name <span>*</span></ion-label>
+              <ion-input name="anniverDayFileName" [(ngModel)]="whatsappSetting.anniverDayFileName" #anniverDayFileName="ngModel" [ngClass]="{'is-invalid': f.submitted && anniverDayFileName.invalid}" class="form-control"></ion-input>
+              <div *ngIf="f.submitted && anniverDayFileName.invalid" class="invalid-feedback">
+                <div *ngIf="anniverDayFileName.errors.required">
                   Filename is required
                 </div>
               </div>
@@ -115,13 +135,25 @@
               </div>
           </ion-col>
          
-          <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" *ngIf="whatsappSetting.msgType =='Birthday'">
             <div class="d-flex labels"> 
-              <ion-label>  Message <span>*</span>  </ion-label>
+              <ion-label>Birthday  Message <span>*</span>  </ion-label>
             </div>
-              <ion-textarea name="message" [(ngModel)]="whatsappSetting.message" #message="ngModel" [ngClass]="{'is-invalid': f.submitted && message.invalid}" class="form-control text-style" rows="3"></ion-textarea>
-              <div *ngIf="f.submitted && message.invalid" class="invalid-feedback">
-                <div *ngIf="message.errors.required">
+              <ion-textarea name="birthDMessage" [(ngModel)]="whatsappSetting.birthDMessage" #birthDMessage="ngModel" [ngClass]="{'is-invalid': f.submitted && birthDMessage.invalid}" class="form-control text-style" rows="3"></ion-textarea>
+              <div *ngIf="f.submitted && birthDMessage.invalid" class="invalid-feedback">
+                <div *ngIf="birthDMessage.errors.required">
+                  Message is required
+                </div>
+              </div>
+          </ion-col>
+
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" *ngIf="whatsappSetting.msgType =='Anniversary'">
+            <div class="d-flex labels"> 
+              <ion-label>Anniversary  Message <span>*</span>  </ion-label>
+            </div>
+              <ion-textarea name="anniverDMessage" [(ngModel)]="whatsappSetting.anniverDMessage" #anniverDMessage="ngModel" [ngClass]="{'is-invalid': f.submitted && anniverDMessage.invalid}" class="form-control text-style" rows="3"></ion-textarea>
+              <div *ngIf="f.submitted && anniverDMessage.invalid" class="invalid-feedback">
+                <div *ngIf="anniverDMessage.errors.required">
                   Message is required
                 </div>
               </div>

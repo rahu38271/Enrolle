@@ -38,10 +38,12 @@ export class VoterDetailsComponent {
   
   ImagePath = ''
   VoterListByUser: any;
-  Id: any;
   id: any;
+  RoleId: any;
   colorUpdate: any = {};
   YesNo: any;
+  pageNo:any;
+  NoofRow:any;
 
   @ViewChild('slipDesign') slipDesign: ElementRef;
 
@@ -259,8 +261,8 @@ export class VoterDetailsComponent {
   voterDetails() {
     this.loader.showLoading();
     this.id = localStorage.getItem("loginId");
-    this.roleID = localStorage.getItem("userType");
-    this.voter.getVoterByUser(this.id, this.roleID).subscribe((data) => {
+    this.RoleId = localStorage.getItem("userType");
+    this.voter.getVoterByUser(this.id, this.RoleId, this.pageNo,this.NoofRow).subscribe((data) => {
       this.loader.hideLoader();
       const Vid = this.route.snapshot.paramMap.get('id');
       [this.Voter] = data.filter((Voter) => Voter.id == Vid);
