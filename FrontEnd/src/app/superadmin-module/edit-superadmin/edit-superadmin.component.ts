@@ -26,6 +26,9 @@ export class EditSuperadminComponent implements OnInit {
   superAdminId:any;
   roleId:any;
   roleName:any;
+  isSA = false
+  isA = false
+  isV = false
   
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -63,9 +66,23 @@ export class EditSuperadminComponent implements OnInit {
       this.adminId = localStorage.getItem("adminId")
       this.superAdminId = localStorage.getItem("superAdminId");
   
-      this.roleId = localStorage.getItem("userType")
-      this.roleId = Number(this.roleId);
       
+      this.roleId = localStorage.getItem("userType")
+    this.roleId = Number(this.roleId);
+    if(this.roleId == 1){
+      this.isSA = !this.isSA;
+      this.isA = !this.isA;
+      this.isV = !this.isV;
+    }
+    
+    if(this.roleId == 2){
+      this.isA = !this.isA;
+      this.isV = !this.isV;
+    }
+    
+    if(this.roleId == 3){
+      this.isV = !this.isV;
+    }
 
       this.getAssembly();
       this.getDistrict();
@@ -118,7 +135,6 @@ export class EditSuperadminComponent implements OnInit {
   }
 
   editAdmin(){
-    debugger;
     this.editData.id = Number(this.editData.id);
     if(this.editData.roleName == "MasterAdmin"){
       this.editData.roleId = 1

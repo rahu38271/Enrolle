@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 import { VoterService } from 'src/app/services/voter.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router'
+import { IonicToastService} from 'src/app/services/ionic-toast.service'
+import { LoaderService } from 'src/app/services/loader.service'
 
 @Component({
   selector: 'app-addresswise-list',
@@ -21,7 +23,13 @@ export class AddresswiseListComponent implements OnInit {
     this.isShow = !this.isShow
   }
 
-  constructor(private voter:VoterService, private router:Router, private route:ActivatedRoute) { }
+  constructor(
+      private voter:VoterService, 
+      private router:Router, 
+      private route:ActivatedRoute,
+      private toast:IonicToastService,
+      private loader:LoaderService 
+      ) { }
 
   ngOnInit() {
     this.userId = localStorage.getItem("loginId");

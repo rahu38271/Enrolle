@@ -120,9 +120,11 @@ export class AddContactComponent implements OnInit {
         this.router.navigate(['/contact']);
       }
       else {
+        this.loader.hideLoader();
         this.toast.presentToast("Contact not saved", "danger", 'alert-circle-sharp');
       }
     }, (err) => {
+      this.loader.hideLoader();
       this.toast.presentToast("Contact not saved!", "danger", 'alert-circle-sharp');
     });
   }

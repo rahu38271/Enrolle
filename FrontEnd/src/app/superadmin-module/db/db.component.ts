@@ -5,6 +5,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service'
 import { LoaderService } from 'src/app/services/loader.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { ActivatedRoute } from '@angular/router'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-db',
@@ -49,6 +50,7 @@ export class DbComponent implements OnInit {
       private loader:LoaderService,
       private toast:IonicToastService,
       private route: ActivatedRoute,
+      private router: Router
     ) {
       
   }
@@ -68,6 +70,7 @@ export class DbComponent implements OnInit {
         this.loader.hideLoader();
         this.DBConfigModal = { };
         this.toast.presentToast("DB assigned successfully!", "success", 'checkmark-circle-sharp');
+        this.router.navigate(['/superadmin']);
       }
       else{
         this.loader.hideLoader();
@@ -75,7 +78,7 @@ export class DbComponent implements OnInit {
       }
     }, (err)=>{
       this.loader.hideLoader();
-      this.toast.presentToast("Contact not saved", "danger", 'alert-circle-sharp');
+      this.toast.presentToast("Oops something went wrong!", "danger", 'alert-circle-sharp');
     })
   }
 

@@ -12,21 +12,45 @@ export class ContactService {
 
   url = environment.apiUrl
 
-  getContacts():Observable<any>{
-    return this.http.get<any>(this.url+'contact')
+  // old get contact API
+  // getContacts():Observable<any>{
+  //   return this.http.get<any>(this.url+'contact')
+  // }
+
+  // new get contact api 
+
+  getContacts(PageNo:any, NoofRow:any, SearchText:any):Observable<any>{
+    return this.http.get<any>(this.url+'Contact?PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText)
   }
 
+  // old district api 
+  // getDistrictData():Observable<any>{
+  //   return this.http.get<any>(this.url+'setting/GetAllDistricts')
+  // }
+  // new district api 
   getDistrictData():Observable<any>{
-    return this.http.get<any>(this.url+'setting/GetAllDistricts')
+    return this.http.get<any>(this.url+'Login/GetAllDistricts')
   }
 
+  //old taluka api
+  // getTalukaData(dId:any):Observable<any>{
+  //   return this.http.get<any>(this.url+'setting/GetAllTaluka?id='+dId)
+  // }
+
+  // new taluka api
   getTalukaData(dId:any):Observable<any>{
-    return this.http.get<any>(this.url+'setting/GetAllTaluka?id='+dId)
+    return this.http.get<any>(this.url+'Login/GetAllTaluka?id='+dId)
   }
 
+  // old village api
+  // getVillageData(taluka:any){
+  //  return this.http.get<any>(this.url+'Village/GetAllVillagebyTaluka?taluka='+taluka)
+  // }
+
+  // new village api
   getVillageData(taluka:any){
-   return this.http.get<any>(this.url+'Village/GetAllVillagebyTaluka?taluka='+taluka)
-  }
+    return this.http.get<any>(this.url+'Login/GetVillage?taluka='+taluka)
+   }
 
   addSingleContact(contactModal:any):Observable<any>{
     return this.http.post<any>(this.url+'contact/InsertSingleContact', contactModal)

@@ -40,44 +40,25 @@ export class AssignDataComponent implements OnInit {
     this.user.getBooths().subscribe(data => {
       //console.log(data);
       this.allBooths = data;
-      this.allBooths.reduce((acc, allboothitem) => {
-        debugger;
-        for (let item in this.UserpartNoAssignedarray) {
-          if (allboothitem.partNo == Number(this.UserpartNoAssignedarray[item])) {
-            allboothitem.checked = true; 
-           
-           debugger;
-            this.SelectedPartNo.push(allboothitem.partNo);
-           
-            //item.checked=true;
-            
+      this.allBooths.forEach(booth => {
+        this.UserpartNoAssignedarray.forEach(item=>{
+          if (booth.partNo == Number(item)) {
+             booth.checked = true; 
+             this.SelectedPartNo.push(booth.partNo);
           }
-          else{
-            allboothitem.checked = false; 
-          }
-          this.allBooths.forEach(element => {
-            this.user.getAllAssignedPart().subscribe(data=>{
-                      
-              var Dispart = data.split(',');
-            
-            if(!element.checked)
-            Dispart.forEach(el => {
-              debugger;
-              if(el ==element.partNo )
-              {
-                element.disable = true;
-              }
-              else{
-                element.disable= false;
-              }
-              
-            });
-               
-            });
-             
-           });
-        }
-      }, []);
+        })
+      //   this.user.getAllAssignedPart().subscribe(data=>{
+      //     var Dispart = data.split(',');
+      //  // if(!element.checked){}
+      //   Dispart.forEach(el => {
+      //     if(el ==booth.partNo )
+      //     {
+      //       booth.disable = true;
+      //     }
+      //   });
+      //   });
+       });
+     
     });
     debugger;
     this.Userid = this.route.snapshot.paramMap.get('id');

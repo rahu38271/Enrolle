@@ -8,14 +8,13 @@ import { AddContactComponent } from './add-contact/add-contact.component';
 import { ImportContactComponent } from './import-contact/import-contact.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { EditContactComponent } from './edit-contact/edit-contact.component';
-import { ContactDetailsComponent } from './contact-details/contact-details.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
-  declarations: [ContactComponent,AddContactComponent,ImportContactComponent,EditContactComponent, ContactDetailsComponent],
+  declarations: [ContactComponent,AddContactComponent,ImportContactComponent,EditContactComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -25,7 +24,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     NgxPaginationModule,
     HttpClientModule,
     NgSelectModule,
-    RouterModule.forChild([{path:'', component:ContactComponent}, { path:'add-contact', component:AddContactComponent}, {path:'import-contact', component:ImportContactComponent},{path:'edit-contact', component:EditContactComponent}, {path:'contact-details/:id', component:ContactDetailsComponent}])
+    RouterModule.forChild([{path:'', component:ContactComponent}, { path:'add-contact', component:AddContactComponent}, {path:'import-contact', component:ImportContactComponent},{path:'edit-contact', component:EditContactComponent}])
   ],
   exports: [ RouterModule ],
   bootstrap: [ ContactComponent ]

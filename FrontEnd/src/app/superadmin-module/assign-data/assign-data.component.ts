@@ -37,49 +37,98 @@ export class AssignDataComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    var userrole  = localStorage.getItem("userType")
     this.SelectedPartNo = [];
     this.sadmin.getBooths().subscribe(data => {
       //console.log(data);
       this.allBooths = data;
-      this.allBooths.reduce((acc, allboothitem) => {
-        debugger;
-        for (let item in this.UserpartNoAssignedarray) {
-          if (allboothitem.partNo == Number(this.UserpartNoAssignedarray[item])) {
-            allboothitem.checked = true;
+      this.allBooths = data;
+      this.allBooths.forEach(booth => {
 
-            debugger;
-            this.SelectedPartNo.push(allboothitem.partNo);
-
-            //item.checked=true;
-
+      var index  = this.UserpartNoAssignedarray.findIndex(x=>x == booth.partNo);
+          if ( index == -1)
+          {
+            booth.checked = false; 
           }
-          else {
-            allboothitem.checked = false;
+          else
+          {
+            booth.checked = true; 
+            this.SelectedPartNo.push(booth.partNo);
           }
-          this.allBooths.forEach(element => {
-            this.sadmin.getAllAssignedPart().subscribe(data => {
-
-              var Dispart = data.split(',');
-
-              if (!element.checked)
-                Dispart.forEach(el => {
-                  debugger;
-                  if (el == element.partNo) {
-                    element.disable = true;
-                  }
-                  else {
-                    element.disable = false;
-                  }
-
-                });
-
-            });
-
+          if(userrole == '3')
+          {
+          this.sadmin.GetPartNoAssignedOtherthanThisuser(this.Userid).subscribe(notassigned=>{
+            if(notassigned)
+            {
+              debugger
+              var arr1  = notassigned.partNo.split(',');
+              var index3  = arr1.findIndex(x=>x == booth.partNo);
+              if(index3 == -1 )
+              {
+                booth.hide = false;
+              }
+              else
+              {
+                booth.hide = true; 
+              }
+            }
           });
         }
-      }, []);
+          this.sadmin.getAssignedPartByUser(this.Userid).subscribe(data=>{
+              if(data)
+              {
+              var arr  = data.partNo.split(',');
+              var index2  = arr.findIndex(x=>x == booth.partNo);
+              if(index2 == -1 )
+              {
+                booth.disable = false;
+              }
+              else if(!booth.checked)
+              {
+                booth.disable = true; 
+              }
+            }
+          });
+      });
+      // this.allBooths.reduce((acc, allboothitem) => {
+      //   debugger;
+      //   for (let item in this.UserpartNoAssignedarray) {
+      //     if (allboothitem.partNo == Number(this.UserpartNoAssignedarray[item])) {
+      //       allboothitem.checked = true;
+
+      //       debugger;
+      //       this.SelectedPartNo.push(allboothitem.partNo);
+
+      //       //item.checked=true;
+
+      //     }
+      //     else {
+      //       allboothitem.checked = false;
+      //     }
+      //     this.allBooths.forEach(element => {
+      //       this.sadmin.getAllAssignedPart().subscribe(data => {
+
+      //         var Dispart = data.split(',');
+
+      //         if (!element.checked)
+      //           Dispart.forEach(el => {
+      //             debugger;
+      //             if (el == element.partNo) {
+      //               element.disable = true;
+      //             }
+      //             else {
+      //               element.disable = false;
+      //             }
+
+      //           });
+
+      //       });
+
+      //     });
+      //   }
+      // }, []);
     });
-    debugger;
+ 
     this.Userid = this.route.snapshot.paramMap.get('id');
     this.UserpartNoAssigned = this.route.snapshot.paramMap.get('partNoAssigned');
     this.UserpartNoAssignedarray = this.UserpartNoAssigned.split(',');

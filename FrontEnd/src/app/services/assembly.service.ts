@@ -13,8 +13,14 @@ export class AssemblyService {
 
   constructor(private http:HttpClient) { }
 
+  // old assembly api
+  // getAssemblyData():Observable<any>{
+  //   return this.http.get<any>(this.url + 'Assembly/GetAllAssembly')
+  // }
+
+  // new assembly api
   getAssemblyData():Observable<any>{
-    return this.http.get<any>(this.url + 'Assembly/GetAllAssembly')
+    return this.http.get<any>(this.url + 'Login/GetAllassembly')
   }
 
   addSingleAssembly(asemblyModal:any):Observable<any>{
