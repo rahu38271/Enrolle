@@ -422,11 +422,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetDistinctPartNumber")]
-        public IActionResult GetDistinctPartNumber()
+        public IActionResult GetDistinctPartNumber(int roleid, int userid)
         {
             try
             {
-                return Ok(_voterService.GetDistinctPartNo());
+                return Ok(_voterService.GetDistinctPartNo(roleid,userid));
             }
             catch (Exception ex)
             {
@@ -464,7 +464,7 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetTotalVoterCount")]
-        public IActionResult GetTotalVoterCount(int age1, int age2)
+        public IActionResult GetTotalVoterCount()
         {
             try
             {
