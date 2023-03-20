@@ -54,9 +54,9 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.GetBoothNamebyUserId(userid,roleid);
         }
 
-        public IEnumerable<VoterPPBooth> GetDistinctPartNo()
+        public IEnumerable<VoterPPBooth> GetDistinctPartNo(int roleid, int userid)
         {
-            return _voterRepository.GetDistinctPartNo();
+            return _voterRepository.GetDistinctPartNo(roleid,userid);
         }
 
         public IEnumerable<MemberDetail> GetMemberDetailsbyVId(int voterid)
