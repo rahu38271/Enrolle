@@ -1,0 +1,171 @@
+
+
+<ion-content>
+    <ion-header class="android">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button color="primary" auto-hide="false"></ion-menu-button>
+        </ion-buttons>
+        <ion-title> New Voter </ion-title>
+        <ion-buttons slot="primary">
+          <ion-button (click)="search()">
+            <ion-icon name="search-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <div class="main-content">
+      <div class="web">
+        <ion-grid class="header">
+          <ion-row>
+            <ion-col size-xs="12" size-sm="6">
+              <ion-card-header>
+                <ion-card-title>New Voter <span>  </span></ion-card-title>
+                <div class="headerLine"></div>
+              </ion-card-header>
+            </ion-col>
+            <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+              <ion-button class="button-download" color="primary" routerLink="/new-voter/add-new-voter"><ion-icon name="add-circle-sharp"></ion-icon>New Voter</ion-button>
+              <!-- <ion-button class="button-download" fill="outline" color="primary" ><ion-icon name="refresh-circle-sharp"></ion-icon>Refresh</ion-button> -->
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+  
+      <!-- <ion-grid class="topForm">
+        <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+          <ion-row>
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
+              <ion-label>   Appointment Date   </ion-label>
+              <ion-input value="{{ appoDate | date: 'yyyy-MM-dd' }}" id="appoDate" class="form-control" required>
+              </ion-input>
+  
+              <ion-modal trigger="appoDate" size="cover">
+                <ng-template>
+                  <ion-datetime presentation="date" [(ngModel)]="appoDate" name="appoDate">
+                    <span slot="title"> {{ year }} </span>
+                  </ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </ion-col>
+            
+            <ion-col size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="12">
+                <ion-button class="searchBtn" type="submit" (click)="presentLoading()" [disabled]="!f.form.valid">Search</ion-button>
+                <ion-button type="reset" (click)="resetForm()" class="searchBtn" color="danger">Clear</ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-grid> -->
+  
+      <ion-card>
+        <ion-card-content>
+          <div class="headSection">
+            <div class="search">
+              <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+            </div>
+            <ion-button class="button-download" color="success" (click)="downloadExcel()" ><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
+          </div>
+          <div class="horizontal-scroll">
+            <table class="table" id="table13" #epltable>
+              <thead>
+                <tr>
+                  <th>
+                    AC.No.		
+                  </th>
+                  <th>
+                      Part No.
+                  </th>
+                  <th>Voter</th>
+                  <th>
+                    Name
+                  </th>
+                  <th>
+                    Mobile No. 1	
+                  </th>
+                  <th>
+                    Mobile No. 2	
+                  </th>
+                  <th>
+                    Mobile No. 3	
+                  </th>
+                  <th>
+                    Mobile No. 4	
+                  </th>
+                  <th>
+                    DoB					
+                  </th>
+                  <th>
+                    House No.
+                  </th>
+                  <th>
+                    Card No.
+                  </th>
+                  <th>Gender</th>
+                  <th>Age</th>
+                  <th>
+                    Society Name
+                  </th>
+                  <th>Zone</th>
+                  <th>Address</th>
+                  <th>Modified Address</th>
+                  <th>Area</th>
+                  <th>Favour</th>
+                  <th>Data Type</th>
+                  <th>Remark</th>
+                  <th>Reference</th>
+                  <th>Position</th>
+                  <th>Voting Card</th>
+                  <th>Personal Relation</th>
+                  <th id="element-to-hide" data-html2canvas-ignore="true">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>104</td>
+                  <td>1</td>
+                  <td>Sagar Manaji Salunkhe</td>
+                  <td>
+                    9158490455
+                  </td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>11/06/1994</td>
+                  <td>C39</td>
+                  <td>12341234</td>
+                  <td>Male</td>
+                  <td>28</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td id="element-to-hide" data-html2canvas-ignore="true">
+                    <ion-button routerLink="/new-voter/edit-new-voter" color="success" size="small"><ion-icon name="pencil-sharp"></ion-icon></ion-button>
+                    <!-- <ion-button color="danger" size="small" (click)="deleteAppointment()"><ion-icon name="trash-sharp"></ion-icon></ion-button> -->
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </ion-content>
+                          
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed" routerLink="/appointment/add-appointment">
+    <ion-fab-button color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>

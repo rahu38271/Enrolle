@@ -66,23 +66,22 @@ export class EditSuperadminComponent implements OnInit {
       this.adminId = localStorage.getItem("adminId")
       this.superAdminId = localStorage.getItem("superAdminId");
   
-      
       this.roleId = localStorage.getItem("userType")
-    this.roleId = Number(this.roleId);
-    if(this.roleId == 1){
-      this.isSA = !this.isSA;
-      this.isA = !this.isA;
-      this.isV = !this.isV;
-    }
-    
-    if(this.roleId == 2){
-      this.isA = !this.isA;
-      this.isV = !this.isV;
-    }
-    
-    if(this.roleId == 3){
-      this.isV = !this.isV;
-    }
+      this.roleId = Number(this.roleId);
+      if(this.roleId == 1){
+        this.isSA = !this.isSA;
+        this.isA = !this.isA;
+        this.isV = !this.isV;
+      }
+      
+      if(this.roleId == 2){
+        this.isA = !this.isA;
+        this.isV = !this.isV;
+      }
+      
+      if(this.roleId == 3){
+        this.isV = !this.isV;
+      }
 
       this.getAssembly();
       this.getDistrict();

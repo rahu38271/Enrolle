@@ -24,13 +24,16 @@ export class ContactComponent implements OnInit {
   searchWeb: string;
   
   Cid:any;
-  fileName= 'Contact.xlsx'; 
+  fileName= 'Contact.xlsx';
+  PageNo:any=1;
+  NoofRow:any=25; 
+  SearchText:any;
 
   currentDate = new Date();
   birthDate: any;
-  PageNo:any = 1;
-  NoofRow:any = 25
-  SearchText:any;
+  // PageNo:any = 1;
+  // NoofRow:any = 25
+  // SearchText:any;
   
 
   constructor

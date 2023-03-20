@@ -118,11 +118,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public IEnumerable<VoterPPBooth> GetDistinctPartNo()
+        public IEnumerable<VoterPPBooth> GetDistinctPartNo(int Role, int UserId)
         {
             try
             {
-               return _customContext.Set<VoterPPBooth>().FromSqlRaw("USP_GetPartNoBooth").ToList();
+               return _customContext.Set<VoterPPBooth>().FromSqlRaw("USP_GetPartNoBooth {0},{1}",Role, UserId).ToList();
             }
             catch (Exception ex)
             {

@@ -17,6 +17,8 @@ export class SmsCampaignReportPage implements OnInit {
   whatsappMsg = '';
   campRepModel: any = {};
   myForm;
+  cp:number = 1;
+  
 
   slider_state:string = "slide_out";
   toggleSlider(): void{

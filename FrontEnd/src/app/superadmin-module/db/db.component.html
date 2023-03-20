@@ -16,12 +16,12 @@
             <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>Configure DB
           </ion-text>
         </ion-row>
-        <ion-row>
-          <ion-col>
-            <img src="/assets/img/database.png" alt="">
-          </ion-col>
-          <ion-col>
-            <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+        <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+          <ion-row>
+            <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
+              
+            </ion-col>
+            <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
               <ion-row>
                 <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" >
                   <ion-label position="floating"> DB Name   <span>*</span> </ion-label>
@@ -57,9 +57,15 @@
                   </div>
                 </ion-col>
               </ion-row>
+<<<<<<< HEAD
             </form>
           </ion-col>
         </ion-row>
+=======
+            </ion-col>
+          </ion-row>
+        </form>
+>>>>>>> feature/partassign
       </ion-grid>
     </div>
   </ion-content>

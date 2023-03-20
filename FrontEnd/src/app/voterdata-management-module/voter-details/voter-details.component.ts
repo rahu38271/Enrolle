@@ -36,12 +36,14 @@ export class VoterDetailsComponent {
   text: string=''
   imgurl:string= 'https://cdn.pixabay.com/photo/2019/12/26/05/10/pink-4719682_960_720.jpg'
   
-  
+  ImagePath = ''
   VoterListByUser: any;
-  Id: any;
   id: any;
+  RoleId: any;
   colorUpdate: any = {};
   YesNo: any;
+  pageNo:any;
+  NoofRow:any;
 
   @ViewChild('slipDesign') slipDesign: ElementRef;
 
@@ -259,8 +261,8 @@ export class VoterDetailsComponent {
   voterDetails() {
     this.loader.showLoading();
     this.id = localStorage.getItem("loginId");
-    this.roleID = localStorage.getItem("userType");
-    this.voter.getVoterByUser(this.id, this.roleID).subscribe((data) => {
+    this.RoleId = localStorage.getItem("userType");
+    this.voter.getVoterByUser(this.id, this.RoleId, this.pageNo,this.NoofRow).subscribe((data) => {
       this.loader.hideLoader();
       const Vid = this.route.snapshot.paramMap.get('id');
       [this.Voter] = data.filter((Voter) => Voter.id == Vid);
@@ -294,26 +296,26 @@ export class VoterDetailsComponent {
     this.location.back();
   }
 
-  printSlip() {
+  onSubmit(){
     
   }
 
-  // printSlip() {
-  //   this.content = document.getElementById('slipDesign').innerHTML;
-  //   let options = {
-  //     documentSize: 'a7',
-  //     type: 'share',
-  //     landscape: 'portrait', 86mm x 54mm
-  //     fileName: 'voter slip.pdf'
-  //   };
-  //   this.pdfGenerator.fromData(this.content, options)
-  //     .then((base64) => {
-  //       console.log('OK', base64);
-  //     }).catch((error) => {
-  //       console.log('error', error);
-  //     });
+  printSlip() {
+    this.content = document.getElementById('slipDesign').innerHTML;
+    let options = {
+      documentSize: 'a7',
+      type: 'share',
+      //landscape: 'portrait', 86mm x 54mm
+      fileName: 'voter slip.pdf'
+    };
+    this.pdfGenerator.fromData(this.content, options)
+      .then((base64) => {
+        console.log('OK', base64);
+      }).catch((error) => {
+        console.log('error', error);
+      });
 
-  // }
+  }
 
   // share() {
   //   var options = {

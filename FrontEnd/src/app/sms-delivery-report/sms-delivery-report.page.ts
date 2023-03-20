@@ -17,6 +17,10 @@ export class SmsDeliveryReportPage implements OnInit {
   whatsappMsg = '';
   campRepModel: any = {};
   myForm;
+  cp:number = 1;
+  searchWeb:string;
+  date = '';
+  date1 = '';
   
   slider_state:string = "slide_out";
   toggleSlider(): void{

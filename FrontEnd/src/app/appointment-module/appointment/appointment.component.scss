@@ -1,12 +1,9 @@
 
-
-
-
 .header { width: 100%; }
 
 table { margin-top: 10px; }
 
-td ion-icon { cursor: pointer; font-size: 12px; font-weight: 600;  }
+td ion-icon { cursor: pointer; font-size: 18px; font-weight: 600;  }
 
 table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !important; }
 
@@ -31,3 +28,11 @@ ion-modal {
       display: none;
     }
   }
+
+.horizontal-scroll {
+  overflow: scroll;
+}
+
+.table {
+  width: 1700px;
+}

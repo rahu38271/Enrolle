@@ -23,6 +23,39 @@
       <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
         <ion-row>
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Assembly </ion-label>
+              <ion-select
+                idlDefault 
+                name="Assembly" 
+                [(ngModel)]="addVoterModal.Assembly" 
+                placeholder="Select"  
+                class="form-control"
+              >
+                <ion-select-option class="select_option" *ngFor="let item of assemblyList" [value]="item.assemblyName"> 
+                  {{item.assemblyName}}
+                </ion-select-option>
+              </ion-select>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Part No. </ion-label>
+            <ion-input type="number" name="partNo" [(ngModel)]="addVoterModal.PartNo" class="form-control"></ion-input>
+              <!-- <ion-select type="number" name="partNo" [(ngModel)]="addVoterModal.PartNo" placeholder="Select" interface="popover" class="form-control">
+                <ion-select-option class="select_option" value="Part No. 1"> Part No. 1</ion-select-option>
+                <ion-select-option class="select_option" value="Part No. 2">Part No. 2</ion-select-option>
+              </ion-select> -->
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Voter Sr. No. </ion-label>
+            <ion-input type="number" name="voterSrNo" [(ngModel)]="addVoterModal.voterSrNo" class="form-control"></ion-input>
+              <!-- <ion-select type="number" name="partNo" [(ngModel)]="addVoterModal.PartNo" placeholder="Select" interface="popover" class="form-control">
+                <ion-select-option class="select_option" value="Part No. 1"> Part No. 1</ion-select-option>
+                <ion-select-option class="select_option" value="Part No. 2">Part No. 2</ion-select-option>
+              </ion-select> -->
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label>Full Name <span>*</span> </ion-label>
               <ion-input [(ngModel)]="addVoterModal.FullName" name="FullName" (keypress)="onKeyPress($event)" class="form-control text-capitalize" required></ion-input>
           </ion-col>
@@ -186,29 +219,9 @@
               </ion-select>
           </ion-col>
 
-          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
-            <ion-label> Assembly </ion-label>
-              <ion-select
-                idlDefault 
-                name="Assembly" 
-                [(ngModel)]="addVoterModal.Assembly" 
-                placeholder="Select"  
-                class="form-control"
-              >
-                <ion-select-option class="select_option" *ngFor="let item of assemblyList" [value]="item.assemblyName"> 
-                  {{item.assemblyName}}
-                </ion-select-option>
-              </ion-select>
-          </ion-col>
+          
 
-          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
-            <ion-label> Part No. </ion-label>
-            <ion-input type="number" name="partNo" [(ngModel)]="addVoterModal.PartNo" class="form-control"></ion-input>
-              <!-- <ion-select type="number" name="partNo" [(ngModel)]="addVoterModal.PartNo" placeholder="Select" interface="popover" class="form-control">
-                <ion-select-option class="select_option" value="Part No. 1"> Part No. 1</ion-select-option>
-                <ion-select-option class="select_option" value="Part No. 2">Part No. 2</ion-select-option>
-              </ion-select> -->
-          </ion-col>
+          
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Taluka  </ion-label>

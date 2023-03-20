@@ -36,7 +36,7 @@ import { DbComponent } from './db/db.component';
       {path:'add-superadmin', component:AddSuperadminComponent}, 
       {path:'edit-superadmin', component:EditSuperadminComponent}, 
       {path:'account/:id', component:AccountComponent},
-      {path:'assign-data/:id/:partNoAssigned',component:AssignDataComponent},
+      {path:'assign-data/:id/:partNoAssigned/:role',component:AssignDataComponent},
       {path:'db/:id', component:DbComponent}
     ])
   ]

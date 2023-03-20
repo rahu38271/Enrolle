@@ -8,6 +8,7 @@ import { AssemblyService} from 'src/app/services/assembly.service'
 import {WardService } from 'src/app/services/ward.service'
 import { BoothService } from 'src/app/services/booth.service'
 import { Router } from '@angular/router'
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-voterdata',
@@ -20,7 +21,7 @@ export class EditVoterdataComponent implements OnInit {
   talukaList:any;
   Id:any;
   editVoter:any = { };
-
+  partNo:any;
   myForm;
 
   year : number = new Date().getFullYear();
@@ -31,6 +32,9 @@ export class EditVoterdataComponent implements OnInit {
   wardList: any;
   boothList: any;
   EditData:any = {};
+  birthDate= ''
+  CreatedDate = ''
+  // CreatedDate
  
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -62,7 +66,8 @@ export class EditVoterdataComponent implements OnInit {
       private assembly:AssemblyService,
       private ward:WardService,
       private booth:BoothService,
-      private router:Router
+      private router:Router,
+      private location: Location
     )
      {
       
@@ -115,7 +120,7 @@ export class EditVoterdataComponent implements OnInit {
     this.getDistrict();
     this.getAssembly();
     this.getWard();
-    this.getBooth();
+    this.getBooth()
     
   }
 
@@ -132,6 +137,14 @@ export class EditVoterdataComponent implements OnInit {
     }
   }
 
+  onSubmit(){
+
+  }
+
+  goBack(){
+    this.location.back();
+  }
+
   save(){
     debugger;
     console.log(this.EditData);
@@ -140,7 +153,9 @@ export class EditVoterdataComponent implements OnInit {
       this.EditData = {};
         this.loader.hideLoader();
         this.toast.presentToast("Voter updated successfully!", "success", 'checkmark-circle-sharp');
-        this.router.navigate(['/voter-summary'])
+        //this.router.navigate(['/voter-summary'])
+        this.router.navigate(['/voterdata-management',{partNo:this.partNo}])
+        
     },(err)=>{
       this.toast.presentToast("Voter not updated!", "danger", 'checkmark-circle-sharp');
       this.loader.hideLoader();

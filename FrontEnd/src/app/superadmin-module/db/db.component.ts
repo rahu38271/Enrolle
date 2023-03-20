@@ -4,8 +4,7 @@ import { PopoverController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/authentication.service'
 import { LoaderService } from 'src/app/services/loader.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
-import { ActivatedRoute } from '@angular/router'
-import { Router } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
   selector: 'app-db',

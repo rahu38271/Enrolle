@@ -11,4 +11,8 @@ export class UserSettingComponent implements OnInit {
 
   ngOnInit() {}
 
+  onSubmit(){
+    
+  }
+
 }

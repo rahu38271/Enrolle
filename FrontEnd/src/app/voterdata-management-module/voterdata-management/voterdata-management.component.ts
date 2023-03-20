@@ -24,6 +24,8 @@ export class VoterdataManagementComponent {
   partNumber: any;
   id: any;
   userId: any;
+  roleID:any
+
 
   searchModal: any = {
     LastName:'',
@@ -37,7 +39,8 @@ export class VoterdataManagementComponent {
     ToAge:'',
     Village:'',
     Gender:'',
-    UserId:''
+    UserId:'',
+    roleID:''
   };
   partNo: any;
    
@@ -85,10 +88,12 @@ keyPressNumbers(event) {
    ngOnInit(){
     this.partNo = this.route.snapshot.paramMap.get('partNo');
     this.userId = this.route.snapshot.paramMap.get('id');
+    this.roleID = localStorage.getItem("userType");
     this.loader.showLoading();
     this.voter.boothWiseVoterList(this.partNo).subscribe((data)=>{
       this.loader.hideLoader();
       if(data){
+        this.partNo = this.partNo
         this.voterByPart = data;
       }
       else{
@@ -186,6 +191,7 @@ keyPressNumbers(event) {
       this.searchModal.Village = this.searchModal.Village;
     }
     this.searchModal.UserId = Number(this.userId);
+    this.searchModal.roleID = Number(this.roleID);
     this.searchModal.PartNo = this.partNo;
     this.loader.showLoading();
     this.voter.advanceSearch(this.searchModal).subscribe(data=>{

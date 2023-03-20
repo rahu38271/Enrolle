@@ -33,7 +33,7 @@ namespace ElectionAlerts.Repository.Interface
         int UpdateStarVoter(int Id,string YesNo);
         int UpdateVoterInclination(int id, string Colour);
         IEnumerable<MemberDetail> GetMemberDetailsbyVId(int voterid);
-        IEnumerable<VoterPPBooth> GetDistinctPartNo();
+        IEnumerable<VoterPPBooth> GetDistinctPartNo(int Role, int UserId);
         IEnumerable<VoterbyBooth> GetVoterbybooth(int userid,int RoleId);
         IEnumerable<Voter> GetVoterByUserId(int userid,int roleid);
         IEnumerable<Voter> GetVoterAgeBetween(int Age1, int Age2,string Gender, int UserId,int RoleId);

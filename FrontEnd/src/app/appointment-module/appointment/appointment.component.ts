@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AlertController,LoadingController,ToastController } from '@ionic/angular';
 import * as xlsx from 'xlsx';
 import html2pdf from 'html2pdf.js'
+import { AppointmentService } from 'src/app/services/appointment.service'
+import { LoaderService } from 'src/app/services/loader.service'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-appointment',
@@ -9,6 +12,8 @@ import html2pdf from 'html2pdf.js'
   styleUrls: ['./appointment.component.scss'],
 })
 export class AppointmentComponent implements OnInit {
+
+  getApmList:any;
 
   year : number = new Date().getFullYear();
 
@@ -28,7 +33,41 @@ export class AppointmentComponent implements OnInit {
 
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
 
-  constructor(public alertController: AlertController,public loadingController: LoadingController,public toastController: ToastController) { }
+  constructor(
+    public alertController: AlertController,
+    public loadingController: LoadingController,
+    public toastController: ToastController,
+    private appointment:AppointmentService,
+    private loader:LoaderService,
+    private router:Router, 
+    ) { }
+
+    ngOnInit() {
+      this.appoinmentList();
+    }
+
+  appoinmentList(){
+    this.loader.showLoading();
+    this.appointment.getAppointments().subscribe(data=>{
+      if(data){
+        this.getApmList = data;
+        this.loader.hideLoader();
+        this.getApmList.forEach(e => {
+          e.birthDate = e.birthDate.split['T'](0);
+          e.appointmentDate = e.appointmentDate.split['T'](0);
+        });
+      }
+      else{
+        this.loader.hideLoader();
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
+  }
+
+  editAppointment(data:any){
+    this.router.navigateByUrl('/appointment/edit-appointment', { state: data });
+  }
 
   resetForm(){
     this.myForm1.reset();
@@ -54,9 +93,7 @@ export class AppointmentComponent implements OnInit {
     toast.present();
   }
 
-  ngOnInit() {
-    
-   }
+  
 
   async deleteAppointment() {
     const alert = await this.alertController.create({
