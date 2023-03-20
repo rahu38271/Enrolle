@@ -119,7 +119,7 @@
                     </tr> -->
                     <tr *ngFor="let item of getAdminList">
                       <td>{{item.id}}</td>
-                      <td class="text-capitalize" [routerLink]="['/superadmin/assign-data',item.id,item.Partnoassigned]">
+                      <td class="text-capitalize" [routerLink]="['/superadmin/assign-data',item.id,item.Partnoassigned?item.Partnoassigned:0,item.roleId]">
                         <a>{{item.name}}</a>
                       </td>
                       <td>{{item.contact}}</td>
@@ -165,7 +165,7 @@
               <ion-icon class="edit" name="pencil-sharp"></ion-icon>
             </a>
             <a>
-              <ion-icon (click)="deleteUser()" class="delete" name="trash-sharp"></ion-icon>
+              <ion-icon (click)="deleteSA()" class="delete" name="trash-sharp"></ion-icon>
             </a>
           </ion-item-options>
           <ion-item routerLink="/superadmin/account" lines="none">

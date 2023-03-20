@@ -44,6 +44,10 @@ export class HomePage implements AfterViewInit {
     var isSuperAdmin = roleId == "2"
     var isAdmin = roleId == "3";
     var isVolunteer = roleId == "4"
+    // var isMasterAdmin = roleName == "1"
+    // var isSuperAdmin = roleName == "2"
+    // var isAdmin = roleName == "3";
+    // var isVolunteer = roleName == "4"
     
     this.isTab = isMasterAdmin || isSuperAdmin || isAdmin;
   }

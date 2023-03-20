@@ -31,7 +31,7 @@ namespace ElectionAlerts.Services.Interface
         int UpdateMemberDetail(MemberDetail memberDetail);
         int UpdateStarVoter(int Id, string YesNo);
         int UpdateVoterInclination(int id, string Colour);
-        IEnumerable<VoterPPBooth> GetDistinctPartNo();
+        IEnumerable<VoterPPBooth> GetDistinctPartNo(int role, int UserId);
         IEnumerable<MemberDetail> GetMemberDetailsbyVId(int voterid);
         IEnumerable<Voter> GetVoterByUserId(int userid,int roleid);
         IEnumerable<Voter> GetVoterAgeBetween(int Age1, int Age2,string Gender, int UserId,int RoleId);

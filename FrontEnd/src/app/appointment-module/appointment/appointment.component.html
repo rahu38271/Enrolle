@@ -4,7 +4,7 @@
   <ion-header class="android">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-menu-button color="primary" auto-hide="false"></ion-menu-button>
+        <ion-menu-button auto-hide="false"></ion-menu-button>
       </ion-buttons>
       <ion-title> Appointments </ion-title>
       <ion-buttons slot="primary">
@@ -20,13 +20,13 @@
         <ion-row>
           <ion-col size-xs="12" size-sm="6">
             <ion-card-header>
-              <ion-card-title>Appointments <span> ( 1 ) </span></ion-card-title>
+              <ion-card-title>Appointments <span></span></ion-card-title>
               <div class="headerLine"></div>
             </ion-card-header>
           </ion-col>
           <ion-col size-xs="12" size-sm="6" class="ion-text-right">
             <ion-button class="button-download" color="primary" routerLink="/appointment/add-appointment"><ion-icon name="add-circle-sharp"></ion-icon>Appointment</ion-button>
-            <ion-button class="button-download" fill="outline" color="primary" ><ion-icon name="refresh-circle-sharp"></ion-icon>Refresh</ion-button>
+            <!-- <ion-button class="button-download" fill="outline" color="primary" ><ion-icon name="refresh-circle-sharp"></ion-icon>Refresh</ion-button> -->
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -48,28 +48,7 @@
               </ng-template>
             </ion-modal>
           </ion-col>
-          <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
-            <ion-label>  Current Status  </ion-label>
-              <ion-select name="Status" [(ngModel)]="Status" placeholder="Select" interface="popover" class="form-control" required>
-                <ion-select-option class="select_option" value="Complete"> Complete</ion-select-option>
-                    <ion-select-option class="select_option" value="Pending"> Pending</ion-select-option>
-                    <ion-select-option class="select_option" value="In Progress"> In Progress</ion-select-option>
-              </ion-select>
-          </ion-col>
-          <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
-            <ion-label>  Prefference   </ion-label>
-              <ion-select name="Priority" [(ngModel)]="Priority" placeholder="Select" interface="popover" class="form-control" >
-                <ion-select-option class="select_option" value="Important"> Important</ion-select-option>
-                    <ion-select-option class="select_option" value="Normal"> Normal </ion-select-option>
-                    <ion-select-option class="select_option" value="Very Important"> Very Important </ion-select-option>
-              </ion-select>
-          </ion-col>
           
-          
-          <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
-            <ion-label>   Responsibility    </ion-label>
-              <ion-input name="Responsibility" [(ngModel)]="Responsibility" class="form-control"></ion-input>
-          </ion-col>
           <ion-col size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="12">
               <ion-button class="searchBtn" type="submit" (click)="presentLoading()" [disabled]="!f.form.valid">Search</ion-button>
               <ion-button type="reset" (click)="resetForm()" class="searchBtn" color="danger">Clear</ion-button>
@@ -87,47 +66,94 @@
           <ion-button class="button-download" color="success" (click)="downloadExcel()" ><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
         </div>
         <div class="horizontal-scroll">
-          <table id="table13" #epltable>
+          <table class="table" id="table13" #epltable>
             <thead>
               <tr>
                 <th style="width: 40px;">
-                  अ.क्र.			
+                  Sr.No.		
                 </th>
                 <th>
-                  बैठक दिनांक	
+                  Name
                 </th>
                 <th>
-                  विषय	
+                  Category
                 </th>
                 <th>
-                  जबाबदारी					
+                  Appointment Date
                 </th>
                 <th>
-                  सद्यस्थिती
+                  Phone No.	
                 </th>
-                
-                
+                <th>
+                  DoB					
+                </th>
+                <th>
+                  Work
+                </th>
+                <th>
+                  District
+                </th>
+                <th>
+                  Taluka
+                </th>
+                <th>Flat / House No.</th>
+                <th>Society / Building Name</th>
+                <th>Ward</th>
+                <th>Pincode</th>
+                <th>City / Village</th>
+                <th>File</th>
+                <th>Remark</th>
                 <th id="element-to-hide" data-html2canvas-ignore="true">
                   Action
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr>
+              <!-- <tr>
                 <td>1</td>
-                <td>24/01/2022</td>
+                <td>Sagar Manaji Salunkhe</td>
+                <td></td>
+                <td>11/03/2023</td>
                 <td>
-                  <span>Meeting</span>
+                  9158490455
                 </td>
-                <td>test</td>
-                <td>test</td>
-                
+                <td>11/06/1994</td>
+                <td>Aadhar Card</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
                 <td id="element-to-hide" data-html2canvas-ignore="true">
-                  <ion-button routerLink="/appointment/edit-appointment" color="success" size="small"><ion-icon name="pencil-sharp"></ion-icon></ion-button>
-                  <ion-button color="danger" size="small" (click)="deleteAppointment()"><ion-icon name="trash-sharp"></ion-icon></ion-button>
+                  <ion-icon routerLink="/appointment/edit-appointment" name="create-sharp"></ion-icon>
+                </td>
+              </tr> -->
+              <tr *ngFor="let item of getApmList">
+                <td>{{item.id}}</td>
+                <td>{{item.firstName}} {{item.middleName}} {{item.lastName}}</td>
+                <td>{{item.category}}</td>
+                <td>{{item.appointmentDate}}</td>
+                <td>
+                  {{item.phoneNo}}
+                </td>
+                <td>{{item.birthDate}}</td>
+                <td>{{item.work}}</td>
+                <td>{{item.district}}</td>
+                <td>{{item.taluka}}</td>
+                <td>{{item.houseNo}}</td>
+                <td>{{item.soc_BldgName}}</td>
+                <td>{{item.wardNo}}</td>
+                <td>{{item.pinCode}}</td>
+                <td>{{item.city_Village}}</td>
+                <td>{{item.fileName}}</td>
+                <td>{{item.remark}}</td>
+                <td id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-icon (click)="editAppointment(item)" name="create-sharp"></ion-icon>
                 </td>
               </tr>
-              
             </tbody>
           </table>
           <pagination-controls (pageChange)="cp = $event"></pagination-controls>

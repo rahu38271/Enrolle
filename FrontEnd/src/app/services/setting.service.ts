@@ -1,15 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
+import {environment } from 'src/environments/environment'
 
 @Injectable({
   providedIn: 'root'
 })
 export class SettingService {
 
+  url = environment.apiUrl;
+
   constructor(private http:HttpClient) { }
 
-  whatsappMsg(number:any,type:any,message:any,media_url:any,filename:any,instance_id:any,access_token:any){
-    return this.http.get<any>('https://app.imsscall.in/api/send.php?number='+number+'&type='+type+'&message='+message+'&media_url='+media_url+'&filename='+filename+'&instance_id='+instance_id+'&access_token='+access_token);
+  whatsappMsgSetting(whatsappSetting:any){
+    debugger;
+    return this.http.post<any>(this.url+'WhatUp/CreateUpdateWhatUp', whatsappSetting);
   }
 
 }

@@ -25,22 +25,22 @@
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> First Name <span>*</span> </ion-label>
-            <ion-input name="firstName" class="form-control"></ion-input>
+            <ion-input name="FirstName" [(ngModel)]="appointmentModal.FirstName" class="form-control" required></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
-            <ion-label> Middle Name </ion-label>
-            <ion-input name="MiddleName" class="form-control" ></ion-input>
+            <ion-label> Middle Name  </ion-label>
+            <ion-input name="MiddleName" [(ngModel)]="appointmentModal.MiddleName" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Last Name <span>*</span> </ion-label>
-            <ion-input  name="lastName" class="form-control" ></ion-input>
+            <ion-input name="LastName" [(ngModel)]="appointmentModal.LastName" class="form-control" required></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> DOB </ion-label>
-            <ion-input value="{{ dob | date: 'yyyy-MM-dd' }}" id="dob" name="dob" class="form-control" >
+            <ion-input value="{{ dob | date: 'yyyy-MM-dd' }}" [(ngModel)]="appointmentModal.BirthDate" id="dob" name="dob" class="form-control" required>
             </ion-input>
 
             <ion-modal trigger="dob" size="cover">
@@ -54,18 +54,18 @@
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Phone No. <span>*</span> </ion-label>
-            <ion-input  name="phone" class="form-control" ></ion-input>
+            <ion-input [(ngModel)]="appointmentModal.PhoneNo" class="form-control" required></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Appointment Date<span>*</span> </ion-label>
-            <ion-input value="{{ appoDate | date: 'yyyy-MM-dd' }}" id="appoDate" name="appoDate" class="form-control"
-              >
+            <ion-input value="{{ appoDate | date: 'yyyy-MM-dd' }}" [(ngModel)]="appointmentModal.AppointmentDate" id="appoDate" name="appoDate" class="form-control"
+              required>
             </ion-input>
 
             <ion-modal trigger="appoDate" size="cover">
               <ng-template>
-                <ion-datetime presentation="date"  name="appoDate">
+                <ion-datetime presentation="date" name="appoDate">
                   <span slot="title"> {{ year }} </span>
                 </ion-datetime>
               </ng-template>
@@ -74,7 +74,7 @@
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Select Category </ion-label>
-            <ion-select name="category" placeholder="Select" class="form-control"
+            <ion-select name="category" [(ngModel)]="appointmentModal.Category" placeholder="Select" class="form-control"
               interface="popover">
               <ion-select-option class="select_option" value="VIP"> VIP</ion-select-option>
               <ion-select-option class="select_option" value="VVIP"> VVIP</ion-select-option>
@@ -85,7 +85,7 @@
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Select Work </ion-label>
-            <ion-select name="Work"  placeholder="Select" class="form-control" interface="popover">
+            <ion-select  name="Work" [(ngModel)]="appointmentModal.Work" placeholder="Select" class="form-control" interface="popover">
               <ion-select-option class="select_option" value="Aadhar Card"> Aadhar Card</ion-select-option>
               <ion-select-option class="select_option" value="Pan Card"> Pan Card</ion-select-option>
               <ion-select-option class="select_option" value="Voting Card"> Voting Card</ion-select-option>
@@ -99,79 +99,77 @@
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Other </ion-label>
-            <ion-input  name="Other" class="form-control" ></ion-input>
+            <ion-input  name="Other" [(ngModel)]="appointmentModal.Other" class="form-control" required></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+            <ion-label> Select District </ion-label>
+            <ng-select name="District" [(ngModel)]="appointmentModal.DistrictId" 
+            (change)="getTaluka(appointmentModal.DistrictId)"
+            #District="ngModel" placeholder="Select District">
+              <ng-option *ngFor="let item of districtList" [value]="item.dId">
+                {{ item.districtName }}
+              </ng-option>
+           </ng-select>
+          </ion-col>
+
+          <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+            <ion-label> Select Taluka </ion-label>
+            <ng-select 
+              name="Taluka" 
+              [(ngModel)]="appointmentModal.Taluka" 
+              #Taluka="ngModel"  
+              placeholder="Select Taluka"
+            >
+              <ng-option 
+                class="select_option"
+                *ngFor="let item of talukaList" 
+                [value]="item.talukaName"
+              >
+                {{ item.talukaName }}
+              </ng-option>
+           </ng-select>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Flat / House No. </ion-label>
-            <ion-input  name="flat" class="form-control" ></ion-input>
+            <ion-input name="HouseNo" [(ngModel)]="appointmentModal.HouseNo" class="form-control" required></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Society / Building Name </ion-label>
-            <ion-input  name="society" class="form-control" ></ion-input>
-          </ion-col>
-
-          <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
-            <ion-label> City / Village </ion-label>
-            <ion-input  name="Village" class="form-control" ></ion-input>
+            <ion-input name="Soc_BldgName" [(ngModel)]="appointmentModal.Soc_BldgName" class="form-control" required></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="2" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Ward No. </ion-label>
-            <ion-input  name="ward" class="form-control"></ion-input>
+            <ion-input name="wardNo" [(ngModel)]="appointmentModal.WardNo" class="form-control" required></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="2" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Pincode </ion-label>
-            <ion-input  name="pincode" class="form-control"></ion-input>
+            <ion-input name="Pincode" [(ngModel)]="appointmentModal.PinCode" class="form-control" required></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
-            <ion-label> District </ion-label>
-            <ng-select name="District" 
-               placeholder="Select District">
-              <ng-option >
-                
-              </ng-option>
-            </ng-select>
-            <!-- <div *ngIf="f.submitted && District.invalid" class="invalid-feedback">
-              <div *ngIf="District.errors.required">
-                Please select district
-              </div>
-            </div> -->
+            <ion-label> City / Village </ion-label>
+            <ion-input name="Society" [(ngModel)]="appointmentModal.City_Village" class="form-control" required></ion-input>
           </ion-col>
-
-          <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
-            <ion-label> Taluka </ion-label>
-            <ng-select name="Taluka"  placeholder="Select Taluka">
-              <ng-option class="select_option" >
-                
-              </ng-option>
-            </ng-select>
-            <!-- <div *ngIf="f.submitted && Taluka.invalid" class="invalid-feedback">
-              <div *ngIf="Taluka.errors.required">
-                Please select taluka
-              </div>
-            </div> -->
-          </ion-col>
-
           
-
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Remark </ion-label>
-            <ion-input  name="remark" class="form-control" ></ion-input>
+            <ion-textarea rows="2" name="Remark" [(ngModel)]="appointmentModal.Remark" class="form-control" required></ion-textarea>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> File </ion-label>
-            <ion-input type="file"  name="file" class="form-control" ></ion-input>
+            <ion-input type="file" name="file" [(ngModel)]="appointmentModal.FileName" class="form-control" required></ion-input>
           </ion-col>
 
           <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
             <div class="ion-text-center">
               <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
-              <ion-button [disabled]="!myForm.form.valid" type="submit" size="medium">Save</ion-button>
+              <ion-button [disabled]="!myForm.form.valid" type="submit" size="medium" (click)="addAppointment()">Save</ion-button>
               <ion-button routerLink="/appointment" color="success" type="button" size="medium">Back To List
               </ion-button>
             </div>

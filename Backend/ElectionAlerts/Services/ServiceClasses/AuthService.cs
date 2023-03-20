@@ -48,9 +48,9 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _iauthRepo.GetPartNoAssigned(userid);
         }
 
-        public PartNoAssigned GetPartNoAssignedOtherthanThisuser(int userid)
+        public PartNoAssigned GetPartNoAssignedOtherthanThisuser(int userid, int roleId)
         {
-            return _iauthRepo.GetPartNoAssignedOtherthanThisuser(userid);
+            return _iauthRepo.GetPartNoAssignedOtherthanThisuser(userid, roleId);
         }
         public string GetPartNobyId(int userid)
         {

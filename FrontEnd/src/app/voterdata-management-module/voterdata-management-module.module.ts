@@ -18,7 +18,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FamilyComponent } from './family/family.component';
 import { VoterbyUserComponent } from './voterby-user/voterby-user.component';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [VoterdataManagementComponent,EditVoterdataComponent,AddVoterComponent,ImportVoterdataComponent,VoterDetailsComponent, FamilyComponent, VoterbyUserComponent],
@@ -32,6 +32,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
     NgxDropzoneModule,
     MatPaginatorModule,
     Ng2SearchPipeModule,
+    NgxPaginationModule,
     RouterModule.forChild([{path:'', component:VoterdataManagementComponent},{path:'edit-voterdata', component:EditVoterdataComponent},{path:'add-voter', component:AddVoterComponent},{path:'import-voter', component:ImportVoterdataComponent},{path:'voter-details/:id', component:VoterDetailsComponent}, {path:'family', component:FamilyComponent}, {path:'voterby-user', component:VoterbyUserComponent} ])
   ],
   providers: [SocialSharing],

@@ -11,6 +11,7 @@ namespace ElectionAlerts.Model
         public string PartNoAssigned { get; set; }
         public DateTime CreatedDate { get; set; }
         public int AdminId { get; set; }
+        public int RoleId { get; set; }
 
     }
 }

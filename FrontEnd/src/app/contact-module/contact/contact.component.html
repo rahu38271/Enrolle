@@ -133,8 +133,8 @@
                   </thead>
                   <tbody>
                     <!-- <tr *ngFor="let item of getContacts | filter:searchWeb | paginate: { itemsPerPage: 10, currentPage: cp  }; let i=index"> -->
-                      <tr *ngFor="let item of getContacts | paginate: { itemsPerPage: 10, currentPage: PageNo };" >
-                      <td> {{ item.id }} </td>
+                      <tr *ngFor="let item of getContacts | paginate: { itemsPerPage: 10, currentPage: PageNo  }; let i=index" >
+                      <td> {{ item.id  }} </td>
                       <td class="text-capitalize"> {{ item.fullName }} </td>
                       <td class="text-capitalize"> {{ item.vilageName }} </td>
                       <!-- <td> {{ item.birthDate | date:'yyyy-MM-dd' }} </td> -->

@@ -45,7 +45,7 @@
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
             <ion-label>Username / 10 digit mob. no.</ion-label>
             <ion-input name="Contact" [(ngModel)]="addUserModal.Contact" #Contact="ngModel"
-              [ngClass]="{'is-invalid': f.submitted && contact.invalid}" required maxlength="10"
+              [ngClass]="{'is-invalid': f.submitted && Contact.invalid}" required maxlength="10"
               (keypress)="keyPressNumbers($event)" class="form-control">
             </ion-input>
             <div *ngIf="f.submitted && Contact.invalid" class="invalid-feedback">

@@ -32,14 +32,17 @@ keyPressNumbers(event) {
 
   myForm;
 
-  whatsappSetting: any = { };
+  whatsappSetting: any = {
+
+   };
   
   constructor(
     private setting:SettingService,
     private loader:LoaderService,
     private toast:IonicToastService
     ) { 
-    this.whatsappSetting.type="text"
+    this.whatsappSetting.mtype="Text"
+    this.whatsappSetting.msgType ="Birthday"
   }
 
   ngOnInit() {}
@@ -49,28 +52,9 @@ keyPressNumbers(event) {
   }
 
   whastappSetting(){
+    debugger;
     this.loader.showLoading();
-    if(this.whatsappSetting.media_url == undefined){
-      this.whatsappSetting.media_url = ''
-    }
-    else{
-      this.whatsappSetting.media_url = this.whatsappSetting.media_url
-    }
-    if(this.whatsappSetting.filename == undefined){
-      this.whatsappSetting.filename = ''
-    }
-    else{
-      this.whatsappSetting.filename = this.whatsappSetting.filename
-    }
-    this.setting.whatsappMsg(
-      this.whatsappSetting.number,
-      this.whatsappSetting.type,
-      this.whatsappSetting.message,
-      this.whatsappSetting.media_url,
-      this.whatsappSetting.filename,
-      this.whatsappSetting.instance_id,
-      this.whatsappSetting.access_token
-      ).subscribe(data=>{
+    this.setting.whatsappMsgSetting(this.whatsappSetting).subscribe(data=>{
       if(data){
         this.loader.hideLoader();
         console.log(data);

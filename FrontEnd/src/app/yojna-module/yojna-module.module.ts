@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AddYojnaComponent } from './add-yojna/add-yojna.component';
 import { EditYojnaComponent } from './edit-yojna/edit-yojna.component';
-
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 @NgModule({
@@ -19,6 +19,7 @@ import { EditYojnaComponent } from './edit-yojna/edit-yojna.component';
     CommonModule,
     IonicModule,
     FormsModule,
+    NgxPaginationModule,
     RouterModule.forChild([{path:'', component: YojnaComponent}, {path:'add-yojna', component: AddYojnaComponent}, {path:'edit-yojna', component: EditYojnaComponent}])
   ]
 })

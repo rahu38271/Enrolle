@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { LoaderService } from 'src/app/services/loader.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { SuperadminService } from 'src/app/services/superadmin.service'
+import { de } from 'date-fns/locale';
 
 @Component({
   selector: 'app-assign-data',
@@ -27,6 +28,8 @@ export class AssignDataComponent implements OnInit {
   id: number;
   alreadyAssignedPart: any = {};
   superadminId: any;
+  userrole: any;
+  EditingUserrole: any;
   constructor
     (
       private route: ActivatedRoute,
@@ -37,110 +40,52 @@ export class AssignDataComponent implements OnInit {
     ) { }
 
   ngOnInit() {
-    var userrole  = localStorage.getItem("userType")
+    this.userrole = localStorage.getItem("userType")
     this.SelectedPartNo = [];
-    this.sadmin.getBooths().subscribe(data => {
+    this.Userid = this.route.snapshot.paramMap.get('id');
+    this.UserpartNoAssigned = this.route.snapshot.paramMap.get('partNoAssigned');
+    this.EditingUserrole = this.route.snapshot.paramMap.get('role');
+    this.UserpartNoAssignedarray = this.UserpartNoAssigned.split(',');
+    var loginuser = localStorage.getItem("loginId");
+    // this.getallbooths()
+
+    this.sadmin.getBooths(Number(this.userrole), Number(loginuser)).subscribe(data => {
+      debugger;
       //console.log(data);
       this.allBooths = data;
-      this.allBooths = data;
-      this.allBooths.forEach(booth => {
 
-      var index  = this.UserpartNoAssignedarray.findIndex(x=>x == booth.partNo);
-          if ( index == -1)
-          {
-            booth.checked = false; 
-          }
-          else
-          {
-            booth.checked = true; 
-            this.SelectedPartNo.push(booth.partNo);
-          }
-          if(userrole == '3')
-          {
-          this.sadmin.GetPartNoAssignedOtherthanThisuser(this.Userid).subscribe(notassigned=>{
-            if(notassigned)
-            {
-              debugger
-              var arr1  = notassigned.partNo.split(',');
-              var index3  = arr1.findIndex(x=>x == booth.partNo);
-              if(index3 == -1 )
-              {
-                booth.hide = false;
+      this.allBooths.forEach(booth => {
+        booth.disable = false;
+        booth.checked = false;
+        booth.hide = false;
+        var index = this.UserpartNoAssignedarray.findIndex(x => x == booth.partNo);
+        if (index != -1) {
+          booth.checked = true;
+          this.SelectedPartNo.push(booth.partNo);
+        }
+
+        if (this.userrole == '3' || this.userrole == '2') {
+          this.sadmin.GetPartNoAssignedOtherthanThisuser(this.Userid, this.userrole).subscribe(notassigned => {
+            if (notassigned) {
+
+              var arr1 = notassigned.partNo.split(',');
+              var index3 = arr1.findIndex(x => x == booth.partNo);
+              if (index3 == -1) {
+                booth.disable = false;
               }
-              else
-              {
-                booth.hide = true; 
+              else {
+                booth.disable = true;
               }
             }
           });
         }
-          this.sadmin.getAssignedPartByUser(this.Userid).subscribe(data=>{
-              if(data)
-              {
-              var arr  = data.partNo.split(',');
-              var index2  = arr.findIndex(x=>x == booth.partNo);
-              if(index2 == -1 )
-              {
-                booth.disable = false;
-              }
-              else if(!booth.checked)
-              {
-                booth.disable = true; 
-              }
-            }
-          });
+
       });
-      // this.allBooths.reduce((acc, allboothitem) => {
-      //   debugger;
-      //   for (let item in this.UserpartNoAssignedarray) {
-      //     if (allboothitem.partNo == Number(this.UserpartNoAssignedarray[item])) {
-      //       allboothitem.checked = true;
-
-      //       debugger;
-      //       this.SelectedPartNo.push(allboothitem.partNo);
-
-      //       //item.checked=true;
-
-      //     }
-      //     else {
-      //       allboothitem.checked = false;
-      //     }
-      //     this.allBooths.forEach(element => {
-      //       this.sadmin.getAllAssignedPart().subscribe(data => {
-
-      //         var Dispart = data.split(',');
-
-      //         if (!element.checked)
-      //           Dispart.forEach(el => {
-      //             debugger;
-      //             if (el == element.partNo) {
-      //               element.disable = true;
-      //             }
-      //             else {
-      //               element.disable = false;
-      //             }
-
-      //           });
-
-      //       });
-
-      //     });
-      //   }
-      // }, []);
+      console.log(this.allBooths)
     });
- 
-    this.Userid = this.route.snapshot.paramMap.get('id');
-    this.UserpartNoAssigned = this.route.snapshot.paramMap.get('partNoAssigned');
-    this.UserpartNoAssignedarray = this.UserpartNoAssigned.split(',');
 
-
-    //for(let allBooths of this.allBooths )
-
-    //this.UserpartNoAssigned.reduce(item)
-    // this.SelectedPartNo=
-    //console.log(this.Userid);
-    // this.assign();
   }
+
 
   getBoothPart(event: any) {
     debugger;
@@ -160,16 +105,7 @@ export class AssignDataComponent implements OnInit {
 
       }
     }
-    // let checkedStrings = this.allBooths.reduce((acc, item) => {
-    //   if (item.checked) {
-    //     this.SelectedPartNo.push(item.partNo);
-    //   }
 
-    // }, []);
-
-
-    console.log("data", this.SelectedPartNo.toString());
-    console.log(this.SelectedPartNo);
   }
 
   allAssignedPart() {
@@ -189,7 +125,8 @@ export class AssignDataComponent implements OnInit {
     this.id = Number(this.Userid);
     this.sadmin.assignPart({
       UserId: this.id,
-      PartNoAssigned: this.SelectedPartNo.toString()
+      PartNoAssigned: this.SelectedPartNo.toString(),
+      RoleId: Number(this.EditingUserrole)
     }).subscribe(data => {
       if (data == 1) {
         this.loader.hideLoader();

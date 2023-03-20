@@ -206,7 +206,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _customContext.Database.ExecuteSqlRaw("EXEC USP_InsertUserDetail {0},{1},{2},{3}", userAssigned.UserId, userAssigned.PartNoAssigned,DateTime.Now,userAssigned.AdminId);
+                return _customContext.Database.ExecuteSqlRaw("EXEC USP_InsertUserDetail {0},{1},{2},{3},{4}", userAssigned.UserId, userAssigned.PartNoAssigned,DateTime.Now,userAssigned.AdminId,userAssigned.RoleId);
             }
             catch(Exception ex)
             {
@@ -247,11 +247,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public PartNoAssigned GetPartNoAssignedOtherthanThisuser(int userid)
+        public PartNoAssigned GetPartNoAssignedOtherthanThisuser(int userid, int roleId)
         {
             try
             {
-                var result = _customContext.Set<PartNoAssigned>().FromSqlRaw("USP_GetPartNoAssignedOtherthanThisuser {0}", userid).ToList().FirstOrDefault();
+                var result = _customContext.Set<PartNoAssigned>().FromSqlRaw("USP_GetPartNoAssignedOtherthanThisuser {0}, {1}", userid, roleId).ToList().FirstOrDefault();
                 return result;
             }
             catch (Exception ex)

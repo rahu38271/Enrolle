@@ -32,14 +32,30 @@ export class SuperadminService {
     return this.http.post<any>(this.url + 'Login/CreateUpdateUser', edModal);
   }
 
-  // deleteUser(id){
-  //   debugger;
-  //   return this.http.post<any>(this.url+'Login/DeleteUser?Id='+id,{id})
+  // delete(id:any){
+  //   return this.http.get<any>(this.url + 'Login/DeleteUser?Id='+id)
   // }
 
-  getBooths():Observable<any>{
-    return this.http.get<any>(this.url+'Voter/GetDistinctPartNumber')
+  // old code
+  getBooths(Role:any, UserId:any){
+    return this.http.get<any>(this.url+'Voter/GetDistinctPartNumber?Role='+Role+'&UserId='+UserId)
   }
+
+  // new code 
+  // getBooths(Role:any, UserId:any){
+  //   return this.http.get<any>(this.url+'Voter/GetDistinctPartNumber?roleid='+Role+'&UserId='+UserId)
+  // }
+
+  getBoothsbyroleandUserId(userid:any,userrole:any){
+    if(userrole==2)
+    {
+      return this.http.get<any>(this.url+'Voter/GetDistinctPartNumber')
+    }
+    else(userrole==3)
+    {
+    return this.http.get<any>(this.url+'Auth/GetPartNumberbyId?userid='+userid)
+      }
+    }
 
   GetpartByUserid(id:any){
     return this.http.get<any>(this.url+'Auth/GetPartNumberbyId?userid='+id)
@@ -58,7 +74,7 @@ export class SuperadminService {
     return this.http.get<any>(this.url+'Auth/GetPartNoAssigned?userid='+Userid)
   }
 
-  GetPartNoAssignedOtherthanThisuser(userID:any){
-    return this.http.get<any>(this.url+'Auth/GetPartNoAssignedOtherthanThisuser?userid='+userID)
+  GetPartNoAssignedOtherthanThisuser(userID:any,role: any){
+    return this.http.get<any>(this.url+'Auth/GetPartNoAssignedOtherthanThisuser?userid='+userID+'&roleid='+role)
   }
 }
