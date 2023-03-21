@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Abhay\\ElectionAlerts-master\\ElectionAlerts-master\\Backend\\ElectionAlerts\\ElectionAlerts.csproj": {}
+    "F:\\Abhay\\GitClonned\\Enrolle28jan23\\Enrolle\\Backend\\ElectionAlerts\\ElectionAlerts.csproj": {}
   },
   "projects": {
-    "F:\\Abhay\\ElectionAlerts-master\\ElectionAlerts-master\\Backend\\ElectionAlerts\\ElectionAlerts.csproj": {
+    "F:\\Abhay\\GitClonned\\Enrolle28jan23\\Enrolle\\Backend\\ElectionAlerts\\ElectionAlerts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Abhay\\ElectionAlerts-master\\ElectionAlerts-master\\Backend\\ElectionAlerts\\ElectionAlerts.csproj",
+        "projectUniqueName": "F:\\Abhay\\GitClonned\\Enrolle28jan23\\Enrolle\\Backend\\ElectionAlerts\\ElectionAlerts.csproj",
         "projectName": "ElectionAlerts",
-        "projectPath": "F:\\Abhay\\ElectionAlerts-master\\ElectionAlerts-master\\Backend\\ElectionAlerts\\ElectionAlerts.csproj",
+        "projectPath": "F:\\Abhay\\GitClonned\\Enrolle28jan23\\Enrolle\\Backend\\ElectionAlerts\\ElectionAlerts.csproj",
         "packagesPath": "C:\\Users\\rahul\\.nuget\\packages\\",
-        "outputPath": "F:\\Abhay\\ElectionAlerts-master\\ElectionAlerts-master\\Backend\\ElectionAlerts\\obj\\",
+        "outputPath": "F:\\Abhay\\GitClonned\\Enrolle28jan23\\Enrolle\\Backend\\ElectionAlerts\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -25,8 +25,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "https://api.nuget.org/v3/index.json": {},
-          "https://www.myget.org/F/imageprocessor/": {}
+          "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "netcoreapp3.1": {
@@ -79,6 +78,10 @@
             "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
               "target": "Package",
               "version": "[1.11.1, )"
+            },
+            "Quartz": {
+              "target": "Package",
+              "version": "[3.6.2, )"
             }
           },
           "imports": [
