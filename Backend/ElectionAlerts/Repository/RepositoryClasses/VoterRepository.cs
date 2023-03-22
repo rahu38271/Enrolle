@@ -122,7 +122,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-               return _customContext.Set<VoterPPBooth>().FromSqlRaw("USP_GetPartNoBooth {0},{1}",Role, UserId).ToList();
+               return _customContext.Set<VoterPPBooth>().FromSqlRaw("USP_GetPartNoBooth {0},{1}",Role,UserId).ToList();
             }
             catch (Exception ex)
             {
@@ -153,11 +153,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public VoterCount GetTotalVoterCount()
+        public IEnumerable<VoterCount> GetTotalVoterCount(int userid, int roleid)
         {
             try
             {
-                return _customContext.Set<VoterCount>().FromSqlRaw("USP_GetVoterCount").ToList().FirstOrDefault();
+                return _customContext.Set<VoterCount>().FromSqlRaw("USP_GetVoterCount {0},{1}",userid,roleid).ToList();
             }
             catch (Exception ex)
             {
@@ -266,49 +266,58 @@ namespace ElectionAlerts.Repository.RepositoryClasses
 
         public int InsertBulkVoter(List<Voter> voters)
         {
-            try
-            {
-                DataTable dt = new DataTable();
-                PropertyInfo[] Props = typeof(Voter).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-                foreach (PropertyInfo prop in Props)
-                {
-                    //Setting column names as Property names
-                    dt.Columns.Add(prop.Name);
-                }
-                foreach (Voter item in voters)
-                {
-                    var values = new object[Props.Length];
-                    for (int i = 0; i < Props.Length; i++)
-                    {
-                        //inserting property values to datatable rows
-                        values[i] = Props[i].GetValue(item, null);
-                    }
-                    dt.Rows.Add(values);
-                }
-                var d = dt;
-                if (dt.Rows.Count > 0)
-                {
+            var partitions = voters.partition(10000);
 
-                    using (SqlConnection con = new SqlConnection(_customContext.Database.GetConnectionString()))
+
+            foreach (List<Voter> voters1 in partitions)
+            {
+                try
+                {
+                    DataTable dt = new DataTable();
+                    PropertyInfo[] Props = typeof(Voter).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                    foreach (PropertyInfo prop in Props)
                     {
-                        using (SqlCommand cmd = new SqlCommand("USP_InsertBulkVoter"))
+                        //Setting column names as Property names
+                        dt.Columns.Add(prop.Name);
+                    }
+                    foreach (Voter item in voters1)
+                    {
+                        var values = new object[Props.Length];
+                        for (int i = 0; i < Props.Length; i++)
                         {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Connection = con;
-                            cmd.Parameters.AddWithValue("@VoterType", dt);
-                            con.Open();
-                            cmd.ExecuteNonQuery();
-                            con.Close();
+                            //inserting property values to datatable rows
+                            values[i] = Props[i].GetValue(item, null);
+                        }
+                        dt.Rows.Add(values);
+                    }
+                    var d = dt;
+                    if (dt.Rows.Count > 0)
+                    {
+
+                        using (SqlConnection con = new SqlConnection(_customContext.Database.GetConnectionString()))
+                        {
+                            using (SqlCommand cmd = new SqlCommand("USP_InsertBulkVoter"))
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Connection = con;
+                                cmd.Parameters.AddWithValue("@VoterType", dt);
+                                con.Open();
+                                cmd.ExecuteNonQuery();
+                                con.Close();
+                            }
                         }
                     }
+
+                  
                 }
-                InsertDistinctPartNoBooth(voters);
-                return 1;
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
+
+            InsertDistinctPartNoBooth(voters);
+            return 1;
 
         }
 
@@ -587,6 +596,23 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             {
                 throw ex;
             }
+        }
+    }
+
+    public static class Extensions
+    {
+        public static List<List<T>> partition<T>(this List<T> values, int chunkSize)
+        {
+            return values.Select((x, i) => new { Index = i, Value = x })
+                .GroupBy(x => x.Index / chunkSize)
+                .Select(x => x.Select(v => v.Value).ToList())
+                .ToList();
+        }
+        public static IEnumerable<IEnumerable<T>> Split<T>(this IEnumerable<T> list, int parts)
+        {
+            return list.Select((item, index) => new { index, item })
+                       .GroupBy(x => x.index % parts)
+                       .Select(x => x.Select(y => y.item));
         }
     }
 }

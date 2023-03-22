@@ -66,6 +66,7 @@ namespace ElectionAlerts.Model.Data
         public DbSet<PartNoAssigned> PartNoAssigneds { get; set; }
         public DbSet<AdminUser> AdminUsers { get; set; }
         public DbSet<WhatUpSetting> WhatUpSettings { get; set; }
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -104,33 +105,8 @@ namespace ElectionAlerts.Model.Data
 
             if (!optionsBuilder.IsConfigured)
             {
-               // ElectionAlertconstr = "Server = 184.168.194.78; Database = EnrolleMasterQA; User Id = EnrolleMasterQA; Password = EnrolleMasterQA@123; pooling = false; ";
-                //ElectionAlertconstr ="Server=184.168.194.78;Database=ElectionAlertsQa;User Id=ElectionAlerts; Password =ElectionAlerts@1112;pooling=false;";
+              
                 ElectionAlertconstr = Startup.ElectionAlertConStr;
-
-                //if (_httpContextAccessor!=null)
-                //{ 
-                //var identity = _httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
-
-                //    if (identity.Claims.Count() > 0)
-                //    {
-                //        var token = new JwtSecurityToken();
-                //        ConfigureDB configure = new ConfigureDB();
-                //        IEnumerable<Claim> claims = identity.Claims;
-                //        foreach (var c in claims)
-                //        {
-                //            if (c.Type.Contains("primarysid"))
-                //                configure.IPAddress = c.Value;
-                //            if (c.Type.Contains("name"))
-                //                configure.DBName = c.Value;
-                //            if (c.Type.Contains("role"))
-                //                configure.UserName = c.Value;
-                //            if (c.Type.Contains("authentication"))
-                //                configure.Password = c.Value;
-                //        }
-                //        constr = $"Server={configure.IPAddress};Database= {configure.DBName};User Id={ configure.UserName};Password={configure.Password};pooling=false;";
-                //    }
-                //}
                 optionsBuilder.UseSqlServer(ElectionAlertconstr, x => x.EnableRetryOnFailure());
             }
         }
@@ -160,6 +136,9 @@ namespace ElectionAlerts.Model.Data
         public DbSet<PartNoAssigned> PartNoAssigneds { get; set; }
         public DbSet<AdminUser> AdminUsers { get; set; }
         public DbSet<WhatUpSetting> WhatUpSettings { get; set; }
+        public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<Annapurna> Annapurnas { get; set; }
+        public DbSet<NewVoter> NewVoters { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

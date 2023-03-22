@@ -69,9 +69,9 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.GetStarVoterbyUserId(userid,roleid);
         }
 
-        public VoterCount GetTotalVoterCount()
+        public IEnumerable<VoterCount> GetTotalVoterCount(int userid, int roleid)
         {
-            return _voterRepository.GetTotalVoterCount();
+            return _voterRepository.GetTotalVoterCount(userid,roleid);
         }
 
         public IEnumerable<Voter> GetVoterAgeBetween(int Age1, int Age2, string Gender,int UserId, int RoleId )

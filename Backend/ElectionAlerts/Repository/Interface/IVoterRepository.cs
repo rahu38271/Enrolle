@@ -37,7 +37,7 @@ namespace ElectionAlerts.Repository.Interface
         IEnumerable<VoterbyBooth> GetVoterbybooth(int userid,int RoleId);
         IEnumerable<Voter> GetVoterByUserId(int userid,int roleid);
         IEnumerable<Voter> GetVoterAgeBetween(int Age1, int Age2,string Gender, int UserId,int RoleId);
-        VoterCount GetTotalVoterCount();
+        IEnumerable<VoterCount> GetTotalVoterCount(int userid, int roleid);
         IEnumerable<Voter> AdvancedSearch(AdvanceSearchDTO searchDTO);
         IEnumerable<VoterDTO> GetVoterInclinationUserId(string inclination, int userid,int roleid);
         IEnumerable<VoterDTO> GetStarVoterbyUserId(int userid,int roleid);
