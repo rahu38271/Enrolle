@@ -166,7 +166,7 @@ namespace ElectionAlerts.Controller
             }
         }
 
-        [HttpPost("DeleteUser")]
+        [HttpGet("DeleteUser")]
         public IActionResult DeleteUser(int Id)
         {
             try

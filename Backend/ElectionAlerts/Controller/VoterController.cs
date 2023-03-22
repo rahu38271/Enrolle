@@ -464,11 +464,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetTotalVoterCount")]
-        public IActionResult GetTotalVoterCount(int age1, int age2)
+        public IActionResult GetTotalVoterCount(int userid, int roleid)
         {
             try
             {
-                return Ok(_voterService.GetTotalVoterCount());
+                return Ok(_voterService.GetTotalVoterCount(userid,roleid));
             }
             catch (Exception ex)
             {
