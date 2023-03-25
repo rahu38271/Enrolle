@@ -22,14 +22,29 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _annapurnaRepository.DeletebyId(Id);
         }
 
+        public int DeleteFamilybyId(int Id)
+        {
+            return _annapurnaRepository.DeleteFamilybyId(Id);
+        }
+
         public IEnumerable<Annapurna> GetAllAnnapurna()
         {
             return _annapurnaRepository.GetAllAnnapurna();    
         }
 
+        public IEnumerable<Family> GetFamilybyId(int ANPID)
+        {
+            return _annapurnaRepository.GetFamilybyId(ANPID);
+        }
+
         public int InsertUpdate(Annapurna annnapurna)
         {
             return _annapurnaRepository.InsertUpdate(annnapurna);
+        }
+
+        public int InsertUpdateFamily(Family family)
+        {
+            return _annapurnaRepository.InsertUpdateFamily(family);
         }
     }
 }

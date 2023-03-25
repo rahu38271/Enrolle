@@ -32,6 +32,8 @@ namespace ElectionAlerts.Repository.Interface
         int UpdateMemberDetail(MemberDetail memberDetail);
         int UpdateStarVoter(int Id,string YesNo);
         int UpdateVoterInclination(int id, string Colour);
+        int UpdateIsAliveVoter(int id, string YesNo);
+        int UpdateIsVoted(int id, string YesNo);
         IEnumerable<MemberDetail> GetMemberDetailsbyVId(int voterid);
         IEnumerable<VoterPPBooth> GetDistinctPartNo(int Role, int UserId);
         IEnumerable<VoterbyBooth> GetVoterbybooth(int userid,int RoleId);
@@ -43,5 +45,7 @@ namespace ElectionAlerts.Repository.Interface
         IEnumerable<VoterDTO> GetStarVoterbyUserId(int userid,int roleid);
         IEnumerable<BoothName> GetBoothNamebyUserId(int userid,int roleid);
         IEnumerable<Voter> GetVoterByPartNo(int partno);
+        IEnumerable<Table> GetVoterCountbyColoumn(int UserId, int RoleId, string Coloumn);
+
     }
 }

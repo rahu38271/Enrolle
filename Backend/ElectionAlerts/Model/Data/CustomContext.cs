@@ -139,7 +139,8 @@ namespace ElectionAlerts.Model.Data
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Annapurna> Annapurnas { get; set; }
         public DbSet<NewVoter> NewVoters { get; set; }
-
+        public DbSet<Society> Societies { get; set; }
+        public DbSet<Family> Families { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Districts>().HasNoKey();
@@ -152,6 +153,7 @@ namespace ElectionAlerts.Model.Data
             modelBuilder.Entity<VoterInclination>().HasNoKey();
             modelBuilder.Entity<BoothName>().HasNoKey();
             modelBuilder.Entity<PartNoAssigned>().HasNoKey();
+            modelBuilder.Entity<VoterDTO>().HasNoKey();
         }
     }
 }

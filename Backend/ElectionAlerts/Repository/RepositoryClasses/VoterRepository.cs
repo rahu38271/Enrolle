@@ -31,10 +31,10 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             try
             {
                 return _customContext.Database.ExecuteSqlRaw("EXEC Usp_CreateVoter {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21}," +
-                                                            "{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36}", voter.FullName, voter.BirthDate, voter.Age, voter.Gender, voter.HouseNo, voter.VotingCardNo, 
+                                                            "{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37}", voter.FullName, voter.BirthDate, voter.Age, voter.Gender, voter.HouseNo, voter.VotingCardNo, 
                                                               voter.MobileNo, voter.Caste, voter.District,voter.Assembly, voter.Taluka, voter.Ward, voter.Booth, voter.Village,voter.Pincode, voter.Address, voter.Email, voter.FamilyHead, voter.IsSuspisious, 
                                                               voter.IsOutStation, voter.IsAlive,voter.Occupation, voter.PartyWorker, voter.VotingInclination, voter.PoliticalParty, voter.UserId,voter.ExtraInfo,voter.WorkLeft,voter.HappywithService,voter.IsDisable,
-                                                              voter.PartNo,voter.AlternateMobileNo,voter.StarVoter,voter.Education,voter.FamilyMember,voter.IsSurvey,DateTime.Now);
+                                                              voter.PartNo,voter.AlternateMobileNo,voter.StarVoter,voter.Education,voter.FamilyMember,voter.IsSurvey,DateTime.Now,voter.IsVoted);
             }
             catch (Exception ex)
             {
@@ -409,11 +409,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             try
             {
                 return _customContext.Database.ExecuteSqlRaw("EXEC Usp_UpdateVoterbyId {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21}," +
-                                                            "{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37}",voter.Id,voter.FullName, voter.BirthDate, voter.Age, voter.Gender, voter.HouseNo, voter.VotingCardNo,
+                                                            "{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38}",voter.Id,voter.FullName, voter.BirthDate, voter.Age, voter.Gender, voter.HouseNo, voter.VotingCardNo,
                                                               voter.MobileNo, voter.Caste, voter.District, voter.Assembly, voter.Taluka, voter.Ward, voter.Booth, voter.Village,
                                                               voter.Pincode, voter.Address, voter.Email, voter.FamilyHead, voter.IsSuspisious, voter.IsOutStation, voter.IsAlive,
                                                               voter.Occupation, voter.PartyWorker, voter.VotingInclination, voter.PoliticalParty, voter.UserId,voter.ExtraInfo,voter.WorkLeft,voter.HappywithService,voter.IsDisable,voter.PartNo,voter.AlternateMobileNo,
-                                                              voter.StarVoter,voter.Education,voter.FamilyMember,voter.IsSurvey,DateTime.Now);
+                                                              voter.StarVoter,voter.Education,voter.FamilyMember,voter.IsSurvey,DateTime.Now,voter.IsVoted);
             }
             catch(Exception ex)
             {
@@ -593,6 +593,65 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 return _customContext.Set<Voter>().FromSqlRaw("USP_GetVoterbyPartNo {0}", partno).ToList();
             }
             catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int UpdateIsAliveVoter(int id, string YesNo)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("USP_UpdateIsAlive {0},{1}",id,YesNo);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int UpdateIsVoted(int id, string YesNo)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("USP_UpdateIsVoted {0},{1}", id, YesNo);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<Table> GetVoterCountbyColoumn(int UserId, int RoleId, string Coloumn)
+        {
+            try
+            {
+                List<Table> voterDTOs = new List<Table>();
+                using (SqlConnection con = new SqlConnection(_customContext.Database.GetConnectionString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand("USP_GetCountbyColoumTable"))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@UserId", UserId);
+                        cmd.Parameters.AddWithValue("@RoleId", RoleId);
+                        cmd.Parameters.AddWithValue("@ColoumnName", Coloumn);
+                        con.Open();
+                        SqlDataReader dr = cmd.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            Table voterDTO = new Table();
+                            voterDTO.ColumnName = Coloumn;
+                            voterDTO.ColumnValue = dr[0].ToString();
+                            voterDTO.Count = Convert.ToInt32(dr[1]);
+                            voterDTOs.Add(voterDTO);
+                        }
+                        con.Close();
+                    }
+                }
+                return voterDTOs;
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }

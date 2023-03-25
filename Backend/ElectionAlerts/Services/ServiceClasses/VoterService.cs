@@ -104,6 +104,11 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.GetVoterByUserId(userid, roleid);
         }
 
+        public IEnumerable<Table> GetVoterCountbyColoumn(int UserId, int RoleId, string Coloumn)
+        {
+            return _voterRepository.GetVoterCountbyColoumn(UserId, RoleId, Coloumn);
+        }
+
         public IEnumerable<Table> GetVoterCountbyLastName(int userid,int roleid)
         {
             return _voterRepository.GetVoterCountbyLastName(userid, roleid);
@@ -152,6 +157,16 @@ namespace ElectionAlerts.Services.ServiceClasses
         public int UpdateAddressVoter(int Id, string Address)
         {
             return _voterRepository.UpdateAddressVoter(Id, Address);
+        }
+
+        public int UpdateIsAliveVoter(int id, string YesNo)
+        {
+            return _voterRepository.UpdateIsAliveVoter(id, YesNo);
+        }
+
+        public int UpdateIsVoted(int id, string YesNo)
+        {
+            return _voterRepository.UpdateIsVoted(id, YesNo);
         }
 
         public int UpdateMemberDetail(MemberDetail memberDetail)

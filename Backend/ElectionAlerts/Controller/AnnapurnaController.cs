@@ -64,5 +64,48 @@ namespace ElectionAlerts.Controller
                 return BadRequest(ex);
             }
         }
+
+
+        [HttpGet("GetAllFamilybyId")]
+        public IActionResult GetAllFamilybyId(int anpnid)
+        {
+            try
+            {
+                return Ok(_annapurnaService.GetFamilybyId(anpnid));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "AnnapurnaController/GetAllFamilybyId");
+                return BadRequest();
+            }
+        }
+
+        [HttpPost("InsertUpdateFamily")]
+        public IActionResult InsertUpdateFamily(Family family)
+        {
+            try
+            {
+                return Ok(_annapurnaService.InsertUpdateFamily(family));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "AnnapurnaController/InsertUpdateFamily");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("DeleteFamilybyId")]
+        public IActionResult DeleteFamilybyId(int Id)
+        {
+            try
+            {
+                return Ok(_annapurnaService.DeleteFamilybyId(Id));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "AnnapurnaController/DeleteFamilybyId");
+                return BadRequest(ex);
+            }
+        }
     }
 }

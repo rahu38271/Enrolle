@@ -81,6 +81,7 @@ namespace ElectionAlerts
             services.AddScoped<IAppointmentService, AppointmentService>();
             services.AddScoped<INewVoterService, NewVoterService>();
             services.AddScoped<IAnnapurnaService, AnnapurnaService>();
+            services.AddScoped<ISocietyService, SocietyService>();
 
             services.AddScoped<IWhatRespository, WhatRepository>();
             services.AddScoped<IAppointmentRepository, AppointmentRepository>();
@@ -98,6 +99,7 @@ namespace ElectionAlerts
             services.AddScoped<IVillageRepository, VillageRepository>();
             services.AddScoped<ILoginRepository, LoginRepository>();
             services.AddScoped<IAnnapurnaRepository, AnnapurnaRepository>();
+            services.AddScoped<ISocietyRepository, SocietyRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

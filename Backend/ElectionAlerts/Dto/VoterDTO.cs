@@ -19,6 +19,7 @@ namespace ElectionAlerts.Dto
         public string MobileNo { get; set; }
         public string IsAlive { get; set; }
         //public string ColounName { get; set; }
+        public string StarVoter { get; set; }
         public int? AssemblyNo { get; set; }
 
     }
