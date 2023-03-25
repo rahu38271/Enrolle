@@ -40,6 +40,7 @@ namespace ElectionAlerts.Dto
         public string IsDisable { get; set; }
         public DateTime? CreatedDate { get; set; }
         public int? PartNo { get; set; }
+        public string StarVoter { get; set; }
         public string AlternateMobileNo { get; set; }
         public int? AssemblyNo { get; set; }
     }

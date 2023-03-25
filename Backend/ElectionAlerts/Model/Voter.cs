@@ -45,6 +45,7 @@ namespace ElectionAlerts.Model
         public string FamilyMember { get; set; }
         public string IsSurvey { get; set; }
         public DateTime? CreatedDate { get; set; }
+        public string IsVoted { get; set; }
 
     }
 

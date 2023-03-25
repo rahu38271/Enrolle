@@ -252,7 +252,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             try
             {
                 var result = _customContext.Set<PartNoAssigned>().FromSqlRaw("USP_GetPartNoAssignedOtherthanThisuser {0}, {1}", userid, roleId).ToList().FirstOrDefault();
-                return result;
+                 return result;
             }
             catch (Exception ex)
             {

@@ -77,8 +77,15 @@ namespace ElectionAlerts
             services.AddScoped<ISuperAdminService, SuperAdminService>();
             services.AddScoped<IVillageService, VillageService>();
             services.AddScoped<ILoginService, LoginService>();
-            services.AddScoped<IWhatRespository, WhatRepository>();
+            services.AddScoped<IWhatUpService, WhatUpService>();
+            services.AddScoped<IAppointmentService, AppointmentService>();
+            services.AddScoped<INewVoterService, NewVoterService>();
+            services.AddScoped<IAnnapurnaService, AnnapurnaService>();
+            services.AddScoped<ISocietyService, SocietyService>();
 
+            services.AddScoped<IWhatRespository, WhatRepository>();
+            services.AddScoped<IAppointmentRepository, AppointmentRepository>();
+            services.AddScoped<INewVoterRepository, NewVoterRepository>();
             services.AddScoped<IContactReposritory, ContactRepository>();
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<INotificationRepository, NotificationRepository>();
@@ -91,7 +98,8 @@ namespace ElectionAlerts
             services.AddScoped<ISuperAdminRepository, SuperAdminRepository>();
             services.AddScoped<IVillageRepository, VillageRepository>();
             services.AddScoped<ILoginRepository, LoginRepository>();
-            services.AddScoped<IWhatUpService, WhatUpService>();
+            services.AddScoped<IAnnapurnaRepository, AnnapurnaRepository>();
+            services.AddScoped<ISocietyRepository, SocietyRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

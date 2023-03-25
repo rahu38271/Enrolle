@@ -44,9 +44,9 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.FilterVoterList(table);
         }
 
-        public IEnumerable<VoterAssembly> GetAllVoter(int UserId, int RoleId)
+        public IEnumerable<VoterAssembly> GetAllVoter(int UserId, int RoleId ,int PageNo, int NoofRow)
         {
-            return _voterRepository.GetAllVoter(UserId,RoleId);
+            return _voterRepository.GetAllVoter(UserId,RoleId, PageNo,NoofRow);
         }
 
         public IEnumerable<BoothName> GetBoothNamebyUserId(int userid,int roleid)
@@ -69,9 +69,9 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.GetStarVoterbyUserId(userid,roleid);
         }
 
-        public VoterCount GetTotalVoterCount()
+        public IEnumerable<VoterCount> GetTotalVoterCount(int userid, int roleid)
         {
-            return _voterRepository.GetTotalVoterCount();
+            return _voterRepository.GetTotalVoterCount(userid,roleid);
         }
 
         public IEnumerable<Voter> GetVoterAgeBetween(int Age1, int Age2, string Gender,int UserId, int RoleId )
@@ -102,6 +102,11 @@ namespace ElectionAlerts.Services.ServiceClasses
         public IEnumerable<Voter> GetVoterByUserId(int userid,int roleid)
         {
             return _voterRepository.GetVoterByUserId(userid, roleid);
+        }
+
+        public IEnumerable<Table> GetVoterCountbyColoumn(int UserId, int RoleId, string Coloumn)
+        {
+            return _voterRepository.GetVoterCountbyColoumn(UserId, RoleId, Coloumn);
         }
 
         public IEnumerable<Table> GetVoterCountbyLastName(int userid,int roleid)
@@ -152,6 +157,16 @@ namespace ElectionAlerts.Services.ServiceClasses
         public int UpdateAddressVoter(int Id, string Address)
         {
             return _voterRepository.UpdateAddressVoter(Id, Address);
+        }
+
+        public int UpdateIsAliveVoter(int id, string YesNo)
+        {
+            return _voterRepository.UpdateIsAliveVoter(id, YesNo);
+        }
+
+        public int UpdateIsVoted(int id, string YesNo)
+        {
+            return _voterRepository.UpdateIsVoted(id, YesNo);
         }
 
         public int UpdateMemberDetail(MemberDetail memberDetail)

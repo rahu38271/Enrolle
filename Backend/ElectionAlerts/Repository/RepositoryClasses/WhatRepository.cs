@@ -23,7 +23,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-               return _customContext.Database.ExecuteSqlRaw("EXEC USP_InsertUpdateWhatUpSetting {0},{1},{2},{3},{4},{5},{6},{7},{8},{9}", whatUpSetting.Id, whatUpSetting.URL, whatUpSetting.BirthDMessage, whatUpSetting.AnniverDMessage, whatUpSetting.BithDayMediaurl, whatUpSetting.AnniverDayMediaurl, whatUpSetting.BithDayFileName, whatUpSetting.AnniverDayFileName, whatUpSetting.InstanceId, whatUpSetting.AccessToken);
+               return _customContext.Database.ExecuteSqlRaw("EXEC USP_InsertUpdateWhatUpSetting {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}", whatUpSetting.Id, whatUpSetting.URL, whatUpSetting.BirthDMessage, whatUpSetting.AnniverDMessage, whatUpSetting.BithDayMediaurl, whatUpSetting.AnniverDayMediaurl, whatUpSetting.BithDayFileName, whatUpSetting.AnniverDayFileName, whatUpSetting.InstanceId, whatUpSetting.AccessToken,whatUpSetting.MType);
             }
             catch(Exception ex)
             {

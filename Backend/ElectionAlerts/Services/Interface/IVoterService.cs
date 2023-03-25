@@ -9,7 +9,7 @@ namespace ElectionAlerts.Services.Interface
 {
     public interface IVoterService
     {
-        IEnumerable<VoterAssembly> GetAllVoter(int UserId, int RoleId);
+        IEnumerable<VoterAssembly> GetAllVoter(int UserId, int RoleId, int PageNo, int NoofRow);
         int CreateVoter(Voter voter);
         int UpadateVoter(Voter voter);
         int InsertBulkVoter(List<Voter> voters);
@@ -31,11 +31,13 @@ namespace ElectionAlerts.Services.Interface
         int UpdateMemberDetail(MemberDetail memberDetail);
         int UpdateStarVoter(int Id, string YesNo);
         int UpdateVoterInclination(int id, string Colour);
-        IEnumerable<VoterPPBooth> GetDistinctPartNo(int role, int UserId);
+        int UpdateIsAliveVoter(int id, string YesNo);
+        int UpdateIsVoted(int id, string YesNo);
+        IEnumerable<VoterPPBooth> GetDistinctPartNo(int Role, int UserId);
         IEnumerable<MemberDetail> GetMemberDetailsbyVId(int voterid);
         IEnumerable<Voter> GetVoterByUserId(int userid,int roleid);
         IEnumerable<Voter> GetVoterAgeBetween(int Age1, int Age2,string Gender, int UserId,int RoleId);
-        VoterCount GetTotalVoterCount();
+        IEnumerable<VoterCount> GetTotalVoterCount(int userid, int roleid);
         IEnumerable<VoterbyBooth> GetVoterbybooth(int userid,int roleid);
         IEnumerable<VoterInclination> VoterInclination(int userid,int roleid);
         IEnumerable<Voter> AdvancedSearch(AdvanceSearchDTO searchDTO);
@@ -43,7 +45,7 @@ namespace ElectionAlerts.Services.Interface
         IEnumerable<VoterDTO> GetStarVoterbyUserId(int userid,int roleid);
         IEnumerable<BoothName> GetBoothNamebyUserId(int userid,int roleid);
         IEnumerable<Voter> GetVoterByPartNo(int partno);
-
+        IEnumerable<Table> GetVoterCountbyColoumn(int UserId, int RoleId, string Coloumn);
     }
 
 }

@@ -24,11 +24,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             _httpContextAccessor = httpContextAccessor;
             _customContext = new CustomContext(_httpContextAccessor);
         }
-        public IEnumerable<Contact> GetContacts()
+        public IEnumerable<Contact> GetContacts(int PageNo, int NoofRow, string SearchText)
         {
             try
             {
-                return _customContext.Set<Contact>().FromSqlRaw("EXEC USP_GetContacts").ToList();
+                return _customContext.Set<Contact>().FromSqlRaw("EXEC USP_GetContacts_Pagination {0},{1},{2}",PageNo,NoofRow,SearchText).ToList();
             }
             catch (Exception ex)
             {

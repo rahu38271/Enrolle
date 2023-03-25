@@ -31,10 +31,10 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             try
             {
                 return _customContext.Database.ExecuteSqlRaw("EXEC Usp_CreateVoter {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21}," +
-                                                            "{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36}", voter.FullName, voter.BirthDate, voter.Age, voter.Gender, voter.HouseNo, voter.VotingCardNo, 
+                                                            "{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37}", voter.FullName, voter.BirthDate, voter.Age, voter.Gender, voter.HouseNo, voter.VotingCardNo, 
                                                               voter.MobileNo, voter.Caste, voter.District,voter.Assembly, voter.Taluka, voter.Ward, voter.Booth, voter.Village,voter.Pincode, voter.Address, voter.Email, voter.FamilyHead, voter.IsSuspisious, 
                                                               voter.IsOutStation, voter.IsAlive,voter.Occupation, voter.PartyWorker, voter.VotingInclination, voter.PoliticalParty, voter.UserId,voter.ExtraInfo,voter.WorkLeft,voter.HappywithService,voter.IsDisable,
-                                                              voter.PartNo,voter.AlternateMobileNo,voter.StarVoter,voter.Education,voter.FamilyMember,voter.IsSurvey,DateTime.Now);
+                                                              voter.PartNo,voter.AlternateMobileNo,voter.StarVoter,voter.Education,voter.FamilyMember,voter.IsSurvey,DateTime.Now,voter.IsVoted);
             }
             catch (Exception ex)
             {
@@ -105,11 +105,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 throw ex;
             }       
         }
-        public IEnumerable<VoterAssembly> GetAllVoter(int userid,int roleid)
+        public IEnumerable<VoterAssembly> GetAllVoter(int userid,int roleid, int PageNo, int NoofRow)
         {
             try
             {
-                return _customContext.Set<VoterAssembly>().FromSqlRaw("USP_GetAllVoter {0},{1}",userid, roleid).ToList();
+                return _customContext.Set<VoterAssembly>().FromSqlRaw("USP_GetAllVoter_Page {0},{1},{2},{3}", userid, roleid, PageNo, NoofRow).ToList();
             }
             catch (Exception ex)
             {
@@ -122,7 +122,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-               return _customContext.Set<VoterPPBooth>().FromSqlRaw("USP_GetPartNoBooth {0},{1}",Role, UserId).ToList();
+               return _customContext.Set<VoterPPBooth>().FromSqlRaw("USP_GetPartNoBooth {0},{1}",Role,UserId).ToList();
             }
             catch (Exception ex)
             {
@@ -153,11 +153,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public VoterCount GetTotalVoterCount()
+        public IEnumerable<VoterCount> GetTotalVoterCount(int userid, int roleid)
         {
             try
             {
-                return _customContext.Set<VoterCount>().FromSqlRaw("USP_GetVoterCount").ToList().FirstOrDefault();
+                return _customContext.Set<VoterCount>().FromSqlRaw("USP_GetVoterCount {0},{1}",userid,roleid).ToList();
             }
             catch (Exception ex)
             {
@@ -266,49 +266,58 @@ namespace ElectionAlerts.Repository.RepositoryClasses
 
         public int InsertBulkVoter(List<Voter> voters)
         {
-            try
-            {
-                DataTable dt = new DataTable();
-                PropertyInfo[] Props = typeof(Voter).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-                foreach (PropertyInfo prop in Props)
-                {
-                    //Setting column names as Property names
-                    dt.Columns.Add(prop.Name);
-                }
-                foreach (Voter item in voters)
-                {
-                    var values = new object[Props.Length];
-                    for (int i = 0; i < Props.Length; i++)
-                    {
-                        //inserting property values to datatable rows
-                        values[i] = Props[i].GetValue(item, null);
-                    }
-                    dt.Rows.Add(values);
-                }
-                var d = dt;
-                if (dt.Rows.Count > 0)
-                {
+            var partitions = voters.partition(10000);
 
-                    using (SqlConnection con = new SqlConnection(_customContext.Database.GetConnectionString()))
+
+            foreach (List<Voter> voters1 in partitions)
+            {
+                try
+                {
+                    DataTable dt = new DataTable();
+                    PropertyInfo[] Props = typeof(Voter).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                    foreach (PropertyInfo prop in Props)
                     {
-                        using (SqlCommand cmd = new SqlCommand("USP_InsertBulkVoter"))
+                        //Setting column names as Property names
+                        dt.Columns.Add(prop.Name);
+                    }
+                    foreach (Voter item in voters1)
+                    {
+                        var values = new object[Props.Length];
+                        for (int i = 0; i < Props.Length; i++)
                         {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Connection = con;
-                            cmd.Parameters.AddWithValue("@VoterType", dt);
-                            con.Open();
-                            cmd.ExecuteNonQuery();
-                            con.Close();
+                            //inserting property values to datatable rows
+                            values[i] = Props[i].GetValue(item, null);
+                        }
+                        dt.Rows.Add(values);
+                    }
+                    var d = dt;
+                    if (dt.Rows.Count > 0)
+                    {
+
+                        using (SqlConnection con = new SqlConnection(_customContext.Database.GetConnectionString()))
+                        {
+                            using (SqlCommand cmd = new SqlCommand("USP_InsertBulkVoter"))
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Connection = con;
+                                cmd.Parameters.AddWithValue("@VoterType", dt);
+                                con.Open();
+                                cmd.ExecuteNonQuery();
+                                con.Close();
+                            }
                         }
                     }
+
+                  
                 }
-                InsertDistinctPartNoBooth(voters);
-                return 1;
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
-            catch(Exception ex)
-            {
-                throw ex;
-            }
+
+            InsertDistinctPartNoBooth(voters);
+            return 1;
 
         }
 
@@ -400,11 +409,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             try
             {
                 return _customContext.Database.ExecuteSqlRaw("EXEC Usp_UpdateVoterbyId {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21}," +
-                                                            "{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37}",voter.Id,voter.FullName, voter.BirthDate, voter.Age, voter.Gender, voter.HouseNo, voter.VotingCardNo,
+                                                            "{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38}",voter.Id,voter.FullName, voter.BirthDate, voter.Age, voter.Gender, voter.HouseNo, voter.VotingCardNo,
                                                               voter.MobileNo, voter.Caste, voter.District, voter.Assembly, voter.Taluka, voter.Ward, voter.Booth, voter.Village,
                                                               voter.Pincode, voter.Address, voter.Email, voter.FamilyHead, voter.IsSuspisious, voter.IsOutStation, voter.IsAlive,
                                                               voter.Occupation, voter.PartyWorker, voter.VotingInclination, voter.PoliticalParty, voter.UserId,voter.ExtraInfo,voter.WorkLeft,voter.HappywithService,voter.IsDisable,voter.PartNo,voter.AlternateMobileNo,
-                                                              voter.StarVoter,voter.Education,voter.FamilyMember,voter.IsSurvey,DateTime.Now);
+                                                              voter.StarVoter,voter.Education,voter.FamilyMember,voter.IsSurvey,DateTime.Now,voter.IsVoted);
             }
             catch(Exception ex)
             {
@@ -587,6 +596,82 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             {
                 throw ex;
             }
+        }
+
+        public int UpdateIsAliveVoter(int id, string YesNo)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("USP_UpdateIsAlive {0},{1}",id,YesNo);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int UpdateIsVoted(int id, string YesNo)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("USP_UpdateIsVoted {0},{1}", id, YesNo);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<Table> GetVoterCountbyColoumn(int UserId, int RoleId, string Coloumn)
+        {
+            try
+            {
+                List<Table> voterDTOs = new List<Table>();
+                using (SqlConnection con = new SqlConnection(_customContext.Database.GetConnectionString()))
+                {
+                    using (SqlCommand cmd = new SqlCommand("USP_GetCountbyColoumTable"))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+                        cmd.Connection = con;
+                        cmd.Parameters.AddWithValue("@UserId", UserId);
+                        cmd.Parameters.AddWithValue("@RoleId", RoleId);
+                        cmd.Parameters.AddWithValue("@ColoumnName", Coloumn);
+                        con.Open();
+                        SqlDataReader dr = cmd.ExecuteReader();
+                        while (dr.Read())
+                        {
+                            Table voterDTO = new Table();
+                            voterDTO.ColumnName = Coloumn;
+                            voterDTO.ColumnValue = dr[0].ToString();
+                            voterDTO.Count = Convert.ToInt32(dr[1]);
+                            voterDTOs.Add(voterDTO);
+                        }
+                        con.Close();
+                    }
+                }
+                return voterDTOs;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+    }
+
+    public static class Extensions
+    {
+        public static List<List<T>> partition<T>(this List<T> values, int chunkSize)
+        {
+            return values.Select((x, i) => new { Index = i, Value = x })
+                .GroupBy(x => x.Index / chunkSize)
+                .Select(x => x.Select(v => v.Value).ToList())
+                .ToList();
+        }
+        public static IEnumerable<IEnumerable<T>> Split<T>(this IEnumerable<T> list, int parts)
+        {
+            return list.Select((item, index) => new { index, item })
+                       .GroupBy(x => x.index % parts)
+                       .Select(x => x.Select(y => y.item));
         }
     }
 }

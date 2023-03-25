@@ -30,8 +30,7 @@ namespace ElectionAlerts.Controller
             _hostingEnvironment = hostingEnvironment;
         }
         
-        [HttpPost("FilterVoterbyCondition")]
-                
+        [HttpPost("FilterVoterbyCondition")]           
         public IActionResult FilterVoterbyCondition(VoterTable table)
         {
             try
@@ -79,11 +78,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetAllVoter")]
-        public IActionResult GetAllVoter(int UserId,int RoleId)
+        public IActionResult GetAllVoter(int UserId,int RoleId, int PageNo, int NoofRow)
         {
             try
             {
-                return Ok(_voterService.GetAllVoter(UserId, RoleId));
+                return Ok(_voterService.GetAllVoter(UserId, RoleId,PageNo,NoofRow));
             }
             catch (Exception ex)
             {
@@ -464,11 +463,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetTotalVoterCount")]
-        public IActionResult GetTotalVoterCount(int age1, int age2)
+        public IActionResult GetTotalVoterCount(int userid, int roleid)
         {
             try
             {
-                return Ok(_voterService.GetTotalVoterCount());
+                return Ok(_voterService.GetTotalVoterCount(userid,roleid));
             }
             catch (Exception ex)
             {
@@ -604,5 +603,48 @@ namespace ElectionAlerts.Controller
                 return BadRequest(ex);
             }
         }
-     }
+
+        [HttpPost("UpdateIsVoted")]
+        public IActionResult UpdateIsVoted(int Id,string YesNo)
+        {
+            try
+            {
+                return Ok(_voterService.UpdateIsVoted(Id, YesNo));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/UpdateIsVoted");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPost("UpdateIsAliveVoter")]
+        public IActionResult UpdateIsAliveVoter(int Id,string YesNo)
+        {
+            try
+            {
+                return Ok(_voterService.UpdateIsAliveVoter(Id, YesNo));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/UpdateIsAliveVoter");
+                return BadRequest(ex);
+            }
+        }
+
+
+        [HttpGet("GetColoumncount")]
+        public IActionResult GetColoumncount(int UserId, int RoleId, string Coloumn)
+        {
+            try
+            {
+                return Ok(_voterService.GetVoterCountbyColoumn(UserId,RoleId,Coloumn));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetColoumncount");
+                return BadRequest(ex);
+            }
+        }
+    }
  }

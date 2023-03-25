@@ -17,5 +17,7 @@ namespace ElectionAlerts.Model
         public string AnniverDayFileName { get; set; }
         public string InstanceId { get; set; }
         public string AccessToken { get; set; }
+        public string MType { get; set; }
+
     }
 }

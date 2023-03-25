@@ -9,7 +9,7 @@ namespace ElectionAlerts.Repository.Interface
 {
     public interface IVoterRepository
     {
-        IEnumerable<VoterAssembly> GetAllVoter(int userid,int RoleId);
+        IEnumerable<VoterAssembly> GetAllVoter(int userid,int RoleId, int PageNo, int NoofRow);
         int CreateVoter(Voter voter);
         int InsertBulkVoter(List<Voter> voters);
         int UpadateVoter(Voter voter);
@@ -32,16 +32,20 @@ namespace ElectionAlerts.Repository.Interface
         int UpdateMemberDetail(MemberDetail memberDetail);
         int UpdateStarVoter(int Id,string YesNo);
         int UpdateVoterInclination(int id, string Colour);
+        int UpdateIsAliveVoter(int id, string YesNo);
+        int UpdateIsVoted(int id, string YesNo);
         IEnumerable<MemberDetail> GetMemberDetailsbyVId(int voterid);
         IEnumerable<VoterPPBooth> GetDistinctPartNo(int Role, int UserId);
         IEnumerable<VoterbyBooth> GetVoterbybooth(int userid,int RoleId);
         IEnumerable<Voter> GetVoterByUserId(int userid,int roleid);
         IEnumerable<Voter> GetVoterAgeBetween(int Age1, int Age2,string Gender, int UserId,int RoleId);
-        VoterCount GetTotalVoterCount();
+        IEnumerable<VoterCount> GetTotalVoterCount(int userid, int roleid);
         IEnumerable<Voter> AdvancedSearch(AdvanceSearchDTO searchDTO);
         IEnumerable<VoterDTO> GetVoterInclinationUserId(string inclination, int userid,int roleid);
         IEnumerable<VoterDTO> GetStarVoterbyUserId(int userid,int roleid);
         IEnumerable<BoothName> GetBoothNamebyUserId(int userid,int roleid);
         IEnumerable<Voter> GetVoterByPartNo(int partno);
+        IEnumerable<Table> GetVoterCountbyColoumn(int UserId, int RoleId, string Coloumn);
+
     }
 }
