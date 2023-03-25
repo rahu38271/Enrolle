@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { EditNewVoterComponent } from './edit-new-voter/edit-new-voter.component';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 @NgModule({
@@ -19,6 +19,7 @@ import { EditNewVoterComponent } from './edit-new-voter/edit-new-voter.component
     CommonModule,
     IonicModule,
     FormsModule,
+    Ng2SearchPipeModule,
     RouterModule.forChild([{path:'', component:NewVoterComponent},{path:'add-new-voter', component:AddNewVoterComponent},{path:'edit-new-voter', component:EditNewVoterComponent}])
   ]
 })

@@ -82,7 +82,6 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    debugger;
     this.loader.showLoading();
     this.auth.loginAdmin(this.loginModal.Username, this.loginModal.Password).subscribe(data => {
       this.loader.hideLoader();
@@ -95,6 +94,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("userType", data.user[0].roleId);
         localStorage.setItem("adminId", data.user[0].adminId);
         localStorage.setItem("superAdminId", data.user[0].superAdminId)
+        localStorage.setItem("loginAssembly", data.user[0].assemblyName);
         //this.auth.sendOtp(this.loginModal.Username).subscribe((data) => {
         //   this.otpverify(data);
         //});

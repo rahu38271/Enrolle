@@ -69,6 +69,7 @@
             <table class="table" id="table13" #epltable>
               <thead>
                 <tr>
+                  <th>Sr.No.</th>
                   <th>
                     AC.No.		
                   </th>
@@ -80,17 +81,12 @@
                     Name
                   </th>
                   <th>
-                    Mobile No. 1	
+                    Mobile No. 
                   </th>
                   <th>
-                    Mobile No. 2	
+                    Alt. Mobile No. 
                   </th>
-                  <th>
-                    Mobile No. 3	
-                  </th>
-                  <th>
-                    Mobile No. 4	
-                  </th>
+                  
                   <th>
                     DoB					
                   </th>
@@ -122,37 +118,36 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>104</td>
-                  <td>1</td>
-                  <td>Sagar Manaji Salunkhe</td>
+                <tr *ngFor="let item of getnewVoter | filter:searchWeb">
+                  <td>{{item.id}}</td>
+                  <td>{{item.assemblyNo}}</td>
+                  <td>{{item.partNo}}</td>
+                  <td></td>
+                  <td>{{item.firstName}} {{item.middleName}} {{item.lastName}}</td>
                   <td>
-                    9158490455
+                    {{item.mobileNo}}
                   </td>
+                  <td>{{item.altMobileNo}}</td>
+                  <td>{{item.dob}}</td>
+                  <td>{{item.houseNo}}</td>
+                  <td>{{item.epicNo}}</td>
+                  <td>{{item.gender}}</td>
+                  <td>{{item.age}}</td>
+                  <td>{{item.societyName}}</td>
+                  <td>{{item.zone}}</td>
+                  <td>{{item.address}}</td>
+                  <td>{{item.newAddress}}</td>
+                  <td>{{item.area}}</td>
+                  <td>{{item.favour}}</td>
                   <td></td>
-                  <td></td>
-                  <td></td>
-                  <td>11/06/1994</td>
-                  <td>C39</td>
-                  <td>12341234</td>
-                  <td>Male</td>
-                  <td>28</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td id="element-to-hide" data-html2canvas-ignore="true">
-                    <ion-button routerLink="/new-voter/edit-new-voter" color="success" size="small"><ion-icon name="pencil-sharp"></ion-icon></ion-button>
-                    <!-- <ion-button color="danger" size="small" (click)="deleteAppointment()"><ion-icon name="trash-sharp"></ion-icon></ion-button> -->
+                  <td>{{item.remark}}</td>
+                  <td>{{item.referenceName}}</td>
+                  <td>{{item.position}}</td>
+                  <td>{{item.votingCard}}</td>
+                  <td>{{item.personalRelation}}</td>
+                  <td id="element-to-hide" data-html2canvas-ignore="true" class="action">
+                    <ion-icon (click)="editNewVoter(item)" name="create-sharp"></ion-icon>
+                    <ion-icon (click)="deleteNewVoter(item.id)" class="delete" name="trash-bin-sharp"></ion-icon> 
                   </td>
                 </tr>
               </tbody>
@@ -164,7 +159,7 @@
     </div>
   </ion-content>
                           
-  <ion-fab horizontal="end" vertical="bottom" slot="fixed" routerLink="/appointment/add-appointment">
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed" routerLink="/new-voter/add-new-voter">
     <ion-fab-button color="primary">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

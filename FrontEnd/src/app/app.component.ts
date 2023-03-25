@@ -48,6 +48,7 @@ export class AppComponent implements OnInit {
   isBirthday: any;
   isAnniversary: any;
   isDailyRoutine: any;
+  isDailyNews:any;
   isMedia: any;
   isOther: any;
   isSetting: any;
@@ -155,16 +156,17 @@ export class AppComponent implements OnInit {
     this.isAnnapurna = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isNewVoter = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isDailyRoutine = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isDailyNews = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isVoterList = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isRequest = isMasterAdmin|| isSuperAdmin || isAdmin;
     // keeps user logged in for android app so that user doesnt have to login every time app opens
     // but dont use this code for web view bcoz when i refresh from any page in the app, it redirects me to dashboard page
-    // if (localStorage.getItem('loginId') != undefined || null) {
-    //   this.router.navigate(['/home/mobile-dashboard']);
-    // }
-    // else {
-    //   this.router.navigate(['/']);
-    // }
+    //if (localStorage.getItem('loginId') != undefined || null) {
+    //  this.router.navigate(['/home/mobile-dashboard']);
+    //}
+    //else {
+    //  this.router.navigate(['/']);
+    //}
 
     
     this.firebaseX.getToken()

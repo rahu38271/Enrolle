@@ -1,11 +1,11 @@
-<<<<<<< HEAD
-import { Component, OnInit } from '@angular/core';
-=======
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { AlertController,LoadingController,ToastController,ModalController } from '@ionic/angular';
+import { AlertController,ModalController } from '@ionic/angular';
 import * as xlsx from 'xlsx';
 import html2pdf from 'html2pdf.js'
->>>>>>> feature/partassign
+import { AnnapurnaService } from 'src/app/services/annapurna.service';
+import { LoaderService } from 'src/app/services/loader.service';
+import { Router } from '@angular/router'
+import { IonicToastService }  from 'src/app/services/ionic-toast.service'
 
 @Component({
   selector: 'app-annapurna',
@@ -14,68 +14,64 @@ import html2pdf from 'html2pdf.js'
 })
 export class AnnapurnaComponent implements OnInit {
 
-<<<<<<< HEAD
-  constructor() { }
-
-  ngOnInit(): void {
-=======
   year : number = new Date().getFullYear();
-
+  searchWeb:string;
   myForm1: any;
-  Adate = '';
-  Status = '';
-  Priority = '';
-  Responsibility = '';
-
-  status: any = {
-    header: 'सद्यस्थिती'
-  };
-
-  preference: any = {
-    header: ' प्राधान्य'
-  };
 
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
+  getAnnapurna: any;
 
   closeModal() {
     this.modalCtrl.dismiss();
   }
 
-  constructor(public modalCtrl: ModalController,public alertController: AlertController,public loadingController: LoadingController,public toastController: ToastController) { }
+  constructor(
+    public modalCtrl: ModalController,
+    public alertController: AlertController,
+    private loader: LoaderService,
+    public toast: IonicToastService,
+    private annapurna:AnnapurnaService,
+    private router:Router
+    ) { }
+
+    ngOnInit() {
+      this.annapurnaList();
+    }
+
+  annapurnaList(){
+    debugger;
+    this.loader.showLoading();
+    
+    this.annapurna.getAnnapurnaList().subscribe(data=>{
+      if(data != 0){
+        this.loader.hideLoader();
+        this.getAnnapurna = data
+        this.getAnnapurna.forEach(e => {
+          e.tokenDate = e.tokenDate.split('T')[0];
+        });
+      }
+      else{
+        this.loader.hideLoader();
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
+  }
+
+  editAnnapurna(data:any){
+    debugger;
+    this.router.navigateByUrl('/annapurna/edit-annapurna', {state:data})
+  }
 
   resetForm(){
     this.myForm1.reset();
   }
 
-  async downloadExcel() {
-    const toast = await this.toastController.create({
-      message: 'Request added to export.',
-      duration: 2000,
-      position: 'top',
-      color: 'success',
-    });
-    toast.present();
-  }
-
-  async downloadPDF() {
-    const toast = await this.toastController.create({
-      message: 'Request added to download doc.',
-      duration: 2000,
-      position: 'top',
-      color: 'primary',
-    });
-    toast.present();
-  }
-
-  ngOnInit() {
-    
-   }
-
-  async deleteAppointment() {
+  async deleteAnp(id:any) {
     const alert = await this.alertController.create({
-      header: 'Delete बैठक नोंदी ?',
+      header: 'Delete Annapurna',
       cssClass: 'alertHeader',
-      message: 'Are you sure want to delete this बैठक नोंदी',
+      message: 'Are you sure want to delete this Annapurna',
       buttons: [
         {
           text: 'Cancel',
@@ -88,25 +84,15 @@ export class AnnapurnaComponent implements OnInit {
           text: 'Delete',
           cssClass: 'yes',
           handler: () => {
-            console.log('Confirm Ok');
+            this.annapurna.deleteAnnapurna(id).subscribe(data=>{
+              this.toast.presentToast("Annapurna deleted Succesfully!", "success", 'checkmark-circle-sharp');
+            })
           }
         }
       ],
     });
 
     await alert.present();
-  }
-
-  async presentLoading() {
-    const loading = await this.loadingController.create({
-      cssClass: 'my-custom-class',
-      message: 'Searching...',
-      duration: 2000
-    });
-    await loading.present();
-
-    const { role, data } = await loading.onDidDismiss();
-    console.log('Loading dismissed!');
   }
 
 
@@ -134,7 +120,6 @@ export class AnnapurnaComponent implements OnInit {
 
     // Old monolithic-style usage:
     html2pdf(element, opt);
->>>>>>> feature/partassign
   }
 
 }

@@ -1,1 +1,143 @@
-<p>edit-annapurna works!</p>
+
+
+<ion-content>
+    <ion-header class="android">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/annapurna"></ion-back-button>
+        </ion-buttons>
+        <ion-title> Edit Annapurna </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <div class="main-content">
+      <ion-grid>
+        <ion-row>
+          <ion-text class="form-header pl-10">
+            <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>Edit Annapurna
+          </ion-text>
+        </ion-row>
+        <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+          <ion-row>
+  
+            <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+              <ion-label> First Name <span>*</span> </ion-label>
+              <ion-input name="firstName" [(ngModel)]="annapurnaModal.firstName"  class="form-control" required></ion-input>
+            </ion-col>
+  
+            <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+              <ion-label> Middle Name  </ion-label>
+              <ion-input name="middleName" [(ngModel)]="annapurnaModal.middleName" class="form-control"></ion-input>
+            </ion-col>
+  
+            <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+              <ion-label> Last Name <span>*</span> </ion-label>
+              <ion-input name="lastName" [(ngModel)]="annapurnaModal.lastName" class="form-control" required></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Phone No.  <span>*</span> </ion-label>
+                <ion-input name="phone" [(ngModel)]="annapurnaModal.phoneNo" class="form-control" required></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Alt. Phone No. </ion-label>
+                <ion-input name="altPhone" [(ngModel)]="annapurnaModal.altPhoneNo" class="form-control"></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Chal / Society Name </ion-label>
+                <ion-input name="Society" [(ngModel)]="annapurnaModal.chal_SocietyName" class="form-control" ></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <ion-label>Present Address / Near Landmark </ion-label>
+                <ion-input name="address" [(ngModel)]="annapurnaModal.presentAddress" class="form-control" ></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Area </ion-label>
+                <ion-input name="Area" [(ngModel)]="annapurnaModal.area" class="form-control" ></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Yadi No. / Part No. </ion-label>
+                <ion-input name="Yadi" [(ngModel)]="annapurnaModal.yadiNo_PartNo" class="form-control" ></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Sr. No. </ion-label>
+                <ion-input name="serialNo" [(ngModel)]="annapurnaModal.srNo" class="form-control" ></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Epic No. </ion-label>
+                <ion-input name="epicNo" [(ngModel)]="annapurnaModal.epicNo" class="form-control" ></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Voter No. </ion-label>
+                <ion-input name="voterNo" [(ngModel)]="annapurnaModal.voterNo" class="form-control" ></ion-input>
+              </ion-col>
+  
+            <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+              <ion-label> Token Date </ion-label>
+              <ion-input 
+                value="{{ tokenDate | date: 'yyyy-MM-dd' }}" 
+                id="tokenDate" 
+                name="tokenDate" 
+                [(ngModel)]="annapurnaModal.tokenDate"
+                class="form-control" 
+                
+              >
+              </ion-input>
+
+              <ion-modal trigger="tokenDate" size="cover">
+                <ng-template>
+                  <ion-datetime 
+                    presentation="date"
+                    [(ngModel)]="tokenDate" 
+                    name="tokenDate"
+                  >
+                    <span slot="title"> {{ year }} </span>
+                  </ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </ion-col>
+  
+            <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+              <ion-label> Token No. </ion-label>
+              <ion-input name="tokenNo" [(ngModel)]="annapurnaModal.tokenNo"  class="form-control" ></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Volunteer's Name </ion-label>
+                <ion-input name="vName" [(ngModel)]="annapurnaModal.volunterName" class="form-control" ></ion-input>
+              </ion-col>
+  
+  
+            <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+                <div class="checkbox">
+                    <ion-checkbox name="cardDone" [(ngModel)]="annapurnaModal.cardDone"></ion-checkbox>
+                    <ion-label>  Card Done  </ion-label>
+                  </div>
+            </ion-col>
+  
+            <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+              <ion-label>New Entry ( Remark ) </ion-label>
+              <ion-input name="Remark" [(ngModel)]="annapurnaModal.newEntry_Remarks" class="form-control" ></ion-input>
+            </ion-col>
+  
+  
+            <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+              <div class="ion-text-center">
+                <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
+                <ion-button type="submit" size="medium" [disabled]="!f.form.valid" (click)="EditAnnapurna()">Update</ion-button>
+                <ion-button routerLink="/annapurna" color="success" type="button" size="medium">Back To List
+                </ion-button>
+              </div>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-grid>
+    </div>
+  </ion-content>

@@ -35,6 +35,7 @@ import { SupporterListComponent } from './supporter-list/supporter-list.componen
 import { OppositionListComponent } from './opposition-list/opposition-list.component';
 import { DoubtfulListComponent } from './doubtful-list/doubtful-list.component';
 import { OtherListComponent } from './other-list/other-list.component';
+import { ByDeathComponent } from './by-death/by-death.component';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,8 @@ import { OtherListComponent } from './other-list/other-list.component';
     SupporterListComponent, 
     OppositionListComponent, 
     DoubtfulListComponent, 
-    OtherListComponent
+    OtherListComponent, 
+    ByDeathComponent
   ],
   imports: [
     CommonModule,
@@ -136,6 +138,7 @@ import { OtherListComponent } from './other-list/other-list.component';
       {path:'doubtful', component:DoubtfulListComponent},
       {path:'other', component:OtherListComponent},
       {path:'colorwise-list', component:ColorwiseListComponent},
+      {path:'by-death', component:ByDeathComponent}
    ])
   ]
 })

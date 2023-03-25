@@ -5,7 +5,7 @@
           <ion-menu-button color="light" auto-hide="false"></ion-menu-button>
         </ion-buttons>
         <!-- <ion-title *ngIf="totalCount"> <strong>Total : {{totalCount.totalCount}}</strong> </ion-title> -->
-        <ion-title> Total : {{voterListByUser.length}}</ion-title>
+        <ion-title *ngFor="let item of totalCount"> Total : {{item.totalCount}}</ion-title>
         
         <ion-buttons slot="primary">
           <ion-button (click)="search()">
@@ -16,12 +16,8 @@
     </ion-header>
     <div class="main-content">
       <div class="webView">
-        
         <ion-card>
-         
-    
           <ion-card-content>
-            
             <ion-grid class="header">
               <ion-row>
                 <ion-col>
@@ -87,7 +83,7 @@
           <ion-icon (click)="toggleMike()" [name]="isMike ?'mic-off-sharp' : 'mic-sharp' " name="mic-sharp"></ion-icon>
         </div> -->
         <ion-searchbar *ngIf="isShow" [(ngModel)]="searchWeb"></ion-searchbar>
-        <ion-list *ngFor="let item of voterListByUser| paginate: { itemsPerPage:100, currentPage: pageNo } | filter:searchWeb" (click)="voterDetails(item.id)">
+        <ion-list *ngFor="let item of voterListByUser| paginate: { itemsPerPage:100, currentPage: pageNo, totalItems:300000 } | filter:searchWeb" (click)="voterDetails(item.id)">
           <ion-item lines="none">
             <ion-label>
               <div class="firstLine">
@@ -103,7 +99,9 @@
             </ion-label>
           </ion-item>
         </ion-list>
-        <pagination-controls (pageChange)="event($event)"></pagination-controls>
+        <ion-list>
+          <pagination-controls (pageChange)="event($event)"></pagination-controls>
+        </ion-list>
         <div *ngIf="!voterListByUser || voterListByUser.length === 0" class="text-center noData">
           <img src="assets/img/question.png" />
           <p>No data available</p>

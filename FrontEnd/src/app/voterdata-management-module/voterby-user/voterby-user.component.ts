@@ -12,7 +12,7 @@ import { LoaderService } from 'src/app/services/loader.service'
 export class VoterbyUserComponent  {
   id: any;
   RoleId:any;
-  voterListByUser: any[]=[];
+  voterListByUser: any;
   isShow = true;
   isMike : boolean;
   isRecording = false;
@@ -21,6 +21,7 @@ export class VoterbyUserComponent  {
   cp: number = 1;
   pageNo:any= 1
   NoofRow:any= 100
+  totalCount:any;
   search(){
     this.isShow = !this.isShow
   }
@@ -40,12 +41,19 @@ export class VoterbyUserComponent  {
    ngOnInit(){
     this.id = localStorage.getItem("loginId");
     this.RoleId = localStorage.getItem("userType");
-    this.voterList(this.id,this.RoleId,this.pageNo,this.NoofRow)
+    this.voterList(this.id,this.RoleId,this.pageNo,this.NoofRow);
+    this.totalVoterCount();
   }
 
   event(event:any){
     this.pageNo = event;
     this.voterList(this.id,this.RoleId,event,this.NoofRow)
+  }
+
+  totalVoterCount(){
+    this.voter.getVoterCountByUser(this.id,this.RoleId).subscribe(data=>{
+      this.totalCount = data
+    })
   }
 
   voterList(id:any,RoleId:any,pageNo:any,NoofRow:any){

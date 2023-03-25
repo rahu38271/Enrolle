@@ -66,36 +66,20 @@
             <ion-button class="button-download" color="success" (click)="downloadExcel()" ><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
           </div>
           <div class="horizontal-scroll">
-            <table class="table" id="table13" #epltable>
+            <table class="table" #epltable>
               <thead>
                 <tr>
-                  <th style="width: 40px;">
-                    Sr.No.		
-                  </th>
-                  <th>
-                    Name
-                  </th>
-                  <th>
-                    Phone No.	
-                  </th>
-                  <th>
-                    Alt. Phone No.	
-                  </th>
-                  <th>
-                    Chal / Society Name				
-                  </th>
-                  <th>
-                    Present Address Near Landmark
-                  </th>
-                  <th>
-                    Area
-                  </th>
-                  <th>
-                    Yadi No.
-                  </th>
+                  <th>Sr.No.</th>
+                  <th>Name</th>
+                  <th>Phone No.</th>
+                  <th>Alt. Phone No.</th>
+                  <th>Chal / Society Name</th>
+                  <th>Present Address Near Landmark</th>
+                  <th>Area</th>
+                  <th>Yadi No.</th>
                   <th>Sr. No.</th>
                   <th>Epic No. </th>
-                  <th>Voters No. </th>
+                  <th>Voter No. </th>
                   <th>Token Date</th>
                   <th>Token No.</th>
                   <th>Volunteers Name</th>
@@ -107,110 +91,33 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Sagar Manaji Salunkhe</td>
+                <tr *ngFor="let item of getAnnapurna | filter:searchWeb">
+                  <td>{{item.id}}</td>
+                  <td>{{item.firstName}} {{item.middleName}} {{item.lastName}}</td>
+                  <td>{{item.phoneNo}}</td>
+                  <td>{{item.altPhoneNo}}</td>
+                  <td>{{item.chal_SocietyName}}</td>
+                  <td>{{item.presentAddress}}</td>
+                  <td>{{item.area}}</td>
+                  <td>{{item.yadiNo_PartNo}}</td>
+                  <td>{{item.srNo}}</td>
+                  <td>{{item.epicNo}}</td>
+                  <td>{{item.voterNo}}</td>
+                  <td>{{item.tokenDate}}</td>
+                  <td>{{item.tokenNo}}</td>
+                  <td>{{item.volunterName}}</td>
                   <td>
-                    9158490455
+                      <input type="checkbox" >
+                      <!-- {{item.cardDone}} -->
                   </td>
-                  <td>9579743709</td>
-                  <td>kk Market</td>
-                  <td>kk Market</td>
-                  <td>kk Market</td>
-                  <td>123</td>
-                  <td>123</td>
-                  <td>123</td>
-                  <td>12345678</td>
-                  <td>11/03/2023</td>
-                  <td>1212</td>
-                  <td>Sagar Salunkhe</td>
-                  <td>
-                      <input type="checkbox">
-                  </td>
-                  <td>New entry added</td>
-                  <td id="element-to-hide" data-html2canvas-ignore="true">
-                    <ion-icon routerLink="/annapurna/edit-annapurna" name="create-sharp"></ion-icon>
+                  <td>{{item.newEntry_Remarks}}</td>
+                  <td id="element-to-hide" data-html2canvas-ignore="true" class="action">
+                    <ion-icon (click)="editAnnapurna(item)" name="create-sharp"></ion-icon>
                     <ion-icon id="open-modal" expand="block" name="add-circle-sharp"></ion-icon>
-                    <!-- <ion-button color="danger" size="small" ><ion-icon name="trash-sharp"></ion-icon></ion-button> -->
-                    
+                    <ion-icon (click)="deleteAnp(item.id)" class="delete" name="trash-bin-sharp"></ion-icon>
                   </td>
                 </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Sagar Manaji Salunkhe</td>
-                    <td>
-                      9158490455
-                    </td>
-                    <td>9579743709</td>
-                    <td>kk Market</td>
-                    <td>kk Market</td>
-                    <td>kk Market</td>
-                    <td>123</td>
-                    <td>123</td>
-                    <td>123</td>
-                    <td>12345678</td>
-                    <td>11/03/2023</td>
-                    <td>1212</td>
-                    <td>Sagar Salunkhe</td>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>New entry added</td>
-                    <td id="element-to-hide" data-html2canvas-ignore="true">
-                      <ion-icon routerLink="/annapurna/edit-annapurna" name="create-sharp"></ion-icon>
-                      <!-- <ion-button color="danger" size="small" ><ion-icon name="trash-sharp"></ion-icon></ion-button> -->
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Sagar Manaji Salunkhe</td>
-                    <td>
-                      9158490455
-                    </td>
-                    <td>9579743709</td>
-                    <td>kk Market</td>
-                    <td>kk Market</td>
-                    <td>kk Market</td>
-                    <td>123</td>
-                    <td>123</td>
-                    <td>123</td>
-                    <td>12345678</td>
-                    <td>11/03/2023</td>
-                    <td>1212</td>
-                    <td>Sagar Salunkhe</td>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>New entry added</td>
-                    <td id="element-to-hide" data-html2canvas-ignore="true">
-                      
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>4</td>
-                    <td>Sagar Manaji Salunkhe</td>
-                    <td>
-                      9158490455
-                    </td>
-                    <td>9579743709</td>
-                    <td>kk Market</td>
-                    <td>kk Market</td>
-                    <td>kk Market</td>
-                    <td>123</td>
-                    <td>123</td>
-                    <td>123</td>
-                    <td>12345678</td>
-                    <td>11/03/2023</td>
-                    <td>1212</td>
-                    <td>Sagar Salunkhe</td>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                    <td>New entry added</td>
-                    <td id="element-to-hide" data-html2canvas-ignore="true">
-                      
-                    </td>
-                  </tr>
+                
               </tbody>
             </table>
             

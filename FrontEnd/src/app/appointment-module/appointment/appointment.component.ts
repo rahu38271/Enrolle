@@ -5,6 +5,7 @@ import html2pdf from 'html2pdf.js'
 import { AppointmentService } from 'src/app/services/appointment.service'
 import { LoaderService } from 'src/app/services/loader.service'
 import { Router } from '@angular/router';
+import { IonicToastService } from 'src/app/services/ionic-toast.service';
 
 @Component({
   selector: 'app-appointment',
@@ -13,23 +14,13 @@ import { Router } from '@angular/router';
 })
 export class AppointmentComponent implements OnInit {
 
-  getApmList:any;
-
+  getApmList:any; 
+  searchWeb:string;
   year : number = new Date().getFullYear();
-
   myForm1: any;
-  Adate = '';
-  Status = '';
-  Priority = '';
-  Responsibility = '';
-
-  status: any = {
-    header: 'सद्यस्थिती'
-  };
-
-  preference: any = {
-    header: ' प्राधान्य'
-  };
+  searchApmModal:any={
+    apmDate:''
+  }
 
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
 
@@ -40,6 +31,7 @@ export class AppointmentComponent implements OnInit {
     private appointment:AppointmentService,
     private loader:LoaderService,
     private router:Router, 
+    private toast:IonicToastService
     ) { }
 
     ngOnInit() {
@@ -48,13 +40,13 @@ export class AppointmentComponent implements OnInit {
 
   appoinmentList(){
     this.loader.showLoading();
+    
     this.appointment.getAppointments().subscribe(data=>{
-      if(data){
+      if(data != 0){
         this.getApmList = data;
         this.loader.hideLoader();
         this.getApmList.forEach(e => {
-          e.birthDate = e.birthDate.split['T'](0);
-          e.appointmentDate = e.appointmentDate.split['T'](0);
+          e.birthDate = e.birthDate.split('T')[0];
         });
       }
       else{
@@ -73,33 +65,40 @@ export class AppointmentComponent implements OnInit {
     this.myForm1.reset();
   }
 
-  async downloadExcel() {
-    const toast = await this.toastController.create({
-      message: 'Request added to export.',
-      duration: 2000,
-      position: 'top',
-      color: 'success',
-    });
-    toast.present();
+  search(){
+    this.loader.showLoading();
+    this.appointment.searchAppointment(this.searchApmModal.apmDate).subscribe(data=>{
+      if(data){
+        if(data != 0){
+          this.loader.hideLoader();
+          this.getApmList = data;
+          this.toast.presentToast("Appointment searhced successfully!", "success", 'checkmark-circle-sharp');
+          this.getApmList.forEach(e => {
+            e.birthDate = e.birthDate.split('T')[0];
+            e.appointmentDate = e.appointmentDate.split('T')[0];
+          });
+        }
+        else{
+          this.loader.hideLoader();
+          this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+        }
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("Appointment not searhced", "danger", 'alert-circle-sharp');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+      this.toast.presentToast("Something went wrong", "danger", 'alert-circle-sharp');
+    })
   }
 
-  async downloadPDF() {
-    const toast = await this.toastController.create({
-      message: 'Request added to download doc.',
-      duration: 2000,
-      position: 'top',
-      color: 'primary',
-    });
-    toast.present();
-  }
 
-  
-
-  async deleteAppointment() {
+  async deleteApm(id:any) {
     const alert = await this.alertController.create({
-      header: 'Delete बैठक नोंदी ?',
+      header: 'Delete Appointment',
       cssClass: 'alertHeader',
-      message: 'Are you sure want to delete this बैठक नोंदी',
+      message: 'Are you sure want to delete this Appointment',
       buttons: [
         {
           text: 'Cancel',
@@ -112,25 +111,15 @@ export class AppointmentComponent implements OnInit {
           text: 'Delete',
           cssClass: 'yes',
           handler: () => {
-            console.log('Confirm Ok');
+            this.appointment.deleteAppointment(id).subscribe(data=>{
+              this.toast.presentToast("Appointment deleted Succesfully!", "success", 'checkmark-circle-sharp');
+            })
           }
         }
       ],
     });
 
     await alert.present();
-  }
-
-  async presentLoading() {
-    const loading = await this.loadingController.create({
-      cssClass: 'my-custom-class',
-      message: 'Searching...',
-      duration: 2000
-    });
-    await loading.present();
-
-    const { role, data } = await loading.onDidDismiss();
-    console.log('Loading dismissed!');
   }
 
 

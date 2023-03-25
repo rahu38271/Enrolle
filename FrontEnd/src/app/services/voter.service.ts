@@ -31,8 +31,13 @@ export class VoterService {
 
   // total voter count
 
-  getVoterCount(){
-    return this.http.get<any>(this.url+'Voter/GetTotalVoterCount')
+  // getVoterCount(){
+  //   return this.http.get<any>(this.url+'Voter/GetTotalVoterCount')
+  // }
+
+  // total voter count by user
+  getVoterCountByUser(id:number,RoleId:number){
+    return this.http.get<any>(this.url+'Voter/GetTotalVoterCount?userid='+id+'&roleid='+RoleId)
   }
 
   addSingleVoter(addVoterModal:any):Observable<any>{
@@ -81,6 +86,11 @@ export class VoterService {
 
   updateAdrs(id:any, address:any){
     return this.http.post<any>(this.url+'Voter/UpdateAddressVoter?Id='+id+'&Address='+address+'', id)
+  }
+
+  updateVotedStatus(id:any, YesNo:any){
+    debugger;
+    return this.http.post<any>(this.url+'Voter/UpdateIsVoted?Id='+id+'&YesNo='+YesNo, id)
   }
 
   // village name and count
@@ -211,6 +221,16 @@ export class VoterService {
 
   other(userId:number,roleID:number){
     return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Other&UserId='+userId+'&RoleId='+roleID);
+  }
+
+  // is voted / non-voted
+  getIsVoted(UserId:number, RoleId:number, Coloumn:any){
+    return this.http.get<any>(this.url+'Voter/GetColoumncount?UserId='+UserId+'&RoleId='+RoleId+'&Coloumn='+Coloumn)
+  }
+
+  // is Dead / Alive
+  getIsAlive(UserId:number, RoleId:number, Coloumn:any){
+    return this.http.get<any>(this.url+'Voter/GetColoumncount?UserId='+UserId+'&RoleId='+RoleId+'&Coloumn='+Coloumn)
   }
 
 }

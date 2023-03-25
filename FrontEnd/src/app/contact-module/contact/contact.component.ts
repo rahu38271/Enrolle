@@ -31,11 +31,7 @@ export class ContactComponent implements OnInit {
 
   currentDate = new Date();
   birthDate: any;
-  // PageNo:any = 1;
-  // NoofRow:any = 25
-  // SearchText:any;
   
-
   constructor
   (
     public toastController: ToastController,
@@ -56,15 +52,6 @@ export class ContactComponent implements OnInit {
   }
   search(){
     this.isShow = !this.isShow
-  }
-
-  refresh(){
-    this.loader.showLoading();
-    let currentUrl = this.router.url;
-    this.router.navigateByUrl('/contact', {skipLocationChange: true}).then(() => {
-        this.router.navigate([currentUrl]);
-        this.loader.hideLoader();
-    });
   }
  
 

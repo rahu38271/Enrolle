@@ -17,12 +17,15 @@ export class VoterSummaryComponent implements OnInit {
   voterCount: any[]=[];
   userID: any;
   roleID:any;
+  assemblyName:any;
   searchWeb:string;
   constructor(public alertController: AlertController, private voter:VoterService, private router:Router) { }
 
   ngOnInit() { 
+    debugger;
     this.userID = localStorage.getItem("loginId");
     this.roleID = localStorage.getItem("userType");
+    this.assemblyName = localStorage.getItem("loginAssembly");
     this.voterByBooth();
   }
 

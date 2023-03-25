@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VoterService} from 'src/app/services/voter.service'
 import { Router } from '@angular/router'
+import { LoaderService } from 'src/app/services/loader.service'
 
 @Component({
   selector: 'app-by-surname',
@@ -15,7 +16,11 @@ export class BySurnameComponent implements OnInit {
   userId: any;
   roleID:any;
 
-  constructor(private voter:VoterService, private router:Router) { }
+  constructor(
+    private voter:VoterService, 
+    private router:Router,
+    private loader:LoaderService
+    ) { }
 
   search(){
     this.isShow = !this.isShow
@@ -32,8 +37,17 @@ export class BySurnameComponent implements OnInit {
   }
 
   allLastName(){
+    this.loader.showLoading();
     this.voter.lastNameData(this.userId,this.roleID).subscribe(data=>{
-      this.allData = data;
+      if(data != 0){
+        this.loader.hideLoader();
+        this.allData = data;
+      }
+      else{
+        this.loader.hideLoader();
+      }
+    },(err)=>{
+      this.loader.hideLoader();
     })
   }
 

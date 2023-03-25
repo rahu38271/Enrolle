@@ -6,7 +6,7 @@ ion-item {  --padding-start: 10px; text-align: center; }
 
 // ion-list { padding-top: 2px !important; padding-bottom: 2px !important; }
 
-ion-item ion-label h3  { color: #252626; font-size: 13px; font-weight: 600; margin-bottom: 0px !important; padding-top: 10px;   }
+ion-item ion-label h3  { color: #252626; font-size: 13px; font-weight: 600; margin-bottom: 0px !important;  }
 
 // color: #1B6DDF;
 
@@ -36,7 +36,7 @@ ion-col {  padding-top: var(--ion-grid-column-padding-xs, var(--ion-grid-column-
 //  .main-content { background: url('/assets/img/img-2.jpg') !important; background-position: center; background-size: cover; width: 100%; }
 
  @media screen and (max-width: 576px) {
-     ion-list {  padding-bottom: 0px !important; border-radius: 10px !important;  }
+     ion-list {  padding-bottom: 0px !important; border-radius: 10px !important; margin-top: 4px; }
 
      .web {
          display: none;
@@ -47,8 +47,9 @@ ion-col {  padding-top: var(--ion-grid-column-padding-xs, var(--ion-grid-column-
  ion-item {
     --padding-start: 8px;
     --inner-padding-end: 8px;
-    --padding-bottom: 8px;
-    --padding-top: 8px;
+    --padding-bottom: 4px;
+    --padding-top: 4px;
+    
  }
 
 

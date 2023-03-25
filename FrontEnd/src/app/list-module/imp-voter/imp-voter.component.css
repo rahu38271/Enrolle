@@ -147,3 +147,12 @@ ion-label {
 ion-list {
   margin-top: 2px;
 }
+
+
+.noData {
+  padding: 20%;
+}
+
+ .noData img {
+  width: 125px !important;
+ }
