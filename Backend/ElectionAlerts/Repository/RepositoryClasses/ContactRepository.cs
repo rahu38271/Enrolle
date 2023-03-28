@@ -111,6 +111,16 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        
+        public int DeleteContactbyId(int Id)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("EXEC USP_DeleteContactbyId {0}", Id);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

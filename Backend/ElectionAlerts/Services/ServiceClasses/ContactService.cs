@@ -33,5 +33,10 @@ namespace ElectionAlerts.Services.ServiceClasses
         {
             return _icontactreposritory.UpdateSingleContact(contact);
         }
+
+        public int DeleteContactbyId(int Id)
+        {
+            return _icontactreposritory.DeleteContactbyId(Id);
+        }
     }
 }

@@ -28,6 +28,11 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.CreateVoter(voter);
         }
 
+        public int DeleteVoterbyId(int Id)
+        {
+            return _voterRepository.DeleteVoterbyId(Id);
+        }
+
         public IEnumerable<Table> FilterColoumnCount(VoterTable table)
         {
             return _voterRepository.FilterColoumnCount(table);

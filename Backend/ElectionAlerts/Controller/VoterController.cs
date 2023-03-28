@@ -646,5 +646,19 @@ namespace ElectionAlerts.Controller
                 return BadRequest(ex);
             }
         }
+
+        [HttpGet("DeleteVoterbyId")]
+        public IActionResult DeleteVoterbyId(int Id)
+        {
+            try
+            {
+                return Ok(_voterService.DeleteVoterbyId(Id));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/DeleteVoterbyId");
+                return BadRequest(ex);
+            }
+        }
     }
  }
