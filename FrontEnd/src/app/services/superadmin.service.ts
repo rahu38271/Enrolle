@@ -32,9 +32,9 @@ export class SuperadminService {
     return this.http.post<any>(this.url + 'Login/CreateUpdateUser', edModal);
   }
 
-  // delete(id:any){
-  //   return this.http.get<any>(this.url + 'Login/DeleteUser?Id='+id)
-  // }
+  deleteUser(id:any):Observable<any>{
+    return this.http.get<any>(this.url + 'Login/DeleteUser?Id='+id)
+  }
 
   // old code
   getBooths(Role:any, UserId:any){

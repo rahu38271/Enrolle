@@ -33,16 +33,27 @@
     </div>
 
     <ion-grid class="topForm">
-      <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+      <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
         <ion-row>
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
             <ion-label>   Appointment Date   </ion-label>
-            <ion-input value="{{ appoDate | date: 'yyyy-MM-dd' }}" id="appoDate" class="form-control" required>
+            <ion-input 
+              value="{{ apmDate | date: 'yyyy-MM-dd' }}" 
+              id="apmDate"
+              name="apmDate" 
+              [(ngModel)]="searchApmModal.apmDate"
+              class="form-control" 
+              required
+            >
             </ion-input>
 
-            <ion-modal trigger="appoDate" size="cover">
+            <ion-modal trigger="apmDate" size="cover">
               <ng-template>
-                <ion-datetime presentation="date" [(ngModel)]="appoDate" name="appoDate">
+                <ion-datetime 
+                  presentation="date" 
+                  [(ngModel)]="apmDate" 
+                  name="apmDate"
+                >
                   <span slot="title"> {{ year }} </span>
                 </ion-datetime>
               </ng-template>
@@ -50,7 +61,7 @@
           </ion-col>
           
           <ion-col size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="12">
-              <ion-button class="searchBtn" type="submit" (click)="presentLoading()" [disabled]="!f.form.valid">Search</ion-button>
+              <ion-button class="searchBtn" type="submit" [disabled]="!f.form.valid" (click)="search()">Search</ion-button>
               <ion-button type="reset" (click)="resetForm()" class="searchBtn" color="danger">Clear</ion-button>
           </ion-col>
         </ion-row>
@@ -89,6 +100,9 @@
                 </th>
                 <th>
                   Work
+                </th>
+                <th>
+                  Other
                 </th>
                 <th>
                   District
@@ -131,9 +145,9 @@
                   <ion-icon routerLink="/appointment/edit-appointment" name="create-sharp"></ion-icon>
                 </td>
               </tr> -->
-              <tr *ngFor="let item of getApmList">
+              <tr *ngFor="let item of getApmList | filter:searchWeb">
                 <td>{{item.id}}</td>
-                <td>{{item.firstName}} {{item.middleName}} {{item.lastName}}</td>
+                <td class="text-capitalize">{{item.firstName}} {{item.middleName}} {{item.lastName}}</td>
                 <td>{{item.category}}</td>
                 <td>{{item.appointmentDate}}</td>
                 <td>
@@ -141,6 +155,7 @@
                 </td>
                 <td>{{item.birthDate}}</td>
                 <td>{{item.work}}</td>
+                <td>{{item.other}}</td>
                 <td>{{item.district}}</td>
                 <td>{{item.taluka}}</td>
                 <td>{{item.houseNo}}</td>
@@ -150,12 +165,16 @@
                 <td>{{item.city_Village}}</td>
                 <td>{{item.fileName}}</td>
                 <td>{{item.remark}}</td>
-                <td id="element-to-hide" data-html2canvas-ignore="true">
+                <td id="element-to-hide" data-html2canvas-ignore="true" class="action">
                   <ion-icon (click)="editAppointment(item)" name="create-sharp"></ion-icon>
+                  <ion-icon (click)="deleteApm(item.id)" class="delete" name="trash-bin-sharp"></ion-icon> 
                 </td>
               </tr>
             </tbody>
           </table>
+          <div *ngIf="!getApmList || getApmList.length === 0">
+            <p>No data</p>
+          </div>
           <pagination-controls (pageChange)="cp = $event"></pagination-controls>
         </div>
       </ion-card-content>

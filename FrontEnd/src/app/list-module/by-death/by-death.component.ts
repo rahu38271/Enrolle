@@ -3,18 +3,18 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { VoterService } from 'src/app/services/voter.service'
 
 @Component({
-  selector: 'app-voted',
-  templateUrl: './voted.component.html',
-  styleUrls: ['./voted.component.scss'],
+  selector: 'app-by-death',
+  templateUrl: './by-death.component.html',
+  styleUrls: ['./by-death.component.css']
 })
-export class VotedComponent implements OnInit {
+export class ByDeathComponent implements OnInit {
 
   isShow = false;
   UserId:any;
   RoleId:any;
   IsVoted:any;
   Coloumn: any;
-  voterVoted:any;
+  voterDead:any;
 
   constructor(
     private loader:LoaderService,
@@ -33,10 +33,10 @@ export class VotedComponent implements OnInit {
 
   votedList(){
     this.loader.showLoading();
-    this.voter.getIsVoted(this.UserId,this.RoleId,this.Coloumn = 'IsVoted').subscribe(data=>{
+    this.voter.getIsAlive(this.UserId,this.RoleId,this.Coloumn = 'IsAlive').subscribe(data=>{
       if(data != 0){
         this.loader.hideLoader();
-        this.voterVoted = data
+        this.voterDead = data
       }
       else{
         this.loader.hideLoader();

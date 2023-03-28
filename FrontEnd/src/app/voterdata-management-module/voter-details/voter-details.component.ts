@@ -42,8 +42,9 @@ export class VoterDetailsComponent {
   RoleId: any;
   colorUpdate: any = {};
   YesNo: any;
-  pageNo:any;
-  NoofRow:any;
+  pageNo:any=1;
+  NoofRow:any=100;
+ 
 
   @ViewChild('slipDesign') slipDesign: ElementRef;
 
@@ -72,15 +73,12 @@ export class VoterDetailsComponent {
   adrsUpdate: any = {}
   altmobUpdate: any = {};
   starUpdare: any = {};
+  voteStatusUpdate:any = {}
   showStar: any;
   showVote: boolean;
 
-  toggleVote() {
-    this.showVote = !this.showVote;
-  }
-
   bgColor ='#FFF';
-
+  assemblyName1:any;
   closeModal() {
     this.modalCtrl.dismiss();
   }
@@ -118,6 +116,7 @@ export class VoterDetailsComponent {
   }
 
   ngOnInit() {
+    this.assemblyName1 = localStorage.getItem("loginAssembly");
     this.voterDetails();
   }
 
@@ -185,6 +184,7 @@ export class VoterDetailsComponent {
       this.toast.presentToast("Address not updated", "danger", 'alert-circle-sharp');
     })
   }
+
 
   // voter select color for supporter
 
@@ -258,6 +258,27 @@ export class VoterDetailsComponent {
     })
   }
 
+  // update isvoted status
+
+  toggleVote(){
+    debugger;
+    this.showVote = !this.showVote;
+    const Vid = this.route.snapshot.paramMap.get('id');
+    this.voteStatusUpdate.id = Number(Vid);
+    this.voteStatusUpdate.YesNo = 'Y';
+    this.voter.updateVotedStatus(this.voteStatusUpdate.id,this.voteStatusUpdate.YesNo).subscribe(data=>{
+      if(data){
+        this.voterDetails();
+        this.toast.presentToast("Vote status updated successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else {
+        this.toast.presentToast("Vote status not updated", "danger", 'alert-circle-sharp');
+      }
+    }, (_err)=>{
+      
+    })
+  }
+
   voterDetails() {
     this.loader.showLoading();
     this.id = localStorage.getItem("loginId");
@@ -266,10 +287,16 @@ export class VoterDetailsComponent {
       this.loader.hideLoader();
       const Vid = this.route.snapshot.paramMap.get('id');
       [this.Voter] = data.filter((Voter) => Voter.id == Vid);
+      console.log(this.Voter)
       this.VoterListByUser = this.Voter;
-      if (this.VoterListByUser.starVoter = "Y"){
-        // this.showStar = "{{ showStar ? 'assets/img/star1.png' : 'assets/img/star.png'}}" 
+      // to get star checked if voter is star voter or not 
+      if (this.VoterListByUser.starVoter == "Y"){
+        this.showStar =  this.showStar
       }
+      else{
+        this.showStar =  !this.showStar
+      }
+      // to get color checked if voter is supporter, opposite, doubtful or other
       if (this.VoterListByUser.votingInclination == "Supporter") {
          this.bgColor = '#0bbb5f'
       }

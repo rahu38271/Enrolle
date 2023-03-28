@@ -8,6 +8,7 @@ import { AssemblyService} from 'src/app/services/assembly.service'
 import {WardService } from 'src/app/services/ward.service'
 import { BoothService } from 'src/app/services/booth.service'
 import { Router } from '@angular/router'
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-add-voter',
@@ -61,10 +62,18 @@ export class AddVoterComponent implements OnInit {
       private assembly:AssemblyService,
       private ward:WardService,
       private booth:BoothService,
-      private router:Router
+      private router:Router,
+      private location: Location
     )
      {
 
+      }
+
+      ngOnInit() {
+        this.getDistrict();
+        this.getAssembly();
+        this.getWard();
+        this.getBooth();
       }
 
   getDistrict(){
@@ -108,12 +117,7 @@ export class AddVoterComponent implements OnInit {
     })
   }
 
-  ngOnInit() {
-    this.getDistrict();
-    this.getAssembly();
-    this.getWard();
-    this.getBooth();
-  }
+  
 
   resetForm(){
     this.myForm.reset();
@@ -157,6 +161,10 @@ export class AddVoterComponent implements OnInit {
       this.toast.presentToast("Voter not added!", "danger", 'checkmark-circle-sharp');
       this.loader.hideLoader();
     })
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

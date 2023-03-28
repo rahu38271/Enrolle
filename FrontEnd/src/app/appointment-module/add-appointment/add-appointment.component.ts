@@ -4,6 +4,7 @@ import { AppointmentService } from 'src/app/services/appointment.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { Router } from '@angular/router';
 import { ContactService } from 'src/app/services/contact.service'
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-add-appointment',
@@ -12,8 +13,7 @@ import { ContactService } from 'src/app/services/contact.service'
 })
 export class AddAppointmentComponent implements OnInit {
 
-  appointmentModal:any;
-  appointmenDetails:any;
+  appointmentModal:any={};
   districtList: any;
   talukaList: any;
   year : number = new Date().getFullYear();
@@ -27,6 +27,26 @@ export class AddAppointmentComponent implements OnInit {
   inpresence = '';
   place = '';
   date = '';
+
+  onKeyPress(event) {
+    if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {
+      return true
+    }
+    else {
+      return false
+    }
+  }
+
+  keyPressNumbers(event) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   constructor(
     private loader:LoaderService,
@@ -64,11 +84,15 @@ export class AddAppointmentComponent implements OnInit {
   }
 
   addAppointment(){
+    debugger;
+    this.appointmentModal.AppointmentDate = this.appointmentModal.AppointmentDate;
+    this.appointmentModal.WardNo = Number(this.appointmentModal.WardNo);
+    this.appointmentModal.PinCode = Number(this.appointmentModal.PinCode);
     this.loader.showLoading();
     this.appointment.addSingleAppointment(this.appointmentModal).subscribe(data=>{
       if(data){
         this.loader.hideLoader();
-        this.appointmenDetails = {};
+        this.appointmentModal = {};
         this.toast.presentToast("Appointment added successfully!", "success", 'checkmark-circle-sharp');
         this.router.navigate(['/appointment']);
       }
@@ -80,6 +104,14 @@ export class AddAppointmentComponent implements OnInit {
       this.loader.hideLoader();
       
     })
+  }
+
+  onSubmit(f: NgForm) {
+    if (this.appointmentModal.invalid) {
+      return;
+    }
+    f.resetForm();
+    // window.location.reload();
   }
 
   resetForm(){

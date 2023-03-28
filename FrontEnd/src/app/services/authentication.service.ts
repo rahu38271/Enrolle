@@ -24,7 +24,6 @@ export class AuthenticationService {
   // // step - 1.  admin Login API 
 
   loginAdmin(Username:string,Password:string):Observable<any>{
-    debugger;
     return this.http.get<any>(this.url+'Login/LoginUser?Username='+Username+'&Password='+Password+'');
   }
 

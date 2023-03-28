@@ -34,6 +34,7 @@ export class SuperadminComponent implements OnInit {
   superadminId:any;
   id:any;
   roleName: string;
+ 
   search() {
     this.isShow = !this.isShow
   }
@@ -190,36 +191,32 @@ export class SuperadminComponent implements OnInit {
     this.location.back();
   }
 
-  deleteSA(){
-    // this.sadmin.delete(this.id).subscribe(data=>{
-    //   console.log(data);
-    // })
+  async deleteUser(id:any) {
+    const alert = await this.alertController.create({
+      header: ' Delete User ?',
+      cssClass: 'alertHeader',
+      message: 'Are you sure want to delete this User',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'no',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Delete',
+          cssClass: 'yes',
+          handler: () => {
+            this.sadmin.deleteUser(id).subscribe(data=>{
+              this.toast.presentToast("User deleted Succesfully!", "success", 'checkmark-circle-sharp');
+            })
+          }
+        }
+      ],
+    });
+
+    await alert.present();
   }
-
-  // async deleteSA() {
-  //   const alert = await this.alertController.create({
-  //     header: ' Delete Superadmin ?',
-  //     cssClass: 'alertHeader',
-  //     message: 'Are you sure want to delete this superadmin',
-  //     buttons: [
-  //       {
-  //         text: 'Cancel',
-  //         role: 'cancel',
-  //         cssClass: 'no',
-  //         handler: () => {
-  //           console.log('Confirm Cancel');
-  //         }
-  //       }, {
-  //         text: 'Delete',
-  //         cssClass: 'yes',
-  //         handler: () => {
-  //           console.log('Confirm Ok');
-  //         }
-  //       }
-  //     ],
-  //   });
-
-  //   await alert.present();
-  // }
 
 }

@@ -81,14 +81,13 @@ export class AssignDataComponent implements OnInit {
         }
 
       });
-      console.log(this.allBooths)
+      
     });
 
   }
 
 
   getBoothPart(event: any) {
-    debugger;
     this.SelectedBooth = [];
     // this.SelectedPartNo=[];
 
@@ -130,7 +129,7 @@ export class AssignDataComponent implements OnInit {
     }).subscribe(data => {
       if (data == 1) {
         this.loader.hideLoader();
-        console.log("sucess");
+        //console.log("sucess");
         this.router.navigate(['/superadmin']);
         this.toast.presentToast("Part no. assigned successfully!", "success", 'checkmark-circle-sharp');
         //edit the response from api --string like "Record added succesfully "

@@ -15,7 +15,7 @@
           <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
             <input type="image"
             name="star" 
-            src="{{ showStar ? 'assets/img/star.png' : 'assets/img/star1.png'}}" 
+            src="{{ showStar ? 'assets/img/star1.png' : 'assets/img/star.png'}}" 
             width="32" height="32"
             [(ngModel)]="starUpdare.YesNo"
             (click)="toggleStar()"
@@ -30,11 +30,7 @@
             <img src="/assets/img/sharing.png" alt="">
           </a> -->
         </ion-col>
-        <ion-col>
-          <a>
-            <img src="/assets/img/phone-call.png" alt="">
-          </a>
-        </ion-col>
+        
 
         <!-- <ion-col>
           <a href="https://wa.me/+918390755001">
@@ -47,8 +43,18 @@
         </ion-col>
         
         <ion-col>
-          <img src="{{ showVote ? 'assets/img/positive-vote.png' : 'assets/img/manual-voting.png'}}" 
-          type="button" (click)="toggleVote()" alt="">
+          <form (ngSubmit)="vote.form.valid" #vote="ngForm" novalidate>
+            <img 
+              src="{{ showVote ? 'assets/img/positive-vote.png' : 'assets/img/manual-voting.png'}}" 
+              type="button" 
+              [(ngModel)]="voteStatusUpdate.YesNo"
+              name="voteStatus"
+              (click)="toggleVote()" 
+              alt=""
+            >
+          </form>
+          <!-- <img src="{{ showVote ? 'assets/img/positive-vote.png' : 'assets/img/manual-voting.png'}}" 
+          type="button" (click)="toggleVote()" alt=""> -->
         </ion-col>
 
         <ion-col>
@@ -100,7 +106,7 @@
       <ion-row class="header mt-2 mb-2">
         <ion-col class="ion-text-center">
           <ion-label>
-            Assembly : {{ VoterListByUser.assemblyNo }} {{ VoterListByUser.assembly }} 
+            Assembly : {{assemblyName1}}
           </ion-label>
         </ion-col>
       </ion-row>

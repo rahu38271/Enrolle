@@ -73,6 +73,15 @@ export class EditVoterdataComponent implements OnInit {
       
       }
 
+      ngOnInit() {
+        this.EditData.assembly = this.EditData.assembly;
+        this.getDistrict();
+        this.getAssembly();
+        this.getWard();
+        this.getBooth()
+        
+      }
+
   getDistrict(){
     this.EditData = this.router.getCurrentNavigation().extras.state;
     this.contact.getDistrictData().subscribe((data)=>{
@@ -115,14 +124,7 @@ export class EditVoterdataComponent implements OnInit {
     })
   }
 
-  ngOnInit() {
-    this.EditData.assembly = this.EditData.assembly;
-    this.getDistrict();
-    this.getAssembly();
-    this.getWard();
-    this.getBooth()
-    
-  }
+  
 
   resetForm(){
     this.myForm.reset();
