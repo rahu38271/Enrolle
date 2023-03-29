@@ -67,6 +67,7 @@ export class NewVoterComponent implements OnInit {
           cssClass: 'yes',
           handler: () => {
             this.newVoter.deleteNewVoter(id).subscribe(data=>{
+              this.ngOnInit();
               this.toast.presentToast("Appointment deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })
           }

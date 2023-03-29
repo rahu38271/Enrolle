@@ -1,5 +1,5 @@
 
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef,ChangeDetectorRef } from '@angular/core';
 import * as xlsx from 'xlsx';
 import html2pdf from 'html2pdf.js'
 import { AlertController } from '@ionic/angular';
@@ -25,7 +25,7 @@ export class SuperadminComponent implements OnInit {
   searchWeb: string;
   cp: number = 1;
   getAdminList: any = [];
-
+  
   currentDate = new Date();
   roleId: any;
   superId:any;
@@ -50,8 +50,9 @@ export class SuperadminComponent implements OnInit {
       private location: Location,
       private toast: IonicToastService,
        private route: ActivatedRoute,
+       private changeDetection: ChangeDetectorRef
     ) {
-
+      
   }
 
   ngOnInit() {
@@ -68,8 +69,6 @@ export class SuperadminComponent implements OnInit {
       this.isDB = this.isDB;
     }
   }
-
-
 
   getAllAdminList() {
     
@@ -94,6 +93,7 @@ export class SuperadminComponent implements OnInit {
             this.getAdminList.forEach(e => {
               e.createdDate = e.createdDate.split('T')[0];
             });
+            ;
           });
         }
         else {
@@ -139,7 +139,6 @@ export class SuperadminComponent implements OnInit {
 
     //All users list for Admin
     if(this.roleId == 3){
-      debugger;
       this.sadmin.GetVolunterbyAdminId(this.adminid).subscribe(data => {
         if (data != 0) {
           //this.loader.hideLoader();
@@ -164,6 +163,7 @@ export class SuperadminComponent implements OnInit {
             this.getAdminList.forEach(e => {
               e.createdDate = e.createdDate.split('T')[0];
             });
+      
           });
         }
         else {
@@ -192,6 +192,7 @@ export class SuperadminComponent implements OnInit {
   }
 
   async deleteUser(id:any) {
+    debugger
     const alert = await this.alertController.create({
       header: ' Delete User ?',
       cssClass: 'alertHeader',
@@ -208,7 +209,9 @@ export class SuperadminComponent implements OnInit {
           text: 'Delete',
           cssClass: 'yes',
           handler: () => {
+            debugger
             this.sadmin.deleteUser(id).subscribe(data=>{
+              this.ngOnInit();
               this.toast.presentToast("User deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })
           }

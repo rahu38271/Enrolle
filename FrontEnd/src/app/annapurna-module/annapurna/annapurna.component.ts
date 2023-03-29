@@ -13,17 +13,28 @@ import { IonicToastService }  from 'src/app/services/ionic-toast.service'
   styleUrls: ['./annapurna.component.css']
 })
 export class AnnapurnaComponent implements OnInit {
+  
+  isModalOpen = false;
 
   year : number = new Date().getFullYear();
   searchWeb:string;
   myForm1: any;
-
-  @ViewChild('epltable', { static: false }) epltable: ElementRef;
+  FamilyModal:any={}
+  annapurnaFamilyData:any;
   getAnnapurna: any;
-
-  closeModal() {
-    this.modalCtrl.dismiss();
-  }
+  familyData:any;
+  id:any;
+  Fid:any;
+  anpid:any;
+  anpId:any;
+  checked:boolean = false;
+  fullName:string;
+  contactNo:string;
+  altContactNo:string;
+  address:string;
+ 
+  @ViewChild('epltable', { static: false }) epltable: ElementRef;
+  
 
   constructor(
     public modalCtrl: ModalController,
@@ -35,13 +46,24 @@ export class AnnapurnaComponent implements OnInit {
     ) { }
 
     ngOnInit() {
+      debugger
       this.annapurnaList();
+      this.familyList();
+      
     }
 
+    family(event){
+      this.isModalOpen = true;
+      this.Fid = event.target.id
+    }
+
+    closeFamily(){
+      this.isModalOpen = false;
+    }
+
+   
   annapurnaList(){
-    debugger;
     this.loader.showLoading();
-    
     this.annapurna.getAnnapurnaList().subscribe(data=>{
       if(data != 0){
         this.loader.hideLoader();
@@ -49,6 +71,14 @@ export class AnnapurnaComponent implements OnInit {
         this.getAnnapurna.forEach(e => {
           e.tokenDate = e.tokenDate.split('T')[0];
         });
+        
+        
+        if(this.getAnnapurna.cardDone == "Y"){
+          this.checked = true;
+        }
+        else{
+          this.checked = false;
+        }
       }
       else{
         this.loader.hideLoader();
@@ -58,8 +88,44 @@ export class AnnapurnaComponent implements OnInit {
     })
   }
 
-  editAnnapurna(data:any){
+  addFamily(){
     debugger;
+    this.FamilyModal.ANPId = this.Fid;
+    this.FamilyModal.ANPId = Number(this.FamilyModal.ANPId)
+    this.annapurna.addAnnapurnaFamily(this.FamilyModal).subscribe(data=>{
+      if(data){
+        this.FamilyModal = {};
+        this.isModalOpen = false;
+        this.toast.presentToast("Family added successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.toast.presentToast("Family not saved", "danger", 'alert-circle-sharp');
+      }
+    },(err)=>{
+
+    })
+  }
+
+  familyList(){
+    debugger;
+    this.anpid = 5
+    this.annapurna.getFamilyList(this.anpid).subscribe(data=>{
+      console.log(data);
+      this.familyData = data;
+    })
+  }
+
+  addrow(){
+    this.getAnnapurna.push({
+      fullName:this.fullName,
+      contactNo:this.contactNo,
+      altContactNo:this.altContactNo,
+      address:this.address,
+      anpId:this.anpId
+    })
+  }
+
+  editAnnapurna(data:any){
     this.router.navigateByUrl('/annapurna/edit-annapurna', {state:data})
   }
 
@@ -85,6 +151,7 @@ export class AnnapurnaComponent implements OnInit {
           cssClass: 'yes',
           handler: () => {
             this.annapurna.deleteAnnapurna(id).subscribe(data=>{
+              this.ngOnInit();
               this.toast.presentToast("Annapurna deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })
           }

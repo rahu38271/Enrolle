@@ -584,13 +584,18 @@
               </ion-item>
 
               <ion-item *ngIf="isAnnapurna" [routerLink]="['/annapurna']" routerDirection="root" [routerLinkActive]="'active'">
-                <i class="icofont icofont-ui-clock"></i>
+                <i class="icofont icofont-wheat"></i>
                 <ion-label>Annapurna </ion-label>
               </ion-item>
 
               <ion-item *ngIf="isNewVoter" routerLink="/new-voter" [routerLinkActive]="'active'">
                 <i class="icofont icofont-ui-clock"></i>
                 <ion-label>New Voter </ion-label>
+              </ion-item>
+
+              <ion-item [routerLink]="['/society']" routerDirection="root" [routerLinkActive]="'active'">
+                <i class="icofont icofont-building"></i>
+                <ion-label>Society </ion-label>
               </ion-item>
 
               <ion-item *ngIf="isContact" routerDirection="root" routerLink="/contact" [routerLinkActive]="'active'" >

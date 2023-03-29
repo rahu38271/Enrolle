@@ -33,7 +33,7 @@ import {NgxPaginationModule} from 'ngx-pagination';
     MatPaginatorModule,
     Ng2SearchPipeModule,
     NgxPaginationModule,
-    RouterModule.forChild([{path:'', component:VoterdataManagementComponent},{path:'edit-voterdata', component:EditVoterdataComponent},{path:'add-voter', component:AddVoterComponent},{path:'import-voter', component:ImportVoterdataComponent},{path:'voter-details/:id', component:VoterDetailsComponent}, {path:'family', component:FamilyComponent}, {path:'voterby-user', component:VoterbyUserComponent} ])
+    RouterModule.forChild([{path:'', component:VoterdataManagementComponent},{path:'edit-voterdata', component:EditVoterdataComponent},{path:'add-voter', component:AddVoterComponent},{path:'import-voter', component:ImportVoterdataComponent},{path:'voter-details', component:VoterDetailsComponent}, {path:'family', component:FamilyComponent}, {path:'voterby-user', component:VoterbyUserComponent} ])
   ],
   providers: [SocialSharing],
 })

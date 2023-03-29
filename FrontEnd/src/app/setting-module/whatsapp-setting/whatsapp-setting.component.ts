@@ -57,7 +57,7 @@ keyPressNumbers(event) {
     this.setting.whatsappMsgSetting(this.whatsappSetting).subscribe(data=>{
       if(data){
         this.loader.hideLoader();
-        console.log(data);
+        this.whatsappSetting = {}
         this.toast.presentToast("Setting added successfully!", "success", 'checkmark-circle-sharp');
       }else{
         this.loader.hideLoader();

@@ -36,6 +36,10 @@ import { OppositionListComponent } from './opposition-list/opposition-list.compo
 import { DoubtfulListComponent } from './doubtful-list/doubtful-list.component';
 import { OtherListComponent } from './other-list/other-list.component';
 import { ByDeathComponent } from './by-death/by-death.component';
+import { VotedvoterComponent } from './votedvoter/votedvoter.component';
+import { NotvotedvoterComponent } from './notvotedvoter/notvotedvoter.component';
+import { AlivevoterComponent } from './alivevoter/alivevoter.component';
+import { DeadvoterComponent } from './deadvoter/deadvoter.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +75,11 @@ import { ByDeathComponent } from './by-death/by-death.component';
     OppositionListComponent, 
     DoubtfulListComponent, 
     OtherListComponent, 
-    ByDeathComponent
+    ByDeathComponent, 
+    VotedvoterComponent, 
+    NotvotedvoterComponent, 
+    AlivevoterComponent, 
+    DeadvoterComponent
   ],
   imports: [
     CommonModule,
@@ -138,7 +146,11 @@ import { ByDeathComponent } from './by-death/by-death.component';
       {path:'doubtful', component:DoubtfulListComponent},
       {path:'other', component:OtherListComponent},
       {path:'colorwise-list', component:ColorwiseListComponent},
-      {path:'by-death', component:ByDeathComponent}
+      {path:'by-death', component:ByDeathComponent},
+      {path:'alive', component:AlivevoterComponent},
+      {path:'dead', component:DeadvoterComponent},
+      {path:'voted-voter', component:VotedvoterComponent},
+      {path:'nonVoter-voter', component:NotvotedvoterComponent}
    ])
   ]
 })

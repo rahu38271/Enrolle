@@ -126,7 +126,7 @@
       </ion-grid>
       <ion-grid class="android userList">
         <ion-searchbar [(ngModel)]="searchMob" animated="true" *ngIf="isShow"></ion-searchbar>
-        <ion-list (click)="voterDetails(item.id)" *ngFor="let item of voterMobile | filter:searchMob">
+        <ion-list (click)="voterDetails(item)" *ngFor="let item of voterMobile | filter:searchMob">
           <ion-item lines="none">
             <ion-label>
               <div class="firstLine">

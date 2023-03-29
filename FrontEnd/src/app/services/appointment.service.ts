@@ -21,7 +21,6 @@ export class AppointmentService {
   // single api for add and update appointment 
   // if id is available in json object then it is update else add
   addSingleAppointment(appointmentModal:any){
-    debugger;
     return this.http.post<any>(this.url+'Appointment/InsertUpdateAppointment',appointmentModal)
   }
 

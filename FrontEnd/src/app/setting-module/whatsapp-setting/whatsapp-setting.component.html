@@ -70,12 +70,12 @@
             #Taluka="ngModel"  
             placeholder="Select Type"
           >
-            <ng-option class="select_option" value="Text">Text</ng-option>
-            <ng-option class="select_option" value="Media">Media</ng-option>
+            <ng-option class="select_option" value="text">Text</ng-option>
+            <ng-option class="select_option" value="media">Media</ng-option>
          </ng-select>
           </ion-col>
 
-          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" *ngIf="whatsappSetting.mtype == 'Media' && whatsappSetting.msgType =='Birthday'">
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" *ngIf="whatsappSetting.mtype == 'media' && whatsappSetting.msgType =='Birthday'">
             <ion-label>Birthday Media URL <span>*</span> </ion-label>
               <ion-input name="bithDayMediaurl" [(ngModel)]="whatsappSetting.bithDayMediaurl" #bithDayMediaurl="ngModel" [ngClass]="{'is-invalid': f.submitted && bithDayMediaurl.invalid}" class="form-control"></ion-input>
               <div *ngIf="f.submitted && bithDayMediaurl.invalid" class="invalid-feedback">
@@ -85,7 +85,7 @@
               </div>
           </ion-col>
 
-          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" *ngIf="whatsappSetting.mtype == 'Media' && whatsappSetting.msgType =='Anniversary'">
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" *ngIf="whatsappSetting.mtype == 'media' && whatsappSetting.msgType =='Anniversary'">
             <ion-label>Anniversary Media URL <span>*</span> </ion-label>
               <ion-input name="anniverDayMediaurl" [(ngModel)]="whatsappSetting.anniverDayMediaurl" #anniverDayMediaurl="ngModel" [ngClass]="{'is-invalid': f.submitted && anniverDayMediaurl.invalid}" class="form-control"></ion-input>
               <div *ngIf="f.submitted && anniverDayMediaurl.invalid" class="invalid-feedback">
@@ -95,7 +95,7 @@
               </div>
           </ion-col>
 
-          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" *ngIf="whatsappSetting.mtype == 'Media' && whatsappSetting.msgType =='Birthday'">
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" *ngIf="whatsappSetting.mtype == 'media' && whatsappSetting.msgType =='Birthday'">
             <ion-label>Birthday File Name <span>*</span></ion-label>
               <ion-input name="bithDayFileName" [(ngModel)]="whatsappSetting.bithDayFileName" #bithDayFileName="ngModel" [ngClass]="{'is-invalid': f.submitted && bithDayFileName.invalid}" class="form-control"></ion-input>
               <div *ngIf="f.submitted && bithDayFileName.invalid" class="invalid-feedback">
@@ -105,7 +105,7 @@
               </div>
           </ion-col>
 
-          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" *ngIf="whatsappSetting.mtype == 'Media' && whatsappSetting.msgType =='Anniversary'">
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" *ngIf="whatsappSetting.mtype == 'media' && whatsappSetting.msgType =='Anniversary'">
             <ion-label>Anniversary File Name <span>*</span></ion-label>
               <ion-input name="anniverDayFileName" [(ngModel)]="whatsappSetting.anniverDayFileName" #anniverDayFileName="ngModel" [ngClass]="{'is-invalid': f.submitted && anniverDayFileName.invalid}" class="form-control"></ion-input>
               <div *ngIf="f.submitted && anniverDayFileName.invalid" class="invalid-feedback">
@@ -117,9 +117,9 @@
 
           <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
             <ion-label> Instance Id <span>*</span> </ion-label>
-              <ion-input name="instance_id" [(ngModel)]="whatsappSetting.instance_id" #instance_id="ngModel" [ngClass]="{'is-invalid': f.submitted && instance_id.invalid}" class="form-control"></ion-input>
-              <div *ngIf="f.submitted && instance_id.invalid" class="invalid-feedback">
-                <div *ngIf="instance_id.errors.required">
+              <ion-input name="instanceId" [(ngModel)]="whatsappSetting.instanceId" #instanceId="ngModel" [ngClass]="{'is-invalid': f.submitted && instanceId.invalid}" class="form-control"></ion-input>
+              <div *ngIf="f.submitted && instanceId.invalid" class="invalid-feedback">
+                <div *ngIf="instanceId.errors.required">
                   InstanceId is required
                 </div>
               </div>
@@ -127,9 +127,9 @@
 
           <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
             <ion-label> Access Token <span>*</span></ion-label>
-              <ion-input name="access_token" [(ngModel)]="whatsappSetting.access_token" #access_token="ngModel" [ngClass]="{'is-invalid': f.submitted && access_token.invalid}" class="form-control"></ion-input>
-              <div *ngIf="f.submitted && access_token.invalid" class="invalid-feedback">
-                <div *ngIf="access_token.errors.required">
+              <ion-input name="accessToken" [(ngModel)]="whatsappSetting.accessToken" #accessToken="ngModel" [ngClass]="{'is-invalid': f.submitted && accessToken.invalid}" class="form-control"></ion-input>
+              <div *ngIf="f.submitted && accessToken.invalid" class="invalid-feedback">
+                <div *ngIf="accessToken.errors.required">
                   Access token is required
                 </div>
               </div>

@@ -16,7 +16,6 @@ export class BoothwiseListComponent implements OnInit {
   userId:any;
   searchMob:string;
   roleID:any;
-  id:any;
    
   search(){
     this.isShow = !this.isShow
@@ -31,7 +30,6 @@ export class BoothwiseListComponent implements OnInit {
 
   ngOnInit() {
     this.userId = localStorage.getItem("loginId");
-    this.id = localStorage.getItem("loginId");
     this.roleID = localStorage.getItem("userType")
     this.partNumber = this.route.snapshot.paramMap.get('partNumber');
     this.voter.voterByPart(this.partNumber,this.userId, this.roleID).subscribe(data=>{
@@ -39,8 +37,8 @@ export class BoothwiseListComponent implements OnInit {
     })
   }
 
-  voterDetails(id:number){
-    this.router.navigate(['voterdata-management/voter-details', id])
+  voterDetails(item:any){
+    this.router.navigate(['voterdata-management/voter-details'], { state: item })
    }
 
 }

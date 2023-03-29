@@ -88,9 +88,16 @@ export class VoterService {
     return this.http.post<any>(this.url+'Voter/UpdateAddressVoter?Id='+id+'&Address='+address+'', id)
   }
 
+  // voted status update
+
   updateVotedStatus(id:any, YesNo:any){
-    debugger;
     return this.http.post<any>(this.url+'Voter/UpdateIsVoted?Id='+id+'&YesNo='+YesNo, id)
+  }
+
+  // dead or alive update
+
+  updateAliveDead(id:any, YesNo:any){
+    return this.http.post<any>(this.url+'Voter/UpdateIsAliveVoter?Id='+id+'&YesNo='+YesNo, id)
   }
 
   // village name and count

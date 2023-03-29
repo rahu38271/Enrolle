@@ -11,10 +11,11 @@ export class SurnamewiseListComponent implements OnInit {
 
   isShow = false;
   lastName: any;
-  surnameWiseData = [];
+  surnameWiseData : any[]=[];
   searchMob:string;
   userId: any;
   roleID:any;
+  id:any;
 
   search() {
     this.isShow = !this.isShow
@@ -24,8 +25,8 @@ export class SurnamewiseListComponent implements OnInit {
     
   }
 
-  voterDetails(id:number){
-    this.router.navigate(['voterdata-management/voter-details', id])
+  voterDetails(item:any){
+    this.router.navigate(['voterdata-management/voter-details'], { state: item })
    }
 
   ngOnInit() {

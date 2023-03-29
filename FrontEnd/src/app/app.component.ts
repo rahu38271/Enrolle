@@ -149,7 +149,7 @@ export class AppComponent implements OnInit {
     this.isOther = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isSetting = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isSurvey = isSuperAdmin || isAdmin  || isVolunteer;
-    this.isSearch = isSuperAdmin || isAdmin  || isVolunteer;
+    this.isSearch = isVolunteer;
     this.isLists = isSuperAdmin || isAdmin  || isVolunteer;
     this.isUser = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isAppointment = isMasterAdmin|| isSuperAdmin || isAdmin;
@@ -259,7 +259,7 @@ export class AppComponent implements OnInit {
     localStorage.removeItem("loginId");
     localStorage.removeItem("userType");
     localStorage.clear();
-    this.router.navigateByUrl('/');
+    this.router.navigate(['/']);
   }
 
   async notification(ev: any) {

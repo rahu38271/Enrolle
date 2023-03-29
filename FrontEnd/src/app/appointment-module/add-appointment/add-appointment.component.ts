@@ -84,7 +84,6 @@ export class AddAppointmentComponent implements OnInit {
   }
 
   addAppointment(){
-    debugger;
     this.appointmentModal.AppointmentDate = this.appointmentModal.AppointmentDate;
     this.appointmentModal.WardNo = Number(this.appointmentModal.WardNo);
     this.appointmentModal.PinCode = Number(this.appointmentModal.PinCode);

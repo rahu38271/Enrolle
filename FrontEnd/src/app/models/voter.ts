@@ -8,5 +8,6 @@ export class Voter {
     address:string;
     partNo:number;
     mobileNo:string;
+    starVoter:string;
     isAlive:string;
 }

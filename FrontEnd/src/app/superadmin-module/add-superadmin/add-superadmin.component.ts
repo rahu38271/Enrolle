@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AssemblyService } from 'src/app/services/assembly.service'
 import { SuperadminService } from 'src/app/services/superadmin.service'
@@ -56,7 +56,8 @@ export class AddSuperadminComponent implements OnInit {
       private loader: LoaderService,
       private toast: IonicToastService,
       public contact: ContactService,
-      private router: Router
+      private router: Router,
+      private changeDetection: ChangeDetectorRef
   ) { }
 
   ismyTextFieldType: boolean;
@@ -145,8 +146,8 @@ export class AddSuperadminComponent implements OnInit {
     this.loader.showLoading();
     this.sadmin.addMAdminData(this.addMAmodal).subscribe((data) => {
       if (data) {
-        this.addMAmodal = {};
         this.loader.hideLoader();
+        this.addMAmodal = {};
         this.toast.presentToast("Superadmin added successfully!", "success", 'checkmark-circle-sharp');
         this.router.navigate(['/superadmin']);
       }

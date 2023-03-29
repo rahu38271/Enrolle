@@ -22,7 +22,6 @@ export class VoterSummaryComponent implements OnInit {
   constructor(public alertController: AlertController, private voter:VoterService, private router:Router) { }
 
   ngOnInit() { 
-    debugger;
     this.userID = localStorage.getItem("loginId");
     this.roleID = localStorage.getItem("userType");
     this.assemblyName = localStorage.getItem("loginAssembly");

@@ -30,8 +30,8 @@ export class ImpVoterComponent implements OnInit {
     this.impVoterList();
     }
 
-    voterDetails(id:number){
-      this.router.navigate(['voterdata-management/voter-details', id])
+    voterDetails(item:any){
+      this.router.navigate(['voterdata-management/voter-details'], { state: item })
      }
 
   impVoterList(){
