@@ -84,5 +84,19 @@ namespace ElectionAlerts.Controller
                 return BadRequest(ex);
             }
         }
+
+        [HttpGet("DeleteContactbyId")]
+        public IActionResult DeleteContactbyId(int Id)
+        {
+            try
+            {
+                return Ok(_contactService.DeleteContactbyId(Id));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "ContactController/DeleteContactbyId");
+                return BadRequest(ex);
+            }
+        }
     }
 }

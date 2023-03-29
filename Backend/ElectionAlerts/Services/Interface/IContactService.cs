@@ -12,5 +12,6 @@ namespace ElectionAlerts.Services.Interface
         int InsertSingleContact(Contact contact);
         int InsertBulkContact(List<Contact> contact);
         int UpdateSingleContact(Contact contact);
+        int DeleteContactbyId(int Id);
     }
 }

@@ -13,6 +13,7 @@ namespace ElectionAlerts.Repository.Interface
         int CreateVoter(Voter voter);
         int InsertBulkVoter(List<Voter> voters);
         int UpadateVoter(Voter voter);
+        int DeleteVoterbyId(int Id);
         IEnumerable<Voter> FilterVoterList(VoterTable table);
         IEnumerable<Voter> FilterVoterbyCondition(VoterTable table);
         VoterDTO  GetVoterDetailbyId(int Id);

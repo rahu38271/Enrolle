@@ -13,6 +13,7 @@ namespace ElectionAlerts.Services.Interface
         int CreateVoter(Voter voter);
         int UpadateVoter(Voter voter);
         int InsertBulkVoter(List<Voter> voters);
+        int DeleteVoterbyId(int Id);
         IEnumerable<Voter> FilterVoterbyCondition(VoterTable table);
         IEnumerable<Voter> FilterVoterList(VoterTable table);
         VoterDTO GetVoterDetailbyId(int Id);

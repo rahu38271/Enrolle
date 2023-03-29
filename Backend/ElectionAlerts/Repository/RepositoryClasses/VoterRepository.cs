@@ -566,7 +566,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _customContext.Set<VoterDTO>().FromSqlRaw("EXEC USP_GetStarVoterbyUserID {0},{1}", userid, roleid).ToList();
+                return _customContext.Set<VoterDTO>().FromSqlRaw("USP_GetStarVoterbyUserID {0},{1}", userid, roleid).ToList();
             }
             catch (Exception ex)
             {
@@ -638,13 +638,27 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                         cmd.Parameters.AddWithValue("@ColoumnName", Coloumn);
                         con.Open();
                         SqlDataReader dr = cmd.ExecuteReader();
-                        while (dr.Read())
+                        //while (dr.Read())
+                        //{
+                        //    Table voterDTO = new Table();
+                        //    voterDTO.ColumnName = Coloumn;
+                        //    voterDTO.ColumnValue = dr[0].ToString();
+                        //    voterDTO.Count = Convert.ToInt32(dr[1]);
+                        //    voterDTOs.Add(voterDTO);
+                        //}
+
+                        DataTable dt = new DataTable();
+                        dt.Load(dr);
+
+                        foreach (DataRow row in dt.Rows)
                         {
-                            Table voterDTO = new Table();
-                            voterDTO.ColumnName = Coloumn;
-                            voterDTO.ColumnValue = dr[0].ToString();
-                            voterDTO.Count = Convert.ToInt32(dr[1]);
-                            voterDTOs.Add(voterDTO);
+                            for (int j = 0; j < dt.Columns.Count; j++)
+                            {
+                                Table voterDTO = new Table();
+                                voterDTO.ColumnName = dt.Columns[j].ColumnName;
+                                voterDTO.ColumnValue = row[j].ToString();
+                                voterDTOs.Add(voterDTO);
+                            }
                         }
                         con.Close();
                     }
@@ -652,6 +666,18 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 return voterDTOs;
             }
             catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int DeleteVoterbyId(int Id)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("EXEC USP_DeleteVoterbyId {0}", Id);
+            }
+            catch(Exception ex)
             {
                 throw ex;
             }
