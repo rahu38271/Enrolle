@@ -26,8 +26,8 @@ export class SupporterListComponent implements OnInit {
     this.supporterList();
   }
 
-  voterDetails(id:number){
-    this.router.navigate(['voterdata-management/voter-details', id])
+  voterDetails(item:any){
+    this.router.navigate(['voterdata-management/voter-details'], { state: item })
    }
 
   supporterList(){

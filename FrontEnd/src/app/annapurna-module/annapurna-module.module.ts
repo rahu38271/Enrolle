@@ -6,7 +6,7 @@ import { EditAnnapurnaComponent } from './edit-annapurna/edit-annapurna.componen
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 
 @NgModule({
@@ -19,6 +19,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     IonicModule,
     FormsModule,
+    Ng2SearchPipeModule,
     RouterModule.forChild([{path:'', component:AnnapurnaComponent},{path:'add-annapurna', component:AddAnnapurnaComponent},{path:'edit-annapurna', component:EditAnnapurnaComponent}])
   ]
 })

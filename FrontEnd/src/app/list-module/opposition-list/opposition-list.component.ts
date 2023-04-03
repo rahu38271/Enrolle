@@ -27,8 +27,8 @@ export class OppositionListComponent implements OnInit {
     this.opposite();
   }
 
-  voterDetails(id:number){
-    this.router.navigate(['voterdata-management/voter-details', id])
+  voterDetails(item:any){
+    this.router.navigate(['voterdata-management/voter-details'], { state: item })
    }
 
   opposite(){

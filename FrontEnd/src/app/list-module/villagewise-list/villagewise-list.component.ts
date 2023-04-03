@@ -12,9 +12,11 @@ export class VillagewiseListComponent implements OnInit {
   isShow = false;
   villageName: any;
   villageWiseVoter: any[] = [];
+  //villageWiseVoter: any = {};
   searchMob:string;
   userId: any;
   roleID:any;
+  id:any;
    
   search(){
     this.isShow = !this.isShow
@@ -24,12 +26,13 @@ export class VillagewiseListComponent implements OnInit {
 
    }
 
-   voterDetails(id:number){
-    this.router.navigate(['voterdata-management/voter-details', id])
+   voterDetails(item:any){
+    this.router.navigate(['voterdata-management/voter-details'], { state: item })
    }
 
   ngOnInit(): void {
     this.userId = localStorage.getItem("loginId");
+    this.id = localStorage.getItem("loginId");
     this.roleID = localStorage.getItem("userType");
     this.villageName = this.route.snapshot.paramMap.get('villageName');
     //this.village = this.route.snapshot.paramMap.get('village');

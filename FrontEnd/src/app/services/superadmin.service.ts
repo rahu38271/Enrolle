@@ -33,6 +33,7 @@ export class SuperadminService {
   }
 
   deleteUser(id:any):Observable<any>{
+    debugger;
     return this.http.get<any>(this.url + 'Login/DeleteUser?Id='+id)
   }
 

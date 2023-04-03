@@ -23,8 +23,8 @@ export class MobileListComponent implements OnInit {
 
    }
 
-   voterDetails(id:number){
-    this.router.navigate(['voterdata-management/voter-details', id])
+   voterDetails(item:any){
+    this.router.navigate(['voterdata-management/voter-details'], { state: item })
    }
 
   ngOnInit(): void {

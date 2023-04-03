@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoaderService } from 'src/app/services/loader.service';
 import { VoterService } from 'src/app/services/voter.service'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'app-voted',
@@ -15,10 +16,12 @@ export class VotedComponent implements OnInit {
   IsVoted:any;
   Coloumn: any;
   voterVoted:any;
+  columnName: string;
 
   constructor(
     private loader:LoaderService,
-    private voter:VoterService
+    private voter:VoterService,
+    private router:Router
     ) { }
 
   search(){
@@ -44,6 +47,16 @@ export class VotedComponent implements OnInit {
     },(err)=>{
       this.loader.hideLoader();
     })
+  }
+
+  isVoted(){
+    if(this.columnName == "Voted"){
+      this.router.navigateByUrl('/list/voted-voter')
+    }
+    else{
+      this.router.navigateByUrl('/list/notvoted-voter')
+    }
+    
   }
 
 }

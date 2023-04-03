@@ -4,7 +4,8 @@
       <ion-buttons slot="start">
         <ion-back-button defaultHref="/list/by-village"></ion-back-button>
       </ion-buttons>
-      <ion-title> {{villageName}}, Total - {{villageWiseVoter.length}}  </ion-title>
+      <!-- <ion-title> {{villageName}}, Total - {{villageWiseVoter.length}}  </ion-title> -->
+      <ion-title>   </ion-title>
       <ion-buttons slot="primary">
         <ion-button (click)="search()">
           <ion-icon name="search-outline"></ion-icon>
@@ -126,7 +127,7 @@
     </ion-grid>
     <ion-grid class="android userList">
       <ion-searchbar [(ngModel)]="searchMob" animated="true" *ngIf="isShow"></ion-searchbar>
-      <ion-list *ngFor="let item of villageWiseVoter | filter:searchMob" (click)="voterDetails(item.id)">
+      <ion-list *ngFor="let item of villageWiseVoter | filter:searchMob" (click)="voterDetails(item)">
         <ion-item lines="none">
           <ion-label>
             <div class="firstLine">

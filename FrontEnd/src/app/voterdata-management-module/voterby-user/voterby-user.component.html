@@ -83,7 +83,7 @@
           <ion-icon (click)="toggleMike()" [name]="isMike ?'mic-off-sharp' : 'mic-sharp' " name="mic-sharp"></ion-icon>
         </div> -->
         <ion-searchbar *ngIf="isShow" [(ngModel)]="searchWeb"></ion-searchbar>
-        <ion-list *ngFor="let item of voterListByUser| paginate: { itemsPerPage:100, currentPage: pageNo, totalItems:300000 } | filter:searchWeb" (click)="voterDetails(item.id)">
+        <ion-list *ngFor="let item of voterListByUser| paginate: { itemsPerPage:100, currentPage: pageNo, totalItems:300000 } | filter:searchWeb" (click)="voterDetails(item)">
           <ion-item lines="none">
             <ion-label>
               <div class="firstLine">

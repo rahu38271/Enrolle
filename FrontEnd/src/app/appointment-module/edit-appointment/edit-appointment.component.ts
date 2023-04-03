@@ -79,7 +79,6 @@ export class EditAppointmentComponent implements OnInit {
   }
 
   save(){
-    debugger;
     this.loader.showLoading();
     this.appointmentModal.id = Number(this.appointmentModal.id)
     this.appointmentModal.wardNo = Number(this.appointmentModal.wardNo);

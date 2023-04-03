@@ -112,6 +112,7 @@ export class AppointmentComponent implements OnInit {
           cssClass: 'yes',
           handler: () => {
             this.appointment.deleteAppointment(id).subscribe(data=>{
+              this.ngOnInit();
               this.toast.presentToast("Appointment deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })
           }

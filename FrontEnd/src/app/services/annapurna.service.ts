@@ -27,5 +27,15 @@ export class AnnapurnaService {
     return this.http.get<any>(this.url+'Annapurna/DeleteAnnapurnabyId?Id='+id)
   }
 
+  // add family
+  addAnnapurnaFamily(FamilyModal:any){
+    return this.http.post<any>(this.url+'Annapurna/InsertUpdateFamily', FamilyModal)
+  }
+
+   //getFamilyList
+  getFamilyList(anpnid:any){
+    return this.http.get<any>(this.url+'Annapurna/GetAllFamilybyId?anpnid='+anpnid)
+  }
+
 
 }

@@ -42,9 +42,9 @@
                 <ion-button class="button-download" fill="outline" color="primary" (click)="exportexcel()">
                   <ion-icon name="document-sharp"></ion-icon>Excel
                 </ion-button>
-                <ion-button class="button-download mr-2" color="primary" routerLink="/survey/add-village">
+                <!-- <ion-button class="button-download mr-2" color="primary" routerLink="/survey/add-village">
                   <ion-icon name="add-circle-sharp"></ion-icon>Village
-                </ion-button>
+                </ion-button> -->
                 <!-- <ion-button class="button-download" fill="outline" color="primary" (click)="toggleSlider()">
                   <ion-icon name="cloud-download-sharp"></ion-icon>Send SMS
                 </ion-button> -->
@@ -166,7 +166,7 @@
     
       <ion-grid class="userList android">
         <ion-searchbar [(ngModel)]="searchMob" *ngIf="isShow"></ion-searchbar>
-        <ion-list *ngFor="let item of allVoters | filter:searcMob" (click)="EditSurvey(item)">
+        <ion-list >
           <ion-item-sliding>
             <ion-item-options side="end">
               <a routerLink="/survey/edit-survey"> <ion-icon class="edit" name="pencil-sharp"></ion-icon> </a> 
@@ -176,11 +176,11 @@
               <ion-icon name="person-sharp"></ion-icon>
             </ion-avatar> -->
             <ion-label>
-                <h3>{{item.fullName}}</h3>
+                <h3>Sagar Manaji Salunkhe</h3>
                 <div class="details">
-                  <p> Part No. : <span> {{item.partNo}} </span></p>
-                  <p> Age : <span> {{item.age}}  </span></p>
-                  <p>Gender : <span> {{item.gender}}  </span></p>
+                  <p> Part No. : <span> 1 </span></p>
+                  <p> Age : <span> 28  </span></p>
+                  <p>Gender : <span> M  </span></p>
                 </div>
             </ion-label>
           </ion-item>

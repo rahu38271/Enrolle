@@ -1,0 +1,150 @@
+
+
+<ion-content>
+    <ion-header class="android">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/society"></ion-back-button>
+        </ion-buttons>
+        <ion-title> Add Society </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <div class="main-content">
+      <ion-grid>
+        <ion-row>
+          <ion-text class="form-header">
+            <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>Add Society
+          </ion-text>
+        </ion-row>
+        <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+          <ion-row>
+            <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
+              <ion-label position="floating"> Society Name   <span>*</span> </ion-label>
+                <ion-input name="Name" [(ngModel)]="societyModal.Name" class="text-capitalize form-control" required></ion-input>
+                
+            </ion-col>
+  
+            
+            <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+              <ion-label position="floating"> Chairman  </ion-label>
+                <ion-input name="Chairman" [(ngModel)]="societyModal.Chairman"  class="text-capitalize form-control" ></ion-input>
+                
+            </ion-col>
+  
+            
+  
+            <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+              <ion-label position="floating"> Phone No. </ion-label>
+                <ion-input 
+                  
+                  (keypress)="keyPressNumbers($event)" 
+                  name="PhoneNo" 
+                  [(ngModel)]="societyModal.PhoneNo" 
+                  class="form-control"
+                  
+                  >
+                </ion-input>
+                
+            </ion-col>
+           
+            <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+              <ion-label position="floating"> Alternate Phone No. </ion-label>
+                <ion-input 
+                    (keypress)="keyPressNumbers($event)" 
+                    name="AltPhoneNo" 
+                    [(ngModel)]="societyModal.AltPhoneNo" 
+                    class="form-control" 
+                ></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                <ion-label position="floating"> Address   </ion-label>
+                  <ion-textarea 
+                    name="Address" 
+                    [(ngModel)]="societyModal.Address"  
+                    class="form-control" 
+                    rows="3" 
+                     
+                ></ion-textarea>
+                  
+              </ion-col> 
+
+              <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+                <ion-label position="floating"> Pin Code </ion-label>
+                  <ion-input 
+                      (keypress)="keyPressNumbers($event)" 
+                      name="PinCode" 
+                      [(ngModel)]="societyModal.PinCode" 
+                      class="form-control" 
+                  ></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+                <ion-label position="floating"> Ward No. </ion-label>
+                  <ion-input 
+                      (keypress)="keyPressNumbers($event)" 
+                      name="WardNo" 
+                      [(ngModel)]="societyModal.WardNo" 
+                      class="form-control" 
+                  ></ion-input>
+              </ion-col>
+  
+            
+            <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
+              <ion-label>District</ion-label>
+              <ng-select name="District" [(ngModel)]="societyModal.DistrictId" 
+              (change)="getTaluka(societyModal.DistrictId)"
+              #District="ngModel" placeholder="Select District">
+                <ng-option *ngFor="let item of districtList" [value]="item.dId">
+                  {{ item.districtName }}
+                </ng-option>
+             </ng-select>
+             <div *ngIf="f.submitted && District.invalid" class="invalid-feedback">
+              <div *ngIf="District.errors.required">
+                Please select district
+              </div>
+            </div>
+            </ion-col>
+  
+            
+  
+           
+            <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+              <ion-label>Taluka</ion-label>
+              <ng-select 
+                name="Taluka" 
+                [(ngModel)]="societyModal.Taluka" 
+                #Taluka="ngModel"  
+                placeholder="Select Taluka"
+              >
+                <ng-option 
+                  class="select_option"
+                  *ngFor="let item of talukaList" 
+                  [value]="item.talukaName"
+                >
+                  {{ item.talukaName }}
+                </ng-option>
+             </ng-select>
+             <div *ngIf="f.submitted && Taluka.invalid" class="invalid-feedback">
+              <div *ngIf="Taluka.errors.required">
+                Please select taluka
+              </div>
+            </div>
+            </ion-col>
+  
+            
+            <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+              <div class="ion-text-center">
+                <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
+                <ion-button  type="submit" size="medium" (click)="addSociety()" [disabled]="!f.form.valid" >Save</ion-button>
+                <ion-button routerLink="/society" color="success" type="button" size="medium">Back To List</ion-button>
+              </div>
+            </ion-col>
+            
+          </ion-row>
+        </form>
+      </ion-grid>
+    </div>
+  </ion-content>
+  
+  

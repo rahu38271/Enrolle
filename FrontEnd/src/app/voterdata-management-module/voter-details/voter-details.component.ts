@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit, ElementRef  } from '@angular/core';
 import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { IonModal } from '@ionic/angular';
@@ -63,8 +63,8 @@ export class VoterDetailsComponent {
     await this.popoverController.dismiss();
   }
 
-  isStar: any;
-  Voter: any = ''
+  //isStar: any;
+  Voter: any = {}
   Vid: any;
   roleID:any;
   mobUpdate: any = {
@@ -73,8 +73,9 @@ export class VoterDetailsComponent {
   adrsUpdate: any = {}
   altmobUpdate: any = {};
   starUpdare: any = {};
+  deadAlive:any = {};
   voteStatusUpdate:any = {}
-  showStar: any;
+  showStar: boolean;
   showVote: boolean;
 
   bgColor ='#FFF';
@@ -110,13 +111,15 @@ export class VoterDetailsComponent {
       private location: Location,
       private alertController: AlertController, 
       private bluetoothSerial: BluetoothSerial, 
-      private toastCtrl: ToastController,
+      private toastCtrl: ToastController
     ) {
       
   }
 
   ngOnInit() {
     this.assemblyName1 = localStorage.getItem("loginAssembly");
+    this.Voter = this.router.getCurrentNavigation().extras.state
+    //pipe(map(() => window.history.state))
     this.voterDetails();
   }
 
@@ -131,8 +134,8 @@ export class VoterDetailsComponent {
   // edit mobile number
 
   saveMobile() {
-    const Vid = this.route.snapshot.paramMap.get('id');
-    this.mobUpdate.Id = Number(Vid);
+    this.id = this.Voter.id;
+    this.mobUpdate.Id = Number(this.id);
     this.voter.updateMob(this.mobUpdate.Id, this.mobUpdate.Mobile).subscribe(data => {
       if (data) {
         this.voterDetails();
@@ -150,8 +153,8 @@ export class VoterDetailsComponent {
   // edit alt. mob.
 
   saveAltMobile() {
-    const Vid = this.route.snapshot.paramMap.get('id');
-    this.altmobUpdate.Id = Number(Vid);
+    this.id = this.Voter.id;
+    this.altmobUpdate.Id = Number(this.id);
     this.voter.updateAltMob(this.altmobUpdate.Id, this.altmobUpdate.AlternateMobileNo).subscribe(data => {
       if (data) {
         this.voterDetails();
@@ -169,8 +172,8 @@ export class VoterDetailsComponent {
   // edit voter address
 
   saveAddress() {
-    const Vid = this.route.snapshot.paramMap.get('id');
-    this.adrsUpdate.Id = Number(Vid);
+    this.id = this.Voter.id;
+    this.adrsUpdate.Id = Number(this.id);
     this.voter.updateAdrs(this.adrsUpdate.Id, this.adrsUpdate.Address).subscribe(data => {
       if (data) {
         this.voterDetails();
@@ -190,8 +193,8 @@ export class VoterDetailsComponent {
 
   supporter() {
     this.bgColor = '#0bbb5f'
-    const Vid = this.route.snapshot.paramMap.get('id');
-    this.colorUpdate.id = Number(Vid);
+    this.id = this.Voter.id;
+    this.colorUpdate.id = Number(this.id);
     this.colorUpdate.colour = 'Supporter'
     this.voter.updateColor(this.colorUpdate.id, this.colorUpdate.colour).subscribe(data => {
       if (data) {
@@ -204,8 +207,8 @@ export class VoterDetailsComponent {
 
   opposition() {
     this.bgColor = '#F00'
-    const Vid = this.route.snapshot.paramMap.get('id');
-    this.colorUpdate.id = Number(Vid);
+    this.id = this.Voter.id;
+    this.colorUpdate.id = Number(this.id);
     this.colorUpdate.colour = 'Opposition'
     this.voter.updateColor(this.colorUpdate.id, this.colorUpdate.colour).subscribe(data => {
       if (data) {
@@ -216,8 +219,8 @@ export class VoterDetailsComponent {
 
   doubtful() {
     this.bgColor = '#ffd34f'
-    const Vid = this.route.snapshot.paramMap.get('id');
-    this.colorUpdate.id = Number(Vid);
+    this.id = this.Voter.id;
+    this.colorUpdate.id = Number(this.id);
     this.colorUpdate.colour = 'Doubtful'
     this.voter.updateColor(this.colorUpdate.id, this.colorUpdate.colour).subscribe(data => {
       if (data) {
@@ -228,8 +231,8 @@ export class VoterDetailsComponent {
 
   other() {
     this.bgColor = '#fff'
-    const Vid = this.route.snapshot.paramMap.get('id');
-    this.colorUpdate.id = Number(Vid);
+    this.id = this.Voter.id;
+    this.colorUpdate.id = Number(this.id);
     this.colorUpdate.colour = 'Other'
     this.voter.updateColor(this.colorUpdate.id, this.colorUpdate.colour).subscribe(data => {
       if (data) {
@@ -242,8 +245,8 @@ export class VoterDetailsComponent {
 
   toggleStar() {
     this.showStar = !this.showStar;
-    const Vid = this.route.snapshot.paramMap.get('id');
-    this.starUpdare.id = Number(Vid);
+    this.id = this.Voter.id;
+    this.starUpdare.id = Number(this.id);
     this.starUpdare.YesNo = 'Y';
     this.voter.updateStar(this.starUpdare.id, this.starUpdare.YesNo).subscribe(data => {
       if (data) {
@@ -261,10 +264,9 @@ export class VoterDetailsComponent {
   // update isvoted status
 
   toggleVote(){
-    debugger;
     this.showVote = !this.showVote;
-    const Vid = this.route.snapshot.paramMap.get('id');
-    this.voteStatusUpdate.id = Number(Vid);
+    this.id = this.Voter.id;
+    this.voteStatusUpdate.id = Number(this.id);
     this.voteStatusUpdate.YesNo = 'Y';
     this.voter.updateVotedStatus(this.voteStatusUpdate.id,this.voteStatusUpdate.YesNo).subscribe(data=>{
       if(data){
@@ -279,24 +281,47 @@ export class VoterDetailsComponent {
     })
   }
 
-  voterDetails() {
-    this.loader.showLoading();
-    this.id = localStorage.getItem("loginId");
-    this.RoleId = localStorage.getItem("userType");
-    this.voter.getVoterByUser(this.id, this.RoleId, this.pageNo,this.NoofRow).subscribe((data) => {
-      this.loader.hideLoader();
-      const Vid = this.route.snapshot.paramMap.get('id');
-      [this.Voter] = data.filter((Voter) => Voter.id == Vid);
-      console.log(this.Voter)
-      this.VoterListByUser = this.Voter;
-      // to get star checked if voter is star voter or not 
-      if (this.VoterListByUser.starVoter == "Y"){
-        this.showStar =  this.showStar
+  //update dead or alive voter
+  aliveDead(){
+    this.id = this.Voter.id;
+    this.deadAlive.Id = Number(this.id);
+    this.voter.updateAliveDead(this.deadAlive.Id, this.deadAlive.YesNo).subscribe(data => {
+      if (data) {
+        this.voterDetails();
+        this.closeModal();
+        this.toast.presentToast("Voter updated successfully!", "success", 'checkmark-circle-sharp');
       }
-      else{
+      else {
+        this.toast.presentToast("Voter not updated", "danger", 'alert-circle-sharp');
+      }
+    }, (_err) => {
+      this.toast.presentToast("Mobile No. not updated", "danger", 'alert-circle-sharp');
+    })
+  }
+
+  voterDetails() {
+    //this.loader.showLoading();
+    this.VoterListByUser = this.Voter;
+    
+      // to get star checked if voter is star voter or not 
+      
+      if(this.VoterListByUser.starVoter == null || this.VoterListByUser.starVoter == "N"){
         this.showStar =  !this.showStar
       }
-      // to get color checked if voter is supporter, opposite, doubtful or other
+      else{
+        this.showStar =  this.showStar
+      }
+
+      //to get if voter is voted or not
+
+      if(this.VoterListByUser.isVoted == null || this.VoterListByUser.isVoted == "N"){
+        this.showVote =  !this.showVote
+      }
+      else{
+        this.showVote =  this.showVote
+      }
+
+      //to get color checked if voter is supporter, opposite, doubtful or other
       if (this.VoterListByUser.votingInclination == "Supporter") {
          this.bgColor = '#0bbb5f'
       }
@@ -309,10 +334,56 @@ export class VoterDetailsComponent {
       else if (this.VoterListByUser.votingInclination == "Other") {
         this.bgColor = '#fff'
       }
-    },(err)=>{
-      this.loader.hideLoader();
-    })
+    
   }
+
+
+  // voterDetails() {
+  //   this.loader.showLoading();
+  //   this.VoterListByUser = this.Voter;
+  //   console.log(this.Voter)
+  //      to get star checked if voter is star voter or not 
+  //     if(this.VoterListByUser.starVoter == null || this.VoterListByUser.starVoter == "N"){
+  //       this.showStar =  !this.showStar
+  //     }
+  //     else{
+  //       this.showStar =  this.showStar
+  //     }
+  //   this.id = localStorage.getItem("loginId");
+  //   this.RoleId = localStorage.getItem("userType");
+  //   this.voter.getVoterByUser(this.id, this.RoleId, this.pageNo,this.NoofRow).subscribe((data) => {
+  //     this.loader.hideLoader();
+  //     debugger;
+  //     const Vid = this.route.snapshot.paramMap.get('id');
+  //     console.log(data.filter((Voter) => Voter.id == Vid))
+  //     this.Voter = data.filter((Voter) => Voter.id == Vid);
+      
+      
+
+  //     to get if voter is voted or not
+  //     if(this.VoterListByUser.isVoted == null || this.VoterListByUser.isVoted == "N"){
+  //       this.showVote =  !this.showVote
+  //     }
+  //     else{
+  //       this.showVote =  this.showVote
+  //     }
+  //     to get color checked if voter is supporter, opposite, doubtful or other
+  //     if (this.VoterListByUser.votingInclination == "Supporter") {
+  //        this.bgColor = '#0bbb5f'
+  //     }
+  //     else if (this.VoterListByUser.votingInclination == "Opposition") {
+  //       this.bgColor = '#F00'
+  //     }
+  //     else if (this.VoterListByUser.votingInclination == "Doubtful") {
+  //       this.bgColor = '#ffd34f'
+  //     }
+  //     else if (this.VoterListByUser.votingInclination == "Other") {
+  //       this.bgColor = '#fff'
+  //     }
+  //   },(err)=>{
+  //     this.loader.hideLoader();
+  //   })
+  // }
 
   sameBoothVoter(id: any) {
     const coloumnValue = this.VoterListByUser.partNo;

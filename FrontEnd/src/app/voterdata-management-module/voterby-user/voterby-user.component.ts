@@ -73,8 +73,8 @@ export class VoterbyUserComponent  {
     })
   }
 
-   voterDetails(id:number){
-    this.router.navigate(['voterdata-management/voter-details', id])
+  voterDetails(item:any){
+    this.router.navigate(['voterdata-management/voter-details'], { state: item })
    }
 
    toggleMike(){

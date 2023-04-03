@@ -318,6 +318,10 @@ const routes: Routes = [
   {
     path: 'new-voter',
     loadChildren: () => import('./new-voter-module/new-voter-module.module').then( m => m.NewVoterModuleModule)
+  },
+  {
+    path: 'society',
+    loadChildren: () => import('./society-module/society-module.module').then( m => m.SocietyModuleModule)
   }
 ];
 
