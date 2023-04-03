@@ -78,7 +78,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
 
             try
             {
-                return _custonContext.Database.ExecuteSqlRaw("Exec USP_InsertUpdateFamily {0},{1},{2},{3},{4},{5}", family.Id, family.FullName, family.ContactNo, family.AltContactNo, family.Address, family.ANPId);
+                return _custonContext.Database.ExecuteSqlRaw("Exec USP_InsertUpdateFamily {0},{1},{2},{3},{4},{5},{6}", family.Id, family.FullName, family.ContactNo, family.AltContactNo, family.Address, family.ANPId,family.Relation);
             }
             catch(Exception ex)
             {

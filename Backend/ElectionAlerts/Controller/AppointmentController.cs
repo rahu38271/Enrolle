@@ -77,5 +77,61 @@ namespace ElectionAlerts.Controller
                 return BadRequest(ex);
             }
         }
+
+        [HttpPost("UpdateAppointmnetStatus")]
+        public IActionResult UpdateAppointmnetStatus(int Id,string Status,DateTime? dateTime)
+        {
+            try
+            {
+                return Ok(_appointmentService.UpdateApointmentStatus(Id, Status, dateTime));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "AppointmentController/UpdateAppointmnetStatus");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetTodayAppointment")]
+        public IActionResult GetTodayAppointment()
+        {
+            try
+            {
+                return Ok(_appointmentService.GetTodayAppointment());
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "AppointmentController/GetTodayAppointment");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetAppointmentbyStatus")]
+        public IActionResult GetAppointmentbyStatus(string Status)
+        {
+            try
+            {
+                return Ok(_appointmentService.GetAppointmentbyStatus(Status));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "AppointmentController/GetAppointmentbyStatus");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("DownloadFile")]
+        public IActionResult DownloadFile(int Id, string FileName)
+        {
+            try
+            {
+                return Ok(_appointmentService.DownloadFile(Id,FileName));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "AppointmentController/DownloadFile");
+                return BadRequest(ex);
+            }
+        }
     }
 }

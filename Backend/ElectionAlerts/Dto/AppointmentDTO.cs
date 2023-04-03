@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ElectionAlerts.Model
+namespace ElectionAlerts.Dto
 {
-    public class Appointment
+    public class AppointmentDTO
     {
         public int Id { get; set; }
         public string FirstName { get; set; }
@@ -28,6 +28,7 @@ namespace ElectionAlerts.Model
         public string FileName { get; set; }
         public DateTime CreatedDate { get; set; }
         public string Status { get; set; }
+        public int TodayCount { get; set; }
 
     }
 }

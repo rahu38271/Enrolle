@@ -141,6 +141,10 @@ namespace ElectionAlerts.Model.Data
         public DbSet<NewVoter> NewVoters { get; set; }
         public DbSet<Society> Societies { get; set; }
         public DbSet<Family> Families { get; set; }
+        public  DbSet<DistrictDashboard> districtDashBords { get; set; }
+        public DbSet<AssemblyDashboard> assemblyDashboards { get; set; }
+        public DbSet<AppointmentDTO> AppointmentDTOs { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Districts>().HasNoKey();
@@ -154,6 +158,9 @@ namespace ElectionAlerts.Model.Data
             modelBuilder.Entity<BoothName>().HasNoKey();
             modelBuilder.Entity<PartNoAssigned>().HasNoKey();
             modelBuilder.Entity<VoterDTO>().HasNoKey();
+            modelBuilder.Entity<DistrictDashboard>().HasNoKey();
+            modelBuilder.Entity<AssemblyDashboard>().HasNoKey();
+            modelBuilder.Entity<AppointmentDTO>().HasNoKey();
         }
     }
 }
