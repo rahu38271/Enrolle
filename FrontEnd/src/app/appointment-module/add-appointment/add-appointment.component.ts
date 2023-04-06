@@ -17,7 +17,7 @@ export class AddAppointmentComponent implements OnInit {
   districtList: any;
   talukaList: any;
   year : number = new Date().getFullYear();
-
+  AppointmentDate: String = new Date().toISOString();
   myForm;
   status = '';
   subject = '';

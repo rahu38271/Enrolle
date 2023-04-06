@@ -148,6 +148,7 @@
                       <td> {{ item.district }} </td>
                       <td class="action">
                         <ion-icon name="create-sharp" (click)="EditContact(item)"  ></ion-icon>
+                        <ion-icon (click)="deleteCon(item.id)" class="delete" name="trash-bin-sharp"></ion-icon> 
                       </td>
                     </tr>
                   </tbody>

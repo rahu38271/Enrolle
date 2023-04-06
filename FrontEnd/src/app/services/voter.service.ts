@@ -73,6 +73,7 @@ export class VoterService {
   }
 
   updateStar(id:any, YesNo:any){
+    debugger;
     return this.http.post<any>(this.url+'Voter/UpdateStarVoter?Id='+id+'&YesNo='+YesNo+'', id)
   }
 
@@ -238,6 +239,11 @@ export class VoterService {
   // is Dead / Alive
   getIsAlive(UserId:number, RoleId:number, Coloumn:any){
     return this.http.get<any>(this.url+'Voter/GetColoumncount?UserId='+UserId+'&RoleId='+RoleId+'&Coloumn='+Coloumn)
+  }
+
+  //delete voter
+  deleteVoter(voterId:any){
+    return this.http.get<any>(this.url+'Voter/DeleteVoterbyId?Id='+voterId)
   }
 
 }

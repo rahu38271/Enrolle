@@ -32,7 +32,7 @@
                       <ion-label class="search">
                           <i class="icofont icofont-search-document"></i>
                           <img src="/assets/img/statistics.png" alt="">
-                          <h3> शोधा </h3>
+                          <h3> {{'Search' | translate}} </h3>
                       </ion-label>
                     </ion-item>
                 </ion-list>
@@ -45,7 +45,7 @@
                         <div class="user">
                           <i class="icofont icofont-ui-user-group"></i>
                           <img src="/assets/img/lists.png" alt="">
-                          <h3> याद्या </h3>
+                          <h3>  {{'Lists' | translate}} </h3>
                         </div>
                       </ion-label>
                     </ion-item>
@@ -73,7 +73,7 @@
                         <div class="contact">
                           <i class="icofont icofont-contact-add"></i>
                           <img src="/assets/img/contact11.png" alt="">
-                          <h3> कॉन्टॅक्ट </h3>
+                          <h3>  {{'Contact' | translate}} </h3>
                         </div>
                       </ion-label>
                     </ion-item>
@@ -88,7 +88,7 @@
                           <!-- <img src="assets/img/cake.png" alt=""> -->
                           <i class="icofont icofont-birthday-cake"></i>
                           <img src="/assets/img/statistics.png" alt="">
-                          <h3> वाढदिवस </h3>
+                          <h3>  {{'Birthday' | translate}} </h3>
                         </div>
                       </ion-label>
                     </ion-item>
@@ -102,7 +102,7 @@
                         <div class="anniversary">
                           <i class="icofont icofont-calendar"></i>
                           <img src="/assets/img/statistics.png" alt="">
-                          <h3> लग्नाचा वाढदिवस </h3>
+                          <h3> {{'Anniversary' | translate}} </h3>
                         </div>
                       </ion-label>
                     </ion-item>
@@ -117,12 +117,51 @@
                         <div class="event">
                           <i class="icofont icofont-calendar"></i>
                           <img src="/assets/img/completed-task.png" alt="">
-                          <h3> सर्वे </h3>
+                          <h3>  {{'Survey' | translate}} </h3>
                         </div>
                       </ion-label>
                     </ion-item>
                 </ion-list>
               </ion-col>
+
+              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" >
+                <ion-list class="survey-list" (click)="changeLanguage()">
+                  <ion-item lines="none" >
+                      <ion-label>
+                        <div class="event">
+                          <i class="icofont icofont-calendar"></i>
+                          <img src="/assets/img/translate.png" alt="">
+                          <h3>  {{'Language' | translate}} </h3>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                    <!-- <ion-select [(ngModel)]="language" [value]="language" (ionChange)="changeLanguage()" placeholder="Language">
+                      <ion-select-option value="en">English</ion-select-option>
+                      <ion-select-option value="hi">Hindi</ion-select-option>
+                      <ion-select-option value="mr">Marathi</ion-select-option>
+                    </ion-select> -->
+                </ion-list>
+              </ion-col>
+
+              <!-- <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" >
+                <ion-list class="survey-list" id="open-modal" expand="block">
+                  <ion-item lines="none" >
+                      <ion-label>
+                        <div class="event">
+                          <i class="icofont icofont-calendar"></i>
+                          <img src="/assets/img/completed-task.png" alt="">
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                    <ion-select [(ngModel)]="language" [value]="language" (ionChange)="changeLanguage()" placeholder="Language">
+                      <ion-select-option value="en">English</ion-select-option>
+                      <ion-select-option value="hi">Hindi</ion-select-option>
+                      <ion-select-option value="mr">Marathi</ion-select-option>
+                    </ion-select>
+                </ion-list>
+              </ion-col> -->
+
+              
             </ion-row>
          
         </ion-col>

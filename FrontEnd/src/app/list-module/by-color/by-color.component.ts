@@ -13,6 +13,7 @@ export class ByColorComponent implements OnInit {
   colorList: any;
   userId: any;
   roleID:any;
+  searchMob:string;
 
   constructor(private voter: VoterService, private router: Router) { }
 

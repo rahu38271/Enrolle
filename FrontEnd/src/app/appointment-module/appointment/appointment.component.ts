@@ -4,8 +4,10 @@ import * as xlsx from 'xlsx';
 import html2pdf from 'html2pdf.js'
 import { AppointmentService } from 'src/app/services/appointment.service'
 import { LoaderService } from 'src/app/services/loader.service'
-import { Router } from '@angular/router';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-appointment',
@@ -35,7 +37,11 @@ export class AppointmentComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-      this.appoinmentList();
+      this.router.events.pipe(
+        filter(event => event instanceof NavigationEnd)
+      ).subscribe(() => {
+        this.appoinmentList();
+      })
     }
 
   appoinmentList(){
@@ -75,7 +81,7 @@ export class AppointmentComponent implements OnInit {
           this.toast.presentToast("Appointment searhced successfully!", "success", 'checkmark-circle-sharp');
           this.getApmList.forEach(e => {
             e.birthDate = e.birthDate.split('T')[0];
-            e.appointmentDate = e.appointmentDate.split('T')[0];
+            //e.appointmentDate = e.appointmentDate.split('T')[0];
           });
         }
         else{
@@ -112,7 +118,11 @@ export class AppointmentComponent implements OnInit {
           cssClass: 'yes',
           handler: () => {
             this.appointment.deleteAppointment(id).subscribe(data=>{
-              this.ngOnInit();
+              this.router.events.pipe(
+                filter(event => event instanceof NavigationEnd)
+              ).subscribe(() => {
+                this.appoinmentList();
+              })
               this.toast.presentToast("Appointment deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })
           }

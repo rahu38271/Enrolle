@@ -291,8 +291,9 @@
                   <td>{{item.votingCardNo}}</td>
                   <td>{{item.village}}</td>
                   <td>{{item.address}}</td>
-                  <td>
+                  <td class="action">
                     <ion-icon name="create-sharp" (click)="EditVoter(item)"></ion-icon>
+                    <ion-icon (click)="deleteVoter(item.id)" class="delete" name="trash-bin-sharp"></ion-icon>
                   </td>
                 </tr>
               </tbody>

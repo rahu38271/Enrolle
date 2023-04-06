@@ -54,6 +54,8 @@ export class ByVillageComponent implements OnInit {
         this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
         this.loader.hideLoader();
       }
+    },(err)=>{
+      this.loader.hideLoader();
     })
   }
 

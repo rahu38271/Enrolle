@@ -5,7 +5,7 @@
         <!-- <ion-back-button (click)="goBack()" auto-hide="false"></ion-back-button> -->
         <ion-back-button defaultHref="/voterdata-management/voterby-user"></ion-back-button>
       </ion-buttons>
-      <ion-title> Details </ion-title>
+      <ion-title>  {{'Details' | translate}} </ion-title>
     </ion-toolbar>
   </ion-header>
   <div class="main-content" *ngIf="VoterListByUser">
@@ -45,9 +45,9 @@
         <ion-col>
           <form (ngSubmit)="vote.form.valid" #vote="ngForm" novalidate>
             <img 
+              name="voteStatus"
               src="{{ showVote ? 'assets/img/manual-voting.png' : 'assets/img/positive-vote.png'}}" 
               type="button" 
-              name="voteStatus"
               [(ngModel)]="voteStatusUpdate.YesNo"
               (click)="toggleVote()" 
               alt=""
@@ -76,22 +76,30 @@
                 <ion-row>
                   <ion-col>
                     <ion-item lines="none" class="supporter" (click)="DismissClick();supporter()">
-                      <ion-label class="Supporter" name="Supporter" [(ngModel)]="colorUpdate.Colour">Supporter</ion-label>
+                      <ion-label class="Supporter" name="Supporter" [(ngModel)]="colorUpdate.Colour">
+                         {{'Supporter' | translate}}
+                      </ion-label>
                     </ion-item>
                   </ion-col>
                   <ion-col>
                     <ion-item lines="none" class="opposition" (click)="DismissClick();opposition()">
-                      <ion-label class="Opposition" name="Opposition" [(ngModel)]="colorUpdate.Colour">Opposition</ion-label>
+                      <ion-label class="Opposition" name="Opposition" [(ngModel)]="colorUpdate.Colour">
+                         {{'Opposition' | translate}}
+                      </ion-label>
                     </ion-item>
                   </ion-col>
                   <ion-col>
                     <ion-item lines="none" class="doubtful" (click)="DismissClick();doubtful()">
-                      <ion-label class="Doubtful" name="Doubtful" [(ngModel)]="colorUpdate.Colour">Doubtful</ion-label>
+                      <ion-label class="Doubtful" name="Doubtful" [(ngModel)]="colorUpdate.Colour">
+                         {{'Doubtful' | translate}}
+                      </ion-label>
                     </ion-item>
                   </ion-col>
                   <ion-col>
                     <ion-item lines="none" class="other" (click)="DismissClick();other()">
-                      <ion-label class="Other" name="Other" [(ngModel)]="colorUpdate.Colour">Other</ion-label>
+                      <ion-label class="Other" name="Other" [(ngModel)]="colorUpdate.Colour">
+                         {{'Other' | translate}}
+                      </ion-label>
                     </ion-item>
                   </ion-col>
                 </ion-row>
@@ -106,13 +114,14 @@
       <ion-row class="header mt-2 mb-2">
         <ion-col class="ion-text-center">
           <ion-label>
-            Assembly : {{assemblyName1}}
+            <!-- Assembly : {{assemblyName1}} -->
+             {{'Assembly' | translate}} : 
           </ion-label>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col class="title" size-xs="3">
-          <ion-label>Name</ion-label>
+          <ion-label> {{'Name' | translate}}</ion-label>
         </ion-col>
         <ion-col class="ion-text-center" size-xs="1">
           :
@@ -134,7 +143,7 @@
       </ion-row> -->
       <ion-row>
         <ion-col class="title" size-xs="3">
-          <ion-label>Village</ion-label>
+          <ion-label> {{'Village' | translate}}</ion-label>
         </ion-col>
         <ion-col class="ion-text-center" size-xs="1">
           :
@@ -156,7 +165,7 @@
       </ion-row> -->
       <ion-row>
         <ion-col class="title" size-xs="3">
-          <ion-label>Age</ion-label>
+          <ion-label>{{'Age' | translate}}</ion-label>
         </ion-col>
         <ion-col class="ion-text-center" size-xs="1">
           :
@@ -167,7 +176,7 @@
       </ion-row>
       <ion-row>
         <ion-col class="title" size-xs="3">
-          <ion-label>Gender</ion-label>
+          <ion-label> {{'Gender' | translate}}</ion-label>
         </ion-col>
         <ion-col class="ion-text-center" size-xs="1">
           :
@@ -201,7 +210,7 @@
       
       <ion-row>
         <ion-col class="title" size-xs="3">
-          <ion-label> Voter ID </ion-label>
+          <ion-label> {{'Voter ID' | translate}} </ion-label>
         </ion-col>
         <ion-col class="ion-text-center" size-xs="1">
           :
@@ -214,7 +223,7 @@
       <ion-row>
         <ion-col class="title" size-xs="3">
           <ion-label>
-            Address
+             {{'Address' | translate}}
           </ion-label>
           <div>
             <ion-icon name="create-sharp" id="address"></ion-icon>
@@ -235,7 +244,7 @@
         <ng-template>
           <ion-header>
             <ion-toolbar>
-              <ion-title>Edit Address</ion-title>
+              <ion-title> {{'Edit Address' | translate}}</ion-title>
               <ion-buttons slot="end">
                 <ion-button (click)="closeModal()" [strong]="true">
                   <ion-icon name="close-sharp"></ion-icon>
@@ -243,7 +252,7 @@
               </ion-buttons>
             </ion-toolbar>
           </ion-header>
-          <ion-content>
+          <ion-content class="ion-padding">
               <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
               <ion-grid>
                 <ion-row>
@@ -253,8 +262,12 @@
                     </div>
                   </ion-col>
                   <ion-col size="12">
-                      <ion-button type="submit" color="success" size="medium" (click)="saveAddress()" [disabled]="!f.form.valid">Submit</ion-button>
-                      <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">Cancel</ion-button>
+                      <ion-button type="submit" color="success" size="medium" (click)="saveAddress()" [disabled]="!f.form.valid">
+                         {{'Submit' | translate}}
+                      </ion-button>
+                      <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
+                         {{'Clear' | translate}}
+                      </ion-button>
                   </ion-col>
                 </ion-row>
               </ion-grid>
@@ -268,7 +281,7 @@
 
       <ion-row>
         <ion-col class="title" size-xs="3">
-          <ion-label>Part No.</ion-label>
+          <ion-label> {{'Part No.' | translate}}</ion-label>
         </ion-col>
         <ion-col class="ion-text-center" size-xs="1">
           :
@@ -280,7 +293,7 @@
 
       <ion-row>
         <ion-col class="title" size-xs="3">
-          <ion-label>Sr. No.</ion-label>
+          <ion-label>{{'Sr. No.' | translate}}</ion-label>
         </ion-col>
         <ion-col class="ion-text-center" size-xs="1">
           :
@@ -294,7 +307,7 @@
       <ion-row>
         <ion-col class="title" size-xs="3">
           <ion-label>
-             Mobile 
+               {{'Mobile' | translate}}
             </ion-label>
             <div>
               <ion-icon name="add-circle-sharp" id="mobile" ></ion-icon>
@@ -312,7 +325,7 @@
       <ion-row>
         <ion-col class="title" size-xs="3">
           <ion-label> 
-            Alt. No. 
+            {{'Alt. No.' | translate}}
           </ion-label>
           <div>
             <ion-icon name="add-circle-sharp" id="altMobile" ></ion-icon>
@@ -350,7 +363,7 @@
         <ng-template>
           <ion-header>
             <ion-toolbar>
-              <ion-title>Enter Mobile No.</ion-title>
+              <ion-title> {{'Edit Mobile No.' | translate}}</ion-title>
               <ion-buttons slot="end">
                 <ion-button (click)="closeModal()" [strong]="true">
                   <ion-icon name="close-sharp"></ion-icon>
@@ -377,8 +390,12 @@
                       </div>
                   </ion-col>
                   <ion-col size="12">
-                      <ion-button type="submit" color="success" size="medium" (click)="saveMobile()" [disabled]="!f.form.valid">Submit</ion-button>
-                      <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">Cancel</ion-button>
+                      <ion-button type="submit" color="success" size="medium" (click)="saveMobile()" [disabled]="!f.form.valid">
+                        {{'Submit' | translate}}
+                      </ion-button>
+                      <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
+                        {{'Clear' | translate}}
+                      </ion-button>
                   </ion-col>
                 </ion-row>
               </ion-grid>
@@ -391,7 +408,7 @@
         <ng-template>
           <ion-header>
             <ion-toolbar>
-              <ion-title>Alt. Mobile No.</ion-title>
+              <ion-title> {{'Edit Alt. Mobile No.' | translate}}</ion-title>
               <ion-buttons slot="end">
                 <ion-button (click)="closeModal()" [strong]="true">
                   <ion-icon name="close-sharp"></ion-icon>
@@ -399,7 +416,7 @@
               </ion-buttons>
             </ion-toolbar>
           </ion-header>
-          <ion-content>
+          <ion-content class="ion-padding">
             <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
               <ion-grid>
                 <ion-row>
@@ -409,8 +426,12 @@
                     </div>
                   </ion-col>
                   <ion-col size="12">
-                      <ion-button type="submit" color="success" size="medium" (click)="saveAltMobile()" [disabled]="!f.form.valid">Submit</ion-button>
-                      <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">Cancel</ion-button>
+                      <ion-button type="submit" color="success" size="medium" (click)="saveAltMobile()" [disabled]="!f.form.valid">
+                        {{'Submit' | translate}}
+                      </ion-button>
+                      <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
+                         {{'Clear' | translate}}
+                      </ion-button>
                   </ion-col>
                 </ion-row>
               </ion-grid>
@@ -420,9 +441,10 @@
         </ng-template>
       </ion-modal>
 
-      <ion-row>
+      <ion-row >
         <ion-col class="title" size-xs="3">
-          <ion-label>Dead</ion-label>
+          <!-- <ion-label>Dead</ion-label> -->
+          <ion-label> {{'Alive' | translate}}</ion-label>
           <div>
             <ion-icon name="add-circle-sharp" id="deadAlive" ></ion-icon>
           </div>
@@ -433,15 +455,23 @@
         </ion-col>
         <ion-col size-xs="8">
           <ion-label> 
-            <ion-radio-group >
-              <div class="radioBtn" >
-                <ion-radio  value="N" ></ion-radio>
+            <!-- <ion-radio-group name="isAlive" [(ngModel)]="VoterListByUser.isAlive">
+              <div class="radioBtn">
+                <ion-radio [value]="0" readonly></ion-radio>
                   <ion-label>No</ion-label>
-                  <ion-radio  value="Y" ></ion-radio>
+                  <ion-radio [value]="1" readonly></ion-radio>
                   <ion-label>Yes</ion-label>
               </div>
+            </ion-radio-group> -->
+            <ion-radio-group >
+              <div class="radioBtn">
+                <ion-radio ></ion-radio>
+                  <ion-label> {{'No' | translate}}</ion-label>
+                  <ion-radio></ion-radio>
+                  <ion-label> {{'Yes' | translate}}</ion-label>
+              </div>
             </ion-radio-group>
-          </ion-label> 
+          </ion-label>
         </ion-col>
       </ion-row>
 
@@ -449,7 +479,7 @@
         <ng-template>
           <ion-header>
             <ion-toolbar>
-              <ion-title> Dead </ion-title>
+              <ion-title>  {{'Alive' | translate}} </ion-title>
               <ion-buttons slot="end">
                 <ion-button (click)="closeModal()" [strong]="true">
                   <ion-icon name="close-sharp"></ion-icon>
@@ -457,7 +487,7 @@
               </ion-buttons>
             </ion-toolbar>
           </ion-header>
-          <ion-content>
+          <ion-content class="ion-padding">
             <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
               <ion-grid>
                 <ion-row>
@@ -466,16 +496,20 @@
                       <ion-radio-group name="deadAlive" [(ngModel)]="deadAlive.YesNo">
                         <div class="radioBtn" >
                           <ion-radio value="N" ></ion-radio>
-                            <ion-label>No</ion-label>
+                            <ion-label> {{'No' | translate}}</ion-label>
                             <ion-radio value="Y" ></ion-radio>
-                            <ion-label>Yes</ion-label>
+                            <ion-label>{{'Yes' | translate}}</ion-label>
                         </div>
                       </ion-radio-group>
                     </div>
                   </ion-col>
                   <ion-col size="12">
-                      <ion-button type="submit" color="success" size="medium" (click)="aliveDead()" [disabled]="!f.form.valid">Submit</ion-button>
-                      <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">Cancel</ion-button>
+                      <ion-button type="submit" color="success" size="medium" (click)="aliveDead()" [disabled]="!f.form.valid">
+                         {{'Submit' | translate}}
+                      </ion-button>
+                      <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
+                         {{'Clear' | translate}}
+                      </ion-button>
                   </ion-col>
                 </ion-row>
               </ion-grid>
@@ -592,10 +626,10 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-button (click)="family(VoterListByUser.id)">Family</ion-button>
+          <ion-button (click)="family(VoterListByUser.id)"> {{'Family' | translate}}</ion-button>
         </ion-col>
         <ion-col>
-          <ion-button (click)="printSlip()">Print</ion-button>
+          <ion-button (click)="printSlip()"> {{'Print' | translate}}</ion-button>
         </ion-col>
         <ion-col>
           <ion-button (click)="ShareWhatsapp()">WP-Slip</ion-button>
@@ -614,7 +648,9 @@
       </ion-row> -->
       <ion-row>
         <ion-col>
-          <ion-button size="full" (click)="sameAddressVoter(VoterListByUser.id)">Voter on Same Address</ion-button>
+          <ion-button size="full" (click)="sameAddressVoter(VoterListByUser.id)">
+             {{'Voter on Same Address' | translate}}
+          </ion-button>
         </ion-col>
       </ion-row>
       <!-- <ion-row>
@@ -624,7 +660,7 @@
       </ion-row> -->
       <ion-row>
         <ion-col>
-          <ion-button size="full" routerLink="/survey">Survey</ion-button>
+          <ion-button size="full" routerLink="/survey">  {{'Survey' | translate}}</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -635,43 +671,43 @@
         <ion-img style="width: 200px;" [src]="ImagePath"></ion-img>
         <div class="text-center" #myDiv id="myDiv">
           <h6>
-            Assembly : {{ VoterListByUser.assemblyNo }} {{ VoterListByUser.assembly }}
+             {{'Assembly' | translate}} : {{ VoterListByUser.assemblyNo }} {{ VoterListByUser.assembly }}
           </h6>
         </div>
         <div class="name">
           <table >
             <tr #tr1>
-              <th> Part No. </th>
+              <th>   {{'Part No.' | translate}} </th>
               <th> : </th>
               <td> {{VoterListByUser.partNo}} </td>
             </tr>
             <tr #tr2>
-              <th> Name </th>
+              <th>  {{'Name' | translate}}  </th>
               <th> : </th>
               <td> {{VoterListByUser.fullName}}</td>
             </tr>
             <tr #tr3>
-              <th> Age </th>
+              <th>    {{'Age' | translate}} </th>
               <th> : </th>
               <td> {{VoterListByUser.age}} </td>
             </tr>
             <tr #tr4>
-              <th> Gender </th>
+              <th>  {{'Gender' | translate}} </th>
               <th> : </th>
               <td> {{VoterListByUser.gender}} </td>
             </tr>
             <tr #tr5>
-              <th> Voter ID  </th>
+              <th>  {{'Voter ID' | translate}} </th>
               <th> : </th>
               <td> {{VoterListByUser.votingCardNo}} </td>
             </tr>
             <tr #tr6>
-              <th> Address </th>
+              <th>    {{'Address' | translate}} </th>
               <th> : </th>
               <td> {{VoterListByUser.address}} </td>
             </tr>
             <tr #tr7>
-              <th> Village </th>
+              <th>      {{'Village' | translate}} </th>
               <th> : </th>
               <td> {{VoterListByUser.village}} </td>
             </tr>
@@ -681,7 +717,7 @@
     </div>
 
     
-    <ion-grid>
+    <ion-grid style="display: none;">
       <ion-row class="ion-align-items-center">
         <ion-col size="8" style="height: 200px;">
           <ion-img style="height: 200px;" [src]="imgurl"></ion-img>

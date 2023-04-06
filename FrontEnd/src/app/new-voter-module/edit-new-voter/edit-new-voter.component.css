@@ -21,10 +21,10 @@ ion-modal {
 --height: auto !important;
 }
 
-.radioBtn {
+/* .radioBtn {
     display: flex;
   justify-content: space-between;
-  }
+  } */
   
   form ion-input {
     background: #fff !important;

@@ -19,10 +19,13 @@ import {
   SelectionService, ScatterSeriesService, ZoomService, ColumnSeriesService, AreaSeriesService, RangeAreaSeriesService
 } from '@syncfusion/ej2-angular-charts';
 
+import { TranslateModule } from '@ngx-translate/core';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
+    TranslateModule,
     IonicModule,
     MobileDashboardPageRoutingModule,
     ChartModule,

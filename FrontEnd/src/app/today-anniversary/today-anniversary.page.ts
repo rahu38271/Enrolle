@@ -7,6 +7,8 @@ import { LoaderService } from '../services/loader.service';
 import { IonicToastService } from '../services/ionic-toast.service';  
 import { ExcelService } from '../services/excel.service';
 import { CsvService } from '../services/csv.service';
+import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-today-anniversary',
@@ -14,7 +16,7 @@ import { CsvService } from '../services/csv.service';
   styleUrls: ['./today-anniversary.page.scss'],
 })
 export class TodayAnniversaryPage implements OnInit {
-
+  language: any;
   Template = '';
   Content = '';
   NormalMsg = '';
@@ -38,9 +40,11 @@ export class TodayAnniversaryPage implements OnInit {
     private loader:LoaderService, 
     private toast:IonicToastService,
     private excel: ExcelService,
-    private csv:CsvService
+    private csv:CsvService,
+    private translateConfigService: TranslateConfigService
   ) { 
-    
+      this.translateConfigService.getDefaultLanguage();
+      this.language = this.translateConfigService.getCurrentLang();
   }
 
   search(){
@@ -61,8 +65,11 @@ export class TodayAnniversaryPage implements OnInit {
           e.anniversary = e.anniversary.split('T')[0] == '1900-01-01'? '': e.anniversary.split('T')[0];
         });
       }else{
+        this.loader.hideLoader();
         this.toast.presentToast("No data available", "danger", 'alert-circle-sharp')
       }
+    },(err)=>{
+      this.loader.hideLoader();
     })
   }
 

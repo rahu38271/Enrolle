@@ -13,6 +13,7 @@ export class FamilyComponent {
   familyData: any[]=[];
   userId: any;
   roleID:any;
+  searchWeb:string;
   
   constructor(private loader:LoaderService, private voter:VoterService,private route:ActivatedRoute, private router:Router ) { 
       

@@ -4,7 +4,7 @@
         <ion-buttons slot="start">
           <ion-menu-button auto-hide="false"></ion-menu-button>
         </ion-buttons>
-        <ion-title> Important Voters, Total - {{impVoterData.length}}  </ion-title>
+        <ion-title>  {{'Imp. Voters' | translate}}, {{'Total' | translate}} - {{impVoterData.length}}  </ion-title>
         <ion-buttons slot="primary">
           <ion-button (click)="search()">
             <ion-icon name="search-outline"></ion-icon>
@@ -133,16 +133,16 @@
                 <h3>{{item.fullName}}</h3>
               </div>
               <div class="details">
-                <p>Part No. : <span> {{item.partNo}} </span></p>
-                <p> Age : <span> {{item.age}}</span> </p>
-                <p>Gender : <span> {{item.gender}} </span></p>
+                <p> {{'Part No.' | translate}} : <span> {{item.partNo}} </span></p>
+                <p>  {{'Age' | translate}} : <span> {{item.age}}</span> </p>
+                <p> {{'Gender' | translate}} : <span> {{item.gender}} </span></p>
               </div>
             </ion-label>
           </ion-item>
         </ion-list>
         <div *ngIf="!impVoterData || impVoterData.length === 0" class="text-center noData">
           <img src="assets/img/question.png" />
-          <p>No data available</p>
+          <p> {{'No data available' | translate}}</p>
           <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
         </div>
       </ion-grid>

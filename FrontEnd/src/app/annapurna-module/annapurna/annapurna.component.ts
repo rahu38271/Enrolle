@@ -4,7 +4,8 @@ import * as xlsx from 'xlsx';
 import html2pdf from 'html2pdf.js'
 import { AnnapurnaService } from 'src/app/services/annapurna.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { Router } from '@angular/router'
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { IonicToastService }  from 'src/app/services/ionic-toast.service'
 
 @Component({
@@ -46,10 +47,13 @@ export class AnnapurnaComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-      debugger
-      this.annapurnaList();
-      this.familyList();
       
+      this.router.events.pipe(
+        filter(event => event instanceof NavigationEnd)
+      ).subscribe(() => {
+        this.annapurnaList();
+        this.familyList();
+      })
     }
 
     family(event){
@@ -151,7 +155,12 @@ export class AnnapurnaComponent implements OnInit {
           cssClass: 'yes',
           handler: () => {
             this.annapurna.deleteAnnapurna(id).subscribe(data=>{
-              this.ngOnInit();
+              this.router.events.pipe(
+                filter(event => event instanceof NavigationEnd)
+              ).subscribe(() => {
+                this.annapurnaList();
+                this.familyList();
+              })
               this.toast.presentToast("Annapurna deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })
           }

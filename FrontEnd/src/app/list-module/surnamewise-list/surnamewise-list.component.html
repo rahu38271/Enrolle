@@ -4,7 +4,7 @@
       <ion-buttons slot="start">
         <ion-back-button defaultHref="/list"></ion-back-button>
       </ion-buttons>
-      <ion-title> आडनाव : {{lastName}}, Total : {{surnameWiseData.length}} </ion-title>
+      <ion-title>  {{'Last Name' | translate}} : {{lastName}},  {{'Total' | translate}} : {{surnameWiseData.length}} </ion-title>
       <ion-buttons slot="primary">
         <ion-button (click)="search()">
           <ion-icon name="search-outline"></ion-icon>
@@ -132,9 +132,9 @@
               <h3>{{item.fullName}}</h3>
             </div>
             <div class="details">
-              <p> Part No. : <span>{{item.partNo}}</span> </p>
-              <p> Age : <span> {{item.age}} </span> </p>
-              <p> Gender : <span> {{item.gender}} </span></p>
+              <p>  {{'Part No.' | translate}} : <span>{{item.partNo}}</span> </p>
+              <p>   {{'Age' | translate}} : <span> {{item.age}} </span> </p>
+              <p>  {{'Gender' | translate}}  : <span> {{item.gender}} </span></p>
             </div>
 
           </ion-label>

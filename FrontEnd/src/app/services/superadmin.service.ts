@@ -33,7 +33,6 @@ export class SuperadminService {
   }
 
   deleteUser(id:any):Observable<any>{
-    debugger;
     return this.http.get<any>(this.url + 'Login/DeleteUser?Id='+id)
   }
 
@@ -71,7 +70,6 @@ export class SuperadminService {
   }
 
   getAssignedPartByUser(Userid:any):Observable<any>{
-    debugger;
     return this.http.get<any>(this.url+'Auth/GetPartNoAssigned?userid='+Userid)
   }
 

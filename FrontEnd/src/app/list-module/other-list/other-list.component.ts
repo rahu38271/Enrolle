@@ -13,6 +13,7 @@ export class OtherListComponent implements OnInit {
   userId: any;
   roleID:any;
   otherVoter: any[]=[];
+  isShow = false;
 
   constructor(
     private router:Router,
@@ -39,6 +40,10 @@ export class OtherListComponent implements OnInit {
       }
       
     })
+  }
+
+  search(){
+    this.isShow = !this.isShow
   }
 
 }

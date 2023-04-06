@@ -131,7 +131,6 @@ export class AddSuperadminComponent implements OnInit {
   }
 
   addMAdmin() {
-    debugger;
     this.addMAmodal.RoleId = Number(this.addMAmodal.RoleId);
     if(this.addMAmodal.RoleId == 2){
       this.addMAmodal.SuperAdminId = Number(this.loginId);
@@ -149,7 +148,8 @@ export class AddSuperadminComponent implements OnInit {
         this.loader.hideLoader();
         this.addMAmodal = {};
         this.toast.presentToast("Superadmin added successfully!", "success", 'checkmark-circle-sharp');
-        this.router.navigate(['/superadmin']);
+        //this.router.navigate(['/superadmin']);
+        this.router.navigateByUrl('/superadmin')
       }
       else {
         this.loader.hideLoader();

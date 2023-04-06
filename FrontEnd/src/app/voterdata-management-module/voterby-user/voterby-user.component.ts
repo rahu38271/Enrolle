@@ -3,6 +3,9 @@ import { VoterService} from 'src/app/services/voter.service'
 import { Router, ActivatedRoute } from '@angular/router'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { LoaderService } from 'src/app/services/loader.service'
+import { AlertController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
+
 
 @Component({
   selector: 'app-voterby-user',
@@ -32,7 +35,9 @@ export class VoterbyUserComponent  {
       private router: Router,
       private route:ActivatedRoute,
       private toast:IonicToastService,
-      private loader:LoaderService
+      private loader:LoaderService,
+      public alertController: AlertController,
+      public translate:TranslateService
     ) 
     {
     
@@ -81,5 +86,33 @@ export class VoterbyUserComponent  {
     this.isMike = !this.isMike;
    }
 
+   async deleteUser(id:any) {
+    const alert = await this.alertController.create({
+      header: ' Delete User ?',
+      cssClass: 'alertHeader',
+      message: 'Are you sure want to delete this User',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'no',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Delete',
+          cssClass: 'yes',
+          handler: () => {
+            this.voter.deleteVoter(id).subscribe(data=>{
+              this.ngOnInit();
+              this.toast.presentToast("User deleted Succesfully!", "success", 'checkmark-circle-sharp');
+            })
+          }
+        }
+      ],
+    });
+
+    await alert.present();
+  }
 
 }

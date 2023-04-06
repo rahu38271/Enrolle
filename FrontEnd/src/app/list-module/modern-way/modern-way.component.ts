@@ -51,8 +51,8 @@ export class ModernWayComponent implements OnInit {
     this.roleID = localStorage.getItem("userType");
   }
 
-  voterDetails(id:number){
-    this.router.navigate(['voterdata-management/voter-details', id])
+   voterDetails(item:any){
+    this.router.navigate(['voterdata-management/voter-details'], { state: item })
    }
 
   voterListBySearch(){

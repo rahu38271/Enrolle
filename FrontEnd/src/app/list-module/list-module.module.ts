@@ -40,6 +40,7 @@ import { VotedvoterComponent } from './votedvoter/votedvoter.component';
 import { NotvotedvoterComponent } from './notvotedvoter/notvotedvoter.component';
 import { AlivevoterComponent } from './alivevoter/alivevoter.component';
 import { DeadvoterComponent } from './deadvoter/deadvoter.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { DeadvoterComponent } from './deadvoter/deadvoter.component';
     CommonModule,
     IonicModule,
     FormsModule,
+    TranslateModule,
     Ng2SearchPipeModule,
     RouterModule.forChild([
       {path:'', component:ListComponent}, 

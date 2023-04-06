@@ -26,6 +26,8 @@ export class AgewiseListComponent implements OnInit {
   ageList: any[] = [];
   userId: any;
   roleID:any;
+  searchMob:string;
+  isShow = false;
   
   constructor(
     private toast:IonicToastService, 
@@ -60,6 +62,10 @@ export class AgewiseListComponent implements OnInit {
         this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
       }
     })
+  }
+
+  search(){
+    this.isShow = !this.isShow
   }
 
 

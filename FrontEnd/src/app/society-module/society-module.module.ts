@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     IonicModule,
     FormsModule,
     NgSelectModule,
+    Ng2SearchPipeModule,
     RouterModule.forChild([
       {path:'', component:SocietyComponent},
       {path:'add-society', component:AddSocietyComponent},

@@ -13,6 +13,7 @@ export class SupporterListComponent implements OnInit {
   userId:any;
   roleID:any;
   supportVoter: any[] = [];
+  isShow = false;
 
   constructor(
     private router:Router,
@@ -38,5 +39,8 @@ export class SupporterListComponent implements OnInit {
         this.supportVoter = data;
       }
     })
+  }
+  search(){
+    this.isShow = !this.isShow
   }
 }

@@ -8,6 +8,8 @@ import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { ToastController } from '@ionic/angular';
 import { ExcelService } from '../services/excel.service';
 import { CsvService } from '../services/csv.service';
+import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-todays-birthday',
@@ -29,7 +31,7 @@ import { CsvService } from '../services/csv.service';
   ]
 })
 export class TodaysBirthdayPage implements OnInit {
-
+  language: any;
   Template = '';
   Content = '';
   NormalMsg = '';
@@ -64,9 +66,11 @@ export class TodaysBirthdayPage implements OnInit {
     private toast:IonicToastService, 
     private toastController: ToastController,
     private excel:ExcelService,
-    private csv:CsvService
+    private csv:CsvService,
+    private translateConfigService: TranslateConfigService
   ) {
-    
+      this.translateConfigService.getDefaultLanguage();
+      this.language = this.translateConfigService.getCurrentLang();
    }
 
    search(){
@@ -88,8 +92,11 @@ export class TodaysBirthdayPage implements OnInit {
         });
         }
         else{
+          this.loader.hideLoader();
           this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
         }
+      },(err)=>{
+        this.loader.hideLoader();
       })
   }
 

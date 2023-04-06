@@ -14,6 +14,7 @@ export class OppositionListComponent implements OnInit {
   roleID:any;
   oppositeVoter: any[]=[];
   searchMob: string;
+  isShow = false;
 
   constructor(
     private router:Router,
@@ -39,6 +40,10 @@ export class OppositionListComponent implements OnInit {
         this.oppositeVoter = data;
       }
     })
+  }
+
+  search(){
+    this.isShow = !this.isShow
   }
 
 }

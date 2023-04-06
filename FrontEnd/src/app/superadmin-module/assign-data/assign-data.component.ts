@@ -15,7 +15,7 @@ import { de } from 'date-fns/locale';
 export class AssignDataComponent implements OnInit {
 
   disabled: boolean = false;
-
+  searchWeb: string;
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
   assignPart: any = {};
   Userid: any;
@@ -50,7 +50,6 @@ export class AssignDataComponent implements OnInit {
     // this.getallbooths()
 
     this.sadmin.getBooths(Number(this.userrole), Number(loginuser)).subscribe(data => {
-      debugger;
       //console.log(data);
       this.allBooths = data;
 
@@ -119,7 +118,6 @@ export class AssignDataComponent implements OnInit {
   }
 
   assign() {
-    debugger;
     this.loader.showLoading();
     this.id = Number(this.Userid);
     this.sadmin.assignPart({

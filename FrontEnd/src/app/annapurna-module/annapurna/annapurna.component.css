@@ -57,3 +57,6 @@ table td:last-child { padding: 0.25rem 0.1rem !important; width: 58px !important
   color: #ff4646 !important;
   cursor: pointer;
 }
+
+table tr:nth-child(even) {background: #f7f7f8}
+table tr:nth-child(odd) {background: #FFF}

@@ -14,6 +14,7 @@ export class DoubtfulListComponent implements OnInit {
   roleID:any;
   doubtfulVoter: any[]=[];
   searchMob:string;
+  isShow = false;
 
   constructor(
     private voter:VoterService,
@@ -39,6 +40,10 @@ export class DoubtfulListComponent implements OnInit {
         this.doubtfulVoter = data
       }
     })
+  }
+
+  search(){
+    this.isShow = !this.isShow
   }
 
 }

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NewVoterService } from 'src/app/services/new-voter.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { Router } from '@angular/router' 
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { AlertController } from '@ionic/angular';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
+
 
 @Component({
   selector: 'app-new-voter',
@@ -24,7 +26,12 @@ export class NewVoterComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.newVoterList();
+   
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.newVoterList();
+    })
   }
 
   newVoterList(){
@@ -67,7 +74,11 @@ export class NewVoterComponent implements OnInit {
           cssClass: 'yes',
           handler: () => {
             this.newVoter.deleteNewVoter(id).subscribe(data=>{
-              this.ngOnInit();
+              this.router.events.pipe(
+                filter(event => event instanceof NavigationEnd)
+              ).subscribe(() => {
+                this.newVoterList();
+              })
               this.toast.presentToast("Appointment deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })
           }

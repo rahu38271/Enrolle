@@ -3,6 +3,7 @@ import { LoadingController,ToastController } from '@ionic/angular';
 import { VoterService } from 'src/app/services/voter.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { LoaderService } from 'src/app/services/loader.service'
+import { AlertController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router'
 import { Voter } from 'src/app/models/voter'
 import { Location } from '@angular/common';
@@ -74,6 +75,7 @@ keyPressNumbers(event) {
     (
       public loadingController: LoadingController,
       public toastController: ToastController,
+      public alertController: AlertController,
       private voter:VoterService,
       private toast:IonicToastService,
       private loader:LoaderService,
