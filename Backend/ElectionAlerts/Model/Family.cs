@@ -13,6 +13,7 @@ namespace ElectionAlerts.Model
         public string AltContactNo { get; set; }
         public string Address { get; set; }
         public int ANPId { get; set; }
+        public string Relation { get; set; }
 
     }
 }

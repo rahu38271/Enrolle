@@ -637,16 +637,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                         cmd.Parameters.AddWithValue("@RoleId", RoleId);
                         cmd.Parameters.AddWithValue("@ColoumnName", Coloumn);
                         con.Open();
-                        SqlDataReader dr = cmd.ExecuteReader();
-                        //while (dr.Read())
-                        //{
-                        //    Table voterDTO = new Table();
-                        //    voterDTO.ColumnName = Coloumn;
-                        //    voterDTO.ColumnValue = dr[0].ToString();
-                        //    voterDTO.Count = Convert.ToInt32(dr[1]);
-                        //    voterDTOs.Add(voterDTO);
-                        //}
-
+                        SqlDataReader dr = cmd.ExecuteReader();   
                         DataTable dt = new DataTable();
                         dt.Load(dr);
 
