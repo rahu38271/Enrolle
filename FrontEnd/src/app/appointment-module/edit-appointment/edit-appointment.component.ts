@@ -80,9 +80,13 @@ export class EditAppointmentComponent implements OnInit {
 
   save(){
     this.loader.showLoading();
+    var dateparts = this.appointmentModal.AppointmentDate.split(' ');
+    var time= dateparts[1].split(':');
+    var hr = dateparts[2] == 'PM'?(Number(time[0])+12)+':'+time[1] :dateparts[1];
     this.appointmentModal.id = Number(this.appointmentModal.id)
     this.appointmentModal.wardNo = Number(this.appointmentModal.wardNo);
     this.appointmentModal.pinCode = Number(this.appointmentModal.pinCode);
+    this.appointmentModal.AppointmentDate = dateparts[0]+' '+hr;
     if(this.appointmentModal.fileName == ''){
       this.appointmentModal.fileName = ''
     }

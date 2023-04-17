@@ -41,6 +41,7 @@ import { NotvotedvoterComponent } from './notvotedvoter/notvotedvoter.component'
 import { AlivevoterComponent } from './alivevoter/alivevoter.component';
 import { DeadvoterComponent } from './deadvoter/deadvoter.component';
 import { TranslateModule } from '@ngx-translate/core';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,7 @@ import { TranslateModule } from '@ngx-translate/core';
     VotedvoterComponent, 
     NotvotedvoterComponent, 
     AlivevoterComponent, 
-    DeadvoterComponent
+    DeadvoterComponent,
   ],
   imports: [
     CommonModule,
@@ -88,6 +89,7 @@ import { TranslateModule } from '@ngx-translate/core';
     FormsModule,
     TranslateModule,
     Ng2SearchPipeModule,
+    NgxPaginationModule,
     RouterModule.forChild([
       {path:'', component:ListComponent}, 
       {path:'by-village', component:ByVillageComponent},

@@ -15,7 +15,12 @@ table td:last-child { padding: 0.25rem 0.1rem !important; width: 58px !important
 
 .file { font-size: 20px !important; color: #3880ff !important; font-weight: 600;}
 
-
+@media screen and (min-width:768px){
+  ion-modal {
+    --width: 500px;
+  
+ }
+}
 /* ion-modal {
     --width: 290px;
   --border-radius: 8px;

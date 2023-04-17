@@ -9,7 +9,8 @@ import { filter } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { SocietyService } from 'src/app/services/society.service'
-
+import { ExcelService } from 'src/app/services/excel.service'
+import { CsvService } from 'src/app/services/csv.service';
 
 @Component({
   selector: 'app-society',
@@ -48,7 +49,9 @@ export class SocietyComponent implements OnInit {
       private toast: IonicToastService,
        private route: ActivatedRoute,
        private changeDetection: ChangeDetectorRef,
-       private society:SocietyService
+       private society:SocietyService,
+       private excel:ExcelService,
+       private csv:CsvService
     ) {
       
   }
@@ -118,6 +121,14 @@ export class SocietyComponent implements OnInit {
     });
 
     await alert.present();
+  }
+
+  exportExcel():void {
+    this.excel.exportAsExcelFile(this.getSocietyList, 'Society');
+  }
+
+  exportToCSV() {
+    this.csv.exportToCsv(this.getSocietyList, 'Society');
   }
 
 }

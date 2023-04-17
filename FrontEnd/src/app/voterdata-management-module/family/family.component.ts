@@ -2,6 +2,7 @@ import { Component } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router';
 import { LoaderService} from 'src/app/services/loader.service'
 import { VoterService} from 'src/app/services/voter.service'
+import { TranslateConfigService } from 'src/app/services/translate-config.service';
 
 @Component({
   selector: 'app-family',
@@ -14,20 +15,52 @@ export class FamilyComponent {
   userId: any;
   roleID:any;
   searchWeb:string;
+  PageNo:any=1;
+  NoofRow:any=25;
+  Language:any;
   
-  constructor(private loader:LoaderService, private voter:VoterService,private route:ActivatedRoute, private router:Router ) { 
-      
+  constructor(
+    private loader:LoaderService, 
+    private voter:VoterService,
+    private route:ActivatedRoute, 
+    private router:Router,
+    private translateConfigService: TranslateConfigService,
+     ) { 
+      this.Language = this.translateConfigService.getCurrentLang();
   }
 
-  voterDetails(id:number){
-    this.router.navigate(['voterdata-management/voter-details', id])
+  voterDetails(item:any){
+    this.router.navigate(['voterdata-management/voter-details'], { state: item })
    }
+
+  
 
   ngOnInit(): void {
     this.userId = localStorage.getItem("loginId");
     this.roleID = localStorage.getItem("userType");
     this.id = this.route.snapshot.paramMap.get('Id');
-    this.voter.getByRelation(this.id, this.userId,this.roleID).subscribe(data=>{
+    this.familyWiseVoterData(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language);
+  }
+
+  event(event:any){
+    this.PageNo = event;
+    this.familyWiseVoterData(this.id,this.roleID,event,this.NoofRow,this.Language)
+  }
+
+  familyWiseVoterData(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any){
+    if(this.Language == "kn"){
+      this.Language = "Kannada"
+    }
+    else if(this.Language == "mr"){
+      this.Language = "Marathi"
+    }
+    else if (this.Language == "hi") {
+      this.Language = "Hindi"
+    }
+    else{
+      this.Language = "English"
+    }
+    this.voter.getByRelation(this.id, userId,roleID,PageNo,NoofRow,this.Language).subscribe(data=>{
       if(data){
         this.familyData= data;
       }else{

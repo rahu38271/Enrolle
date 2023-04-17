@@ -69,10 +69,14 @@ export class AppComponent implements OnInit {
   isNotifications:any;
   isSuperAdmin:any;
   isconfigureDB:any;
+  isLetterTracking:any;
+  isAppoReport:any;
+  isComBook:any;
   isRequest:any;
   isTab:any;
   role:any;
   language: any;
+  state:any;
   getClass() {
     return "active"
   }
@@ -102,16 +106,16 @@ export class AppComponent implements OnInit {
     this.language = this.translateConfigService.getCurrentLang();
     this.initializeApp();
     
-    // platform.ready().then(() => {
+    platform.ready().then(() => {
 
-    //   androidPermissions.requestPermissions(
-    //     [
-    //       this.androidPermissions.PERMISSION.CAMERA,
-    //       this.androidPermissions.PERMISSION.READ_SMS
-    //     ]
-    //   );
+      androidPermissions.requestPermissions(
+        [
+          this.androidPermissions.PERMISSION.CAMERA,
+          this.androidPermissions.PERMISSION.READ_SMS
+        ]
+      );
 
-    // });
+    });
 
     // on route change to '/login', set the variable showHead to false
     router.events.forEach((event) => {
@@ -133,6 +137,7 @@ export class AppComponent implements OnInit {
       this.id = localStorage.getItem("loginId");
     this.name = localStorage.getItem("loginUser");
     this.roleId = localStorage.getItem("userType");
+    this.state = localStorage.getItem("state");
     if(this.roleId == 1){
       this.roleName = "MasterAdmin"
     }
@@ -176,6 +181,9 @@ export class AppComponent implements OnInit {
     this.isSociety = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isOffice = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isNotifications = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isLetterTracking = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isAppoReport =  isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isComBook = isMasterAdmin|| isSuperAdmin || isAdmin;
     })
     
     

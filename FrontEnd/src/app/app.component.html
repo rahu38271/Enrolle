@@ -13,12 +13,7 @@
         <div *ngIf="isContact" class="subnav" routerLink="/contact">
           <button class="subnavbtn"> <img src="assets/img/contact-book.png" alt=""> <br>{{'Contact' | translate}} </button>
         </div>
-        <!-- <div class="subnav" routerLink="/letterhead">
-          <button class="subnavbtn"> <img src="assets/img/letterhead.png" alt=""> <br>Letterhead </button>
-        </div> -->
-        <div *ngIf="isUser" class="subnav" routerLink="/superadmin">
-          <button class="subnavbtn"><img src="assets/img/user.png" alt=""><br>{{'User' | translate}}  </button>
-        </div>
+        
 
         <div *ngIf="isDailyRoutine" class="subnav" routerLink="/event">
           <button class="subnavbtn"><img src="assets/img/calendar.png" alt=""><br>{{'Daily Routine' | translate}}</button>
@@ -136,7 +131,7 @@
           <button class="subnavbtn"><img src="assets/img/shopping-list.png" alt=""><br> {{'Voter List' | translate}}  </button>
           <div class="subnav-content">
             <ion-item lines="full" class="sub-menu" routerLink="/dashboard">
-              Dashboard
+              Voter Dashboard
             </ion-item>
 
             <ion-item lines="full" class="sub-menu" routerLink="/voter-summary">
@@ -162,7 +157,11 @@
           </div>
         </div>
 
-        <div *ngIf="isRequest" class="subnav" routerLink="/user-request"  >
+        <div="subnav" *ngIf="isComBook" class="subnav" routerLink="/user-request" >
+          <button class="subnavbtn"><img src="assets/img/list1.png" alt=""><br>Complaint Book </button>
+        </div>
+
+        <div *ngIf="isRequest" class="subnav"  >
           <button class="subnavbtn"><img src="assets/img/list1.png" alt=""><br>User Request </button>
         </div>
 
@@ -569,10 +568,37 @@
                       <i class="icofont icofont-ui-text-chat"></i>
                       <ion-label> {{'Society' | translate}}</ion-label>
                     </ion-item>
+
+                    <ion-item routerDirection="root" routerLink="/letter-tracking" [routerLinkActive]="'active'" >
+                      <i class="icofont icofont-contacts"></i>
+                          <ion-label>  Letter Tracking </ion-label>
+                    </ion-item>
                     
                   </div>
                 </ion-accordion>
               </ion-accordion-group>
+
+              <ion-accordion-group *ngIf="isAppoReport">
+                <ion-accordion value="setting">
+                  <ion-item slot="header" color="light">
+                    <i class="icofont icofont-ui-settings"></i>
+                    <ion-label>  Appointment Report </ion-label>
+                  </ion-item>
+                  <div slot="content">
+                    <ion-item color="light" lines="none" [routerLink]="['/approved-appointment']" routerDirection="root">
+                      <i class="icofont icofont-ui-text-chat"></i>
+                      <ion-label> Approved  </ion-label>
+                    </ion-item>
+
+                    <ion-item color="light" lines="none" [routerLink]="['/approved-appointment/rejected']" routerDirection="root">
+                      <i class="icofont icofont-ui-text-chat"></i>
+                      <ion-label> Rejected </ion-label>
+                    </ion-item>                    
+                  </div>
+                </ion-accordion>
+              </ion-accordion-group>
+
+              
 
               <ion-accordion-group *ngIf="isNotifications">
                 <ion-accordion value="setting">

@@ -322,7 +322,15 @@ const routes: Routes = [
   {
     path: 'society',
     loadChildren: () => import('./society-module/society-module.module').then( m => m.SocietyModuleModule)
-  }
+  },
+  {
+    path: 'letter-tracking',
+    loadChildren: () => import('./letter-tracking-module/letter-tracking-module.module').then( m => m.LetterTrackingModuleModule)
+  },
+  {
+    path: 'approved-appointment',
+    loadChildren: () => import('./appointment-report/appointment-report.module').then( m => m.AppointmentReportModule)
+  },
 ];
 
 @NgModule({

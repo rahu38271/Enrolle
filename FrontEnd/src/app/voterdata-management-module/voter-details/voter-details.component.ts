@@ -7,7 +7,8 @@ import { PopoverController } from '@ionic/angular';
 import { VoterService } from 'src/app/services/voter.service'
 import { ActivatedRoute } from '@angular/router'
 import { LoaderService } from 'src/app/services/loader.service'
-import { Router } from '@angular/router'
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { ModalController } from '@ionic/angular';
 import { Location } from '@angular/common';
@@ -34,7 +35,8 @@ export class VoterDetailsComponent {
   //@ViewChild('myImg') myImg: ElementRef;
 
   text: string = ''
-  imgurl: string = 'https://cdn.pixabay.com/photo/2019/12/26/05/10/pink-4719682_960_720.jpg'
+  //imgurl: string = 'https://cdn.pixabay.com/photo/2019/12/26/05/10/pink-4719682_960_720.jpg'
+  imgurl: string = 'https://scontent-bom1-2.xx.fbcdn.net/v/t39.30808-6/262921346_1278659969288060_1495313806783760875_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=730e14&_nc_ohc=iloEXgmNY_oAX8-WTxc&_nc_ht=scontent-bom1-2.xx&oh=00_AfD0wJKOTdJ2M8sPLkL-e5DE9lW-kilOCJ91efD8hWczsQ&oe=643BAA03'
 
   ImagePath = ''
   VoterListByUser: any;
@@ -44,7 +46,7 @@ export class VoterDetailsComponent {
   YesNo: any;
   pageNo: any = 1;
   NoofRow: any = 100;
-
+  partNo:any;
 
   @ViewChild('slipDesign') slipDesign: ElementRef;
 
@@ -113,7 +115,7 @@ export class VoterDetailsComponent {
       private bluetoothSerial: BluetoothSerial,
       private toastCtrl: ToastController
     ) {
-
+       
   }
 
   ngOnInit() {
@@ -121,6 +123,7 @@ export class VoterDetailsComponent {
     this.Voter = this.router.getCurrentNavigation().extras.state
     //pipe(map(() => window.history.state))
     this.voterDetails();
+    
   }
 
   voterDetails() {
@@ -150,8 +153,11 @@ export class VoterDetailsComponent {
     if (this.VoterListByUser.isAlive == "Y") {
       this.VoterListByUser.isAlive = 1
     }
-    else {
+    else if(this.VoterListByUser.isAlive == "N") {
       this.VoterListByUser.isAlive = 0
+    }
+    else if(this.VoterListByUser.isAlive == null){
+      this.VoterListByUser.isAlive = ''
     }
 
     //to get color checked if voter is supporter, opposite, doubtful or other
@@ -173,6 +179,8 @@ export class VoterDetailsComponent {
   family(id: any) {
     this.router.navigate(['/voterdata-management/family', { Id: id }])
   }
+
+  
 
   sameAddressVoter(id: any) {
     this.router.navigate(['/voterdata-management/family', { Id: id }])
@@ -309,7 +317,6 @@ export class VoterDetailsComponent {
   // }
 
   toggleStar() {
-    debugger;
     this.id = this.Voter.id;
     this.starUpdare.id = Number(this.id);
     this.showStar = !this.showStar;
@@ -448,10 +455,11 @@ export class VoterDetailsComponent {
   //   })
   // }
 
-  sameBoothVoter(id: any) {
-    const coloumnValue = this.VoterListByUser.partNo;
-    this.router.navigate(['/list/boothwise-list', { Id: id }])
-  }
+  // sameBoothVoter(id: any) {
+  //   debugger;
+  //   this.VoterListByUser.partNo = this.partNo;
+  //   this.router.navigate(['/list/boothwise-list', { Id: id }])
+  // }
 
   goback() {
     this.location.back();

@@ -78,9 +78,7 @@ export class ContactComponent implements OnInit {
   }  
 
   contactList(PageNo:any,NoofRow:any,SearchText:any){
-    this.loader.showLoading();
     this.contact.getContacts(PageNo,NoofRow,SearchText).subscribe(data=>{
-      this.loader.hideLoader();
       if(data != 0){
         this.getContacts = data;
         this.getContacts.forEach(e => {
@@ -89,12 +87,10 @@ export class ContactComponent implements OnInit {
         });
       }
       else{
-        this.loader.hideLoader();
         this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
       }
     }, (err)=>{
-      this.loader.hideLoader();
-      this.toast.presentToast("Something went wrong !", "danger", 'alert-circle-outline');
+      //this.toast.presentToast("Something went wrong !", "danger", 'alert-circle-outline');
     });
   }
 

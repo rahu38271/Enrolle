@@ -95,17 +95,13 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("adminId", data.user[0].adminId);
         localStorage.setItem("superAdminId", data.user[0].superAdminId)
         localStorage.setItem("loginAssembly", data.user[0].assemblyName);
+        localStorage.setItem("state", data.user[0].state);
         //this.auth.sendOtp(this.loginModal.Username).subscribe((data) => {
         //   this.otpverify(data);
         //});
-          this.toast.presentToast("Logged In Succesfully", "success", 'checkmark-circle-outline');
+          this.toast.presentToast("Logged In Succesfully", "success", 'checkmark-circle-sharp');
           this.loader.hideLoader();
           this.router.navigate(['/home/mobile-dashboard']);
-          // if we use router.navigate to redirect to dashboard page we need to refresh to see menubar based on user role.
-          //window.location.href = "#/home/mobile-dashboard";
-
-          
-          
       }
     },
     (err)=>{

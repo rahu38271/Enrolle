@@ -84,7 +84,6 @@
                         <th>
                           Mobile No.
                         </th>
-  
                         <th id="element-to-hide" data-html2canvas-ignore="true">
                           Action
                         </th>
@@ -126,7 +125,7 @@
       </ion-grid>
       <ion-grid class="android userList">
         <ion-searchbar [(ngModel)]="searchMob" animated="true" *ngIf="isShow"></ion-searchbar>
-        <ion-list (click)="voterDetails(item)" *ngFor="let item of voterMobile | filter:searchMob">
+        <ion-list (click)="voterDetails(item)" *ngFor="let item of voterMobile | paginate: { itemsPerPage:100, currentPage: PageNo, totalItems:totalItems } | filter:searchMob">
           <ion-item lines="none">
             <ion-label>
               <div class="firstLine">
@@ -139,6 +138,9 @@
               </div>
             </ion-label>
           </ion-item>
+        </ion-list>
+        <ion-list>
+          <pagination-controls (pageChange)="event($event)"></pagination-controls>
         </ion-list>
         <div *ngIf="!voterMobile || voterMobile.length === 0" class="text-center noData">
           <img src="assets/img/question.png" />

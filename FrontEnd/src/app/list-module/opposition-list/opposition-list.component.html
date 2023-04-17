@@ -125,20 +125,23 @@
   
       <ion-grid class="android userList">
         <ion-searchbar [(ngModel)]="searchMob" animated="true" *ngIf="isShow"></ion-searchbar>
-        <ion-list *ngFor="let item of oppositeVoter | filter:searchMob" (click)="voterDetails(item)">
+        <ion-list *ngFor="let item of oppositeVoter | paginate: { itemsPerPage:100, currentPage: PageNo, totalItems:totalItems } | filter:searchMob" (click)="voterDetails(item)">
           <ion-item lines="none">
             <ion-label>
               <div class="firstLine">
                 <h3>{{item.fullName}}</h3>
               </div>
               <div class="details">
-                <p>   {{'Part No.' | translate}},  : <span>{{item.partNo}}</span> </p>
-                <p>  {{'Age' | translate}},  : <span> {{item.age}} </span> </p>
-                <p>  {{'Gender' | translate}},  : <span> {{item.gender}} </span></p>
+                <p>   {{'Part No.' | translate}}  : <span>{{item.partNo}}</span> </p>
+                <p>  {{'Age' | translate}} : <span> {{item.age}} </span> </p>
+                <p>  {{'Gender' | translate}}  : <span> {{item.gender}} </span></p>
               </div>
   
             </ion-label>
           </ion-item>
+        </ion-list>
+        <ion-list>
+          <pagination-controls (pageChange)="event($event)"></pagination-controls>
         </ion-list>
         <div *ngIf="!oppositeVoter || oppositeVoter.length === 0" class="text-center noData">
             <img src="assets/img/question.png" />

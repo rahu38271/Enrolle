@@ -6,6 +6,8 @@ import { VoterService } from 'src/app/services/voter.service'
 import { LoaderService } from 'src/app/services/loader.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { Router } from '@angular/router'
+import { TranslateConfigService } from 'src/app/services/translate-config.service';
+
 
 @Component({
   selector: 'app-modern-way',
@@ -13,7 +15,7 @@ import { Router } from '@angular/router'
   styleUrls: ['./modern-way.component.scss'],
 })
 export class ModernWayComponent implements OnInit {
-
+  Language:any;
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
 
   myForm1;
@@ -29,11 +31,16 @@ export class ModernWayComponent implements OnInit {
     ToAge:'',
     Village:'',
     Gender:'',
-    UserId:''
+    UserId:'',
+    PageNo:'',
+    NoofRow:'',
+    Language:''
   };
   searchList: any[] =[];
   id: any;
   roleID:any;
+  PageNo:any=1;
+  NoofRow:any=10;
 
   constructor
     (
@@ -43,8 +50,23 @@ export class ModernWayComponent implements OnInit {
       private voter:VoterService,
       private loader:LoaderService,
       private toast:IonicToastService,
-      private router:Router
-    ) { }
+      private router:Router,
+      private translateConfigService: TranslateConfigService,
+    ) {
+      this.Language = this.translateConfigService.getCurrentLang();
+      if (this.Language == "kn") {
+        this.Language = "Kannada"
+      }
+      else if (this.Language == "mr") {
+        this.Language = "Marathi"
+      }
+      else if (this.Language == "hi") {
+        this.Language = "Hindi"
+      }
+      else {
+        this.Language = "English"
+      }
+     }
 
   ngOnInit() {
     this.id = localStorage.getItem("loginId");
@@ -56,6 +78,9 @@ export class ModernWayComponent implements OnInit {
    }
 
   voterListBySearch(){
+    this.searchModal.Language = this.Language
+    this.searchModal.PageNo = this.PageNo;
+    this.searchModal.NoofRow = this.NoofRow;
     if(this.searchModal.LastName == ''){
       this.searchModal.LastName = null
     }
@@ -124,6 +149,8 @@ export class ModernWayComponent implements OnInit {
     }
     this.searchModal.UserId = Number(this.id);
     this.searchModal.roleID = Number(this.roleID);
+    this.searchModal.PageNo = Number(this.PageNo);
+    this.searchModal.NoofRow = Number(this.NoofRow);
     this.loader.showLoading();
      this.voter.advanceSearch(this.searchModal).subscribe(data=>{
        if(data.length > 0){

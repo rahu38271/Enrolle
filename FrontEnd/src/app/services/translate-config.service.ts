@@ -32,5 +32,6 @@ export class TranslateConfigService {
 
   getCurrentLang() {
     return localStorage.getItem('lang');
+    
   }
 }

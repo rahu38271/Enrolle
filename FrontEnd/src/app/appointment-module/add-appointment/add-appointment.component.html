@@ -70,7 +70,7 @@
               [(ngModel)]="appointmentModal.PhoneNo" 
               class="form-control"
               minlength="10" 
-              maxlength="10" 
+              maxlength="12" 
               (keypress)="keyPressNumbers($event)"  
               required
             ></ion-input>
@@ -80,7 +80,7 @@
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Appointment Date<span>*</span> </ion-label>
             <ion-input 
-              value="{{ AppointmentDate | date: 'YYYY-MM-ddTHH:mm' }}"
+              value="{{ AppointmentDate | date: 'yyyy-MM-dd hh:mm a' }}"
               [(ngModel)]="appointmentModal.AppointmentDate" 
               id="AppointmentDate" 
               name="AppointmentDate" 
@@ -178,7 +178,7 @@
 
           <ion-col size-xl="2" size-lg="2" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Pincode </ion-label>
-            <ion-input name="Pincode" [(ngModel)]="appointmentModal.PinCode" class="form-control" ></ion-input>
+            <ion-input name="Pincode" maxlength="6" [(ngModel)]="appointmentModal.PinCode" class="form-control" ></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">

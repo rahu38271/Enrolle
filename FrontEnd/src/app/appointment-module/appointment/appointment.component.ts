@@ -7,7 +7,8 @@ import { LoaderService } from 'src/app/services/loader.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
-
+import { ExcelService } from 'src/app/services/excel.service'
+import { CsvService } from 'src/app/services/csv.service';
 
 @Component({
   selector: 'app-appointment',
@@ -33,7 +34,9 @@ export class AppointmentComponent implements OnInit {
     private appointment:AppointmentService,
     private loader:LoaderService,
     private router:Router, 
-    private toast:IonicToastService
+    private toast:IonicToastService,
+    private excel:ExcelService,
+    private csv:CsvService
     ) { }
 
     ngOnInit() {
@@ -42,24 +45,21 @@ export class AppointmentComponent implements OnInit {
       ).subscribe(() => {
         this.appoinmentList();
       })
+      
     }
 
   appoinmentList(){
-    this.loader.showLoading();
-    
     this.appointment.getAppointments().subscribe(data=>{
       if(data != 0){
         this.getApmList = data;
-        this.loader.hideLoader();
         this.getApmList.forEach(e => {
           e.birthDate = e.birthDate.split('T')[0];
         });
       }
       else{
-        this.loader.hideLoader();
       }
     },(err)=>{
-      this.loader.hideLoader();
+
     })
   }
 
@@ -134,12 +134,20 @@ export class AppointmentComponent implements OnInit {
   }
 
 
-  exportexcel() {
-    const ws: xlsx.WorkSheet =
-      xlsx.utils.table_to_sheet(this.epltable.nativeElement);
-    const wb: xlsx.WorkBook = xlsx.utils.book_new();
-    xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
-    xlsx.writeFile(wb, 'epltable.xlsx');
+  // exportexcel() {
+  //   const ws: xlsx.WorkSheet =
+  //     xlsx.utils.table_to_sheet(this.epltable.nativeElement);
+  //   const wb: xlsx.WorkBook = xlsx.utils.book_new();
+  //   xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
+  //   xlsx.writeFile(wb, 'epltable.xlsx');
+  // }
+
+  exportExcel():void {
+    this.excel.exportAsExcelFile(this.getApmList, 'appointment');
+  }
+
+  exportToCSV() {
+    this.csv.exportToCsv(this.getApmList, 'appointment');
   }
 
   pdf() {

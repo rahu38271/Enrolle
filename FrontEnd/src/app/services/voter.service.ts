@@ -25,8 +25,9 @@ export class VoterService {
   //   return this.http.get<any[]>(this.url+'Voter/GetAllVoter?UserId='+id+'&RoleId='+roleID)
   // }
   
-  getVoterByUser(id:any,RoleId:any,pageNo:any,NoofRow:any):Observable<any>{
-    return this.http.get<any[]>(this.url+'Voter/GetAllVoter?UserId='+id+'&RoleId='+RoleId+'&PageNo='+pageNo+'&NoofRow='+NoofRow)
+  getVoterByUser(id:any,RoleId:any,PageNo:any,NoofRow:any,Language:any):Observable<any>{
+    //return this.http.get<any[]>(this.url+'Voter/GetAllVoter?UserId='+id+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow)
+    return this.http.get<any[]>(this.url+'Voter/GetAllVoter?UserId='+id+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language)
   }
 
   // total voter count
@@ -54,9 +55,8 @@ export class VoterService {
 
   // get list by family
 
-  getByRelation(id:any,userId:number,roleID:any){
-    // return this.http.get<any[]>(this.url+'Voter/GetVoterbyRelation?Id='+id);
-    return this.http.get<any[]>(this.url+'Voter/GetVoterbyRelation?Id='+id+'&UserId='+userId+'&RoleId='+roleID);
+  getByRelation(id:any,userId:number,roleID:any,pageNo:any,NoofRow:any,Language:any){
+    return this.http.get<any[]>(this.url+'Voter/GetVoterbyRelation?Id='+id+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+pageNo+'&NoofRow='+NoofRow+'&Language='+Language);
     
   }
 
@@ -73,7 +73,6 @@ export class VoterService {
   }
 
   updateStar(id:any, YesNo:any){
-    debugger;
     return this.http.post<any>(this.url+'Voter/UpdateStarVoter?Id='+id+'&YesNo='+YesNo+'', id)
   }
 
@@ -119,45 +118,49 @@ export class VoterService {
     return this.http.post<any>(this.url+'Voter/FilterColoumnCount', partModal)
   }
 
+  // filter / search voter by condition
+
+  filterVoterByCondition(filterModal:any){
+    debugger;
+    return this.http.post<any>(this.url+'Voter/FilterVoterbyCondition',filterModal)
+  }
+
+
   // Imp Voter Data
 
-  impVoter(userId:number, roleID:number){
-    return this.http.get<any>(this.url+'Voter/GetStarVoterbyUserId?UserId='+userId+'&RoleId='+roleID);
+  impVoter(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any){
+    return this.http.get<any>(this.url+'Voter/GetStarVoterbyUserId?UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
   }
 
   // lastname and count
 
-  lastNameData(userid:number,roleID:number){
-    //return this.http.get<any>(this.url+'Voter/GetVoterCountbyLastName');
-    return this.http.get<any>(this.url+'Voter/GetVoterCountbyLastName?userid='+userid+'&RoleId='+roleID);
-    
+  lastNameData(userid:number,roleID:number,PageNo:number,NoofRow:number,Language:any){
+    return this.http.get<any>(this.url+'Voter/GetVoterCountbyLastName?userid='+userid+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
   }
 
   // all voter by lastname
 
-  voterByLastName(lastName:any, userid:number, roleID:number){
-    // return this.http.get<any>(this.url+'Voter/VoterDetailsbyLastName?Name='+lastName);
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyLastName?Name='+lastName+'&UserId='+userid+'&RoleId='+roleID);
-    
+  voterByLastName(lastName:any, userid:number,roleID:number,PageNo:number,NoofRow:number,Language:any){
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyLastName?Name='+lastName+'&UserId='+userid+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
   }
 
   // all voter by villages
 
-  voterByVillage(villageName:any, userId:number, roleID:number){
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Village&ColoumnValue='+villageName+'&UserId='+userId+'&RoleId='+roleID);
+  voterByVillage(villageName:any, userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any){
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Village&ColoumnValue='+villageName+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
     
   }
 
   // all voter by address
 
-  voterByAddress(addressName:any,userId:number, roleID:number){
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Address&ColoumnValue='+addressName+'&UserId='+userId+'&RoleId='+roleID)
+  voterByAddress(addressName:any,userId:number, roleID:number,PageNo:number,NoofRow:number,Language:any){
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Address&ColoumnValue='+addressName+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language)
   }
 
    // all voter by part no
 
-   voterByPart(partNumber:number,userId:number, roleID:number){
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=PartNo&ColoumnValue='+partNumber+'&UserId='+userId+'&RoleId='+roleID)
+   voterByPart(partNumber:number,userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any){
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=PartNo&ColoumnValue='+partNumber+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language)
   }
 
   // advance search voter
@@ -168,9 +171,8 @@ export class VoterService {
 
   // all voter with Mobile
 
-  voterWithMobile(userId:number, roleID:number){
-    // return this.http.get<any>(this.url+'Voter/VoterwithMobileNo');
-    return this.http.get<any>(this.url+'Voter/VoterwithMobileNo?UserId='+userId+'&RoleId='+roleID);
+  voterWithMobile(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any){
+    return this.http.get<any>(this.url+'Voter/VoterwithMobileNo?UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
     
   }
 
@@ -183,15 +185,14 @@ export class VoterService {
 
   // boothwise voter list
 
-  boothWiseVoterList(partNo:number){
-    return this.http.get<any>(this.url+'Voter/GetVoterbyPartNo?partno='+partNo)
+  boothWiseVoterList(partNo:number,PageNo:number,NoofRow:number){
+    return this.http.get<any>(this.url+'Voter/GetVoterbyPartNo?partno='+partNo+'&PageNo='+PageNo+'&NoofRow='+NoofRow)
   }
 
   // all voter by age
 
-  voterBetweenAge(age1:number, age2:number, gender:string, userId:number, roleID:number){
-    // return this.http.get<any>(this.url+'Voter/GetVoterBetweenAge?age1='+age1+'&age2='+age2+'&gender='+gender+'');
-    return this.http.get<any>(this.url+'Voter/GetVoterBetweenAge?age1='+age1+'&age2='+age2+'&gender='+gender+'&UserId='+userId+'&roleid='+roleID);
+  voterBetweenAge(age1:number, age2:number, gender:string, userId:number, roleID:number,PageNo:number,NoofRow:number,Language:any){
+    return this.http.get<any>(this.url+'Voter/GetVoterBetweenAge?age1='+age1+'&age2='+age2+'&gender='+gender+'&UserId='+userId+'&roleid='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
    
   }
 
@@ -205,30 +206,31 @@ export class VoterService {
 
   getVoterByColor(userId:number,roleID:number){
     return this.http.get<any>(this.url+'Voter/GetVoterInclination?UserId='+userId+'&RoleId='+roleID)
+    
   }
 
   // supporter voter list
 
-  supporter(userId:number, roleID:number){
-    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Supporter&UserId='+userId+'&RoleId='+roleID);
+  supporter(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any){
+    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?Inclination=Supporter&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language)
   }
 
   // opposition voter list
 
-  opposition(userId:number, roleID:number){
-    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Opposition&UserId='+userId+'&RoleId='+roleID);
+  opposition(userId:number, roleID:number,PageNo:number,NoofRow:number,Language:any){
+    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Opposition&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
   }
 
   // doubtful voter list
 
-  doubtful(userId:number, roleID:number){
-    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Doubtful&UserId='+userId+'&RoleId='+roleID);
+  doubtful(userId:number, roleID:number,PageNo:number,NoofRow:number,Language:any){
+    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Doubtful&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
   }
 
   // other voter list
 
-  other(userId:number,roleID:number){
-    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Other&UserId='+userId+'&RoleId='+roleID);
+  other(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any){
+    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Other&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
   }
 
   // is voted / non-voted

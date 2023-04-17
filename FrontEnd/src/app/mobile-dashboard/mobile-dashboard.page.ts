@@ -27,6 +27,8 @@ export class MobileDashboardPage implements OnInit {
   name: any;
   roleName: string;
   roleId:any;
+  state:any;
+  isMarathi:any;
   public Search: string;
   public Lists: string;
   public Survey: string;
@@ -83,6 +85,7 @@ export class MobileDashboardPage implements OnInit {
    ngOnInit(): void {
     this.id = localStorage.getItem("loginId");
     this.name = localStorage.getItem("loginUser");
+    this.state = localStorage.getItem("state");
     this.roleId = localStorage.getItem("userType");
     if(this.roleId == 1){
       this.roleName = "MasterAdmin"
@@ -97,6 +100,14 @@ export class MobileDashboardPage implements OnInit {
       this.roleName = "Volunteer"
     }
 
+    if(this.state == "Maharashtra"){
+      this.isMarathi = this.isMarathi
+    }
+    else{
+      this.isMarathi = !this.isMarathi
+    }
+    
+
     var roleId = localStorage.getItem("userType");
     //this.roleType = roleName
     var isMasterAdmin = roleId == "1"
@@ -105,7 +116,7 @@ export class MobileDashboardPage implements OnInit {
     var isVolunteer = roleId == "4"
     
     this.isSearch = isVolunteer;
-    this.isList =  isVolunteer;
+    this.isList =  isSuperAdmin || isAdmin || isVolunteer;
     this.isContact =isMasterAdmin || isSuperAdmin || isAdmin;
     this.isBirthDay = isMasterAdmin || isSuperAdmin || isAdmin;
     this.isAnniversary = isMasterAdmin || isSuperAdmin || isAdmin;
@@ -233,7 +244,7 @@ export class MobileDashboardPage implements OnInit {
         handler: () => {
           this.language = 'en';
           this.translateConfigService.setLanguage('en');
-        }
+        },
       }, {
         text: 'Marathi',
         icon: 'language-outline',
@@ -269,6 +280,38 @@ export class MobileDashboardPage implements OnInit {
     const { role, data } = await actionSheet.onDidDismiss();
     console.log('onDidDismiss resolved with role and data', role, data);
   }
+
+  // async changeLanguage() {
+  //   const actionSheet = await this.actionSheetController.create({
+  //     header: 'Languages',
+  //     buttons: [{
+  //       text: 'English',
+  //       icon: 'language-outline',
+  //       handler: () => {
+  //         this.language = 'en';
+  //         this.translateConfigService.setLanguage('en');
+  //       },
+  //     },{
+  //       text: 'Kannada',
+  //       icon: 'language-outline',
+  //       handler: () => {
+  //         this.language = 'kn';
+  //         this.translateConfigService.setLanguage('kn');
+  //       }
+  //     }, {
+  //       text: 'Cancel',
+  //       icon: 'close',
+  //       role: 'cancel',
+  //       handler: () => {
+  //         console.log('Cancel clicked');
+  //       }
+  //     }]
+  //   });
+  //   await actionSheet.present();
+
+  //   const { role, data } = await actionSheet.onDidDismiss();
+  //   console.log('onDidDismiss resolved with role and data', role, data);
+  // }
 
 }
 

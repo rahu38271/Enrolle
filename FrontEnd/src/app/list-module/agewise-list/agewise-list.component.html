@@ -171,7 +171,7 @@
     
     <ion-grid class="android userList">
       <ion-searchbar [(ngModel)]="searchMob" animated="true" *ngIf="isShow"></ion-searchbar>
-      <ion-list *ngFor="let item of ageList | filter:searchMob" (click)="voterDetails(item)">
+      <ion-list *ngFor="let item of ageList | paginate: { itemsPerPage:100, currentPage: PageNo, totalItems:totalItems } | filter:searchMob" (click)="voterDetails(item)">
         <ion-item lines="none" >
           <!-- <ion-avatar slot="start">
             <ion-icon name="person-sharp"></ion-icon>
@@ -187,6 +187,9 @@
             </div>
           </ion-label>
         </ion-item>
+      </ion-list>
+      <ion-list>
+        <pagination-controls (pageChange)="event($event)"></pagination-controls>
       </ion-list>
       <div *ngIf="!ageList || ageList.length === 0" class="text-center noData">
         <img src="assets/img/question.png" />

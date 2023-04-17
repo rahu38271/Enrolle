@@ -5,7 +5,8 @@ import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { AlertController } from '@ionic/angular';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
-
+import { ExcelService } from 'src/app/services/excel.service'
+import { CsvService } from 'src/app/services/csv.service';
 
 @Component({
   selector: 'app-new-voter',
@@ -22,7 +23,9 @@ export class NewVoterComponent implements OnInit {
     private loader:LoaderService,
     private router:Router,
     public alertController: AlertController,
-    private toast:IonicToastService
+    private toast:IonicToastService,
+    private excel:ExcelService,
+       private csv:CsvService
     ) { }
 
   ngOnInit(): void {
@@ -87,6 +90,14 @@ export class NewVoterComponent implements OnInit {
     });
 
     await alert.present();
+  }
+
+  exportExcel():void {
+    this.excel.exportAsExcelFile(this.getnewVoter, 'New Voter');
+  }
+
+  exportToCSV() {
+    this.csv.exportToCsv(this.getnewVoter, 'New Voter');
   }
 
 }

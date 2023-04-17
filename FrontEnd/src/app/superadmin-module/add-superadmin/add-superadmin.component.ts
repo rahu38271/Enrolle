@@ -131,6 +131,7 @@ export class AddSuperadminComponent implements OnInit {
   }
 
   addMAdmin() {
+    debugger;
     this.addMAmodal.RoleId = Number(this.addMAmodal.RoleId);
     if(this.addMAmodal.RoleId == 2){
       this.addMAmodal.SuperAdminId = Number(this.loginId);
@@ -157,7 +158,7 @@ export class AddSuperadminComponent implements OnInit {
       }
     }, (err) => {
       this.loader.hideLoader();
-      this.toast.presentToast("Superadmin not saved", "danger", 'alert-circle-sharp');
+      //this.toast.presentToast("Superadmin not saved", "danger", 'alert-circle-sharp');
     })
   }
 

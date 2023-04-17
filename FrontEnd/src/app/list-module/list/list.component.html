@@ -2,7 +2,7 @@
   <ion-header class="android">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-menu-button  auto-hide="false"></ion-menu-button>
+        <ion-menu-button auto-hide="false"></ion-menu-button>
       </ion-buttons>
       <ion-title> {{'Lists' | translate}} </ion-title>
     </ion-toolbar>
@@ -15,7 +15,7 @@
             <ion-card-title class="header1">{{'Search' | translate}} </ion-card-title>
             <div class="headerLine"></div>
           </ion-card-header>
-          
+
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="ion-text-right">
           <!-- <ion-button class="button-download" fill="outline" color="success" >
@@ -28,284 +28,122 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-      <ion-grid>
-        <ion-row>
-          <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced">
-              <ion-item lines="none" routerLink="/list/modern-way">
-                <ion-label>
-                  <!-- <i class="icofont icofont-search-job"></i> -->
-                  <h3> {{'Search' | translate}}</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col>
-          <!-- <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced">
-              <ion-item lines="none" routerLink="/list/by-alphabet">
-                <ion-label>
-                  <i class="icofont icofont-abc"></i>
-                  <h3>अ ब क ड  नुसार</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col> -->
-          <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced">
-              <ion-item lines="none" routerLink="/list/by-village">
-                
-                <ion-label>
-                  <!-- <i class="icofont icofont-location-pin"></i> -->
-                  <h3> {{'By Village' | translate}}</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col>
-          <!-- <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced">
-              <ion-item lines="none">
-                <ion-label>
-                  <i class="icofont icofont-people"></i>
-                  <h3>गटा नुसार</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col> -->
-          <!-- <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced">
-              <ion-item lines="none">
-                <ion-label>
-                  <i class="icofont icofont-sub-listing"></i>
-                  <h3>गणा नुसार</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col> -->
-          <!-- <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced">
-              <ion-item lines="none" routerLink="/list/by-list">
-                <ion-label>
-                  <i class="icofont icofont-sub-listing"></i>
-                  <h3>यादीभागानुसार</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col> -->
-          <!-- <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced">
-              <ion-item lines="none">
-                <ion-label>
-                  <i class="icofont icofont-sub-listing"></i>
-                  <h3>विधानसभा यादी</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col> -->
-          <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced">
-              <ion-item lines="none" routerLink="/list/by-address">
-                <ion-label>
-                  <!-- <i class="icofont icofont-location-pin"></i> -->
-                  <h3> {{'By Address' | translate}}</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col>
-          <!-- <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced">
-              <ion-item lines="none">
-                <ion-label>
-                  <i class="icofont icofont-home"></i>
-                  <h3>घर क्र. नुसार</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col> -->
-          <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced">
-              <ion-item lines="none" routerLink="/list/by-surname">
-                <ion-label>
-                  <!-- <i class="icofont icofont-user-male"></i> -->
-                  <h3> {{'By Lastname' | translate}}</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col>
-          <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced">
-              <ion-item lines="none" routerLink="/list/by-booth">
-                <ion-label>
-                  <!-- <i class="icofont icofont-building-alt"></i> -->
-                  <h3> {{'By Part No.' | translate}}</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col>
-          
-          <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced">
-              <ion-item lines="none" routerLink="/list/agewise-list">
-                <ion-label>
-                  <!-- <i class="icofont icofont-user-male"></i> -->
-                  <h3> {{'By Age' | translate}}</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col>
-          <!-- <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced">
-              <ion-item lines="none" routerLink="/list/by-cast">
-                <ion-label>
-                  <i class="icofont icofont-user-male"></i>
-                  <h3>जातीनुसार</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col> -->
-          <!-- <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced">
-              <ion-item lines="none" routerLink="/list/by-profession">
-                <ion-label>
-                  <i class="icofont icofont-user-male"></i>
-                  <h3>व्यवसाया नुसार</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col> -->
-          <!-- <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced">
-              <ion-item lines="none">
-                <ion-label>
-                  <i class="icofont icofont-user-male"></i>
-                  <h3>मृत</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col> -->
-          <!-- <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced">
-              <ion-item lines="none">
-                <ion-label>
-                  <i class="icofont icofont-home"></i>
-                  <h3>दुबार</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col> -->
-          <!-- <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced">
-              <ion-item lines="none">
-                <ion-label>
-                  <i class="icofont icofont-user-male"></i>
-                  <h3>स्टार वोटर</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col> -->
-          <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced" >
-              <ion-item lines="none" routerLink="/list/mobile-list">
-                <ion-label>
-                  <!-- <i class="icofont icofont-smart-phone"></i> -->
-                  <h3> {{'Mobile No. List' | translate}}</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col>
-          <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced">
-              <ion-item lines="none">
-                <ion-label>
-                  <!-- <i class="icofont icofont-print"></i> -->
-                  <h3> {{'Slip Report' | translate}}</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col>
-          <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced" routerLink="/list/voted-list">
-              <ion-item lines="none">
-                <ion-label>
-                  <!-- <i class="icofont icofont-user-male"></i> -->
-                  <h3> {{'Voted' | translate}}</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col>
-          <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced" routerLink="/list/imp-voter">
-              <ion-item lines="none">
-                <ion-label>
-                  <!-- <i class="icofont icofont-star"></i> -->
-                  <h3> {{'Imp. Voters' | translate}}</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col>
-          <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced" routerLink="/list/by-color">
-              <ion-item lines="none">
-                <ion-label>
-                  <!-- <i class="icofont icofont-star"></i> -->
-                  <h3>{{'By Color' | translate}}</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col>
+    <ion-grid>
+      <ion-row>
+        <ion-col size-xs="12" size-sm="4" size-md="3" size-lg="2">
+          <ion-list class="advanced">
+            <ion-item lines="none" routerLink="/list/modern-way">
+              <ion-label>
+                <!-- <i class="icofont icofont-search-job"></i> -->
+                <h3> {{'Advance Search' | translate}}</h3>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+          <ion-list class="advanced">
+            <ion-item lines="none" routerLink="/list/by-village">
 
-          <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced" routerLink="/list/by-death">
-              <ion-item lines="none">
-                <ion-label>
-                  <!-- <i class="icofont icofont-star"></i> -->
-                  <h3> {{'Dead' | translate}}</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col>
-          
-          <!-- <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced">
-              <ion-item lines="none">
-                <ion-label>
-                  <i class="icofont icofont-location-pin"></i>
-                  <h3>By New Address</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col> -->
-          <!-- <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced">
-              <ion-item lines="none">
-                <ion-label>
-                  <i class="icofont icofont-building-alt"></i>
-                  <h3>सोसायटी नुसार</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col> -->
-          <!-- <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced">
-              <ion-item lines="none">
-                <ion-label>
-                  <i class="icofont icofont-user-male"></i>
-                  <h3>कार्यकर्त्या नुसार</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col> -->
-          <!-- <ion-col size-xs="4" size-sm="4" size-md="3" size-lg="2">
-            <ion-list class="advanced" routerLink="/list/by-pincode">
-              <ion-item lines="none">
-                <ion-label>
-                  <i class="icofont icofont-location-pin"></i>
-                  <h3>पिनकोड नुसार</h3>
-                </ion-label>
-              </ion-item>
-            </ion-list>
-          </ion-col> -->
-        </ion-row>
-      </ion-grid>
-    
+              <ion-label>
+                <!-- <i class="icofont icofont-location-pin"></i> -->
+                <h3> {{'By Village' | translate}}</h3>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+          <ion-list class="advanced">
+            <ion-item lines="none" routerLink="/list/by-address">
+              <ion-label>
+                <!-- <i class="icofont icofont-location-pin"></i> -->
+                <h3> {{'By Address' | translate}}</h3>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+          <ion-list class="advanced">
+            <ion-item lines="none" routerLink="/list/by-village">
+
+              <ion-label>
+                <!-- <i class="icofont icofont-location-pin"></i> -->
+                <h3> {{'By Village' | translate}}</h3>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+
+
+          <ion-list class="advanced">
+            <ion-item lines="none" routerLink="/list/by-surname">
+              <ion-label>
+                <!-- <i class="icofont icofont-user-male"></i> -->
+                <h3> {{'By Lastname' | translate}}</h3>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+          <ion-list class="advanced">
+            <ion-item lines="none" routerLink="/list/by-booth">
+              <ion-label>
+                <!-- <i class="icofont icofont-building-alt"></i> -->
+                <h3> {{'By Part No.' | translate}}</h3>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+          <ion-list class="advanced">
+            <ion-item lines="none" routerLink="/list/agewise-list">
+              <ion-label>
+                <!-- <i class="icofont icofont-user-male"></i> -->
+                <h3> {{'By Age' | translate}}</h3>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+          <ion-list class="advanced">
+            <ion-item lines="none" routerLink="/list/mobile-list">
+              <ion-label>
+                <!-- <i class="icofont icofont-smart-phone"></i> -->
+                <h3> {{'Mobile No. List' | translate}}</h3>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+          <ion-list class="advanced">
+            <ion-item lines="none">
+              <ion-label>
+                <!-- <i class="icofont icofont-print"></i> -->
+                <h3> {{'Slip Report' | translate}}</h3>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+          <ion-list class="advanced" routerLink="/list/voted-list">
+            <ion-item lines="none">
+              <ion-label>
+                <!-- <i class="icofont icofont-user-male"></i> -->
+                <h3> {{'Voted' | translate}}</h3>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+          <ion-list class="advanced" routerLink="/list/imp-voter">
+            <ion-item lines="none">
+              <ion-label>
+                <!-- <i class="icofont icofont-star"></i> -->
+                <h3> {{'Imp. Voters' | translate}}</h3>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+          <ion-list class="advanced" routerLink="/list/by-color">
+            <ion-item lines="none">
+              <ion-label>
+                <!-- <i class="icofont icofont-star"></i> -->
+                <h3>{{'By Color' | translate}}</h3>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+          <ion-list class="advanced" routerLink="/list/by-death">
+            <ion-item lines="none">
+              <ion-label>
+                <!-- <i class="icofont icofont-star"></i> -->
+                <h3> {{'Dead' | translate}}</h3>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+
+
+      </ion-row>
+    </ion-grid>
+
   </div>
 </ion-content>

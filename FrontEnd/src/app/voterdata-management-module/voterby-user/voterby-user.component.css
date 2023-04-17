@@ -8,7 +8,7 @@ ion-item { --background: #fff; height: 40px; ; }
 
 h2 { color: #2c2a2b; font-weight: 600; }
 
-h3 { color: #ff5151; font-weight: 600; font-size: 14px; }
+h3 { color: #ff5151; font-weight: 600; font-size: 15px; }
 
 h4 {  margin-bottom: 0px !important; font-size: 14px;  color: #2c2a2b;  }
 
@@ -56,7 +56,7 @@ ion-list-header {  font-size: 15px; color: #228bd2; padding-inline-start:10px;  
 
 .android { display: none; }
 
-ion-label p { width: 50%; float: left; margin-bottom: 1px !important;  color: #202020;  }
+ion-label p { float: left; margin-bottom: 1px !important;  color: #202020;  }
 
 @media screen and (max-width:576px){
     .main-content ion-card { display: none; }

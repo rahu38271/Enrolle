@@ -752,7 +752,7 @@ form ion-label { color: #228bd2 !important; --font-weight: 400 !important; font-
 
 ion-item ion-label { font-size: 13px !important; }
 
-ion-input,  ion-textarea { color: #4e4e4e !important; background: #fafafa !important;  border: solid 1px #cccccc !important; padding-top: 3px !important; padding-bottom: 3px !important;}
+ion-input,  ion-textarea { color: #4e4e4e !important; background: #fafafa !important;  border: solid 1px #cccccc !important; --padding-top: 3px !important; --padding-bottom: 3px !important;}
 
 ion-select { color: #4e4e4e !important; background: #fafafa !important; border: solid 1px #cccccc !important; --placeholder-color: #878585; --placeholder-opacity: 1; }
 
@@ -778,7 +778,7 @@ ion-card-title {
 .android h3 {
   color: #ff5151;
   // color: #228bd2;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 20px;
   font-weight: 600;
 }

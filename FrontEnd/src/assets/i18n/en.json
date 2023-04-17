@@ -1,5 +1,6 @@
 {
     "Search": "Search",
+    "Advanced Search": "Advanced Search",
     "Lists": "Lists",
     "Survey":"Survey",
     "Contact":"Contact",
@@ -25,7 +26,7 @@
     "By Color":"By Color",
     "Dead":"Dead",
     "Total":"Total",
-    "Details":"Details",
+    "Voter Details":"Details",
     "Assembly":"Assembly",
     "Name":"Name",
     "Village":"Village",

@@ -1,0 +1,204 @@
+
+
+<ion-content>
+    <ion-header class="android">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button color="primary" defaultHref="/letter-tracking"></ion-back-button>
+        </ion-buttons>
+        <ion-title> Add Letter </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <div class="main-content">
+      <ion-grid>
+        <ion-row>
+          <ion-text class="form-header">
+            <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>Add Letter
+          </ion-text>
+        </ion-row>
+        <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+          <ion-row>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                <ion-label position="floating"> Subject  <span>*</span>  </ion-label>
+                  <ion-textarea name="Subject"  class="form-control" rows="2"  ></ion-textarea>
+              </ion-col> 
+
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" >
+              <ion-label position="floating"> Letter Request Person  <span>*</span> </ion-label>
+                <ion-input name="personName" class="text-capitalize form-control" required></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                <ion-label position="floating"> Mobile No.  <span>*</span> </ion-label>
+                  <ion-input 
+                    minlength="10" 
+                    maxlength="12"  
+                    name="MobileNo" 
+                    class="form-control"
+                    
+                    >
+                  </ion-input>
+                  <div *ngIf="f.submitted && MobileNo.invalid" class="invalid-feedback">
+                    <div *ngIf="MobileNo.errors.required">
+                      Please enter mobile number
+                    </div>
+                    <div *ngIf="MobileNo.errors.minlength">
+                      Please enter valid mobile number
+                    </div>
+                  </div>
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                <ion-label position="floating"> Office  </ion-label>
+                <ng-select name="District" placeholder="Select Office">
+                    <ng-option class="select_option">- Select Office -</ng-option>
+                    <ng-option class="select_option"> Office 1 </ng-option>
+                    <ng-option class="select_option"> Office 2 </ng-option>
+                </ng-select>
+                
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                <ion-label position="floating"> Department  </ion-label>
+                <ng-select name="District" placeholder="Select Department">
+                    <ng-option class="select_option">- Select Department -</ng-option>
+                    <ng-option class="select_option"> Department 1 </ng-option>
+                    <ng-option class="select_option"> Department 2 </ng-option>
+                </ng-select>
+                
+              </ion-col>
+  
+              <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="calendar">
+                <ion-label> BirthDate  </ion-label>
+                <ion-input
+                  value="{{ BirthDate | date: 'yyyy-MM-dd' }}"
+                  id="BirthDate"
+                  class="form-control"
+                  name="BirthDate" 
+                  required
+                ></ion-input>
+                
+                <ion-modal trigger="BirthDate" size="cover">
+                  <ng-template>
+                    <ion-datetime
+                      presentation="date"
+                      name="BirthDate"
+                    >
+                    <span slot="title"> {{ year }} </span>
+                  </ion-datetime>
+                  </ng-template>
+                </ion-modal>
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                <ion-label position="floating"> Refference Name   </ion-label>
+                  <ion-input name="refference"  class="text-capitalize form-control"  ></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-sm="12" size-xs="12">
+                <ion-label position="floating"> Address   </ion-label>
+                <ion-input name="Address"  class="text-capitalize form-control"  ></ion-input>
+              </ion-col> 
+
+              <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" >
+                <ion-label>District</ion-label>
+                <ng-select name="District" placeholder="Select District">
+                  <ng-option *ngFor="let item of districtList" [value]="item.dId">
+                    {{ item.districtName }}
+                  </ng-option>
+               </ng-select>
+              
+              </ion-col>
+
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                <ion-label>Taluka</ion-label>
+                <ng-select 
+                  name="Taluka" 
+                  placeholder="Select Taluka"
+                >
+                  <ng-option 
+                    class="select_option"
+                    *ngFor="let item of talukaList" 
+                    [value]="item.talukaName"
+                  >
+                    {{ item.talukaName }}
+                  </ng-option>
+               </ng-select>
+               
+              </ion-col>
+            
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+              <ion-label position="floating"> Village   </ion-label>
+                <ion-input name="VilageName"  class="text-capitalize form-control" ></ion-input>
+            </ion-col>
+  
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                <ion-label position="floating"> Letter Outward No. </ion-label>
+                  <ion-input name="letterNo"  class="text-capitalize form-control" ></ion-input>
+              </ion-col>
+  
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="calendar">
+              <ion-label> Letter Release Date </ion-label>
+                <ion-input
+                value="{{ LReleaseDate | date: 'yyyy-MM-dd' }}"
+                id="LReleaseDate"
+                class="form-control"
+                name="LReleaseDate" 
+              ></ion-input>
+              <ion-modal trigger="LReleaseDate" size="cover">
+                <ng-template>
+                  <ion-datetime
+                    presentation="date"
+                    name="LReleaseDate"
+                  >
+                  <span slot="title"> {{ year }} </span>
+                </ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </ion-col>
+
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="calendar">
+                <ion-label> Letter Submit Date </ion-label>
+                  <ion-input
+                  value="{{ LSubmitDate | date: 'yyyy-MM-dd' }}"
+                  id="LSubmitDate"
+                  class="form-control"
+                  name="LSubmitDate" 
+                ></ion-input>
+                <ion-modal trigger="LSubmitDate" size="cover">
+                  <ng-template>
+                    <ion-datetime
+                      presentation="date"
+                      name="LSubmitDate"
+                    >
+                    <span slot="title"> {{ year }} </span>
+                  </ion-datetime>
+                  </ng-template>
+                </ion-modal>
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                <ion-label position="floating"> Branch   </ion-label>
+                  <ion-input name="Branch" class="text-capitalize form-control" ></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                <ion-label position="floating"> File </ion-label>
+                  <input type="file" name="file"  class="form-control">
+              </ion-col>
+  
+            <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+              <div class="ion-text-center">
+                <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
+                <ion-button  type="submit" size="medium"  >Save</ion-button>
+                <ion-button routerLink="/letter-tracking" color="success" type="button" size="medium">Back To List</ion-button>
+              </div>
+            </ion-col>
+            
+          </ion-row>
+        </form>
+      </ion-grid>
+    </div>
+  </ion-content>
+  
+  

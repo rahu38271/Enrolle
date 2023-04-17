@@ -5,7 +5,7 @@
         <!-- <ion-back-button (click)="goBack()" auto-hide="false"></ion-back-button> -->
         <ion-back-button defaultHref="/voterdata-management/voterby-user"></ion-back-button>
       </ion-buttons>
-      <ion-title>  {{'Details' | translate}} </ion-title>
+      <ion-title>  {{'Voter Details' | translate}} </ion-title>
     </ion-toolbar>
   </ion-header>
   <div class="main-content" *ngIf="VoterListByUser">
@@ -23,7 +23,7 @@
           </form>
         </ion-col>
         <ion-col>
-          <a (click)="ShareWhatsapp()">
+          <a (click)="ShareWhatsapp1()">
             <img src="/assets/img/sharing.png" alt="">
           </a>
           <!-- <a href="https://api.whatsapp.com/send?phone={{ VoterListByUser.mobileNo }}" (click)="ShareWhatsapp()">
@@ -115,7 +115,7 @@
         <ion-col class="ion-text-center">
           <ion-label>
             <!-- Assembly : {{assemblyName1}} -->
-             {{'Assembly' | translate}} : 
+             {{'Assembly' | translate}} : {{assemblyName1}}
           </ion-label>
         </ion-col>
       </ion-row>
@@ -163,7 +163,8 @@
           <ion-label>1</ion-label>
         </ion-col>
       </ion-row> -->
-      <ion-row>
+      
+      <ion-row class="ageGender">
         <ion-col class="title" size-xs="3">
           <ion-label>{{'Age' | translate}}</ion-label>
         </ion-col>
@@ -185,6 +186,9 @@
           <ion-label> {{VoterListByUser.gender}}</ion-label>
         </ion-col>
       </ion-row>
+      <!-- <div class="photo">
+        <img src="/assets/img/user.jpg" alt="">
+      </div> -->
       <!-- <ion-row>
         <ion-col class="title" size-xs="3">
           <ion-label>Cast</ion-label>
@@ -242,42 +246,32 @@
 
       <ion-modal #modal trigger="address">
         <ng-template>
-          <ion-header>
-            <ion-toolbar>
-              <ion-title> {{'Edit Address' | translate}}</ion-title>
-              <ion-buttons slot="end">
-                <ion-button (click)="closeModal()" [strong]="true">
-                  <ion-icon name="close-sharp"></ion-icon>
-                </ion-button>
-              </ion-buttons>
-            </ion-toolbar>
-          </ion-header>
-          <ion-content class="ion-padding">
-              <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-              <ion-grid>
-                <ion-row>
-                  <ion-col size="12">
-                    <div>
-                      <ion-textarea rows="2" name="Address" [(ngModel)]="adrsUpdate.Address" class="form-control" required></ion-textarea>
-                    </div>
-                  </ion-col>
-                  <ion-col size="12">
-                      <ion-button type="submit" color="success" size="medium" (click)="saveAddress()" [disabled]="!f.form.valid">
-                         {{'Submit' | translate}}
-                      </ion-button>
-                      <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
-                         {{'Clear' | translate}}
-                      </ion-button>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </form>
-           
-          </ion-content>
+          <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" class="ion-text-center">
+                  <h6>Edit Address</h6>
+                </ion-col>
+                <ion-col size="12">
+                  <div>
+                    <ion-textarea rows="4" name="Address" [(ngModel)]="adrsUpdate.Address" class="form-control" required></ion-textarea>
+                  </div>
+                </ion-col>
+                <ion-col size="12" class="ion-text-center">
+                    <ion-button type="submit" color="success" size="small" (click)="saveAddress()" [disabled]="!f.form.valid">
+                       {{'Submit' | translate}}
+                    </ion-button>
+                    <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
+                       {{'Clear' | translate}}
+                    </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </form>
         </ng-template>
       </ion-modal>
 
-      
+    
 
       <ion-row>
         <ion-col class="title" size-xs="3">
@@ -299,7 +293,7 @@
           :
         </ion-col>
         <ion-col size-xs="8">
-          <ion-label> </ion-label> 
+          <ion-label>  {{VoterListByUser.srNo}} </ion-label> 
         </ion-col>
       </ion-row>
 
@@ -310,7 +304,7 @@
                {{'Mobile' | translate}}
             </ion-label>
             <div>
-              <ion-icon name="add-circle-sharp" id="mobile" ></ion-icon>
+              <ion-icon name="add-circle-sharp" id="mobile" expand="block"></ion-icon>
             </div>
         </ion-col>
         <ion-col class="ion-text-center" size-xs="1">
@@ -358,89 +352,73 @@
         
       </ion-row>
 
-
       <ion-modal trigger="mobile" (willDismiss)="onWillDismiss($event)">
         <ng-template>
-          <ion-header>
-            <ion-toolbar>
-              <ion-title> {{'Edit Mobile No.' | translate}}</ion-title>
-              <ion-buttons slot="end">
-                <ion-button (click)="closeModal()" [strong]="true">
-                  <ion-icon name="close-sharp"></ion-icon>
-                </ion-button>
-              </ion-buttons>
-            </ion-toolbar>
-          </ion-header>
-          <ion-content class="ion-padding">
-            <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-              <ion-grid>
-                <ion-row>
-                  <ion-col size="12">
-                      <div>
-                        <ion-input 
-                          maxlength="10" 
-                          minlength="10" 
-                          name="Mobile" 
-                          [(ngModel)]="mobUpdate.Mobile" 
-                          (keypress)="keyPressNumbers($event)" 
-                          class="form-control" 
-                          required
-                        >
-                        </ion-input>
-                      </div>
-                  </ion-col>
-                  <ion-col size="12">
-                      <ion-button type="submit" color="success" size="medium" (click)="saveMobile()" [disabled]="!f.form.valid">
-                        {{'Submit' | translate}}
-                      </ion-button>
-                      <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
-                        {{'Clear' | translate}}
-                      </ion-button>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </form>
-          </ion-content>
+          <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" class="ion-text-center">
+                  <h6>Add Mob. No.</h6>
+                </ion-col>
+                <ion-col size="12">
+                    <div>
+                      <ion-input 
+                        maxlength="10" 
+                        minlength="10" 
+                        name="Mobile" 
+                        [(ngModel)]="mobUpdate.Mobile" 
+                        (keypress)="keyPressNumbers($event)" 
+                        class="form-control" 
+                        required
+                      >
+                      </ion-input>
+                    </div>
+                </ion-col>
+                <ion-col size="12" class="ion-text-center">
+                    <ion-button type="submit" color="success" size="small" (click)="saveMobile()" [disabled]="!f.form.valid">
+                      {{'Submit' | translate}}
+                    </ion-button>
+                    <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
+                      {{'Clear' | translate}}
+                    </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </form>
+          
         </ng-template>
       </ion-modal>
 
+      
       <ion-modal #modal trigger="altMobile" (willDismiss)="onWillDismiss($event)">
         <ng-template>
-          <ion-header>
-            <ion-toolbar>
-              <ion-title> {{'Edit Alt. Mobile No.' | translate}}</ion-title>
-              <ion-buttons slot="end">
-                <ion-button (click)="closeModal()" [strong]="true">
-                  <ion-icon name="close-sharp"></ion-icon>
-                </ion-button>
-              </ion-buttons>
-            </ion-toolbar>
-          </ion-header>
-          <ion-content class="ion-padding">
-            <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
-              <ion-grid>
-                <ion-row>
-                  <ion-col size="12">
-                    <div>
-                      <ion-input maxlength="10" minlength="10" name="altMobile" [(ngModel)]="altmobUpdate.AlternateMobileNo" (keypress)="keyPressNumbers($event)" class="form-control"  required></ion-input>
-                    </div>
-                  </ion-col>
-                  <ion-col size="12">
-                      <ion-button type="submit" color="success" size="medium" (click)="saveAltMobile()" [disabled]="!f.form.valid">
-                        {{'Submit' | translate}}
-                      </ion-button>
-                      <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
-                         {{'Clear' | translate}}
-                      </ion-button>
-                  </ion-col>
-                </ion-row>
-              </ion-grid>
-            </form>
-            
-          </ion-content>
+          <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" class="ion-text-center">
+                  <h6>Add Alt. No.</h6>
+                </ion-col>
+                <ion-col size="12">
+                  <div>
+                    <ion-input maxlength="10" minlength="10" name="altMobile" [(ngModel)]="altmobUpdate.AlternateMobileNo" (keypress)="keyPressNumbers($event)" class="form-control"  required></ion-input>
+                  </div>
+                </ion-col>
+                <ion-col size="12" class="ion-text-center">
+                    <ion-button type="submit" color="success" size="small" (click)="saveAltMobile()" [disabled]="!f.form.valid">
+                      {{'Submit' | translate}}
+                    </ion-button>
+                    <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
+                       {{'Clear' | translate}}
+                    </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </form>
+          
         </ng-template>
       </ion-modal>
 
+      
       <ion-row >
         <ion-col class="title" size-xs="3">
           <!-- <ion-label>Dead</ion-label> -->
@@ -455,70 +433,225 @@
         </ion-col>
         <ion-col size-xs="8">
           <ion-label> 
-            <!-- <ion-radio-group name="isAlive" [(ngModel)]="VoterListByUser.isAlive">
+            <ion-radio-group name="isAlive" [(ngModel)]="VoterListByUser.isAlive">
               <div class="radioBtn">
-                <ion-radio [value]="0" readonly></ion-radio>
+                <ion-radio [value]="0" disabled></ion-radio>
                   <ion-label>No</ion-label>
-                  <ion-radio [value]="1" readonly></ion-radio>
+                  <ion-radio [value]="1" disabled></ion-radio>
                   <ion-label>Yes</ion-label>
               </div>
-            </ion-radio-group> -->
-            <ion-radio-group >
+            </ion-radio-group>
+            <!-- <ion-radio-group >
               <div class="radioBtn">
                 <ion-radio ></ion-radio>
                   <ion-label> {{'No' | translate}}</ion-label>
                   <ion-radio></ion-radio>
                   <ion-label> {{'Yes' | translate}}</ion-label>
               </div>
-            </ion-radio-group>
+            </ion-radio-group> -->
           </ion-label>
         </ion-col>
       </ion-row>
 
+     
       <ion-modal #modal trigger="deadAlive" (willDismiss)="onWillDismiss($event)">
         <ng-template>
-          <ion-header>
-            <ion-toolbar>
-              <ion-title>  {{'Alive' | translate}} </ion-title>
-              <ion-buttons slot="end">
-                <ion-button (click)="closeModal()" [strong]="true">
-                  <ion-icon name="close-sharp"></ion-icon>
-                </ion-button>
-              </ion-buttons>
-            </ion-toolbar>
-          </ion-header>
-          <ion-content class="ion-padding">
+          <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12" class="ion-text-center">
+                  <h6>Alive</h6>
+                </ion-col>
+                <ion-col size="12">
+                  <ion-label>Is Alive ?</ion-label>
+                </ion-col>
+                <ion-col size="12">
+                  
+                  <div>
+                    <ion-radio-group name="deadAlive" [(ngModel)]="deadAlive.YesNo">
+                      <div class="radioBtn" >
+                        <ion-radio value="N" ></ion-radio>
+                          <ion-label> {{'No' | translate}}</ion-label>
+                          <ion-radio value="Y" ></ion-radio>
+                          <ion-label>{{'Yes' | translate}}</ion-label>
+                      </div>
+                    </ion-radio-group>
+                  </div>
+                </ion-col>
+                <ion-col size="12" class="ion-text-center">
+                    <ion-button type="submit" color="success" size="small" (click)="aliveDead()" [disabled]="!f.form.valid">
+                       {{'Submit' | translate}}
+                    </ion-button>
+                    <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
+                       {{'Clear' | translate}}
+                    </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </form>
+          
+        </ng-template>
+      </ion-modal>
+
+      <ion-row>
+        <ion-col class="title" size-xs="3">
+          <ion-label> DOB </ion-label>
+          <div>
+            <ion-icon name="add-circle-sharp" id="dob" ></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col class="ion-text-center" size-xs="1">
+          :
+        </ion-col>
+        <ion-col size-xs="8">
+          <ion-label>  </ion-label> 
+        </ion-col>
+      </ion-row>
+
+      <div class="dob">
+        <ion-modal trigger="dob">
+          <ng-template>
+            <ion-datetime
+              presentation="date"
+              name="dob"
+            >
+            <span slot="title"> {{ year }} </span>
+          </ion-datetime>
+          <ion-col size="12" class="ion-text-center">
+            <ion-button type="submit" color="success" size="small" >
+               {{'Submit' | translate}}
+            </ion-button>
+            <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
+               {{'Clear' | translate}}
+            </ion-button>
+        </ion-col>
+          </ng-template>
+        </ion-modal>
+      </div>
+
+      <ion-row>
+        <ion-col class="title" size-xs="3">
+          <ion-label> Cast </ion-label>
+          <div>
+            <ion-icon name="add-circle-sharp" id="cast" ></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col class="ion-text-center" size-xs="1">
+          :
+        </ion-col>
+        <ion-col size-xs="8">
+          <ion-label>  </ion-label> 
+        </ion-col>
+      </ion-row>
+
+      
+      <ion-modal #modal trigger="cast" (willDismiss)="onWillDismiss($event)">
+        <ng-template>
+          <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+            <ion-grid>
+              <ion-row>
+                <ion-col class="ion-text-center">
+                  <h6>Add Cast</h6>
+                </ion-col>
+                <ion-col size="12">
+                  <ion-list>
+                    <ion-select aria-label="fruit" placeholder="Select" class="form-control">
+                      <ion-select-option >Businessman</ion-select-option>
+                      <ion-select-option >Doctor</ion-select-option>
+                      <ion-select-option >Driver</ion-select-option>
+                      <ion-select-option >Electrician</ion-select-option>
+                      <ion-select-option >Engineer</ion-select-option>
+                      <ion-select-option >Farmer</ion-select-option>
+                      <ion-select-option >Govt. Job</ion-select-option>
+                      <ion-select-option >Job</ion-select-option>
+                      <ion-select-option >Labour</ion-select-option>
+                      <ion-select-option >Lawyer</ion-select-option>
+                      <ion-select-option >No</ion-select-option>
+                      <ion-select-option >Private Job</ion-select-option>
+                      <ion-select-option >Shopkeeper</ion-select-option>
+                      <ion-select-option >Student</ion-select-option>
+                      <ion-select-option >Tailer</ion-select-option>
+                      <ion-select-option >Teacher</ion-select-option>
+                    </ion-select>
+                </ion-list>
+                </ion-col>
+                <ion-col size="12" class="ion-text-center">
+                    <ion-button type="submit" color="success" size="small" >
+                       {{'Submit' | translate}}
+                    </ion-button>
+                    <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
+                       {{'Clear' | translate}}
+                    </ion-button>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </form>
+        </ng-template>
+      </ion-modal>
+
+      <ion-row>
+        <ion-col class="title" size-xs="3">
+          <ion-label> Profession </ion-label>
+          <div>
+            <ion-icon name="add-circle-sharp" id="profession" ></ion-icon>
+          </div>
+        </ion-col>
+        <ion-col class="ion-text-center" size-xs="1">
+          :
+        </ion-col>
+        <ion-col size-xs="8">
+          <ion-label>  </ion-label> 
+        </ion-col>
+      </ion-row>
+
+      <ion-modal #modal trigger="profession" [canDismiss]="canDismiss" >
+        <ng-template>
+          <div>
             <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
               <ion-grid>
                 <ion-row>
-                  <ion-col size="12">
-                    <div>
-                      <ion-radio-group name="deadAlive" [(ngModel)]="deadAlive.YesNo">
-                        <div class="radioBtn" >
-                          <ion-radio value="N" ></ion-radio>
-                            <ion-label> {{'No' | translate}}</ion-label>
-                            <ion-radio value="Y" ></ion-radio>
-                            <ion-label>{{'Yes' | translate}}</ion-label>
-                        </div>
-                      </ion-radio-group>
-                    </div>
+                  <ion-col class="ion-text-center">
+                    <h6>Add Profession</h6>
                   </ion-col>
                   <ion-col size="12">
-                      <ion-button type="submit" color="success" size="medium" (click)="aliveDead()" [disabled]="!f.form.valid">
+                    <ion-list>
+                      <ion-select aria-label="fruit" placeholder="Select" class="form-control">
+                        <ion-select-option >Businessman</ion-select-option>
+                        <ion-select-option >Doctor</ion-select-option>
+                        <ion-select-option >Driver</ion-select-option>
+                        <ion-select-option >Electrician</ion-select-option>
+                        <ion-select-option >Engineer</ion-select-option>
+                        <ion-select-option >Farmer</ion-select-option>
+                        <ion-select-option >Govt. Job</ion-select-option>
+                        <ion-select-option >Job</ion-select-option>
+                        <ion-select-option >Labour</ion-select-option>
+                        <ion-select-option >Lawyer</ion-select-option>
+                        <ion-select-option >No</ion-select-option>
+                        <ion-select-option >Private Job</ion-select-option>
+                        <ion-select-option >Shopkeeper</ion-select-option>
+                        <ion-select-option >Student</ion-select-option>
+                        <ion-select-option >Tailer</ion-select-option>
+                        <ion-select-option >Teacher</ion-select-option>
+                      </ion-select>
+                  </ion-list>
+                  </ion-col>
+                  <ion-col size="12" class="ion-text-center">
+                      <ion-button type="submit" color="success" size="small" >
                          {{'Submit' | translate}}
                       </ion-button>
-                      <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
+                      <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
                          {{'Clear' | translate}}
                       </ion-button>
                   </ion-col>
                 </ion-row>
               </ion-grid>
             </form>
-            
-          </ion-content>
+          </div>
+          
         </ng-template>
       </ion-modal>
 
+    
       <!-- <ion-row>
         <ion-col class="title" size-xs="3">
           <ion-label> पॅन कार्ड </ion-label>
@@ -625,14 +758,25 @@
 
     <ion-grid>
       <ion-row>
-        <ion-col>
-          <ion-button (click)="family(VoterListByUser.id)"> {{'Family' | translate}}</ion-button>
+        <ion-col size-xs="6">
+          <ion-button size="block" (click)="family(VoterListByUser.id)"> {{'Family' | translate}}</ion-button>
         </ion-col>
-        <ion-col>
-          <ion-button (click)="printSlip()"> {{'Print' | translate}}</ion-button>
+        <ion-col size-xs="3">
+          <ion-button size="block" (click)="printSlip()"> {{'Print' | translate}}</ion-button>
         </ion-col>
-        <ion-col>
-          <ion-button (click)="ShareWhatsapp()">WP-Slip</ion-button>
+        <ion-col size-xs="3">
+          <ion-button size="block" (click)="ShareWhatsapp1()">WP-Slip</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size-xs="6">
+          <ion-button size="block">Family By Name</ion-button>
+        </ion-col>
+        <ion-col size-xs="3">
+          <ion-button size="block"> {{'Print' | translate}}</ion-button>
+        </ion-col>
+        <ion-col size-xs="3">
+          <ion-button size="block">Text SMS</ion-button>
         </ion-col>
       </ion-row>
       <!-- <ion-row>
@@ -646,21 +790,21 @@
           <ion-button >WP-Slip</ion-button>
         </ion-col>
       </ion-row> -->
-      <ion-row>
+      <ion-row class="ion-text-center">
         <ion-col>
-          <ion-button size="full" (click)="sameAddressVoter(VoterListByUser.id)">
+          <ion-button size="block"  (click)="sameAddressVoter(VoterListByUser.id)">
              {{'Voter on Same Address' | translate}}
           </ion-button>
         </ion-col>
       </ion-row>
-      <!-- <ion-row>
-        <ion-col>
-          <ion-button size="full" (click)="sameBoothVoter(VoterListByUser.id)">Voter on Same Booth</ion-button>
+      <ion-row class="ion-text-center">
+        <ion-col >
+          <ion-button size="block"  (click)="sameBoothVoter()">Voter on Same Booth</ion-button>
         </ion-col>
-      </ion-row> -->
-      <ion-row>
-        <ion-col>
-          <ion-button size="full" routerLink="/survey">  {{'Survey' | translate}}</ion-button>
+      </ion-row>
+      <ion-row class="ion-text-center">
+        <ion-col >
+          <ion-button size="block"  routerLink="/survey">  {{'Survey' | translate}}</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -717,7 +861,8 @@
     </div>
 
     
-    <ion-grid style="display: none;">
+    <!-- <ion-grid style="display: none;"> -->
+      <ion-grid style="display: none;">
       <ion-row class="ion-align-items-center">
         <ion-col size="8" style="height: 200px;">
           <ion-img style="height: 200px;" [src]="imgurl"></ion-img>

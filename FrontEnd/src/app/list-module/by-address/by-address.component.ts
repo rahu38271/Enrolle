@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { VoterService } from 'src/app/services/voter.service'
 import { Router } from '@angular/router'
+import { TranslateConfigService } from 'src/app/services/translate-config.service';
+
 
 @Component({
   selector: 'app-by-address',
@@ -8,14 +10,21 @@ import { Router } from '@angular/router'
   styleUrls: ['./by-address.component.scss'],
 })
 export class ByAddressComponent implements OnInit {
-
+  Language:any;
   isShow = false;
   adrsData: any;
   searchMob:string;
   id:any
   roleId:any;
   
-  constructor(private voter:VoterService, private router:Router) { }
+  
+  constructor(
+    private voter:VoterService, 
+    private router:Router,
+    private translateConfigService: TranslateConfigService,
+    ) { 
+      this.Language = this.translateConfigService.getCurrentLang();
+    }
 
   ngOnInit() {
     this.id = localStorage.getItem("loginId");
@@ -33,11 +42,24 @@ export class ByAddressComponent implements OnInit {
    }
 
   addressData(){
+    if(this.Language == "kn"){
+      this.Language = "Kannada"
+    }
+    else if(this.Language == "mr"){
+      this.Language = "Marathi"
+    }
+    else if (this.Language == "hi") {
+      this.Language = "Hindi"
+    }
+    else{
+      this.Language = "English"
+    }
     this.voter.addressData({
       TableName: "Tbl_Voter",
       ColumnName: "Address",
       UserId : Number(this.id),
-      roleID: Number(this.roleId)
+      roleID: Number(this.roleId),
+      Language: this.Language
     }).subscribe(data=>{
       this.adrsData = data;
     })

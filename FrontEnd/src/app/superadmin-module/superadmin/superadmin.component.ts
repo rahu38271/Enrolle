@@ -70,15 +70,10 @@ export class SuperadminComponent implements OnInit {
     else {
       this.isDB = this.isDB;
     }
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.getAllAdminList();
-    })
+    this.getAllAdminList();
   }
 
   getAllAdminList() {
-
     //All users List for Masteradmin
     if (this.roleId == 1) {
       this.sadmin.getAllAdmin().subscribe(data => {
