@@ -4,7 +4,7 @@
         <ion-buttons slot="start">
           <ion-menu-button auto-hide="false"></ion-menu-button>
         </ion-buttons>
-        <ion-title> Total : {{familyData.length}} </ion-title>
+        <ion-title>  {{'Total' | translate}} : {{familyData.length}} </ion-title>
         <ion-buttons slot="primary">
           <ion-button>
             <ion-icon name="search-outline"></ion-icon>
@@ -19,7 +19,7 @@
   
       <ion-grid class="android userList">
         <ion-searchbar ></ion-searchbar>
-        <ion-list *ngFor="let item of familyData" (click)="voterDetails(item.id)">
+        <ion-list *ngFor="let item of familyData | paginate: { itemsPerPage:100, currentPage: PageNo, totalItems:10 } | filter:searchWeb" (click)="voterDetails(item)">
           <ion-item lines="none">
             <ion-label>
               <div class="firstLine">
@@ -28,13 +28,21 @@
                 </h3>
               </div>
               <div class="details">
-                <p>Part No. : <span> {{item.partNo}}  </span> </p>
-                <p> Age : <span>  {{item.age}}</span> </p>
-                <p>Gender : <span> {{item.gender}} </span></p>
+                <p> {{'Part No.' | translate}} : <span> {{item.partNo}}  </span> </p>
+                <p>  {{'Age' | translate}} : <span>  {{item.age}}</span> </p>
+                <p> {{'Gender' | translate}} : <span> {{item.gender}} </span></p>
               </div>
             </ion-label>
           </ion-item>
         </ion-list>
+        <ion-list>
+          <pagination-controls (pageChange)="event($event)"></pagination-controls>
+        </ion-list>
+        <div *ngIf="!familyData || familyData.length === 0" class="text-center noData">
+          <img src="assets/img/question.png" />
+          <p> {{'No data available' | translate}}</p>
+          <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
+        </div>
       </ion-grid>
     </div>
   </ion-content>

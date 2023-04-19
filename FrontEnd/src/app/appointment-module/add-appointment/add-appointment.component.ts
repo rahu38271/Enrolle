@@ -17,7 +17,7 @@ export class AddAppointmentComponent implements OnInit {
   districtList: any;
   talukaList: any;
   year : number = new Date().getFullYear();
-
+  AppointmentDate: String = new Date().toISOString();
   myForm;
   status = '';
   subject = '';
@@ -84,6 +84,11 @@ export class AddAppointmentComponent implements OnInit {
   }
 
   addAppointment(){
+    debugger;
+    var dateparts = this.appointmentModal.AppointmentDate.split(' ');
+    var time= dateparts[1].split(':');
+    var hr = dateparts[2] == 'PM'?(Number(time[0])+12)+':'+time[1] :dateparts[1];
+    this.appointmentModal.AppointmentDate = dateparts[0]+' '+hr;
     this.appointmentModal.AppointmentDate = this.appointmentModal.AppointmentDate;
     this.appointmentModal.WardNo = Number(this.appointmentModal.WardNo);
     this.appointmentModal.PinCode = Number(this.appointmentModal.PinCode);

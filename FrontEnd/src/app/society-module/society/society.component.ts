@@ -4,10 +4,13 @@ import html2pdf from 'html2pdf.js'
 import { AlertController } from '@ionic/angular';
 import { SuperadminService } from 'src/app/services/superadmin.service'
 import { LoaderService } from 'src/app/services/loader.service'
-import { Router, ActivatedRoute } from '@angular/router'
+import { Router, ActivatedRoute,NavigationEnd } from '@angular/router'
+import { filter } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { SocietyService } from 'src/app/services/society.service'
+import { ExcelService } from 'src/app/services/excel.service'
+import { CsvService } from 'src/app/services/csv.service';
 
 @Component({
   selector: 'app-society',
@@ -46,7 +49,9 @@ export class SocietyComponent implements OnInit {
       private toast: IonicToastService,
        private route: ActivatedRoute,
        private changeDetection: ChangeDetectorRef,
-       private society:SocietyService
+       private society:SocietyService,
+       private excel:ExcelService,
+       private csv:CsvService
     ) {
       
   }
@@ -54,29 +59,32 @@ export class SocietyComponent implements OnInit {
   ngOnInit() {
     this.roleId = Number(this.roleId)
     this.id = localStorage.getItem("loginId");
-    this.societyList();
-    
+    // to update view data
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.societyList();
+    })
   }
 
   societyList(){
-    this.loader.showLoading();
+    //this.loader.showLoading();
     this.society.getAllSociety().subscribe(data=>{
       if(data != 0){
         this.loader.hideLoader();
         this.getSocietyList = data
       }
       else{
-        this.loader.hideLoader();
+        //this.loader.hideLoader();
       }
     },(err)=>{
-      this.loader.hideLoader();
+      //this.loader.hideLoader();
     })
   }
 
   
 
   EditSociety(data: any) {
-    debugger;
     this.router.navigateByUrl('/society/edit-society', { state: data })
   }
   
@@ -86,7 +94,6 @@ export class SocietyComponent implements OnInit {
   }
 
   async deleteSociety(id:any) {
-    debugger
     const alert = await this.alertController.create({
       header: ' Delete Society ?',
       cssClass: 'alertHeader',
@@ -103,9 +110,9 @@ export class SocietyComponent implements OnInit {
           text: 'Delete',
           cssClass: 'yes',
           handler: () => {
-            debugger
             this.society.deleteSociety(id).subscribe(data=>{
-              this.ngOnInit();
+              this.societyList();
+              
               this.toast.presentToast("Society deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })
           }
@@ -114,6 +121,14 @@ export class SocietyComponent implements OnInit {
     });
 
     await alert.present();
+  }
+
+  exportExcel():void {
+    this.excel.exportAsExcelFile(this.getSocietyList, 'Society');
+  }
+
+  exportToCSV() {
+    this.csv.exportToCsv(this.getSocietyList, 'Society');
   }
 
 }

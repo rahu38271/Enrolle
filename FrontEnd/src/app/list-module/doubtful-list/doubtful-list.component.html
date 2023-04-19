@@ -4,7 +4,7 @@
         <ion-buttons slot="start">
           <ion-back-button defaultHref="/list"></ion-back-button>
         </ion-buttons>
-        <ion-title> Doubtful, Total - {{doubtfulVoter.length}} </ion-title>
+        <ion-title> {{'Doubtful' | translate}},  {{'Total' | translate}} - {{doubtfulVoter.length}} </ion-title>
         <ion-buttons slot="primary">
           <ion-button (click)="search()">
             <ion-icon name="search-outline"></ion-icon>
@@ -125,24 +125,27 @@
   
       <ion-grid class="android userList">
         <ion-searchbar [(ngModel)]="searchMob" animated="true" *ngIf="isShow"></ion-searchbar>
-        <ion-list *ngFor="let item of doubtfulVoter | filter:searchMob" (click)="voterDetails(item)">
+        <ion-list *ngFor="let item of doubtfulVoter | paginate: { itemsPerPage:100, currentPage: PageNo, totalItems:totalItems } | filter:searchMob" (click)="voterDetails(item)">
           <ion-item lines="none">
             <ion-label>
               <div class="firstLine">
                 <h3>{{item.fullName}}</h3>
               </div>
               <div class="details">
-                <p> Part No. : <span>{{item.partNo}}</span> </p>
-                <p> Age : <span> {{item.age}} </span> </p>
-                <p> Gender : <span> {{item.gender}} </span></p>
+                <p>  {{'Part No.' | translate}} : <span>{{item.partNo}}</span> </p>
+                <p>  {{'Age' | translate}} : <span> {{item.age}} </span> </p>
+                <p>  {{'Gender' | translate}} : <span> {{item.gender}} </span></p>
               </div>
   
             </ion-label>
           </ion-item>
         </ion-list>
+        <ion-list>
+          <pagination-controls (pageChange)="event($event)"></pagination-controls>
+        </ion-list>
         <div *ngIf="!doubtfulVoter || doubtfulVoter.length === 0" class="text-center noData">
             <img src="assets/img/question.png" />
-            <p>No data available</p>
+            <p> {{'No data available' | translate}}</p>
             <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
           </div>
       </ion-grid>

@@ -5,7 +5,7 @@
       <ion-buttons slot="start">
         <ion-back-button defaultHref="/list"></ion-back-button>
       </ion-buttons>
-      <ion-title> Total - {{addressWiseList.length}}  </ion-title>
+      <ion-title>  {{'Total' | translate}} - {{addressWiseList.length}}  </ion-title>
       <ion-buttons slot="primary">
         <ion-button (click)="search()">
           <ion-icon name="search-outline"></ion-icon>
@@ -123,9 +123,9 @@
     <ion-grid class="android userList">
       <ion-searchbar [(ngModel)]="searchMob" animated="true" *ngIf="isShow"></ion-searchbar>
       <ion-item>
-        {{addressName}}, Total - {{addressWiseList.length}}
+        {{addressName}}, {{'Total' | translate}} - {{addressWiseList.length}}
       </ion-item>
-      <ion-list *ngFor="let item of addressWiseList | filter:searchMob" (click)="voterDetails(item)">
+      <ion-list *ngFor="let item of addressWiseList | paginate: { itemsPerPage:100, currentPage: PageNo, totalItems:totalItems } | filter:searchMob" (click)="voterDetails(item)">
         <ion-item lines="none" >
           <!-- <ion-avatar slot="start">
             <ion-icon name="person-sharp"></ion-icon>
@@ -135,9 +135,9 @@
               <h3>{{item.fullName}}</h3>
             </div>
             <div class="details">
-              <p> Part No. : {{item.partNo}}  </p>
-              <p>  Age : <span> {{item.age}} </span> </p>
-              <p> Gender : <span> {{item.gender}} </span></p>
+              <p>  {{'Part No.' | translate}} : {{item.partNo}}  </p>
+              <p>  {{'Age' | translate}} : <span> {{item.age}} </span> </p>
+              <p>  {{'Gender' | translate}} : <span> {{item.gender}} </span></p>
             </div>
           </ion-label>
         </ion-item>

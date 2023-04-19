@@ -2,10 +2,10 @@
   <ion-header class="android">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-menu-button color="light" auto-hide="false"></ion-menu-button>
+        <ion-menu-button  auto-hide="false"></ion-menu-button>
       </ion-buttons>
       <!-- <ion-title *ngIf="totalCount"> <strong>Total : {{totalCount.totalCount}}</strong> </ion-title> -->
-      <ion-title> <strong>Total : {{voterByPart.length}}</strong> </ion-title>
+      <ion-title> <strong>Total : </strong> </ion-title>
       
       <ion-buttons slot="primary">
         <ion-button (click)="search()">
@@ -237,7 +237,8 @@
                 <ion-text> Part No. : {{partNo}}</ion-text>
               </ion-col>
               <ion-col size-lg="2">
-                <ion-text>Total Count : {{voterByPart.length}} </ion-text>
+                <!-- <ion-text>Total Count : {{voterByPart.length}} </ion-text> -->
+                <ion-text>Total Count :  </ion-text>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -249,11 +250,11 @@
                 </div>
               </ion-col>
               <ion-col class="ion-text-right">
-                <!-- <ion-button class="button-download" color="success" (click)="exportExcel()">
+                <ion-button class="button-download" color="success" (click)="exportExcel()">
                   <ion-icon name="document-sharp"></ion-icon>Excel
-                </ion-button> -->
+                </ion-button>
                 <ion-button class="button-download" color="success">
-                  <ion-icon name="document-sharp"></ion-icon>Excel
+                  <ion-icon name="document-sharp"></ion-icon>CSV
                 </ion-button>
                 <!-- <ion-button class="button-download" fill="outline" color="danger" (click)="downloadPDF()">
                   <ion-icon name="cloud-download-sharp"></ion-icon>PDF
@@ -281,7 +282,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of voterByPart | filter:searchWeb">
+                <tr *ngFor="let item of voterByPart | paginate: { itemsPerPage:NoofRow, currentPage: PageNo,totalItems:1000 } | filter:searchWeb ; let i=index">
                   <td>{{item.id}}</td>
                   <td class="text-capitalize editVoter" (click)="EditVoter(item)">{{item.fullName}}</td>
                   <td>{{item.booth}}</td>
@@ -291,12 +292,16 @@
                   <td>{{item.votingCardNo}}</td>
                   <td>{{item.village}}</td>
                   <td>{{item.address}}</td>
-                  <td>
+                  <td class="action">
                     <ion-icon name="create-sharp" (click)="EditVoter(item)"></ion-icon>
+                    <ion-icon (click)="deleteVoter(item.id)" class="delete" name="trash-bin-sharp"></ion-icon>
                   </td>
                 </tr>
               </tbody>
             </table>
+            <ion-list>
+              <pagination-controls (pageChange)="event($event)"></pagination-controls>
+            </ion-list>
             <div *ngIf="!voterByPart || voterByPart.length === 0" class="ion-text-center">
               <p>
                 No data available

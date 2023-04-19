@@ -64,5 +64,9 @@ export class ContactService {
     return this.http.post<any>(this.url+"contact/UpdateSingleContact", edModal);
   }
 
+  deleteContact(contactId:any){
+    return this.http.get<any>(this.url+'Contact/DeleteContactbyId?Id='+contactId)
+  }
+
 }
 

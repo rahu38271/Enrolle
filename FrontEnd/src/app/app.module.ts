@@ -12,7 +12,6 @@ import { ProfileComponent } from './profile/profile.component';
 import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
 //import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 import { AndroidPermissions } from '@awesome-cordova-plugins/android-permissions/ngx';
-import { HttpClientModule } from '@angular/common/http';
 import { FirebaseX } from '@awesome-cordova-plugins/firebase-x/ngx';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';	
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -21,12 +20,20 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
+import { HttpClientModule,HttpClient } from '@angular/common/http';
+import { TranslateModule, TranslateLoader,TranslateService  } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [AppComponent,PopoverComponent,ProfileComponent, MustMatchDirective],
   entryComponents: [],
   imports: [
-    BrowserModule, 
+    BrowserModule,
     IonicModule.forRoot(), 
     AppRoutingModule, 
     NgbModule,
@@ -35,8 +42,16 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
     NgxPaginationModule,
     FormsModule,
     NgSelectModule,
-    HttpClientModule],
-  providers: [ PDFGenerator,SocialSharing,AndroidPermissions,FirebaseX,BluetoothSerial,SplashScreen, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+  ],
+  providers: [ PDFGenerator,SocialSharing,AndroidPermissions,FirebaseX,BluetoothSerial,SplashScreen,SpeechRecognition, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

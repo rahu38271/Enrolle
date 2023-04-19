@@ -6,7 +6,7 @@
       <ion-buttons slot="start">
         <ion-menu-button auto-hide="false"></ion-menu-button>
       </ion-buttons>
-      <ion-title> Advance Search </ion-title>
+      <ion-title>  {{'Advance Search' | translate}} </ion-title>
     </ion-toolbar>
   </ion-header>
   <div class="main-content">
@@ -14,7 +14,7 @@
       <ion-row>
         <ion-col size-xs="12" size-sm="6">
           <ion-card-header>
-            <ion-card-title>Advance Search</ion-card-title>
+            <ion-card-title> {{'Advance Search' | translate}}</ion-card-title>
             <div class="headerLine"></div>
           </ion-card-header>
         </ion-col>
@@ -25,27 +25,27 @@
       <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
         <ion-row>
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
-            <ion-label>   Last Name    </ion-label>
+            <ion-label>     {{'Last Name' | translate}}    </ion-label>
               <ion-input name="LastName" [(ngModel)]="searchModal.LastName" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
-            <ion-label>   First Name    </ion-label>
+            <ion-label>     {{'First Name' | translate}}    </ion-label>
               <ion-input name="FirstName" [(ngModel)]="searchModal.FirstName" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
-            <ion-label>   Father / Husbands Name    </ion-label>
+            <ion-label>    {{'Father / Husbands Name' | translate}}    </ion-label>
               <ion-input name="MiddleName" [(ngModel)]="searchModal.MiddleName" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
-            <ion-label>   Voting Card  </ion-label>
+            <ion-label>    {{'Voting Card' | translate}}   </ion-label>
               <ion-input name="VotingCardNo" [(ngModel)]="searchModal.VotingCardNo" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
-            <ion-label>   From Age  </ion-label>
+            <ion-label>   From Age   </ion-label>
               <ion-input type="number" name="FromAge" [(ngModel)]="searchModal.FromAge" class="form-control"></ion-input>
           </ion-col>
 
@@ -55,51 +55,51 @@
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
-            <ion-label>  Gender  </ion-label>
+            <ion-label>   {{'Gender' | translate}}  </ion-label>
             <ion-radio-group name="Gender" [(ngModel)]="searchModal.Gender">
               <div class="radioBtn" >
                 <div>
                   <ion-radio value="M" ></ion-radio>
-                  <ion-label>Male</ion-label>
+                  <ion-label> {{'Male' | translate}}</ion-label>
                 </div>
 
                 <div>
                   <ion-radio value="F" ></ion-radio>
-                  <ion-label>Female</ion-label>
+                  <ion-label> {{'Female' | translate}}</ion-label>
                 </div>
 
-                <div>
+                <!-- <div>
                   <ion-radio value="O" ></ion-radio>
                   <ion-label>Other</ion-label>
-                </div>
+                </div> -->
               </div>
             </ion-radio-group>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
-            <ion-label>   Part No.  </ion-label>
+            <ion-label>    {{'Part No.' | translate}} </ion-label>
               <ion-input name="PartNo" [(ngModel)]="searchModal.PartNo" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
-            <ion-label>  Mobile No.  </ion-label>
+            <ion-label>     {{'Mobile' | translate}}   </ion-label>
               <ion-input name="MobileNo" [(ngModel)]="searchModal.MobileNo" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
-            <ion-label>   Village </ion-label>
+            <ion-label>    {{'Village' | translate}} </ion-label>
               <ion-input name="Village" [(ngModel)]="searchModal.Village" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
-            <ion-label>   House No. </ion-label>
+            <ion-label>    {{'House No.' | translate}} </ion-label>
               <ion-input name="HouseNo" [(ngModel)]="searchModal.HouseNo" class="form-control"></ion-input>
           </ion-col>
           
           <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
               <div class="text-center">
-                <ion-button class="searchBtn" type="submit" (click)="voterListBySearch()">Search</ion-button>
-                <ion-button type="reset" (click)="resetForm()" class="searchBtn" color="danger">Clear</ion-button>
+                <ion-button class="searchBtn" type="submit" (click)="voterListBySearch()"> {{'Search' | translate}}</ion-button>
+                <ion-button type="reset" (click)="resetForm()" class="searchBtn" color="danger"> {{'Clear' | translate}}</ion-button>
               </div>
           </ion-col>
         </ion-row>
@@ -193,10 +193,10 @@
       <ion-searchbar *ngIf="isShow"></ion-searchbar>
       <ion-list>
         <ion-item lines="none">
-          Total : {{searchList.length}}
+           {{'Total' | translate}} : {{searchList.length}}
         </ion-item>
       </ion-list>
-    <ion-list *ngFor="let item of searchList" (click)="voterDetails(item.id)">
+    <ion-list *ngFor="let item of searchList | paginate: { itemsPerPage:100, currentPage: PageNo } " (click)="voterDetails(item)">
       <ion-item lines="none">
         <!-- <ion-avatar slot="start">
           <ion-icon name="person-sharp"></ion-icon>
@@ -206,16 +206,19 @@
             <h3>{{item.fullName}}</h3>
           </div>
           <div class="details">
-            <p>  Part No : <span> {{item.partNo}} </span> </p>
-            <p>  Age : <span> {{item.age}} </span> </p>
-            <p> Gender : <span> {{item.gender}} </span></p>
+            <p>   {{'Part No.' | translate}} : <span> {{item.partNo}} </span> </p>
+            <p>   {{'Age' | translate}} : <span> {{item.age}} </span> </p>
+            <p>  {{'Gender' | translate}} : <span> {{item.gender}} </span></p>
           </div>
         </ion-label>
       </ion-item>
     </ion-list>
+    <ion-list>
+      <pagination-controls (pageChange)="event($event)"></pagination-controls>
+    </ion-list>
     <div *ngIf="!searchList || searchList.length === 0" class="text-center mt-1 noData">
       <img src="assets/img/question.png" />
-      <p>No data available</p>
+      <p> {{'No data available' | translate}}</p>
       <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
     </div>
   </ion-grid>

@@ -5,9 +5,9 @@
       <ion-buttons slot="start">
         <ion-menu-button auto-hide="false"></ion-menu-button>
       </ion-buttons>
-      <ion-title> वयानुसार, Total - {{ageList.length}}  </ion-title>
+      <ion-title>  {{'By Age' | translate}}, {{'Total' | translate}}  - {{ageList.length}}  </ion-title>
       <ion-buttons slot="primary">
-        <ion-button >
+        <ion-button (click)="search()">
           <ion-icon name="search-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
@@ -53,23 +53,23 @@
                 </ion-col>
       
                 <ion-col size-lg="3" size-md="4" size-sm="6" size-xs="12">
-                  <ion-label> Gender </ion-label>
+                  <ion-label>  {{'Gender' | translate}} </ion-label>
                   <ion-radio-group name="Gender" [(ngModel)]="ageModal.gender">
                     <div class="radioBtn" >
                       <div>
                         <ion-radio value="M" ></ion-radio>
-                        <ion-label>Male</ion-label>
+                        <ion-label>  {{'Male' | translate}}</ion-label>
                       </div>
       
                       <div>
                         <ion-radio value="F" ></ion-radio>
-                        <ion-label>Female</ion-label>
+                        <ion-label>   {{'Female' | translate}}</ion-label>
                       </div>
       
-                      <div>
+                      <!-- <div>
                         <ion-radio value="O" ></ion-radio>
                         <ion-label>Other</ion-label>
-                      </div>
+                      </div> -->
                     </div>
                   </ion-radio-group>
                 </ion-col>
@@ -77,8 +77,10 @@
                 
       
                 <ion-col size-lg="3" size-md="4" size-sm="6" size-xs="12">
-                  <ion-button class="searchBtn" type="submit" (click)="agewiseSearch()" [disabled]="!f.form.valid">Search</ion-button>
-                  <ion-button type="reset" class="searchBtn" color="danger">Clear</ion-button>
+                  <ion-button class="searchBtn" type="submit" (click)="agewiseSearch()" [disabled]="!f.form.valid">
+                    {{'Search' | translate}}
+                  </ion-button>
+                  <ion-button type="reset" class="searchBtn" color="danger"> {{'Clear' | translate}}</ion-button>
                 </ion-col>
               </ion-row>
             </form>
@@ -168,7 +170,8 @@
     </ion-grid>
     
     <ion-grid class="android userList">
-      <ion-list *ngFor="let item of ageList" (click)="voterDetails(item)">
+      <ion-searchbar [(ngModel)]="searchMob" animated="true" *ngIf="isShow"></ion-searchbar>
+      <ion-list *ngFor="let item of ageList | paginate: { itemsPerPage:100, currentPage: PageNo, totalItems:totalItems } | filter:searchMob" (click)="voterDetails(item)">
         <ion-item lines="none" >
           <!-- <ion-avatar slot="start">
             <ion-icon name="person-sharp"></ion-icon>
@@ -178,16 +181,19 @@
               <h3>{{item.fullName}}</h3>
             </div>
             <div class="details">
-              <p>Part No. : <span> {{item.partNo}} </span></p>
-              <p> Age : <span> {{item.age}} </span> </p>
-              <p>Gender : <span> {{item.gender}} </span></p>
+              <p> {{'Part No.' | translate}} : <span> {{item.partNo}} </span></p>
+              <p>  {{'Age' | translate}} : <span> {{item.age}} </span> </p>
+              <p> {{'Gender' | translate}} : <span> {{item.gender}} </span></p>
             </div>
           </ion-label>
         </ion-item>
       </ion-list>
+      <ion-list>
+        <pagination-controls (pageChange)="event($event)"></pagination-controls>
+      </ion-list>
       <div *ngIf="!ageList || ageList.length === 0" class="text-center noData">
         <img src="assets/img/question.png" />
-        <p>No data available</p>
+        <p> {{'No data available' | translate}}</p>
         <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
       </div>
     </ion-grid>

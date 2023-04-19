@@ -4,7 +4,7 @@
       <ion-buttons slot="start">
         <ion-menu-button auto-hide="false"></ion-menu-button>
       </ion-buttons>
-      <ion-title> Part No. नुसार </ion-title>
+      <ion-title>  {{'Part No.' | translate}} </ion-title>
       <ion-buttons slot="primary">
         <ion-button (click)="search()">
           <ion-icon name="search-outline"></ion-icon>
@@ -101,9 +101,9 @@
         <ion-item lines="none" class="ion-text-center">
           <ion-label>
             <h3>
-              Part No. - {{item.columnName}}
+                {{'Part No.' | translate}}  - {{item.columnName}}
             </h3>
-            <h4> Total : <span> {{item.count}} </span> </h4>
+            <h4>  {{'Total' | translate}} : <span> {{item.count}} </span> </h4>
           </ion-label>
         </ion-item>
       </ion-list>

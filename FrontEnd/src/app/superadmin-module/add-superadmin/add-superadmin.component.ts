@@ -149,7 +149,8 @@ export class AddSuperadminComponent implements OnInit {
         this.loader.hideLoader();
         this.addMAmodal = {};
         this.toast.presentToast("Superadmin added successfully!", "success", 'checkmark-circle-sharp');
-        this.router.navigate(['/superadmin']);
+        //this.router.navigate(['/superadmin']);
+        this.router.navigateByUrl('/superadmin')
       }
       else {
         this.loader.hideLoader();
@@ -157,7 +158,7 @@ export class AddSuperadminComponent implements OnInit {
       }
     }, (err) => {
       this.loader.hideLoader();
-      this.toast.presentToast("Superadmin not saved", "danger", 'alert-circle-sharp');
+      //this.toast.presentToast("Superadmin not saved", "danger", 'alert-circle-sharp');
     })
   }
 

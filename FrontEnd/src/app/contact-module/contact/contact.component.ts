@@ -1,7 +1,8 @@
 import { Component, OnInit,   } from '@angular/core';
-import { ToastController, LoadingController } from '@ionic/angular';
+import {AlertController, ToastController, LoadingController } from '@ionic/angular';
 import { ContactService } from 'src/app/services/contact.service'
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { LoaderService } from 'src/app/services/loader.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { ExcelService } from 'src/app/services/excel.service'
@@ -36,6 +37,7 @@ export class ContactComponent implements OnInit {
   (
     public toastController: ToastController,
     public loadingController: LoadingController, 
+    public alertController: AlertController,
     private contact:ContactService, 
     private router:Router, 
     private loader:LoaderService, 
@@ -56,14 +58,18 @@ export class ContactComponent implements OnInit {
  
 
   ngOnInit() {
-    debugger;
     if(this.SearchText == undefined){
       this.SearchText = ''
     }
     else{
       this.SearchText = this.SearchText
     }
-    this.contactList(this.PageNo,this.NoofRow,this.SearchText);
+    
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.contactList(this.PageNo,this.NoofRow,this.SearchText);
+    })
   }
 
   event(event:any){
@@ -72,9 +78,7 @@ export class ContactComponent implements OnInit {
   }  
 
   contactList(PageNo:any,NoofRow:any,SearchText:any){
-    this.loader.showLoading();
     this.contact.getContacts(PageNo,NoofRow,SearchText).subscribe(data=>{
-      this.loader.hideLoader();
       if(data != 0){
         this.getContacts = data;
         this.getContacts.forEach(e => {
@@ -83,13 +87,44 @@ export class ContactComponent implements OnInit {
         });
       }
       else{
-        this.loader.hideLoader();
         this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
       }
     }, (err)=>{
-      this.loader.hideLoader();
-      this.toast.presentToast("Something went wrong !", "danger", 'alert-circle-outline');
+      //this.toast.presentToast("Something went wrong !", "danger", 'alert-circle-outline');
     });
+  }
+
+  async deleteCon(id:any) {
+    const alert = await this.alertController.create({
+      header: 'Delete Appointment',
+      cssClass: 'alertHeader',
+      message: 'Are you sure want to delete this Appointment',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'no',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Delete',
+          cssClass: 'yes',
+          handler: () => {
+            this.contact.deleteContact(id).subscribe(data=>{
+              this.router.events.pipe(
+                filter(event => event instanceof NavigationEnd)
+              ).subscribe(() => {
+                this.contactList(this.PageNo,this.NoofRow,this.SearchText);
+              })
+              this.toast.presentToast("Appointment deleted Succesfully!", "success", 'checkmark-circle-sharp');
+            })
+          }
+        }
+      ],
+    });
+
+    await alert.present();
   }
 
   exportExcel():void {

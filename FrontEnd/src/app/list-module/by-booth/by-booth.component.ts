@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { VoterService } from 'src/app/services/voter.service'
 import { Router } from '@angular/router'
 import { LoaderService } from 'src/app/services/loader.service'
+import { TranslateConfigService } from 'src/app/services/translate-config.service';
 
 @Component({
   selector: 'app-by-booth',
@@ -9,7 +10,7 @@ import { LoaderService } from 'src/app/services/loader.service'
   styleUrls: ['./by-booth.component.scss'],
 })
 export class ByBoothComponent implements OnInit {
-
+  Language:any;
   isShow = false;
   partData: any;
   searchMob:string;
@@ -19,8 +20,11 @@ export class ByBoothComponent implements OnInit {
   constructor(
     private voter: VoterService, 
     private router:Router,
-    private loader:LoaderService
-    ) { }
+    private loader:LoaderService,
+    private translateConfigService: TranslateConfigService,
+    ) { 
+      this.Language = this.translateConfigService.getCurrentLang();
+    }
 
   search() {
     this.isShow = !this.isShow
@@ -38,11 +42,24 @@ export class ByBoothComponent implements OnInit {
 
   allParts() {
     this.loader.showLoading();
+    if(this.Language == "kn"){
+      this.Language = "Kannada"
+    }
+    else if(this.Language == "mr"){
+      this.Language = "Marathi"
+    }
+    else if (this.Language == "hi") {
+      this.Language = "Hindi"
+    }
+    else{
+      this.Language = "English"
+    }
     this.voter.partNoData({
       TableName: "Tbl_Voter",
       ColumnName: "PartNo",
       UserId : Number(this.id),
-      roleID: Number(this.roleId)
+      roleID: Number(this.roleId),
+      Language: this.Language
     }).subscribe(data => {
       if(data != 0){
         this.loader.hideLoader();

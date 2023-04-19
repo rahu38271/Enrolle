@@ -4,7 +4,7 @@
       <ion-buttons slot="start">
         <ion-menu-button auto-hide="false"></ion-menu-button>
       </ion-buttons>
-      <ion-title> गावानुसार </ion-title>
+      <ion-title>  {{'By Village' | translate}}</ion-title>
       <ion-buttons slot="primary">
         <ion-button (click)="search()">
           <ion-icon name="search-outline"></ion-icon>
@@ -107,13 +107,13 @@
         <ion-item lines="none" class="ion-text-center" (click)="villageName(item.columnName)">
           <ion-label>
             <h3>{{item.columnName}} </h3>
-            <h4> Total : <span> {{item.count}} </span> </h4>
+            <h4>  {{'Total' | translate}} : <span> {{item.count}} </span> </h4>
           </ion-label>
         </ion-item>
       </ion-list>
       <div *ngIf="!vilModal || vilModal.length === 0" class="text-center noData">
         <img src="assets/img/question.png" />
-        <p>No data available</p>
+        <p> {{'No data available' | translate}}</p>
         <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
       </div>
     </ion-grid>

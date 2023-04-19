@@ -1,13 +1,15 @@
 
-import { Component, OnInit, ViewChild, ElementRef,ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import * as xlsx from 'xlsx';
 import html2pdf from 'html2pdf.js'
 import { AlertController } from '@ionic/angular';
 import { SuperadminService } from 'src/app/services/superadmin.service'
 import { LoaderService } from 'src/app/services/loader.service'
-import { Router, ActivatedRoute } from '@angular/router'
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'
+import { filter } from 'rxjs/operators';
 import { Location } from '@angular/common';
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
+
 
 @Component({
   selector: 'app-superadmin',
@@ -25,16 +27,16 @@ export class SuperadminComponent implements OnInit {
   searchWeb: string;
   cp: number = 1;
   getAdminList: any = [];
-  
+
   currentDate = new Date();
   roleId: any;
-  superId:any;
-  adminid:any;
-  Partnoassigned:string;
-  superadminId:any;
-  id:any;
+  superId: any;
+  adminid: any;
+  Partnoassigned: string;
+  superadminId: any;
+  id: any;
   roleName: string;
- 
+
   search() {
     this.isShow = !this.isShow
   }
@@ -49,10 +51,10 @@ export class SuperadminComponent implements OnInit {
       private router: Router,
       private location: Location,
       private toast: IonicToastService,
-       private route: ActivatedRoute,
-       private changeDetection: ChangeDetectorRef
+      private route: ActivatedRoute,
+      private changeDetection: ChangeDetectorRef
     ) {
-      
+
   }
 
   ngOnInit() {
@@ -61,19 +63,19 @@ export class SuperadminComponent implements OnInit {
     this.roleId = localStorage.getItem("userType")
     this.roleId = Number(this.roleId)
     this.id = localStorage.getItem("loginId");
-    this.getAllAdminList();
-    if(this.roleId == 1){
+
+    if (this.roleId == 1) {
       this.isDB = !this.isDB;
     }
-    else{
+    else {
       this.isDB = this.isDB;
     }
+    this.getAllAdminList();
   }
 
   getAllAdminList() {
-    
     //All users List for Masteradmin
-    if(this.roleId == 1){
+    if (this.roleId == 1) {
       this.sadmin.getAllAdmin().subscribe(data => {
         if (data != 0) {
           var list = data.forEach(e => {
@@ -103,14 +105,14 @@ export class SuperadminComponent implements OnInit {
     }
 
     //All users list for Superadmin
-    if(this.roleId == 2){
+    if (this.roleId == 2) {
       this.sadmin.GetAdminbySuperAdminId(this.superId).subscribe(AdminbyS => {
         if (AdminbyS != 0) {
           this.loader.hideLoader();
           var list = AdminbyS.forEach(e => {
-            this.sadmin.GetpartByUserid(e.id).subscribe(data=>{
+            this.sadmin.GetpartByUserid(e.id).subscribe(data => {
               // this.Partnoassigned=data;
-                e.Partnoassigned=data.partNo;
+              e.Partnoassigned = data.partNo;
             })
             if (e.roleId == 1) {
               e = { ...e, roleName: "MasterAdmin" };
@@ -128,7 +130,7 @@ export class SuperadminComponent implements OnInit {
             this.getAdminList.forEach(e => {
               e.createdDate = e.createdDate.split('T')[0];
             });
-            
+
           });
         }
         else {
@@ -138,14 +140,14 @@ export class SuperadminComponent implements OnInit {
     }
 
     //All users list for Admin
-    if(this.roleId == 3){
+    if (this.roleId == 3) {
       this.sadmin.GetVolunterbyAdminId(this.adminid).subscribe(data => {
         if (data != 0) {
           //this.loader.hideLoader();
           var list = data.forEach(e => {
-            this.sadmin.GetpartByUserid(e.id).subscribe(data=>{
+            this.sadmin.GetpartByUserid(e.id).subscribe(data => {
               // this.Partnoassigned=data;
-                e.Partnoassigned=data.partNo;
+              e.Partnoassigned = data.partNo;
             })
             if (e.roleId == 1) {
               e = { ...e, roleName: "MasterAdmin" };
@@ -163,7 +165,7 @@ export class SuperadminComponent implements OnInit {
             this.getAdminList.forEach(e => {
               e.createdDate = e.createdDate.split('T')[0];
             });
-      
+
           });
         }
         else {
@@ -177,22 +179,21 @@ export class SuperadminComponent implements OnInit {
     this.router.navigateByUrl('/superadmin/edit-superadmin', { state: data })
   }
 
-  LinkDB(id:any){
+  LinkDB(id: any) {
     this.router.navigate(['superadmin/db', id])
   }
-  
-  SAdetails(id:number){
+
+  SAdetails(id: number) {
     this.router.navigate(['/superadmin/account', id])
   }
 
-  
+
 
   goBack() {
     this.location.back();
   }
 
-  async deleteUser(id:any) {
-    debugger
+  async deleteUser(id: any) {
     const alert = await this.alertController.create({
       header: ' Delete User ?',
       cssClass: 'alertHeader',
@@ -209,9 +210,8 @@ export class SuperadminComponent implements OnInit {
           text: 'Delete',
           cssClass: 'yes',
           handler: () => {
-            debugger
-            this.sadmin.deleteUser(id).subscribe(data=>{
-              this.ngOnInit();
+            this.sadmin.deleteUser(id).subscribe(data => {
+              this.ngOnInit()
               this.toast.presentToast("User deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })
           }

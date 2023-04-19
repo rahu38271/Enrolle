@@ -42,7 +42,7 @@ ion-list-header {  font-size: 15px; color: #3e4684; padding-inline-start:10px;  
 
 .android { display: none; }
 
-ion-label p { width: 50%; float: left; margin-bottom: 1px !important;  color: #81767a;  }
+ion-label p { float: left; margin-bottom: 1px !important;  color: #81767a;  }
 
 @media screen and (max-width:576px){
     .main-content ion-card { display: none; }
@@ -123,10 +123,10 @@ ion-searchbar {
   }
 }
 
-.radioBtn {
-  display: flex;
-justify-content: space-between;
-}
+// .radioBtn {
+//   display: flex;
+// justify-content: space-between;
+// }
 
 form ion-input {
   background: #fff !important;

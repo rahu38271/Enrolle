@@ -34,9 +34,10 @@
             
   
             <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
-              <ion-label position="floating"> Phone No. </ion-label>
+              <ion-label position="floating"> Phone No. <span>*</span> </ion-label>
                 <ion-input 
-                  
+                  minlength="10"
+                  maxlength="12"
                   (keypress)="keyPressNumbers($event)" 
                   name="PhoneNo" 
                   [(ngModel)]="societyModal.PhoneNo" 
@@ -54,6 +55,8 @@
                     name="AltPhoneNo" 
                     [(ngModel)]="societyModal.AltPhoneNo" 
                     class="form-control" 
+                    minlength="10"
+                    maxlength="12"
                 ></ion-input>
             </ion-col>
 
@@ -63,23 +66,24 @@
                     name="Address" 
                     [(ngModel)]="societyModal.Address"  
                     class="form-control" 
-                    rows="3" 
+                    rows="2" 
                      
                 ></ion-textarea>
                   
               </ion-col> 
 
-              <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+              <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="12" size-xs="12">
                 <ion-label position="floating"> Pin Code </ion-label>
                   <ion-input 
                       (keypress)="keyPressNumbers($event)" 
                       name="PinCode" 
                       [(ngModel)]="societyModal.PinCode" 
-                      class="form-control" 
+                      class="form-control"
+                      maxlength="6" 
                   ></ion-input>
               </ion-col>
 
-              <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+              <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="12" size-xs="12">
                 <ion-label position="floating"> Ward No. </ion-label>
                   <ion-input 
                       (keypress)="keyPressNumbers($event)" 
@@ -130,6 +134,14 @@
                 Please select taluka
               </div>
             </div>
+            </ion-col>
+
+            <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+              <ion-label position="floating">City </ion-label>
+                <ion-input 
+                    name="city" 
+                    class="form-control" 
+                ></ion-input>
             </ion-col>
   
             

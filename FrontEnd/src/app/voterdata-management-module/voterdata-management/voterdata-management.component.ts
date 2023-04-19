@@ -3,9 +3,12 @@ import { LoadingController,ToastController } from '@ionic/angular';
 import { VoterService } from 'src/app/services/voter.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { LoaderService } from 'src/app/services/loader.service'
+import { AlertController } from '@ionic/angular';
 import { Router, ActivatedRoute } from '@angular/router'
 import { Voter } from 'src/app/models/voter'
 import { Location } from '@angular/common';
+import { ExcelService } from 'src/app/services/excel.service'
+import { CsvService } from 'src/app/services/csv.service';
 
 @Component({
   selector: 'app-voterdata-management',
@@ -18,14 +21,13 @@ export class VoterdataManagementComponent {
   searchWeb: string;
 
   isShow = true;
-  totalCount: any;
   searchedData: any;
   ColumnValue: any;
   partNumber: any;
   id: any;
   userId: any;
   roleID:any
-
+  voterByPart:any;
 
   searchModal: any = {
     LastName:'',
@@ -40,15 +42,22 @@ export class VoterdataManagementComponent {
     Village:'',
     Gender:'',
     UserId:'',
-    roleID:''
+    roleID:'',
+    PageNo:'',
+    NoofRow:''
   };
   partNo: any;
+  PageNo:number=1;
+  NoofRow:number=25;
+  //allVoters: number = 0;
+  totalItems:any;
    
   search(){
     this.isShow = !this.isShow
   }
 
-  voterByPart:Voter[] =[];
+  
+
 
   onKeyPress(event) {
     if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {
@@ -74,12 +83,15 @@ keyPressNumbers(event) {
     (
       public loadingController: LoadingController,
       public toastController: ToastController,
+      public alertController: AlertController,
       private voter:VoterService,
       private toast:IonicToastService,
       private loader:LoaderService,
       private router:Router,
       private route:ActivatedRoute,
-      private location: Location
+      private location: Location,
+      private excel:ExcelService,
+       private csv:CsvService
     ) 
     {
     
@@ -89,12 +101,21 @@ keyPressNumbers(event) {
     this.partNo = this.route.snapshot.paramMap.get('partNo');
     this.userId = this.route.snapshot.paramMap.get('id');
     this.roleID = localStorage.getItem("userType");
-    this.loader.showLoading();
-    this.voter.boothWiseVoterList(this.partNo).subscribe((data)=>{
+    this.boothWiseVoterListData(this.PageNo,this.NoofRow);
+  }
+
+  event(event:any){
+    debugger;
+    this.PageNo = event;
+    this.boothWiseVoterListData(event,this.NoofRow)
+  }
+
+  boothWiseVoterListData(PageNo:any,NoofRow:any){
+    this.voter.boothWiseVoterList(this.partNo,PageNo,NoofRow).subscribe((data:any)=>{
       this.loader.hideLoader();
       if(data){
         this.partNo = this.partNo
-        this.voterByPart = data;
+        this.voterByPart = data
       }
       else{
         this.loader.hideLoader();
@@ -105,6 +126,8 @@ keyPressNumbers(event) {
       this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
     })
   }
+
+  
 
   goBack(){
     this.location.back();
@@ -124,6 +147,8 @@ keyPressNumbers(event) {
   }
 
   searchData(){
+    this.searchModal.PageNo = this.searchModal.PageNo;
+    this.searchModal.NoofRow = this.searchModal.NoofRow;
     if(this.searchModal.LastName == ''){
       this.searchModal.LastName = null
     }
@@ -193,6 +218,8 @@ keyPressNumbers(event) {
     this.searchModal.UserId = Number(this.userId);
     this.searchModal.roleID = Number(this.roleID);
     this.searchModal.PartNo = this.partNo;
+    this.searchModal.PageNo = Number(this.PageNo);
+    this.searchModal.NoofRow = Number(this.NoofRow);
     this.loader.showLoading();
     this.voter.advanceSearch(this.searchModal).subscribe(data=>{
       if(data){
@@ -209,7 +236,13 @@ keyPressNumbers(event) {
     })
   }
 
+  exportExcel():void {
+    this.excel.exportAsExcelFile(this.voterByPart, 'Society');
+  }
 
+  exportToCSV() {
+    this.csv.exportToCsv(this.voterByPart, 'Society');
+  }
 
 }
 

@@ -25,27 +25,27 @@
   
             <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
               <ion-label> First Name <span>*</span> </ion-label>
-              <ion-input name="firstName" [(ngModel)]="annapurnaModal.FirstName"  class="form-control" required></ion-input>
+              <ion-input name="firstName" [(ngModel)]="annapurnaModal.FirstName" (keypress)="onKeyPress($event)" class="text-capitalize form-control" required></ion-input>
             </ion-col>
   
             <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
               <ion-label> Middle Name  </ion-label>
-              <ion-input name="middleName" [(ngModel)]="annapurnaModal.MiddleName" class="form-control"></ion-input>
+              <ion-input name="middleName" [(ngModel)]="annapurnaModal.MiddleName" (keypress)="onKeyPress($event)" class="text-capitalize form-control"></ion-input>
             </ion-col>
   
             <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
               <ion-label> Last Name <span>*</span> </ion-label>
-              <ion-input name="lastName" [(ngModel)]="annapurnaModal.LastName" class="form-control" required></ion-input>
+              <ion-input name="lastName" [(ngModel)]="annapurnaModal.LastName" (keypress)="onKeyPress($event)" class="text-capitalize form-control" required></ion-input>
             </ion-col>
 
             <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
                 <ion-label> Phone No.  <span>*</span> </ion-label>
-                <ion-input name="phone" [(ngModel)]="annapurnaModal.PhoneNo" class="form-control" required></ion-input>
+                <ion-input name="phone" minlength="10" maxlength="12" [(ngModel)]="annapurnaModal.PhoneNo" (keypress)="keyPressNumbers($event)"  class="form-control" required></ion-input>
               </ion-col>
 
               <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
                 <ion-label> Alt. Phone No. </ion-label>
-                <ion-input name="altPhone" [(ngModel)]="annapurnaModal.AltPhoneNo" class="form-control"></ion-input>
+                <ion-input name="altPhone" minlength="10" maxlength="12" [(ngModel)]="annapurnaModal.AltPhoneNo" (keypress)="keyPressNumbers($event)"   class="form-control"></ion-input>
               </ion-col>
 
               <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
@@ -63,12 +63,12 @@
                 <ion-input name="Area" [(ngModel)]="annapurnaModal.Area" class="form-control" ></ion-input>
               </ion-col>
 
-              <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+              <ion-col size-xl="2" size-lg="2" size-md="3" size-sm="6" size-xs="12">
                 <ion-label> Yadi No. / Part No. </ion-label>
                 <ion-input name="Yadi" [(ngModel)]="annapurnaModal.YadiNo_PartNo" class="form-control" ></ion-input>
               </ion-col>
 
-              <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+              <ion-col size-xl="2" size-lg="2" size-md="3" size-sm="6" size-xs="12">
                 <ion-label> Sr. No. </ion-label>
                 <ion-input name="serialNo" [(ngModel)]="annapurnaModal.SrNo" class="form-control" ></ion-input>
               </ion-col>

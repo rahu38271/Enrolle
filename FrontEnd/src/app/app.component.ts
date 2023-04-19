@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef  } from '@angular/core';
 import {
   Router,
   // import as RouterEvent to avoid confusion with the DOM Event
@@ -9,6 +9,7 @@ import {
   NavigationError,
   ActivatedRoute
 } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { MenuController, PopoverController, AlertController } from '@ionic/angular';
 import { NotificationComponent } from './notification/notification.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -23,6 +24,8 @@ import { Location } from '@angular/common'
 
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 //import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslateConfigService } from 'src/app/services/translate-config.service';
 
 
 
@@ -34,7 +37,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 export class AppComponent implements OnInit {
 
   name: any;
-  roleName: string;
+  
   id: any;
   showHead:boolean=false;
   AdminMenu: any;
@@ -43,6 +46,7 @@ export class AppComponent implements OnInit {
   roleType: string;
   contact: string;
   roleId:any;
+  roleName: string;
   isDashboard: any;
   isContact: any;
   isBirthday: any;
@@ -60,13 +64,19 @@ export class AppComponent implements OnInit {
   isAppointment:any;
   isAnnapurna:any;
   isNewVoter:any;
+  isSociety:any;
+  isOffice:any;
+  isNotifications:any;
   isSuperAdmin:any;
   isconfigureDB:any;
+  isLetterTracking:any;
+  isAppoReport:any;
+  isComBook:any;
   isRequest:any;
   isTab:any;
   role:any;
- 
-
+  language: any;
+  state:any;
   getClass() {
     return "active"
   }
@@ -87,21 +97,25 @@ export class AppComponent implements OnInit {
     private alertController: AlertController,
     private activatedRoute: ActivatedRoute,
     public menuCtrl: MenuController,
+    private translate: TranslateService,
+    private cdr: ChangeDetectorRef,
+    private translateConfigService: TranslateConfigService,
     private platform: Platform) {
     
-    
+    this.translateConfigService.getDefaultLanguage();
+    this.language = this.translateConfigService.getCurrentLang();
     this.initializeApp();
+    
+    platform.ready().then(() => {
 
-    // platform.ready().then(() => {
+      androidPermissions.requestPermissions(
+        [
+          this.androidPermissions.PERMISSION.CAMERA,
+          this.androidPermissions.PERMISSION.READ_SMS
+        ]
+      );
 
-    //   androidPermissions.requestPermissions(
-    //     [
-    //       this.androidPermissions.PERMISSION.CAMERA,
-    //       this.androidPermissions.PERMISSION.READ_SMS
-    //     ]
-    //   );
-
-    // });
+    });
 
     // on route change to '/login', set the variable showHead to false
     router.events.forEach((event) => {
@@ -117,9 +131,13 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.id = localStorage.getItem("loginId");
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.id = localStorage.getItem("loginId");
     this.name = localStorage.getItem("loginUser");
     this.roleId = localStorage.getItem("userType");
+    this.state = localStorage.getItem("state");
     if(this.roleId == 1){
       this.roleName = "MasterAdmin"
     }
@@ -139,6 +157,7 @@ export class AppComponent implements OnInit {
     var isSuperAdmin = roleId == "2"
     var isAdmin = roleId == "3";
     var isVolunteer = roleId == "4"
+    this.cdr.detectChanges();
 
     this.isDashboard = isMasterAdmin|| isSuperAdmin || isAdmin || isVolunteer;
     this.isSuperAdmin = isMasterAdmin|| isSuperAdmin || isAdmin;
@@ -148,9 +167,9 @@ export class AppComponent implements OnInit {
     this.isMedia = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isOther = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isSetting = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isSurvey = isSuperAdmin || isAdmin  || isVolunteer;
+    this.isSurvey = isVolunteer;
     this.isSearch = isVolunteer;
-    this.isLists = isSuperAdmin || isAdmin  || isVolunteer;
+    this.isLists = isVolunteer;
     this.isUser = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isAppointment = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isAnnapurna = isMasterAdmin|| isSuperAdmin || isAdmin;
@@ -159,15 +178,23 @@ export class AppComponent implements OnInit {
     this.isDailyNews = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isVoterList = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isRequest = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isSociety = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isOffice = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isNotifications = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isLetterTracking = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isAppoReport =  isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isComBook = isMasterAdmin|| isSuperAdmin || isAdmin;
+    })
+    
+    
     // keeps user logged in for android app so that user doesnt have to login every time app opens
     // but dont use this code for web view bcoz when i refresh from any page in the app, it redirects me to dashboard page
-    //if (localStorage.getItem('loginId') != undefined || null) {
+    // if (localStorage.getItem('loginId') != undefined || null) {
     //  this.router.navigate(['/home/mobile-dashboard']);
-    //}
-    //else {
+    // }
+    // else {
     //  this.router.navigate(['/']);
-    //}
-
+    // }
     
     this.firebaseX.getToken()
       .then(token => console.log(`The token is ${token}`)) // save the token server-side and use it to push notifications to this device
@@ -287,5 +314,8 @@ export class AppComponent implements OnInit {
     const { role } = await popover.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
   }
+
+  
+
 }
 

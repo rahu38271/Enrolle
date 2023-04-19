@@ -3,6 +3,8 @@ import { VoterService } from 'src/app/services/voter.service'
 import { Router } from '@angular/router'
 import { IonicToastService} from 'src/app/services/ionic-toast.service'
 import { LoaderService } from 'src/app/services/loader.service'
+import { TranslateConfigService } from 'src/app/services/translate-config.service';
+
 
 @Component({
   selector: 'app-by-village',
@@ -10,7 +12,7 @@ import { LoaderService } from 'src/app/services/loader.service'
   styleUrls: ['./by-village.component.scss'],
 })
 export class ByVillageComponent implements OnInit {
-
+  Language:any;
   isShow = false;
   vilModal: any;
   searchMob:string;
@@ -21,8 +23,11 @@ export class ByVillageComponent implements OnInit {
     private voter: VoterService, 
     private router:Router,
     private toast:IonicToastService,
-    private loader:LoaderService 
-    ) { }
+    private loader:LoaderService,
+    private translateConfigService: TranslateConfigService,
+    ) {
+      this.Language = this.translateConfigService.getCurrentLang();
+     }
 
   search() {
     this.isShow = !this.isShow
@@ -40,11 +45,24 @@ export class ByVillageComponent implements OnInit {
 
   allVillages() {
     this.loader.showLoading();
+    if(this.Language == "kn"){
+      this.Language = "Kannada"
+    }
+    else if(this.Language == "mr"){
+      this.Language = "Marathi"
+    }
+    else if (this.Language == "hi") {
+      this.Language = "Hindi"
+    }
+    else{
+      this.Language = "English"
+    }
     this.voter.villagedata({
       TableName: "Tbl_Voter",
       ColumnName: "Village",
       UserId : Number(this.id),
-      roleID: Number(this.roleId)
+      roleID: Number(this.roleId),
+      Language: this.Language
     }).subscribe(data => {
       if(data.length > 0){
         this.vilModal = data;
@@ -54,6 +72,8 @@ export class ByVillageComponent implements OnInit {
         this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
         this.loader.hideLoader();
       }
+    },(err)=>{
+      this.loader.hideLoader();
     })
   }
 

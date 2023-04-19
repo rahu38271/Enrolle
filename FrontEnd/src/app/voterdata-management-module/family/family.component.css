@@ -146,3 +146,7 @@ ion-searchbar {
 table th, td {
   font-size: 13px !important;
 }
+
+.noData img {
+  width: 125px !important;
+ }

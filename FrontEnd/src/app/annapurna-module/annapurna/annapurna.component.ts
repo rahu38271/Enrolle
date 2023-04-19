@@ -4,8 +4,11 @@ import * as xlsx from 'xlsx';
 import html2pdf from 'html2pdf.js'
 import { AnnapurnaService } from 'src/app/services/annapurna.service';
 import { LoaderService } from 'src/app/services/loader.service';
-import { Router } from '@angular/router'
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { IonicToastService }  from 'src/app/services/ionic-toast.service'
+import { ExcelService } from 'src/app/services/excel.service'
+import { CsvService } from 'src/app/services/csv.service';
 
 @Component({
   selector: 'app-annapurna',
@@ -42,14 +45,19 @@ export class AnnapurnaComponent implements OnInit {
     private loader: LoaderService,
     public toast: IonicToastService,
     private annapurna:AnnapurnaService,
-    private router:Router
+    private router:Router,
+    private excel:ExcelService,
+    private csv:CsvService
     ) { }
 
     ngOnInit() {
-      debugger
-      this.annapurnaList();
-      this.familyList();
       
+      this.router.events.pipe(
+        filter(event => event instanceof NavigationEnd)
+      ).subscribe(() => {
+        this.annapurnaList();
+        this.familyList();
+      })
     }
 
     family(event){
@@ -63,10 +71,10 @@ export class AnnapurnaComponent implements OnInit {
 
    
   annapurnaList(){
-    this.loader.showLoading();
+    //this.loader.showLoading();
     this.annapurna.getAnnapurnaList().subscribe(data=>{
       if(data != 0){
-        this.loader.hideLoader();
+        //this.loader.hideLoader();
         this.getAnnapurna = data
         this.getAnnapurna.forEach(e => {
           e.tokenDate = e.tokenDate.split('T')[0];
@@ -81,10 +89,10 @@ export class AnnapurnaComponent implements OnInit {
         }
       }
       else{
-        this.loader.hideLoader();
+        //this.loader.hideLoader();
       }
     },(err)=>{
-      this.loader.hideLoader();
+      //this.loader.hideLoader();
     })
   }
 
@@ -151,7 +159,12 @@ export class AnnapurnaComponent implements OnInit {
           cssClass: 'yes',
           handler: () => {
             this.annapurna.deleteAnnapurna(id).subscribe(data=>{
-              this.ngOnInit();
+              this.router.events.pipe(
+                filter(event => event instanceof NavigationEnd)
+              ).subscribe(() => {
+                this.annapurnaList();
+                this.familyList();
+              })
               this.toast.presentToast("Annapurna deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })
           }
@@ -163,12 +176,12 @@ export class AnnapurnaComponent implements OnInit {
   }
 
 
-  exportexcel() {
-    const ws: xlsx.WorkSheet =
-      xlsx.utils.table_to_sheet(this.epltable.nativeElement);
-    const wb: xlsx.WorkBook = xlsx.utils.book_new();
-    xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
-    xlsx.writeFile(wb, 'epltable.xlsx');
+  exportExcel():void {
+    this.excel.exportAsExcelFile(this.getAnnapurna, 'Annapurna');
+  }
+
+  exportToCSV() {
+    this.csv.exportToCsv(this.getAnnapurna, 'Annapurna');
   }
 
   pdf() {

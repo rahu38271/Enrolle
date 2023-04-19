@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, AfterViewInit, ElementRef  } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit, ElementRef } from '@angular/core';
 import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { IonModal } from '@ionic/angular';
@@ -7,7 +7,8 @@ import { PopoverController } from '@ionic/angular';
 import { VoterService } from 'src/app/services/voter.service'
 import { ActivatedRoute } from '@angular/router'
 import { LoaderService } from 'src/app/services/loader.service'
-import { Router } from '@angular/router'
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { ModalController } from '@ionic/angular';
 import { Location } from '@angular/common';
@@ -32,19 +33,20 @@ export class VoterDetailsComponent {
   @ViewChild('tr6') tr6: ElementRef;
   @ViewChild('tr7') tr7: ElementRef;
   //@ViewChild('myImg') myImg: ElementRef;
- 
-  text: string=''
-  imgurl:string= 'https://cdn.pixabay.com/photo/2019/12/26/05/10/pink-4719682_960_720.jpg'
-  
+
+  text: string = ''
+  //imgurl: string = 'https://cdn.pixabay.com/photo/2019/12/26/05/10/pink-4719682_960_720.jpg'
+  imgurl: string = 'https://scontent-bom1-2.xx.fbcdn.net/v/t39.30808-6/262921346_1278659969288060_1495313806783760875_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=730e14&_nc_ohc=iloEXgmNY_oAX8-WTxc&_nc_ht=scontent-bom1-2.xx&oh=00_AfD0wJKOTdJ2M8sPLkL-e5DE9lW-kilOCJ91efD8hWczsQ&oe=643BAA03'
+
   ImagePath = ''
   VoterListByUser: any;
   id: any;
   RoleId: any;
   colorUpdate: any = {};
   YesNo: any;
-  pageNo:any=1;
-  NoofRow:any=100;
- 
+  pageNo: any = 1;
+  NoofRow: any = 100;
+  partNo:any;
 
   @ViewChild('slipDesign') slipDesign: ElementRef;
 
@@ -66,20 +68,20 @@ export class VoterDetailsComponent {
   //isStar: any;
   Voter: any = {}
   Vid: any;
-  roleID:any;
+  roleID: any;
   mobUpdate: any = {
 
   }
   adrsUpdate: any = {}
   altmobUpdate: any = {};
   starUpdare: any = {};
-  deadAlive:any = {};
-  voteStatusUpdate:any = {}
+  deadAlive: any = {};
+  voteStatusUpdate: any = {}
   showStar: boolean;
   showVote: boolean;
 
-  bgColor ='#FFF';
-  assemblyName1:any;
+  bgColor = '#FFF';
+  assemblyName1: any;
   closeModal() {
     this.modalCtrl.dismiss();
   }
@@ -109,11 +111,11 @@ export class VoterDetailsComponent {
       private toast: IonicToastService,
       public modalCtrl: ModalController,
       private location: Location,
-      private alertController: AlertController, 
-      private bluetoothSerial: BluetoothSerial, 
+      private alertController: AlertController,
+      private bluetoothSerial: BluetoothSerial,
       private toastCtrl: ToastController
     ) {
-      
+       
   }
 
   ngOnInit() {
@@ -121,11 +123,64 @@ export class VoterDetailsComponent {
     this.Voter = this.router.getCurrentNavigation().extras.state
     //pipe(map(() => window.history.state))
     this.voterDetails();
+    
+  }
+
+  voterDetails() {
+    //this.loader.showLoading();
+    this.VoterListByUser = this.Voter;
+
+    // to get star checked if voter is star voter or not 
+
+    if (this.VoterListByUser.starVoter == null || this.VoterListByUser.starVoter == "N") {
+      this.showStar = !this.showStar
+    }
+    else {
+      this.showStar = this.showStar
+    }
+
+    //to get if voter is voted or not
+
+    if (this.VoterListByUser.isVoted == null || this.VoterListByUser.isVoted == "N") {
+      this.showVote = !this.showVote
+    }
+    else {
+      this.showVote = this.showVote
+    }
+
+    //to get radio button checked if voter is alive or dead
+
+    if (this.VoterListByUser.isAlive == "Y") {
+      this.VoterListByUser.isAlive = 1
+    }
+    else if(this.VoterListByUser.isAlive == "N") {
+      this.VoterListByUser.isAlive = 0
+    }
+    else if(this.VoterListByUser.isAlive == null){
+      this.VoterListByUser.isAlive = ''
+    }
+
+    //to get color checked if voter is supporter, opposite, doubtful or other
+    if (this.VoterListByUser.votingInclination == "Supporter") {
+      this.bgColor = '#0bbb5f'
+    }
+    else if (this.VoterListByUser.votingInclination == "Opposition") {
+      this.bgColor = '#F00'
+    }
+    else if (this.VoterListByUser.votingInclination == "Doubtful") {
+      this.bgColor = '#ffd34f'
+    }
+    else if (this.VoterListByUser.votingInclination == "Other") {
+      this.bgColor = '#fff'
+    }
+
   }
 
   family(id: any) {
     this.router.navigate(['/voterdata-management/family', { Id: id }])
   }
+
+  
 
   sameAddressVoter(id: any) {
     this.router.navigate(['/voterdata-management/family', { Id: id }])
@@ -241,48 +296,100 @@ export class VoterDetailsComponent {
     })
   }
 
-   // update star voter
+  // update star voter
+
+  // toggleStar() {
+  //   this.showStar = !this.showStar;
+  //   this.id = this.Voter.id;
+  //   this.starUpdare.id = Number(this.id);
+  //   this.starUpdare.YesNo = 'Y';
+  //   this.voter.updateStar(this.starUpdare.id, this.starUpdare.YesNo).subscribe(data => {
+  //     if (data) {
+  //       this.voterDetails();
+  //       this.toast.presentToast("Starred successfully!", "success", 'checkmark-circle-sharp');
+  //     }
+  //     else {
+  //       this.toast.presentToast("Starred not updated", "danger", 'alert-circle-sharp');
+  //     }
+  //   }, (_err) => {
+  //     this.toast.presentToast("Starred not updated", "danger", 'alert-circle-sharp');
+  //   })
+  // }
 
   toggleStar() {
-    this.showStar = !this.showStar;
     this.id = this.Voter.id;
     this.starUpdare.id = Number(this.id);
-    this.starUpdare.YesNo = 'Y';
-    this.voter.updateStar(this.starUpdare.id, this.starUpdare.YesNo).subscribe(data => {
-      if (data) {
-        this.voterDetails();
-        this.toast.presentToast("Starred successfully!", "success", 'checkmark-circle-sharp');
-      }
-      else {
+    this.showStar = !this.showStar;
+    if (!this.showStar) {
+      this.showStar == !this.showStar;
+      this.starUpdare.YesNo = 'Y';
+      this.voter.updateStar(this.starUpdare.id, this.starUpdare.YesNo).subscribe(data => {
+        if (data) {
+          this.voterDetails();
+          this.toast.presentToast("Starred successfully!", "success", 'checkmark-circle-sharp');
+        }
+        else {
+          this.toast.presentToast("Starred not updated", "danger", 'alert-circle-sharp');
+        }
+      }, (_err) => {
         this.toast.presentToast("Starred not updated", "danger", 'alert-circle-sharp');
-      }
-    }, (_err) => {
-      this.toast.presentToast("Starred not updated", "danger", 'alert-circle-sharp');
-    })
+      })
+    }
+    if (this.showStar) {
+      this.showStar == this.showStar
+      this.starUpdare.YesNo = 'N';
+      this.voter.updateStar(this.starUpdare.id, this.starUpdare.YesNo).subscribe(data => {
+        if (data) {
+          this.voterDetails();
+          this.toast.presentToast("Starred removed successfully!", "success", 'checkmark-circle-sharp');
+        }
+        else {
+          this.toast.presentToast("Starred not updated", "danger", 'alert-circle-sharp');
+        }
+      }, (_err) => {
+        this.toast.presentToast("Starred not updated", "danger", 'alert-circle-sharp');
+      })
+    }
   }
 
   // update isvoted status
 
-  toggleVote(){
-    this.showVote = !this.showVote;
+  toggleVote() {
     this.id = this.Voter.id;
     this.voteStatusUpdate.id = Number(this.id);
-    this.voteStatusUpdate.YesNo = 'Y';
-    this.voter.updateVotedStatus(this.voteStatusUpdate.id,this.voteStatusUpdate.YesNo).subscribe(data=>{
-      if(data){
-        this.voterDetails();
-        this.toast.presentToast("Vote status updated successfully!", "success", 'checkmark-circle-sharp');
-      }
-      else {
-        this.toast.presentToast("Vote status not updated", "danger", 'alert-circle-sharp');
-      }
-    }, (_err)=>{
-      
-    })
+    this.showVote = !this.showVote;
+    if (!this.showVote) {
+      this.voteStatusUpdate.YesNo = 'Y';
+      this.voter.updateVotedStatus(this.voteStatusUpdate.id, this.voteStatusUpdate.YesNo).subscribe(data => {
+        if (data) {
+          this.voterDetails();
+          this.toast.presentToast("Vote status updated successfully!", "success", 'checkmark-circle-sharp');
+        }
+        else {
+          this.toast.presentToast("Vote status not updated", "danger", 'alert-circle-sharp');
+        }
+      }, (_err) => {
+
+      })
+    }
+    if (this.showVote) {
+      this.voteStatusUpdate.YesNo = 'N';
+      this.voter.updateVotedStatus(this.voteStatusUpdate.id, this.voteStatusUpdate.YesNo).subscribe(data => {
+        if (data) {
+          this.voterDetails();
+          this.toast.presentToast("Vote status updated successfully!", "success", 'checkmark-circle-sharp');
+        }
+        else {
+          this.toast.presentToast("Vote status not updated", "danger", 'alert-circle-sharp');
+        }
+      }, (_err) => {
+
+      })
+    }
   }
 
   //update dead or alive voter
-  aliveDead(){
+  aliveDead() {
     this.id = this.Voter.id;
     this.deadAlive.Id = Number(this.id);
     this.voter.updateAliveDead(this.deadAlive.Id, this.deadAlive.YesNo).subscribe(data => {
@@ -299,43 +406,6 @@ export class VoterDetailsComponent {
     })
   }
 
-  voterDetails() {
-    //this.loader.showLoading();
-    this.VoterListByUser = this.Voter;
-    
-      // to get star checked if voter is star voter or not 
-      
-      if(this.VoterListByUser.starVoter == null || this.VoterListByUser.starVoter == "N"){
-        this.showStar =  !this.showStar
-      }
-      else{
-        this.showStar =  this.showStar
-      }
-
-      //to get if voter is voted or not
-
-      if(this.VoterListByUser.isVoted == null || this.VoterListByUser.isVoted == "N"){
-        this.showVote =  !this.showVote
-      }
-      else{
-        this.showVote =  this.showVote
-      }
-
-      //to get color checked if voter is supporter, opposite, doubtful or other
-      if (this.VoterListByUser.votingInclination == "Supporter") {
-         this.bgColor = '#0bbb5f'
-      }
-      else if (this.VoterListByUser.votingInclination == "Opposition") {
-        this.bgColor = '#F00'
-      }
-      else if (this.VoterListByUser.votingInclination == "Doubtful") {
-        this.bgColor = '#ffd34f'
-      }
-      else if (this.VoterListByUser.votingInclination == "Other") {
-        this.bgColor = '#fff'
-      }
-    
-  }
 
 
   // voterDetails() {
@@ -357,8 +427,8 @@ export class VoterDetailsComponent {
   //     const Vid = this.route.snapshot.paramMap.get('id');
   //     console.log(data.filter((Voter) => Voter.id == Vid))
   //     this.Voter = data.filter((Voter) => Voter.id == Vid);
-      
-      
+
+
 
   //     to get if voter is voted or not
   //     if(this.VoterListByUser.isVoted == null || this.VoterListByUser.isVoted == "N"){
@@ -385,17 +455,18 @@ export class VoterDetailsComponent {
   //   })
   // }
 
-  sameBoothVoter(id: any) {
-    const coloumnValue = this.VoterListByUser.partNo;
-    this.router.navigate(['/list/boothwise-list', { Id: id }])
-  }
+  // sameBoothVoter(id: any) {
+  //   debugger;
+  //   this.VoterListByUser.partNo = this.partNo;
+  //   this.router.navigate(['/list/boothwise-list', { Id: id }])
+  // }
 
   goback() {
     this.location.back();
   }
 
-  onSubmit(){
-    
+  onSubmit() {
+
   }
 
   printSlip() {
@@ -423,36 +494,36 @@ export class VoterDetailsComponent {
   //   this.socialSharing.shareWithOptions(options);
   // }
 
-//   ShareWhatsapp() {
-//     this.socialSharing.shareViaWhatsApp(this.ImagePath);
-//     console.log(this.ImagePath)
-//   }
-// }
+  //   ShareWhatsapp() {
+  //     this.socialSharing.shareViaWhatsApp(this.ImagePath);
+  //     console.log(this.ImagePath)
+  //   }
+  // }
 
   ShareWhatsapp() {
     this.socialSharing.shareViaWhatsApp
       (
-    this.myDiv.nativeElement.innerText  
-    + '\n' +this.tr1.nativeElement.innerText 
-    + '\n' +this.tr2.nativeElement.innerText 
-    + '\n' +this.tr3.nativeElement.innerText
-    + '\n' +this.tr4.nativeElement.innerText 
-    + '\n' +this.tr5.nativeElement.innerText 
-    + '\n' +this.tr6.nativeElement.innerText 
-    + '\n' +this.tr7.nativeElement.innerText
+        this.myDiv.nativeElement.innerText
+        + '\n' + this.tr1.nativeElement.innerText
+        + '\n' + this.tr2.nativeElement.innerText
+        + '\n' + this.tr3.nativeElement.innerText
+        + '\n' + this.tr4.nativeElement.innerText
+        + '\n' + this.tr5.nativeElement.innerText
+        + '\n' + this.tr6.nativeElement.innerText
+        + '\n' + this.tr7.nativeElement.innerText
       );
     //console.log(this.tr1.nativeElement.innerText);
   }
 
-  ShareWhatsapp1(){
-    this.socialSharing.shareViaWhatsApp(this.myDiv.nativeElement.innerText  
-    + '\n' +this.tr1.nativeElement.innerText 
-    + '\n' +this.tr2.nativeElement.innerText 
-    + '\n' +this.tr3.nativeElement.innerText
-    + '\n' +this.tr4.nativeElement.innerText 
-    + '\n' +this.tr5.nativeElement.innerText 
-    + '\n' +this.tr6.nativeElement.innerText 
-    + '\n' +this.tr7.nativeElement.innerText, this.imgurl)
+  ShareWhatsapp1() {
+    this.socialSharing.shareViaWhatsApp(this.myDiv.nativeElement.innerText
+      + '\n' + this.tr1.nativeElement.innerText
+      + '\n' + this.tr2.nativeElement.innerText
+      + '\n' + this.tr3.nativeElement.innerText
+      + '\n' + this.tr4.nativeElement.innerText
+      + '\n' + this.tr5.nativeElement.innerText
+      + '\n' + this.tr6.nativeElement.innerText
+      + '\n' + this.tr7.nativeElement.innerText, this.imgurl)
   }
 
 }

@@ -47,8 +47,14 @@
             </ion-grid>
             <ion-card>
               <ion-card-content>
-                <div class="search">
-                  <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+                <div class="headSection">
+                  <div class="search">
+                    <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+                  </div>
+                  <div class="btns">
+                    <ion-button class="button-download" color="success" (click)="exportExcel()" ><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
+                    <ion-button class="button-download" color="success" (click)="exportToCSV()" ><ion-icon name="document-sharp"></ion-icon>CSV</ion-button>
+                  </div>
                 </div>
                 <div class="horizontal-scroll">
                   <table id="userAdminTable" #epltable class="table">

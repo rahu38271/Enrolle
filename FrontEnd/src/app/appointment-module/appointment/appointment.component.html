@@ -74,7 +74,10 @@
           <div class="search">
             <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
           </div>
-          <ion-button class="button-download" color="success" (click)="downloadExcel()" ><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
+          <div class="btns">
+            <ion-button class="button-download" color="success" (click)="exportExcel()" ><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
+            <ion-button class="button-download" color="success" (click)="exportToCSV()" ><ion-icon name="document-sharp"></ion-icon>CSV</ion-button>
+          </div>
         </div>
         <div class="horizontal-scroll">
           <table class="table" id="table13" #epltable>
@@ -117,34 +120,13 @@
                 <th>City / Village</th>
                 <th>File</th>
                 <th>Remark</th>
+                <th>Status</th>
                 <th id="element-to-hide" data-html2canvas-ignore="true">
                   Action
                 </th>
               </tr>
             </thead>
             <tbody>
-              <!-- <tr>
-                <td>1</td>
-                <td>Sagar Manaji Salunkhe</td>
-                <td></td>
-                <td>11/03/2023</td>
-                <td>
-                  9158490455
-                </td>
-                <td>11/06/1994</td>
-                <td>Aadhar Card</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td id="element-to-hide" data-html2canvas-ignore="true">
-                  <ion-icon routerLink="/appointment/edit-appointment" name="create-sharp"></ion-icon>
-                </td>
-              </tr> -->
               <tr *ngFor="let item of getApmList | filter:searchWeb">
                 <td>{{item.id}}</td>
                 <td class="text-capitalize">{{item.firstName}} {{item.middleName}} {{item.lastName}}</td>
@@ -165,6 +147,13 @@
                 <td>{{item.city_Village}}</td>
                 <td>{{item.fileName}}</td>
                 <td>{{item.remark}}</td>
+                <td>
+                  <ion-select placeholder="Select" class="form-control" interface="popover">
+                    <ion-select-option>Approve</ion-select-option>
+                    <ion-select-option>Reject</ion-select-option>
+                    <ion-select-option >Reschedule</ion-select-option>
+                  </ion-select>
+                </td>
                 <td id="element-to-hide" data-html2canvas-ignore="true" class="action">
                   <ion-icon (click)="editAppointment(item)" name="create-sharp"></ion-icon>
                   <ion-icon (click)="deleteApm(item.id)" class="delete" name="trash-bin-sharp"></ion-icon> 

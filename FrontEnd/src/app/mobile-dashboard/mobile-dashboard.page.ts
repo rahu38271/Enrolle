@@ -3,8 +3,9 @@ import { IAccTooltipRenderEventArgs, IPointEventArgs } from '@syncfusion/ej2-ang
 import { MenuController,PopoverController } from '@ionic/angular'
 import { NotificationComponent } from '../notification/notification.component';
 import { ProfileComponent } from '../profile/profile.component'; 
-import { RefreshService } from 'src/app/services/refresh.service'
-
+import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { TranslateService } from '@ngx-translate/core';
+import { ActionSheetController } from '@ionic/angular';
 
 @Component({
   selector: 'app-mobile-dashboard',
@@ -12,7 +13,7 @@ import { RefreshService } from 'src/app/services/refresh.service'
   styleUrls: ['./mobile-dashboard.page.scss'],
 })
 export class MobileDashboardPage implements OnInit {
-
+  language: any;
   showHead: boolean = false;
   isSearch:any;
   isList:any;
@@ -26,7 +27,11 @@ export class MobileDashboardPage implements OnInit {
   name: any;
   roleName: string;
   roleId:any;
-
+  state:any;
+  isMarathi:any;
+  public Search: string;
+  public Lists: string;
+  public Survey: string;
   public birthData: Object[];
   public anniData: Object[];
   public primaryXAxis: Object;
@@ -66,9 +71,11 @@ export class MobileDashboardPage implements OnInit {
   constructor(
     public menuCtrl: MenuController,
     public popoverController: PopoverController,
-    public refresh : RefreshService
+    private translateConfigService: TranslateConfigService,
+    public actionSheetController: ActionSheetController
     ) {
-     
+      this.translateConfigService.getDefaultLanguage();
+      this.language = this.translateConfigService.getCurrentLang();
   }
 
   ionViewWillEnter() {
@@ -78,6 +85,7 @@ export class MobileDashboardPage implements OnInit {
    ngOnInit(): void {
     this.id = localStorage.getItem("loginId");
     this.name = localStorage.getItem("loginUser");
+    this.state = localStorage.getItem("state");
     this.roleId = localStorage.getItem("userType");
     if(this.roleId == 1){
       this.roleName = "MasterAdmin"
@@ -92,6 +100,14 @@ export class MobileDashboardPage implements OnInit {
       this.roleName = "Volunteer"
     }
 
+    if(this.state == "Maharashtra"){
+      this.isMarathi = this.isMarathi
+    }
+    else{
+      this.isMarathi = !this.isMarathi
+    }
+    
+
     var roleId = localStorage.getItem("userType");
     //this.roleType = roleName
     var isMasterAdmin = roleId == "1"
@@ -99,8 +115,8 @@ export class MobileDashboardPage implements OnInit {
     var isAdmin = roleId == "3";
     var isVolunteer = roleId == "4"
     
-    this.isSearch = isMasterAdmin || isSuperAdmin || isAdmin || isVolunteer;
-    this.isList = isMasterAdmin|| isSuperAdmin || isAdmin  || isVolunteer;
+    this.isSearch = isVolunteer;
+    this.isList =  isSuperAdmin || isAdmin || isVolunteer;
     this.isContact =isMasterAdmin || isSuperAdmin || isAdmin;
     this.isBirthDay = isMasterAdmin || isSuperAdmin || isAdmin;
     this.isAnniversary = isMasterAdmin || isSuperAdmin || isAdmin;
@@ -218,6 +234,84 @@ export class MobileDashboardPage implements OnInit {
     const { role } = await popover.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
   }
+
+  async changeLanguage() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Languages',
+      buttons: [{
+        text: 'English',
+        icon: 'language-outline',
+        handler: () => {
+          this.language = 'en';
+          this.translateConfigService.setLanguage('en');
+        },
+      }, {
+        text: 'Marathi',
+        icon: 'language-outline',
+        handler: () => {
+          this.language = 'mr';
+          this.translateConfigService.setLanguage('mr');
+        }
+      }, {
+        text: 'Hindi',
+        icon: 'language-outline',
+        handler: () => {
+          this.language = 'hi';
+          this.translateConfigService.setLanguage('hi');
+        }
+      },{
+        text: 'Kannada',
+        icon: 'language-outline',
+        handler: () => {
+          this.language = 'kn';
+          this.translateConfigService.setLanguage('kn');
+        }
+      }, {
+        text: 'Cancel',
+        icon: 'close',
+        role: 'cancel',
+        handler: () => {
+          console.log('Cancel clicked');
+        }
+      }]
+    });
+    await actionSheet.present();
+
+    const { role, data } = await actionSheet.onDidDismiss();
+    console.log('onDidDismiss resolved with role and data', role, data);
+  }
+
+  // async changeLanguage() {
+  //   const actionSheet = await this.actionSheetController.create({
+  //     header: 'Languages',
+  //     buttons: [{
+  //       text: 'English',
+  //       icon: 'language-outline',
+  //       handler: () => {
+  //         this.language = 'en';
+  //         this.translateConfigService.setLanguage('en');
+  //       },
+  //     },{
+  //       text: 'Kannada',
+  //       icon: 'language-outline',
+  //       handler: () => {
+  //         this.language = 'kn';
+  //         this.translateConfigService.setLanguage('kn');
+  //       }
+  //     }, {
+  //       text: 'Cancel',
+  //       icon: 'close',
+  //       role: 'cancel',
+  //       handler: () => {
+  //         console.log('Cancel clicked');
+  //       }
+  //     }]
+  //   });
+  //   await actionSheet.present();
+
+  //   const { role, data } = await actionSheet.onDidDismiss();
+  //   console.log('onDidDismiss resolved with role and data', role, data);
+  // }
 
 }
 
