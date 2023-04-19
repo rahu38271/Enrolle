@@ -8,6 +8,7 @@ namespace ElectionAlerts.Model
     public class Voter
     {
         public int Id { get; set; }
+        public int? SrNo { get; set; }
         public string FullName { get; set; }
         public DateTime? BirthDate { get; set; }
         public int? Age { get; set; }
@@ -44,8 +45,17 @@ namespace ElectionAlerts.Model
         public string Education { get; set; }
         public string FamilyMember { get; set; }
         public string IsSurvey { get; set; }
-        public DateTime? CreatedDate { get; set; }
+        public int? AssemblyNo { get; set; }
         public string IsVoted { get; set; }
+        public string AssemblyName_KR { get; set; }
+        public string FullName_KR { get; set; }
+        public string Village_KR { get; set; }
+        public string Address_KR { get; set; }
+        public string AssemblyName_HN { get; set; }
+        public string FullName_HN { get; set; }
+        public string Village_HN { get; set; }
+        public string Address_HN { get; set; }
+        public DateTime? CreatedDate { get; set; }
 
     }
 

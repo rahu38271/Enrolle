@@ -18,7 +18,12 @@ namespace ElectionAlerts.Services.ServiceClasses
             _voterRepository = voterRepository;
         }
 
-        public IEnumerable<Voter> AdvancedSearch(AdvanceSearchDTO searchDTO)
+        public int AddCastName(string CasteName)
+        {
+            return _voterRepository.AddCastName(CasteName);
+        }
+
+        public IEnumerable<VoterDTO> AdvancedSearch(AdvanceSearchDTO searchDTO)
         {
             return _voterRepository.AdvancedSearch(searchDTO);
         }
@@ -39,24 +44,29 @@ namespace ElectionAlerts.Services.ServiceClasses
             
         }
 
-        public IEnumerable<Voter> FilterVoterbyCondition(VoterTable table)
+        public IEnumerable<VoterDTO> FilterVoterbyCondition(VoterTable table)
         {
             return _voterRepository.FilterVoterbyCondition(table);
         }
 
-        public IEnumerable<Voter> FilterVoterList(VoterTable table)
+        public IEnumerable<VoterDTO> FilterVoterList(VoterTable table)
         {
             return _voterRepository.FilterVoterList(table);
         }
 
-        public IEnumerable<VoterAssembly> GetAllVoter(int UserId, int RoleId ,int PageNo, int NoofRow)
+        public IEnumerable<Caste> GetAllCaste()
         {
-            return _voterRepository.GetAllVoter(UserId,RoleId, PageNo,NoofRow);
+            return _voterRepository.GetAllCaste();
         }
 
-        public IEnumerable<BoothName> GetBoothNamebyUserId(int userid,int roleid)
+        public IEnumerable<VoterDTO> GetAllVoter(int UserId, int RoleId ,int PageNo, int NoofRow,string Language)
         {
-            return _voterRepository.GetBoothNamebyUserId(userid,roleid);
+            return _voterRepository.GetAllVoter(UserId,RoleId, PageNo,NoofRow, Language);
+        }
+
+        public IEnumerable<BoothName> GetBoothNamebyUserId(int userid,int roleid, int PageNo, int NoofRow)
+        {
+            return _voterRepository.GetBoothNamebyUserId(userid,roleid,PageNo,NoofRow);
         }
 
         public IEnumerable<VoterPPBooth> GetDistinctPartNo(int Role, int UserId)
@@ -69,9 +79,9 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.GetMemberDetailsbyVId(voterid);
         }
 
-        public IEnumerable<VoterDTO> GetStarVoterbyUserId(int userid,int roleid)
+        public IEnumerable<VoterDTO> GetStarVoterbyUserId(int userid,int roleid, int PageNo, int NoofRow, string Language)
         {
-            return _voterRepository.GetStarVoterbyUserId(userid,roleid);
+            return _voterRepository.GetStarVoterbyUserId(userid,roleid,PageNo,NoofRow,Language);
         }
 
         public IEnumerable<VoterCount> GetTotalVoterCount(int userid, int roleid)
@@ -79,9 +89,9 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.GetTotalVoterCount(userid,roleid);
         }
 
-        public IEnumerable<Voter> GetVoterAgeBetween(int Age1, int Age2, string Gender,int UserId, int RoleId )
+        public IEnumerable<VoterDTO> GetVoterAgeBetween(int Age1, int Age2, string Gender,int UserId, int RoleId, int PageNo, int NoofRow, string Language)
         {
-            return _voterRepository.GetVoterAgeBetween(Age1, Age2, Gender, UserId, RoleId);
+            return _voterRepository.GetVoterAgeBetween(Age1, Age2, Gender, UserId, RoleId,PageNo,NoofRow,Language);
         }
 
         public IEnumerable<VoterbyBooth> GetVoterbybooth(int userid,int roleid)
@@ -89,24 +99,24 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.GetVoterbybooth(userid, roleid);
         }
 
-        public IEnumerable<Voter> GetVoterByPartNo(int partno)
+        public IEnumerable<VoterDTO> GetVoterByPartNo(int partno, int PageNo, int NoofRow, string Language)
         {
-            return _voterRepository.GetVoterByPartNo(partno);
+            return _voterRepository.GetVoterByPartNo(partno,PageNo,NoofRow,Language);
         }
 
-        public IEnumerable<VoterDTO> GetVoterbyRelation(int Id,int UserId, int RoleId)
+        public IEnumerable<VoterDTO> GetVoterbyRelation(int Id,int UserId, int RoleId, int PageNo, int NoofRow,string Language)
         {
-            return _voterRepository.GetVoterbyRelation(Id, UserId,RoleId);
+            return _voterRepository.GetVoterbyRelation(Id, UserId,RoleId,PageNo,NoofRow,Language);
         }
 
-        public IEnumerable<Voter> GetVoterbyRole(VoterSuperDto voterSuperDto)
+        public IEnumerable<VoterDTO> GetVoterbyRole(VoterSuperDto voterSuperDto)
         {
             return _voterRepository.GetVoterbyRole(voterSuperDto);
         }
 
-        public IEnumerable<Voter> GetVoterByUserId(int userid,int roleid)
+        public IEnumerable<VoterDTO> GetVoterByUserId(int userid,int roleid, int PageNo, int NoofRow, string Language)
         {
-            return _voterRepository.GetVoterByUserId(userid, roleid);
+            return _voterRepository.GetVoterByUserId(userid, roleid,PageNo,NoofRow,Language);
         }
 
         public IEnumerable<Table> GetVoterCountbyColoumn(int UserId, int RoleId, string Coloumn)
@@ -114,19 +124,24 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.GetVoterCountbyColoumn(UserId, RoleId, Coloumn);
         }
 
-        public IEnumerable<Table> GetVoterCountbyLastName(int userid,int roleid)
+        public IEnumerable<LastNameCount> GetVoterCountbyLastName(int userid,int roleid, int PageNo, int NoofRow, string Language)
         {
-            return _voterRepository.GetVoterCountbyLastName(userid, roleid);
+            return _voterRepository.GetVoterCountbyLastName(userid, roleid,PageNo,NoofRow,Language);
         }
 
-        public VoterDTO GetVoterDetailbyId(int Id)
+        public VoterDTO GetVoterDetailbyId(int Id, string Language)
         {
-            return _voterRepository.GetVoterDetailbyId(Id);
+            return _voterRepository.GetVoterDetailbyId(Id,Language);
         }
 
-        public IEnumerable<VoterDTO> GetVoterInclinationUserId(string inclination, int userid,int roleid)
+        public IEnumerable<VoterDTO> GetVoterInclinationUserId(string inclination, int userid,int roleid, int PageNo, int NoofRow, string Language)
         {
-            return _voterRepository.GetVoterInclinationUserId(inclination, userid,roleid);
+            return _voterRepository.GetVoterInclinationUserId(inclination, userid,roleid,PageNo,NoofRow,Language);
+        }
+
+        public int InsertBulkMobile(List<Mobile> mobiles)
+        {
+            return _voterRepository.InsertBulkMobile(mobiles);
         }
 
         public int InsertBulkVoter(List<Voter> voters)
@@ -164,6 +179,11 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.UpdateAddressVoter(Id, Address);
         }
 
+        public int UpdateColoumnTbl(int Id, string ColoumnName, string ColoumnValue)
+        {
+            return _voterRepository.UpdateColoumnTbl(Id, ColoumnName, ColoumnValue);
+        }
+
         public int UpdateIsAliveVoter(int id, string YesNo)
         {
             return _voterRepository.UpdateIsAliveVoter(id, YesNo);
@@ -189,14 +209,14 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.UpdateVoterInclination(id, Colour);
         }
 
-        public IEnumerable<VoterDTO> VoterDetailsbyColumn(string ColoumnName, string ColoumnValue,int UserId,int RoleId)
+        public IEnumerable<VoterDTO> VoterDetailsbyColumn(string ColoumnName, string ColoumnValue,int UserId,int RoleId, int PageNo, int NoofRow, string Language)
         {
-            return _voterRepository.VoterDetailsbyColumn(ColoumnName, ColoumnValue,UserId, RoleId);
+            return _voterRepository.VoterDetailsbyColumn(ColoumnName, ColoumnValue,UserId, RoleId,PageNo,NoofRow,Language);
         }
 
-        public IEnumerable<VoterDTO> VoterDetailsbyLastName(string LName, int UserId,int RoleId)
+        public IEnumerable<VoterDTO> VoterDetailsbyLastName(string LName, int UserId,int RoleId, int PageNo, int NoofRow, string Language)
         {
-            return _voterRepository.VoterDetailsbyLastName(LName, UserId, RoleId);
+            return _voterRepository.VoterDetailsbyLastName(LName, UserId, RoleId,PageNo,NoofRow,Language);
         }
 
         public IEnumerable<VoterInclination> VoterInclination(int userid,int roleid)
@@ -204,9 +224,9 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.VoterInclination(userid, roleid);
         }
 
-        public IEnumerable<VoterDTO> VoterwithMobileNo(int userid,int roleid)
+        public IEnumerable<VoterDTO> VoterwithMobileNo(int userid,int roleid, int PageNo, int NoofRow, string Language)
         {
-            return _voterRepository.VoterwithMobileNo(userid, roleid);
+            return _voterRepository.VoterwithMobileNo(userid, roleid,PageNo,NoofRow,Language);
         }
     }
 }

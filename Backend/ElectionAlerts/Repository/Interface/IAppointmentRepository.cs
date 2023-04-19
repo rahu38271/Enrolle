@@ -13,7 +13,7 @@ namespace ElectionAlerts.Repository.Interface
         IEnumerable<Appointment> GetAppointments();
         IEnumerable<Appointment> GetAppointmentbyDate(DateTime dateTime);
         int DeleteAppointmentbyId(int Id);
-        int UpdateApointmentStatus(int Id, string Status, DateTime? datetime);
+        int UpdateApointmentStatus(int Id, string Status, string datetime);
         IEnumerable<AppointmentDTO> GetTodayAppointment();
         IEnumerable<Appointment> GetAppointmentbyStatus(string Status);
         int DownloadFile(int Id,string FileName);

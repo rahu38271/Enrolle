@@ -26,7 +26,7 @@ namespace ElectionAlerts.Dto
         public string City_Village { get; set; }
         public string Remark { get; set; }
         public string FileName { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public string CreatedDate { get; set; }
         public string Status { get; set; }
         public int TodayCount { get; set; }
 

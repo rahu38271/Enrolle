@@ -20,6 +20,9 @@ namespace ElectionAlerts.Dto
         public string Village { get; set; }
         public int UserId { get; set; }
         public int RoleId { get; set; }
+        public int PageNo { get; set; }
+        public int NoofRow { get; set; }
+        public string Language { get; set; }
 
 
     }

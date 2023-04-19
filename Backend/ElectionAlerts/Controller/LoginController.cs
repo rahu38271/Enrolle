@@ -2,6 +2,7 @@
 using ElectionAlerts.Repository;
 using ElectionAlerts.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
@@ -38,11 +39,11 @@ namespace ElectionAlerts.Controller
             string msg="DB Changed";
             string token = "";
             Startup.ElectionAlertConStr = null;
-            var Users = new List<AdminUser>();
+            List<AdminUser> adminUsers=new List<AdminUser>();
             var user = _loginService.LoginUser(Username, Password);
             if (user != null)
-            {            
-                Users.Add(user);
+            {
+                adminUsers.Add(user);
                 msg = "User Logined";
                 if (user.RoleId>1)
                 {
@@ -71,15 +72,22 @@ namespace ElectionAlerts.Controller
                     catch(Exception ex)
                     {
                         msg = ex.InnerException + "  Message : " + ex.Message;
-                    }         
-                    return Ok(new { token = token, ExpiryTime = 1800, User = Users});
+                    }              
                 }
+                if (user.RoleId == 3|| user.RoleId==4)
+                {
+                    var User = _loginService.GetAllUser();
+                    var userdet = from us in User where us.Contact == Username select us;
+                    var SuperAdmin = from u in User where u.Id == user.SuperAdminId select u;
+                    var UserDetails = (from u in userdet join s in SuperAdmin on u.SuperAdminId equals s.Id select new { Id = u.Id, Name = u.Name, Contact = u.Contact, UserName = u.UserName, Password = u.Password, Email = u.Email, State = s.State, District = s.District, Taluka = s.Taluka, AssemblyName = s.AssemblyName, Village = s.Village, RoleId = u.RoleId, CreatedDate = u.CreatedDate, IsActive = u.IsActive, AdminId = u.AdminId, SuperAdminId = u.SuperAdminId, SuperAdminName = s.Name }).ToList();
+                    return Ok(new { token = token, ExpiryTime = 1800, User = UserDetails });
+                }
+                return Ok(new { token = token, ExpiryTime = 1800, User = adminUsers });
             }
             else
             {
                 return Ok("Invalid Username or Password!");
             }
-            return Ok(new { token = token, ExpiryTime = 1800, User = Users });
         }
 
         [HttpPost("InsertUpdateDBConfigure")]
@@ -141,8 +149,18 @@ namespace ElectionAlerts.Controller
         public IActionResult CreateUser(AdminUser user)
         {
             try
-            {
-                return Ok(_loginService.InsertUser(user));
+            {    
+               IEnumerable<AdminUser>  users = _loginService.GetAllUser();
+                if (users != null)
+                {
+                    var result = from u in users where u.Contact == user.Contact || u.Password == user.Password select u;
+                    if (result.Count() != 0)
+                        return Ok("User or Password Already Exist");
+                    else
+                        return Ok(_loginService.InsertUser(user));
+                }
+                else
+                    return Ok(_loginService.InsertUser(user));
             }
             catch(Exception ex)
             {
@@ -171,6 +189,30 @@ namespace ElectionAlerts.Controller
         {
             try
             {
+                var users = _loginService.GetAllUser();
+                if (users != null)
+                {
+                    var user = (from u in users where u.Id == Id select u).FirstOrDefault();
+                    if (user != null)
+                    {
+
+                        var configDB = _loginService.GetConfigureDBbyUser(user.SuperAdminId);
+                        if (configDB != null)
+                        {
+                            string cnstr = "Server=" + configDB.IPAddress + ";Database=" + configDB.DBName + ";User Id=" + configDB.UserName + ";Password =" + configDB.Password + ";pooling=false;";
+                            using (SqlConnection cn = new SqlConnection(cnstr))
+                            {
+                                string command = "Delete from Tbl_UserAssigned where UserId=" + Id + "";
+                                using (SqlCommand com = new SqlCommand(command, cn))
+                                {
+                                    cn.Open();
+                                    com.ExecuteNonQuery();
+                                    cn.Close();
+                                }
+                            }
+                        }
+                    }
+                }
                 return Ok(_loginService.DeleteUser(Id));
             }
             catch (Exception ex)
