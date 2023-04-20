@@ -9,9 +9,10 @@ import { EditAppointmentComponent} from './edit-appointment/edit-appointment.com
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { TodaysAppointmentComponent } from './todays-appointment/todays-appointment.component';
 
 @NgModule({
-  declarations: [AppointmentComponent,AddAppointmentComponent,EditAppointmentComponent],
+  declarations: [AppointmentComponent,AddAppointmentComponent,EditAppointmentComponent, TodaysAppointmentComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -19,7 +20,12 @@ import { NgSelectModule } from '@ng-select/ng-select';
     NgxPaginationModule,
     Ng2SearchPipeModule,
     NgSelectModule,
-    RouterModule.forChild([{path: '', component:AppointmentComponent}, {path:'add-appointment', component:AddAppointmentComponent},{path:'edit-appointment', component:EditAppointmentComponent}])
+    RouterModule.forChild([
+      {path: '', component:AppointmentComponent}, 
+      {path:'add-appointment', component:AddAppointmentComponent},
+      {path:'edit-appointment', component:EditAppointmentComponent},
+      {path:'today-appointment', component:TodaysAppointmentComponent}
+    ])
   ]
 })
 export class AppointmentModuleModule { }

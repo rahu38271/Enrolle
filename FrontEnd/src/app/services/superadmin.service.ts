@@ -31,6 +31,7 @@ export class SuperadminService {
   }
 
   edit(edModal:any):Observable<any>{
+    debugger;
     return this.http.post<any>(this.url + 'Login/CreateUpdateUser', edModal);
   }
 

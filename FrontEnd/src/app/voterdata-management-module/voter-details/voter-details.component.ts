@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { IonModal } from '@ionic/angular';
@@ -14,6 +14,8 @@ import { ModalController } from '@ionic/angular';
 import { Location } from '@angular/common';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
 import { AlertController, ToastController } from '@ionic/angular';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslateConfigService } from 'src/app/services/translate-config.service';
 
 
 @Component({
@@ -22,7 +24,7 @@ import { AlertController, ToastController } from '@ionic/angular';
   styleUrls: ['./voter-details.component.scss'],
 })
 export class VoterDetailsComponent {
-
+  Language: any;
   @ViewChild(IonModal) modal: IonModal;
   @ViewChild('myDiv') myDiv: ElementRef;
   @ViewChild('tr1') tr1: ElementRef;
@@ -77,9 +79,13 @@ export class VoterDetailsComponent {
   starUpdare: any = {};
   deadAlive: any = {};
   voteStatusUpdate: any = {}
+  professionUpdate:any = {}
+  BirthdateUpdate:any={}
+  CasteUpdate:any={}
   showStar: boolean;
   showVote: boolean;
-
+  casteList:any;
+ 
   bgColor = '#FFF';
   assemblyName1: any;
   closeModal() {
@@ -113,9 +119,13 @@ export class VoterDetailsComponent {
       private location: Location,
       private alertController: AlertController,
       private bluetoothSerial: BluetoothSerial,
-      private toastCtrl: ToastController
+      private toastCtrl: ToastController,
+      private _cdr: ChangeDetectorRef,
+      public translate: TranslateService,
+      private translateConfigService: TranslateConfigService,
     ) {
-       
+      this.Language = this.translateConfigService.getCurrentLang();
+      
   }
 
   ngOnInit() {
@@ -123,13 +133,16 @@ export class VoterDetailsComponent {
     this.Voter = this.router.getCurrentNavigation().extras.state
     //pipe(map(() => window.history.state))
     this.voterDetails();
-    
+    this.AllCasts();
+  
   }
+
+ 
 
   voterDetails() {
     //this.loader.showLoading();
     this.VoterListByUser = this.Voter;
-
+    
     // to get star checked if voter is star voter or not 
 
     if (this.VoterListByUser.starVoter == null || this.VoterListByUser.starVoter == "N") {
@@ -180,7 +193,7 @@ export class VoterDetailsComponent {
     this.router.navigate(['/voterdata-management/family', { Id: id }])
   }
 
-  
+ 
 
   sameAddressVoter(id: any) {
     this.router.navigate(['/voterdata-management/family', { Id: id }])
@@ -240,6 +253,70 @@ export class VoterDetailsComponent {
       }
     }, (_err) => {
       this.toast.presentToast("Address not updated", "danger", 'alert-circle-sharp');
+    })
+  }
+
+  // add profession
+
+  saveProfession(){
+    this.id = this.Voter.id;
+    this.professionUpdate.Id = Number(this.id);
+    this.professionUpdate.ColoumnName = "Occupation"
+    this.voter.updateProfession(this.professionUpdate.Id, this.professionUpdate.ColoumnName,this.professionUpdate.ColoumnValue).subscribe(data=>{
+      if(data){
+        this.voterDetails();
+        this.closeModal();
+        this.toast.presentToast("profession updated successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+
+      }
+    },(err)=>{
+
+    })
+  }
+
+  // add Birthdate
+
+  saveBirthdate(){
+    debugger;
+    this.id = this.Voter.id;
+    this.BirthdateUpdate.Id = Number(this.id);
+    this.BirthdateUpdate.ColoumnName = "Birthdate"
+    this.voter.updateDoB(this.BirthdateUpdate.Id, this.BirthdateUpdate.ColoumnName,this.BirthdateUpdate.ColoumnValue).subscribe(data=>{
+      if(data){
+        this.voterDetails();
+        this.closeModal();
+        this.toast.presentToast("Birthdate updated successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+
+      }
+    },(err)=>{
+
+    })
+  }
+
+  // add Caste
+
+  saveCaste(){
+    debugger;
+    this.id = this.Voter.id;
+    this.CasteUpdate.Id = Number(this.id);
+    this.CasteUpdate.ColoumnName = "Caste"
+    this.CasteUpdate.ColoumnValue = this.CasteUpdate.ColoumnValue;
+    this.voter.updateCaste(this.CasteUpdate.Id, this.CasteUpdate.ColoumnName,this.CasteUpdate.ColoumnValue).subscribe(data=>{
+      if(data){
+        this.voterDetails();
+        this.closeModal();
+
+        this.toast.presentToast("Caste updated successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+
+      }
+    },(err)=>{
+
     })
   }
 
@@ -406,7 +483,24 @@ export class VoterDetailsComponent {
     })
   }
 
-
+  AllCasts(){
+    if (this.Language == "kn") {
+      this.Language = "Kannada"
+    }
+    else if (this.Language == "mr") {
+      this.Language = "Marathi"
+    }
+    else if (this.Language == "hi") {
+      this.Language = "Hindi"
+    }
+    else {
+      this.Language = "English"
+    }
+    this.voter.getAllCaste(this.Language).subscribe(data=>{
+      console.log(data)
+      this.casteList = data;
+    })
+  }
 
   // voterDetails() {
   //   this.loader.showLoading();

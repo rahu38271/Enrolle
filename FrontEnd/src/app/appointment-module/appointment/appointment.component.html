@@ -26,7 +26,7 @@
           </ion-col>
           <ion-col size-xs="12" size-sm="6" class="ion-text-right">
             <ion-button class="button-download" color="primary" routerLink="/appointment/add-appointment"><ion-icon name="add-circle-sharp"></ion-icon>Add Appointment</ion-button>
-            <!-- <ion-button class="button-download" fill="outline" color="primary" ><ion-icon name="refresh-circle-sharp"></ion-icon>Refresh</ion-button> -->
+            <ion-button class="button-download" fill="outline" routerLink="/appointment/today-appointment" color="primary" ><ion-icon name="refresh-circle-sharp"></ion-icon>Today's Appointments</ion-button>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -53,6 +53,7 @@
                   presentation="date" 
                   [(ngModel)]="apmDate" 
                   name="apmDate"
+                  
                 >
                   <span slot="title"> {{ year }} </span>
                 </ion-datetime>
@@ -148,11 +149,16 @@
                 <td>{{item.fileName}}</td>
                 <td>{{item.remark}}</td>
                 <td>
-                  <ion-select placeholder="Select" class="form-control" interface="popover">
-                    <ion-select-option>Approve</ion-select-option>
-                    <ion-select-option>Reject</ion-select-option>
-                    <ion-select-option >Reschedule</ion-select-option>
-                  </ion-select>
+                  <!-- <ion-icon class="approveBtn" (click)="approveApm($event)" id="{{item.id}}" name="checkbox-sharp"></ion-icon>
+                  <ion-icon class="rejectBtn" (click)="rejectApm($event)" id="{{item.id}}"  name="close-circle-sharp"></ion-icon>
+                  <ion-icon class="rsBtn" (click)="rescheduleApm($event)" id="{{item.id}}" name="calendar-clear-sharp"></ion-icon> -->
+                  <select placeholder="Select" class="form-control-sm" [(ngModel)]="updateStatusModal.Status" (change)="changeStatus($event)" id="{{item.id}}">
+                    <option value="" selected>Select</option>
+                    <option value="Approved">Approve</option>
+                    <option value="Rejected">Reject</option>
+                    <option value="Reschedule">Reschedule</option>
+                  </select>
+                  
                 </td>
                 <td id="element-to-hide" data-html2canvas-ignore="true" class="action">
                   <ion-icon (click)="editAppointment(item)" name="create-sharp"></ion-icon>
@@ -165,6 +171,23 @@
             <p>No data</p>
           </div>
           <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+
+          
+          <ion-modal [isOpen]="isModalOpen" [backdropDismiss]="false">
+            <ng-template>
+              <ion-content class="ion-padding">
+                <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+                  <ion-datetime 
+                    presentation="date" 
+                    [(ngModel)]="reschedule" 
+                    name="reschedule"
+                  >
+                    <span slot="title"> {{ year }} </span>
+                  </ion-datetime>
+              </form>
+              </ion-content>
+            </ng-template>
+          </ion-modal>
         </div>
       </ion-card-content>
     </ion-card>

@@ -22,6 +22,11 @@ export class EditAppointmentComponent implements OnInit {
   id: any;
   anniDate;
   appointmentModal:any ={}; 
+  UserId:any;
+  roleID:any;
+
+  minDate:String = new Date().toISOString();
+  maxDate:String = new Date().toISOString();
 
   onKeyPress(event) {
     if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {
@@ -53,6 +58,8 @@ export class EditAppointmentComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+    this.UserId = localStorage.getItem("loginId");
+    this.roleID = localStorage.getItem("userType")
      this.getDistrict();
   }
 
@@ -80,10 +87,11 @@ export class EditAppointmentComponent implements OnInit {
 
   save(){
     this.loader.showLoading();
-    var dateparts = this.appointmentModal.AppointmentDate.split(' ');
+    var dateparts = this.appointmentModal.appointmentDate.split(' ');
     var time= dateparts[1].split(':');
     var hr = dateparts[2] == 'PM'?(Number(time[0])+12)+':'+time[1] :dateparts[1];
     this.appointmentModal.id = Number(this.appointmentModal.id)
+    this.appointmentModal.userId = Number(this.UserId)
     this.appointmentModal.wardNo = Number(this.appointmentModal.wardNo);
     this.appointmentModal.pinCode = Number(this.appointmentModal.pinCode);
     this.appointmentModal.AppointmentDate = dateparts[0]+' '+hr;

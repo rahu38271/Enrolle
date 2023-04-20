@@ -90,6 +90,7 @@ table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !impo
       border: 1px solid #e6ebf1;
       border-radius: 0.625rem;
       margin-top: 3px;
+      padding-bottom: 0px;
      }
     .header1 {
       color: #f03d9e !important;
@@ -119,7 +120,7 @@ table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !impo
   }
 
   @media screen and (min-width:576px){
-    /* .android { display: none; } */
+     .android { display: none; } 
   }
 
   .header2 {
@@ -188,4 +189,8 @@ td a {
 
  .PartAssigned {
    max-width: 150px !important;
+ }
+
+ ion-label {
+  margin: 0px 0px !important;
  }

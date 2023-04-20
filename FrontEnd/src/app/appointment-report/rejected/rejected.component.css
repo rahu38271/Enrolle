@@ -3,7 +3,7 @@
 
 table { margin-top: 10px; }
 
-td ion-icon { cursor: pointer; font-size: 18px; font-weight: 600;  }
+td ion-icon { cursor: pointer; font-size: 22px; font-weight: 600;     padding-left: 2px; }
 
 table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !important; }
 
@@ -14,9 +14,12 @@ table td:last-child { padding: 0.25rem 0.1rem !important; width: 58px !important
 ion-modal {
     --width: 290px;
   --border-radius: 8px;
-  --height: auto !important;
+  --height: auto;
  }
-
+ ion-row h6 {
+  border-bottom: solid 2px #222222;
+  line-height: 28px;
+}
 
 .headSection {
     display: flex;
@@ -47,4 +50,19 @@ ion-modal {
   font-size: 19px;
   color: #ff4646;
   cursor: pointer;
+}
+
+.select {
+  padding: 2px 1px;
+  background: #4578d1;
+  color: #FFF;
+}
+
+.approveBtn 
+{
+  color: #129730;
+}
+
+.rsBtn{
+  color: #0d72df;
 }

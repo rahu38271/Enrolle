@@ -82,7 +82,7 @@ export class ContactComponent implements OnInit {
       if(data != 0){
         this.getContacts = data;
         this.getContacts.forEach(e => {
-          e.birthDate = e.birthDate.split('T')[0];
+          e.birthDate = e.birthDate.split('T')[0] == '1900-01-01' ? '' : e.birthDate.split('T')[0];
           e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '' : e.anniversary.split('T')[0]; 
         });
       }
@@ -96,9 +96,9 @@ export class ContactComponent implements OnInit {
 
   async deleteCon(id:any) {
     const alert = await this.alertController.create({
-      header: 'Delete Appointment',
+      header: 'Delete Contact',
       cssClass: 'alertHeader',
-      message: 'Are you sure want to delete this Appointment',
+      message: 'Are you sure want to delete this Contact',
       buttons: [
         {
           text: 'Cancel',
@@ -117,7 +117,7 @@ export class ContactComponent implements OnInit {
               ).subscribe(() => {
                 this.contactList(this.PageNo,this.NoofRow,this.SearchText);
               })
-              this.toast.presentToast("Appointment deleted Succesfully!", "success", 'checkmark-circle-sharp');
+              this.toast.presentToast("Contact deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })
           }
         }

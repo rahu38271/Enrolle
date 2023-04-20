@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-subletter',
@@ -12,6 +13,7 @@ export class SubletterComponent implements OnInit {
 
   constructor(
     public modalCtrl: ModalController,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -23,6 +25,10 @@ export class SubletterComponent implements OnInit {
 
   closeFamily(){
     this.isModalOpen = false;
+  }
+
+  goBack() {
+    this.location.back();
   }
 
 }

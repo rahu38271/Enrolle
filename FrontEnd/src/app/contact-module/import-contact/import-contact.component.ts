@@ -50,6 +50,7 @@ export class ImportContactComponent implements OnInit {
   }
 
   ReadExcelData() {
+    debugger;
     var reader = new FileReader();
     reader.readAsBinaryString(this.file);
     reader.onload = (event) => {
@@ -81,15 +82,30 @@ export class ImportContactComponent implements OnInit {
       if (this.arraylist.length > 0) {
         for (var i = 0; i < this.arraylist.length; i++) {
 
-          var rawdob = this.arraylist[i].DateofBirth;
-          var DB = new Date((rawdob - 25569) * 86400000);
-          var Dob = DB.toISOString().replace(/.\d+Z$/g, "");
+          if(this.arraylist[i].DateofBirth != undefined){
+            var rawdob = this.arraylist[i].DateofBirth;
+            var DB = new Date((rawdob - 25569) * 86400000);
+            var Dob = DB.toISOString().replace(/.\d+Z$/g, "");
+          }
+          else{
+            var Dob = '1900-01-01T00:00:00'
+          }
+
           if(this.arraylist[i].AnniversaryDate!=undefined)
           {
            var rawanniversay_date = this.arraylist[i].AnniversaryDate;
            var AD = new Date((rawanniversay_date - 25569) * 86400000);
            var Anniversaydate = AD.toISOString().replace(/.\d+Z$/g, "");
           }
+
+          //for birthdate if excel column is empty
+          if (this.arraylist[i].DateofBirth == undefined) {
+            this.arraylist[i].DateofBirth = '1900-01-01T00:00:00';
+          }
+          else {
+            this.arraylist[i].DateofBirth = Dob;
+          }
+
           if(this.arraylist[i].AnniversaryDate == undefined ){
             this.arraylist[i].AnniversaryDate = '1900-01-01T00:00:00';
           }
@@ -98,7 +114,7 @@ export class ImportContactComponent implements OnInit {
           }
 
           // for alternate mobile number if excel column is empty
-          if(this.arraylist[i].AlternateMobile == undefined || this.arraylist[i].AlternateMobile == ''){
+          if(this.arraylist[i].AlternateMobile == undefined){
             this.arraylist[i].AlternateMobile = '';
           }
           else{

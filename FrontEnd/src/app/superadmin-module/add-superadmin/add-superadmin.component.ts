@@ -131,7 +131,6 @@ export class AddSuperadminComponent implements OnInit {
   }
 
   addMAdmin() {
-    debugger;
     this.addMAmodal.RoleId = Number(this.addMAmodal.RoleId);
     if(this.addMAmodal.RoleId == 2){
       this.addMAmodal.SuperAdminId = Number(this.loginId);

@@ -30,12 +30,6 @@ export class VoterService {
     return this.http.get<any[]>(this.url+'Voter/GetAllVoter?UserId='+id+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language)
   }
 
-  // total voter count
-
-  // getVoterCount(){
-  //   return this.http.get<any>(this.url+'Voter/GetTotalVoterCount')
-  // }
-
   // total voter count by user
   getVoterCountByUser(id:number,RoleId:number){
     return this.http.get<any>(this.url+'Voter/GetTotalVoterCount?userid='+id+'&roleid='+RoleId)
@@ -100,6 +94,30 @@ export class VoterService {
     return this.http.post<any>(this.url+'Voter/UpdateIsAliveVoter?Id='+id+'&YesNo='+YesNo, id)
   }
 
+  // update profession
+
+  updateProfession(id:any, ColoumnName:any, ColoumnValue:any){
+    return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue, id)
+  }
+
+  // update DoB
+
+  updateDoB(id:any, ColoumnName:any, ColoumnValue:any){
+    return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue, id)
+  }
+
+  updateCaste(id:any, ColoumnName:any, ColoumnValue:any){
+    return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue, id)
+  }
+
+  // get Cast 
+
+  getAllCaste(Language:any){
+    //return this.http.get<any>(this.url+'Voter/GetAllCasteName')
+    return this.http.get<any>(this.url+'Voter/GetAllCasteName?Language='+Language)
+    
+  }
+
   // village name and count
 
   villagedata(vilModal:any):Observable<any>{
@@ -116,6 +134,10 @@ export class VoterService {
 
   partNoData(partModal:any){
     return this.http.post<any>(this.url+'Voter/FilterColoumnCount', partModal)
+  }
+
+  CastData(castModal:any){
+    return this.http.post<any>(this.url+'Voter/FilterColoumnCount',castModal)
   }
 
   // filter / search voter by condition
@@ -161,6 +183,12 @@ export class VoterService {
 
    voterByPart(partNumber:number,userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any){
     return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=PartNo&ColoumnValue='+partNumber+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language)
+  }
+
+  // voter by Caste
+
+  voterByCaste(Caste:number,userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any){
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Caste&ColoumnValue='+Caste+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language)
   }
 
   // advance search voter

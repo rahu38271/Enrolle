@@ -12,6 +12,7 @@ import { Router } from '@angular/router'
 export class AddNewVoterComponent implements OnInit {
 
   newVoterModal:any={};
+  maxDate:String = new Date().toISOString();
 
   onKeyPress(event) {
     if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {

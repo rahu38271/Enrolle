@@ -6,7 +6,7 @@
         <ion-buttons slot="start">
           <ion-menu-button auto-hide="false"></ion-menu-button>
         </ion-buttons>
-        <ion-title>Approved Appointments </ion-title>
+        <ion-title> Appointments </ion-title>
         <ion-buttons slot="primary">
           <ion-button (click)="search()">
             <ion-icon name="search-outline"></ion-icon>
@@ -20,17 +20,18 @@
           <ion-row>
             <ion-col size-xs="12" size-sm="6">
               <ion-card-header>
-                <ion-card-title> Approved Appointments <span></span></ion-card-title>
+                <ion-card-title>Today's Appointments <span> ( {{currentDate | date:'dd MMMM yyyy'}} ) </span>, Total : {{todayApm.length}}</ion-card-title>
                 <div class="headerLine"></div>
               </ion-card-header>
             </ion-col>
             <ion-col size-xs="12" size-sm="6" class="ion-text-right">
               <ion-button class="button-download" color="primary" routerLink="/appointment/add-appointment"><ion-icon name="add-circle-sharp"></ion-icon>Add Appointment</ion-button>
-              <!-- <ion-button class="button-download" fill="outline" color="primary" ><ion-icon name="refresh-circle-sharp"></ion-icon>Refresh</ion-button> -->
             </ion-col>
           </ion-row>
         </ion-grid>
       </div>
+  
+      
   
       <ion-card>
         <ion-card-content>
@@ -85,11 +86,13 @@
                   <th>File</th>
                   <th>Remark</th>
                   <th>Status</th>
-                  
+                  <th id="element-to-hide" data-html2canvas-ignore="true">
+                    Action
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of getApmList | filter:searchWeb">
+                <tr *ngFor="let item of todayApm">
                   <td>{{item.id}}</td>
                   <td class="text-capitalize">{{item.firstName}} {{item.middleName}} {{item.lastName}}</td>
                   <td>{{item.category}}</td>
@@ -110,68 +113,24 @@
                   <td>{{item.fileName}}</td>
                   <td>{{item.remark}}</td>
                   <td>
-                    <ion-icon class="rejectBtn" (click)="rejectApm($event)" id="{{item.id}}"  name="close-circle-sharp"></ion-icon>
-                    <ion-icon class="rsBtn" (click)="rescheduleApm($event)" id="{{item.id}}" name="calendar-clear-sharp"></ion-icon>
-                    <!-- <select [(ngModel)]="updateStatusModal.Status" (change)="changeStatus($event)" id="{{item.id}}" class="select">
-                      <option value="" selected>Select</option>
-                      <option value="Rejected">Reject</option>
-                      <option>
-                        <ion-button>Reschedule</ion-button>
-                      </option>
-                    </select> -->
-                    
+                    <select placeholder="Select" class="form-control-sm" [(ngModel)]="updateStatusModal.Status" (change)="changeStatus($event)" id="{{item.id}}">
+                        <option value="" selected>Select</option>
+                        <option value="Approved">Approve</option>
+                        <option value="Rejected">Reject</option>
+                        <option value="Reschedule">Reschedule</option>
+                      </select>
+                  </td>
+                  <td id="element-to-hide" data-html2canvas-ignore="true" class="action">
+                    <ion-icon (click)="editAppointment(item)" name="create-sharp"></ion-icon>
+                  <ion-icon (click)="deleteApm(item.id)" class="delete" name="trash-bin-sharp"></ion-icon> 
                   </td>
                 </tr>
               </tbody>
             </table>
-            <div *ngIf="!getApmList || getApmList.length === 0">
-              <p>No data</p>
-            </div>
-            <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+            
           </div>
         </ion-card-content>
       </ion-card>
-
-      <ion-modal [isOpen]="isModalOpen" >
-        <ng-template>
-          <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
-            <ion-row>
-              <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" class="ion-text-center">
-                <h6>Reschedule Appointment</h6>
-              </ion-col>
-              <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
-                <ion-input 
-                  value="{{ dateTime | date: 'yyyy-MM-dd hh:mm a' }}" 
-                  id="dateTime" 
-                  class="form-control"
-                  name="dateTime" 
-                  [(ngModel)]="updateStatusModal.dateTime"
-                  ></ion-input>
-                <ion-modal trigger="dateTime" size="cover">
-                  <ng-template>
-                    <ion-datetime 
-                      [(ngModel)]="dateTime" 
-                      name="dateTime"
-                    >
-                      <span slot="title"> {{ year }} </span>
-                    </ion-datetime>
-                  </ng-template>
-                </ion-modal>
-              </ion-col>
-  
-              <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
-                <div class="ion-text-center">
-                  <ion-button type="reset" (click)="closeReschedule()" color="danger" size="medium">Clear</ion-button>
-                  <ion-button type="submit" size="medium" [disabled]="!f.form.valid" (click)="saveAppointment()">Save
-                  </ion-button>
-                </div>
-              </ion-col>
-  
-            </ion-row>
-          </form>
-        </ng-template>
-      </ion-modal>
-
     </div>
   </ion-content>
                           
