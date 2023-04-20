@@ -53,7 +53,7 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _appointmentRepository.InsertUpdateAppintment(appointment);
         }
 
-        public int UpdateApointmentStatus(int Id, string Status, DateTime? datetime)
+        public int UpdateApointmentStatus(int Id, string Status, string datetime)
         {
             return _appointmentRepository.UpdateApointmentStatus(Id, Status, datetime);
         }

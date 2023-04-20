@@ -25,6 +25,8 @@ namespace ElectionAlerts.Model
         public string VolunterName { get; set; }
         public string CardDone { get; set; }
         public string NewEntry_Remarks { get; set; }
+        public int ANPId { get; set; }
+        public string Relation { get; set; }
         public DateTime? CreatedDate { get; set; }
 
     }

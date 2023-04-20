@@ -44,5 +44,10 @@ namespace ElectionAlerts.Dto
         public string IsVoted { get; set; }
         public string AlternateMobileNo { get; set; }
         public int? AssemblyNo { get; set; }
+        public string AssemblyName_KR { get; set; }
+        public string FullName_KR { get; set; }
+        public string Village_KR { get; set; }
+        public string Address_KR { get; set; }
+
     }
 }

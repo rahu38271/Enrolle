@@ -13,7 +13,7 @@ namespace ElectionAlerts.Model
         public string LastName { get; set; }
         public DateTime? BirthDate { get; set; }
         public string PhoneNo { get; set; }
-        public DateTime? AppointmentDate { get; set; }
+        public string AppointmentDate { get; set; }
         public string Category { get; set; }
         public string Work { get; set; }
         public string Other { get; set; }

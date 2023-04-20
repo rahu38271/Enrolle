@@ -65,7 +65,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _custonContext.Database.ExecuteSqlRaw("EXEC USP_InsertUpdateAnnapurna {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18}", annnapurna.Id, annnapurna.FirstName, annnapurna.MiddleName, annnapurna.LastName, annnapurna.PhoneNo, annnapurna.AltPhoneNo, annnapurna.Chal_SocietyName, annnapurna.PresentAddress, annnapurna.Area, annnapurna.YadiNo_PartNo, annnapurna.SrNo, annnapurna.EpicNo, annnapurna.VoterNo, annnapurna.TokenDate, annnapurna.TokenNo, annnapurna.VolunterName, annnapurna.CardDone, annnapurna.NewEntry_Remarks,DateTime.Now);
+                return _custonContext.Database.ExecuteSqlRaw("EXEC USP_InsertUpdateAnnapurna {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20}", annnapurna.Id, annnapurna.FirstName, annnapurna.MiddleName, annnapurna.LastName, annnapurna.PhoneNo, annnapurna.AltPhoneNo, annnapurna.Chal_SocietyName, annnapurna.PresentAddress, annnapurna.Area, annnapurna.YadiNo_PartNo, annnapurna.SrNo, annnapurna.EpicNo, annnapurna.VoterNo, annnapurna.TokenDate, annnapurna.TokenNo, annnapurna.VolunterName, annnapurna.CardDone, annnapurna.NewEntry_Remarks,DateTime.Now,annnapurna.ANPId,annnapurna.Relation);
             }
             catch(Exception ex)
             {

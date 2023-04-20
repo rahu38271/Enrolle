@@ -115,7 +115,8 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                var FileContent = UploadFile(appointment.FileName);
+                 Byte[] imgtype = { 0 };
+                var FileContent = UploadFile(appointment.FileName)?? imgtype;
                 return _customContext.Database.ExecuteSqlRaw("EXEC USP_InsertUpdateAppointment {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21}", appointment.Id, appointment.FirstName,appointment.MiddleName,appointment.LastName,appointment.BirthDate,appointment.PhoneNo,appointment.AppointmentDate,appointment.Category,appointment.Work,appointment.Other,appointment.District,appointment.Taluka,appointment.HouseNo,appointment.Soc_BldgName,appointment.WardNo,appointment.PinCode,appointment.City_Village,appointment.Remark,appointment.FileName,DateTime.Now.ToString(),appointment.Status, FileContent);
             }
             catch (Exception ex)
@@ -124,7 +125,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public int UpdateApointmentStatus(int Id, string Status, DateTime? datetime)
+        public int UpdateApointmentStatus(int Id, string Status, string datetime)
         {
             try
             {
@@ -178,11 +179,19 @@ namespace ElectionAlerts.Repository.RepositoryClasses
 
         public int DownloadFile(byte[] Picture,string FileName)
         {
-            MemoryStream ms = new MemoryStream(Picture, 0, Picture.Length);
-            Image img = Image.FromStream(ms);
-            img.Save(FileName);
-            ms.Close();
-            return 1;
+            if (!File.Exists(FileName))
+            {
+                return 0;
+            }
+            if (Picture != null)
+            {
+                MemoryStream ms = new MemoryStream(Picture, 0, Picture.Length);
+                Image img = Image.FromStream(ms);
+                img.Save(FileName);
+                ms.Close();
+                return 1;
+            }
+            return 0;
         }
     }
 }

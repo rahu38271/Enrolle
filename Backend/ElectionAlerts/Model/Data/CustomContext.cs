@@ -67,7 +67,6 @@ namespace ElectionAlerts.Model.Data
         public DbSet<AdminUser> AdminUsers { get; set; }
         public DbSet<WhatUpSetting> WhatUpSettings { get; set; }
        
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Districts>().HasNoKey();
@@ -80,6 +79,7 @@ namespace ElectionAlerts.Model.Data
             modelBuilder.Entity<VoterInclination>().HasNoKey();
             modelBuilder.Entity<BoothName>().HasNoKey();
             modelBuilder.Entity<PartNoAssigned>().HasNoKey();
+
         }
     }
 
@@ -144,6 +144,9 @@ namespace ElectionAlerts.Model.Data
         public  DbSet<DistrictDashboard> districtDashBords { get; set; }
         public DbSet<AssemblyDashboard> assemblyDashboards { get; set; }
         public DbSet<AppointmentDTO> AppointmentDTOs { get; set; }
+        public DbSet<Mobile> Mobiles { get; set; }
+        public DbSet<LastNameCount> LastNameCounts { get; set; }
+        public DbSet<Caste> Castes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -161,6 +164,8 @@ namespace ElectionAlerts.Model.Data
             modelBuilder.Entity<DistrictDashboard>().HasNoKey();
             modelBuilder.Entity<AssemblyDashboard>().HasNoKey();
             modelBuilder.Entity<AppointmentDTO>().HasNoKey();
+            modelBuilder.Entity<LastNameCount>().HasNoKey();
+
         }
     }
 }

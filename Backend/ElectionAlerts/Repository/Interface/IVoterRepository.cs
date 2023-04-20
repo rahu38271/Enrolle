@@ -9,21 +9,22 @@ namespace ElectionAlerts.Repository.Interface
 {
     public interface IVoterRepository
     {
-        IEnumerable<VoterAssembly> GetAllVoter(int userid,int RoleId, int PageNo, int NoofRow);
+        IEnumerable<VoterDTO> GetAllVoter(int userid,int RoleId, int PageNo, int NoofRow,string Language);
         int CreateVoter(Voter voter);
         int InsertBulkVoter(List<Voter> voters);
+        int InsertBulkMobile(List<Mobile> mobiles);
         int UpadateVoter(Voter voter);
         int DeleteVoterbyId(int Id);
-        IEnumerable<Voter> FilterVoterList(VoterTable table);
-        IEnumerable<Voter> FilterVoterbyCondition(VoterTable table);
-        VoterDTO  GetVoterDetailbyId(int Id);
-        IEnumerable<VoterDTO> GetVoterbyRelation(int Id,int UserId,int RoleId);
+        IEnumerable<VoterDTO> FilterVoterList(VoterTable table);
+        IEnumerable<VoterDTO> FilterVoterbyCondition(VoterTable table);
+        VoterDTO  GetVoterDetailbyId(int Id, string Language);
+        IEnumerable<VoterDTO> GetVoterbyRelation(int Id,int UserId,int RoleId, int PageNo, int NoofRow,string Language);
         IEnumerable<Table> FilterColoumnCount(VoterTable table);
-        IEnumerable<Table> GetVoterCountbyLastName(int UserId,int RoleId);
-        IEnumerable<Voter> GetVoterbyRole(VoterSuperDto voterSuperDto);
-        IEnumerable<VoterDTO> VoterDetailsbyLastName(string LName, int UserId,int RoleId);
-        IEnumerable<VoterDTO> VoterDetailsbyColumn(string ColoumnName,string ColoumnValue, int UserId,int RoleId);
-        IEnumerable<VoterDTO> VoterwithMobileNo(int UserId,int RoleId);
+        IEnumerable<LastNameCount> GetVoterCountbyLastName(int UserId,int RoleId, int PageNo, int NoofRow, string Language);
+        IEnumerable<VoterDTO> GetVoterbyRole(VoterSuperDto voterSuperDto);
+        IEnumerable<VoterDTO> VoterDetailsbyLastName(string LName, int UserId,int RoleId, int PageNo, int NoofRow, string Language);
+        IEnumerable<VoterDTO> VoterDetailsbyColumn(string ColoumnName,string ColoumnValue, int UserId,int RoleId, int PageNo, int NoofRow, string Language);
+        IEnumerable<VoterDTO> VoterwithMobileNo(int UserId,int RoleId, int PageNo, int NoofRow, string Language);
         IEnumerable<VoterInclination> VoterInclination(int userid,int RoleId);
         int UpadateMobileVoter(int Id,string MobileNo);
         int UpadateAltMobileVoter(int Id, string AltMobileNo);
@@ -38,15 +39,18 @@ namespace ElectionAlerts.Repository.Interface
         IEnumerable<MemberDetail> GetMemberDetailsbyVId(int voterid);
         IEnumerable<VoterPPBooth> GetDistinctPartNo(int Role, int UserId);
         IEnumerable<VoterbyBooth> GetVoterbybooth(int userid,int RoleId);
-        IEnumerable<Voter> GetVoterByUserId(int userid,int roleid);
-        IEnumerable<Voter> GetVoterAgeBetween(int Age1, int Age2,string Gender, int UserId,int RoleId);
+        IEnumerable<VoterDTO> GetVoterByUserId(int userid,int roleid, int PageNo, int NoofRow, string Language);
+        IEnumerable<VoterDTO> GetVoterAgeBetween(int Age1, int Age2,string Gender, int UserId,int RoleId, int PageNo, int NoofRow, string Language);
         IEnumerable<VoterCount> GetTotalVoterCount(int userid, int roleid);
-        IEnumerable<Voter> AdvancedSearch(AdvanceSearchDTO searchDTO);
-        IEnumerable<VoterDTO> GetVoterInclinationUserId(string inclination, int userid,int roleid);
-        IEnumerable<VoterDTO> GetStarVoterbyUserId(int userid,int roleid);
-        IEnumerable<BoothName> GetBoothNamebyUserId(int userid,int roleid);
-        IEnumerable<Voter> GetVoterByPartNo(int partno);
+        IEnumerable<VoterDTO> AdvancedSearch(AdvanceSearchDTO searchDTO);
+        IEnumerable<VoterDTO> GetVoterInclinationUserId(string inclination, int userid,int roleid,int PageNo, int NoofRow, string Language);
+        IEnumerable<VoterDTO> GetStarVoterbyUserId(int userid,int roleid, int PageNo, int NoofRow, string Language);
+        IEnumerable<BoothName> GetBoothNamebyUserId(int userid,int roleid, int PageNo, int NoofRow);
+        IEnumerable<VoterDTO> GetVoterByPartNo(int partno, int PageNo, int NoofRow, string Language);
         IEnumerable<Table> GetVoterCountbyColoumn(int UserId, int RoleId, string Coloumn);
+        int UpdateColoumnTbl(int Id, string ColoumnName, string ColoumnValue);
+        int AddCastName(string CasteName);
+        IEnumerable<Caste> GetAllCaste();
 
     }
 }

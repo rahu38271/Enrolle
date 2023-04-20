@@ -8,6 +8,7 @@ namespace ElectionAlerts.Dto
     public class VoterDTO
     {
         public int Id { get; set; }
+        public int? SrNo { get; set; }
         public string FullName { get; set; }
         public string Village { get; set; }
         public int Age { get; set; }
@@ -21,8 +22,13 @@ namespace ElectionAlerts.Dto
         //public string ColounName { get; set; }
         public string StarVoter { get; set; }
         public string IsVoted { get; set; }
+        public string AlternateMobileNo { get; set; }
         public string VotingInclination { get; set; }
-        public int? AssemblyNo { get; set; }
-
+        public int AssemblyNo { get; set; }
+        public string Assembly { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public string Occupation { get; set; }
+        public string Email { get; set; }
+        public int TotalCount { get; set; }
     }
 }

@@ -79,7 +79,7 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpPost("UpdateAppointmnetStatus")]
-        public IActionResult UpdateAppointmnetStatus(int Id,string Status,DateTime? dateTime)
+        public IActionResult UpdateAppointmnetStatus(int Id,string Status,string dateTime)
         {
             try
             {
