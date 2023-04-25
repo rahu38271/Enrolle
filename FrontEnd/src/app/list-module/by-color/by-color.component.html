@@ -19,7 +19,7 @@
               <ion-row>
                 <ion-col size-xs="12" size-sm="6">
                   <ion-card-header>
-                    <ion-card-title class="header1">Colourwise <span>  </span> </ion-card-title>
+                    <ion-card-title class="header1"> {{'By Color' | translate}} <span>  </span> </ion-card-title>
                     <div class="headerLine"></div>
                   </ion-card-header>
   
@@ -39,52 +39,54 @@
               <ion-card-content>
                 <div class="headSection">
                   <div class="search">
-                    <ion-searchbar animated="true"></ion-searchbar>
+                    
                   </div>
                   <ion-button class="button-download" color="success" (click)="exportExcel()">
                     <ion-icon name="document-sharp"></ion-icon>Excel
                   </ion-button>
                 </div>
-                <div class="horizontal-scroll">
-                  <table id="villageTable" #epltable class="table">
-                    <thead>
-                      <tr>
-  
-                        <th>
-                          अ.क्र.
-                        </th>
-                        <th>
-                          बूथ
-                        </th>
-                        <th>
-                          एकूण
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-  
-                        <td>1</td>
-                        <td routerLink="/list/boothwise-list">
-                          काळेवाडी ; बी. टी . मेमोरियल इंग्लिश मिडीयम स्कूल ( ओम सेण्टस हायस्कूल ), दक्षिण उत्तर इमारत ,
-                          तळमजला ,दक्षिणेकडून खोली क्र. 8
-                        </td>
-                        <td>1398</td>
-                      </tr>
-                      <tr>
-  
-                        <td>2</td>
-                        <td>
-                          काळेवाडी ; बी. टी . मेमोरियल इंग्लिश मिडीयम स्कूल ( ओम सेण्टस हायस्कूल ), दक्षिण उत्तर इमारत ,
-                          तळमजला ,दक्षिणेकडून खोली क्र. 9
-                        </td>
-                        <td>1244</td>
-                      </tr>
-  
-  
-                    </tbody>
-                  </table>
-                </div>
+                <div *ngFor="let item of colorList">
+                  <ion-list>
+                      <ion-item lines="none" class="ion-text-center" (click)="supporter()">
+                          <ion-label>
+                              <h3>
+                                   {{'Supporter' | translate}}
+                              </h3>
+                              <h4>  {{'Total' | translate}} : <span> {{item.supporter}} </span> </h4>
+                          </ion-label>
+                      </ion-item>
+                  </ion-list>
+                  <ion-list>
+                      <ion-item lines="none" class="ion-text-center" (click)="opposition()">
+                          <ion-label>
+                              <h3>
+                                   {{'Opposite' | translate}}
+                              </h3>
+                              <h4> {{'Total' | translate}} : <span> {{item.opposition}} </span> </h4>
+                          </ion-label>
+                      </ion-item>
+                  </ion-list>
+                  <ion-list >
+                      <ion-item lines="none" class="ion-text-center" (click)="doubtful()">
+                          <ion-label>
+                              <h3>
+                                   {{'Doubtful' | translate}}
+                              </h3>
+                              <h4> {{'Total' | translate}} : <span> {{item.doubtful}} </span> </h4>
+                          </ion-label>
+                      </ion-item>
+                  </ion-list>
+                  <ion-list >
+                      <ion-item lines="none" class="ion-text-center" (click)="other()">
+                          <ion-label>
+                              <h3>
+                                   {{'Other' | translate}}
+                              </h3>
+                              <h4> {{'Total' | translate}} : <span> {{item.other}} </span> </h4>
+                          </ion-label>
+                      </ion-item>
+                  </ion-list>
+              </div>
               </ion-card-content>
   
             </ion-card>

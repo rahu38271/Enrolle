@@ -4,7 +4,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { ModalController } from '@ionic/angular';
-
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-rejected',
@@ -37,7 +37,8 @@ export class RejectedComponent implements OnInit {
     private appointment: AppointmentService,
     private router: Router,
     private toast: IonicToastService,
-    public modalCtrl: ModalController
+    public modalCtrl: ModalController,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -51,7 +52,9 @@ export class RejectedComponent implements OnInit {
 
   }
 
-  
+  goBack() {
+    this.location.back();
+  }
 
   isBigEnough(element, index, array) {
     return (element.status == "Rejected");

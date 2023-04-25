@@ -68,3 +68,12 @@ ion-modal {
   color: #F00;
 }
 
+.flex ion-icon {
+  font-size: 25px;
+  margin-right: 10px;
+  color: #3c7ff9;
+}
+
+.flex {
+  display: flex;
+}

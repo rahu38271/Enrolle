@@ -87,7 +87,9 @@ table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !impo
 
 
 
- 
+  @media screen and (min-width:576px){
+    .android { display: none; }
+  }
 
   ion-avatar ion-icon {
       font-size: 40px;
@@ -128,15 +130,6 @@ ion-list {
  .noData img {
   width: 125px !important;
  }
-
- @media screen and (max-width:576px){
-
-  .android {  display: block; }
-  .web { display: none; }
-}
-
-@media screen and (min-width:577px){
-  
-  .android {  display: none; }
-  .web { display: block; }
-}
+ .table td a {
+   cursor: pointer !important;
+ }

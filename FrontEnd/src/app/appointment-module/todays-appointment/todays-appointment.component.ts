@@ -5,6 +5,8 @@ import { CsvService } from 'src/app/services/csv.service';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { AlertController,LoadingController,ToastController } from '@ionic/angular';
 import { Router, NavigationEnd } from '@angular/router';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-todays-appointment',
@@ -32,7 +34,8 @@ export class TodaysAppointmentComponent implements OnInit {
     private excel:ExcelService,
     private csv:CsvService,
     private router:Router, 
-    private toast:IonicToastService
+    private toast:IonicToastService,
+    private location: Location,
     ) {
     
    }
@@ -55,6 +58,10 @@ export class TodaysAppointmentComponent implements OnInit {
 
       }
     })
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   editAppointment(data:any){

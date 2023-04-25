@@ -24,7 +24,7 @@ export class EditAppointmentComponent implements OnInit {
   appointmentModal:any ={}; 
   UserId:any;
   roleID:any;
-
+  name:any;
   minDate:String = new Date().toISOString();
   maxDate:String = new Date().toISOString();
 
@@ -59,7 +59,8 @@ export class EditAppointmentComponent implements OnInit {
 
   ngOnInit() {
     this.UserId = localStorage.getItem("loginId");
-    this.roleID = localStorage.getItem("userType")
+    this.roleID = localStorage.getItem("userType");
+    this.name = localStorage.getItem("loginUser");
      this.getDistrict();
   }
 
@@ -90,7 +91,8 @@ export class EditAppointmentComponent implements OnInit {
     var dateparts = this.appointmentModal.appointmentDate.split(' ');
     var time= dateparts[1].split(':');
     var hr = dateparts[2] == 'PM'?(Number(time[0])+12)+':'+time[1] :dateparts[1];
-    this.appointmentModal.id = Number(this.appointmentModal.id)
+    this.appointmentModal.id = Number(this.appointmentModal.id);
+    this.appointmentModal.adminName = this.name;
     this.appointmentModal.userId = Number(this.UserId)
     this.appointmentModal.wardNo = Number(this.appointmentModal.wardNo);
     this.appointmentModal.pinCode = Number(this.appointmentModal.pinCode);

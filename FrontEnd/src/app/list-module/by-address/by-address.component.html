@@ -21,7 +21,7 @@
             <ion-row>
               <ion-col size-xs="12" size-sm="6">
                 <ion-card-header>
-                  <ion-card-title class="header1">पत्त्यानुसार <span> ( 44 ) </span> </ion-card-title>
+                  <ion-card-title class="header1">By Address <span> </span> </ion-card-title>
                   <div class="headerLine"></div>
                 </ion-card-header>
               </ion-col>
@@ -53,42 +53,18 @@
                     <tr>
 
                       <th>
-                        अ.क्र.
+                        Address
                       </th>
                       <th>
-                        पत्ता
-                      </th>
-                      <th>
-                        एकूण
+                        Total
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-
-                      <td>1</td>
-                      <td>काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160)</td>
-                      <td>1398</td>
+                    <tr *ngFor="let item of adrsData | filter:searchMob" (click)="address(item.columnName, item.columnValue)">
+                      <td>{{item.columnName}}</td>
+                      <td>{{item.count}}</td>
                     </tr>
-                    <tr>
-
-                      <td>2</td>
-                      <td>काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160)</td>
-                      <td>1244</td>
-                    </tr>
-                    <tr>
-
-                      <td>3</td>
-                      <td>काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160)</td>
-                      <td>610</td>
-                    </tr>
-                    <tr>
-
-                      <td>4</td>
-                      <td>काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160)</td>
-                      <td>1099</td>
-                    </tr>
-
                   </tbody>
                 </table>
               </div>

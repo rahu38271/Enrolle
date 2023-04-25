@@ -51,39 +51,22 @@
                 <table id="villageTable" #epltable class="table">
                   <thead>
                     <tr>
-
                       <th>
-                        अ.क्र.
+                        Part No.
                       </th>
                       <th>
-                        बूथ
-                      </th>
-                      <th>
-                        एकूण
+                        Total
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-
-                      <td>1</td>
-                      <td routerLink="/list/boothwise-list">
-                        काळेवाडी ; बी. टी . मेमोरियल इंग्लिश मिडीयम स्कूल ( ओम सेण्टस हायस्कूल ), दक्षिण उत्तर इमारत ,
-                        तळमजला ,दक्षिणेकडून खोली क्र. 8
+                    <tr *ngFor="let item of partData | filter:searchMob" (click)="partNo(item.columnName)">
+                      <td >
+                        {{item.columnName}}
                       </td>
-                      <td>1398</td>
+                      <td>{{item.count}}</td>
                     </tr>
-                    <tr>
-
-                      <td>2</td>
-                      <td>
-                        काळेवाडी ; बी. टी . मेमोरियल इंग्लिश मिडीयम स्कूल ( ओम सेण्टस हायस्कूल ), दक्षिण उत्तर इमारत ,
-                        तळमजला ,दक्षिणेकडून खोली क्र. 9
-                      </td>
-                      <td>1244</td>
-                    </tr>
-
-
+                    
                   </tbody>
                 </table>
               </div>

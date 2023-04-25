@@ -21,7 +21,7 @@
             <ion-row>
               <ion-col size-xs="12" size-sm="6">
                 <ion-card-header>
-                  <ion-card-title class="header1">आडनावानुसार <span> ( 44 ) </span> </ion-card-title>
+                  <ion-card-title class="header1">By Lastname <span> </span> </ion-card-title>
                   <div class="headerLine"></div>
                 </ion-card-header>
 
@@ -36,39 +36,6 @@
                  -->
               </ion-col>
             </ion-row>
-
-            <form #myForm1="ngForm">
-              <ion-row>
-                <ion-col size-lg="4" size-md="6" size-sm="6" size-xs="12">
-                  <ion-label> Booth </ion-label>
-                  <ion-select name="booth" [(ngModel)]="booth" placeholder="Select" interface="popover"
-                    class="form-control" required>
-                    <ion-select-option class="select_option" value="Booth 1"> Booth 1</ion-select-option>
-                    <ion-select-option class="select_option" value=" Booth 2"> Booth 2</ion-select-option>
-                  </ion-select>
-                </ion-col>
-
-                <ion-col size-lg="2" size-md="3" size-sm="6" size-xs="12">
-                  <ion-label> Surname </ion-label>
-                  <ion-input name="Surname" [(ngModel)]="Surname" class="form-control"></ion-input>
-                </ion-col>
-                <ion-col size-lg="2" size-md="3" size-sm="6" size-xs="12">
-                  <ion-label> Caste </ion-label>
-                  <ion-select name="Caste" [(ngModel)]="Caste" placeholder="Select" interface="popover"
-                    class="form-control" required>
-                    <ion-select-option class="select_option" value="Caste 1"> Caste 1</ion-select-option>
-                    <ion-select-option class="select_option" value=" Caste 2"> Caste 2</ion-select-option>
-                  </ion-select>
-                </ion-col>
-
-
-
-                <ion-col size-lg="2" size-md="4" size-sm="6" size-xs="12">
-                  <ion-button class="mt-4" type="submit">Search</ion-button>
-                  <!-- <ion-button shape="round" type="reset" (click)="resetForm()" class="mt-5" color="danger">Clear</ion-button> -->
-                </ion-col>
-              </ion-row>
-            </form>
 
           </ion-grid>
 
@@ -86,34 +53,21 @@
                 <table id="villageTable" #epltable class="table">
                   <thead>
                     <tr>
+                      
                       <th>
-                        अ.क्र.
+                        Surname
                       </th>
                       <th>
-                        आडनाव
-                      </th>
-                      <th>
-                        एकूण
+                        Total
                       </th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td>1</td>
-                      <td routerLink="/list/surnamewise-list">साळुंखे</td>
+                      <td>साळुंखे</td>
                       <td>1398</td>
                     </tr>
-                    <tr>
-
-                      <td>2</td>
-                      <td>घुले</td>
-                      <td>1244</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>पवार</td>
-                      <td>610</td>
-                    </tr>
+                    
                   </tbody>
                 </table>
               </div>

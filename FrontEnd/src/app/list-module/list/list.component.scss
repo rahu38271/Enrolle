@@ -84,12 +84,26 @@ ion-col {  padding-top: var(--ion-grid-column-padding-xs, var(--ion-grid-column-
         background-repeat: no-repeat;
         height: -webkit-fill-available;
     }
+    .android {  display: block; }
+    .web { display: none; }
 }
 
-ion-label {
-    margin: 0px 0px !important;
+@media screen and (min-width:577px){
+    
+    .android {  display: none; }
+    .web { display: block; }
 }
+
 
 ion-grid {
     padding: 0px !important;
+}
+
+.web ion-item {
+    padding-top: 14px;
+    padding-bottom: 14px;
+}
+
+.web ion-item h3 {
+    margin-top: 14px;
 }

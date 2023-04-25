@@ -76,6 +76,7 @@ export class VoterbyUserComponent {
 
   totalVoterCount() {
     this.voter.getVoterCountByUser(this.id, this.RoleId).subscribe(data => {
+      console.log(data);
       this.totalCountByUser = data
     })
   }
@@ -133,7 +134,6 @@ export class VoterbyUserComponent {
       this.Language = "English"
     }
     this.voter.getAllCaste(this.Language).subscribe(data=>{
-      console.log(data);
       this.casteList = data;
     })
   }

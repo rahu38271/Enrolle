@@ -9,6 +9,8 @@ import { Voter } from 'src/app/models/voter'
 import { Location } from '@angular/common';
 import { ExcelService } from 'src/app/services/excel.service'
 import { CsvService } from 'src/app/services/csv.service';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslateConfigService } from 'src/app/services/translate-config.service';
 
 @Component({
   selector: 'app-voterdata-management',
@@ -16,7 +18,7 @@ import { CsvService } from 'src/app/services/csv.service';
   styleUrls: ['./voterdata-management.component.scss'],
 })
 export class VoterdataManagementComponent {
-
+  Language:any;
   myForm1: any;
   searchWeb: string;
 
@@ -91,31 +93,46 @@ keyPressNumbers(event) {
       private route:ActivatedRoute,
       private location: Location,
       private excel:ExcelService,
-       private csv:CsvService
+      private csv:CsvService,
+      public translate: TranslateService,
+      private translateConfigService: TranslateConfigService,
     ) 
     {
-    
+      this.Language = this.translateConfigService.getCurrentLang();
    }
 
    ngOnInit(){
     this.partNo = this.route.snapshot.paramMap.get('partNo');
     this.userId = this.route.snapshot.paramMap.get('id');
     this.roleID = localStorage.getItem("userType");
-    this.boothWiseVoterListData(this.PageNo,this.NoofRow);
+    this.boothWiseVoterListData(this.PageNo,this.NoofRow,this.Language);
   }
 
   event(event:any){
     debugger;
     this.PageNo = event;
-    this.boothWiseVoterListData(event,this.NoofRow)
+    this.boothWiseVoterListData(event,this.NoofRow,this.Language)
   }
 
-  boothWiseVoterListData(PageNo:any,NoofRow:any){
-    this.voter.boothWiseVoterList(this.partNo,PageNo,NoofRow).subscribe((data:any)=>{
+  boothWiseVoterListData(PageNo:any,NoofRow:any, Language:any){
+    if (this.Language == "kn") {
+      this.Language = "Kannada"
+    }
+    else if (this.Language == "mr") {
+      this.Language = "Marathi"
+    }
+    else if (this.Language == "hi") {
+      this.Language = "Hindi"
+    }
+    else {
+      this.Language = "English"
+    }
+    this.voter.boothWiseVoterList(this.partNo,PageNo,NoofRow,this.Language).subscribe((data:any)=>{
       this.loader.hideLoader();
       if(data){
         this.partNo = this.partNo
-        this.voterByPart = data
+        this.voterByPart = data;
+        this.totalItems = data[0].totalCount
       }
       else{
         this.loader.hideLoader();

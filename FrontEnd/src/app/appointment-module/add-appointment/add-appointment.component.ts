@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit   } from '@angular/core';
 import { LoaderService } from 'src/app/services/loader.service'
 import { AppointmentService } from 'src/app/services/appointment.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
@@ -29,6 +29,7 @@ export class AddAppointmentComponent implements OnInit {
   date = '';
   UserId:any;
   roleID:any;
+  name:any;
   minDate:String = new Date().toISOString();
   maxDate:String = new Date().toISOString();
 
@@ -64,7 +65,8 @@ export class AddAppointmentComponent implements OnInit {
 
   ngOnInit() {
     this.UserId = localStorage.getItem("loginId");
-    this.roleID = localStorage.getItem("userType")
+    this.roleID = localStorage.getItem("userType");
+    this.name = localStorage.getItem("loginUser");
     this.getDistrict();
   }
 
@@ -92,11 +94,11 @@ export class AddAppointmentComponent implements OnInit {
   }
 
   addAppointment(){
-    debugger;
     var dateparts = this.appointmentModal.AppointmentDate.split(' ');
     var time= dateparts[1].split(':');
     var hr = dateparts[2] == 'PM'?(Number(time[0])+12)+':'+time[1] :dateparts[1];
     this.appointmentModal.AppointmentDate = dateparts[0]+' '+hr;
+    this.appointmentModal.AdminName = this.name;
     this.appointmentModal.UserId = Number(this.UserId);
     this.appointmentModal.AppointmentDate = this.appointmentModal.AppointmentDate;
     this.appointmentModal.WardNo = Number(this.appointmentModal.WardNo);
@@ -117,6 +119,7 @@ export class AddAppointmentComponent implements OnInit {
       this.loader.hideLoader();
       
     })
+    
   }
 
   onSubmit(f: NgForm) {

@@ -21,7 +21,7 @@
             <ion-row>
               <ion-col size-xs="12" size-sm="6">
                 <ion-card-header>
-                  <ion-card-title class="header1">जातीनुसार  <span>  ( 44 ) </span> </ion-card-title>
+                  <ion-card-title class="header1">By Caste  <span>   </span> </ion-card-title>
                   <div class="headerLine"></div>
                 </ion-card-header>
                 
@@ -53,34 +53,17 @@
                     <tr>
                       
                       <th>
-                        अ.क्र.
+                        Caste
                       </th>
                       <th>
-                        जात
-                      </th>
-                      <th>
-                        एकूण
+                        Total
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      
-                      <td>1</td>
-                      <td routerLink="/list/castwise-list">मराठा</td>
-                      <td>1398</td>
-                    </tr>
-                    <tr>
-                      
-                      <td>2</td>
-                      <td>शिंपी</td>
-                      <td>1244</td>
-                    </tr>
-                    <tr>
-                      
-                      <td>3</td>
-                      <td>चांभार</td>
-                      <td>610</td>
+                    <tr *ngFor="let item of castData" (click)="caste(item.columnName)">
+                      <td>{{item.columnName}}</td>
+                      <td> {{item.count}}</td>
                     </tr>
                     
                   </tbody>

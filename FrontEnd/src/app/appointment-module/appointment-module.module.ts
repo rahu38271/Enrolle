@@ -10,9 +10,12 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { TodaysAppointmentComponent } from './todays-appointment/todays-appointment.component';
+import { AppointmentByDateComponent } from './appointment-by-date/appointment-by-date.component';
+import { AdminwiseComponent } from './adminwise/adminwise.component';
+import { AppointmentByAdminComponent } from './appointment-by-admin/appointment-by-admin.component';
 
 @NgModule({
-  declarations: [AppointmentComponent,AddAppointmentComponent,EditAppointmentComponent, TodaysAppointmentComponent],
+  declarations: [AppointmentComponent,AddAppointmentComponent,EditAppointmentComponent, TodaysAppointmentComponent, AppointmentByDateComponent, AdminwiseComponent, AppointmentByAdminComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -24,7 +27,10 @@ import { TodaysAppointmentComponent } from './todays-appointment/todays-appointm
       {path: '', component:AppointmentComponent}, 
       {path:'add-appointment', component:AddAppointmentComponent},
       {path:'edit-appointment', component:EditAppointmentComponent},
-      {path:'today-appointment', component:TodaysAppointmentComponent}
+      {path:'today-appointment', component:TodaysAppointmentComponent},
+      {path:'appointment-byDate', component:AppointmentByDateComponent},
+      {path:'appointment-adminwise', component:AdminwiseComponent},
+      {path:'appointment-byAdmin', component:AppointmentByAdminComponent},
     ])
   ]
 })

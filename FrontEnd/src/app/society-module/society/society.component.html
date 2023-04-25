@@ -132,7 +132,7 @@
 
       <ion-grid class="android">
         <ion-searchbar *ngIf="isShow"></ion-searchbar>
-        <ion-list *ngFor="let item of getSocietyList | filter:searchWeb" >
+        <ion-list *ngFor="let item of getSocietyList | filter:searchWeb" (click)="societyDetails(item)">
           <ion-item-sliding>
             <ion-item-options side="end">
               <a (click)="EditSociety(item)">
@@ -143,9 +143,7 @@
               </a>
             </ion-item-options>
             <ion-item  lines="none">
-              <ion-avatar slot="start">
-                <img src="assets/img/profile.png" />
-              </ion-avatar>
+              
               <ion-label>
                 <h3>{{item.name}}</h3>
                 <div class="details">

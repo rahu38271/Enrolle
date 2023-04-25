@@ -213,8 +213,8 @@ export class VoterService {
 
   // boothwise voter list
 
-  boothWiseVoterList(partNo:number,PageNo:number,NoofRow:number){
-    return this.http.get<any>(this.url+'Voter/GetVoterbyPartNo?partno='+partNo+'&PageNo='+PageNo+'&NoofRow='+NoofRow)
+  boothWiseVoterList(partNo:number,PageNo:number,NoofRow:number,Language:any){
+    return this.http.get<any>(this.url+'Voter/GetVoterbyPartNo?partno='+partNo+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language)
   }
 
   // all voter by age

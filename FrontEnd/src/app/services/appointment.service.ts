@@ -13,12 +13,8 @@ export class AppointmentService {
   constructor(private http:HttpClient) { }
 
   // get appointment list
-  getAppointments(UserId:any,roleID:any):Observable<any>{
-    //return this.http.get<any>(this.url+'Appointment/GetAllAppointment')
-    const headers = new HttpHeaders()
-    .set('Cache-Control','no-cache')
-    .set('Pragma', 'no-cache');
-    return this.http.get<any>(this.url+'Appointment/GetAllAppointment?UserId='+UserId+'&RoleId='+roleID, {headers});
+  getAppointments(UserId:any,roleID:any){
+    return this.http.get<any>(this.url+'Appointment/GetAllAppointment?UserId='+UserId+'&RoleId='+roleID);
     
   }
 
@@ -40,9 +36,10 @@ export class AppointmentService {
   }
 
   // get appointment by date
-  searchAppointment(UserId:any,roleID:any,apmDate:any){
-    //return this.http.get<any>(this.url+'Appointment/GetAppointmentbyDate?dateTime='+apmDate)
-    return this.http.get<any>(this.url+'Appointment/GetAppointmentbyDate?UserId='+UserId+'&RoleId='+roleID+'&dateTime='+apmDate)
+  searchAppointment(UserId:any,roleID:any,FromDate:any,ToDate:any){
+    debugger;
+    //return this.http.get<any>(this.url+'Appointment/GetAppointmentbyDate?UserId='+UserId+'&RoleId='+roleID+'&dateTime='+apmDate)
+    return this.http.get<any>(this.url+'Appointment/GetAppointmentbyFromToDate?UserId='+UserId+'&RoleId='+roleID+'&FromDate='+FromDate+'&ToDate='+ToDate)
   }
 
   //approve reject reschedule appointment 
@@ -50,6 +47,18 @@ export class AppointmentService {
   updateApmStatus(id:any,Status:any,dateTime:any){
     debugger;
     return this.http.post<any>(this.url+'Appointment/UpdateAppointmnetStatus?Id='+id+'&Status='+Status+'&dateTime='+dateTime, id)
+  }
+
+  // appointment count
+
+  getApmCounts(UserId:any,roleID:any){
+    return this.http.get<any>(this.url+'Appointment/GetAppointmentCount?UserId='+UserId+'&RoleId='+roleID)
+  }
+
+  // get appointment by admin
+
+  getApmByAdmin(){
+    return this.http.get<any>(this.url+'Appointment/GetAppointmentCountbyUser')
   }
 
 }

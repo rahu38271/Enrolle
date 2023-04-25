@@ -5,23 +5,23 @@ import html2pdf from 'html2pdf.js'
 import { AppointmentService } from 'src/app/services/appointment.service'
 import { LoaderService } from 'src/app/services/loader.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { ExcelService } from 'src/app/services/excel.service'
 import { CsvService } from 'src/app/services/csv.service';
 
-
 @Component({
-  selector: 'app-appointment',
-  templateUrl: './appointment.component.html',
-  styleUrls: ['./appointment.component.scss'],
+  selector: 'app-appointment-by-admin',
+  templateUrl: './appointment-by-admin.component.html',
+  styleUrls: ['./appointment-by-admin.component.css']
 })
-export class AppointmentComponent implements OnInit {
+export class AppointmentByAdminComponent implements OnInit {
 
   isModalOpen = false;
   isSuperAdmin = false;
   getApmList:any; 
   searchWeb:string;
+  adminName:any;
   year : number = new Date().getFullYear();
   myForm1: any;
   searchApmModal:any={
@@ -46,7 +46,7 @@ export class AppointmentComponent implements OnInit {
   };
   UserId:any;
   roleID:any;
- 
+  userId:any;
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
 
   currentDate: number = Date.now();
@@ -60,56 +60,35 @@ export class AppointmentComponent implements OnInit {
     private router:Router, 
     private toast:IonicToastService,
     private excel:ExcelService,
-    private csv:CsvService
-    ) { }
+    private csv:CsvService,
+    private route:ActivatedRoute,
+  ) { }
 
-    ngOnInit() {
-      this.UserId = localStorage.getItem("loginId");
-      this.roleID = localStorage.getItem("userType")
-      if(this.roleID == 2){
-        this.isSuperAdmin = !this.isSuperAdmin
-      }
-      else{
-        this.isSuperAdmin = this.isSuperAdmin
-      }
-      
+  ngOnInit(): void {
+    debugger;
+    //this.UserId = localStorage.getItem("loginId");
+    this.adminName = this.route.snapshot.paramMap.get('adminName');
+    this.UserId = this.route.snapshot.paramMap.get('userId');
+    this.roleID = this.route.snapshot.paramMap.get('userType');
       this.appoinmentList();
-      // setInterval(()=>{
-      //   this.appoinmentList();
-      //   this.apmCountData();
-      // },1000)
-      this.apmCountData();
       // this.router.events.pipe(
       //   filter(event => event instanceof NavigationEnd)
       // ).subscribe(() => {
       //   this.appoinmentList();
       // })
-    }
+  }
 
-    isBigEnough(element, index, array) { 
-      return (element.status == "" || element.status == null ); 
-   } 
+
 
   appoinmentList(){
     this.appointment.getAppointments(this.UserId,this.roleID).subscribe((data:any)=>{
       if(data != 0){
-        this.getApmList = data.filter(this.isBigEnough);
-        this.getApmList.forEach(e => {
-          e.birthDate = e.birthDate.split('T')[0];
-        });
+        this.getApmList = data;
       }
       else{
       }
     },(err)=>{
 
-    })
-  }
-
-  
-
-  apmCountData(){
-    this.appointment.getApmCounts(this.UserId,this.roleID).subscribe(data=>{
-      this.apmCount = data
     })
   }
 

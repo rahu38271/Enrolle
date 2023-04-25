@@ -4,6 +4,7 @@ import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { AlertController,ModalController } from '@ionic/angular';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-approved',
@@ -37,6 +38,7 @@ export class ApprovedComponent implements OnInit {
     private router:Router, 
     private toast:IonicToastService,
     public modalCtrl: ModalController,
+    private location: Location,
   ) { }
 
   ngOnInit(): void {
@@ -126,6 +128,10 @@ export class ApprovedComponent implements OnInit {
   closeReschedule(){
     this.isModalOpen = false;
     this.modalCtrl.dismiss();
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   saveAppointment(){
