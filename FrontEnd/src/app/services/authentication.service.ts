@@ -30,6 +30,7 @@ export class AuthenticationService {
 
   // step - 2. DB configure 
   DBConfig(DBConfigModal:any){
+    debugger;
     return this.http.post<any>(this.url+'Login/InsertUpdateDBConfigure', DBConfigModal)
   }
 

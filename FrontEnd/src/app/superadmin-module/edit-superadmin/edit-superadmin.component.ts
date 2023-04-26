@@ -134,6 +134,7 @@ export class EditSuperadminComponent implements OnInit {
   }
 
   editAdmin(){
+    debugger;
     this.editData.id = Number(this.editData.id);
     if(this.editData.roleName == "MasterAdmin"){
       this.editData.roleId = 1
@@ -162,13 +163,19 @@ export class EditSuperadminComponent implements OnInit {
 
     this.loader.showLoading();
     this.sadmin.edit(this.editData).subscribe((data)=>{
-      this.editData={};
-        this.loader.hideLoader();
-        this.toast.presentToast("Superadmin updated successfully!", "success", 'checkmark-circle-sharp');
-        this.router.navigate(['/superadmin']);
+        if(data){
+          this.editData={};
+          this.loader.hideLoader();
+          this.toast.presentToast("Superadmin updated successfully!", "success", 'checkmark-circle-sharp');
+          this.router.navigate(['/superadmin']);
+        }
+        else{
+          this.loader.hideLoader();
+        this.toast.presentToast("Superadmin not updated", "danger", 'alert-circle-sharp');
+        }
     }, (err)=>{
       this.loader.hideLoader();
-      this.toast.presentToast("Superadmin not updated", "danger", 'alert-circle-sharp');
+      //this.toast.presentToast("Superadmin not updated", "danger", 'alert-circle-sharp');
     })
   }
   

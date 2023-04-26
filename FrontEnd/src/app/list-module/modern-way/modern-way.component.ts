@@ -16,6 +16,7 @@ import { TranslateConfigService } from 'src/app/services/translate-config.servic
 })
 export class ModernWayComponent implements OnInit {
   Language:any;
+  isShow = false;
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
 
   myForm1;
@@ -36,11 +37,12 @@ export class ModernWayComponent implements OnInit {
     NoofRow:'',
     Language:''
   };
-  searchList: any[] =[];
+  searchList: any;
   id: any;
   roleID:any;
   PageNo:any=1;
   NoofRow:any=10;
+  totalItems:any;
 
   constructor
     (
@@ -71,13 +73,20 @@ export class ModernWayComponent implements OnInit {
   ngOnInit() {
     this.id = localStorage.getItem("loginId");
     this.roleID = localStorage.getItem("userType");
+ 
   }
 
    voterDetails(item:any){
     this.router.navigate(['voterdata-management/voter-details'], { state: item })
    }
 
+   event(event: any) {
+    this.PageNo = event;
+    this.voterListBySearch()
+  }
+
   voterListBySearch(){
+    this.isShow = !this.isShow;
     this.searchModal.Language = this.Language
     this.searchModal.PageNo = this.PageNo;
     this.searchModal.NoofRow = this.NoofRow;
@@ -156,6 +165,7 @@ export class ModernWayComponent implements OnInit {
        if(data.length > 0){
         this.loader.hideLoader();
         this.searchList = data;
+        this.totalItems = data[0].totalCount
         this.toast.presentToast("Searched successfully!", "success", 'checkmark-circle-sharp');
        }
        else{

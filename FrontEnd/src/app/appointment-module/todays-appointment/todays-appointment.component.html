@@ -1,0 +1,145 @@
+
+
+<ion-content>
+    <ion-header class="android">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button auto-hide="false"></ion-menu-button>
+        </ion-buttons>
+        <ion-title> Appointments </ion-title>
+        <ion-buttons slot="primary">
+          <ion-button (click)="search()">
+            <ion-icon name="search-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <div class="main-content">
+      <div class="web">
+        <ion-grid class="header">
+          <ion-row>
+            <ion-col size-xs="12" size-sm="6">
+              <div class="flex">
+                <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
+                <ion-card-header>
+                  <ion-card-title>Today's Appointments <span> ( {{currentDate | date:'dd MMMM yyyy'}} ) </span>, Total : {{todayApm.length}}</ion-card-title>
+                  <div class="headerLine"></div>
+                </ion-card-header>
+              </div>
+              
+            </ion-col>
+            <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+              <ion-button class="button-download" color="primary" routerLink="/appointment/add-appointment"><ion-icon name="add-circle-sharp"></ion-icon>Add Appointment</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+  
+      
+  
+      <ion-card>
+        <ion-card-content>
+          <div class="headSection">
+            <div class="search">
+              <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+            </div>
+            <div class="btns">
+              <ion-button class="button-download" color="success" (click)="exportExcel()" ><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
+              <ion-button class="button-download" color="success" (click)="exportToCSV()" ><ion-icon name="document-sharp"></ion-icon>CSV</ion-button>
+            </div>
+          </div>
+          <div class="horizontal-scroll">
+            <table class="table" id="table13" #epltable>
+              <thead>
+                <tr>
+                  <th style="width: 40px;">
+                    Sr.No.		
+                  </th>
+                  <th>
+                    Name
+                  </th>
+                  <th>
+                    Category
+                  </th>
+                  <th>
+                    Appointment Date
+                  </th>
+                  <th>
+                    Phone No.	
+                  </th>
+                  <th>
+                    DoB					
+                  </th>
+                  <th>
+                    Work
+                  </th>
+                  <th>
+                    Other
+                  </th>
+                  <th>
+                    District
+                  </th>
+                  <th>
+                    Taluka
+                  </th>
+                  <th>Flat / House No.</th>
+                  <th>Society / Building Name</th>
+                  <th>Ward</th>
+                  <th>Pincode</th>
+                  <th>City / Village</th>
+                  <th>File</th>
+                  <th>Remark</th>
+                  <th>Status</th>
+                  <th id="element-to-hide" data-html2canvas-ignore="true">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of todayApm">
+                  <td>{{item.id}}</td>
+                  <td class="text-capitalize">{{item.firstName}} {{item.middleName}} {{item.lastName}}</td>
+                  <td>{{item.category}}</td>
+                  <td>{{item.appointmentDate}}</td>
+                  <td>
+                    {{item.phoneNo}}
+                  </td>
+                  <td>{{item.birthDate}}</td>
+                  <td>{{item.work}}</td>
+                  <td>{{item.other}}</td>
+                  <td>{{item.district}}</td>
+                  <td>{{item.taluka}}</td>
+                  <td>{{item.houseNo}}</td>
+                  <td>{{item.soc_BldgName}}</td>
+                  <td>{{item.wardNo}}</td>
+                  <td>{{item.pinCode}}</td>
+                  <td>{{item.city_Village}}</td>
+                  <td>{{item.fileName}}</td>
+                  <td>{{item.remark}}</td>
+                  <td>
+                    <select placeholder="Select" class="form-control-sm" [(ngModel)]="updateStatusModal.Status" (change)="changeStatus($event)" id="{{item.id}}">
+                        <option value="" selected>Select</option>
+                        <option value="Approved">Approve</option>
+                        <option value="Rejected">Reject</option>
+                        <option value="Reschedule">Reschedule</option>
+                      </select>
+                  </td>
+                  <td id="element-to-hide" data-html2canvas-ignore="true" class="action">
+                    <ion-icon (click)="editAppointment(item)" name="create-sharp"></ion-icon>
+                  <ion-icon (click)="deleteApm(item.id)" class="delete" name="trash-bin-sharp"></ion-icon> 
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </ion-content>
+                          
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed" routerLink="/appointment/add-appointment">
+    <ion-fab-button color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>

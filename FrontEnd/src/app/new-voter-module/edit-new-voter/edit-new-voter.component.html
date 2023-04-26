@@ -76,6 +76,7 @@
             <ion-modal trigger="dob" size="cover">
               <ng-template>
                 <ion-datetime 
+                max={{maxDate}}
                   presentation="date" 
                   name="dob"
                   [(ngModel)]="dob"

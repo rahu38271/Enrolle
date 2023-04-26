@@ -176,6 +176,7 @@ export class SuperadminComponent implements OnInit {
   }
 
   EditSA(data: any) {
+    debugger;
     this.router.navigateByUrl('/superadmin/edit-superadmin', { state: data })
   }
 

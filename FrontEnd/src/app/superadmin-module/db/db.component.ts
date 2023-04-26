@@ -60,12 +60,13 @@ export class DbComponent implements OnInit {
   }
 
   dbAssign(){
+    debugger;
     this.DBConfigModal.superAdminId = Number(this.id);
     this.loader.showLoading();
     this.auth.DBConfig(this.DBConfigModal).subscribe(data=>{
       if(data){
         this.loader.hideLoader();
-        this.DBConfigModal = { };
+        this.DBConfigModal = {};
         this.toast.presentToast("DB assigned successfully!", "success", 'checkmark-circle-sharp');
         this.router.navigate(['/superadmin']);
       }

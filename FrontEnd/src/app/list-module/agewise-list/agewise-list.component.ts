@@ -15,6 +15,8 @@ import { TranslateConfigService } from 'src/app/services/translate-config.servic
 })
 export class AgewiseListComponent implements OnInit {
 
+  isShow = false;
+
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
   Language: any;
   myForm1;
@@ -30,7 +32,6 @@ export class AgewiseListComponent implements OnInit {
   userId: any;
   roleID:any;
   searchMob:string;
-  isShow = false;
   PageNo:any=1;
   NoofRow:any=25
   totalItems:any;
@@ -76,6 +77,7 @@ export class AgewiseListComponent implements OnInit {
    }
 
    agewiseSearch(userId:any,roleID:any,PageNo:any,NofRow:any,Language:any) {
+     this.isShow = !this.isShow;
     this.ageModal.Language = this.Language
     this.voter.voterBetweenAge(
       this.ageModal.age1, 

@@ -5,7 +5,7 @@
         <!-- <ion-back-button (click)="goBack()" auto-hide="false"></ion-back-button> -->
         <ion-back-button defaultHref="/voterdata-management/voterby-user"></ion-back-button>
       </ion-buttons>
-      <ion-title>  {{'Voter Details' | translate}} </ion-title>
+      <ion-title> {{'Voter Details' | translate}} </ion-title>
     </ion-toolbar>
   </ion-header>
   <div class="main-content" *ngIf="VoterListByUser">
@@ -13,13 +13,8 @@
       <ion-row class="mt-2">
         <ion-col class="star">
           <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
-            <input type="image"
-            name="star" 
-            src="{{ showStar ? 'assets/img/star1.png' : 'assets/img/star.png'}}" 
-            width="32" height="32"
-            [(ngModel)]="starUpdare.YesNo"
-            (click)="toggleStar()"
-          >
+            <input type="image" name="star" src="{{ showStar ? 'assets/img/star1.png' : 'assets/img/star.png'}}"
+              width="32" height="32" [(ngModel)]="starUpdare.YesNo" (click)="toggleStar()">
           </form>
         </ion-col>
         <ion-col>
@@ -30,7 +25,7 @@
             <img src="/assets/img/sharing.png" alt="">
           </a> -->
         </ion-col>
-        
+
 
         <!-- <ion-col>
           <a href="https://wa.me/+918390755001">
@@ -41,17 +36,11 @@
         <ion-col (click)="printSlip()">
           <img src="/assets/img/printer.png" alt="">
         </ion-col>
-        
+
         <ion-col>
           <form (ngSubmit)="vote.form.valid" #vote="ngForm" novalidate>
-            <img 
-              name="voteStatus"
-              src="{{ showVote ? 'assets/img/manual-voting.png' : 'assets/img/positive-vote.png'}}" 
-              type="button" 
-              [(ngModel)]="voteStatusUpdate.YesNo"
-              (click)="toggleVote()" 
-              alt=""
-            >
+            <img name="voteStatus" src="{{ showVote ? 'assets/img/manual-voting.png' : 'assets/img/positive-vote.png'}}"
+              type="button" [(ngModel)]="voteStatusUpdate.YesNo" (click)="toggleVote()" alt="">
           </form>
           <!-- <img src="{{ showVote ? 'assets/img/positive-vote.png' : 'assets/img/manual-voting.png'}}" 
           type="button" (click)="toggleVote()" alt=""> -->
@@ -64,7 +53,7 @@
         <ion-col id="click-trigger">
           <div class="emptyDiv" [ngStyle]="{'background-color': bgColor}"></div>
         </ion-col>
-        
+
       </ion-row>
     </ion-grid>
     <ion-popover trigger="click-trigger" triggerAction="click" class="color">
@@ -77,28 +66,28 @@
                   <ion-col>
                     <ion-item lines="none" class="supporter" (click)="DismissClick();supporter()">
                       <ion-label class="Supporter" name="Supporter" [(ngModel)]="colorUpdate.Colour">
-                         {{'Supporter' | translate}}
+                        {{'Supporter' | translate}}
                       </ion-label>
                     </ion-item>
                   </ion-col>
                   <ion-col>
                     <ion-item lines="none" class="opposition" (click)="DismissClick();opposition()">
                       <ion-label class="Opposition" name="Opposition" [(ngModel)]="colorUpdate.Colour">
-                         {{'Opposition' | translate}}
+                        {{'Opposition' | translate}}
                       </ion-label>
                     </ion-item>
                   </ion-col>
                   <ion-col>
                     <ion-item lines="none" class="doubtful" (click)="DismissClick();doubtful()">
                       <ion-label class="Doubtful" name="Doubtful" [(ngModel)]="colorUpdate.Colour">
-                         {{'Doubtful' | translate}}
+                        {{'Doubtful' | translate}}
                       </ion-label>
                     </ion-item>
                   </ion-col>
                   <ion-col>
                     <ion-item lines="none" class="other" (click)="DismissClick();other()">
                       <ion-label class="Other" name="Other" [(ngModel)]="colorUpdate.Colour">
-                         {{'Other' | translate}}
+                        {{'Other' | translate}}
                       </ion-label>
                     </ion-item>
                   </ion-col>
@@ -110,12 +99,12 @@
       </ng-template>
     </ion-popover>
 
-    <ion-grid >
+    <ion-grid>
       <ion-row class="header mt-2 mb-2">
         <ion-col class="ion-text-center">
           <ion-label>
             <!-- Assembly : {{assemblyName1}} -->
-             {{'Assembly' | translate}} : {{assemblyName1}}
+            {{'Assembly' | translate}} : {{assemblyName1}}
           </ion-label>
         </ion-col>
       </ion-row>
@@ -163,7 +152,7 @@
           <ion-label>1</ion-label>
         </ion-col>
       </ion-row> -->
-      
+
       <ion-row class="ageGender">
         <ion-col class="title" size-xs="3">
           <ion-label>{{'Age' | translate}}</ion-label>
@@ -211,7 +200,7 @@
           <ion-label></ion-label>
         </ion-col>
       </ion-row> -->
-      
+
       <ion-row>
         <ion-col class="title" size-xs="3">
           <ion-label> {{'Voter ID' | translate}} </ion-label>
@@ -220,14 +209,14 @@
           :
         </ion-col>
         <ion-col size-xs="8">
-          <ion-label> {{VoterListByUser.votingCardNo}} </ion-label> 
+          <ion-label> {{VoterListByUser.votingCardNo}} </ion-label>
         </ion-col>
       </ion-row>
 
       <ion-row>
         <ion-col class="title" size-xs="3">
           <ion-label>
-             {{'Address' | translate}}
+            {{'Address' | translate}}
           </ion-label>
           <div>
             <ion-icon name="create-sharp" id="address"></ion-icon>
@@ -239,9 +228,9 @@
         <ion-col size-xs="8">
           <ion-label class="address">
             {{VoterListByUser.address}}
-          </ion-label> 
+          </ion-label>
         </ion-col>
-        
+
       </ion-row>
 
       <ion-modal #modal trigger="address">
@@ -254,16 +243,18 @@
                 </ion-col>
                 <ion-col size="12">
                   <div>
-                    <ion-textarea rows="4" name="Address" [(ngModel)]="adrsUpdate.Address" class="form-control" required></ion-textarea>
+                    <ion-textarea rows="4" name="Address" [(ngModel)]="adrsUpdate.Address" class="form-control"
+                      required></ion-textarea>
                   </div>
                 </ion-col>
                 <ion-col size="12" class="ion-text-center">
-                    <ion-button type="submit" color="success" size="small" (click)="saveAddress()" [disabled]="!f.form.valid">
-                       {{'Submit' | translate}}
-                    </ion-button>
-                    <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
-                       {{'Clear' | translate}}
-                    </ion-button>
+                  <ion-button type="submit" color="success" size="small" (click)="saveAddress()"
+                    [disabled]="!f.form.valid">
+                    {{'Submit' | translate}}
+                  </ion-button>
+                  <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
+                    {{'Clear' | translate}}
+                  </ion-button>
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -271,7 +262,7 @@
         </ng-template>
       </ion-modal>
 
-    
+
 
       <ion-row>
         <ion-col class="title" size-xs="3">
@@ -281,7 +272,7 @@
           :
         </ion-col>
         <ion-col size-xs="8">
-          <ion-label> {{VoterListByUser.partNo}} </ion-label> 
+          <ion-label> {{VoterListByUser.partNo}} </ion-label>
         </ion-col>
       </ion-row>
 
@@ -293,7 +284,7 @@
           :
         </ion-col>
         <ion-col size-xs="8">
-          <ion-label>  {{VoterListByUser.srNo}} </ion-label> 
+          <ion-label> {{VoterListByUser.srNo}} </ion-label>
         </ion-col>
       </ion-row>
 
@@ -301,55 +292,55 @@
       <ion-row>
         <ion-col class="title" size-xs="3">
           <ion-label>
-               {{'Mobile' | translate}}
-            </ion-label>
-            <div>
-              <ion-icon name="add-circle-sharp" id="mobile" expand="block"></ion-icon>
-            </div>
+            {{'Mobile' | translate}}
+          </ion-label>
+          <div>
+            <ion-icon name="add-circle-sharp" id="mobile" expand="block"></ion-icon>
+          </div>
         </ion-col>
         <ion-col class="ion-text-center" size-xs="1">
           :
         </ion-col>
-        <ion-col size-xs="7" >
-          <ion-label> {{VoterListByUser.mobileNo}} </ion-label> 
+        <ion-col size-xs="7">
+          <ion-label> {{VoterListByUser.mobileNo}} </ion-label>
         </ion-col>
-        
+
       </ion-row>
 
       <ion-row>
         <ion-col class="title" size-xs="3">
-          <ion-label> 
+          <ion-label>
             {{'Alt. No.' | translate}}
           </ion-label>
           <div>
-            <ion-icon name="add-circle-sharp" id="altMobile" ></ion-icon>
+            <ion-icon name="add-circle-sharp" id="altMobile"></ion-icon>
           </div>
         </ion-col>
         <ion-col class="ion-text-center" size-xs="1">
           :
         </ion-col>
-        <ion-col size-xs="7" >
-          <ion-label> {{VoterListByUser.alternateMobileNo}}  </ion-label> 
+        <ion-col size-xs="7">
+          <ion-label> {{VoterListByUser.alternateMobileNo}} </ion-label>
         </ion-col>
-        
+
       </ion-row>
 
       <ion-row style="display: none;">
         <ion-col class="title" size-xs="3">
-          <ion-label> 
-            Alt. No. 
+          <ion-label>
+            Alt. No.
           </ion-label>
           <div>
-            <ion-icon name="add-circle-sharp" id="altMobile" ></ion-icon>
+            <ion-icon name="add-circle-sharp" id="altMobile"></ion-icon>
           </div>
         </ion-col>
         <ion-col class="ion-text-center" size-xs="1">
           :
         </ion-col>
-        <ion-col size-xs="7" >
-          <ion-label> {{VoterListByUser.votingInclination}}  </ion-label> 
+        <ion-col size-xs="7">
+          <ion-label> {{VoterListByUser.votingInclination}} </ion-label>
         </ion-col>
-        
+
       </ion-row>
 
       <ion-modal trigger="mobile" (willDismiss)="onWillDismiss($event)">
@@ -361,35 +352,29 @@
                   <h6>Add Mob. No.</h6>
                 </ion-col>
                 <ion-col size="12">
-                    <div>
-                      <ion-input 
-                        maxlength="10" 
-                        minlength="10" 
-                        name="Mobile" 
-                        [(ngModel)]="mobUpdate.Mobile" 
-                        (keypress)="keyPressNumbers($event)" 
-                        class="form-control" 
-                        required
-                      >
-                      </ion-input>
-                    </div>
+                  <div>
+                    <ion-input maxlength="12" minlength="10" name="Mobile" [(ngModel)]="mobUpdate.Mobile"
+                      (keypress)="keyPressNumbers($event)" class="form-control" required>
+                    </ion-input>
+                  </div>
                 </ion-col>
                 <ion-col size="12" class="ion-text-center">
-                    <ion-button type="submit" color="success" size="small" (click)="saveMobile()" [disabled]="!f.form.valid">
-                      {{'Submit' | translate}}
-                    </ion-button>
-                    <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
-                      {{'Clear' | translate}}
-                    </ion-button>
+                  <ion-button type="submit" color="success" size="small" (click)="saveMobile()"
+                    [disabled]="!f.form.valid">
+                    {{'Submit' | translate}}
+                  </ion-button>
+                  <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
+                    {{'Clear' | translate}}
+                  </ion-button>
                 </ion-col>
               </ion-row>
             </ion-grid>
           </form>
-          
+
         </ng-template>
       </ion-modal>
 
-      
+
       <ion-modal #modal trigger="altMobile" (willDismiss)="onWillDismiss($event)">
         <ng-template>
           <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
@@ -400,45 +385,48 @@
                 </ion-col>
                 <ion-col size="12">
                   <div>
-                    <ion-input maxlength="10" minlength="10" name="altMobile" [(ngModel)]="altmobUpdate.AlternateMobileNo" (keypress)="keyPressNumbers($event)" class="form-control"  required></ion-input>
+                    <ion-input maxlength="12" minlength="10" name="altMobile"
+                      [(ngModel)]="altmobUpdate.AlternateMobileNo" (keypress)="keyPressNumbers($event)"
+                      class="form-control" required></ion-input>
                   </div>
                 </ion-col>
                 <ion-col size="12" class="ion-text-center">
-                    <ion-button type="submit" color="success" size="small" (click)="saveAltMobile()" [disabled]="!f.form.valid">
-                      {{'Submit' | translate}}
-                    </ion-button>
-                    <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
-                       {{'Clear' | translate}}
-                    </ion-button>
+                  <ion-button type="submit" color="success" size="small" (click)="saveAltMobile()"
+                    [disabled]="!f.form.valid">
+                    {{'Submit' | translate}}
+                  </ion-button>
+                  <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
+                    {{'Clear' | translate}}
+                  </ion-button>
                 </ion-col>
               </ion-row>
             </ion-grid>
           </form>
-          
+
         </ng-template>
       </ion-modal>
 
-      
-      <ion-row >
+
+      <ion-row>
         <ion-col class="title" size-xs="3">
           <!-- <ion-label>Dead</ion-label> -->
           <ion-label> {{'Alive' | translate}}</ion-label>
           <div>
-            <ion-icon name="add-circle-sharp" id="deadAlive" ></ion-icon>
+            <ion-icon name="add-circle-sharp" id="deadAlive"></ion-icon>
           </div>
         </ion-col>
-        
+
         <ion-col class="ion-text-center" size-xs="1">
           :
         </ion-col>
         <ion-col size-xs="8">
-          <ion-label> 
+          <ion-label>
             <ion-radio-group name="isAlive" [(ngModel)]="VoterListByUser.isAlive">
               <div class="radioBtn">
                 <ion-radio [value]="0" disabled></ion-radio>
-                  <ion-label>No</ion-label>
-                  <ion-radio [value]="1" disabled></ion-radio>
-                  <ion-label>Yes</ion-label>
+                <ion-label>No</ion-label>
+                <ion-radio [value]="1" disabled></ion-radio>
+                <ion-label>Yes</ion-label>
               </div>
             </ion-radio-group>
             <!-- <ion-radio-group >
@@ -453,7 +441,7 @@
         </ion-col>
       </ion-row>
 
-     
+
       <ion-modal #modal trigger="deadAlive" (willDismiss)="onWillDismiss($event)">
         <ng-template>
           <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
@@ -466,30 +454,31 @@
                   <ion-label>Is Alive ?</ion-label>
                 </ion-col>
                 <ion-col size="12">
-                  
+
                   <div>
                     <ion-radio-group name="deadAlive" [(ngModel)]="deadAlive.YesNo">
-                      <div class="radioBtn" >
-                        <ion-radio value="N" ></ion-radio>
-                          <ion-label> {{'No' | translate}}</ion-label>
-                          <ion-radio value="Y" ></ion-radio>
-                          <ion-label>{{'Yes' | translate}}</ion-label>
+                      <div class="radioBtn">
+                        <ion-radio value="N"></ion-radio>
+                        <ion-label> {{'No' | translate}}</ion-label>
+                        <ion-radio value="Y"></ion-radio>
+                        <ion-label>{{'Yes' | translate}}</ion-label>
                       </div>
                     </ion-radio-group>
                   </div>
                 </ion-col>
                 <ion-col size="12" class="ion-text-center">
-                    <ion-button type="submit" color="success" size="small" (click)="aliveDead()" [disabled]="!f.form.valid">
-                       {{'Submit' | translate}}
-                    </ion-button>
-                    <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
-                       {{'Clear' | translate}}
-                    </ion-button>
+                  <ion-button type="submit" color="success" size="small" (click)="aliveDead()"
+                    [disabled]="!f.form.valid">
+                    {{'Submit' | translate}}
+                  </ion-button>
+                  <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
+                    {{'Clear' | translate}}
+                  </ion-button>
                 </ion-col>
               </ion-row>
             </ion-grid>
           </form>
-          
+
         </ng-template>
       </ion-modal>
 
@@ -497,28 +486,30 @@
         <ion-col class="title" size-xs="3">
           <ion-label> DOB </ion-label>
           <div>
-            <ion-icon name="add-circle-sharp" id="dob" ></ion-icon>
+            <ion-icon name="add-circle-sharp" id="dob"></ion-icon>
           </div>
         </ion-col>
         <ion-col class="ion-text-center" size-xs="1">
           :
         </ion-col>
         <ion-col size-xs="8">
-          <ion-label>  </ion-label> 
+          <ion-label> {{VoterListByUser.birthDate}} </ion-label>
         </ion-col>
       </ion-row>
 
-      <div class="dob">
+      <!-- <div class="dob">
         <ion-modal trigger="dob">
+          <ion-input></ion-input>
           <ng-template>
             <ion-datetime
               presentation="date"
               name="dob"
+              [(ngModel)]="BirthdateUpdate.Birthdate"
             >
             <span slot="title"> {{ year }} </span>
           </ion-datetime>
           <ion-col size="12" class="ion-text-center">
-            <ion-button type="submit" color="success" size="small" >
+            <ion-button type="submit" color="success" size="small" (click)="saveBirthdate()">
                {{'Submit' | translate}}
             </ion-button>
             <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
@@ -527,24 +518,62 @@
         </ion-col>
           </ng-template>
         </ion-modal>
-      </div>
+      </div> -->
+
+      <ion-modal #modal trigger="dob" [canDismiss]="canDismiss">
+        <ng-template>
+          <div>
+            <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+              <ion-grid>
+                <ion-row>
+                  <ion-col class="ion-text-center">
+                    <h6>Add Birthdate</h6>
+                  </ion-col>
+                  <ion-col size="12">
+                    <ion-list>
+                      <ion-input value="{{ Birthdate | date: 'yyyy-MM-dd' }}" id="Birthdate" class="form-control"
+                        name="Birthdate" [(ngModel)]="BirthdateUpdate.ColoumnValue"></ion-input>
+                      <ion-modal trigger="Birthdate" size="cover">
+                        <ng-template>
+                          <ion-datetime presentation="date" [(ngModel)]="Birthdate" name="Birthdate">
+                            <span slot="title"> {{ year }} </span>
+                          </ion-datetime>
+                        </ng-template>
+                      </ion-modal>
+                    </ion-list>
+                  </ion-col>
+                  <ion-col size="12" class="ion-text-center">
+                    <ion-button type="submit" color="success" size="small" (click)="saveBirthdate()">
+                      {{'Submit' | translate}}
+                    </ion-button>
+                    <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
+                      {{'Clear' | translate}}
+                    </ion-button>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </form>
+          </div>
+
+        </ng-template>
+      </ion-modal>
 
       <ion-row>
         <ion-col class="title" size-xs="3">
           <ion-label> Cast </ion-label>
           <div>
-            <ion-icon name="add-circle-sharp" id="cast" ></ion-icon>
+            <ion-icon name="add-circle-sharp" id="cast"></ion-icon>
           </div>
         </ion-col>
         <ion-col class="ion-text-center" size-xs="1">
           :
         </ion-col>
         <ion-col size-xs="8">
-          <ion-label>  </ion-label> 
+          <ion-label> {{VoterListByUser.caste}} </ion-label>
         </ion-col>
       </ion-row>
 
-      
+
       <ion-modal #modal trigger="cast" (willDismiss)="onWillDismiss($event)">
         <ng-template>
           <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
@@ -555,33 +584,28 @@
                 </ion-col>
                 <ion-col size="12">
                   <ion-list>
-                    <ion-select aria-label="fruit" placeholder="Select" class="form-control">
-                      <ion-select-option >Businessman</ion-select-option>
-                      <ion-select-option >Doctor</ion-select-option>
-                      <ion-select-option >Driver</ion-select-option>
-                      <ion-select-option >Electrician</ion-select-option>
-                      <ion-select-option >Engineer</ion-select-option>
-                      <ion-select-option >Farmer</ion-select-option>
-                      <ion-select-option >Govt. Job</ion-select-option>
-                      <ion-select-option >Job</ion-select-option>
-                      <ion-select-option >Labour</ion-select-option>
-                      <ion-select-option >Lawyer</ion-select-option>
-                      <ion-select-option >No</ion-select-option>
-                      <ion-select-option >Private Job</ion-select-option>
-                      <ion-select-option >Shopkeeper</ion-select-option>
-                      <ion-select-option >Student</ion-select-option>
-                      <ion-select-option >Tailer</ion-select-option>
-                      <ion-select-option >Teacher</ion-select-option>
+                    <ion-select 
+                      name="Caste"
+                      placeholder="Select Cast" 
+                      class="form-control"
+                      [(ngModel)]="CasteUpdate.ColoumnValue" 
+                      (change)="AllCasts(CasteUpdate.ColoumnValue)"
+                      >
+                      <ion-select-option 
+                      *ngFor="let item of casteList" 
+                      [value]="item.casteName"
+                      >{{item.casteName}}
+                    </ion-select-option>
                     </ion-select>
-                </ion-list>
+                  </ion-list>
                 </ion-col>
                 <ion-col size="12" class="ion-text-center">
-                    <ion-button type="submit" color="success" size="small" >
-                       {{'Submit' | translate}}
-                    </ion-button>
-                    <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
-                       {{'Clear' | translate}}
-                    </ion-button>
+                  <ion-button type="submit" color="success" size="small" (click)="saveCaste()">
+                    {{'Submit' | translate}}
+                  </ion-button>
+                  <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
+                    {{'Clear' | translate}}
+                  </ion-button>
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -593,18 +617,18 @@
         <ion-col class="title" size-xs="3">
           <ion-label> Profession </ion-label>
           <div>
-            <ion-icon name="add-circle-sharp" id="profession" ></ion-icon>
+            <ion-icon name="add-circle-sharp" id="profession"></ion-icon>
           </div>
         </ion-col>
         <ion-col class="ion-text-center" size-xs="1">
           :
         </ion-col>
         <ion-col size-xs="8">
-          <ion-label>  </ion-label> 
+          <ion-label> {{VoterListByUser.occupation}} </ion-label>
         </ion-col>
       </ion-row>
 
-      <ion-modal #modal trigger="profession" [canDismiss]="canDismiss" >
+      <ion-modal #modal trigger="profession" [canDismiss]="canDismiss">
         <ng-template>
           <div>
             <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
@@ -615,43 +639,27 @@
                   </ion-col>
                   <ion-col size="12">
                     <ion-list>
-                      <ion-select aria-label="fruit" placeholder="Select" class="form-control">
-                        <ion-select-option >Businessman</ion-select-option>
-                        <ion-select-option >Doctor</ion-select-option>
-                        <ion-select-option >Driver</ion-select-option>
-                        <ion-select-option >Electrician</ion-select-option>
-                        <ion-select-option >Engineer</ion-select-option>
-                        <ion-select-option >Farmer</ion-select-option>
-                        <ion-select-option >Govt. Job</ion-select-option>
-                        <ion-select-option >Job</ion-select-option>
-                        <ion-select-option >Labour</ion-select-option>
-                        <ion-select-option >Lawyer</ion-select-option>
-                        <ion-select-option >No</ion-select-option>
-                        <ion-select-option >Private Job</ion-select-option>
-                        <ion-select-option >Shopkeeper</ion-select-option>
-                        <ion-select-option >Student</ion-select-option>
-                        <ion-select-option >Tailer</ion-select-option>
-                        <ion-select-option >Teacher</ion-select-option>
-                      </ion-select>
-                  </ion-list>
+                      <ion-input name="profession" [(ngModel)]="professionUpdate.ColoumnValue" class="form-control">
+                      </ion-input>
+                    </ion-list>
                   </ion-col>
                   <ion-col size="12" class="ion-text-center">
-                      <ion-button type="submit" color="success" size="small" >
-                         {{'Submit' | translate}}
-                      </ion-button>
-                      <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
-                         {{'Clear' | translate}}
-                      </ion-button>
+                    <ion-button type="submit" color="success" size="small" (click)="saveProfession()">
+                      {{'Submit' | translate}}
+                    </ion-button>
+                    <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
+                      {{'Clear' | translate}}
+                    </ion-button>
                   </ion-col>
                 </ion-row>
               </ion-grid>
             </form>
           </div>
-          
+
         </ng-template>
       </ion-modal>
 
-    
+
       <!-- <ion-row>
         <ion-col class="title" size-xs="3">
           <ion-label> पॅन कार्ड </ion-label>
@@ -674,9 +682,9 @@
           <ion-label> 1234 5678 9012 </ion-label> 
         </ion-col>
       </ion-row> -->
-      
 
-      
+
+
 
       <!-- <ion-row>
         <ion-col class="title" size-xs="3">
@@ -753,7 +761,7 @@
         </ion-col>
       </ion-row> -->
 
-      
+
     </ion-grid>
 
     <ion-grid>
@@ -792,19 +800,19 @@
       </ion-row> -->
       <ion-row class="ion-text-center">
         <ion-col>
-          <ion-button size="block"  (click)="sameAddressVoter(VoterListByUser.id)">
-             {{'Voter on Same Address' | translate}}
+          <ion-button size="block" (click)="sameAddressVoter(VoterListByUser.id)">
+            {{'Voter on Same Address' | translate}}
           </ion-button>
         </ion-col>
       </ion-row>
       <ion-row class="ion-text-center">
-        <ion-col >
-          <ion-button size="block"  (click)="sameBoothVoter()">Voter on Same Booth</ion-button>
+        <ion-col>
+          <ion-button size="block" (click)="sameBoothVoter()">Voter on Same Booth</ion-button>
         </ion-col>
       </ion-row>
       <ion-row class="ion-text-center">
-        <ion-col >
-          <ion-button size="block"  routerLink="/survey">  {{'Survey' | translate}}</ion-button>
+        <ion-col>
+          <ion-button size="block" routerLink="/survey"> {{'Survey' | translate}}</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -815,43 +823,43 @@
         <ion-img style="width: 200px;" [src]="ImagePath"></ion-img>
         <div class="text-center" #myDiv id="myDiv">
           <h6>
-             {{'Assembly' | translate}} : {{ VoterListByUser.assemblyNo }} {{ VoterListByUser.assembly }}
+            {{'Assembly' | translate}} : {{ VoterListByUser.assemblyNo }} {{ VoterListByUser.assembly }}
           </h6>
         </div>
         <div class="name">
-          <table >
+          <table>
             <tr #tr1>
-              <th>   {{'Part No.' | translate}} </th>
+              <th> {{'Part No.' | translate}} </th>
               <th> : </th>
               <td> {{VoterListByUser.partNo}} </td>
             </tr>
             <tr #tr2>
-              <th>  {{'Name' | translate}}  </th>
+              <th> {{'Name' | translate}} </th>
               <th> : </th>
               <td> {{VoterListByUser.fullName}}</td>
             </tr>
             <tr #tr3>
-              <th>    {{'Age' | translate}} </th>
+              <th> {{'Age' | translate}} </th>
               <th> : </th>
               <td> {{VoterListByUser.age}} </td>
             </tr>
             <tr #tr4>
-              <th>  {{'Gender' | translate}} </th>
+              <th> {{'Gender' | translate}} </th>
               <th> : </th>
               <td> {{VoterListByUser.gender}} </td>
             </tr>
             <tr #tr5>
-              <th>  {{'Voter ID' | translate}} </th>
+              <th> {{'Voter ID' | translate}} </th>
               <th> : </th>
               <td> {{VoterListByUser.votingCardNo}} </td>
             </tr>
             <tr #tr6>
-              <th>    {{'Address' | translate}} </th>
+              <th> {{'Address' | translate}} </th>
               <th> : </th>
               <td> {{VoterListByUser.address}} </td>
             </tr>
             <tr #tr7>
-              <th>      {{'Village' | translate}} </th>
+              <th> {{'Village' | translate}} </th>
               <th> : </th>
               <td> {{VoterListByUser.village}} </td>
             </tr>
@@ -860,24 +868,26 @@
       </div>
     </div>
 
-    
+
     <!-- <ion-grid style="display: none;"> -->
-      <ion-grid style="display: none;">
+    <ion-grid style="display: none;">
       <ion-row class="ion-align-items-center">
         <ion-col size="8" style="height: 200px;">
           <ion-img style="height: 200px;" [src]="imgurl"></ion-img>
         </ion-col>
         <ion-col size="4">
-            <ion-text>{{text}}</ion-text>
-        </ion-col>  
+          <ion-text>{{text}}</ion-text>
+        </ion-col>
       </ion-row>
       <ion-row class="ion-align-items-center">
 
         <ion-col size="2">
-            <ion-button color="success" (click)="ShareWhatsapp1()"><ion-icon name="logo-whatsapp"></ion-icon></ion-button>
+          <ion-button color="success" (click)="ShareWhatsapp1()">
+            <ion-icon name="logo-whatsapp"></ion-icon>
+          </ion-button>
         </ion-col>
       </ion-row>
-    </ion-grid>  
+    </ion-grid>
 
 
   </div>

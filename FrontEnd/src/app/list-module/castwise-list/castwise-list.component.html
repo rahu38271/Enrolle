@@ -3,9 +3,9 @@
   <ion-header class="android">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button color="primary" defaultHref="/list"></ion-back-button>
+        <ion-back-button defaultHref="/list"></ion-back-button>
       </ion-buttons>
-      <ion-title> जात : मराठा </ion-title>
+      <ion-title>  {{'Caste' | translate}} : {{partNumber}},  {{'Total' | translate}} : </ion-title>
       <ion-buttons slot="primary">
         <ion-button (click)="search()">
           <ion-icon name="search-outline"></ion-icon>
@@ -14,19 +14,23 @@
     </ion-toolbar>
   </ion-header>
   <div class="main-content">
+
     <ion-grid class="web">
       <ion-row>
         <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
           <ion-grid class="header">
             <ion-row>
-              <ion-col size-xs="12" size-sm="6">
+              <ion-col size-xs="12" >
                 <ion-card-header>
-                  <ion-card-title class="header1">जात : <span>  मराठा </span> </ion-card-title>
+                  <ion-card-title class="header1">
+                    १६०, काळेवाडी ; बी. टी . मेमोरियल इंग्लिश मिडीयम स्कूल ( ओम  सेण्टस हायस्कूल ), दक्षिण उत्तर  इमारत ,
+                    तळमजला ,दक्षिणेकडून खोली क्र. ८ 
+                  </ion-card-title>
                   <div class="headerLine"></div>
                 </ion-card-header>
                 
               </ion-col>
-              <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+              <ion-col size-xs="12" class="ion-text-right">
                 <!-- <ion-button class="button-download" fill="outline" color="success" >
                   <ion-icon name="document-sharp"></ion-icon>Excel
                 </ion-button>
@@ -121,194 +125,32 @@
     </ion-grid>
 
     <ion-grid class="android userList">
-      <ion-searchbar *ngIf="isShow"></ion-searchbar>
-
+      <ion-searchbar [(ngModel)]="searchMob" animated="true" *ngIf="isShow"></ion-searchbar>
             <ion-list>
-              <ion-item lines="full" routerLink="/voterdata-management/voter-details">
+              <ion-item lines="none"  *ngFor="let item of VoterwithCaste | paginate: { itemsPerPage:100, currentPage: PageNo, totalItems:totalItems } | filter:searchMob" (click)="voterDetails(item)">
                 <!-- <ion-avatar slot="start">
                   <ion-icon name="person-sharp"></ion-icon>
                 </ion-avatar> -->
                 <ion-label>
                   <div class="firstLine">
-                    <h3>सागर मानाजी साळुंखे</h3>
-                    <p>  वय : <span> 26 </span> </p>
-                    <p>लिंग : <span> पुरुष </span></p>
+                    <h3>{{item.fullName}}</h3>
                   </div>
-                  <h4>काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160)  </h4>
-                  <h4>कार्ड क्रमांक : RRH5248901</h4>
-                </ion-label>
-              </ion-item>
-      
-              <ion-item lines="full">
-                <!-- <ion-avatar slot="start">
-                  <ion-icon name="person-sharp"></ion-icon>
-                </ion-avatar> -->
-                <ion-label>
-                  <div class="firstLine">
-                    <h3>सागर मानाजी साळुंखे</h3>
-                    <p>  वय : <span> 26 </span> </p>
-                    <p>लिंग : <span> पुरुष </span></p>
+                  <div class="details">
+                    <p> {{'Part No.' | translate}} : <span>{{item.partNo}}</span> </p>
+                    <p>  {{'Age' | translate}} : <span> {{item.age}} </span> </p>
+                    <p>  {{'Gender' | translate}} : <span> {{item.gender}} </span></p>
                   </div>
-                  <h4>काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160)  </h4>
-                  <h4>कार्ड क्रमांक : RRH5248901</h4>
-                </ion-label>
-              </ion-item>
-      
-              <ion-item lines="full">
-                <!-- <ion-avatar slot="start">
-                  <ion-icon name="person-sharp"></ion-icon>
-                </ion-avatar> -->
-                <ion-label>
-                  <div class="firstLine">
-                    <h3>सागर मानाजी साळुंखे</h3>
-                    <p>  वय : <span> 26 </span> </p>
-                    <p>लिंग : <span> पुरुष </span></p>
-                  </div>
-                  <h4>काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160)  </h4>
-                  <h4>कार्ड क्रमांक : RRH5248901</h4>
-                </ion-label>
-              </ion-item>
-              <ion-item lines="full">
-                <!-- <ion-avatar slot="start">
-                  <ion-icon name="person-sharp"></ion-icon>
-                </ion-avatar> -->
-                <ion-label>
-                  <div class="firstLine">
-                    <h3>सागर मानाजी साळुंखे</h3>
-                    <p>  वय : <span> 26 </span> </p>
-                    <p>लिंग : <span> पुरुष </span></p>
-                  </div>
-                  <h4>काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160)  </h4>
-                  <h4>कार्ड क्रमांक : RRH5248901</h4>
-                </ion-label>
-              </ion-item>
-              <ion-item lines="full">
-                <!-- <ion-avatar slot="start">
-                  <ion-icon name="person-sharp"></ion-icon>
-                </ion-avatar> -->
-                <ion-label>
-                  <div class="firstLine">
-                    <h3>सागर मानाजी साळुंखे</h3>
-                    <p>  वय : <span> 26 </span> </p>
-                    <p>लिंग : <span> पुरुष </span></p>
-                  </div>
-                  <h4>काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160)  </h4>
-                  <h4>कार्ड क्रमांक : RRH5248901</h4>
-                </ion-label>
-              </ion-item>
-              <ion-item lines="full">
-                <!-- <ion-avatar slot="start">
-                  <ion-icon name="person-sharp"></ion-icon>
-                </ion-avatar> -->
-                <ion-label>
-                  <div class="firstLine">
-                    <h3>सागर मानाजी साळुंखे</h3>
-                    <p>  वय : <span> 26 </span> </p>
-                    <p>लिंग : <span> पुरुष </span></p>
-                  </div>
-                  <h4>काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160)  </h4>
-                  <h4>कार्ड क्रमांक : RRH5248901</h4>
-                </ion-label>
-              </ion-item>
-              <ion-item lines="full">
-                <!-- <ion-avatar slot="start">
-                  <ion-icon name="person-sharp"></ion-icon>
-                </ion-avatar> -->
-                <ion-label>
-                  <div class="firstLine">
-                    <h3>सागर मानाजी साळुंखे</h3>
-                    <p>  वय : <span> 26 </span> </p>
-                    <p>लिंग : <span> पुरुष </span></p>
-                  </div>
-                  <h4>काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160)  </h4>
-                  <h4>कार्ड क्रमांक : RRH5248901</h4>
-                </ion-label>
-              </ion-item>
-              <ion-item lines="full">
-                <!-- <ion-avatar slot="start">
-                  <ion-icon name="person-sharp"></ion-icon>
-                </ion-avatar> -->
-                <ion-label>
-                  <div class="firstLine">
-                    <h3>सागर मानाजी साळुंखे</h3>
-                    <p>  वय : <span> 26 </span> </p>
-                    <p>लिंग : <span> पुरुष </span></p>
-                  </div>
-                  <h4>काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160)  </h4>
-                  <h4>कार्ड क्रमांक : RRH5248901</h4>
-                </ion-label>
-              </ion-item>
-              <ion-item lines="full">
-                <!-- <ion-avatar slot="start">
-                  <ion-icon name="person-sharp"></ion-icon>
-                </ion-avatar> -->
-                <ion-label>
-                  <div class="firstLine">
-                    <h3>सागर मानाजी साळुंखे</h3>
-                    <p>  वय : <span> 26 </span> </p>
-                    <p>लिंग : <span> पुरुष </span></p>
-                  </div>
-                  <h4>काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160)  </h4>
-                  <h4>कार्ड क्रमांक : RRH5248901</h4>
-                </ion-label>
-              </ion-item>
-              <ion-item lines="full">
-                <!-- <ion-avatar slot="start">
-                  <ion-icon name="person-sharp"></ion-icon>
-                </ion-avatar> -->
-                <ion-label>
-                  <div class="firstLine">
-                    <h3>सागर मानाजी साळुंखे</h3>
-                    <p>  वय : <span> 26 </span> </p>
-                    <p>लिंग : <span> पुरुष </span></p>
-                  </div>
-                  <h4>काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160)  </h4>
-                  <h4>कार्ड क्रमांक : RRH5248901</h4>
-                </ion-label>
-              </ion-item>
-              <ion-item lines="full">
-                <!-- <ion-avatar slot="start">
-                  <ion-icon name="person-sharp"></ion-icon>
-                </ion-avatar> -->
-                <ion-label>
-                  <div class="firstLine">
-                    <h3>सागर मानाजी साळुंखे</h3>
-                    <p>  वय : <span> 26 </span> </p>
-                    <p>लिंग : <span> पुरुष </span></p>
-                  </div>
-                  <h4>काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160)  </h4>
-                  <h4>कार्ड क्रमांक : RRH5248901</h4>
-                </ion-label>
-              </ion-item>
-              <ion-item lines="full">
-                <!-- <ion-avatar slot="start">
-                  <ion-icon name="person-sharp"></ion-icon>
-                </ion-avatar> -->
-                <ion-label>
-                  <div class="firstLine">
-                    <h3>सागर मानाजी साळुंखे</h3>
-                    <p>  वय : <span> 26 </span> </p>
-                    <p>लिंग : <span> पुरुष </span></p>
-                  </div>
-                  <h4>काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160)  </h4>
-                  <h4>कार्ड क्रमांक : RRH5248901</h4>
-                </ion-label>
-              </ion-item>
-              <ion-item lines="full">
-                <!-- <ion-avatar slot="start">
-                  <ion-icon name="person-sharp"></ion-icon>
-                </ion-avatar> -->
-                <ion-label>
-                  <div class="firstLine">
-                    <h3>सागर मानाजी साळुंखे</h3>
-                    <p>  वय : <span> 26 </span> </p>
-                    <p>लिंग : <span> पुरुष </span></p>
-                  </div>
-                  <h4>काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160)  </h4>
-                  <h4>कार्ड क्रमांक : RRH5248901</h4>
                 </ion-label>
               </ion-item>
             </ion-list>
+            <ion-list>
+              <pagination-controls (pageChange)="event($event)"></pagination-controls>
+            </ion-list>
+            <div *ngIf="!VoterwithCaste || VoterwithCaste.length === 0" class="text-center noData">
+                <img src="assets/img/question.png" />
+                <p> {{'No data available' | translate}}</p>
+                <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
+              </div>
     </ion-grid>
   </div>
 </ion-content>

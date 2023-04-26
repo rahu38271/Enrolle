@@ -90,7 +90,8 @@
   
               <ion-modal trigger="DOB" size="cover">
                 <ng-template>
-                  <ion-datetime 
+                  <ion-datetime
+                  max={{maxDate}} 
                     presentation="date" 
                     name="DOB"
                     [(ngModel)]="DOB"

@@ -1,6 +1,4 @@
 
-
-
 <ion-content>
   <ion-header color="primary" class="android">
     <ion-toolbar>
@@ -80,7 +78,34 @@
                 </ion-list>
               </ion-col>
       
-              
+              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" *ngIf="isBirthDay">
+                <ion-list class="survey-list" routerLink="/home/birthday">
+                  <ion-item lines="none">
+                      <ion-label>
+                        <div class="birthday">
+                          <!-- <img src="assets/img/cake.png" alt=""> -->
+                          <i class="icofont icofont-birthday-cake"></i>
+                          <img src="/assets/img/statistics.png" alt="">
+                          <h3>  {{'Birthday' | translate}} </h3>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" *ngIf="isAnniversary"> 
+                <ion-list class="survey-list" routerLink="/home/anniversary">
+                  <ion-item lines="none" >
+                      <ion-label>
+                        <!-- <img src="assets/img/anniversary.png" alt=""> -->
+                        <div class="anniversary">
+                          <i class="icofont icofont-calendar"></i>
+                          <img src="/assets/img/statistics.png" alt="">
+                          <h3> {{'Anniversary' | translate}} </h3>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
 
               <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" *ngIf="isSurvey">
                 <ion-list class="survey-list" routerLink="/survey">

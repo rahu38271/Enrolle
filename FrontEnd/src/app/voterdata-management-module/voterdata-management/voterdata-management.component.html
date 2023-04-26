@@ -125,6 +125,41 @@
               <ion-input name="houseNumber" [(ngModel)]="searchModal.HouseNo" (keypress)="keyPressNumbers($event)"
                 class="form-control" maxlength="10"></ion-input>
             </ion-col>
+
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Cast </ion-label>
+              <ion-input name="Profession" class="form-control" ></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Occupation / Profession</ion-label>
+              <ion-input name="Profession" class="form-control" ></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Education </ion-label>
+              <ion-input name="Education" class="form-control" ></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Zone </ion-label>
+              <ion-input name="Zone" class="form-control" ></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Only Mobile No. </ion-label>
+              <ion-input name="onlyMobile" class="form-control" ></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Society </ion-label>
+              <ion-input name="Societywise" class="form-control" ></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Religion </ion-label>
+              <ion-input name="Societywise" class="form-control" ></ion-input>
+            </ion-col>
   
             
             <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
@@ -238,7 +273,7 @@
               </ion-col>
               <ion-col size-lg="2">
                 <!-- <ion-text>Total Count : {{voterByPart.length}} </ion-text> -->
-                <ion-text>Total Count :  </ion-text>
+                <ion-text>Total Count : {{totalItems}}  </ion-text>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -282,7 +317,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of voterByPart | paginate: { itemsPerPage:NoofRow, currentPage: PageNo,totalItems:1000 } | filter:searchWeb ; let i=index">
+                <tr *ngFor="let item of voterByPart | paginate: { itemsPerPage:NoofRow, currentPage: PageNo,totalItems:totalItems } | filter:searchWeb ; let i=index">
                   <td>{{item.id}}</td>
                   <td class="text-capitalize editVoter" (click)="EditVoter(item)">{{item.fullName}}</td>
                   <td>{{item.booth}}</td>

@@ -82,7 +82,9 @@ export class SocietyComponent implements OnInit {
     })
   }
 
-  
+  societyDetails(item:any){
+    this.router.navigateByUrl('/society/society-details', {state:item})
+  }
 
   EditSociety(data: any) {
     this.router.navigateByUrl('/society/edit-society', { state: data })

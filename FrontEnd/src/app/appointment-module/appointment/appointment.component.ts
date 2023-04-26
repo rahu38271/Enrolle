@@ -10,6 +10,7 @@ import { filter } from 'rxjs/operators';
 import { ExcelService } from 'src/app/services/excel.service'
 import { CsvService } from 'src/app/services/csv.service';
 
+
 @Component({
   selector: 'app-appointment',
   templateUrl: './appointment.component.html',
@@ -17,15 +18,38 @@ import { CsvService } from 'src/app/services/csv.service';
 })
 export class AppointmentComponent implements OnInit {
 
+  isModalOpen = false;
+  isSuperAdmin = false;
   getApmList:any; 
   searchWeb:string;
   year : number = new Date().getFullYear();
   myForm1: any;
   searchApmModal:any={
-    apmDate:''
+    apmDate:'',
+    UserId:'',
+    roleID:''
   }
+  Status:any;
+  id:any;
+  Id:any;
+  value:any;
+  dateTime:any;
+  apmId:any;
+  apmStatus:string;
+  rowId:any;
+  apmCount:any;
 
+  updateStatusModal:any={
+    Id:'',
+    Status:'',
+    dateTime:''
+  };
+  UserId:any;
+  roleID:any;
+ 
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
+
+  currentDate: number = Date.now();
 
   constructor(
     public alertController: AlertController,
@@ -40,18 +64,36 @@ export class AppointmentComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-      this.router.events.pipe(
-        filter(event => event instanceof NavigationEnd)
-      ).subscribe(() => {
-        this.appoinmentList();
-      })
+      this.UserId = localStorage.getItem("loginId");
+      this.roleID = localStorage.getItem("userType")
+      if(this.roleID == 2){
+        this.isSuperAdmin = !this.isSuperAdmin
+      }
+      else{
+        this.isSuperAdmin = this.isSuperAdmin
+      }
       
+      this.appoinmentList();
+      // setInterval(()=>{
+      //   this.appoinmentList();
+      //   this.apmCountData();
+      // },1000)
+      this.apmCountData();
+      // this.router.events.pipe(
+      //   filter(event => event instanceof NavigationEnd)
+      // ).subscribe(() => {
+      //   this.appoinmentList();
+      // })
     }
 
+    isBigEnough(element, index, array) { 
+      return (element.status == "" || element.status == null ); 
+   } 
+
   appoinmentList(){
-    this.appointment.getAppointments().subscribe(data=>{
+    this.appointment.getAppointments(this.UserId,this.roleID).subscribe((data:any)=>{
       if(data != 0){
-        this.getApmList = data;
+        this.getApmList = data.filter(this.isBigEnough);
         this.getApmList.forEach(e => {
           e.birthDate = e.birthDate.split('T')[0];
         });
@@ -63,7 +105,16 @@ export class AppointmentComponent implements OnInit {
     })
   }
 
+  
+
+  apmCountData(){
+    this.appointment.getApmCounts(this.UserId,this.roleID).subscribe(data=>{
+      this.apmCount = data
+    })
+  }
+
   editAppointment(data:any){
+    debugger;
     this.router.navigateByUrl('/appointment/edit-appointment', { state: data });
   }
 
@@ -71,32 +122,36 @@ export class AppointmentComponent implements OnInit {
     this.myForm1.reset();
   }
 
-  search(){
-    this.loader.showLoading();
-    this.appointment.searchAppointment(this.searchApmModal.apmDate).subscribe(data=>{
-      if(data){
-        if(data != 0){
-          this.loader.hideLoader();
-          this.getApmList = data;
-          this.toast.presentToast("Appointment searhced successfully!", "success", 'checkmark-circle-sharp');
-          this.getApmList.forEach(e => {
-            e.birthDate = e.birthDate.split('T')[0];
-            //e.appointmentDate = e.appointmentDate.split('T')[0];
-          });
-        }
-        else{
-          this.loader.hideLoader();
-          this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
-        }
-      }
-      else{
-        this.loader.hideLoader();
-        this.toast.presentToast("Appointment not searhced", "danger", 'alert-circle-sharp');
-      }
-    },(err)=>{
-      this.loader.hideLoader();
-      this.toast.presentToast("Something went wrong", "danger", 'alert-circle-sharp');
-    })
+  reschedule(event){
+    this.isModalOpen = true;
+  }
+
+  changeStatus(event){
+    this.Id = event.target.id
+    this.updateStatusModal.Id = Number(this.Id)
+    this.updateStatusModal.Status = this.updateStatusModal.Status;
+    if(this.updateStatusModal.dateTime == ''){
+      this.updateStatusModal.dateTime = ''
+    }
+    else{
+      this.updateStatusModal.dateTime = this.updateStatusModal.dateTime
+    }
+    this.appointment.updateApmStatus(
+      this.updateStatusModal.Id,
+      this.updateStatusModal.Status,
+      this.updateStatusModal.dateTime
+      ).subscribe(data=>{
+          if(this.updateStatusModal.Status == "Approved"){
+            this.updateStatusModal = {}
+            this.router.navigate(['/approved-appointment']);
+            this.toast.presentToast("Appointment approved successfully!", "success", 'checkmark-circle-sharp');
+          }
+          else if(this.updateStatusModal.Status == "Rejected"){
+            this.updateStatusModal = {}
+            this.router.navigate(['/approved-appointment/rejected']);
+            this.toast.presentToast("Appointment rejected successfully!", "success", 'checkmark-circle-sharp');
+          }
+        })
   }
 
 
@@ -118,11 +173,7 @@ export class AppointmentComponent implements OnInit {
           cssClass: 'yes',
           handler: () => {
             this.appointment.deleteAppointment(id).subscribe(data=>{
-              this.router.events.pipe(
-                filter(event => event instanceof NavigationEnd)
-              ).subscribe(() => {
-                this.appoinmentList();
-              })
+              this.ngOnInit();
               this.toast.presentToast("Appointment deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })
           }

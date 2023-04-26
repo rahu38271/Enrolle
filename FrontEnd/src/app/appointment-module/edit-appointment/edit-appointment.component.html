@@ -53,6 +53,7 @@
             <ion-modal trigger="birthDate" size="cover">
               <ng-template>
                 <ion-datetime 
+                max={{maxDate}}
                   presentation="date" 
                   [(ngModel)]="birthDate" 
                   name="birthDate"
@@ -85,13 +86,14 @@
               name="appointmentDate" 
               class="form-control"
               required
+              
             >
             </ion-input>
 
             <ion-modal trigger="appointmentDate" size="cover">
               <ng-template>
-                <ion-datetime 
-                  presentation="date" 
+                <ion-datetime  
+                min={{minDate}}
                   [(ngModel)]="appointmentDate" 
                   name="appointmentDate">
                   <span slot="title"> {{ year }} </span>

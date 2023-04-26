@@ -29,6 +29,7 @@ export class VoterbyUserComponent {
   NoofRow: any = 25;
   totalCount: any;
   totalCountByUser:any;
+  casteList:any;
   filterModal: any = {
     TableName: "Tbl_Voter",
     ColumnName: "Fullname",
@@ -69,11 +70,13 @@ export class VoterbyUserComponent {
     this.RoleId = localStorage.getItem("userType");
     this.voterList(this.id, this.RoleId, this.PageNo, this.NoofRow, this.Language);
     this.totalVoterCount();
+    this.AllCasts();
 
   }
 
   totalVoterCount() {
     this.voter.getVoterCountByUser(this.id, this.RoleId).subscribe(data => {
+      console.log(data);
       this.totalCountByUser = data
     })
   }
@@ -115,6 +118,24 @@ export class VoterbyUserComponent {
 
   voterDetails(item: any) {
     this.router.navigate(['voterdata-management/voter-details'], { state: item })
+  }
+
+  AllCasts(){
+    if (this.Language == "kn") {
+      this.Language = "Kannada"
+    }
+    else if (this.Language == "mr") {
+      this.Language = "Marathi"
+    }
+    else if (this.Language == "hi") {
+      this.Language = "Hindi"
+    }
+    else {
+      this.Language = "English"
+    }
+    this.voter.getAllCaste(this.Language).subscribe(data=>{
+      this.casteList = data;
+    })
   }
 
   toggleMike() {

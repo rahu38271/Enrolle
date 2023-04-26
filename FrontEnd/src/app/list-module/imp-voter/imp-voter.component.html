@@ -22,7 +22,7 @@
               <ion-row>
                 <ion-col size-xs="12" size-sm="6">
                   <ion-card-header>
-                    <ion-card-title class="header1">चिंचवड <span> ( 44 ) </span> </ion-card-title>
+                    <ion-card-title class="header1">IMP Voter <span>  </span> </ion-card-title>
                     <div class="headerLine"></div>
                   </ion-card-header>
   
@@ -52,71 +52,37 @@
                   <table id="villageTable" #epltable class="table">
                     <thead>
                       <tr>
-  
-                        <th>
-                          Sr.No.
-                        </th>
-                        <th>
-                          Booth No.
-                        </th>
-                        <th>
-                          Name
-                        </th>
-                        <th>
-                          Age
-                        </th>
-                        <th>
-                          Gender
-                        </th>
-                        <th>
-                          Voting Card
-                        </th>
-                        <th>
-                          Booth Name
-                        </th>
-  
-                        <th>
-                          House
-                        </th>
-                        <th>
-                          Address
-                        </th>
-                        <th>
-                          Mobile No.
-                        </th>
-  
-                        <th id="element-to-hide" data-html2canvas-ignore="true">
-                          Action
-                        </th>
+                        <th>Sr.No.</th>
+                        <th>Name</th>
+                        <th>Booth Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>House</th>
+                        <th>Voting Card No.</th>
+                        <th>Village</th>
+                        <th>Address</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-  
-                        <td>1</td>
-                        <td>44</td>
-                        <td>
-                          Sagar Salunkhe
-                        </td>
-                        <td>28</td>
-                        <td>Male</td>
-                        <td>121123123</td>
-                        <td>Kondhwa bk.</td>
-                        <td>11</td>
-                        <td>Pune</td>
-                        <td>9579743709</td>
-                        <td id="element-to-hide" data-html2canvas-ignore="true">
-                          <ion-button routerLink="/daily-news/edit-daily-news" color="success" size="small">
-                            <ion-icon name="pencil-sharp"></ion-icon>
-                          </ion-button>
-                          <ion-button color="danger" size="small" (click)="deleteNews()">
-                            <ion-icon name="trash-sharp"></ion-icon>
-                          </ion-button>
-                        </td>
+                      <tr *ngFor="let item of impVoterData | paginate: { itemsPerPage:100, currentPage: PageNo, totalItems:totalItems } | filter:searchMob" (click)="voterDetails(item)">
+                        <td>{{item.id}}</td>
+                        <td class="text-capitalize">{{item.fullName}}</td>
+                        <td>{{item.booth}}</td>
+                        <td>{{item.age}}</td>
+                        <td>{{item.gender}}</td>
+                        <td>{{item.houseNo}}</td>
+                        <td>{{item.votingCardNo}}</td>
+                        <td>{{item.village}}</td>
+                        <td>{{item.address}}</td>
                       </tr>
   
                     </tbody>
                   </table>
+                  <pagination-controls (pageChange)="event($event)"></pagination-controls>
+                  <div *ngIf="!impVoterData || impVoterData.length === 0" class="text-center">
+                    <img src="assets/img/question.png" />
+                    <p> {{'No data available' | translate}}</p>
+                  </div>
                 </div>
               </ion-card-content>
             </ion-card>

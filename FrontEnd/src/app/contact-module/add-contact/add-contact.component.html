@@ -53,6 +53,7 @@
             <ion-modal trigger="BirthDate" size="cover">
               <ng-template>
                 <ion-datetime
+                  max={{maxDate}}
                   presentation="date"
                   [(ngModel)]="BirthDate"
                   name="BirthDate"
@@ -75,6 +76,7 @@
             <ion-modal trigger="Anniversary" size="cover">
               <ng-template>
                 <ion-datetime
+                  max={{maxDate}}
                   presentation="date"
                   [(ngModel)]="Anniversary"
                   name="Anniversary"

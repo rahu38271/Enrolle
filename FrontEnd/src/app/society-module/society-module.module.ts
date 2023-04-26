@@ -8,12 +8,14 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { SocietyDetailsComponent } from './society-details/society-details.component';
 
 @NgModule({
   declarations: [
     SocietyComponent,
     AddSocietyComponent,
-    EditSocietyComponent
+    EditSocietyComponent,
+    SocietyDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     RouterModule.forChild([
       {path:'', component:SocietyComponent},
       {path:'add-society', component:AddSocietyComponent},
-      {path:'edit-society', component:EditSocietyComponent}
+      {path:'edit-society', component:EditSocietyComponent},
+      {path:'society-details', component:EditSocietyComponent}
     ])
   ]
 })

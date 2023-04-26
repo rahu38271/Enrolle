@@ -26,15 +26,7 @@ table td:last-child { padding: 0.25rem 0.1rem !important; width: 58px !important
 
 .search { width: 250px; }
 
-@media screen and (max-width: 576px){
-    .web {
-        display: none;
-      }
 
-      .android {
-        display: block;
-      }
-    }
 
     .firstLine {
       display: flex;
@@ -111,3 +103,21 @@ ion-label {
 //   display: flex;
 // justify-content: space-between;
 // }
+@media screen and (max-width:576px){
+  .main-content {
+      background: url('/assets/img/img-5.jpg');
+      background-position: center;
+      background-size: cover;
+      width: 100%;
+      background-repeat: no-repeat;
+      height: -webkit-fill-available;
+  }
+  .android {  display: block; }
+  .web { display: none; }
+}
+
+@media screen and (min-width:577px){
+  
+  .android {  display: none; }
+  .web { display: block; }
+}
