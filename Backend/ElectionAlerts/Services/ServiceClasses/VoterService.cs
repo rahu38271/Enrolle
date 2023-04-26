@@ -18,9 +18,9 @@ namespace ElectionAlerts.Services.ServiceClasses
             _voterRepository = voterRepository;
         }
 
-        public int AddCastName(string CasteName)
+        public int AddCastName(List<Caste> castes)
         {
-            return _voterRepository.AddCastName(CasteName);
+            return _voterRepository.AddCastName(castes);
         }
 
         public IEnumerable<VoterDTO> AdvancedSearch(AdvanceSearchDTO searchDTO)
@@ -54,9 +54,14 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.FilterVoterList(table);
         }
 
-        public IEnumerable<Caste> GetAllCaste()
+        public IEnumerable<CastebyLanguage> GetAllCaste(string Language)
         {
-            return _voterRepository.GetAllCaste();
+            return _voterRepository.GetAllCaste(Language);
+        }
+
+        public IEnumerable<VoterMobileNo> GetAllMobile()
+        {
+            return _voterRepository.GetAllMobile();
         }
 
         public IEnumerable<VoterDTO> GetAllVoter(int UserId, int RoleId ,int PageNo, int NoofRow,string Language)

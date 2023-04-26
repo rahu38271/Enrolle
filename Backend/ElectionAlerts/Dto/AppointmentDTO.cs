@@ -13,7 +13,7 @@ namespace ElectionAlerts.Dto
         public string LastName { get; set; }
         public DateTime? BirthDate { get; set; }
         public string PhoneNo { get; set; }
-        public DateTime? AppointmentDate { get; set; }
+        public string AppointmentDate { get; set; }
         public string Category { get; set; }
         public string Work { get; set; }
         public string Other { get; set; }
@@ -26,9 +26,10 @@ namespace ElectionAlerts.Dto
         public string City_Village { get; set; }
         public string Remark { get; set; }
         public string FileName { get; set; }
-        public string CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
         public string Status { get; set; }
-        public int TodayCount { get; set; }
-
+        public int? UserId { get; set; }
+        public int? TodayCount { get; set; }
+        public int? RoleId { get; set; }
     }
 }

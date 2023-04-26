@@ -63,11 +63,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public IEnumerable<Appointment> GetAppointmentbyDate(DateTime dateTime)
+        public IEnumerable<Appointment> GetAppointmentbyDate(int UserId, int RoleId, string dateTime)
         {
             try
             {
-                return _customContext.Set<Appointment>().FromSqlRaw("EXEC USP_GetAppointmentbyDate {0}", dateTime ).ToList();
+                return _customContext.Set<Appointment>().FromSqlRaw("EXEC USP_GetAppointmentbyDate {0},{1},{2}", UserId,RoleId,dateTime ).ToList();
             }
             catch (Exception ex)
             {
@@ -75,11 +75,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public IEnumerable<Appointment> GetAppointmentbyStatus(string Status)
+        public IEnumerable<Appointment> GetAppointmentbyStatus(int UserId, int RoleId, string Status)
         {
             try
             {
-                return _customContext.Set<Appointment>().FromSqlRaw("EXEC USP_GetAppointmentbyStatus {0}", Status).ToList();
+                return _customContext.Set<Appointment>().FromSqlRaw("EXEC USP_GetAppointmentbyStatus {0},{1},{2}",UserId,RoleId, Status).ToList();
             }
             catch(Exception ex)
             {
@@ -87,11 +87,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public IEnumerable<Appointment> GetAppointments()
+        public IEnumerable<Appointment> GetAppointments(int UserId, int RoleId)
         {
             try
             {
-                return _customContext.Set<Appointment>().FromSqlRaw("EXEC USP_GetAllAppointment").ToList();
+                return _customContext.Set<Appointment>().FromSqlRaw("EXEC USP_GetAllAppointment {0},{1}",UserId,RoleId).ToList();
             }
             catch (Exception ex)
             {
@@ -99,11 +99,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public IEnumerable<AppointmentDTO> GetTodayAppointment()
+        public IEnumerable<AppointmentDTO> GetTodayAppointment(int UserId, int RoleId)
         {
             try
             {
-                return _customContext.Set<AppointmentDTO>().FromSqlRaw("EXEC Usp_GetTodayAppointment ").ToList();
+                return _customContext.Set<AppointmentDTO>().FromSqlRaw("EXEC Usp_GetTodayAppointment {0},{1}",UserId,RoleId).ToList();
             }
             catch (Exception ex)
             {
@@ -117,7 +117,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             {
                  Byte[] imgtype = { 0 };
                 var FileContent = UploadFile(appointment.FileName)?? imgtype;
-                return _customContext.Database.ExecuteSqlRaw("EXEC USP_InsertUpdateAppointment {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21}", appointment.Id, appointment.FirstName,appointment.MiddleName,appointment.LastName,appointment.BirthDate,appointment.PhoneNo,appointment.AppointmentDate,appointment.Category,appointment.Work,appointment.Other,appointment.District,appointment.Taluka,appointment.HouseNo,appointment.Soc_BldgName,appointment.WardNo,appointment.PinCode,appointment.City_Village,appointment.Remark,appointment.FileName,DateTime.Now.ToString(),appointment.Status, FileContent);
+                return _customContext.Database.ExecuteSqlRaw("EXEC USP_InsertUpdateAppointment {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24}", appointment.Id, appointment.FirstName,appointment.MiddleName,appointment.LastName,appointment.BirthDate,appointment.PhoneNo,appointment.AppointmentDate,appointment.Category,appointment.Work,appointment.Other,appointment.District,appointment.Taluka,appointment.HouseNo,appointment.Soc_BldgName,appointment.WardNo,appointment.PinCode,appointment.City_Village,appointment.Remark,appointment.FileName,DateTime.Now.ToString(),appointment.Status, FileContent,appointment.UserId,appointment.AdminName,appointment.RoleId);
             }
             catch (Exception ex)
             {
@@ -192,6 +192,54 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 return 1;
             }
             return 0;
+        }
+
+        public IEnumerable<Appointment> GetAppointmentFromToDate(int UserId, int RoleId, string FromDate, string ToDate)
+        {
+            try
+            {
+                return _customContext.Set<Appointment>().FromSqlRaw("EXEC USP_GetAppointmentFromToDate {0},{1},{2},{3}", UserId, RoleId, FromDate, ToDate).ToList();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<AppointmentCount> GetAppointmentCount(int UserId, int RoleId)
+        {
+            try
+            {
+                return _customContext.Set<AppointmentCount>().FromSqlRaw("EXEC USP_GetAppointmentCount {0},{1}", UserId, RoleId).ToList();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<AppointmentCountbyUser> GetAppointmentCountbyUser()
+        {
+            try
+            {
+                return _customContext.Set<AppointmentCountbyUser>().FromSqlRaw("EXEC USP_GetAppointmentCountbyUser").ToList();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<Appointment> GetAppointmentbyUserId(int UserId)
+        {
+            try
+            {
+                return _customContext.Set<Appointment>().FromSqlRaw("EXEC USP_GetAppointmentbyUserId {0}",UserId).ToList();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

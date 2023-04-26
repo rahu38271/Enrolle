@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ElectionAlerts.Dto;
 using ElectionAlerts.Model;
 using ElectionAlerts.Repository.Interface;
 using ElectionAlerts.Services.Interface;
@@ -16,7 +17,7 @@ namespace ElectionAlerts.Services.ServiceClasses
             _icontactreposritory = contactreposritory;
         }
 
-        public IEnumerable<Contact> GetContacts(int PageNo, int NoofRow, string SearchText)
+        public IEnumerable<ContactwithCount> GetContacts(int PageNo, int NoofRow, string SearchText)
         {
             return _icontactreposritory.GetContacts(PageNo, NoofRow, SearchText);
         }

@@ -49,8 +49,9 @@ namespace ElectionAlerts.Services.Interface
         IEnumerable<VoterDTO> GetVoterByPartNo(int partno, int PageNo, int NoofRow, string Language);
         IEnumerable<Table> GetVoterCountbyColoumn(int UserId, int RoleId, string Coloumn);
         int UpdateColoumnTbl(int Id, string ColoumnName, string ColoumnValue);
-        int AddCastName(string CasteName);
-        IEnumerable<Caste> GetAllCaste();
+        int AddCastName(List<Caste> castes);
+        IEnumerable<CastebyLanguage> GetAllCaste(string Language);
+        IEnumerable<VoterMobileNo> GetAllMobile();
     }
 
 }

@@ -37,11 +37,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetAllAppointment")]
-        public IActionResult GetAllAppointment()
+        public IActionResult GetAllAppointment(int UserId, int RoleId)
         {
             try
             {
-                return Ok(_appointmentService.GetAppointments());
+                return Ok(_appointmentService.GetAppointments(UserId,RoleId));
             }
             catch(Exception ex)
             {
@@ -51,11 +51,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetAppointmentbyDate")]
-        public IActionResult GetAppointmentbyDate(DateTime dateTime)
+        public IActionResult GetAppointmentbyDate(int UserId, int RoleId,string dateTime)
         {
             try
             {
-                return Ok(_appointmentService.GetAppointmentbyDate(dateTime));
+                return Ok(_appointmentService.GetAppointmentbyDate(UserId,RoleId,dateTime));
             }
             catch (Exception ex)
             {
@@ -93,11 +93,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetTodayAppointment")]
-        public IActionResult GetTodayAppointment()
+        public IActionResult GetTodayAppointment(int UserId, int RoleId)
         {
             try
             {
-                return Ok(_appointmentService.GetTodayAppointment());
+                return Ok(_appointmentService.GetTodayAppointment(UserId,RoleId));
             }
             catch(Exception ex)
             {
@@ -107,11 +107,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetAppointmentbyStatus")]
-        public IActionResult GetAppointmentbyStatus(string Status)
+        public IActionResult GetAppointmentbyStatus(int UserId, int RoleId, string Status)
         {
             try
             {
-                return Ok(_appointmentService.GetAppointmentbyStatus(Status));
+                return Ok(_appointmentService.GetAppointmentbyStatus(UserId,RoleId,Status));
             }
             catch(Exception ex)
             {
@@ -130,6 +130,62 @@ namespace ElectionAlerts.Controller
             catch(Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "AppointmentController/DownloadFile");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetAppointmentbyFromToDate")]
+        public IActionResult GetAppointmentbyFromToDate(int UserId, int RoleId, string FromDate, string ToDate)
+        {
+            try
+            {
+                return Ok(_appointmentService.GetAppointmentFromToDate(UserId, RoleId, FromDate,ToDate));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "AppointmentController/GetAppointmentbyFromToDate");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetAppointmentCount")]
+        public IActionResult GetAppointmentCount(int UserId, int RoleId)
+        {
+            try
+            {
+                return Ok(_appointmentService.GetAppointmentCount(UserId, RoleId));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "AppointmentController/GetAppointmentCount");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetAppointmentCountbyUser")]
+        public IActionResult GetAppointmentCountbyUser()
+        {
+            try
+            {
+                return Ok(_appointmentService.GetAppointmentCountbyUser());
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "AppointmentController/GetAppointmentCountbyUser");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetAppointmentbyUserId")]
+        public IActionResult GetAppointmentbyUserId(int UserId)
+        {
+            try
+            {
+                return Ok(_appointmentService.GetAppointmentbyUserId(UserId));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "AppointmentController/GetAppointmentbyUserId");
                 return BadRequest(ex);
             }
         }
