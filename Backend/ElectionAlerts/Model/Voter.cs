@@ -55,6 +55,11 @@ namespace ElectionAlerts.Model
         public string FullName_HN { get; set; }
         public string Village_HN { get; set; }
         public string Address_HN { get; set; }
+        public string Zone { get; set; }
+        public string Family { get; set; }
+        public string Religion { get; set; }
+        public string Society { get; set; }
+        public string FilePath { get; set; }
         public DateTime? CreatedDate { get; set; }
 
     }

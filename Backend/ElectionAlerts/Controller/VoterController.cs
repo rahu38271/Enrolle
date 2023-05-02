@@ -78,11 +78,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetAllVoter")]
-        public IActionResult GetAllVoter(int UserId,int RoleId, int PageNo, int NoofRow,string Language)
+        public IActionResult GetAllVoter(int UserId,int RoleId, int PageNo, int NoofRow,string Language,string SearchText)
         {
             try
             {
-                return Ok(_voterService.GetAllVoter(UserId, RoleId,PageNo,NoofRow, Language));
+                return Ok(_voterService.GetAllVoter(UserId, RoleId,PageNo,NoofRow, Language, SearchText));
             }
             catch (Exception ex)
             {
@@ -225,12 +225,7 @@ namespace ElectionAlerts.Controller
                 }
 
                 var filename = Path.Combine(newPath, fileName);
-                //using (var stream = new MemoryStream())
-                //{
-                //    file.CopyTo(stream);
-                //}
-                    
-                //using (var package = new ExcelPackage(stream))
+               
                 if (file.FileName.Contains("Kannada"))
                 {
                     using (var package = new ExcelPackage(new FileInfo(filename)))
@@ -566,11 +561,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("VoterDetailsbyColumn")]
-        public IActionResult VoterDetailsbyColumn(string ColoumnName, string ColoumnValue,int UserId,int RoleId, int PageNo, int NoofRow, string Language)
+        public IActionResult VoterDetailsbyColumn(string ColoumnName, string ColoumnValue,int UserId,int RoleId, int PageNo, int NoofRow, string Language, string SearchText)
         {
             try
             {
-                return Ok(_voterService.VoterDetailsbyColumn(ColoumnName, ColoumnValue, UserId, RoleId,PageNo,NoofRow,Language));
+                return Ok(_voterService.VoterDetailsbyColumn(ColoumnName, ColoumnValue, UserId, RoleId,PageNo,NoofRow,Language,SearchText));
             }
             catch(Exception ex)
             {
@@ -608,11 +603,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetVoterBetweenAge")]
-        public IActionResult GetVoterBetweenAge(int age1,int age2,string gender,int UserId,int RoleId, int PageNo, int NoofRow, string Language)
+        public IActionResult GetVoterBetweenAge(int age1,int age2,string gender,int UserId,int RoleId, int PageNo, int NoofRow, string Language, string SearchText)
         {
             try
             {
-                return Ok(_voterService.GetVoterAgeBetween(age1, age2, gender, UserId, RoleId,PageNo,NoofRow,Language));
+                return Ok(_voterService.GetVoterAgeBetween(age1, age2, gender, UserId, RoleId,PageNo,NoofRow,Language,SearchText));
             }
             catch(Exception ex)
             {
@@ -636,11 +631,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("VoterwithMobileNo")]
-        public IActionResult VoterwithMobileNo(int UserId,int RoleId, int PageNo, int NoofRow, string Language)
+        public IActionResult VoterwithMobileNo(int UserId,int RoleId, int PageNo, int NoofRow, string Language,string SearchText)
         {
             try
             {
-                return Ok(_voterService.VoterwithMobileNo(UserId,RoleId,PageNo,NoofRow,Language));
+                return Ok(_voterService.VoterwithMobileNo(UserId,RoleId,PageNo,NoofRow,Language,SearchText));
             }
             catch(Exception ex)
             {
@@ -720,11 +715,11 @@ namespace ElectionAlerts.Controller
         }
 
             [HttpGet("GetVoterInclinationUserId")]
-            public IActionResult GetVoterInclinationUserId(string Inclination,int UserId,int RoleId, int PageNo, int NoofRow, string Language)
+            public IActionResult GetVoterInclinationUserId(string Inclination,int UserId,int RoleId, int PageNo, int NoofRow, string Language, string SearchText)
             {
                 try
                 {
-                    return Ok(_voterService.GetVoterInclinationUserId(Inclination, UserId, RoleId,PageNo,NoofRow,Language));
+                    return Ok(_voterService.GetVoterInclinationUserId(Inclination, UserId, RoleId,PageNo,NoofRow,Language,SearchText));
                 }
                 catch (Exception ex)
                 {
@@ -734,11 +729,11 @@ namespace ElectionAlerts.Controller
             }
 
         [HttpGet("GetStarVoterbyUserId")]
-        public IActionResult GetStarVoterbyUserId(int userid, int roleid, int PageNo, int NoofRow, string Language)
+        public IActionResult GetStarVoterbyUserId(int userid, int roleid, int PageNo, int NoofRow, string Language, string SearchText)
         {
             try
             {
-                return Ok(_voterService.GetStarVoterbyUserId(userid, roleid,PageNo,NoofRow,Language));
+                return Ok(_voterService.GetStarVoterbyUserId(userid, roleid,PageNo,NoofRow,Language,SearchText));
             }
             catch(Exception ex)
             {
@@ -763,11 +758,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetVoterbyPartNo")]
-        public IActionResult GetVoterbyPartNo(int partno, int PageNo, int NoofRow, string Language)
+        public IActionResult GetVoterbyPartNo(int partno, int PageNo, int NoofRow, string Language, string SearchText)
         {
             try
             {
-                return Ok(_voterService.GetVoterByPartNo(partno,PageNo,NoofRow,Language));
+                return Ok(_voterService.GetVoterByPartNo(partno,PageNo,NoofRow,Language,SearchText));
             }
             catch(Exception ex)
             {

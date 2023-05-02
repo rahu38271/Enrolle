@@ -85,7 +85,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                var result = _customContext.Set<VoterDTO>().FromSqlRaw("EXEC USP_FilterVoterSPwithCondition {0},{1},{2},{3},{4},{5},{6},{7},{8}", table.TableName, table.ColumnName, table.ColumnValue, table.Condition, table.UserId, table.RoleId,table.PageNo,table.NoofRow,table.Language).ToList();
+                var result = _customContext.Set<VoterDTO>().FromSqlRaw("EXEC USP_FilterVoterSPwithCondition {0},{1},{2},{3},{4},{5},{6},{7},{8},{9}", table.TableName, table.ColumnName, table.ColumnValue, table.Condition, table.UserId, table.RoleId,table.PageNo,table.NoofRow,table.Language,table.SearchText).ToList();
                 return result;
             }
             catch (Exception ex)
@@ -98,7 +98,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                var result = _customContext.Set<VoterDTO>().FromSqlRaw("EXEC USP_FilterVoterSP {0},{1},{2},{3},{4},{5},{6},{7}", table.TableName, table.ColumnName, table.ColumnValue, table.UserId, table.RoleId,table.PageNo,table.NoofRow,table.Language).ToList();
+                var result = _customContext.Set<VoterDTO>().FromSqlRaw("EXEC USP_FilterVoterSP {0},{1},{2},{3},{4},{5},{6},{7},{8}", table.TableName, table.ColumnName, table.ColumnValue, table.UserId, table.RoleId,table.PageNo,table.NoofRow,table.Language,table.SearchText).ToList();
                 return result;
             }
             catch (Exception ex)
@@ -106,11 +106,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 throw ex;
             }
         }
-        public IEnumerable<VoterDTO> GetAllVoter(int userid, int roleid, int PageNo, int NoofRow,string Language)
+        public IEnumerable<VoterDTO> GetAllVoter(int userid, int roleid, int PageNo, int NoofRow,string Language,string SearcText)
         {
             try
             {
-                return _customContext.Set<VoterDTO>().FromSqlRaw("USP_GetAllVoter_Page {0},{1},{2},{3},{4}", userid, roleid, PageNo, NoofRow, Language).ToList();
+                return _customContext.Set<VoterDTO>().FromSqlRaw("USP_GetAllVoter_Page {0},{1},{2},{3},{4},{5}", userid, roleid, PageNo, NoofRow, Language,SearcText).ToList();
             }
             catch (Exception ex)
             {
@@ -166,11 +166,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public IEnumerable<VoterDTO> GetVoterAgeBetween(int Age1, int Age2, string Gender, int UserId, int RoleId, int PageNo, int NoofRow, string Language)
+        public IEnumerable<VoterDTO> GetVoterAgeBetween(int Age1, int Age2, string Gender, int UserId, int RoleId, int PageNo, int NoofRow, string Language,string SearchText)
         {
             try
             {
-                var result = _customContext.Set<VoterDTO>().FromSqlRaw("USP_FilterAgeBetween {0},{1},{2},{3},{4},{5},{6},{7}", Age1, Age2, Gender, UserId, RoleId,PageNo,NoofRow,Language).ToList();
+                var result = _customContext.Set<VoterDTO>().FromSqlRaw("USP_FilterAgeBetween {0},{1},{2},{3},{4},{5},{6},{7},{8}", Age1, Age2, Gender, UserId, RoleId,PageNo,NoofRow,Language, SearchText).ToList();
                 return result;
             }
             catch (Exception ex)
@@ -427,11 +427,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public IEnumerable<VoterDTO> VoterDetailsbyColumn(string ColoumnName, string ColoumnValue, int UserId, int RoleId, int PageNo, int NoofRow, string Language)
+        public IEnumerable<VoterDTO> VoterDetailsbyColumn(string ColoumnName, string ColoumnValue, int UserId, int RoleId, int PageNo, int NoofRow, string Language, string SearchText)
         {
             try
             {
-                var result = _customContext.Set<VoterDTO>().FromSqlRaw("EXEC USP_GetVoterbyColumn {0},{1},{2},{3},{4},{5},{6}", ColoumnName, ColoumnValue, UserId, RoleId,PageNo,NoofRow,Language).ToList();
+                var result = _customContext.Set<VoterDTO>().FromSqlRaw("EXEC USP_GetVoterbyColumn {0},{1},{2},{3},{4},{5},{6},{7}", ColoumnName, ColoumnValue, UserId, RoleId,PageNo,NoofRow,Language,SearchText).ToList();
                 return result;
             }
             catch (Exception ex)
@@ -453,11 +453,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public IEnumerable<VoterDTO> VoterwithMobileNo(int UserId, int RoleId, int PageNo, int NoofRow, string Language)
+        public IEnumerable<VoterDTO> VoterwithMobileNo(int UserId, int RoleId, int PageNo, int NoofRow, string Language, string SearchText)
         {
             try
             {
-                var result = _customContext.Set<VoterDTO>().FromSqlRaw("EXEC USP_GetAllVoterMobileNo {0},{1},{2},{3},{4}", UserId, RoleId,PageNo,NoofRow,Language).ToList();
+                var result = _customContext.Set<VoterDTO>().FromSqlRaw("EXEC USP_GetAllVoterMobileNo {0},{1},{2},{3},{4},{5}", UserId, RoleId,PageNo,NoofRow,Language,SearchText).ToList();
                 return result;
             }
             catch (Exception ex)
@@ -533,11 +533,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public IEnumerable<VoterDTO> GetVoterInclinationUserId(string inclination, int userid, int roleid, int PageNo, int NoofRow, string Language)
+        public IEnumerable<VoterDTO> GetVoterInclinationUserId(string inclination, int userid, int roleid, int PageNo, int NoofRow, string Language, string SearchText)
         {
             try
             {
-                return _customContext.Set<VoterDTO>().FromSqlRaw("EXEC USP_GetVoterInclinationbyType {0},{1},{2},{3},{4},{5}", inclination, userid, roleid,PageNo,NoofRow,Language).ToList();
+                return _customContext.Set<VoterDTO>().FromSqlRaw("EXEC USP_GetVoterInclinationbyType {0},{1},{2},{3},{4},{5},{6}", inclination, userid, roleid,PageNo,NoofRow,Language,SearchText).ToList();
             }
             catch (Exception ex)
             {
@@ -545,11 +545,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public IEnumerable<VoterDTO> GetStarVoterbyUserId(int userid, int roleid, int PageNo, int NoofRow, string Language)
+        public IEnumerable<VoterDTO> GetStarVoterbyUserId(int userid, int roleid, int PageNo, int NoofRow, string Language, string SearchText)
         {
             try
             {
-                return _customContext.Set<VoterDTO>().FromSqlRaw("USP_GetStarVoterbyUserID {0},{1},{2},{3},{4}", userid, roleid,PageNo,NoofRow,Language).ToList();
+                return _customContext.Set<VoterDTO>().FromSqlRaw("USP_GetStarVoterbyUserID {0},{1},{2},{3},{4},{5}", userid, roleid,PageNo,NoofRow,Language,SearchText).ToList();
             }
             catch (Exception ex)
             {
@@ -569,11 +569,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public IEnumerable<VoterDTO> GetVoterByPartNo(int partno, int PageNo, int NoofRow, string Language)
+        public IEnumerable<VoterDTO> GetVoterByPartNo(int partno, int PageNo, int NoofRow, string Language, string SearchText)
         {
             try
             {
-                return _customContext.Set<VoterDTO>().FromSqlRaw("USP_GetVoterbyPartNo {0},{1},{2},{3}", partno,PageNo,NoofRow,Language).ToList();
+                return _customContext.Set<VoterDTO>().FromSqlRaw("USP_GetVoterbyPartNo {0},{1},{2},{3},{4}", partno,PageNo,NoofRow,Language,SearchText).ToList();
             }
             catch (Exception ex)
             {

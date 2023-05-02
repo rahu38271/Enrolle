@@ -1,4 +1,5 @@
-﻿using ElectionAlerts.Model;
+﻿using ElectionAlerts.Dto;
+using ElectionAlerts.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,12 @@ namespace ElectionAlerts.Services.Interface
         int CreateUpdateSociety(Society society);
         IEnumerable<Society> GetAllSociety();
         int DeleteSocietybuId(int Id);
+        int InsertUpdateSocietyComplaint(SocietyModel societyModel);
+        IEnumerable<SocietyComplaint> GetSocietyComplaints();
+        SocietyComplaint GetSocietyComplaintbyId(int UserId);
+        int UpdateComplaintStatus(int Id, string Status);
+        IEnumerable<SocietyComplaint> GetComplaintsbyStatus(string Status);
+        IEnumerable<SocietyComplaint> GetTodayComplaint();
+        ComplaintCount GetComplaintCount();
     }
 }

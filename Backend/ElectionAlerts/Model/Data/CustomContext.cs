@@ -147,6 +147,13 @@ namespace ElectionAlerts.Model.Data
         public DbSet<Mobile> Mobiles { get; set; }
         public DbSet<LastNameCount> LastNameCounts { get; set; }
         public DbSet<Caste> Castes { get; set; }
+        public DbSet<CastebyLanguage> CastebyLanguages { get; set; }
+        public DbSet<AppointmentCount> AppointmentCounts { get; set; }
+        public DbSet<AppointmentCountbyUser> AppointmentCountbyUsers { get; set; }
+        public DbSet<ContactwithCount> ContactwithCounts { get; set; }
+        public DbSet<VoterMobileNo> VoterMobileNos { get; set; }
+        public DbSet<SocietyComplaint> SocietyComplaints { get; set; }
+        public DbSet<ComplaintCount> ComplaintCounts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -165,7 +172,11 @@ namespace ElectionAlerts.Model.Data
             modelBuilder.Entity<AssemblyDashboard>().HasNoKey();
             modelBuilder.Entity<AppointmentDTO>().HasNoKey();
             modelBuilder.Entity<LastNameCount>().HasNoKey();
-
+            modelBuilder.Entity<CastebyLanguage>().HasNoKey();
+            modelBuilder.Entity<AppointmentCount>().HasNoKey();
+            modelBuilder.Entity<AppointmentCountbyUser>().HasNoKey();
+            modelBuilder.Entity<VoterMobileNo>().HasNoKey();
+            modelBuilder.Entity<ComplaintCount>().HasNoKey();
         }
     }
 }

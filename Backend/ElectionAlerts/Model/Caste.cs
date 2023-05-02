@@ -8,7 +8,8 @@ namespace ElectionAlerts.Model
     public class Caste
     {
         public int Id { get; set; }
-        public string CasteName { get; set; }
-
+        public string Caste_Reg { get; set; }
+        public string Caste_Eng { get; set; }
+        public string Caste_Hin { get; set; }
     }
 }
