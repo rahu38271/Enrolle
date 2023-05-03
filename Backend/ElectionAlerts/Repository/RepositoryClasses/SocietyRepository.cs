@@ -39,6 +39,18 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
+        public int DeleteSocietyComplaintbyId(int Id)
+        {
+            try
+            {
+                return _custonContext.Database.ExecuteSqlRaw("Exec USP_DeleteSocietyComplaintbyId {0}", Id);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public IEnumerable<Society> GetAllSociety()
         {
             try
@@ -51,11 +63,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public ComplaintCount GetComplaintCount()
+        public IEnumerable<ComplaintCount> GetComplaintCount()
         {
             try
             {
-                return _custonContext.Set<ComplaintCount>().FromSqlRaw("Exec USP_GetCountofComplaint").AsEnumerable().FirstOrDefault();
+                return _custonContext.Set<ComplaintCount>().FromSqlRaw("Exec USP_GetCountofComplaint").ToList();
             }
             catch(Exception ex)
             {
@@ -119,8 +131,15 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 if (societyModel.FileName!=null)
                 {
                     filename = Path.GetFileName(societyModel.FileName);
-                    var filePath = Path.Combine(Directory.GetCurrentDirectory(), @"wwwroot\SocietyImages", filename);
-                    File.Copy(societyModel.FileName, filePath);
+                    var fullPath= Path.Combine( Directory.GetCurrentDirectory(), @"wwwroot\SocietyImages");
+                    var filePath = Path.Combine(fullPath, filename);
+                    if (!Directory.Exists(fullPath))
+                        Directory.CreateDirectory(fullPath);
+                    if (File.Exists(filePath))
+                    {
+                        throw new IOException("File Already Exit");
+                    }
+                 //   File.Copy(societyModel.FileName, filePath);
                 }
                 
                 return _custonContext.Database.ExecuteSqlRaw("Exec USP_InsertUpdateSocietyComplaint {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11}", societyModel.Id, societyModel.Subject, societyModel.FromDate, societyModel.ToDate, societyModel.Details, societyModel.Remark, filename, societyModel.UserId, societyModel.RoleId, societyModel.UserName, DateTime.Now,societyModel.Status);

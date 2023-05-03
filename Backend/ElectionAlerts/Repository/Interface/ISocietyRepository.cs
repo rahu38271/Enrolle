@@ -18,6 +18,7 @@ namespace ElectionAlerts.Repository.Interface
         int UpdateComplaintStatus(int Id, string Status);
         IEnumerable<SocietyComplaint> GetComplaintsbyStatus(string Status);
         IEnumerable<SocietyComplaint> GetTodayComplaint();
-        ComplaintCount GetComplaintCount();
+        IEnumerable<ComplaintCount> GetComplaintCount();
+        int DeleteSocietyComplaintbyId(int Id);
     }
 }

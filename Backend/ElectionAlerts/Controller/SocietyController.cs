@@ -76,7 +76,7 @@ namespace ElectionAlerts.Controller
             catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "SocietyController/InsertUpdateSocietyComplaint");
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -161,6 +161,20 @@ namespace ElectionAlerts.Controller
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "SocietyController/GetComplaintCount");
                 return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("DeleteSocietyComplaintbyId")]
+        public IActionResult DeleteSocietyComplaintbyId(int Id)
+        {
+            try
+            {
+                return Ok(_societyService.DeleteSocietyComplaintbyId(Id));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "SocietyController/DeleteSocietyComplaintbyId");
+                return BadRequest(ex.Message);
             }
         }
     }

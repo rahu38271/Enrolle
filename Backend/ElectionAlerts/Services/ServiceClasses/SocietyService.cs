@@ -27,12 +27,17 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _societyRepository.DeleteSocietybuId(Id);
         }
 
+        public int DeleteSocietyComplaintbyId(int Id)
+        {
+            return _societyRepository.DeleteSocietyComplaintbyId(Id);
+        }
+
         public IEnumerable<Society> GetAllSociety()
         {
             return _societyRepository.GetAllSociety();
         }
 
-        public ComplaintCount GetComplaintCount()
+        public IEnumerable<ComplaintCount> GetComplaintCount()
         {
             return _societyRepository.GetComplaintCount();
         }
