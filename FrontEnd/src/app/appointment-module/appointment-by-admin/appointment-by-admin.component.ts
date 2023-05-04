@@ -21,7 +21,6 @@ export class AppointmentByAdminComponent implements OnInit {
   isSuperAdmin = false;
   getApmList:any; 
   searchWeb:string;
-  adminName:any;
   year : number = new Date().getFullYear();
   myForm1: any;
   searchApmModal:any={
@@ -38,7 +37,7 @@ export class AppointmentByAdminComponent implements OnInit {
   apmStatus:string;
   rowId:any;
   apmCount:any;
-
+  admin:any;
   updateStatusModal:any={
     Id:'',
     Status:'',
@@ -65,25 +64,22 @@ export class AppointmentByAdminComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    debugger;
-    //this.UserId = localStorage.getItem("loginId");
-    this.adminName = this.route.snapshot.paramMap.get('adminName');
-    this.UserId = this.route.snapshot.paramMap.get('userId');
-    this.roleID = this.route.snapshot.paramMap.get('userType');
-      this.appoinmentList();
-      // this.router.events.pipe(
-      //   filter(event => event instanceof NavigationEnd)
-      // ).subscribe(() => {
-      //   this.appoinmentList();
-      // })
+    
   }
 
-
+  ionViewWillEnter(){
+    this.UserId = this.route.snapshot.paramMap.get('userId');
+    this.appoinmentList();
+  }
 
   appoinmentList(){
-    this.appointment.getAppointments(this.UserId,this.roleID).subscribe((data:any)=>{
+    this.appointment.getAppointmentByUser(this.UserId).subscribe((data:any)=>{
       if(data != 0){
         this.getApmList = data;
+        this.getApmList.forEach(e => {
+          e.birthDate = e.birthDate.split('T')[0]
+        });
+        this.admin = data[0].adminName
       }
       else{
       }

@@ -12,13 +12,13 @@ export class SurnamewiseListComponent implements OnInit {
   Language:any;
   isShow = false;
   lastName: any;
-  surnameWiseData : any[]=[];
+  surnameWiseData : any;
   searchMob:string;
   userId: any;
   roleID:any;
   id:any;
   PageNo:any=1;
-  NoofRow:any=5;
+  NoofRow:any=10;
   totalItems:any;
 
   search() {
@@ -47,9 +47,6 @@ export class SurnamewiseListComponent implements OnInit {
     this.router.navigate(['voterdata-management/voter-details'], { state: item })
    }
 
-   
-
-  
 
   lastNameWiseVoterData(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any){
     if(this.Language == "kn"){

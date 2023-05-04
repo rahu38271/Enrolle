@@ -135,7 +135,7 @@
                 </ion-list>
               </ion-col>
 
-              <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6" *ngIf="isSuperAdmin">
+              <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6">
                 <ion-list class="survey-list" routerLink="/appointment/appointment-adminwise">
                   <ion-item lines="none">
                       <ion-label>
@@ -197,6 +197,7 @@
             <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
           </div>
           <div class="btns">
+            <ion-button class="button-download" color="danger" (click)="exportPDF()" ><ion-icon name="document-sharp"></ion-icon>PDF</ion-button>
             <ion-button class="button-download" color="success" (click)="exportExcel()" ><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
             <ion-button class="button-download" color="success" (click)="exportToCSV()" ><ion-icon name="document-sharp"></ion-icon>CSV</ion-button>
           </div>
@@ -218,10 +219,10 @@
                   Appointment Date
                 </th>
                 <th>
-                  Phone No.	
+                  Mobile No.	
                 </th>
                 <th>
-                  DoB					
+                  Birthdate					
                 </th>
                 <th>
                   Work
@@ -235,16 +236,16 @@
                 <th>
                   Taluka
                 </th>
-                <th>Flat / House No.</th>
-                <th>Society / Building Name</th>
-                <th>Ward</th>
-                <th>Pincode</th>
-                <th>City / Village</th>
-                <th>File</th>
-                <th>Remark</th>
-                <th>Added By</th>
-                <th>Status</th>
-                <th id="element-to-hide" data-html2canvas-ignore="true">
+                <th *ngIf="isColumn">Flat / House No.</th>
+                <th *ngIf="isColumn">Society / Building Name</th>
+                <th *ngIf="isColumn">Ward</th>
+                <th *ngIf="isColumn">Pincode</th>
+                <th *ngIf="isColumn">City / Village</th>
+                <th *ngIf="isColumn">File</th>
+                <th *ngIf="isColumn">Remark</th>
+                <th *ngIf="isColumn">Added By</th>
+                <th *ngIf="isColumn">Status</th>
+                <th *ngIf="isColumn" id="element-to-hide" data-html2canvas-ignore="true">
                   Action
                 </th>
               </tr>
@@ -252,7 +253,14 @@
             <tbody>
               <tr *ngFor="let item of getApmList | filter:searchWeb">
                 <td>{{item.id}}</td>
-                <td class="text-capitalize">{{item.firstName}} {{item.middleName}} {{item.lastName}}</td>
+                <td class="text-capitalize">
+                  <ion-icon name="add-circle-outline" (click)="showColumn()"></ion-icon>
+                  {{item.firstName}} {{item.middleName}} {{item.lastName}}
+                  <!-- <ion-button (click)="showColumn()">
+                    {{showColumn ? 'Show' : 'Hide'}}
+                  </ion-button> -->
+                  
+                </td>
                 <td>{{item.category}}</td>
                 <td>{{item.appointmentDate}}</td>
                 <td>
@@ -263,15 +271,15 @@
                 <td>{{item.other}}</td>
                 <td>{{item.district}}</td>
                 <td>{{item.taluka}}</td>
-                <td>{{item.houseNo}}</td>
-                <td>{{item.soc_BldgName}}</td>
-                <td>{{item.wardNo}}</td>
-                <td>{{item.pinCode}}</td>
-                <td>{{item.city_Village}}</td>
-                <td>{{item.fileName}}</td>
-                <td>{{item.remark}}</td>
-                <td>{{item.adminName}}</td>
-                <td>
+                <td *ngIf="isColumn">{{item.houseNo}}</td>
+                <td *ngIf="isColumn">{{item.soc_BldgName}}</td>
+                <td *ngIf="isColumn">{{item.wardNo}}</td>
+                <td *ngIf="isColumn">{{item.pinCode}}</td>
+                <td *ngIf="isColumn">{{item.city_Village}}</td>
+                <td *ngIf="isColumn">{{item.fileName}}</td>
+                <td *ngIf="isColumn">{{item.remark}}</td>
+                <td *ngIf="isColumn">{{item.adminName}}</td>
+                <td *ngIf="isColumn">
                   <!-- <ion-icon class="approveBtn" (click)="approveApm($event)" id="{{item.id}}" name="checkbox-sharp"></ion-icon>
                   <ion-icon class="rejectBtn" (click)="rejectApm($event)" id="{{item.id}}"  name="close-circle-sharp"></ion-icon>
                   <ion-icon class="rsBtn" (click)="rescheduleApm($event)" id="{{item.id}}" name="calendar-clear-sharp"></ion-icon> -->
@@ -283,14 +291,14 @@
                   </select>
                   
                 </td>
-                <td id="element-to-hide" data-html2canvas-ignore="true" class="action">
+                <td *ngIf="isColumn" id="element-to-hide" data-html2canvas-ignore="true" class="action">
                   <ion-icon (click)="editAppointment(item)" name="create-sharp"></ion-icon>
                   <ion-icon (click)="deleteApm(item.id)" class="delete" name="trash-bin-sharp"></ion-icon> 
                 </td>
               </tr>
             </tbody>
           </table>
-          <div *ngIf="!getApmList || getApmList.length === 0">
+          <div *ngIf="!getApmList || getApmList.length === 0" class="ion-text-center">
             <p>No data</p>
           </div>
           <pagination-controls (pageChange)="cp = $event"></pagination-controls>

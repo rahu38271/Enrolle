@@ -57,14 +57,13 @@ export class SocietyComponent implements OnInit {
   }
 
   ngOnInit() {
+    
+  }
+
+  ionViewWillEnter(){
     this.roleId = Number(this.roleId)
     this.id = localStorage.getItem("loginId");
-    // to update view data
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.societyList();
-    })
+    this.societyList();
   }
 
   societyList(){
@@ -113,7 +112,7 @@ export class SocietyComponent implements OnInit {
           cssClass: 'yes',
           handler: () => {
             this.society.deleteSociety(id).subscribe(data=>{
-              this.societyList();
+              this.ionViewWillEnter();
               
               this.toast.presentToast("Society deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })

@@ -1,4 +1,4 @@
-import { Component, OnInit,   } from '@angular/core';
+import { Component, OnInit  } from '@angular/core';
 import {AlertController, ToastController, LoadingController } from '@ionic/angular';
 import { ContactService } from 'src/app/services/contact.service'
 import { Router, NavigationEnd } from '@angular/router';
@@ -7,6 +7,8 @@ import { LoaderService } from 'src/app/services/loader.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { ExcelService } from 'src/app/services/excel.service'
 import { CsvService } from 'src/app/services/csv.service';
+import {Ng2SearchPipe} from 'ng2-search-filter';
+
 
 @Component({
   selector: 'app-contact',
@@ -15,23 +17,22 @@ import { CsvService } from 'src/app/services/csv.service';
 })
 export class ContactComponent implements OnInit {
 
+
   Template = '';
   Content = '';
   NormalMsg = '';
   whatsappMsg = '';
   isShow = false;
-  getContacts:any;
-  searchMob: string;
-  searchWeb: string;
-  
+  getContacts:any[];
   Cid:any;
   fileName= 'Contact.xlsx';
   PageNo:any=1;
-  NoofRow:any=25; 
-  SearchText:any;
-
+  NoofRow:any=2; 
+  SearchText:string;
+  searchTerm: string = '';
   currentDate = new Date();
   birthDate: any;
+  totalItems:any;
   
   constructor
   (
@@ -43,12 +44,28 @@ export class ContactComponent implements OnInit {
     private loader:LoaderService, 
     private toast:IonicToastService, 
     private excel:ExcelService,
-    private csv:CsvService
+    private csv:CsvService,
+    private searchPipe: Ng2SearchPipe
   ) { 
-    
+    setInterval(()=>{
+      this.contactList(this.PageNo,this.NoofRow,this.SearchText);
+    },1000)
   }
 
-  
+  ngOnInit() {
+   
+  }
+
+  ionViewWillEnter(){
+    if(this.SearchText == undefined){
+      this.SearchText = ''
+    }
+    else{
+      this.SearchText = this.SearchText
+    }
+    this.contactList(this.PageNo,this.NoofRow,this.SearchText);
+  }
+
   EditContact(data:any) {
     this.router.navigateByUrl('/contact/edit-contact', { state: data });
   }
@@ -56,22 +73,7 @@ export class ContactComponent implements OnInit {
     this.isShow = !this.isShow
   }
  
-
-  ngOnInit() {
-    if(this.SearchText == undefined){
-      this.SearchText = ''
-    }
-    else{
-      this.SearchText = this.SearchText
-    }
-    
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.contactList(this.PageNo,this.NoofRow,this.SearchText);
-    })
-  }
-
+ 
   event(event:any){
     this.PageNo = event;
     this.contactList(event,this.NoofRow,this.SearchText)
@@ -81,10 +83,12 @@ export class ContactComponent implements OnInit {
     this.contact.getContacts(PageNo,NoofRow,SearchText).subscribe(data=>{
       if(data != 0){
         this.getContacts = data;
+        this.totalItems = data[0].totalCount;
         this.getContacts.forEach(e => {
           e.birthDate = e.birthDate.split('T')[0] == '1900-01-01' ? '' : e.birthDate.split('T')[0];
           e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '' : e.anniversary.split('T')[0]; 
         });
+        
       }
       else{
         this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
@@ -93,6 +97,11 @@ export class ContactComponent implements OnInit {
       //this.toast.presentToast("Something went wrong !", "danger", 'alert-circle-outline');
     });
   }
+
+  filterData(){
+    this.searchPipe.transform(this.getContacts, this.SearchText);
+  }
+
 
   async deleteCon(id:any) {
     const alert = await this.alertController.create({
@@ -112,11 +121,7 @@ export class ContactComponent implements OnInit {
           cssClass: 'yes',
           handler: () => {
             this.contact.deleteContact(id).subscribe(data=>{
-              this.router.events.pipe(
-                filter(event => event instanceof NavigationEnd)
-              ).subscribe(() => {
-                this.contactList(this.PageNo,this.NoofRow,this.SearchText);
-              })
+              this.ionViewWillEnter();
               this.toast.presentToast("Contact deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })
           }

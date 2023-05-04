@@ -10,14 +10,14 @@
         <ion-buttons slot="start">
           <ion-back-button defaultHref="/new-voter"></ion-back-button>
         </ion-buttons>
-        <ion-title> New Voter </ion-title>
+        <ion-title>  Office Work  </ion-title>
       </ion-toolbar>
     </ion-header>
     <div class="main-content">
       <ion-grid>
         <ion-row>
           <ion-text class="form-header pl-10">
-            <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>New Voter
+            <ion-icon name="add-circle-outline" class="pr-1"></ion-icon> Office Work 
           </ion-text>
         </ion-row>
         <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
@@ -95,6 +95,7 @@
                     presentation="date" 
                     name="DOB"
                     [(ngModel)]="DOB"
+                    (click)="cancel()"
                   >
                     <span slot="title"> {{ year }} </span>
                   </ion-datetime>

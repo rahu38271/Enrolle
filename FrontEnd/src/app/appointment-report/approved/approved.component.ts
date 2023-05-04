@@ -42,15 +42,15 @@ export class ApprovedComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.UserId = localStorage.getItem("loginId");
-    this.roleID = localStorage.getItem("userType")
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.approvedList();
-    })
     
   }
+
+  ionViewWillEnter(){
+    this.UserId = localStorage.getItem("loginId");
+    this.roleID = localStorage.getItem("userType");
+    this.approvedList();
+  }
+  
 
    isBigEnough(element, index, array) { 
     return (element.status == "Approved" || element.status == "Reschedule"); 

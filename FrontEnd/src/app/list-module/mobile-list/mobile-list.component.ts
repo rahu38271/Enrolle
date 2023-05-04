@@ -12,12 +12,12 @@ import { TranslateConfigService } from 'src/app/services/translate-config.servic
 export class MobileListComponent implements OnInit {
   Language: any;
   isShow = false;
-  voterMobile: any[] = [];
+  voterMobile: any;
   userId: any;
   roleID:any;
   searchMob:string;
   PageNo:any=1;
-  NoofRow:any=25;
+  NoofRow:any=10;
   totalItems:any;
    
   search(){
@@ -63,7 +63,7 @@ export class MobileListComponent implements OnInit {
       this.Language = "English"
     }
     this.voter.voterWithMobile(userId,roleID,PageNo,NoofRow,this.Language).subscribe(data=>{
-      if(data){
+      if(data != 0){
         this.loader.hideLoader();
         this.voterMobile = data;
         this.totalItems = data[0].totalCount

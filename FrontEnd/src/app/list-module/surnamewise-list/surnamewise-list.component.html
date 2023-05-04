@@ -126,7 +126,7 @@
 
     <ion-grid class="android userList">
       <ion-searchbar [(ngModel)]="searchMob" animated="true" *ngIf="isShow"></ion-searchbar>
-      <ion-list *ngFor="let item of surnameWiseData | paginate: { itemsPerPage:100, currentPage: PageNo, totalItems:totalItems } | filter:searchMob" (click)="voterDetails(item)">
+      <ion-list *ngFor="let item of surnameWiseData | paginate: { itemsPerPage:10, currentPage: PageNo, totalItems:totalItems } | filter:searchMob" (click)="voterDetails(item)">
         <ion-item lines="none">
           <ion-label>
             <div class="firstLine">

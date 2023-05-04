@@ -58,7 +58,7 @@
                     presentation="date" 
                     [(ngModel)]="FromDate" 
                     name="FromDate"
-                    
+                    (click)="cancel()"
                   >
                     <span slot="title"> {{ year }} </span>
                   </ion-datetime>
@@ -84,7 +84,7 @@
                     presentation="date" 
                     [(ngModel)]="ToDate" 
                     name="ToDate"
-                    
+                    (click)="cancel()"
                   >
                     <span slot="title"> {{ year }} </span>
                   </ion-datetime>

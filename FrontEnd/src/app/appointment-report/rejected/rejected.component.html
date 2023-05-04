@@ -92,8 +92,8 @@
                 <th>City / Village</th>
                 <th>File</th>
                 <th>Remark</th>
+                <th>Added By</th>
                 <th>Status</th>
-
               </tr>
             </thead>
             <tbody>
@@ -117,6 +117,7 @@
                 <td>{{item.city_Village}}</td>
                 <td>{{item.fileName}}</td>
                 <td>{{item.remark}}</td>
+                <td>{{item.adminName}}</td>
                 <td>
                   <ion-icon class="approveBtn" (click)="approveApm($event)" id="{{item.id}}" name="checkbox-sharp"></ion-icon>
                   <ion-icon class="rsBtn" (click)="rescheduleApm($event)" id="{{item.id}}" name="calendar-clear-sharp"></ion-icon>

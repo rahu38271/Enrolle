@@ -42,14 +42,13 @@ export class RejectedComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.UserId = localStorage.getItem("loginId");
-    this.roleID = localStorage.getItem("userType")
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.rejectedList();
-    })
+    
+  }
 
+  ionViewWillEnter(){
+    this.UserId = localStorage.getItem("loginId");
+    this.roleID = localStorage.getItem("userType");
+    this.rejectedList();
   }
 
   goBack() {

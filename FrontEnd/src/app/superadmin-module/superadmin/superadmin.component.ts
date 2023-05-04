@@ -58,6 +58,11 @@ export class SuperadminComponent implements OnInit {
   }
 
   ngOnInit() {
+    
+    
+  }
+
+  ionViewWillEnter(){
     this.superId = localStorage.getItem("loginId");
     this.adminid = localStorage.getItem("loginId");
     this.roleId = localStorage.getItem("userType")
@@ -91,6 +96,13 @@ export class SuperadminComponent implements OnInit {
             else if (e.roleId == 4) {
               e = { ...e, roleName: "Volunteer" };
             }
+            else if (e.roleId == 5) {
+              e = { ...e, roleName: "Society" };
+            }
+            else if (e.roleId == 6) {
+              e = { ...e, roleName: "Member" };
+            }
+            
             this.getAdminList.push(e);
             this.getAdminList.forEach(e => {
               e.createdDate = e.createdDate.split('T')[0];
@@ -126,6 +138,12 @@ export class SuperadminComponent implements OnInit {
             else if (e.roleId == 4) {
               e = { ...e, roleName: "Volunteer" };
             }
+            else if (e.roleId == 5) {
+              e = { ...e, roleName: "Society" };
+            }
+            else if (e.roleId == 6) {
+              e = { ...e, roleName: "Member" };
+            }
             this.getAdminList.push(e);
             this.getAdminList.forEach(e => {
               e.createdDate = e.createdDate.split('T')[0];
@@ -160,6 +178,12 @@ export class SuperadminComponent implements OnInit {
             }
             else if (e.roleId == 4) {
               e = { ...e, roleName: "Volunteer" };
+            }
+            else if (e.roleId == 5) {
+              e = { ...e, roleName: "Society" };
+            }
+            else if (e.roleId == 6) {
+              e = { ...e, roleName: "Member" };
             }
             this.getAdminList.push(e);
             this.getAdminList.forEach(e => {
@@ -212,7 +236,7 @@ export class SuperadminComponent implements OnInit {
           cssClass: 'yes',
           handler: () => {
             this.sadmin.deleteUser(id).subscribe(data => {
-              this.ngOnInit()
+              this.ionViewWillEnter()
               this.toast.presentToast("User deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })
           }

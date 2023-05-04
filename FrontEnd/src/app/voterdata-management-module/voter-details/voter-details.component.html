@@ -18,7 +18,7 @@
           </form>
         </ion-col>
         <ion-col>
-          <a (click)="ShareWhatsapp1()">
+          <a (click)="ShareWhatsapp()">
             <img src="/assets/img/sharing.png" alt="">
           </a>
           <!-- <a href="https://api.whatsapp.com/send?phone={{ VoterListByUser.mobileNo }}" (click)="ShareWhatsapp()">
@@ -343,7 +343,7 @@
 
       </ion-row>
 
-      <ion-modal trigger="mobile" (willDismiss)="onWillDismiss($event)">
+      <ion-modal trigger="mobile" (willDismiss)="onWillDismiss($event)" [backdropDismiss]="false">
         <ng-template>
           <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
             <ion-grid>
@@ -375,7 +375,7 @@
       </ion-modal>
 
 
-      <ion-modal #modal trigger="altMobile" (willDismiss)="onWillDismiss($event)">
+      <ion-modal #modal trigger="altMobile" (willDismiss)="onWillDismiss($event)" [backdropDismiss]="false">
         <ng-template>
           <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
             <ion-grid>
@@ -442,7 +442,7 @@
       </ion-row>
 
 
-      <ion-modal #modal trigger="deadAlive" (willDismiss)="onWillDismiss($event)">
+      <ion-modal #modal trigger="deadAlive" (willDismiss)="onWillDismiss($event)" [backdropDismiss]="false">
         <ng-template>
           <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
             <ion-grid>
@@ -520,7 +520,7 @@
         </ion-modal>
       </div> -->
 
-      <ion-modal #modal trigger="dob" [canDismiss]="canDismiss">
+      <ion-modal #modal trigger="dob" [canDismiss]="canDismiss" [backdropDismiss]="false">
         <ng-template>
           <div>
             <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
@@ -574,7 +574,7 @@
       </ion-row>
 
 
-      <ion-modal #modal trigger="cast" (willDismiss)="onWillDismiss($event)">
+      <ion-modal #modal trigger="cast" (willDismiss)="onWillDismiss($event)" [backdropDismiss]="false">
         <ng-template>
           <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
             <ion-grid>
@@ -628,7 +628,7 @@
         </ion-col>
       </ion-row>
 
-      <ion-modal #modal trigger="profession" [canDismiss]="canDismiss">
+      <ion-modal #modal trigger="profession" [canDismiss]="canDismiss"  [backdropDismiss]="false">
         <ng-template>
           <div>
             <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
@@ -870,7 +870,7 @@
 
 
     <!-- <ion-grid style="display: none;"> -->
-    <ion-grid style="display: none;">
+    <ion-grid>
       <ion-row class="ion-align-items-center">
         <ion-col size="8" style="height: 200px;">
           <ion-img style="height: 200px;" [src]="imgurl"></ion-img>

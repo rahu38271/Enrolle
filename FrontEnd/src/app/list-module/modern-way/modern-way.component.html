@@ -4,6 +4,9 @@
   <ion-header class="android">
     <ion-toolbar>
       <ion-buttons slot="start">
+        <ion-back-button (click)="goBack()" defaultHref=""></ion-back-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
         <ion-menu-button auto-hide="false"></ion-menu-button>
       </ion-buttons>
       <ion-title>  {{'Advance Search' | translate}} </ion-title>
@@ -96,37 +99,37 @@
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
             <ion-label> Cast </ion-label>
-            <ion-input name="Profession" class="form-control" ></ion-input>
+            <ion-input name="Cast" [(ngModel)]="searchModal.Cast" class="form-control" ></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
             <ion-label> Occupation / Profession</ion-label>
-            <ion-input name="Profession" class="form-control" ></ion-input>
+            <ion-input name="Profession" [(ngModel)]="searchModal.Occupation" class="form-control" ></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
             <ion-label> Education </ion-label>
-            <ion-input name="Education" class="form-control" ></ion-input>
+            <ion-input name="Education" [(ngModel)]="searchModal.Education" class="form-control" ></ion-input>
           </ion-col>
 
-          <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+          <!-- <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
             <ion-label> Zone </ion-label>
             <ion-input name="Zone" class="form-control" ></ion-input>
-          </ion-col>
+          </ion-col> -->
 
-          <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+          <!-- <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
             <ion-label> Only Mobile No. </ion-label>
             <ion-input name="onlyMobile" class="form-control" ></ion-input>
-          </ion-col>
+          </ion-col> -->
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
             <ion-label> Society </ion-label>
-            <ion-input name="Societywise" class="form-control" ></ion-input>
+            <ion-input name="Society" [(ngModel)]="searchModal.Society" class="form-control" ></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
             <ion-label> Religion </ion-label>
-            <ion-input name="Societywise" class="form-control" ></ion-input>
+            <ion-input name="Religion" [(ngModel)]="searchModal.Religion" class="form-control" ></ion-input>
           </ion-col>
           
           <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">

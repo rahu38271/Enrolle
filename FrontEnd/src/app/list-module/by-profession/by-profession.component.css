@@ -1,5 +1,10 @@
 
 
+h2 { color: #4e7db4; padding-left: 10px; font-weight: 500; }
+
+h4 { color: #7a7a7a; }
+
+
 
 table { margin-top: 10px; }
 
@@ -54,8 +59,8 @@ table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !impo
     .web { display: none; }
     .android ion-list { 
       box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
-      border: 1px solid #e6ebf1;
-      border-radius: 0.625rem;
+    border: 1px solid #e6ebf1;
+    border-radius: 0.625rem;
       padding-top: 0px;
      }
     .header1 {
@@ -73,6 +78,7 @@ table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !impo
       padding-inline-end: var(--ion-grid-column-padding-xs, var(--ion-grid-column-padding, 4px));
   }
 
+  h4 { margin-bottom: 1px; }
 
   ion-avatar img { width: 40px; }
 
@@ -95,15 +101,11 @@ table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !impo
   }
 
 
-.details { display: flex; justify-content: space-between; }
-
-ion-select {
-  color: #4e4e4e !important;
-  background: #ffffff !important;
-  border: solid 1px #cccccc !important;}
-
-  ion-input, ion-textarea {
-    color: #4e4e4e !important;
-    background: #fff !important;
-    border: solid 1px #cccccc !important;
-}
+  ion-label {
+    margin: 6px 0px !important;
+  }
+  
+  ion-list {
+    padding-bottom: 0px !important;
+    margin-top: 2px;
+  }

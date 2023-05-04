@@ -63,10 +63,10 @@
                     Appointment Date
                   </th>
                   <th>
-                    Phone No.	
+                    Mobile No.	
                   </th>
                   <th>
-                    DoB					
+                    Birthdate					
                   </th>
                   <th>
                     Work
@@ -87,6 +87,7 @@
                   <th>City / Village</th>
                   <th>File</th>
                   <th>Remark</th>
+                  <th>Added By</th>
                   <th>Status</th>
                   
                 </tr>
@@ -112,6 +113,7 @@
                   <td>{{item.city_Village}}</td>
                   <td>{{item.fileName}}</td>
                   <td>{{item.remark}}</td>
+                  <td>{{item.adminName}}</td>
                   <td>
                     <ion-icon class="rejectBtn" (click)="rejectApm($event)" id="{{item.id}}"  name="close-circle-sharp"></ion-icon>
                     <ion-icon class="rsBtn" (click)="rescheduleApm($event)" id="{{item.id}}" name="calendar-clear-sharp"></ion-icon>
@@ -127,7 +129,7 @@
                 </tr>
               </tbody>
             </table>
-            <div *ngIf="!getApmList || getApmList.length === 0">
+            <div *ngIf="!getApmList || getApmList.length === 0" class="ion-text-center">
               <p>No data</p>
             </div>
             <pagination-controls (pageChange)="cp = $event"></pagination-controls>

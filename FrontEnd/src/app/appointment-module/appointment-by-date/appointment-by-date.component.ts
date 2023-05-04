@@ -5,11 +5,11 @@ import html2pdf from 'html2pdf.js'
 import { AppointmentService } from 'src/app/services/appointment.service'
 import { LoaderService } from 'src/app/services/loader.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
-import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { ExcelService } from 'src/app/services/excel.service'
 import { CsvService } from 'src/app/services/csv.service';
 import { Location } from '@angular/common';
+import { IonModal } from '@ionic/angular';
 
 
 @Component({
@@ -18,7 +18,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./appointment-by-date.component.css']
 })
 export class AppointmentByDateComponent implements OnInit {
-
+  @ViewChild(IonModal) modal: IonModal;
   isModalOpen = false;
 
   getApmList:any[]=[]; 
@@ -44,6 +44,10 @@ export class AppointmentByDateComponent implements OnInit {
   roleID:any;
 
   isShow = false;
+
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
+  }
  
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
 
@@ -61,9 +65,12 @@ export class AppointmentByDateComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    
+  }
+
+  ionViewWillEnter(){
     this.UserId = localStorage.getItem("loginId");
-      this.roleID = localStorage.getItem("userType")
-      //this.appoinmentList();
+    this.roleID = localStorage.getItem("userType")
   }
 
   isBigEnough(element, index, array) { 
@@ -80,8 +87,7 @@ export class AppointmentByDateComponent implements OnInit {
   }
 
   search(){
-    debugger
-    this.isShow = !this.isShow; 
+    this.isShow = true 
     this.loader.showLoading();
     this.searchApmModal.UserId = Number(this.UserId);
     this.searchApmModal.roleID = this.roleID;
@@ -92,7 +98,7 @@ export class AppointmentByDateComponent implements OnInit {
       this.searchApmModal.ToDate = this.searchApmModal.ToDate
     }
     this.appointment.searchAppointment(this.searchApmModal.UserId,this.searchApmModal.roleID,this.searchApmModal.FromDate,this.searchApmModal.ToDate).subscribe(data=>{
-      if(data){
+      if(data.length != 0){
         this.loader.hideLoader();
         this.getApmList = data;
         this.toast.presentToast("Appointment searhced successfully!", "success", 'checkmark-circle-sharp');
@@ -115,6 +121,7 @@ export class AppointmentByDateComponent implements OnInit {
     this.isModalOpen = true;
   }
 
+  
 
   exportExcel():void {
     this.excel.exportAsExcelFile(this.getApmList, 'appointment');

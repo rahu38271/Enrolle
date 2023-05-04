@@ -43,10 +43,16 @@ export class VoterdataManagementComponent {
     ToAge:'',
     Village:'',
     Gender:'',
+    Occupation:'',
+    Education:'',
+    Cast:'',
+    Religion:'',
+    Society:'',
     UserId:'',
     roleID:'',
     PageNo:'',
-    NoofRow:''
+    NoofRow:'',
+    Language:''
   };
   partNo: any;
   PageNo:number=1;
@@ -57,9 +63,6 @@ export class VoterdataManagementComponent {
   search(){
     this.isShow = !this.isShow
   }
-
-  
-
 
   onKeyPress(event) {
     if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {
@@ -102,6 +105,10 @@ keyPressNumbers(event) {
    }
 
    ngOnInit(){
+    
+  }
+
+  ionViewWillEnter(){
     this.partNo = this.route.snapshot.paramMap.get('partNo');
     this.userId = this.route.snapshot.paramMap.get('id');
     this.roleID = localStorage.getItem("userType");
@@ -164,6 +171,8 @@ keyPressNumbers(event) {
   }
 
   searchData(){
+    
+    this.searchModal.Language = this.Language;
     this.searchModal.PageNo = this.searchModal.PageNo;
     this.searchModal.NoofRow = this.searchModal.NoofRow;
     if(this.searchModal.LastName == ''){
@@ -232,6 +241,36 @@ keyPressNumbers(event) {
     else{
       this.searchModal.Village = this.searchModal.Village;
     }
+    if(this.searchModal.Occupation == ''){
+      this.searchModal.Occupation = null
+    }
+    else{
+      this.searchModal.Occupation = this.searchModal.Occupation;
+    }
+    if(this.searchModal.Education == ''){
+      this.searchModal.Education = null
+    }
+    else{
+      this.searchModal.Education = this.searchModal.Education;
+    }
+    if(this.searchModal.Cast == ''){
+      this.searchModal.Cast = null
+    }
+    else{
+      this.searchModal.Cast = this.searchModal.Cast;
+    }
+    if(this.searchModal.Society == ''){
+      this.searchModal.Society = null
+    }
+    else{
+      this.searchModal.Society = this.searchModal.Society;
+    }
+    if(this.searchModal.Religion == ''){
+      this.searchModal.Religion = null
+    }
+    else{
+      this.searchModal.Religion = this.searchModal.Religion;
+    }
     this.searchModal.UserId = Number(this.userId);
     this.searchModal.roleID = Number(this.roleID);
     this.searchModal.PartNo = this.partNo;
@@ -242,6 +281,7 @@ keyPressNumbers(event) {
       if(data){
         this.loader.hideLoader();
         this.voterByPart = data;
+        this.totalItems = data[0].totalCount
       }
       else{
         this.loader.hideLoader();

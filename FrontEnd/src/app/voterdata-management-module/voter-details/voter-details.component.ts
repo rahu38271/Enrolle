@@ -37,8 +37,8 @@ export class VoterDetailsComponent {
   //@ViewChild('myImg') myImg: ElementRef;
 
   text: string = ''
-  //imgurl: string = 'https://cdn.pixabay.com/photo/2019/12/26/05/10/pink-4719682_960_720.jpg'
-  imgurl: string = 'https://scontent-bom1-2.xx.fbcdn.net/v/t39.30808-6/262921346_1278659969288060_1495313806783760875_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=730e14&_nc_ohc=iloEXgmNY_oAX8-WTxc&_nc_ht=scontent-bom1-2.xx&oh=00_AfD0wJKOTdJ2M8sPLkL-e5DE9lW-kilOCJ91efD8hWczsQ&oe=643BAA03'
+  imgurl: string = 'https://cdn.pixabay.com/photo/2019/12/26/05/10/pink-4719682_960_720.jpg'
+  //imgurl: string = 'https://scontent-bom1-2.xx.fbcdn.net/v/t39.30808-6/262921346_1278659969288060_1495313806783760875_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=730e14&_nc_ohc=iloEXgmNY_oAX8-WTxc&_nc_ht=scontent-bom1-2.xx&oh=00_AfD0wJKOTdJ2M8sPLkL-e5DE9lW-kilOCJ91efD8hWczsQ&oe=643BAA03'
 
   ImagePath = ''
   VoterListByUser: any;
@@ -51,10 +51,6 @@ export class VoterDetailsComponent {
   partNo:any;
 
   @ViewChild('slipDesign') slipDesign: ElementRef;
-
-  ngAfterViewInit() {
-    //console.log(this.slipDesign.nativeElement.innerHTML);
-  }
 
   onWillDismiss(event: Event) {
     const ev = event as CustomEvent<OverlayEventDetail<string>>;
@@ -125,18 +121,16 @@ export class VoterDetailsComponent {
       private translateConfigService: TranslateConfigService,
     ) {
       this.Language = this.translateConfigService.getCurrentLang();
+      this.Voter = this.router.getCurrentNavigation().extras.state;
       
   }
 
   ngOnInit() {
     this.assemblyName1 = localStorage.getItem("loginAssembly");
-    this.Voter = this.router.getCurrentNavigation().extras.state
-    //pipe(map(() => window.history.state))
     this.voterDetails();
     this.AllCasts();
-  
+    
   }
-
  
 
   voterDetails() {
@@ -186,14 +180,12 @@ export class VoterDetailsComponent {
     else if (this.VoterListByUser.votingInclination == "Other") {
       this.bgColor = '#fff'
     }
-
+    
   }
 
   family(id: any) {
     this.router.navigate(['/voterdata-management/family', { Id: id }])
   }
-
- 
 
   sameAddressVoter(id: any) {
     this.router.navigate(['/voterdata-management/family', { Id: id }])
@@ -206,7 +198,7 @@ export class VoterDetailsComponent {
     this.mobUpdate.Id = Number(this.id);
     this.voter.updateMob(this.mobUpdate.Id, this.mobUpdate.Mobile).subscribe(data => {
       if (data) {
-        this.voterDetails();
+        this.Voter = this.voterDetails();
         this.closeModal();
         this.toast.presentToast("Mobile No. updated successfully!", "success", 'checkmark-circle-sharp');
       }
@@ -279,7 +271,7 @@ export class VoterDetailsComponent {
   // add Birthdate
 
   saveBirthdate(){
-    debugger;
+    debugger
     this.id = this.Voter.id;
     this.BirthdateUpdate.Id = Number(this.id);
     this.BirthdateUpdate.ColoumnName = "Birthdate"
@@ -300,7 +292,6 @@ export class VoterDetailsComponent {
   // add Caste
 
   saveCaste(){
-    debugger;
     this.id = this.Voter.id;
     this.CasteUpdate.Id = Number(this.id);
     this.CasteUpdate.ColoumnName = "Caste"
@@ -497,7 +488,6 @@ export class VoterDetailsComponent {
       this.Language = "English"
     }
     this.voter.getAllCaste(this.Language).subscribe(data=>{
-      console.log(data)
       this.casteList = data;
     })
   }

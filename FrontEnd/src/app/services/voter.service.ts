@@ -25,10 +25,11 @@ export class VoterService {
   //   return this.http.get<any[]>(this.url+'Voter/GetAllVoter?UserId='+id+'&RoleId='+roleID)
   // }
   
-  getVoterByUser(id:any,RoleId:any,PageNo:any,NoofRow:any,Language:any):Observable<any>{
-    //return this.http.get<any[]>(this.url+'Voter/GetAllVoter?UserId='+id+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow)
-    return this.http.get<any[]>(this.url+'Voter/GetAllVoter?UserId='+id+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language)
+  getVoterByUser(id:any,RoleId:any,PageNo:any,NoofRow:any,Language:any,SearchText:any):Observable<any>{
+    //return this.http.get<any[]>(this.url+'Voter/GetAllVoter?UserId='+id+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language)
+    return this.http.get<any[]>(this.url+'Voter/GetAllVoter?UserId='+id+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
   }
+
 
   // total voter count by user
   getVoterCountByUser(id:number,RoleId:number){
@@ -103,6 +104,7 @@ export class VoterService {
   // update DoB
 
   updateDoB(id:any, ColoumnName:any, ColoumnValue:any){
+    debugger;
     return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue, id)
   }
 
@@ -136,6 +138,10 @@ export class VoterService {
     return this.http.post<any>(this.url+'Voter/FilterColoumnCount', partModal)
   }
 
+  occupaionData(occupModal:any){
+    return this.http.post<any>(this.url+'Voter/FilterColoumnCount', occupModal)
+  }
+
   CastData(castModal:any){
     return this.http.post<any>(this.url+'Voter/FilterColoumnCount',castModal)
   }
@@ -157,7 +163,8 @@ export class VoterService {
   // lastname and count
 
   lastNameData(userid:number,roleID:number,PageNo:number,NoofRow:number,Language:any){
-    return this.http.get<any>(this.url+'Voter/GetVoterCountbyLastName?userid='+userid+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
+    //return this.http.get<any>(this.url+'Voter/GetVoterCountbyLastName?userid='+userid+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
+    return this.http.get<any>(this.url+'Voter/GetVoterCountbyLastName?userid='+userid+'&roleid='+roleID+'&pageno='+PageNo+'&noofrow='+NoofRow+'&Language='+Language);
   }
 
   // all voter by lastname

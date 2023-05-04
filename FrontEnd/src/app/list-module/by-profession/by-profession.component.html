@@ -1,154 +1,95 @@
 <ion-content>
-    <ion-header class="android">
-      <ion-toolbar>
-        <ion-buttons slot="start">
-          <ion-menu-button color="primary" auto-hide="false"></ion-menu-button>
-        </ion-buttons>
-        <ion-title> व्यवसाया नुसार </ion-title>
-        <ion-buttons slot="primary">
-          <ion-button (click)="search()">
-            <ion-icon name="search-outline"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-    <div class="main-content">
-      <!-- <ion-searchbar></ion-searchbar> -->
-      <ion-grid class="web">
-        <ion-row>
-          <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
-            <ion-grid class="header">
-              <ion-row>
-                <ion-col size-xs="12" size-sm="6">
-                  <ion-card-header>
-                    <ion-card-title class="header1">व्यवसायानुसार  <span>  ( 44 ) </span> </ion-card-title>
-                    <div class="headerLine"></div>
-                  </ion-card-header>
-                  
-                </ion-col>
-                <ion-col size-xs="12" size-sm="6" class="ion-text-right">
-                  <!-- <ion-button class="button-download" fill="outline" color="success" >
-                    <ion-icon name="document-sharp"></ion-icon>Excel
-                  </ion-button>
-                  <ion-button class="button-download" fill="outline" color="danger" >
-                    <ion-icon name="cloud-download-sharp"></ion-icon>PDF
-                  </ion-button>
-                   -->
-                </ion-col>
-              </ion-row>
-  
-              <form #myForm1="ngForm">
-                <ion-row> 
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button auto-hide="false"></ion-menu-button>
+      </ion-buttons>
+      <ion-title>  {{'Occupation' | translate}} </ion-title>
+      <ion-buttons slot="primary">
+        <ion-button (click)="search()">
+          <ion-icon name="search-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <!-- <ion-searchbar></ion-searchbar> -->
+    <ion-grid class="web">
+      <ion-row>
+        <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
+          <ion-grid class="header">
+            <ion-row>
+              <ion-col size-xs="12" size-sm="6">
+                <ion-card-header>
+                  <ion-card-title class="header1">बूथनुसार <span> ( 44 ) </span> </ion-card-title>
+                  <div class="headerLine"></div>
+                </ion-card-header>
 
-                  <ion-col size-lg="2" size-md="3" size-sm="6" size-xs="12">
-                    <ion-label>   व्यवसाय    </ion-label>
-                      <ion-select name="Caste" [(ngModel)]="Caste" placeholder="Select" interface="popover" class="form-control" required>
-                        <ion-select-option class="select_option" value="विद्यार्थी"> विद्यार्थी</ion-select-option>
-                        <ion-select-option class="select_option" value="शेतकरी"> शेतकरी</ion-select-option>
-                        <ion-select-option class="select_option" value="स्वयंरोजगार/व्यवसाय"> स्वयंरोजगार/व्यवसाय</ion-select-option>
-                        <ion-select-option class="select_option" value="नोकरी"> नोकरी</ion-select-option>
-                        <ion-select-option class="select_option" value="इतर"> इतर</ion-select-option>
-                      </ion-select>
-                  </ion-col>
-                  
-                  
-                  
-                  <ion-col size-lg="2" size-md="4" size-sm="6" size-xs="12">
-                      <ion-button class="mt-4" type="submit" (click)="presentLoading()">Search</ion-button>
-                      <!-- <ion-button shape="round" type="reset" (click)="resetForm()" class="mt-5" color="danger">Clear</ion-button> -->
-                  </ion-col>
-                </ion-row>
-              </form>
-              
-            </ion-grid>
-            
-            <ion-card>
-              <ion-card-content>
-                <div class="headSection">
-                  <div class="search">
-                    <ion-searchbar animated="true"></ion-searchbar>
-                  </div>
-                  <ion-button class="button-download" color="success" (click)="exportExcel()">
-                    <ion-icon name="document-sharp"></ion-icon>Excel
-                  </ion-button>
+              </ion-col>
+              <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+                <!-- <ion-button class="button-download" fill="outline" color="success" >
+                  <ion-icon name="document-sharp"></ion-icon>Excel
+                </ion-button>
+                <ion-button class="button-download" fill="outline" color="danger" >
+                  <ion-icon name="cloud-download-sharp"></ion-icon>PDF
+                </ion-button>
+                 -->
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-card>
+            <ion-card-content>
+              <div class="headSection">
+                <div class="search">
+                  <ion-searchbar animated="true"></ion-searchbar>
                 </div>
-                <div class="horizontal-scroll">
-                  <table id="villageTable" #epltable class="table">
-                    <thead>
-                      <tr>
-                        <th>
-                          अ.क्र.
-                        </th>
-                        <th>
-                             व्यवसाय
-                        </th>
-                        <th>
-                          एकूण
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td routerLink="/list/professionwise-list">विद्यार्थी</td>
-                        <td>1398</td>
-                      </tr>
-                      <tr>
-                        
-                        <td>2</td>
-                        <td>शेतकरी</td>
-                        <td>1244</td>
-                      </tr>
-                      <tr>
-                        <td>3</td>
-                        <td>नोकरी</td>
-                        <td>610</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-  
-        </ion-row>
-      </ion-grid>
-  
-      <ion-grid class="android">
-        <ion-searchbar *ngIf="isShow"></ion-searchbar>
-        <ion-row>
-          <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
-            <ion-card>
-                <ion-list>
-  
-                  <ion-item  routerLink="/list/professionwise-list">
-                    <ion-label class="details">
-                      <h3>विद्यार्थी</h3>
-                      <h4> एकूण : <span> 1398 </span> </h4>
-                    </ion-label>
-                  </ion-item>
-          
-                  <ion-item>
-                    <ion-label class="details">
-                      <h3>शेतकरी</h3>
-                      <h4> एकूण : <span> 1244 </span> </h4>
-                    </ion-label>
-                  </ion-item>
-          
-                  <ion-item >
-                    <ion-label class="details">
-                      <h3>नोकरी</h3>
-                      <h4> एकूण : <span> 871 </span> </h4>
-                    </ion-label>
-                  </ion-item>
-                </ion-list>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </div>
-   
-    
-  </ion-content>
-  
-  
+                <ion-button class="button-download" color="success" (click)="exportExcel()">
+                  <ion-icon name="document-sharp"></ion-icon>Excel
+                </ion-button>
+              </div>
+              <div class="horizontal-scroll">
+                <table id="villageTable" #epltable class="table">
+                  <thead>
+                    <tr>
+                      <th>
+                        Occupation
+                      </th>
+                      <th>
+                        Total
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of occupData | filter:searchMob" (click)="occupation(item.columnName)">
+                      <td >
+                        {{item.columnName}}
+                      </td>
+                      <td>{{item.count}}</td>
+                    </tr>
+                    
+                  </tbody>
+                </table>
+              </div>
+            </ion-card-content>
+
+          </ion-card>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="android">
+      <ion-searchbar [(ngModel)]="searchMob" animated="true" *ngIf="isShow"></ion-searchbar>
+      <ion-list *ngFor="let item of occupData | filter:searchMob" (click)="occupation(item.columnName)">
+        <ion-item lines="none" class="ion-text-center">
+          <ion-label>
+            <h3>
+                {{'Occupation' | translate}}  - {{item.columnName}}
+            </h3>
+            <h4>  {{'Total' | translate}} : <span> {{item.count}} </span> </h4>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-grid>
+  </div>
+</ion-content>

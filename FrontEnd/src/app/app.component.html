@@ -163,7 +163,7 @@
           <button class="subnavbtn"><img src="assets/img/list1.png" alt=""><br>User Request </button>
         </div>
 
-        <div *ngIf="isComBook" class="subnav" routerLink="/user-request" >
+        <div *ngIf="isComBook" class="subnav" routerLink="/complaint-book" >
           <button class="subnavbtn"><img src="assets/img/list1.png" alt=""><br>Complaint Book </button>
         </div>
 
@@ -635,6 +635,11 @@
               <ion-item *ngIf="isDailyRoutine" [routerLink]="['/event']" routerDirection="root" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-calendar"></i>
                 <ion-label> {{'Daily Routine' | translate}} </ion-label>
+              </ion-item>
+
+              <ion-item *ngIf="isComBook" [routerLink]="['/complaint-book']" routerDirection="root" [routerLinkActive]="'active'" >
+                <i class="icofont icofont-calendar"></i>
+                <ion-label> Complaint Book </ion-label>
               </ion-item>
 
               

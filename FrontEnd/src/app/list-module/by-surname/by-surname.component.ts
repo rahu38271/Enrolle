@@ -17,7 +17,7 @@ export class BySurnameComponent implements OnInit {
   userId: any;
   roleID:any;
   PageNo:any=1;
-  NoofRow:any=5000;
+  NoofRow:any=2000;
   totalItems:any;
 
   constructor(

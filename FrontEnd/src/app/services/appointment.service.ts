@@ -13,9 +13,13 @@ export class AppointmentService {
   constructor(private http:HttpClient) { }
 
   // get appointment list
-  getAppointments(UserId:any,roleID:any){
+  getAppointments(UserId:any,roleID:any):Observable<any>{
     return this.http.get<any>(this.url+'Appointment/GetAllAppointment?UserId='+UserId+'&RoleId='+roleID);
-    
+  }
+
+  // get appointment list
+  getAppointmentByUser(UserId:any){
+    return this.http.get<any>(this.url+'Appointment/GetAppointmentbyUserId?UserId='+UserId);
   }
 
   // today appointmentList 

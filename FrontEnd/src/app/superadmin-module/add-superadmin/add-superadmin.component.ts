@@ -28,6 +28,8 @@ export class AddSuperadminComponent implements OnInit {
   isSA = false
   isA = false
   isV = false
+  isSoc = false;
+  isM = false;
 
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -114,15 +116,21 @@ export class AddSuperadminComponent implements OnInit {
       this.isSA = !this.isSA;
       this.isA = !this.isA;
       this.isV = !this.isV;
+      this.isSoc = !this.isSoc
+      this.isM = !this.isM
     }
     
     if(this.roleId == 2){
       this.isA = !this.isA;
       this.isV = !this.isV;
+      this.isSoc = !this.isSoc
+      this.isM = !this.isM
     }
     
     if(this.roleId == 3){
       this.isV = !this.isV;
+      this.isSoc = !this.isSoc
+      this.isM = !this.isM
     }
     
 
@@ -131,6 +139,7 @@ export class AddSuperadminComponent implements OnInit {
   }
 
   addMAdmin() {
+    debugger;
     this.addMAmodal.RoleId = Number(this.addMAmodal.RoleId);
     if(this.addMAmodal.RoleId == 2){
       this.addMAmodal.SuperAdminId = Number(this.loginId);
@@ -139,6 +148,14 @@ export class AddSuperadminComponent implements OnInit {
       this.addMAmodal.SuperAdminId = Number(this.loginId);
     }
     if(this.addMAmodal.RoleId == 4){
+      this.addMAmodal.SuperAdminId = Number(this.superAdminId);
+      this.addMAmodal.AdminId = Number(this.loginId);
+    }
+    if(this.addMAmodal.RoleId == 5){
+      this.addMAmodal.SuperAdminId = Number(this.superAdminId);
+      this.addMAmodal.AdminId = Number(this.loginId);
+    }
+    if(this.addMAmodal.RoleId == 6){
       this.addMAmodal.SuperAdminId = Number(this.superAdminId);
       this.addMAmodal.AdminId = Number(this.loginId);
     }

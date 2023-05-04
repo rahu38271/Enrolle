@@ -17,6 +17,10 @@ export class AdminwiseComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    
+  }
+
+  ionViewWillEnter(){
     this.apmListByAdmin();
   }
 

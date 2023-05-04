@@ -41,6 +41,10 @@ export class TodaysAppointmentComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    
+  }
+  
+  ionViewWillEnter(){
     this.UserId = localStorage.getItem("loginId");
     this.roleID = localStorage.getItem("userType")
     this.todayApmList();
@@ -114,7 +118,7 @@ export class TodaysAppointmentComponent implements OnInit {
           cssClass: 'yes',
           handler: () => {
             this.appointment.deleteAppointment(id).subscribe(data=>{
-              this.ngOnInit();
+              this.ionViewWillEnter();
               this.toast.presentToast("Appointment deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })
           }

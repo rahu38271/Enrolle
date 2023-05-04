@@ -2,6 +2,9 @@
   <ion-header class="android">
     <ion-toolbar>
       <ion-buttons slot="start">
+        <ion-back-button (click)="goBack()" defaultHref=""></ion-back-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
         <ion-menu-button auto-hide="false"></ion-menu-button>
       </ion-buttons>
       <ion-title> {{'Lists' | translate}} </ion-title>
@@ -344,10 +347,18 @@
               </ion-label>
             </ion-item>
           </ion-list>
-          <ion-list class="advanced" >
+
+          <ion-list class="advanced" routerLink="/list/by-profession">
             <ion-item lines="none">
               <ion-label>
-                <!-- <i class="icofont icofont-star"></i> -->
+                <h3> By Occupation / Profession</h3>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+
+          <!-- <ion-list class="advanced" >
+            <ion-item lines="none">
+              <ion-label>
                 <h3> By Occupation / Profession</h3>
               </ion-label>
             </ion-item>
@@ -355,7 +366,6 @@
           <ion-list class="advanced" >
             <ion-item lines="none">
               <ion-label>
-                <!-- <i class="icofont icofont-star"></i> -->
                 <h3>By Education</h3>
               </ion-label>
             </ion-item>
@@ -363,7 +373,6 @@
           <ion-list class="advanced" >
             <ion-item lines="none">
               <ion-label>
-                <!-- <i class="icofont icofont-star"></i> -->
                 <h3>By Zone</h3>
               </ion-label>
             </ion-item>
@@ -371,7 +380,6 @@
           <ion-list class="advanced" >
             <ion-item lines="none">
               <ion-label>
-                <!-- <i class="icofont icofont-star"></i> -->
                 <h3>By Family</h3>
               </ion-label>
             </ion-item>
@@ -379,7 +387,6 @@
           <ion-list class="advanced" >
             <ion-item lines="none">
               <ion-label>
-                <!-- <i class="icofont icofont-star"></i> -->
                 <h3>Only Mobile No.</h3>
               </ion-label>
             </ion-item>
@@ -387,7 +394,6 @@
           <ion-list class="advanced" >
             <ion-item lines="none">
               <ion-label>
-                <!-- <i class="icofont icofont-star"></i> -->
                 <h3>By Society</h3>
               </ion-label>
             </ion-item>
@@ -395,11 +401,10 @@
           <ion-list class="advanced" >
             <ion-item lines="none">
               <ion-label>
-                <!-- <i class="icofont icofont-star"></i> -->
                 <h3>By Religion</h3>
               </ion-label>
             </ion-item>
-          </ion-list>
+          </ion-list> -->
         </ion-col>
 
 

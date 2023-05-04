@@ -49,7 +49,7 @@
             <ion-card-content>
               <div class="headSection">
                 <div class="search">
-                  <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+                  <ion-searchbar type="text" [(ngModel)]="SearchText" (keyup)="filterData()" animated="true"></ion-searchbar>
                 </div>
                 <div class="btns">
                   <ion-button class="button-download" color="success" (click)="exportExcel()">
@@ -133,7 +133,7 @@
                   </thead>
                   <tbody>
                     <!-- <tr *ngFor="let item of getContacts | filter:searchWeb | paginate: { itemsPerPage: 10, currentPage: cp  }; let i=index"> -->
-                      <tr *ngFor="let item of getContacts | filter:searchWeb | paginate: { itemsPerPage: 10, currentPage: PageNo  }; let i=index" >
+                      <tr *ngFor="let item of getContacts | filter:SearchText | paginate: { itemsPerPage: 2, currentPage: PageNo , totalItems:totalItems }; let i=index" >
                       <td> {{ item.id  }} </td>
                       <td class="text-capitalize"> {{ item.fullName }} </td>
                       <td class="text-capitalize"> {{ item.vilageName }} </td>
@@ -169,7 +169,7 @@
       <ion-searchbar *ngIf="isShow" [(ngModel)]="searchMob" animated="true"></ion-searchbar>
       <ion-list>
         <!-- <ion-item  routerLink="/voterdata-management/voter-details"> -->
-        <ion-item-sliding *ngFor="let item of getContacts | filter:searchMob">
+        <ion-item-sliding *ngFor="let item of getContacts | filter:searchMob | paginate: { itemsPerPage: 2, currentPage: PageNo , totalItems:totalItems }; let i=index">
           <ion-item-options side="end">
             <!-- routerLink="/user/edit-user" -->
             <a>

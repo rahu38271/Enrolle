@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef     } from '@angular/core';
 import { AlertController,LoadingController,ToastController } from '@ionic/angular';
 import * as xlsx from 'xlsx';
 import html2pdf from 'html2pdf.js'
@@ -14,12 +14,12 @@ import { CsvService } from 'src/app/services/csv.service';
 @Component({
   selector: 'app-appointment',
   templateUrl: './appointment.component.html',
-  styleUrls: ['./appointment.component.scss'],
+  styleUrls: ['./appointment.component.scss']
+  
 })
 export class AppointmentComponent implements OnInit {
 
   isModalOpen = false;
-  isSuperAdmin = false;
   getApmList:any; 
   searchWeb:string;
   year : number = new Date().getFullYear();
@@ -46,6 +46,7 @@ export class AppointmentComponent implements OnInit {
   };
   UserId:any;
   roleID:any;
+  isColumn = false
  
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
 
@@ -64,31 +65,36 @@ export class AppointmentComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-      this.UserId = localStorage.getItem("loginId");
-      this.roleID = localStorage.getItem("userType")
-      if(this.roleID == 2){
-        this.isSuperAdmin = !this.isSuperAdmin
-      }
-      else{
-        this.isSuperAdmin = this.isSuperAdmin
-      }
       
-      this.appoinmentList();
-      // setInterval(()=>{
-      //   this.appoinmentList();
-      //   this.apmCountData();
-      // },1000)
-      this.apmCountData();
+      
       // this.router.events.pipe(
       //   filter(event => event instanceof NavigationEnd)
       // ).subscribe(() => {
       //   this.appoinmentList();
+      //   this.apmCountData();
       // })
     }
+
+    ionViewWillEnter() {
+      this.UserId = localStorage.getItem("loginId");
+      this.roleID = localStorage.getItem("userType")
+      // if(this.roleID == 2){
+      //   this.isSuperAdmin = !this.isSuperAdmin
+      // }
+      // else{
+      //   this.isSuperAdmin = this.isSuperAdmin
+      // }
+      this.appoinmentList();
+      this.apmCountData();
+  }
 
     isBigEnough(element, index, array) { 
       return (element.status == "" || element.status == null ); 
    } 
+
+   showColumn(){
+     this.isColumn = !this.isColumn
+   }
 
   appoinmentList(){
     this.appointment.getAppointments(this.UserId,this.roleID).subscribe((data:any)=>{
@@ -114,7 +120,6 @@ export class AppointmentComponent implements OnInit {
   }
 
   editAppointment(data:any){
-    debugger;
     this.router.navigateByUrl('/appointment/edit-appointment', { state: data });
   }
 
@@ -173,7 +178,7 @@ export class AppointmentComponent implements OnInit {
           cssClass: 'yes',
           handler: () => {
             this.appointment.deleteAppointment(id).subscribe(data=>{
-              this.ngOnInit();
+              this.ionViewWillEnter();
               this.toast.presentToast("Appointment deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })
           }
@@ -201,7 +206,7 @@ export class AppointmentComponent implements OnInit {
     this.csv.exportToCsv(this.getApmList, 'appointment');
   }
 
-  pdf() {
+  exportPDF() {
     var element = document.getElementById('table13');
     
     var opt = {
@@ -209,7 +214,7 @@ export class AppointmentComponent implements OnInit {
       filename: 'myfile.pdf',
       image: { type: 'jpeg', quality: 0.98 },
       html2canvas: { scale: 2 },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'landscape' }
     };
 
     // New Promise-based usage:
