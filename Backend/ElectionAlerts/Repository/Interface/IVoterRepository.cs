@@ -9,7 +9,7 @@ namespace ElectionAlerts.Repository.Interface
 {
     public interface IVoterRepository
     {
-        IEnumerable<VoterDTO> GetAllVoter(int userid,int RoleId, int PageNo, int NoofRow,string Language);
+        IEnumerable<VoterDTO> GetAllVoter(int userid,int RoleId, int PageNo, int NoofRow,string Language, string SearcText);
         int CreateVoter(Voter voter);
         int InsertBulkVoter(List<Voter> voters);
         int InsertBulkMobile(List<Mobile> mobiles);
@@ -23,8 +23,8 @@ namespace ElectionAlerts.Repository.Interface
         IEnumerable<LastNameCount> GetVoterCountbyLastName(int UserId,int RoleId, int PageNo, int NoofRow, string Language);
         IEnumerable<VoterDTO> GetVoterbyRole(VoterSuperDto voterSuperDto);
         IEnumerable<VoterDTO> VoterDetailsbyLastName(string LName, int UserId,int RoleId, int PageNo, int NoofRow, string Language);
-        IEnumerable<VoterDTO> VoterDetailsbyColumn(string ColoumnName,string ColoumnValue, int UserId,int RoleId, int PageNo, int NoofRow, string Language);
-        IEnumerable<VoterDTO> VoterwithMobileNo(int UserId,int RoleId, int PageNo, int NoofRow, string Language);
+        IEnumerable<VoterDTO> VoterDetailsbyColumn(string ColoumnName,string ColoumnValue, int UserId,int RoleId, int PageNo, int NoofRow, string Language, string SearchText);
+        IEnumerable<VoterDTO> VoterwithMobileNo(int UserId,int RoleId, int PageNo, int NoofRow, string Language, string SearchText);
         IEnumerable<VoterInclination> VoterInclination(int userid,int RoleId);
         int UpadateMobileVoter(int Id,string MobileNo);
         int UpadateAltMobileVoter(int Id, string AltMobileNo);
@@ -40,17 +40,18 @@ namespace ElectionAlerts.Repository.Interface
         IEnumerable<VoterPPBooth> GetDistinctPartNo(int Role, int UserId);
         IEnumerable<VoterbyBooth> GetVoterbybooth(int userid,int RoleId);
         IEnumerable<VoterDTO> GetVoterByUserId(int userid,int roleid, int PageNo, int NoofRow, string Language);
-        IEnumerable<VoterDTO> GetVoterAgeBetween(int Age1, int Age2,string Gender, int UserId,int RoleId, int PageNo, int NoofRow, string Language);
+        IEnumerable<VoterDTO> GetVoterAgeBetween(int Age1, int Age2,string Gender, int UserId,int RoleId, int PageNo, int NoofRow, string Language,string SearchText);
         IEnumerable<VoterCount> GetTotalVoterCount(int userid, int roleid);
         IEnumerable<VoterDTO> AdvancedSearch(AdvanceSearchDTO searchDTO);
-        IEnumerable<VoterDTO> GetVoterInclinationUserId(string inclination, int userid,int roleid,int PageNo, int NoofRow, string Language);
-        IEnumerable<VoterDTO> GetStarVoterbyUserId(int userid,int roleid, int PageNo, int NoofRow, string Language);
+        IEnumerable<VoterDTO> GetVoterInclinationUserId(string inclination, int userid,int roleid,int PageNo, int NoofRow, string Language, string SearchText);
+        IEnumerable<VoterDTO> GetStarVoterbyUserId(int userid,int roleid, int PageNo, int NoofRow, string Language, string SearchText);
         IEnumerable<BoothName> GetBoothNamebyUserId(int userid,int roleid, int PageNo, int NoofRow);
-        IEnumerable<VoterDTO> GetVoterByPartNo(int partno, int PageNo, int NoofRow, string Language);
+        IEnumerable<VoterDTO> GetVoterByPartNo(int partno, int PageNo, int NoofRow, string Language, string SearchText);
         IEnumerable<Table> GetVoterCountbyColoumn(int UserId, int RoleId, string Coloumn);
         int UpdateColoumnTbl(int Id, string ColoumnName, string ColoumnValue);
-        int AddCastName(string CasteName);
-        IEnumerable<Caste> GetAllCaste();
+        int AddCastName(List<Caste> castes);
+        IEnumerable<CastebyLanguage> GetAllCaste(string Language);
+        IEnumerable<VoterMobileNo> GetAllMobile();
 
     }
 }

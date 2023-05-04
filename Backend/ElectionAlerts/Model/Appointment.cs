@@ -28,6 +28,9 @@ namespace ElectionAlerts.Model
         public string FileName { get; set; }
         public DateTime CreatedDate { get; set; }
         public string Status { get; set; }
+        public int? UserId { get; set; }
+        public string AdminName { get; set; }
+        public int? RoleId { get; set; }
 
     }
 }
