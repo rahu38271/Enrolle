@@ -3,7 +3,7 @@
 
 table { margin-top: 10px; }
 
-td ion-icon { cursor: pointer; font-size: 18px; font-weight: 600; padding-left: 2px; color: #40459f;  }
+td ion-icon { cursor: pointer; font-size: 21px; font-weight: 600; padding-left: 2px; color: #40459f; vertical-align: middle;  }
 
 table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !important; }
 
@@ -53,13 +53,9 @@ ion-modal {
     }
   }
 
-/* .horizontal-scroll {
+.horizontal-scroll {
   overflow: scroll;
-} */
-
-/* .table {
-  width: 1700px;
-} */
+}
 
 .action ion-icon {
   font-size: 20px;
@@ -159,39 +155,15 @@ ion-item img {
 }
 
 .flex ion-icon {
-    font-size: 25px;
-    margin-right: 10px;
-    color: #3c7ff9;
-  }
-  
-  .flex {
-    display: flex;
-  }
+  font-size: 25px;
+  margin-right: 10px;
+  color: #3c7ff9;
+}
 
-  .file i {
-    font-size: 26px;
-    color: #3f7ef4;
-    cursor: pointer;
-  }
+.flex {
+  display: flex;
+}
 
-  .table th:nth-child(2){
-    width: 150px;
-    display: block;
-  }
-
-.table th:nth-child(5){
-    width: 150px;
-    display: block;
-  }
-
-
-  .table td:nth-child(2){
-    width: 150px;
-    display: block;
-  }
- .table td:nth-child(5){
-    width: 120px;
-    display: block;
-  }
-
-
+.table td {
+  text-transform: capitalize;
+}

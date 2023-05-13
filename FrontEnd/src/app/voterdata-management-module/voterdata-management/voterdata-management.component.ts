@@ -59,6 +59,7 @@ export class VoterdataManagementComponent {
   NoofRow:number=25;
   //allVoters: number = 0;
   totalItems:any;
+  SearchText:any;
    
   search(){
     this.isShow = !this.isShow
@@ -105,7 +106,12 @@ keyPressNumbers(event) {
    }
 
    ngOnInit(){
-    
+    if(this.SearchText==undefined){
+      this.SearchText = ''
+    }
+    else{
+      this.SearchText = this.SearchText
+    }
   }
 
   ionViewWillEnter(){
@@ -122,6 +128,7 @@ keyPressNumbers(event) {
   }
 
   boothWiseVoterListData(PageNo:any,NoofRow:any, Language:any){
+    this.Language = this.translateConfigService.getCurrentLang();
     if (this.Language == "kn") {
       this.Language = "Kannada"
     }
@@ -136,7 +143,7 @@ keyPressNumbers(event) {
     }
     this.voter.boothWiseVoterList(this.partNo,PageNo,NoofRow,this.Language).subscribe((data:any)=>{
       this.loader.hideLoader();
-      if(data){
+      if(data.length != 0){
         this.partNo = this.partNo
         this.voterByPart = data;
         this.totalItems = data[0].totalCount
@@ -171,10 +178,10 @@ keyPressNumbers(event) {
   }
 
   searchData(){
-    
+    debugger;
     this.searchModal.Language = this.Language;
-    this.searchModal.PageNo = this.searchModal.PageNo;
-    this.searchModal.NoofRow = this.searchModal.NoofRow;
+    this.searchModal.PageNo = 1;
+    this.searchModal.NoofRow = 25;
     if(this.searchModal.LastName == ''){
       this.searchModal.LastName = null
     }
@@ -278,7 +285,7 @@ keyPressNumbers(event) {
     this.searchModal.NoofRow = Number(this.NoofRow);
     this.loader.showLoading();
     this.voter.advanceSearch(this.searchModal).subscribe(data=>{
-      if(data){
+      if(data.length != 0){
         this.loader.hideLoader();
         this.voterByPart = data;
         this.totalItems = data[0].totalCount
@@ -292,6 +299,7 @@ keyPressNumbers(event) {
         this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
     })
   }
+
 
   exportExcel():void {
     this.excel.exportAsExcelFile(this.voterByPart, 'Society');

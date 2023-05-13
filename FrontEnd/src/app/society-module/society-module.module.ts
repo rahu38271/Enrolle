@@ -9,6 +9,7 @@ import { RouterModule } from '@angular/router';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { SocietyDetailsComponent } from './society-details/society-details.component';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { SocietyDetailsComponent } from './society-details/society-details.compo
     IonicModule,
     FormsModule,
     NgSelectModule,
+    NgxPaginationModule,
     Ng2SearchPipeModule,
     RouterModule.forChild([
       {path:'', component:SocietyComponent},

@@ -49,14 +49,15 @@
             >
             </ion-input>
 
-            <ion-modal trigger="BirthDate" size="cover">
+            <ion-modal trigger="BirthDate" size="cover" [canDismiss]="canDismiss" 
+            [backdropDismiss]="false" >
               <ng-template>
                 <ion-datetime 
                   max={{maxDate}}
                   presentation="date" 
                   [(ngModel)]="BirthDate" 
                   name="BirthDate"
-                  (click)="cancel()"
+                  show-default-buttons="true"
                 >
                   <span slot="title"> {{ year }} </span>
                 </ion-datetime>
@@ -90,11 +91,13 @@
             >
             </ion-input>
 
-            <ion-modal trigger="AppointmentDate" size="cover">
+            <ion-modal trigger="AppointmentDate" size="cover" [canDismiss]="canDismiss" 
+            [backdropDismiss]="false" >
               <ng-template>
                 <ion-datetime 
                   min="{{minDate}}"
                   [(ngModel)]="AppointmentDate" 
+                  show-default-buttons="true"
                   name="AppointmentDate">
                   <span slot="title"> {{ year }} </span>
                 </ion-datetime>
@@ -168,7 +171,7 @@
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Society / Building Name </ion-label>
-            <ion-input name="Soc_BldgName" [(ngModel)]="appointmentModal.Soc_BldgName" class="form-control" ></ion-input>
+            <ion-input name="Soc_BldgName" [(ngModel)]="appointmentModal.Soc_BldgName" class="form-control text-capitalize" ></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="2" size-md="6" size-sm="6" size-xs="12">

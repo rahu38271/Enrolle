@@ -281,7 +281,7 @@
             <ion-row>
               <ion-col>
                 <div class="search">
-                  <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+                  
                 </div>
               </ion-col>
               <ion-col class="ion-text-right">
@@ -317,7 +317,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of voterByPart | paginate: { itemsPerPage:NoofRow, currentPage: PageNo,totalItems:totalItems } | filter:searchWeb ; let i=index">
+                <tr *ngFor="let item of voterByPart | paginate: { itemsPerPage:NoofRow, currentPage: PageNo,totalItems:totalItems }; let i=index">
                   <td>{{item.id}}</td>
                   <td class="text-capitalize editVoter" (click)="EditVoter(item)">{{item.fullName}}</td>
                   <td>{{item.booth}}</td>

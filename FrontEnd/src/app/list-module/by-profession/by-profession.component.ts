@@ -33,6 +33,7 @@ export class ByProfessionComponent implements OnInit {
   }
 
   ngOnInit() {
+    debugger;
     this.id = localStorage.getItem("loginId");
     this.roleId = localStorage.getItem("userType");
     this.allOccupData();
@@ -43,7 +44,9 @@ export class ByProfessionComponent implements OnInit {
    }
 
    allOccupData() {
+     debugger;
     this.loader.showLoading();
+    this.Language = this.translateConfigService.getCurrentLang();
     if(this.Language == "kn"){
       this.Language = "Kannada"
     }
@@ -63,7 +66,8 @@ export class ByProfessionComponent implements OnInit {
       roleID: Number(this.roleId),
       Language: this.Language
     }).subscribe(data => {
-      if(data != 0){
+      if(data.length != 0){
+        console.log(data);
         this.loader.hideLoader();
         this.occuData = data;
       }

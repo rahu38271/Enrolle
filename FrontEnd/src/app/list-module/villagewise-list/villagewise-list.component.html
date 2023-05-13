@@ -4,7 +4,10 @@
       <ion-buttons slot="start">
         <ion-back-button defaultHref="/list/by-village"></ion-back-button>
       </ion-buttons>
-      <!-- <ion-title> {{villageName}}, Total - {{villageWiseVoter.length}}  </ion-title> -->
+      <ion-buttons slot="end">
+        <ion-menu-button auto-hide="false"></ion-menu-button>
+      </ion-buttons>
+      <ion-title> {{villageName}}, Total - {{totalItems}}  </ion-title>
       <ion-title>   </ion-title>
       <ion-buttons slot="primary">
         <ion-button (click)="search()">
@@ -43,7 +46,7 @@
             <ion-card-content>
               <div class="headSection">
                 <div class="search">
-                  <ion-searchbar animated="true"></ion-searchbar>
+                  <ion-searchbar (change)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
                 </div>
                 <ion-button class="button-download" color="success" (click)="exportExcel()">
                   <ion-icon name="document-sharp"></ion-icon>Excel
@@ -126,17 +129,17 @@
       </ion-row>
     </ion-grid>
     <ion-grid class="android userList">
-      <ion-searchbar [(ngModel)]="searchMob" animated="true" *ngIf="isShow"></ion-searchbar>
-      <ion-list *ngFor="let item of villageWiseVoter | paginate: { itemsPerPage:100, currentPage: PageNo, totalItems:totalItems } | filter:searchMob" (click)="voterDetails(item)">
+      <ion-searchbar (keypress)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true" *ngIf="isShow"></ion-searchbar>
+      <ion-list *ngFor="let item of villageWiseVoter | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems }" (click)="voterDetails(item)">
         <ion-item lines="none">
           <ion-label>
             <div class="firstLine">
               <h3>{{item.fullName}}</h3>
             </div>
             <div class="details">
-              <p>Part No. : <span> {{item.partNo}} </span></p>
-              <p> Age : <span> {{item.age}} </span> </p>
-              <p>Gender : <span> {{item.gender}} </span></p>
+              <p>{{'Part No.' | translate}} <span> {{item.partNo}} </span></p>
+              <p> {{'Age' | translate}} : <span> {{item.age}} </span> </p>
+              <p>{{'Gender' | translate}} : <span> {{item.gender}} </span></p>
             </div>
           </ion-label>
         </ion-item>

@@ -25,7 +25,7 @@
   
             <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
               <ion-label> Subject </ion-label>
-              <ion-input name="Subject" [(ngModel)]="complaintModal.Subject" class="text-capitalize form-control"></ion-input>
+              <ion-input name="Subject" [(ngModel)]="societycomplaint.Subject" class="text-capitalize form-control"></ion-input>
             </ion-col>
 
             <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
@@ -34,18 +34,20 @@
                   value="{{ FromDate | date: 'yyyy-MM-dd' }}" 
                   id="FromDate" 
                   name="FromDate" 
-                  [(ngModel)]="complaintModal.FromDate"
+                  [(ngModel)]="societycomplaint.FromDate"
                   class="form-control"
                 >
                 </ion-input>
     
-                <ion-modal trigger="FromDate" size="cover">
+                <ion-modal trigger="FromDate" size="cover" [canDismiss]="canDismiss" 
+                [backdropDismiss]="false" >
                   <ng-template>
                     <ion-datetime 
+                    max={{maxDate}}
                       presentation="date"
                       [(ngModel)]="FromDate" 
                       name="FromDate"
-                      (click)="cancel()"
+                      show-default-buttons="true"
                       >
                       <span slot="title"> {{ year }} </span>
                     </ion-datetime>
@@ -59,18 +61,20 @@
                   value="{{ ToDate | date: 'yyyy-MM-dd' }}" 
                   id="ToDate" 
                   name="ToDate" 
-                  [(ngModel)]="complaintModal.ToDate"
+                  [(ngModel)]="societycomplaint.ToDate"
                   class="form-control"
                 >
                 </ion-input>
     
-                <ion-modal trigger="ToDate" size="cover">
+                <ion-modal trigger="ToDate" size="cover" [canDismiss]="canDismiss" 
+                [backdropDismiss]="false" >
                   <ng-template>
                     <ion-datetime 
+                    max={{maxDate}}
                       presentation="date"
                       [(ngModel)]="ToDate" 
                       name="ToDate"
-                      (click)="cancel1()"
+                      show-default-buttons="true"
                       >
                       <span slot="title"> {{ year }} </span>
                     </ion-datetime>
@@ -80,20 +84,20 @@
 
               <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
                 <ion-label> Details </ion-label>
-                <ion-textarea rows="2" name="Details" [(ngModel)]="complaintModal.Details"  class="form-control" ></ion-textarea>
+                <ion-textarea rows="2" name="Details" [(ngModel)]="societycomplaint.Details"  class="form-control" ></ion-textarea>
               </ion-col>
 
               <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
                 <ion-label> Remark </ion-label>
-                <ion-textarea rows="2" name="Remark" [(ngModel)]="complaintModal.Remark" class="form-control" ></ion-textarea>
+                <ion-textarea rows="2" name="Remark" [(ngModel)]="societycomplaint.Remark" class="form-control" ></ion-textarea>
               </ion-col>
 
               <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
                 <ion-label> File </ion-label>
-                <input type="file" name="file" [(ngModel)]="complaintModal.FileName"  class="form-control">
+                <input type="file" name="file" (change)="onFileSelected($event)"  class="form-control">
               </ion-col>
 
-              <img [src]="clickedImage" />
+              <!-- <img [src]="clickedImage" /> -->
 
             <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
               <div class="ion-text-center">

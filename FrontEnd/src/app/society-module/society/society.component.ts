@@ -23,8 +23,7 @@ export class SocietyComponent implements OnInit {
 
   isShow = false;
   searchWeb: string;
-  cp: number = 1;
-  getAdminList: any = [];
+  getAdminList: any;
 
   currentDate = new Date();
   roleId: any;
@@ -32,6 +31,10 @@ export class SocietyComponent implements OnInit {
   adminid:any;
   id:any;
   roleName: string;
+  PageNo:any=1;
+  NoofRow:any=10;
+  SearchText:any;
+  totalItems:any;
  
   search() {
     this.isShow = !this.isShow
@@ -57,21 +60,28 @@ export class SocietyComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    if(this.SearchText == undefined){
+      this.SearchText = ''
+    }
+    else{
+      this.SearchText = this.SearchText
+    }
   }
 
   ionViewWillEnter(){
     this.roleId = Number(this.roleId)
     this.id = localStorage.getItem("loginId");
-    this.societyList();
+    this.societyList(this.PageNo,this.NoofRow,this.SearchText);
+    
   }
 
-  societyList(){
+  societyList(PageNo:any,NoofRow:any,SearchText:any){
     //this.loader.showLoading();
-    this.society.getAllSociety().subscribe(data=>{
-      if(data != 0){
-        this.loader.hideLoader();
-        this.getSocietyList = data
+    this.society.getAllSociety(PageNo,NoofRow,SearchText).subscribe(data=>{
+      if(data.length != 0){
+        //this.loader.hideLoader();
+        this.getSocietyList = data;
+        this.totalItems = data[0].totalcount
       }
       else{
         //this.loader.hideLoader();
@@ -81,6 +91,11 @@ export class SocietyComponent implements OnInit {
     })
   }
 
+  event(event:any){
+    this.PageNo=event;
+    this.societyList(event,this.NoofRow,this.SearchText);
+  }
+
   societyDetails(item:any){
     this.router.navigateByUrl('/society/society-details', {state:item})
   }
@@ -88,7 +103,20 @@ export class SocietyComponent implements OnInit {
   EditSociety(data: any) {
     this.router.navigateByUrl('/society/edit-society', { state: data })
   }
+
+  onSearchChange(SearchText:any){
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    this.SearchText=SearchText;
+    this.societyList(this.PageNo,this.NoofRow,this.SearchText);
+  }
   
+  keyPress(SearchText:any){
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    this.SearchText=SearchText;
+    this.societyList(this.PageNo,this.NoofRow,this.SearchText);
+  }
 
   goBack() {
     this.location.back();

@@ -16,10 +16,14 @@ import { Router } from '@angular/router';
 export class PendingComponent implements OnInit {
 
   pendingList:any;
-  Status:any;
   cp:number=1;
   Id:any;
   complaintStatusModal:any={}
+  Status:any;
+  PageNo:any=1;
+  NoofRow:any=10;
+  SearchText:any;
+  totalItems:any;
 
   constructor(
     private complaint:ComplaintService,
@@ -32,18 +36,35 @@ export class PendingComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.allResolvedComplaints();
+    if(this.SearchText == undefined){
+      this.SearchText = ''
+    }
+    else{
+      this.SearchText = this.SearchText
+    }
+    this.Status = "Pending"
   }
 
-  allResolvedComplaints(){
-    this.Status = "Pending"
-    this.complaint.getComplaintByStatus(this.Status).subscribe(data=>{
+  ionViewWillEnter(){
+    this.allResolvedComplaints(this.Status,this.PageNo,this.NoofRow,this.SearchText);
+  }
+
+  event(event:any){
+    this.PageNo=event;
+    this.allResolvedComplaints(this.Status,event,this.NoofRow,this.SearchText);
+  }
+
+  allResolvedComplaints(Status:any,PageNo:any,NoofRow:any,SearchText:any){
+    
+    this.complaint.getComplaintByStatus(Status,PageNo,NoofRow,SearchText).subscribe(data=>{
       if(data.length != 0){
         this.pendingList = data;
+        this.totalItems = data[0].totalCount;
         this.pendingList.forEach(e => {
           e.fromDate = e.fromDate.split('T')[0];
           e.toDate = e.toDate.split('T')[0];
         });
+        
       }
       else{
 
@@ -58,7 +79,6 @@ export class PendingComponent implements OnInit {
   }
 
   changeStatus(event){
-    debugger;
     this.Id = event.target.id
     this.complaintStatusModal.Id = Number(this.Id);
     this.complaintStatusModal.Status = this.complaintStatusModal.Status;
@@ -72,6 +92,20 @@ export class PendingComponent implements OnInit {
           this.toast.presentToast("Complaint resolved successfully!", "success", 'checkmark-circle-sharp');
         }
     })
+  }
+
+  onSearchChange(SearchText:any){
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    this.SearchText=SearchText;
+    this.allResolvedComplaints(this.Status,this.PageNo,this.NoofRow,this.SearchText);
+  }
+
+  keyPress(SearchText:any){
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    this.SearchText=SearchText;
+    this.allResolvedComplaints(this.Status,this.PageNo,this.NoofRow,this.SearchText);
   }
 
   exportExcel():void {

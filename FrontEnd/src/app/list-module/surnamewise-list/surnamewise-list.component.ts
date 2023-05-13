@@ -19,7 +19,8 @@ export class SurnamewiseListComponent implements OnInit {
   id:any;
   PageNo:any=1;
   NoofRow:any=10;
-  totalItems:any;
+  totalCount:any;
+  SearchText:any;
 
   search() {
     this.isShow = !this.isShow
@@ -31,16 +32,22 @@ export class SurnamewiseListComponent implements OnInit {
 
   event(event:any){
     this.PageNo = event;
-    this.lastNameWiseVoterData(this.userId,this.roleID,event,this.NoofRow,this.Language)
+    this.lastNameWiseVoterData(this.userId,this.roleID,event,this.NoofRow,this.Language,this.SearchText)
   }
 
   ngOnInit() {
     this.userId = localStorage.getItem("loginId");
     this.roleID = localStorage.getItem("userType");
-    this.lastName= this.route.snapshot.paramMap.get('lastName')
-   // this.route.queryParams.subscribe(params => {
-      //this.lastName //= params['lastName'];
-    this.lastNameWiseVoterData(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language);
+    this.lastName = this.route.snapshot.paramMap.get('lastName')
+    // this.route.queryParams.subscribe(params => {
+    //this.lastName //= params['lastName'];
+    if (this.SearchText == undefined) {
+      this.SearchText = ''
+    }
+    else {
+      this.SearchText = this.SearchText
+    }
+    this.lastNameWiseVoterData(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language,this.SearchText);
   }
 
   voterDetails(item:any){
@@ -48,7 +55,8 @@ export class SurnamewiseListComponent implements OnInit {
    }
 
 
-  lastNameWiseVoterData(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any){
+  lastNameWiseVoterData(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){
+    this.Language = this.translateConfigService.getCurrentLang();
     if(this.Language == "kn"){
       this.Language = "Kannada"
     }
@@ -61,10 +69,10 @@ export class SurnamewiseListComponent implements OnInit {
     else{
       this.Language = "English"
     }
-    this.voter.voterByLastName(this.lastName,userId,roleID,PageNo,NoofRow,this.Language).subscribe(data => {
-      if(data){
+    this.voter.voterByLastName(this.lastName,userId,roleID,PageNo,NoofRow,this.Language,this.SearchText).subscribe(data => {
+      if(data.length != 0){
         this.surnameWiseData = data;
-        this.totalItems = data[0].totalCount
+        this.totalCount = data[0].totalCount
       }
       else{
 
@@ -72,5 +80,19 @@ export class SurnamewiseListComponent implements OnInit {
   },(err)=>{
 
   });
+  }
+
+  onSearchChange(SearchText:any){
+    this.PageNo=1;
+    this.NoofRow=this.totalCount;
+    this.SearchText=SearchText;
+    this.lastNameWiseVoterData(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
+  }
+
+   keyPress(SearchText:any){
+    this.PageNo=1;
+    this.NoofRow=this.totalCount;
+    this.SearchText=SearchText;
+    this.lastNameWiseVoterData(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
   }
 }

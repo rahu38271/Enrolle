@@ -26,7 +26,7 @@ export class AdminwiseComponent implements OnInit {
 
   apmListByAdmin(){
     this.appointment.getApmByAdmin().subscribe(data=>{
-      if(data != 0){
+      if(data.length != 0){
         this.apmByAdmin = data
       }
       else{

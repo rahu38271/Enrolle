@@ -24,7 +24,7 @@
                 <div class="flex">
                     <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
                     <ion-card-header>
-                        <ion-card-title>Resolved Complaints <span></span></ion-card-title>
+                        <ion-card-title>Resolved Complaints, <span> Total - {{totalItems}}</span></ion-card-title>
                         <div class="headerLine"></div>
                     </ion-card-header>
                 </div>
@@ -42,7 +42,7 @@
         <ion-card-content>
           <div class="headSection">
             <div class="search">
-              <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+              <ion-searchbar (keypress)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
             </div>
             <div class="btns">
               <ion-button class="button-download" color="danger" (click)="exportPDF()" ><ion-icon name="document-sharp"></ion-icon>PDF</ion-button>
@@ -66,7 +66,7 @@
                   </tr>
               </thead>
               <tbody>
-                  <tr *ngFor="let item of resolvedList | filter:searchWeb | paginate: { itemsPerPage: 5, currentPage: cp  }">
+                  <tr *ngFor="let item of resolvedList | paginate: { itemsPerPage: NoofRow, currentPage: PageNo, totalItems:totalItems  }">
                       <td>{{item.id}}</td>
                       <td>{{item.subject}}</td>
                       <td>{{item.fromDate}}</td>
@@ -87,7 +87,7 @@
             <div *ngIf="!resolvedList || resolvedList.length === 0" class="noData ion-text-center">
                 <p> No data available </p>
             </div>
-            <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+            <pagination-controls (pageChange)="event($event)"></pagination-controls>
           </div>
         </ion-card-content>
       </ion-card>

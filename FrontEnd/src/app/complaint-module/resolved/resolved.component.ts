@@ -16,10 +16,15 @@ import { Router } from '@angular/router';
 export class ResolvedComponent implements OnInit {
 
   resolvedList:any;
-  Status:any;
   cp:number=1;
   Id:any;
   complaintStatusModal:any={}
+  PageNo:any=1;
+  NoofRow:any=10;
+  SearchText:any;
+  Status:any;
+  totalItems:any;
+
   constructor(
     private complaint:ComplaintService,
     private excel:ExcelService,
@@ -31,18 +36,33 @@ export class ResolvedComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.allResolvedComplaints();
+    if(this.SearchText == undefined){
+      this.SearchText = ''
+    }else{
+      this.SearchText = this.SearchText
+    }
+    this.Status = "Resolved"
   }
 
-  allResolvedComplaints(){
-    this.Status = "Resolved"
-    this.complaint.getComplaintByStatus(this.Status).subscribe(data=>{
+  ionViewWillEnter(){
+    this.allResolvedComplaints(this.Status,this.PageNo,this.NoofRow,this.SearchText);
+  }
+
+  event(event:any){
+    this.PageNo=event;
+    this.allResolvedComplaints(this.Status,event,this.NoofRow,this.SearchText);
+  }
+
+  allResolvedComplaints(Status:any,PageNo:any,NoofRow:any,SearchText:any){
+    this.complaint.getComplaintByStatus(Status,PageNo,NoofRow,SearchText).subscribe(data=>{
       if(data.length != 0){
         this.resolvedList = data;
+        this.totalItems = data[0].totalCount;
         this.resolvedList.forEach(e => {
           e.fromDate = e.fromDate.split('T')[0];
           e.toDate = e.toDate.split('T')[0];
         });
+        
       }
       else{
 
@@ -53,7 +73,6 @@ export class ResolvedComponent implements OnInit {
   }
 
   changeStatus(event){
-    debugger;
     this.Id = event.target.id
     this.complaintStatusModal.Id = Number(this.Id);
     this.complaintStatusModal.Status = this.complaintStatusModal.Status;
@@ -67,6 +86,20 @@ export class ResolvedComponent implements OnInit {
         this.toast.presentToast("Complaint is pending!", "success", 'checkmark-circle-sharp');
       }
     })
+  }
+
+  onSearchChange(SearchText:any){
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    this.SearchText=SearchText;
+    this.allResolvedComplaints(this.Status,this.PageNo,this.NoofRow,this.SearchText);
+  }
+
+  keyPress(SearchText:any){
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    this.SearchText=SearchText;
+    this.allResolvedComplaints(this.Status,this.PageNo,this.NoofRow,this.SearchText);
   }
 
   goBack() {

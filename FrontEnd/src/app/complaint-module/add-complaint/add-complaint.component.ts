@@ -7,6 +7,7 @@ import { Location } from '@angular/common';
 import { IonModal } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 
+
 @Component({
   selector: 'app-add-complaint',
   templateUrl: './add-complaint.component.html',
@@ -15,11 +16,14 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 export class AddComplaintComponent implements OnInit {
 
   @ViewChild(IonModal) modal: IonModal;
-  complaintModal:any={}
+  societycomplaint:any={}
+  addSingleComplaint:any={}
   UserId:any;
   roleID:any;
   name:any;
+  file:any;
   year: number = new Date().getFullYear();
+  maxDate:String = new Date().toISOString();
 
   clickedImage: string;
   options: CameraOptions = {
@@ -44,34 +48,47 @@ export class AddComplaintComponent implements OnInit {
     this.name = localStorage.getItem("loginUser");
   }
 
+  onFileSelected(event:any){
+    const file:File = event.target.files[0];
+    this.file = file;
+    //this.addSingleComplaint(file,this.societycomplaint);
+    // const file:File = event.target.files[0];
+    // const societycomplaint = { }
+    // this.addSingleComplaint(file,this.societycomplaint);
+  }
+
   addComplaint(){
-    debugger;
-    this.complaintModal.UserId = Number(this.UserId);
-    this.complaintModal.RoleId = Number(this.roleID);
-    this.complaintModal.UserName = this.name;
-    this.loader.showLoading();
-    this.complaint.addSingleComplaint(this.complaintModal).subscribe(data=>{
-      if(data){
-        this.loader.hideLoader();
-        this.complaintModal = {};
+    //debugger;
+    this.societycomplaint.UserId = Number(this.UserId);
+    this.societycomplaint.RoleId = Number(this.roleID);
+    this.societycomplaint.UserName = this.name;
+    this.societycomplaint = JSON.stringify(this.societycomplaint);
+    if(this.file==undefined){
+      this.file = ''
+    }
+    else{
+      this.file = this.file;
+    }
+    //this.loader.showLoading();
+    //string filupload -ng modal-json sting serlize{""}
+   // this.complaint.addSingleComplaint(fileupload,lm.file,this.fileupload);
+    this.complaint.addSingleComplaint(this.file, this.societycomplaint).subscribe((data)=>{
+      if(data = "Society Complaint Added SucessFully with File Upload"){
+        //this.loader.hideLoader();
         this.toast.presentToast("Complaint added successfully!", "success", 'checkmark-circle-sharp');
         this.router.navigate(['/complaint-book/all-complaints'])
       }
       else{
-        this.loader.hideLoader();
+        //this.loader.hideLoader();
         this.toast.presentToast("Complaint not saved", "danger", 'alert-circle-sharp');
       }
     },(err)=>{
-      this.loader.hideLoader();
+      //this.loader.hideLoader();
     })
   }
 
   goBack() {
     this.location.back();
-  }
-
-  cancel() {
-    this.modal.dismiss(null, 'cancel');
   }
 
   captureImage() {

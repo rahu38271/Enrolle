@@ -44,10 +44,11 @@ export class AppointmentByDateComponent implements OnInit {
   roleID:any;
 
   isShow = false;
-
-  cancel() {
-    this.modal.dismiss(null, 'cancel');
-  }
+  totalItems:any;
+  PageNo:any=1;
+  NoofRow:any=10;
+  SearchText:any;
+  maxDate:String = new Date().toISOString();
  
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
 
@@ -77,6 +78,9 @@ export class AppointmentByDateComponent implements OnInit {
     return (element.status == "" || element.status == null ); 
  } 
 
+ event(event:any){
+  this.PageNo=event;
+ }
 
   resetForm(){
     this.myForm1.reset();
@@ -88,7 +92,7 @@ export class AppointmentByDateComponent implements OnInit {
 
   search(){
     this.isShow = true 
-    this.loader.showLoading();
+    //this.loader.showLoading();
     this.searchApmModal.UserId = Number(this.UserId);
     this.searchApmModal.roleID = this.roleID;
     if(this.searchApmModal.ToDate == ''){
@@ -97,22 +101,39 @@ export class AppointmentByDateComponent implements OnInit {
     else{
       this.searchApmModal.ToDate = this.searchApmModal.ToDate
     }
-    this.appointment.searchAppointment(this.searchApmModal.UserId,this.searchApmModal.roleID,this.searchApmModal.FromDate,this.searchApmModal.ToDate).subscribe(data=>{
+    if(this.searchApmModal.SearchText == undefined){
+      this.searchApmModal.SearchText = ''
+    }
+    else{
+      this.searchApmModal.SearchText = this.searchApmModal.SearchText
+    }
+    this.searchApmModal.PageNo = this.PageNo;
+    this.searchApmModal.NoofRow = this.NoofRow;
+    this.appointment.searchAppointment(
+      this.searchApmModal.UserId,
+      this.searchApmModal.roleID,
+      this.searchApmModal.FromDate,
+      this.searchApmModal.ToDate,
+      this.searchApmModal.PageNo,
+      this.searchApmModal.NoofRow,
+      this.searchApmModal.SearchText
+      ).subscribe(data=>{
       if(data.length != 0){
-        this.loader.hideLoader();
+        //this.loader.hideLoader();
         this.getApmList = data;
         this.toast.presentToast("Appointment searhced successfully!", "success", 'checkmark-circle-sharp');
         this.getApmList.forEach(e => {
           e.birthDate = e.birthDate.split('T')[0];
           //e.appointmentDate = e.appointmentDate.split('T')[0];
         });
+        this.totalItems = data[0].totalCount;
       }
       else{
-        this.loader.hideLoader();
+        //this.loader.hideLoader();
         this.toast.presentToast("Appointment not searhced", "danger", 'alert-circle-sharp');
       }
     },(err)=>{
-      this.loader.hideLoader();
+      //this.loader.hideLoader();
       this.toast.presentToast("Something went wrong", "danger", 'alert-circle-sharp');
     })
   }

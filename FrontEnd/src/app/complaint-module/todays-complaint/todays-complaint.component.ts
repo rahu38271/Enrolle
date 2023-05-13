@@ -9,24 +9,22 @@ import { AlertController} from '@ionic/angular';
 import { Location } from '@angular/common';
 
 @Component({
-  selector: 'app-all-complaints',
-  templateUrl: './all-complaints.component.html',
-  styleUrls: ['./all-complaints.component.css']
+  selector: 'app-todays-complaint',
+  templateUrl: './todays-complaint.component.html',
+  styleUrls: ['./todays-complaint.component.css']
 })
-export class AllComplaintsComponent implements OnInit {
+export class TodaysComplaintComponent implements OnInit {
 
-  allComplaints:any;
+  todayComplaints:any;
   fromDate='';
   ToDate='';
   complaintCount:any;
   Id:any;
   complaintStatusModal:any={}
-  PageNo:any=1
+  PageNo:any=1;
   NoofRow:any=10;
   SearchText:any;
   totalItems:any;
-  Status:any;
-  fileName:any;
 
   constructor(
     private complaint:ComplaintService,
@@ -45,13 +43,6 @@ export class AllComplaintsComponent implements OnInit {
     else{
       this.SearchText = this.SearchText
     }
-    if(this.Status == '' || this.Status == null){
-      this.Status = ''
-    }
-    else{
-      this.Status = this.Status
-    }
-    
   }
 
   ionViewWillEnter(){
@@ -64,11 +55,11 @@ export class AllComplaintsComponent implements OnInit {
   }
 
   complaintList(PageNo:any,NoofRow:any,SearchText:any){
-    this.complaint.getAllComplaints(PageNo,NoofRow,SearchText).subscribe(data=>{
+    this.complaint.getTodayComplaint(PageNo,NoofRow,SearchText).subscribe(data=>{
       if(data.length != 0){
-        this.allComplaints = data;
-        this.totalItems = data[0].totalCount
-        this.allComplaints.forEach(e => {
+        this.todayComplaints = data;
+        this.totalItems = data[0].totalCount;
+        this.todayComplaints.forEach(e => {
           e.fromDate = e.fromDate.split('T')[0];
           e.toDate = e.toDate.split('T')[0];
         });
@@ -80,20 +71,6 @@ export class AllComplaintsComponent implements OnInit {
     },(err)=>{
 
     })
-  }
-
-  onSearchChange(SearchText:any){
-    this.PageNo=1;
-    this.NoofRow=this.totalItems;
-    this.SearchText=SearchText;
-    this.complaintList(this.PageNo,this.NoofRow,this.SearchText);
-  }
-
-  keyPress(SearchText:any){
-    this.PageNo=1;
-    this.NoofRow=this.totalItems;
-    this.SearchText=SearchText;
-    this.complaintList(this.PageNo,this.NoofRow,this.SearchText);
   }
 
 
@@ -127,6 +104,21 @@ export class AllComplaintsComponent implements OnInit {
     })
   }
 
+  onSearchChange(SearchText:any){
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    this.SearchText=SearchText;
+    var SearchText = SearchText.replace(/^\|+|\|+$/g, '');
+    this.complaintList(this.PageNo,this.NoofRow,this.SearchText);
+  }
+
+  keyPress(SearchText:any){
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    this.SearchText=SearchText;
+    this.complaintList(this.PageNo,this.NoofRow,this.SearchText);
+  }
+
   async deleteCom(id:any) {
     const alert = await this.alertController.create({
       header: 'Delete Complaint',
@@ -157,23 +149,19 @@ export class AllComplaintsComponent implements OnInit {
   }
 
   exportExcel():void {
-    this.allComplaints.forEach(e => {
+    this.todayComplaints.forEach(e => {
       e.fromDate = e.fromDate.split('T')[0];
       e.toDate = e.toDate.split('T')[0];
     });
-    this.PageNo=1;
-    this.NoofRow=this.totalItems;
-    //this.allComplaints = this.complaintList(this.PageNo,this.NoofRow,this.SearchText);
-    this.excel.exportAsExcelFile(this.allComplaints, 'Complaints');
+    this.excel.exportAsExcelFile(this.todayComplaints, 'Complaints');
   }
 
-
   exportToCSV() {
-    this.allComplaints.forEach(e => {
+    this.todayComplaints.forEach(e => {
       e.fromDate = e.fromDate.split('T')[0];
       e.toDate = e.toDate.split('T')[0];
     });
-    this.csv.exportToCsv(this.allComplaints, 'Complaints');
+    this.csv.exportToCsv(this.todayComplaints, 'Complaints');
   }
 
   exportPDF() {

@@ -142,7 +142,6 @@ export class EditSuperadminComponent implements OnInit {
   }
 
   editAdmin(){
-    debugger;
     this.editData.id = Number(this.editData.id);
     if(this.editData.roleName == "MasterAdmin"){
       this.editData.roleId = 1

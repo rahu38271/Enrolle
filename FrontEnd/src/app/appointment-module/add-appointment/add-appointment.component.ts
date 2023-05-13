@@ -112,7 +112,7 @@ export class AddAppointmentComponent implements OnInit {
         this.loader.hideLoader();
         this.appointmentModal = {};
         this.toast.presentToast("Appointment added successfully!", "success", 'checkmark-circle-sharp');
-        this.router.navigate(['/appointment']);
+        this.router.navigate(['/appointment/all-appointments']);
         
       }
       else{

@@ -20,7 +20,7 @@
             <div class="flex">
               <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
               <ion-card-header>
-                <ion-card-title> Rejected Appointments <span></span></ion-card-title>
+                <ion-card-title> Rejected Appointments <span>Total - {{totalItems}}</span></ion-card-title>
                 <div class="headerLine"></div>
               </ion-card-header>
             </div>
@@ -97,7 +97,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of getApmList | filter:searchWeb">
+              <tr *ngFor="let item of getApmList | filter:searchWeb | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems}">
                 <td>{{item.id}}</td>
                 <td class="text-capitalize">{{item.firstName}} {{item.middleName}} {{item.lastName}}</td>
                 <td>{{item.category}}</td>
@@ -131,10 +131,10 @@
               </tr>
             </tbody>
           </table>
-          <div *ngIf="!getApmList || getApmList.length === 0">
+          <div *ngIf="!getApmList || getApmList.length === 0" class="ion-text-center">
             <p>No data</p>
           </div>
-          <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+          <pagination-controls (pageChange)="event($event)"></pagination-controls>
         </div>
       </ion-card-content>
     </ion-card>

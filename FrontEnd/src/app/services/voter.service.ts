@@ -139,6 +139,7 @@ export class VoterService {
   }
 
   occupaionData(occupModal:any){
+    debugger;
     return this.http.post<any>(this.url+'Voter/FilterColoumnCount', occupModal)
   }
 
@@ -156,40 +157,40 @@ export class VoterService {
 
   // Imp Voter Data
 
-  impVoter(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any){
-    return this.http.get<any>(this.url+'Voter/GetStarVoterbyUserId?UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
+  impVoter(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
+    return this.http.get<any>(this.url+'Voter/GetStarVoterbyUserId?UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText);
   }
 
   // lastname and count
 
-  lastNameData(userid:number,roleID:number,PageNo:number,NoofRow:number,Language:any){
+  lastNameData(userid:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
     //return this.http.get<any>(this.url+'Voter/GetVoterCountbyLastName?userid='+userid+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
-    return this.http.get<any>(this.url+'Voter/GetVoterCountbyLastName?userid='+userid+'&roleid='+roleID+'&pageno='+PageNo+'&noofrow='+NoofRow+'&Language='+Language);
+    return this.http.get<any>(this.url+'Voter/GetVoterCountbyLastName?userid='+userid+'&roleid='+roleID+'&pageno='+PageNo+'&noofrow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText);
   }
 
   // all voter by lastname
 
-  voterByLastName(lastName:any, userid:number,roleID:number,PageNo:number,NoofRow:number,Language:any){
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyLastName?Name='+lastName+'&UserId='+userid+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
+  voterByLastName(lastName:any, userid:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyLastName?Name='+lastName+'&UserId='+userid+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText);
   }
 
   // all voter by villages
 
-  voterByVillage(villageName:any, userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any){
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Village&ColoumnValue='+villageName+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
-    
+  voterByVillage(villageName:any, userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
+    //return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Village&ColoumnValue='+villageName+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Village&ColoumnValue='+villageName+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText);
   }
 
   // all voter by address
 
-  voterByAddress(addressName:any,userId:number, roleID:number,PageNo:number,NoofRow:number,Language:any){
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Address&ColoumnValue='+addressName+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language)
+  voterByAddress(addressName:any,userId:number, roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Address&ColoumnValue='+addressName+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
   }
 
    // all voter by part no
 
-   voterByPart(partNumber:number,userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any){
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=PartNo&ColoumnValue='+partNumber+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language)
+   voterByPart(partNumber:number,userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=PartNo&ColoumnValue='+partNumber+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
   }
 
   // voter by Caste
@@ -201,13 +202,14 @@ export class VoterService {
   // advance search voter
 
   advanceSearch(searchModal:any){
+    debugger;
     return this.http.post<any>(this.url+'Voter/AdvancedSearchVoter', searchModal)
   }
 
   // all voter with Mobile
 
-  voterWithMobile(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any){
-    return this.http.get<any>(this.url+'Voter/VoterwithMobileNo?UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
+  voterWithMobile(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
+    return this.http.get<any>(this.url+'Voter/VoterwithMobileNo?UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText);
     
   }
 
@@ -246,26 +248,26 @@ export class VoterService {
 
   // supporter voter list
 
-  supporter(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any){
-    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?Inclination=Supporter&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language)
+  supporter(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
+    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?Inclination=Supporter&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
   }
 
   // opposition voter list
 
-  opposition(userId:number, roleID:number,PageNo:number,NoofRow:number,Language:any){
-    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Opposition&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
+  opposition(userId:number, roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
+    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Opposition&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText);
   }
 
   // doubtful voter list
 
-  doubtful(userId:number, roleID:number,PageNo:number,NoofRow:number,Language:any){
-    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Doubtful&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
+  doubtful(userId:number, roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
+    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Doubtful&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText);
   }
 
   // other voter list
 
-  other(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any){
-    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Other&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
+  other(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
+    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Other&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText);
   }
 
   // is voted / non-voted

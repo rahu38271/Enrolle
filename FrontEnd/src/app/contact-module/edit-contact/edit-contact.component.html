@@ -62,7 +62,8 @@
                   name="birthDate"
                   [(ngModel)]="EditData.birthDate"
                 ></ion-input>
-                <ion-modal trigger="birthDate" size="cover">
+                <ion-modal trigger="birthDate" size="cover" [canDismiss]="canDismiss" 
+                [backdropDismiss]="false" >
                   <ng-template>
                     <ion-datetime
                     max={{maxDate}}
@@ -85,7 +86,8 @@
             name="anniDate"
             [(ngModel)]="EditData.anniversary"
           ></ion-input>
-          <ion-modal trigger="anniDate" size="cover">
+          <ion-modal trigger="anniDate" size="cover" [canDismiss]="canDismiss" 
+          [backdropDismiss]="false" >
             <ng-template>
               <ion-datetime
               max={{maxDate}}

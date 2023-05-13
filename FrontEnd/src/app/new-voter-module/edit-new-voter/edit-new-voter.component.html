@@ -73,14 +73,15 @@
             >
             </ion-input>
 
-            <ion-modal trigger="dob" size="cover">
+            <ion-modal trigger="dob" size="cover" [canDismiss]="canDismiss" 
+            [backdropDismiss]="false" >
               <ng-template>
                 <ion-datetime 
                 max={{maxDate}}
                   presentation="date" 
                   name="dob"
                   [(ngModel)]="dob"
-                  (click)="cancel()"
+                  show-default-buttons="true"
                 >
                   <span slot="title"> {{ year }} </span>
                 </ion-datetime>

@@ -168,30 +168,3 @@ ion-item img {
     display: flex;
   }
 
-  .file i {
-    font-size: 26px;
-    color: #3f7ef4;
-    cursor: pointer;
-  }
-
-  .table th:nth-child(2){
-    width: 150px;
-    display: block;
-  }
-
-.table th:nth-child(5){
-    width: 150px;
-    display: block;
-  }
-
-
-  .table td:nth-child(2){
-    width: 150px;
-    display: block;
-  }
- .table td:nth-child(5){
-    width: 120px;
-    display: block;
-  }
-
-

@@ -50,13 +50,15 @@
               
             ></ion-input>
             
-            <ion-modal trigger="BirthDate" size="cover">
+            <ion-modal trigger="BirthDate" size="cover" [canDismiss]="canDismiss" 
+            [backdropDismiss]="false" >
               <ng-template>
                 <ion-datetime
                   max={{maxDate}}
                   presentation="date"
                   [(ngModel)]="BirthDate"
                   name="BirthDate"
+                  show-default-buttons="true"
                 >
                 <span slot="title"> {{ year }} </span>
               </ion-datetime>
@@ -73,13 +75,15 @@
               name="Anniversary" 
               [(ngModel)]="contactModal.Anniversary"
             ></ion-input>
-            <ion-modal trigger="Anniversary" size="cover">
+            <ion-modal trigger="Anniversary" size="cover" [canDismiss]="canDismiss" 
+            [backdropDismiss]="false" >
               <ng-template>
                 <ion-datetime
                   max={{maxDate}}
                   presentation="date"
                   [(ngModel)]="Anniversary"
                   name="Anniversary"
+                  show-default-buttons="true"
                 >
                 <span slot="title"> {{ year }} </span>
               </ion-datetime>
@@ -92,7 +96,7 @@
             <ion-label position="floating"> Mobile No.  <span>*</span> </ion-label>
               <ion-input 
                 minlength="10" 
-                maxlength="10" 
+                maxlength="12" 
                 (keypress)="keyPressNumbers($event)" 
                 name="MobileNo" 
                 [(ngModel)]="contactModal.MobileNo" 
@@ -114,7 +118,7 @@
          
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
             <ion-label position="floating"> Alternate Mobile </ion-label>
-              <ion-input maxlength="10" (keypress)="keyPressNumbers($event)" name="AlternativeMobileNo" [(ngModel)]="contactModal.AlternativeMobileNo" class="form-control" ></ion-input>
+              <ion-input minlength="10" maxlength="12"  (keypress)="keyPressNumbers($event)" name="AlternativeMobileNo" [(ngModel)]="contactModal.AlternativeMobileNo" class="form-control" ></ion-input>
           </ion-col>
 
           <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">

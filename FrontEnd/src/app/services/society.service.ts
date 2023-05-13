@@ -13,8 +13,9 @@ export class SocietyService {
   constructor(private http:HttpClient) { }
 
   // get All Society
-  getAllSociety():Observable<any>{
-    return this.http.get<any>(this.url+'Society/GetAllSociety')
+  getAllSociety(PageNo:any,NoofRow:any,SearchText:any):Observable<any>{
+    // return this.http.get<any>(this.url+'Society/GetAllSociety')
+    return this.http.get<any>(this.url+'Society/GetAllSociety?PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText)
   }
 
   // Add society

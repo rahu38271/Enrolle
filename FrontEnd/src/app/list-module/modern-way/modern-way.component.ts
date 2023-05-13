@@ -92,6 +92,7 @@ export class ModernWayComponent implements OnInit {
 
   voterListBySearch(){
     this.isShow = !this.isShow;
+    this.Language = this.translateConfigService.getCurrentLang();
     this.searchModal.Language = this.Language
     this.searchModal.PageNo = this.PageNo;
     this.searchModal.NoofRow = this.NoofRow;

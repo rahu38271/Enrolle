@@ -35,6 +35,7 @@ export class AgewiseListComponent implements OnInit {
   PageNo:any=1;
   NoofRow:any=25
   totalItems:any;
+  SearchText:any;
   
   constructor(
     private toast:IonicToastService, 
@@ -78,6 +79,7 @@ export class AgewiseListComponent implements OnInit {
 
    agewiseSearch(userId:any,roleID:any,PageNo:any,NofRow:any,Language:any) {
      this.isShow = !this.isShow;
+     //this.Language = this.translateConfigService.getCurrentLang();
     this.ageModal.Language = this.Language
     this.voter.voterBetweenAge(
       this.ageModal.age1, 
@@ -85,12 +87,12 @@ export class AgewiseListComponent implements OnInit {
       this.ageModal.gender, 
       this.userId, 
       this.roleID,
-      this.ageModal.PageNo=1,
-      this.ageModal.NoofRow=25,
+      this.ageModal.PageNo = this.PageNo,
+      this.ageModal.NoofRow = this.NoofRow,
       this.ageModal.Language
       ).subscribe(data => {
       this.loader.showLoading();
-      if (data.length > 0) {
+      if (data.length != 0) {
         this.loader.hideLoader();
         this.ageList = data;
         this.totalItems = data[0].totalCount;
@@ -109,6 +111,12 @@ export class AgewiseListComponent implements OnInit {
     this.isShow = !this.isShow
   }
 
+  onSearchChange(SearchText:any){
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    this.SearchText=SearchText;
+    this.agewiseSearch(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language);
+  }
 
   exportexcel() {
     const ws: xlsx.WorkSheet =

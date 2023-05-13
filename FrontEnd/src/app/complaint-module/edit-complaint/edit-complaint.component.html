@@ -20,12 +20,12 @@
             <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>Complaint
           </ion-text>
         </ion-row>
-        <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate >
+        <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate >
           <ion-row>
   
             <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
               <ion-label> Subject </ion-label>
-              <ion-input name="Subject" [(ngModel)]="complaintModal.subject" class="text-capitalize form-control"></ion-input>
+              <ion-input name="Subject" [(ngModel)]="societycomplaint.subject" class="text-capitalize form-control"></ion-input>
             </ion-col>
 
             <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
@@ -34,18 +34,20 @@
                   value="{{ fromDate | date: 'yyyy-MM-dd' }}" 
                   id="fromDate" 
                   name="fromDate" 
-                  [(ngModel)]="complaintModal.fromDate"
+                  [(ngModel)]="societycomplaint.fromDate"
                   class="form-control"
                 >
                 </ion-input>
     
-                <ion-modal trigger="fromDate" size="cover">
+                <ion-modal trigger="fromDate" size="cover" [canDismiss]="canDismiss" 
+                [backdropDismiss]="false" >
                   <ng-template>
-                    <ion-datetime 
+                    <ion-datetime
+                    max={{maxDate}} 
                       presentation="date"
                       [(ngModel)]="fromDate" 
                       name="fromDate"
-                      (click)="cancel()"
+                      show-default-buttons="true"
                       >
                       <span slot="title"> {{ year }} </span>
                     </ion-datetime>
@@ -60,16 +62,20 @@
                   id="toDate" 
                   name="toDate" 
                   class="form-control"
-                  [(ngModel)]="complaintModal.toDate"
+                  [(ngModel)]="societycomplaint.toDate"
                 >
                 </ion-input>
     
-                <ion-modal trigger="toDate" size="cover">
+                <ion-modal trigger="toDate" size="cover" [canDismiss]="canDismiss" 
+                [backdropDismiss]="false" >
                   <ng-template>
                     <ion-datetime
+                    max={{maxDate}}
                       presentation="date"
                       [(ngModel)]="toDate"  
-                      name="toDate">
+                      name="toDate"
+                      show-default-buttons="true"
+                      >
                       <span slot="title"> {{ year }} </span>
                     </ion-datetime>
                   </ng-template>
@@ -78,17 +84,17 @@
 
               <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
                 <ion-label> Details </ion-label>
-                <ion-textarea rows="2" name="Details" [(ngModel)]="complaintModal.details"  class="form-control" ></ion-textarea>
+                <ion-textarea rows="2" name="Details" [(ngModel)]="societycomplaint.details"  class="form-control" ></ion-textarea>
               </ion-col>
 
               <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
                 <ion-label> Remark </ion-label>
-                <ion-textarea rows="2" name="Remark" [(ngModel)]="complaintModal.remark"  class="form-control" ></ion-textarea>
+                <ion-textarea rows="2" name="Remark" [(ngModel)]="societycomplaint.remark"  class="form-control" ></ion-textarea>
               </ion-col>
 
               <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
                 <ion-label> File </ion-label>
-                <input type="file" name="file" [(ngModel)]="complaintModal.fileName"  class="form-control">
+                <input type="file" name="file" (change)="onFileSelected($event)"  class="form-control">
               </ion-col>
 
             <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">

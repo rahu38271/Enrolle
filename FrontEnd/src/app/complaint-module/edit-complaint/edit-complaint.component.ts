@@ -13,12 +13,14 @@ import { IonModal } from '@ionic/angular';
 export class EditComplaintComponent implements OnInit {
 
   @ViewChild(IonModal) modal: IonModal;
-  complaintModal:any={}
+  societycomplaint:any={}
 
   UserId:any;
   roleID:any;
   name:any;
+  file:any;
   year: number = new Date().getFullYear();
+  maxDate:String = new Date().toISOString();
 
   constructor(
     private complaint:ComplaintService,
@@ -26,7 +28,7 @@ export class EditComplaintComponent implements OnInit {
     private toast:IonicToastService,
     private router:Router
   ) {
-    this.complaintModal = this.router.getCurrentNavigation().extras.state
+    this.societycomplaint = this.router.getCurrentNavigation().extras.state
    }
 
   ngOnInit(): void {
@@ -35,25 +37,38 @@ export class EditComplaintComponent implements OnInit {
     this.name = localStorage.getItem("loginUser");
   }
 
+  onFileSelected(event:any){
+    debugger;
+    const file:File = event.target.files[0];
+    this.file = file;
+  }
+
   updateComplaint(){
     debugger;
-    this.complaintModal.userId = Number(this.UserId);
-    this.complaintModal.roleID = Number(this.roleID);
-    this.complaintModal.userName = this.name;
-    this.loader.showLoading();
-    this.complaint.addSingleComplaint(this.complaintModal).subscribe(data=>{
+    this.societycomplaint.userId = Number(this.UserId);
+    //this.societycomplaint.roleID = Number(this.roleID);
+    this.societycomplaint.userName = this.name;
+    if(this.file==undefined){
+      this.file = ''
+    }
+    else{
+      this.file = this.file;
+    }
+    this.societycomplaint = JSON.stringify(this.societycomplaint);
+    //this.loader.showLoading();
+    this.complaint.addSingleComplaint(this.file,this.societycomplaint).subscribe(data=>{
       if(data){
-        this.loader.hideLoader();
-        this.complaintModal = {};
+        //this.loader.hideLoader();
+        this.societycomplaint = {};
         this.toast.presentToast("Complaint updated successfully!", "success", 'checkmark-circle-sharp');
         this.router.navigate(['/complaint-book/all-complaints'])
       }
       else{
-        this.loader.hideLoader();
+        //this.loader.hideLoader();
         this.toast.presentToast("Complaint not saved", "danger", 'alert-circle-sharp');
       }
     },(err)=>{
-      this.loader.hideLoader();
+      //this.loader.hideLoader();
     })
   }
 

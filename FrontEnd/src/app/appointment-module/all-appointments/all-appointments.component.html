@@ -20,60 +20,31 @@
         <ion-grid class="header">
           <ion-row>
             <ion-col size-xs="12" size-sm="6">
-              <ion-card-header>
-                <ion-card-title>Appointments By <span class="text-capitalize"> {{admin}}  </span>, Total - {{totalItems}}</ion-card-title>
-                <div class="headerLine"></div>
-              </ion-card-header>
+              <div class="flex">
+                <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
+                <ion-card-header>
+                  <ion-card-title>Appointments, <span> Total - {{totalItems}}</span></ion-card-title>
+                  <div class="headerLine"></div>
+                </ion-card-header>
+              </div>
             </ion-col>
-            <!-- <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+            <ion-col size-xs="12" size-sm="6" class="ion-text-right">
               <ion-button class="button-download" color="primary" routerLink="/appointment/add-appointment"><ion-icon name="add-circle-sharp"></ion-icon>Add Appointment</ion-button>
               <ion-button class="button-download" fill="outline" routerLink="/appointment/today-appointment" color="primary" ><ion-icon name="refresh-circle-sharp"></ion-icon>Today's Appointments</ion-button>
-            </ion-col> -->
+            </ion-col>
           </ion-row>
         </ion-grid>
       </div>
-  
-      <ion-grid>
-  
-        <!-- <ion-row>
-          <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4"> 
-            <ion-list>
-              <ejs-accumulationchart height='300' id="totalData" [tooltip]='tooltip' [title]='title1' >
-                <e-accumulation-series-collection>
-                    <e-accumulation-series [dataSource]='totalData' xName='x' yName='y' [dataLabel]='totalDataLael' radius="80%" [palettes]='palette1'></e-accumulation-series>
-                </e-accumulation-series-collection>
-              </ejs-accumulationchart>      
-            </ion-list>
-          </ion-col>
-          <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4"> 
-            <ion-list>
-              <ejs-accumulationchart height='300' id="ageData" [tooltip]='tooltip' [title]='title2' >
-                <e-accumulation-series-collection>
-                    <e-accumulation-series [dataSource]='ageData' xName='x' yName='y' [dataLabel]='ageDataLabel' radius="80%" [palettes]='palette2'></e-accumulation-series>
-                </e-accumulation-series-collection>
-              </ejs-accumulationchart>      
-            </ion-list>
-          </ion-col>
-          <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4"> 
-            <ion-list>
-              <ejs-accumulationchart height='300' id="occupationData" [tooltip]='tooltip2' [title]='title3'>
-                <e-accumulation-series-collection>
-                    <e-accumulation-series [dataSource]='occuData' xName='x' yName='y' [dataLabel]='occuDataLabel' radius="80%"></e-accumulation-series>
-                </e-accumulation-series-collection>
-              </ejs-accumulationchart>      
-            </ion-list>
-          </ion-col>
-        </ion-row> -->
-      </ion-grid>
-  
+
       
       <ion-card class="web">
         <ion-card-content>
           <div class="headSection">
             <div class="search">
-              <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+              <ion-searchbar (keypress)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
             </div>
             <div class="btns">
+              <ion-button class="button-download" color="danger" (click)="exportPDF()" ><ion-icon name="document-sharp"></ion-icon>PDF</ion-button>
               <ion-button class="button-download" color="success" (click)="exportExcel()" ><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
               <ion-button class="button-download" color="success" (click)="exportToCSV()" ><ion-icon name="document-sharp"></ion-icon>CSV</ion-button>
             </div>
@@ -112,16 +83,16 @@
                   <th>
                     Taluka
                   </th>
-                  <th>Flat / House No.</th>
-                  <th>Society / Building Name</th>
-                  <th>Ward</th>
-                  <th>Pincode</th>
-                  <th>City / Village</th>
-                  <th>File</th>
-                  <th>Remark</th>
-                  <th>Added By</th>
-                  <th>Status</th>
-                  <th id="element-to-hide" data-html2canvas-ignore="true">
+                  <th *ngIf="isColumn">Flat / House No.</th>
+                  <th *ngIf="isColumn">Society / Building Name</th>
+                  <th *ngIf="isColumn">Ward</th>
+                  <th *ngIf="isColumn">Pincode</th>
+                  <th *ngIf="isColumn">City / Village</th>
+                  <th *ngIf="isColumn">File</th>
+                  <th *ngIf="isColumn">Remark</th>
+                  <th *ngIf="isColumn">Added By</th>
+                  <th *ngIf="isColumn">Status</th>
+                  <th *ngIf="isColumn" id="element-to-hide" data-html2canvas-ignore="true">
                     Action
                   </th>
                 </tr>
@@ -129,7 +100,14 @@
               <tbody>
                 <tr *ngFor="let item of getApmList | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems};let i=index">
                   <td>{{item.id}}</td>
-                  <td class="text-capitalize">{{item.firstName}} {{item.middleName}} {{item.lastName}}</td>
+                  <td>
+                    <ion-icon name="add-circle-outline" (click)="showColumn()"></ion-icon>
+                    {{item.firstName}} {{item.middleName}} {{item.lastName}}
+                    <!-- <ion-button (click)="showColumn()">
+                      {{showColumn ? 'Show' : 'Hide'}}
+                    </ion-button> -->
+                    
+                  </td>
                   <td>{{item.category}}</td>
                   <td>{{item.appointmentDate}}</td>
                   <td>
@@ -140,15 +118,15 @@
                   <td>{{item.other}}</td>
                   <td>{{item.district}}</td>
                   <td>{{item.taluka}}</td>
-                  <td>{{item.houseNo}}</td>
-                  <td>{{item.soc_BldgName}}</td>
-                  <td>{{item.wardNo}}</td>
-                  <td>{{item.pinCode}}</td>
-                  <td>{{item.city_Village}}</td>
-                  <td>{{item.fileName}}</td>
-                  <td>{{item.remark}}</td>
-                  <td>{{item.adminName}}</td>
-                  <td>
+                  <td *ngIf="isColumn">{{item.houseNo}}</td>
+                  <td *ngIf="isColumn">{{item.soc_BldgName}}</td>
+                  <td *ngIf="isColumn">{{item.wardNo}}</td>
+                  <td *ngIf="isColumn">{{item.pinCode}}</td>
+                  <td *ngIf="isColumn">{{item.city_Village}}</td>
+                  <td *ngIf="isColumn">{{item.fileName}}</td>
+                  <td *ngIf="isColumn">{{item.remark}}</td>
+                  <td *ngIf="isColumn">{{item.adminName}}</td>
+                  <td *ngIf="isColumn">
                     <!-- <ion-icon class="approveBtn" (click)="approveApm($event)" id="{{item.id}}" name="checkbox-sharp"></ion-icon>
                     <ion-icon class="rejectBtn" (click)="rejectApm($event)" id="{{item.id}}"  name="close-circle-sharp"></ion-icon>
                     <ion-icon class="rsBtn" (click)="rescheduleApm($event)" id="{{item.id}}" name="calendar-clear-sharp"></ion-icon> -->
@@ -160,14 +138,14 @@
                     </select>
                     
                   </td>
-                  <td id="element-to-hide" data-html2canvas-ignore="true" class="action">
+                  <td *ngIf="isColumn" id="element-to-hide" data-html2canvas-ignore="true" class="action">
                     <ion-icon (click)="editAppointment(item)" name="create-sharp"></ion-icon>
                     <ion-icon (click)="deleteApm(item.id)" class="delete" name="trash-bin-sharp"></ion-icon> 
                   </td>
                 </tr>
               </tbody>
             </table>
-            <div *ngIf="!getApmList || getApmList.length === 0">
+            <div *ngIf="!getApmList || getApmList.length === 0" class="ion-text-center">
               <p>No data</p>
             </div>
             <pagination-controls (pageChange)="event($event)"></pagination-controls>

@@ -56,7 +56,7 @@
                 name="MobileNo" 
                 [(ngModel)]="newVoterModal.MobileNo" 
                 minlength="10" 
-                maxlength="10" 
+                maxlength="12" 
                 (keypress)="keyPressNumbers($event)"  
                 class="form-control" 
                 required
@@ -69,7 +69,7 @@
                   name="AltMobileNo" 
                   [(ngModel)]="newVoterModal.AltMobileNo" 
                   minlength="10" 
-                  maxlength="10" 
+                  maxlength="12" 
                   (keypress)="keyPressNumbers($event)"  
                   class="form-control" 
                   ></ion-input>
@@ -88,14 +88,15 @@
               >
               </ion-input>
   
-              <ion-modal trigger="DOB" size="cover">
+              <ion-modal trigger="DOB" size="cover" [canDismiss]="canDismiss" 
+              [backdropDismiss]="false" >
                 <ng-template>
                   <ion-datetime
                   max={{maxDate}} 
                     presentation="date" 
                     name="DOB"
                     [(ngModel)]="DOB"
-                    (click)="cancel()"
+                    show-default-buttons="true"
                   >
                     <span slot="title"> {{ year }} </span>
                   </ion-datetime>

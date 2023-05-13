@@ -2,9 +2,12 @@
     <ion-header class="android">
       <ion-toolbar>
         <ion-buttons slot="start">
+          <ion-back-button defaultHref="/list"></ion-back-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
           <ion-menu-button auto-hide="false"></ion-menu-button>
         </ion-buttons>
-        <ion-title> {{'Mobile' | translate}} {{'Lists' | translate}} ,  {{'Total' | translate}}  - {{totalItems}} </ion-title>
+        <ion-title> {{'Mobile' | translate}},  {{'Total' | translate}}  - {{totalItems}} </ion-title>
         <ion-buttons slot="primary">
           <ion-button (click)="search()">
             <ion-icon name="search-outline"></ion-icon>
@@ -64,7 +67,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr (click)="voterDetails(item)" *ngFor="let item of voterMobile | paginate: { itemsPerPage:10, currentPage: PageNo, totalItems:totalItems } | filter:searchMob">
+                      <tr (click)="voterDetails(item)" *ngFor="let item of voterMobile | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems}">
                         <td>{{item.id}}</td>
                         <td class="text-capitalize">{{item.fullName}}</td>
                         <td>{{item.booth}}</td>
@@ -91,8 +94,8 @@
         </ion-row>
       </ion-grid>
       <ion-grid class="android userList">
-        <ion-searchbar [(ngModel)]="searchMob" animated="true" *ngIf="isShow"></ion-searchbar>
-        <ion-list (click)="voterDetails(item)" *ngFor="let item of voterMobile | paginate: { itemsPerPage:10, currentPage: PageNo, totalItems:totalItems } | filter:searchMob">
+        <ion-searchbar (keypress)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true" *ngIf="isShow"></ion-searchbar>
+        <ion-list (click)="voterDetails(item)" *ngFor="let item of voterMobile | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems }">
           <ion-item lines="none">
             <ion-label>
               <div class="firstLine">

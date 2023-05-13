@@ -17,7 +17,7 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrls: ['./voterby-user.component.css']
 })
 export class VoterbyUserComponent {
-  Language: any;
+  Language: any
   id: any;
   RoleId: any;
   voterListByUser: any;
@@ -56,7 +56,7 @@ export class VoterbyUserComponent {
       private cd: ChangeDetectorRef,
       
     ) {
-    this.Language = this.translateConfigService.getCurrentLang();
+    
     this.speechRecognition.requestPermission()
       .then(() => console.log('Permission granted'))
       .catch(() => console.log('Permission denied'));
@@ -64,16 +64,16 @@ export class VoterbyUserComponent {
   }
 
   ngOnInit() {
+    this.Language = this.translateConfigService.getCurrentLang();
     this.id = localStorage.getItem("loginId");
     this.RoleId = localStorage.getItem("userType");
-    this.voterList(this.id, this.RoleId, this.PageNo, this.NoofRow,this.Language,this.SearchText);
+    
   }
 
   ionViewWillEnter(){
-    
+    this.voterList(this.id, this.RoleId, this.PageNo, this.NoofRow,this.Language,this.SearchText);
     this.totalVoterCount();
     this.AllCasts();
-    
   }
 
   totalVoterCount() {
@@ -83,13 +83,9 @@ export class VoterbyUserComponent {
   }
 
   
-  event(event: any) {
-    this.PageNo = event;
-    this.voterList(this.id, this.RoleId, event, this.NoofRow,this.Language,this.SearchText)
-  }
-
   voterList(id: any, RoleId: any, PageNo: any, NoofRow: any, Language:any,SearchText:any) {
-    this.loader.showLoading();
+    //this.loader.showLoading();
+    this.Language = this.translateConfigService.getCurrentLang();
     if (this.Language == "kn") {
       this.Language = "Kannada"
     }
@@ -110,37 +106,29 @@ export class VoterbyUserComponent {
     }
     this.voter.getVoterByUser(id, RoleId, PageNo, NoofRow, this.Language, this.SearchText).subscribe(data => {
       if (data.length != 0) {
-        this.loader.hideLoader();
+        //this.loader.hideLoader();
         this.voterListByUser = data;
         this.totalCount = data[0].totalCount;
-        // this.voterListByUser.forEach(e => {
-        //   e.birthDate = e.birthDate.split('T')[0] == '1900-01-01' ? '' : e.birthDate.split('T')[0];
-        // });
+        this.voterListByUser.forEach(e => {
+          e.birthDate = e.birthDate.split('T')[0];
+        });
       }
       else {
-        this.loader.hideLoader();
+        //this.loader.hideLoader();
         this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
       }
     }, (err) => {
-      this.loader.hideLoader();
+      //this.loader.hideLoader();
       this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
     })
   }
 
+  event(event: any) {
+    this.PageNo = event;
+    this.voterList(this.id, this.RoleId, event, this.NoofRow,this.Language,this.SearchText)
+  }
+
   onSearchChange(SearchText: string): void { 
-    debugger; 
-    if (this.Language == "kn") {
-      this.Language = "Kannada"
-    }
-    else if (this.Language == "mr") {
-      this.Language = "Marathi"
-    }
-    else if (this.Language == "hi") {
-      this.Language = "Hindi"
-    }
-    else {
-      this.Language = "English"
-    }
     this.SearchText=SearchText;
     this.PageNo=1;
     this.NoofRow=this.totalCount;

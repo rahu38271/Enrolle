@@ -27,7 +27,7 @@ export class ContactComponent implements OnInit {
   Cid:any;
   fileName= 'Contact.xlsx';
   PageNo:any=1;
-  NoofRow:any=2; 
+  NoofRow:any=10; 
   SearchText:string;
   searchTerm: string = '';
   currentDate = new Date();
@@ -81,7 +81,7 @@ export class ContactComponent implements OnInit {
 
   contactList(PageNo:any,NoofRow:any,SearchText:any){
     this.contact.getContacts(PageNo,NoofRow,SearchText).subscribe(data=>{
-      if(data != 0){
+      if(data.length != 0){
         this.getContacts = data;
         this.totalItems = data[0].totalCount;
         this.getContacts.forEach(e => {
@@ -97,11 +97,6 @@ export class ContactComponent implements OnInit {
       //this.toast.presentToast("Something went wrong !", "danger", 'alert-circle-outline');
     });
   }
-
-  filterData(){
-    this.searchPipe.transform(this.getContacts, this.SearchText);
-  }
-
 
   async deleteCon(id:any) {
     const alert = await this.alertController.create({

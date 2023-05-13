@@ -23,7 +23,7 @@
                     <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
                     <ion-card-header>
                       <ion-card-title>
-                        <ion-text> Society </ion-text>
+                        <ion-text> Society <span>Total - {{totalItems}}</span> </ion-text>
                       </ion-card-title>
                     </ion-card-header>
                   </div>
@@ -49,7 +49,7 @@
               <ion-card-content>
                 <div class="headSection">
                   <div class="search">
-                    <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+                    <ion-searchbar (keypress)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
                   </div>
                   <div class="btns">
                     <ion-button class="button-download" color="success" (click)="exportExcel()" ><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
@@ -71,10 +71,10 @@
                             Chairman
                         </th>
                         <th>
-                            Phone No.
+                            Mobile No.
                         </th>
                         <th>
-                          Alt. Phone
+                          Alt. Mobile No.
                         </th>
   
                         <th>
@@ -97,7 +97,7 @@
                     </thead>
                     <tbody>
                       
-                      <tr *ngFor="let item of getSocietyList | filter:searchWeb">
+                      <tr *ngFor="let item of getSocietyList | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems};let i=index">
                         <td>{{item.id}}</td>
                         <td><a>{{item.name}}</a></td>
                         <td>{{item.chairman}}</td>
@@ -118,10 +118,11 @@
                       </tr>
                     </tbody>
                   </table>
+                  <pagination-controls (pageChange)="event($event)"></pagination-controls>
                   <div *ngIf="!getSocietyList || getSocietyList.length === 0 " class="text-center">
                     <p>No data available</p>
                   </div>
-                  <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+                  
                 </div>
               </ion-card-content>
             </ion-card>

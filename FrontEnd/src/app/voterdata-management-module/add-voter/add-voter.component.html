@@ -86,12 +86,12 @@
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Age </ion-label>
-              <ion-input type="number" [(ngModel)]="addVoterModal.Age" name="Age" maxlength="3" class="form-control" required></ion-input>
+              <ion-input type="number" [(ngModel)]="addVoterModal.Age" name="Age" maxlength="3" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
-            <ion-label> Gender <span>*</span> </ion-label>
-              <ion-select name="Gender" [(ngModel)]="addVoterModal.Gender" placeholder="Select" class="form-control" required>
+            <ion-label> Gender </ion-label>
+              <ion-select name="Gender" [(ngModel)]="addVoterModal.Gender" placeholder="Select" class="form-control">
                 <ion-select-option value="M" class="select_option"> Male</ion-select-option>
                 <ion-select-option value="F" class="select_option"> Female</ion-select-option>
               </ion-select>
@@ -340,7 +340,8 @@
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Occupation </ion-label>
-              <ion-select name="Occupation" [(ngModel)]="addVoterModal.Occupation" placeholder="Select" class="form-control">
+            <ion-input name="Occupation" [(ngModel)]="addVoterModal.Occupation" class="form-control"></ion-input>
+              <!-- <ion-select name="Occupation" [(ngModel)]="addVoterModal.Occupation" placeholder="Select" class="form-control">
                 <ion-select-option class="select_option" value="Job Person"> Job Person</ion-select-option>
                 <ion-select-option class="select_option" value="Business"> Business</ion-select-option>
                 <ion-select-option class="select_option" value="Engineer"> Engineer</ion-select-option>
@@ -348,7 +349,7 @@
                 <ion-select-option class="select_option" value="Housewife"> Housewife</ion-select-option>
                 <ion-select-option class="select_option" value="Lawyer"> Lawyer</ion-select-option>
                 <ion-select-option class="select_option" value="Other"> Other</ion-select-option>
-              </ion-select>
+              </ion-select> -->
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
@@ -393,7 +394,7 @@
               </ion-select>
           </ion-col>
 
-          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+          <!-- <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Created Date  </ion-label>
             <ion-input
               value="{{ CreatedDate | date: 'yyyy-MM-dd' }}"
@@ -416,7 +417,7 @@
               </ion-datetime>
               </ng-template>
             </ion-modal>
-          </ion-col>
+          </ion-col> -->
           
           <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
             <div class="ion-text-center">

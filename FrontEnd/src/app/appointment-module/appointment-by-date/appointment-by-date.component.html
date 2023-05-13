@@ -52,13 +52,15 @@
               >
               </ion-input>
   
-              <ion-modal trigger="FromDate" size="cover">
+              <ion-modal trigger="FromDate" size="cover" [canDismiss]="canDismiss" 
+              [backdropDismiss]="false" >
                 <ng-template>
                   <ion-datetime 
+                  max={{maxDate}}
                     presentation="date" 
                     [(ngModel)]="FromDate" 
                     name="FromDate"
-                    (click)="cancel()"
+                    show-default-buttons="true"
                   >
                     <span slot="title"> {{ year }} </span>
                   </ion-datetime>
@@ -78,13 +80,15 @@
               >
               </ion-input>
   
-              <ion-modal trigger="ToDate" size="cover">
+              <ion-modal trigger="ToDate" size="cover" [canDismiss]="canDismiss" 
+              [backdropDismiss]="false" >
                 <ng-template>
-                  <ion-datetime 
+                  <ion-datetime
+                  max={{maxDate}} 
                     presentation="date" 
                     [(ngModel)]="ToDate" 
                     name="ToDate"
-                    (click)="cancel()"
+                    show-default-buttons="true"
                   >
                     <span slot="title"> {{ year }} </span>
                   </ion-datetime>
@@ -152,11 +156,11 @@
                   <th>City / Village</th>
                   <th>File</th>
                   <th>Remark</th>
-                  
+                  <th>Added By</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of getApmList | filter:searchWeb">
+                <tr *ngFor="let item of getApmList | filter:searchWeb | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems};">
                   <td>{{item.id}}</td>
                   <td class="text-capitalize">{{item.firstName}} {{item.middleName}} {{item.lastName}}</td>
                   <td>{{item.category}}</td>
@@ -174,16 +178,16 @@
                   <td>{{item.wardNo}}</td>
                   <td>{{item.pinCode}}</td>
                   <td>{{item.city_Village}}</td>
-                  <td>{{item.fileName}}</td>
+                  <td class="file"><i class="icofont icofont-cloud-download"></i></td>
                   <td>{{item.remark}}</td>
-                  
+                  <td>{{item.adminName}}</td>
                 </tr>
               </tbody>
             </table>
             <div *ngIf="!getApmList || getApmList.length === 0" class="ion-text-center">
               <p>No data</p>
             </div>
-            <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+            <pagination-controls (pageChange)="event($event)"></pagination-controls>
   
             
             <ion-modal [isOpen]="isModalOpen" [backdropDismiss]="false">

@@ -17,8 +17,9 @@ export class BySurnameComponent implements OnInit {
   userId: any;
   roleID:any;
   PageNo:any=1;
-  NoofRow:any=2000;
+  NoofRow:any=10;
   totalItems:any;
+  SearchText:any;
 
   constructor(
     private voter:VoterService, 
@@ -39,17 +40,24 @@ export class BySurnameComponent implements OnInit {
 
   ngOnInit() {
     this.userId = localStorage.getItem("loginId");
-    this.roleID = localStorage.getItem('userType')
-    this.allLastName(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language);
+    this.roleID = localStorage.getItem('userType');
+    if(this.SearchText==undefined){
+      this.SearchText = ''
+    }
+    else{
+      this.SearchText = this.SearchText
+    }
+    this.allLastName(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
   }
 
   event(event:any){
     this.PageNo = event;
-    this.allLastName(this.userId,this.roleID,event,this.NoofRow,this.Language)
+    this.allLastName(this.userId,this.roleID,event,this.NoofRow,this.Language,this.SearchText)
   }
 
-  allLastName(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any){
+  allLastName(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){
     this.loader.showLoading();
+    this.Language = this.translateConfigService.getCurrentLang();
     if(this.Language == "kn"){
       this.Language = "Kannada"
     }
@@ -62,8 +70,8 @@ export class BySurnameComponent implements OnInit {
     else{
       this.Language = "English"
     }
-    this.voter.lastNameData(userId,roleID,PageNo,NoofRow,this.Language).subscribe(data=>{
-      if(data != 0){
+    this.voter.lastNameData(userId,roleID,PageNo,NoofRow,this.Language,this.SearchText).subscribe(data=>{
+      if(data.length != 0){
         this.loader.hideLoader();
         this.allData = data;
         this.totalItems = data[0].totalCount
