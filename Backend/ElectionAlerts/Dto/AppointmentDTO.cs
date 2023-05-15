@@ -29,7 +29,8 @@ namespace ElectionAlerts.Dto
         public DateTime? CreatedDate { get; set; }
         public string Status { get; set; }
         public int? UserId { get; set; }
-        public int? TodayCount { get; set; }
+        public int? TotalCount { get; set; }
         public int? RoleId { get; set; }
+        public string AdminName { get; set; }
     }
 }

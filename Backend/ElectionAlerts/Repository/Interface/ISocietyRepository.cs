@@ -10,14 +10,17 @@ namespace ElectionAlerts.Repository.Interface
     public interface ISocietyRepository
     {
         int CreateUpdateSociety(Society society);
-        IEnumerable<Society> GetAllSociety();
+        IEnumerable<SocietyDTO> GetAllSociety(int PageNo, int NoofRow, string SearchText);
         int DeleteSocietybuId(int Id);
+
+
         int InsertUpdateSocietyComplaint(SocietyModel societyModel);
-        IEnumerable<SocietyComplaint> GetSocietyComplaints();
-        SocietyComplaint GetSocietyComplaintbyId(int UserId);
+        IEnumerable<SocietyComplaintDTO> GetSocietyComplaints(int PageNo, int NoofRow, string SearchText);
+        SocietyComplaint GetSocietyComplaintbyUserId(int UserId);
+        SocietyComplaint GetSocietyComplaintbyId(int Id);
         int UpdateComplaintStatus(int Id, string Status);
-        IEnumerable<SocietyComplaint> GetComplaintsbyStatus(string Status);
-        IEnumerable<SocietyComplaint> GetTodayComplaint();
+        IEnumerable<SocietyComplaintDTO> GetComplaintsbyStatus(string Status,int PageNo, int NoofRow, string SearchText);
+        IEnumerable<SocietyComplaintDTO> GetTodayComplaint(int PageNo, int NoofRow, string SearchText);
         IEnumerable<ComplaintCount> GetComplaintCount();
         int DeleteSocietyComplaintbyId(int Id);
     }

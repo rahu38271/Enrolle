@@ -2,9 +2,14 @@
 using ElectionAlerts.Services.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace ElectionAlerts.Controller
@@ -23,11 +28,29 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpPost("InsertUpdateAppointment")]
-        public IActionResult InsertUpdateAppointment(Appointment appointment)
+        public IActionResult InsertUpdateAppointment([FromForm] string appointment, [FromForm] IFormFile file)
         {
             try
             {
-                return Ok(_appointmentService.InsertUpdateAppintment(appointment));
+                Appointment appointments = JsonConvert.DeserializeObject<Appointment>(appointment);
+                
+                if(file!=null)
+                    appointments.FileName = file.FileName;
+
+                var result = _appointmentService.InsertUpdateAppintment(appointments);
+               
+                if (file != null && result>1)
+                {
+                    string PathName = Path.Combine(Directory.GetCurrentDirectory(), "Image", "AppointmentImage");
+                    if (!Directory.Exists(PathName))
+                        Directory.CreateDirectory(PathName);
+                    string FullPath = Path.Combine(PathName, file.FileName);
+                    using (var stream = new FileStream(FullPath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                    {
+                        file.CopyTo(stream);
+                    }
+                }
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -37,11 +60,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetAllAppointment")]
-        public IActionResult GetAllAppointment(int UserId, int RoleId)
+        public IActionResult GetAllAppointment(int UserId, int RoleId, int PageNo, int NoofRow, string SearchText)
         {
             try
             {
-                return Ok(_appointmentService.GetAppointments(UserId,RoleId));
+                return Ok(_appointmentService.GetAppointments(UserId,RoleId,PageNo,NoofRow,SearchText));
             }
             catch(Exception ex)
             {
@@ -69,6 +92,15 @@ namespace ElectionAlerts.Controller
         {
             try
             {
+                var result = _appointmentService.GetAppointmentbyId(Id);
+                if (result != null)
+                {
+                    if (result.FileName != null)
+                    {
+                        var path = Path.Combine(Directory.GetCurrentDirectory(), "Image", "AppointmentImage", result.FileName);
+                        System.IO.File.Delete(path);
+                    }
+                }
                 return Ok(_appointmentService.DeleteAppointmentbyId(Id));
             }
             catch(Exception ex)
@@ -93,11 +125,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetTodayAppointment")]
-        public IActionResult GetTodayAppointment(int UserId, int RoleId)
+        public IActionResult GetTodayAppointment(int UserId, int RoleId, int PageNo, int NoofRow, string SearchText)
         {
             try
             {
-                return Ok(_appointmentService.GetTodayAppointment(UserId,RoleId));
+                return Ok(_appointmentService.GetTodayAppointment(UserId,RoleId,PageNo,NoofRow,SearchText));
             }
             catch(Exception ex)
             {
@@ -107,11 +139,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetAppointmentbyStatus")]
-        public IActionResult GetAppointmentbyStatus(int UserId, int RoleId, string Status)
+        public IActionResult GetAppointmentbyStatus(int UserId, int RoleId, string Status, int PageNo, int NoofRow, string SearchText)
         {
             try
             {
-                return Ok(_appointmentService.GetAppointmentbyStatus(UserId,RoleId,Status));
+                return Ok(_appointmentService.GetAppointmentbyStatus(UserId,RoleId,Status,PageNo,NoofRow,SearchText));
             }
             catch(Exception ex)
             {
@@ -120,26 +152,26 @@ namespace ElectionAlerts.Controller
             }
         }
 
-        [HttpGet("DownloadFile")]
-        public IActionResult DownloadFile(int Id, string FileName)
-        {
-            try
-            {
-                return Ok(_appointmentService.DownloadFile(Id,FileName));
-            }
-            catch(Exception ex)
-            {
-                _exceptionLogService.ErrorLog(ex, "Exception", "AppointmentController/DownloadFile");
-                return BadRequest(ex);
-            }
-        }
+        //[HttpGet("DownloadFile")]
+        //public IActionResult DownloadFile(int Id, string FileName)
+        //{
+        //    try
+        //    {
+        //        return Ok(_appointmentService.DownloadFile(Id,FileName));
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        _exceptionLogService.ErrorLog(ex, "Exception", "AppointmentController/DownloadFile");
+        //        return BadRequest(ex);
+        //    }
+        //}
 
         [HttpGet("GetAppointmentbyFromToDate")]
-        public IActionResult GetAppointmentbyFromToDate(int UserId, int RoleId, string FromDate, string ToDate)
+        public IActionResult GetAppointmentbyFromToDate(int UserId, int RoleId, string FromDate, string ToDate, int PageNo, int NoofRow, string SearchText)
         {
             try
             {
-                return Ok(_appointmentService.GetAppointmentFromToDate(UserId, RoleId, FromDate,ToDate));
+                return Ok(_appointmentService.GetAppointmentFromToDate(UserId, RoleId, FromDate,ToDate,PageNo,NoofRow,SearchText));
             }
             catch (Exception ex)
             {
@@ -177,16 +209,61 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetAppointmentbyUserId")]
-        public IActionResult GetAppointmentbyUserId(int UserId)
+        public IActionResult GetAppointmentbyUserId(int UserId, int PageNo, int NoofRow, string SearchText)
         {
             try
             {
-                return Ok(_appointmentService.GetAppointmentbyUserId(UserId));
+                return Ok(_appointmentService.GetAppointmentbyUserId(UserId,PageNo,NoofRow,SearchText));
             }
             catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "AppointmentController/GetAppointmentbyUserId");
                 return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetAppointmentbyId")]
+        public IActionResult GetAppointmentbyId(int Id)
+        {
+            try
+            {
+                return Ok(_appointmentService.GetAppointmentbyId(Id));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "AppointmentController/GetAppointmentbyId");
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+        [HttpGet("DownLoadFile")]
+        public IActionResult DownLoadFile(int Id)
+        {
+            try
+            {
+                var result = _appointmentService.GetAppointmentbyId(Id);
+                if (result != null)
+                {
+                        if (!string.IsNullOrEmpty(result.FileName))
+                        {
+                            string Filepath = Path.Combine(Directory.GetCurrentDirectory(), "Image", "AppointmentImage", result.FileName);
+                              var provider = new FileExtensionContentTypeProvider();
+                             if (!provider.TryGetContentType(Filepath, out var contentType))
+                             {
+                                contentType = "application/octet-stream";
+                             }
+
+                        var bytes =  System.IO.File.ReadAllBytes(Filepath);
+                        return File(bytes, contentType, Path.GetFileName(Filepath));
+                    }
+                }
+                return Ok("File Not Present");
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "AppointmentController/DownoadFile");
+                return BadRequest(ex.Message);
             }
         }
     }

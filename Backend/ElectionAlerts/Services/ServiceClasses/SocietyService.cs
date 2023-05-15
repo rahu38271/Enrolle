@@ -32,9 +32,9 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _societyRepository.DeleteSocietyComplaintbyId(Id);
         }
 
-        public IEnumerable<Society> GetAllSociety()
+        public IEnumerable<SocietyDTO> GetAllSociety(int PageNo, int NoofRow, string SearchText)
         {
-            return _societyRepository.GetAllSociety();
+            return _societyRepository.GetAllSociety(PageNo,NoofRow,SearchText);
         }
 
         public IEnumerable<ComplaintCount> GetComplaintCount()
@@ -42,24 +42,29 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _societyRepository.GetComplaintCount();
         }
 
-        public IEnumerable<SocietyComplaint> GetComplaintsbyStatus(string Status)
+        public IEnumerable<SocietyComplaintDTO> GetComplaintsbyStatus(string Status, int PageNo, int NoofRow, string SearchText)
         {
-            return _societyRepository.GetComplaintsbyStatus(Status);
+            return _societyRepository.GetComplaintsbyStatus(Status,PageNo,NoofRow,SearchText);
         }
 
-        public SocietyComplaint GetSocietyComplaintbyId(int UserId)
+        public SocietyComplaint GetSocietyComplaintbyId(int Id)
         {
-            return _societyRepository.GetSocietyComplaintbyId(UserId);
+            return _societyRepository.GetSocietyComplaintbyId(Id);
         }
 
-        public IEnumerable<SocietyComplaint> GetSocietyComplaints()
+        public SocietyComplaint GetSocietyComplaintbyUserId(int UserId)
         {
-            return _societyRepository.GetSocietyComplaints();
+            return _societyRepository.GetSocietyComplaintbyUserId(UserId);
         }
 
-        public IEnumerable<SocietyComplaint> GetTodayComplaint()
+        public IEnumerable<SocietyComplaintDTO> GetSocietyComplaints(int PageNo, int NoofRow, string SearchText)
         {
-            return _societyRepository.GetTodayComplaint();
+            return _societyRepository.GetSocietyComplaints(PageNo,NoofRow,SearchText);
+        }
+
+        public IEnumerable<SocietyComplaintDTO> GetTodayComplaint(int PageNo, int NoofRow, string SearchText)
+        {
+            return _societyRepository.GetTodayComplaint(PageNo,NoofRow,SearchText);
         }
 
         public int InsertUpdateSocietyComplaint(SocietyModel societyModel)

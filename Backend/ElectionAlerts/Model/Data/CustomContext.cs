@@ -154,6 +154,8 @@ namespace ElectionAlerts.Model.Data
         public DbSet<VoterMobileNo> VoterMobileNos { get; set; }
         public DbSet<SocietyComplaint> SocietyComplaints { get; set; }
         public DbSet<ComplaintCount> ComplaintCounts { get; set; }
+        public DbSet<SocietyDTO> SocietyDTOs { get; set; }
+        public DbSet<SocietyComplaintDTO> SocietyComplaintDTOs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

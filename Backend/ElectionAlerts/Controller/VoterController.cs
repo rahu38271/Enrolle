@@ -463,11 +463,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetVoterCountbyLastName")]
-        public IActionResult GetVoterCountbyLastName(int userid,int roleid,int pageno, int noofrow, string Language)
+        public IActionResult GetVoterCountbyLastName(int userid,int roleid,int pageno, int noofrow, string Language,string SearchText)
         {
             try
             {
-                return Ok(_voterService.GetVoterCountbyLastName(userid,roleid, pageno, noofrow,Language));
+                return Ok(_voterService.GetVoterCountbyLastName(userid,roleid, pageno, noofrow,Language, SearchText));
             }
             catch(Exception ex)
             {
@@ -547,11 +547,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("VoterDetailsbyLastName")]
-        public IActionResult VoterDetailsbyLastName(string Name,int UserId,int RoleId, int PageNo, int NoofRow, string Language)
+        public IActionResult VoterDetailsbyLastName(string Name,int UserId,int RoleId, int PageNo, int NoofRow, string Language, string SearchText)
         {
             try
             {
-                return Ok(_voterService.VoterDetailsbyLastName(Name, UserId, RoleId,PageNo,NoofRow,Language));
+                return Ok(_voterService.VoterDetailsbyLastName(Name, UserId, RoleId,PageNo,NoofRow,Language,SearchText));
             }
             catch(Exception ex)
             {
@@ -570,7 +570,7 @@ namespace ElectionAlerts.Controller
             catch(Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/VoterDetailsbyColumn");
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 

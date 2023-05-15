@@ -10,16 +10,17 @@ namespace ElectionAlerts.Repository.Interface
     public interface IAppointmentRepository
     {
         int InsertUpdateAppintment(Appointment appointment);
-        IEnumerable<Appointment> GetAppointments(int UserId,int RoleId);
+        IEnumerable<AppointmentDTO> GetAppointments(int UserId,int RoleId, int PageNo,int NoofRow,string SearchText);
         IEnumerable<Appointment> GetAppointmentbyDate(int UserId, int RoleId,string dateTime);
         int DeleteAppointmentbyId(int Id);
         int UpdateApointmentStatus(int Id, string Status, string datetime);
-        IEnumerable<AppointmentDTO> GetTodayAppointment(int UserId, int RoleId);
-        IEnumerable<Appointment> GetAppointmentbyStatus(int UserId, int RoleId,string Status);
+        IEnumerable<AppointmentDTO> GetTodayAppointment(int UserId, int RoleId,int PageNo, int NoofRow, string SearchText);
+        IEnumerable<AppointmentDTO> GetAppointmentbyStatus(int UserId, int RoleId,string Status, int PageNo, int NoofRow, string SearchText);
         int DownloadFile(int Id,string FileName);
-        IEnumerable<Appointment> GetAppointmentFromToDate(int UserId, int RoleId, string FromDate,string ToDate);
+        IEnumerable<AppointmentDTO> GetAppointmentFromToDate(int UserId, int RoleId, string FromDate,string ToDate, int PageNo, int NoofRow, string SearchText);
         IEnumerable<AppointmentCount> GetAppointmentCount(int UserId, int RoleId);
         IEnumerable<AppointmentCountbyUser> GetAppointmentCountbyUser();
-        IEnumerable<Appointment> GetAppointmentbyUserId(int UserId);
+        IEnumerable<AppointmentDTO> GetAppointmentbyUserId(int UserId, int PageNo, int NoofRow, string SearchText);
+        Appointment GetAppointmentbyId(int Id);
     }
 }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ElectionAlerts.Model
+namespace ElectionAlerts.Dto
 {
-    public class Society
+    public class SocietyDTO
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -18,8 +18,7 @@ namespace ElectionAlerts.Model
         public string Taluka { get; set; }
         public string District { get; set; }
         public DateTime CreatedDate { get; set; }
-        public int UserId { get; set; }
-        public int AdminId { get; set; }
+        public int Totalcount { get; set; }
 
     }
 }
