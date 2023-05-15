@@ -32,6 +32,10 @@ export class RejectedComponent implements OnInit {
 
   UserId:any;
   roleID:any;
+  PageNo:any=1;
+  NoofRow:any=10;
+  SearchText:any;
+  totalItems:any;
 
   constructor(
     private appointment: AppointmentService,
@@ -42,28 +46,35 @@ export class RejectedComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.UserId = localStorage.getItem("loginId");
-    this.roleID = localStorage.getItem("userType")
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.rejectedList();
-    })
+    if(this.SearchText == undefined){
+      this.SearchText = ''
+    }
+    else{
+      this.SearchText = this.SearchText
+    }
+  }
 
+  ionViewWillEnter(){
+    this.UserId = localStorage.getItem("loginId");
+    this.roleID = localStorage.getItem("userType");
+    this.rejectedList(this.UserId,this.roleID,this.PageNo,this.NoofRow,this.SearchText);
+    
   }
 
   goBack() {
     this.location.back();
   }
 
-  isBigEnough(element, index, array) {
-    return (element.status == "Rejected");
-  }
 
-  rejectedList() {
-    this.appointment.getAppointments(this.UserId,this.roleID).subscribe(data => {
-      if (data != 0) {
-        this.getApmList = data.filter(this.isBigEnough)
+
+  rejectedList(UserId:any,roleID:any,PageNo:any,NoofRow:any,SearchText:any) {
+    this.appointment.getRejectedAppointments(UserId,roleID,PageNo,NoofRow,this.SearchText).subscribe(data => {
+      if (data.length != 0) {
+        this.getApmList = data;
+        this.totalItems=data[0].totalCount;
+        this.getApmList.forEach(e => {
+          e.birthDate = e.birthDate.split('T')[0];
+        });
       }
       else {
       }
@@ -71,6 +82,11 @@ export class RejectedComponent implements OnInit {
 
     })
 
+  }
+
+  event(event:any){
+    this.PageNo=event
+    this.rejectedList(this.UserId,this.roleID,this.PageNo,this.NoofRow,this.SearchText);
   }
 
   // changeStatus(event){

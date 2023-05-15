@@ -21,7 +21,6 @@ export class AppointmentByAdminComponent implements OnInit {
   isSuperAdmin = false;
   getApmList:any; 
   searchWeb:string;
-  adminName:any;
   year : number = new Date().getFullYear();
   myForm1: any;
   searchApmModal:any={
@@ -38,7 +37,7 @@ export class AppointmentByAdminComponent implements OnInit {
   apmStatus:string;
   rowId:any;
   apmCount:any;
-
+  admin:any;
   updateStatusModal:any={
     Id:'',
     Status:'',
@@ -47,6 +46,10 @@ export class AppointmentByAdminComponent implements OnInit {
   UserId:any;
   roleID:any;
   userId:any;
+  PageNo:any=1;
+  NoofRow:any=10;
+  SearchText:any;
+  totalItems:any;
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
 
   currentDate: number = Date.now();
@@ -65,25 +68,33 @@ export class AppointmentByAdminComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    debugger;
-    //this.UserId = localStorage.getItem("loginId");
-    this.adminName = this.route.snapshot.paramMap.get('adminName');
-    this.UserId = this.route.snapshot.paramMap.get('userId');
-    this.roleID = this.route.snapshot.paramMap.get('userType');
-      this.appoinmentList();
-      // this.router.events.pipe(
-      //   filter(event => event instanceof NavigationEnd)
-      // ).subscribe(() => {
-      //   this.appoinmentList();
-      // })
+    if(this.SearchText == undefined){
+      this.SearchText = ''
+    }
+    else{
+      this.SearchText = this.SearchText
+    }
   }
 
+  ionViewWillEnter(){
+    this.UserId = this.route.snapshot.paramMap.get('userId');
+    this.appoinmentList(this.UserId,this.PageNo,this.NoofRow,this.SearchText);
+  }
 
+  event(event:any){
+    this.PageNo=event;
+    this.appoinmentList(this.UserId,event,this.NoofRow,this.SearchText);
+  }
 
-  appoinmentList(){
-    this.appointment.getAppointments(this.UserId,this.roleID).subscribe((data:any)=>{
-      if(data != 0){
+  appoinmentList(UserId:any,PageNo:any,NoofRow:any,SearchText:any){
+    this.appointment.getAppointmentByUser(UserId,PageNo,NoofRow,SearchText).subscribe((data:any)=>{
+      if(data.length != 0){
         this.getApmList = data;
+        this.totalItems=data[0].totalCount
+        this.admin = data[0].adminName
+        this.getApmList.forEach(e => {
+          e.birthDate = e.birthDate.split('T')[0]
+        });
       }
       else{
       }
@@ -93,7 +104,6 @@ export class AppointmentByAdminComponent implements OnInit {
   }
 
   editAppointment(data:any){
-    debugger;
     this.router.navigateByUrl('/appointment/edit-appointment', { state: data });
   }
 
@@ -152,7 +162,7 @@ export class AppointmentByAdminComponent implements OnInit {
           cssClass: 'yes',
           handler: () => {
             this.appointment.deleteAppointment(id).subscribe(data=>{
-              this.ngOnInit();
+              this.ionViewWillEnter();
               this.toast.presentToast("Appointment deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })
           }

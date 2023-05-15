@@ -331,12 +331,16 @@ const routes: Routes = [
     path: 'approved-appointment',
     loadChildren: () => import('./appointment-report/appointment-report.module').then( m => m.AppointmentReportModule)
   },
+  {
+    path: 'complaint-book',
+    loadChildren: () => import('./complaint-module/complaint-module.module').then( m => m.ComplaintModuleModule)
+  },
 ];
 
 @NgModule({
   imports: [
     //RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
-    RouterModule.forRoot(routes, { useHash: true }),
+    RouterModule.forRoot(routes, { useHash: true,onSameUrlNavigation: 'reload' }),
   ],
   exports: [RouterModule]
 })

@@ -32,6 +32,10 @@ export class ApprovedComponent implements OnInit {
 
   UserId:any;
   roleID:any;
+  PageNo:any=1;
+  NoofRow:any=10;
+  SearchText:any;
+  totalItems:any;
 
   constructor(
     private appointment:AppointmentService,
@@ -39,27 +43,38 @@ export class ApprovedComponent implements OnInit {
     private toast:IonicToastService,
     public modalCtrl: ModalController,
     private location: Location,
+    public alertController: AlertController,
   ) { }
 
   ngOnInit(): void {
-    this.UserId = localStorage.getItem("loginId");
-    this.roleID = localStorage.getItem("userType")
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.approvedList();
-    })
-    
+    if(this.SearchText == undefined){
+      this.SearchText = ''
+    }
+    else{
+      this.SearchText = this.SearchText
+    }
   }
 
-   isBigEnough(element, index, array) { 
-    return (element.status == "Approved" || element.status == "Reschedule"); 
- } 
+  ionViewWillEnter(){
+    this.UserId = localStorage.getItem("loginId");
+    this.roleID = localStorage.getItem("userType");
+    this.approvedList(this.UserId,this.roleID,this.PageNo,this.NoofRow,this.SearchText);
+    
+  }
+  
+  event(event:any){
+    this.PageNo=event
+    this.approvedList(this.UserId,this.roleID,this.PageNo,this.NoofRow,this.SearchText);
+  }
 
-  approvedList(){
-    this.appointment.getAppointments(this.UserId,this.roleID).subscribe(data=>{
-      if(data != 0){
-        this.getApmList = data.filter(this.isBigEnough)
+  approvedList(UserId:any,roleID:any,PageNo:any,NoofRow:any,SearchText:any){
+    this.appointment.getApprovedAppointments(UserId,roleID,PageNo,NoofRow,this.SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.getApmList = data
+        this.totalItems = data[0].totalCount;
+        this.getApmList.forEach(e => {
+          e.birthDate = e.birthDate.split('T')[0];
+        });
       }
       else{
       }
@@ -163,6 +178,35 @@ export class ApprovedComponent implements OnInit {
       }
 
     })
+  }
+
+  async deleteApm(id:any) {
+    const alert = await this.alertController.create({
+      header: 'Delete Appointment',
+      cssClass: 'alertHeader',
+      message: 'Are you sure want to delete this Appointment',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'no',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Delete',
+          cssClass: 'yes',
+          handler: () => {
+            this.appointment.deleteAppointment(id).subscribe(data=>{
+              this.ionViewWillEnter();
+              this.toast.presentToast("Appointment deleted Succesfully!", "success", 'checkmark-circle-sharp');
+            })
+          }
+        }
+      ],
+    });
+
+    await alert.present();
   }
 
 }

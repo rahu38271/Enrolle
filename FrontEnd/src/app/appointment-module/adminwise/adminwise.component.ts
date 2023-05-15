@@ -17,12 +17,16 @@ export class AdminwiseComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    
+  }
+
+  ionViewWillEnter(){
     this.apmListByAdmin();
   }
 
   apmListByAdmin(){
     this.appointment.getApmByAdmin().subscribe(data=>{
-      if(data != 0){
+      if(data.length != 0){
         this.apmByAdmin = data
       }
       else{

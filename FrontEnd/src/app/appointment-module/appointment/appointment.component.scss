@@ -3,7 +3,7 @@
 
 table { margin-top: 10px; }
 
-td ion-icon { cursor: pointer; font-size: 22px; font-weight: 600; padding-left: 2px;  }
+td ion-icon { cursor: pointer; font-size: 23px; font-weight: 600; padding-left: 2px; color: #40459f;  }
 
 table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !important; }
 
@@ -57,9 +57,9 @@ ion-modal {
   overflow: scroll;
 }
 
-.table {
-  width: 1700px;
-}
+// .table {
+//   width: 1700px;
+// }
 
 .action ion-icon {
   font-size: 20px;
@@ -144,9 +144,9 @@ ion-item img {
 }
 
 .contact h3 {
-  color: #260944;
-  font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
+    color: #212B36;
+    font-size: 18px;
 }
 
 .android ion-label {

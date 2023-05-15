@@ -2,6 +2,9 @@
   <ion-header class="android">
     <ion-toolbar>
       <ion-buttons slot="start">
+        <ion-back-button defaultHref="/list"></ion-back-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
         <ion-menu-button auto-hide="false"></ion-menu-button>
       </ion-buttons>
       <ion-title>  {{'Part No.' | translate}} </ion-title>
@@ -79,7 +82,7 @@
     </ion-grid>
 
     <ion-grid class="android">
-      <ion-searchbar [(ngModel)]="searchMob" animated="true" *ngIf="isShow"></ion-searchbar>
+      <ion-searchbar placeholder="Search only number like 1 or 2" [(ngModel)]="searchMob" animated="true" *ngIf="isShow"></ion-searchbar>
       <ion-list *ngFor="let item of partData | filter:searchMob" (click)="partNo(item.columnName)">
         <ion-item lines="none" class="ion-text-center">
           <ion-label>

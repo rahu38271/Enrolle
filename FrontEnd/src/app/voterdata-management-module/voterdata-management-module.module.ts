@@ -21,6 +21,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { TranslateModule } from '@ngx-translate/core';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [VoterdataManagementComponent,EditVoterdataComponent,AddVoterComponent,ImportVoterdataComponent,VoterDetailsComponent, FamilyComponent, VoterbyUserComponent],
@@ -36,6 +37,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     MatPaginatorModule,
     Ng2SearchPipeModule,
     NgSelectModule,
+    HttpClientModule,
     NgxPaginationModule,
     RouterModule.forChild([{
         path:'', component:VoterdataManagementComponent},

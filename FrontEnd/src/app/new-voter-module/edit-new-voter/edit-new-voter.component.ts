@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { LoaderService } from 'src/app/services/loader.service';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { NewVoterService } from 'src/app/services/new-voter.service';
 import { Router } from '@angular/router';
+import { IonModal } from '@ionic/angular';
 
 @Component({
   selector: 'app-edit-new-voter',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 })
 export class EditNewVoterComponent implements OnInit {
 
+  @ViewChild(IonModal) modal: IonModal;
   newVoterModal:any={};
   maxDate:String = new Date().toISOString();
 
@@ -64,6 +66,10 @@ export class EditNewVoterComponent implements OnInit {
     },(err)=>{
       this.loader.hideLoader();
     })
+  }
+
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
   }
 
 }

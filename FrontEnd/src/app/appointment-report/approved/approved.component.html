@@ -22,7 +22,7 @@
               <div class="flex">
                 <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
                 <ion-card-header>
-                  <ion-card-title> Approved Appointments <span></span></ion-card-title>
+                  <ion-card-title> Approved Appointments <span> Total - {{totalItems}}</span></ion-card-title>
                   <div class="headerLine"></div>
                 </ion-card-header>
               </div>
@@ -63,10 +63,10 @@
                     Appointment Date
                   </th>
                   <th>
-                    Phone No.	
+                    Mobile No.	
                   </th>
                   <th>
-                    DoB					
+                    Birthdate					
                   </th>
                   <th>
                     Work
@@ -87,12 +87,13 @@
                   <th>City / Village</th>
                   <th>File</th>
                   <th>Remark</th>
+                  <th>Added By</th>
                   <th>Status</th>
-                  
+                  <th>Action</th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of getApmList | filter:searchWeb">
+                <tr *ngFor="let item of getApmList | filter:searchWeb | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems}">
                   <td>{{item.id}}</td>
                   <td class="text-capitalize">{{item.firstName}} {{item.middleName}} {{item.lastName}}</td>
                   <td>{{item.category}}</td>
@@ -112,6 +113,7 @@
                   <td>{{item.city_Village}}</td>
                   <td>{{item.fileName}}</td>
                   <td>{{item.remark}}</td>
+                  <td>{{item.adminName}}</td>
                   <td>
                     <ion-icon class="rejectBtn" (click)="rejectApm($event)" id="{{item.id}}"  name="close-circle-sharp"></ion-icon>
                     <ion-icon class="rsBtn" (click)="rescheduleApm($event)" id="{{item.id}}" name="calendar-clear-sharp"></ion-icon>
@@ -124,13 +126,16 @@
                     </select> -->
                     
                   </td>
+                  <td>
+                    <ion-icon (click)="deleteApm(item.id)" class="delete" name="trash-bin-sharp"></ion-icon> 
+                  </td>
                 </tr>
               </tbody>
             </table>
-            <div *ngIf="!getApmList || getApmList.length === 0">
+            <div *ngIf="!getApmList || getApmList.length === 0" class="ion-text-center">
               <p>No data</p>
             </div>
-            <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+            <pagination-controls (pageChange)="event($event)"></pagination-controls>
           </div>
         </ion-card-content>
       </ion-card>

@@ -39,7 +39,7 @@
           
             <ion-row *ngFor="let item of apmCount">
               <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6" >
-                <ion-list class="survey-list" routerLink="/appointment">
+                <ion-list class="survey-list" routerLink="/appointment/all-appointments">
                     <ion-item lines="none">
                       <ion-label class="contact">
                           <i class="icofont icofont-search-document"></i>
@@ -126,7 +126,7 @@
                         <div class="contact">
                           <i class="icofont icofont-calendar"></i>
                           <div>
-                            <h3>  Datewise </h3>
+                            <h3>  Appointment Report </h3>
                             <h4> - </h4>
                           </div>
                         </div>
@@ -135,7 +135,7 @@
                 </ion-list>
               </ion-col>
 
-              <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6" *ngIf="isSuperAdmin">
+              <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6">
                 <ion-list class="survey-list" routerLink="/appointment/appointment-adminwise">
                   <ion-item lines="none">
                       <ion-label>
@@ -152,192 +152,10 @@
                 </ion-list>
               </ion-col>
             </ion-row>
-         
         </ion-col>
-
-       
       </ion-row>
-
-      <!-- <ion-row>
-        <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4"> 
-          <ion-list>
-            <ejs-accumulationchart height='300' id="totalData" [tooltip]='tooltip' [title]='title1' >
-              <e-accumulation-series-collection>
-                  <e-accumulation-series [dataSource]='totalData' xName='x' yName='y' [dataLabel]='totalDataLael' radius="80%" [palettes]='palette1'></e-accumulation-series>
-              </e-accumulation-series-collection>
-            </ejs-accumulationchart>      
-          </ion-list>
-        </ion-col>
-        <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4"> 
-          <ion-list>
-            <ejs-accumulationchart height='300' id="ageData" [tooltip]='tooltip' [title]='title2' >
-              <e-accumulation-series-collection>
-                  <e-accumulation-series [dataSource]='ageData' xName='x' yName='y' [dataLabel]='ageDataLabel' radius="80%" [palettes]='palette2'></e-accumulation-series>
-              </e-accumulation-series-collection>
-            </ejs-accumulationchart>      
-          </ion-list>
-        </ion-col>
-        <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4"> 
-          <ion-list>
-            <ejs-accumulationchart height='300' id="occupationData" [tooltip]='tooltip2' [title]='title3'>
-              <e-accumulation-series-collection>
-                  <e-accumulation-series [dataSource]='occuData' xName='x' yName='y' [dataLabel]='occuDataLabel' radius="80%"></e-accumulation-series>
-              </e-accumulation-series-collection>
-            </ejs-accumulationchart>      
-          </ion-list>
-        </ion-col>
-      </ion-row> -->
     </ion-grid>
 
-    
-    <ion-card class="web">
-      <ion-card-content>
-        <div class="headSection">
-          <div class="search">
-            <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
-          </div>
-          <div class="btns">
-            <ion-button class="button-download" color="success" (click)="exportExcel()" ><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
-            <ion-button class="button-download" color="success" (click)="exportToCSV()" ><ion-icon name="document-sharp"></ion-icon>CSV</ion-button>
-          </div>
-        </div>
-        <div class="horizontal-scroll">
-          <table class="table" id="table13" #epltable>
-            <thead>
-              <tr>
-                <th style="width: 40px;">
-                  Sr.No.		
-                </th>
-                <th>
-                  Name
-                </th>
-                <th>
-                  Category
-                </th>
-                <th>
-                  Appointment Date
-                </th>
-                <th>
-                  Phone No.	
-                </th>
-                <th>
-                  DoB					
-                </th>
-                <th>
-                  Work
-                </th>
-                <th>
-                  Other
-                </th>
-                <th>
-                  District
-                </th>
-                <th>
-                  Taluka
-                </th>
-                <th>Flat / House No.</th>
-                <th>Society / Building Name</th>
-                <th>Ward</th>
-                <th>Pincode</th>
-                <th>City / Village</th>
-                <th>File</th>
-                <th>Remark</th>
-                <th>Added By</th>
-                <th>Status</th>
-                <th id="element-to-hide" data-html2canvas-ignore="true">
-                  Action
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of getApmList | filter:searchWeb">
-                <td>{{item.id}}</td>
-                <td class="text-capitalize">{{item.firstName}} {{item.middleName}} {{item.lastName}}</td>
-                <td>{{item.category}}</td>
-                <td>{{item.appointmentDate}}</td>
-                <td>
-                  {{item.phoneNo}}
-                </td>
-                <td>{{item.birthDate}}</td>
-                <td>{{item.work}}</td>
-                <td>{{item.other}}</td>
-                <td>{{item.district}}</td>
-                <td>{{item.taluka}}</td>
-                <td>{{item.houseNo}}</td>
-                <td>{{item.soc_BldgName}}</td>
-                <td>{{item.wardNo}}</td>
-                <td>{{item.pinCode}}</td>
-                <td>{{item.city_Village}}</td>
-                <td>{{item.fileName}}</td>
-                <td>{{item.remark}}</td>
-                <td>{{item.adminName}}</td>
-                <td>
-                  <!-- <ion-icon class="approveBtn" (click)="approveApm($event)" id="{{item.id}}" name="checkbox-sharp"></ion-icon>
-                  <ion-icon class="rejectBtn" (click)="rejectApm($event)" id="{{item.id}}"  name="close-circle-sharp"></ion-icon>
-                  <ion-icon class="rsBtn" (click)="rescheduleApm($event)" id="{{item.id}}" name="calendar-clear-sharp"></ion-icon> -->
-                  <select placeholder="Select" class="form-control-sm" [(ngModel)]="updateStatusModal.Status" (change)="changeStatus($event)" id="{{item.id}}">
-                    <option value="" selected>Select</option>
-                    <option value="Approved">Approve</option>
-                    <option value="Rejected">Reject</option>
-                    <option value="Reschedule">Reschedule</option>
-                  </select>
-                  
-                </td>
-                <td id="element-to-hide" data-html2canvas-ignore="true" class="action">
-                  <ion-icon (click)="editAppointment(item)" name="create-sharp"></ion-icon>
-                  <ion-icon (click)="deleteApm(item.id)" class="delete" name="trash-bin-sharp"></ion-icon> 
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <div *ngIf="!getApmList || getApmList.length === 0">
-            <p>No data</p>
-          </div>
-          <pagination-controls (pageChange)="cp = $event"></pagination-controls>
-
-          <ion-modal [isOpen]="isModalOpen" [backdropDismiss]="false">
-            <ng-template>
-              <ion-content class="ion-padding">
-                <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
-                  <ion-datetime 
-                    presentation="date" 
-                    [(ngModel)]="reschedule" 
-                    name="reschedule"
-                  >
-                    <span slot="title"> {{ year }} </span>
-                  </ion-datetime>
-              </form>
-              </ion-content>
-            </ng-template>
-          </ion-modal>
-        </div>
-      </ion-card-content>
-    </ion-card>
-
-    <!-- <ion-grid class="android">
-      <ion-searchbar *ngIf="isShow" [(ngModel)]="searchMob" animated="true"></ion-searchbar>
-      <ion-list>
-        <ion-item-sliding *ngFor="let item of getApmList | filter:searchMob">
-          <ion-item lines="full">
-            <ion-avatar slot="start">
-              <img src="assets/img/profile.png" />
-            </ion-avatar>
-            <ion-label>
-              <div class="nameDate">
-                <h3 class="text-capitalize"> {{item.firstName}} {{item.middleName}} {{item.lastName}} </h3>
-                <h4 class="date"> {{item.appointmentDate}}</h4>
-              </div>
-              <h4> {{item.phoneNo}} </h4>
-            </ion-label>
-          </ion-item>
-        </ion-item-sliding>
-        <div *ngIf="!getApmList || getApmList.length === 0" class="text-center noData">
-          <img src="assets/img/question.png" />
-          <p>No data available</p>
-          <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
-        </div>
-      </ion-list>
-    </ion-grid> -->
     <ion-grid class="android">
       <ion-searchbar *ngIf="isShow" [(ngModel)]="searchMob" animated="true"></ion-searchbar>
       <ion-list>

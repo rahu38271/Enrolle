@@ -22,7 +22,8 @@
               <div class="flex">
                 <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
                 <ion-card-header>
-                  <ion-card-title>Today's Appointments <span> ( {{currentDate | date:'dd MMMM yyyy'}} ) </span>, Total : {{todayApm.length}}</ion-card-title>
+                  <!-- ( {{currentDate | date:'dd MMMM yyyy'}} )  -->
+                  <ion-card-title>Today's Appointments, <span>  Total : {{totalItems}} </span></ion-card-title>
                   <div class="headerLine"></div>
                 </ion-card-header>
               </div>
@@ -96,7 +97,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of todayApm">
+                <tr *ngFor="let item of todayApm | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems}">
                   <td>{{item.id}}</td>
                   <td class="text-capitalize">{{item.firstName}} {{item.middleName}} {{item.lastName}}</td>
                   <td>{{item.category}}</td>
@@ -131,7 +132,10 @@
                 </tr>
               </tbody>
             </table>
-            
+            <div *ngIf="!todayApm || todayApm.length === 0" class="ion-text-center">
+              <p>No data</p>
+            </div>
+            <pagination-controls (pageChange)="event($event)"></pagination-controls>
           </div>
         </ion-card-content>
       </ion-card>

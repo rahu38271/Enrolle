@@ -43,23 +43,27 @@ export class VoterdataManagementComponent {
     ToAge:'',
     Village:'',
     Gender:'',
+    Occupation:'',
+    Education:'',
+    Cast:'',
+    Religion:'',
+    Society:'',
     UserId:'',
     roleID:'',
     PageNo:'',
-    NoofRow:''
+    NoofRow:'',
+    Language:''
   };
   partNo: any;
   PageNo:number=1;
   NoofRow:number=25;
   //allVoters: number = 0;
   totalItems:any;
+  SearchText:any;
    
   search(){
     this.isShow = !this.isShow
   }
-
-  
-
 
   onKeyPress(event) {
     if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {
@@ -102,6 +106,15 @@ keyPressNumbers(event) {
    }
 
    ngOnInit(){
+    if(this.SearchText==undefined){
+      this.SearchText = ''
+    }
+    else{
+      this.SearchText = this.SearchText
+    }
+  }
+
+  ionViewWillEnter(){
     this.partNo = this.route.snapshot.paramMap.get('partNo');
     this.userId = this.route.snapshot.paramMap.get('id');
     this.roleID = localStorage.getItem("userType");
@@ -115,6 +128,7 @@ keyPressNumbers(event) {
   }
 
   boothWiseVoterListData(PageNo:any,NoofRow:any, Language:any){
+    this.Language = this.translateConfigService.getCurrentLang();
     if (this.Language == "kn") {
       this.Language = "Kannada"
     }
@@ -129,7 +143,7 @@ keyPressNumbers(event) {
     }
     this.voter.boothWiseVoterList(this.partNo,PageNo,NoofRow,this.Language).subscribe((data:any)=>{
       this.loader.hideLoader();
-      if(data){
+      if(data.length != 0){
         this.partNo = this.partNo
         this.voterByPart = data;
         this.totalItems = data[0].totalCount
@@ -164,8 +178,10 @@ keyPressNumbers(event) {
   }
 
   searchData(){
-    this.searchModal.PageNo = this.searchModal.PageNo;
-    this.searchModal.NoofRow = this.searchModal.NoofRow;
+    debugger;
+    this.searchModal.Language = this.Language;
+    this.searchModal.PageNo = 1;
+    this.searchModal.NoofRow = 25;
     if(this.searchModal.LastName == ''){
       this.searchModal.LastName = null
     }
@@ -232,6 +248,36 @@ keyPressNumbers(event) {
     else{
       this.searchModal.Village = this.searchModal.Village;
     }
+    if(this.searchModal.Occupation == ''){
+      this.searchModal.Occupation = null
+    }
+    else{
+      this.searchModal.Occupation = this.searchModal.Occupation;
+    }
+    if(this.searchModal.Education == ''){
+      this.searchModal.Education = null
+    }
+    else{
+      this.searchModal.Education = this.searchModal.Education;
+    }
+    if(this.searchModal.Cast == ''){
+      this.searchModal.Cast = null
+    }
+    else{
+      this.searchModal.Cast = this.searchModal.Cast;
+    }
+    if(this.searchModal.Society == ''){
+      this.searchModal.Society = null
+    }
+    else{
+      this.searchModal.Society = this.searchModal.Society;
+    }
+    if(this.searchModal.Religion == ''){
+      this.searchModal.Religion = null
+    }
+    else{
+      this.searchModal.Religion = this.searchModal.Religion;
+    }
     this.searchModal.UserId = Number(this.userId);
     this.searchModal.roleID = Number(this.roleID);
     this.searchModal.PartNo = this.partNo;
@@ -239,9 +285,10 @@ keyPressNumbers(event) {
     this.searchModal.NoofRow = Number(this.NoofRow);
     this.loader.showLoading();
     this.voter.advanceSearch(this.searchModal).subscribe(data=>{
-      if(data){
+      if(data.length != 0){
         this.loader.hideLoader();
         this.voterByPart = data;
+        this.totalItems = data[0].totalCount
       }
       else{
         this.loader.hideLoader();
@@ -252,6 +299,7 @@ keyPressNumbers(event) {
         this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
     })
   }
+
 
   exportExcel():void {
     this.excel.exportAsExcelFile(this.voterByPart, 'Society');

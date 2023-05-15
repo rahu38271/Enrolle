@@ -1,10 +1,11 @@
-import { Component, OnInit   } from '@angular/core';
+import { Component, OnInit, ViewChild  } from '@angular/core';
 import { LoaderService } from 'src/app/services/loader.service'
 import { AppointmentService } from 'src/app/services/appointment.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { Router } from '@angular/router';
 import { ContactService } from 'src/app/services/contact.service'
 import { NgForm } from '@angular/forms';
+import { IonModal } from '@ionic/angular';
 
 
 @Component({
@@ -13,6 +14,8 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./add-appointment.component.scss'],
 })
 export class AddAppointmentComponent implements OnInit {
+
+  @ViewChild(IonModal) modal: IonModal;
 
   appointmentModal:any={};
   districtList: any;
@@ -109,7 +112,8 @@ export class AddAppointmentComponent implements OnInit {
         this.loader.hideLoader();
         this.appointmentModal = {};
         this.toast.presentToast("Appointment added successfully!", "success", 'checkmark-circle-sharp');
-        this.router.navigate(['/appointment']);
+        this.router.navigate(['/appointment/all-appointments']);
+        
       }
       else{
         this.loader.hideLoader();
@@ -132,6 +136,10 @@ export class AddAppointmentComponent implements OnInit {
 
   resetForm(){
     this.myForm.reset();
+  }
+
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
   }
 
 }

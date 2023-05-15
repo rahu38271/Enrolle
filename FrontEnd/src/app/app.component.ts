@@ -150,6 +150,12 @@ export class AppComponent implements OnInit {
     if(this.roleId == 4){
       this.roleName = "Volunteer"
     }
+    if(this.roleId == 5){
+      this.roleName = "Society"
+    }
+    if(this.roleId == 6){
+      this.roleName = "Member"
+    }
 
     var roleId = localStorage.getItem("userType");
     //this.roleType = roleName
@@ -157,6 +163,8 @@ export class AppComponent implements OnInit {
     var isSuperAdmin = roleId == "2"
     var isAdmin = roleId == "3";
     var isVolunteer = roleId == "4"
+    var isSociety = roleId == "5"
+    var isMember = roleId == "6"
     this.cdr.detectChanges();
 
     this.isDashboard = isMasterAdmin|| isSuperAdmin || isAdmin || isVolunteer;
@@ -183,7 +191,7 @@ export class AppComponent implements OnInit {
     this.isNotifications = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isLetterTracking = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isAppoReport =  isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isComBook = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isComBook = isMasterAdmin|| isSuperAdmin || isAdmin || isSociety || isMember;
     })
     
     
@@ -314,8 +322,6 @@ export class AppComponent implements OnInit {
     const { role } = await popover.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
   }
-
-  
 
 }
 

@@ -22,6 +22,7 @@ export class AddresswiseListComponent implements OnInit {
   PageNo:any=1;
   NoofRow:any=25;
   totalItems:any;
+  SearchText:any
    
   search(){
     this.isShow = !this.isShow
@@ -41,17 +42,24 @@ export class AddresswiseListComponent implements OnInit {
   ngOnInit() {
     this.userId = localStorage.getItem("loginId");
     this.roleID = localStorage.getItem("userType");
-    this.addressName= this.route.snapshot.paramMap.get('addressName')
-    this.addressWiseVoterData(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language) 
+    this.addressName= this.route.snapshot.paramMap.get('addressName');
+    if(this.SearchText==undefined){
+      this.SearchText = ''
+    }
+    else{
+      this.SearchText = this.SearchText
+    }
+    this.addressWiseVoterData(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText) 
 
   }
 
   event(event:any){
     this.PageNo = event;
-    this.addressWiseVoterData(this.userId,this.roleID,event,this.NoofRow,this.Language)
+    this.addressWiseVoterData(this.userId,this.roleID,event,this.NoofRow,this.Language,this.SearchText)
   }
 
-  addressWiseVoterData(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any){
+  addressWiseVoterData(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){
+    this.Language = this.translateConfigService.getCurrentLang();
     if(this.Language == "kn"){
       this.Language = "Kannada"
     }
@@ -64,14 +72,35 @@ export class AddresswiseListComponent implements OnInit {
     else{
       this.Language = "English"
     }
-    this.voter.voterByAddress(this.addressName,userId,roleID,PageNo,NoofRow,this.Language).subscribe(data=>{
-      this.addressWiseList = data;
-      this.totalItems = data[0].totalCount
+    this.voter.voterByAddress(this.addressName,userId,roleID,PageNo,NoofRow,this.Language,this.SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.addressWiseList = data;
+        this.totalItems = data[0].totalCount
+      }
+      else{
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    },(err)=>{
+
     })
   }
 
   voterDetails(item:any){
     this.router.navigate(['voterdata-management/voter-details'], { state: item })
    }
+
+  onSearchText(SearchText: any) {
+    this.PageNo = 1;
+    this.NoofRow = this.totalItems;
+    this.SearchText = SearchText;
+    this.addressWiseVoterData(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText)
+  }
+
+  keyPress(SearchText: any) {
+    this.PageNo = 1;
+    this.NoofRow = this.totalItems;
+    this.SearchText = SearchText;
+    this.addressWiseVoterData(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText)
+  }
 
 }

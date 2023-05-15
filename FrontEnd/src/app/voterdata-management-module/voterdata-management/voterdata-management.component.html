@@ -128,37 +128,37 @@
 
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> Cast </ion-label>
-              <ion-input name="Profession" class="form-control" ></ion-input>
+              <ion-input name="Cast" [(ngModel)]="searchModal.Cast"  class="form-control"  ></ion-input>
             </ion-col>
 
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> Occupation / Profession</ion-label>
-              <ion-input name="Profession" class="form-control" ></ion-input>
+              <ion-input name="Occupation" [(ngModel)]="searchModal.Occupation"  class="form-control" ></ion-input>
             </ion-col>
 
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> Education </ion-label>
-              <ion-input name="Education" class="form-control" ></ion-input>
+              <ion-input name="Education" [(ngModel)]="searchModal.Education" class="form-control" ></ion-input>
             </ion-col>
 
-            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+            <!-- <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> Zone </ion-label>
               <ion-input name="Zone" class="form-control" ></ion-input>
-            </ion-col>
+            </ion-col> -->
 
-            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+            <!-- <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> Only Mobile No. </ion-label>
               <ion-input name="onlyMobile" class="form-control" ></ion-input>
-            </ion-col>
+            </ion-col> -->
 
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> Society </ion-label>
-              <ion-input name="Societywise" class="form-control" ></ion-input>
+              <ion-input name="Society" [(ngModel)]="searchModal.Society" class="form-control" ></ion-input>
             </ion-col>
 
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> Religion </ion-label>
-              <ion-input name="Societywise" class="form-control" ></ion-input>
+              <ion-input name="Religion" [(ngModel)]="searchModal.Religion" class="form-control" ></ion-input>
             </ion-col>
   
             
@@ -281,7 +281,7 @@
             <ion-row>
               <ion-col>
                 <div class="search">
-                  <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+                  
                 </div>
               </ion-col>
               <ion-col class="ion-text-right">
@@ -317,7 +317,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of voterByPart | paginate: { itemsPerPage:NoofRow, currentPage: PageNo,totalItems:totalItems } | filter:searchWeb ; let i=index">
+                <tr *ngFor="let item of voterByPart | paginate: { itemsPerPage:NoofRow, currentPage: PageNo,totalItems:totalItems }; let i=index">
                   <td>{{item.id}}</td>
                   <td class="text-capitalize editVoter" (click)="EditVoter(item)">{{item.fullName}}</td>
                   <td>{{item.booth}}</td>

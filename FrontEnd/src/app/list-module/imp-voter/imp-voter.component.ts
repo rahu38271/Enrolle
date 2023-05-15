@@ -12,68 +12,91 @@ import { TranslateConfigService } from 'src/app/services/translate-config.servic
 export class ImpVoterComponent implements OnInit {
   Language: any;
   isShow = false;
-  impVoterData: any[] = [];
+  impVoterData: any;
   userId: any;
-  roleID:any;
-  searchMob:string;
-  PageNo:any=1;
-  NoofRow:any=25;
-  totalItems:any;
-   
-  search(){
+  roleID: any;
+  searchMob: string;
+  PageNo: any = 1;
+  NoofRow: any = 10;
+  totalItems: any;
+  SearchText: any;
+
+  search() {
     this.isShow = !this.isShow
   }
 
-  constructor( 
-    private router:Router, 
-    private voter:VoterService,
-    private loader:LoaderService,
+  constructor(
+    private router: Router,
+    private voter: VoterService,
+    private loader: LoaderService,
     private translateConfigService: TranslateConfigService,
-    ) {
+  ) {
     this.Language = this.translateConfigService.getCurrentLang();
-   }
+  }
 
   ngOnInit(): void {
     this.userId = localStorage.getItem("loginId");
-    this.roleID = localStorage.getItem("userType")
-    this.impVoterList(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language);
+    this.roleID = localStorage.getItem("userType");
+    if (this.SearchText == undefined) {
+      this.SearchText = ''
     }
-
-    event(event:any){
-      this.PageNo = event;
-      this.impVoterList(this.userId,this.roleID,event,this.NoofRow,this.Language)
+    else {
+      this.SearchText = this.SearchText
     }
+    this.impVoterList(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+  }
 
-    voterDetails(item:any){
-      this.router.navigate(['voterdata-management/voter-details'], { state: item })
-     }
+  event(event: any) {
+    this.PageNo = event;
+    this.impVoterList(this.userId, this.roleID, event, this.NoofRow, this.Language, this.SearchText)
+  }
 
-  impVoterList(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any){
-    this.loader.showLoading();
-    if(this.Language == "kn"){
+  voterDetails(item: any) {
+    this.router.navigate(['voterdata-management/voter-details'], { state: item })
+  }
+
+  impVoterList(userId: any, roleID: any, PageNo: any, NoofRow: any, Language: any, SearchText: any) {
+    //this.loader.showLoading();
+    this.Language = this.translateConfigService.getCurrentLang();
+    if (this.Language == "kn") {
       this.Language = "Kannada"
     }
-    else if(this.Language == "mr"){
+    else if (this.Language == "mr") {
       this.Language = "Marathi"
     }
     else if (this.Language == "hi") {
       this.Language = "Hindi"
     }
-    else{
+    else {
       this.Language = "English"
     }
-    this.voter.impVoter(userId,roleID,PageNo,NoofRow,this.Language).subscribe(data=>{
-      if(data){
-        this.loader.hideLoader();
+    this.voter.impVoter(userId, roleID, PageNo, NoofRow, this.Language, this.SearchText).subscribe(data => {
+      if (data.length != 0) {
+        //this.loader.hideLoader();
         this.impVoterData = data;
         this.totalItems = data[0].totalCount
       }
-      else{
-        this.loader.hideLoader();
+      else {
+        //this.loader.hideLoader();
       }
-    },(err)=>{
-      this.loader.hideLoader();
+    }, (err) => {
+      //this.loader.hideLoader();
     })
   }
+
+  onSearchChange(SearchText: any) {
+    this.PageNo = 1;
+    this.NoofRow = this.totalItems;
+    this.SearchText = SearchText;
+    this.impVoterList(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+  }
+
+  keyPress(SearchText: any) {
+    this.PageNo = 1;
+    this.NoofRow = this.totalItems;
+    this.SearchText = SearchText;
+    this.impVoterList(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+  }
+
 
 }

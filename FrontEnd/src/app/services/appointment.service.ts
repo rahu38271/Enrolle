@@ -13,15 +13,32 @@ export class AppointmentService {
   constructor(private http:HttpClient) { }
 
   // get appointment list
-  getAppointments(UserId:any,roleID:any){
-    return this.http.get<any>(this.url+'Appointment/GetAllAppointment?UserId='+UserId+'&RoleId='+roleID);
-    
+  getAppointments(UserId:any,roleID:any,PageNo:any,NoofRow:any,SearchText:any):Observable<any>{
+    // return this.http.get<any>(this.url+'Appointment/GetAllAppointment?UserId='+UserId+'&RoleId='+roleID);
+    return this.http.get<any>(this.url+'Appointment/GetAllAppointment?UserId='+UserId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText )
+  }
+
+  // get approved appointment list
+  getApprovedAppointments(UserId:any,roleID:any,PageNo:any,NoofRow:any,SearchText:any){
+    return this.http.get<any>(this.url+'Appointment/GetAppointmentbyStatus?Status=Approved&UserId='+UserId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText)
+  }
+
+  // get rejected appointment list
+  getRejectedAppointments(UserId:any,roleID:any,PageNo:any,NoofRow:any,SearchText:any){
+    return this.http.get<any>(this.url+'Appointment/GetAppointmentbyStatus?Status=Rejected&UserId='+UserId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText)
+  }
+
+  // get appointment list
+  getAppointmentByUser(UserId:any,PageNo:any,NoofRow:any,SearchText:any){
+    // return this.http.get<any>(this.url+'Appointment/GetAppointmentbyUserId?UserId='+UserId);
+    return this.http.get<any>(this.url+'Appointment/GetAppointmentbyUserId?UserId='+UserId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText);
   }
 
   // today appointmentList 
 
-  todaysApm(UserId:any, roleID:any){
-    return this.http.get<any>(this.url+'Appointment/GetTodayAppointment?UserId='+UserId+'&RoleId='+roleID)
+  todaysApm(UserId:any,roleID:any,PageNo:any,NoofRow:any,SearchText:any){
+    // return this.http.get<any>(this.url+'Appointment/GetTodayAppointment?UserId='+UserId+'&RoleId='+roleID)
+    return this.http.get<any>(this.url+'Appointment/GetTodayAppointment?UserId='+UserId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText)
   }
 
   // single api for add and update appointment 
@@ -36,10 +53,10 @@ export class AppointmentService {
   }
 
   // get appointment by date
-  searchAppointment(UserId:any,roleID:any,FromDate:any,ToDate:any){
+  searchAppointment(UserId:any,roleID:any,FromDate:any,ToDate:any,PageNo:any,NoofRow:any,SearchText:any){
     debugger;
-    //return this.http.get<any>(this.url+'Appointment/GetAppointmentbyDate?UserId='+UserId+'&RoleId='+roleID+'&dateTime='+apmDate)
-    return this.http.get<any>(this.url+'Appointment/GetAppointmentbyFromToDate?UserId='+UserId+'&RoleId='+roleID+'&FromDate='+FromDate+'&ToDate='+ToDate)
+    // return this.http.get<any>(this.url+'Appointment/GetAppointmentbyFromToDate?UserId='+UserId+'&RoleId='+roleID+'&FromDate='+FromDate+'&ToDate='+ToDate)
+    return this.http.get<any>(this.url+'Appointment/GetAppointmentbyFromToDate?UserId='+UserId+'&RoleId='+roleID+'&FromDate='+FromDate+'&ToDate='+ToDate+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText)
   }
 
   //approve reject reschedule appointment 

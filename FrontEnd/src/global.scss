@@ -28,6 +28,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
+//@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@600&display=swap');
 
 
 .yes {
@@ -96,7 +97,7 @@ ion-split-pane {
     --side-max-width: 14%;
 }
 
-  ion-title { padding-inline: 5px; font-size: 17px; font-weight: 600; line-height: 28px; color: #fff; }
+  ion-title { padding-inline: 5px; font-size: 15px; font-weight: 600; line-height: 28px; color: #fff; }
 
   ion-back-button{
     --icon-font-size: 18px !important;
@@ -295,4 +296,8 @@ ion-buttons ion-icon {
 
 ion-back-button {
     color: #FFF !important;
+}
+
+.backBtn {
+    font-size: 20px;
 }

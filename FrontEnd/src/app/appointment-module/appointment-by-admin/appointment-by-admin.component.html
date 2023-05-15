@@ -21,7 +21,7 @@
           <ion-row>
             <ion-col size-xs="12" size-sm="6">
               <ion-card-header>
-                <ion-card-title>Appointments <span></span></ion-card-title>
+                <ion-card-title>Appointments By <span class="text-capitalize"> {{admin}}  </span>, Total - {{totalItems}}</ion-card-title>
                 <div class="headerLine"></div>
               </ion-card-header>
             </ion-col>
@@ -34,129 +34,6 @@
       </div>
   
       <ion-grid>
-        <ion-row>
-          <ion-col size-xs="12" size-sm="12" size-md="12">
-            
-              <ion-row *ngFor="let item of apmCount">
-                <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6" >
-                  <ion-list class="survey-list" routerLink="/appointment">
-                      <ion-item lines="none">
-                        <ion-label class="contact">
-                            <i class="icofont icofont-search-document"></i>
-                            <div>
-                              <h3> All Appointments </h3>
-                              <h4> {{item.totalAppointment}} </h4>
-                            </div>
-                        </ion-label>
-                      </ion-item>
-                  </ion-list>
-                </ion-col>
-  
-                <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6" >
-                  <ion-list class="survey-list" routerLink="/appointment/add-appointment">
-                      <ion-item lines="none">
-                        <ion-label>
-                          <div class="contact">
-                            <i class="icofont icofont-ui-clock"></i>
-                            <div>
-                              <h3>  Add Appointment </h3>
-                              <h4> - </h4>
-                            </div>
-                          </div>
-                        </ion-label>
-                      </ion-item>
-                  </ion-list>
-                </ion-col>
-  
-                <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6" >
-                  <ion-list class="survey-list" routerLink="/appointment/today-appointment">
-                      <ion-item lines="none">
-                        <ion-label>
-                          <!-- <img src="assets/img/contact-book.png" alt="" class="brightness"> -->
-                          <div class="contact">
-                            <i class="icofont icofont-contact-add"></i>
-                            <div>
-                              <h3> Today's  </h3>
-                              <h4> {{item.todayAppointment}} </h4>
-                            </div>
-                          </div>
-                        </ion-label>
-                      </ion-item>
-                  </ion-list>
-                </ion-col>
-        
-                <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6" >
-                  <ion-list class="survey-list" routerLink="/approved-appointment">
-                    <ion-item lines="none">
-                        <ion-label>
-                          <div class="contact">
-                            <!-- <img src="assets/img/cake.png" alt=""> -->
-                            <i class="icofont icofont-ui-check"></i>
-                            <div>
-                              <h3>  Approved </h3>
-                              <h4> {{item.approved}} </h4>
-                            </div>
-                          </div>
-                        </ion-label>
-                      </ion-item>
-                  </ion-list>
-                </ion-col>
-                <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6" > 
-                  <ion-list class="survey-list" routerLink="/approved-appointment/rejected">
-                    <ion-item lines="none" >
-                        <ion-label>
-                          <!-- <img src="assets/img/anniversary.png" alt=""> -->
-                          <div class="contact">
-                            <i class="icofont icofont-ui-close"></i>
-                            <div>
-                              <h3> Rejected </h3>
-                              <h4> {{item.rejected}} </h4>
-                            </div>
-                          </div>
-                        </ion-label>
-                      </ion-item>
-                  </ion-list>
-                </ion-col>
-  
-                <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6">
-                  <ion-list class="survey-list" routerLink="/appointment/appointment-byDate">
-                    <ion-item lines="none">
-                        <ion-label>
-                          <!-- <img src="assets/img/anniversary.png" alt=""> -->
-                          <div class="contact">
-                            <i class="icofont icofont-calendar"></i>
-                            <div>
-                              <h3>  Datewise </h3>
-                              <h4> - </h4>
-                            </div>
-                          </div>
-                        </ion-label>
-                      </ion-item>
-                  </ion-list>
-                </ion-col>
-  
-                <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6" *ngIf="isSuperAdmin">
-                  <ion-list class="survey-list" routerLink="/appointment/appointment-adminwise">
-                    <ion-item lines="none">
-                        <ion-label>
-                          <!-- <img src="assets/img/anniversary.png" alt=""> -->
-                          <div class="contact">
-                            <i class="icofont icofont-ui-user-group"></i>
-                            <div>
-                              <h3>  Adminwise </h3>
-                              <h4> - </h4>
-                            </div>
-                          </div>
-                        </ion-label>
-                      </ion-item>
-                  </ion-list>
-                </ion-col>
-              </ion-row>
-           
-          </ion-col>
-  
-         
-        </ion-row>
   
         <!-- <ion-row>
           <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4"> 
@@ -218,10 +95,10 @@
                     Appointment Date
                   </th>
                   <th>
-                    Phone No.	
+                    Mobile No.	
                   </th>
                   <th>
-                    DoB					
+                    Birthdate					
                   </th>
                   <th>
                     Work
@@ -250,7 +127,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of getApmList | filter:searchWeb">
+                <tr *ngFor="let item of getApmList | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems};let i=index">
                   <td>{{item.id}}</td>
                   <td class="text-capitalize">{{item.firstName}} {{item.middleName}} {{item.lastName}}</td>
                   <td>{{item.category}}</td>
@@ -293,7 +170,7 @@
             <div *ngIf="!getApmList || getApmList.length === 0">
               <p>No data</p>
             </div>
-            <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+            <pagination-controls (pageChange)="event($event)"></pagination-controls>
   
             <ion-modal [isOpen]="isModalOpen" [backdropDismiss]="false">
               <ng-template>

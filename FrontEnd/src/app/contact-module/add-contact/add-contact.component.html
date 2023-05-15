@@ -30,8 +30,8 @@
 
           
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
-            <ion-label position="floating"> Village Name  <span>*</span> </ion-label>
-              <ion-input name="VilageName" [(ngModel)]="contactModal.VilageName" #VilageName="ngModel" [ngClass]="{'is-invalid': f.submitted && VilageName.invalid}" class="text-capitalize form-control" required ></ion-input>
+            <ion-label position="floating"> Village Name  </ion-label>
+              <ion-input name="VilageName" [(ngModel)]="contactModal.VilageName" #VilageName="ngModel" [ngClass]="{'is-invalid': f.submitted && VilageName.invalid}" class="text-capitalize form-control" ></ion-input>
               <div *ngIf="f.submitted && VilageName.invalid" class="invalid-feedback">
                 <div *ngIf="VilageName.errors.required">
                   Please enter village name
@@ -40,23 +40,25 @@
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="calendar">
-            <ion-label> BirthDate <span>*</span> </ion-label>
+            <ion-label> BirthDate </ion-label>
             <ion-input
               value="{{ BirthDate | date: 'yyyy-MM-dd' }}"
               id="BirthDate"
               class="form-control"
               name="BirthDate" 
               [(ngModel)]="contactModal.BirthDate"
-              required
+              
             ></ion-input>
             
-            <ion-modal trigger="BirthDate" size="cover">
+            <ion-modal trigger="BirthDate" size="cover" [canDismiss]="canDismiss" 
+            [backdropDismiss]="false" >
               <ng-template>
                 <ion-datetime
                   max={{maxDate}}
                   presentation="date"
                   [(ngModel)]="BirthDate"
                   name="BirthDate"
+                  show-default-buttons="true"
                 >
                 <span slot="title"> {{ year }} </span>
               </ion-datetime>
@@ -73,13 +75,15 @@
               name="Anniversary" 
               [(ngModel)]="contactModal.Anniversary"
             ></ion-input>
-            <ion-modal trigger="Anniversary" size="cover">
+            <ion-modal trigger="Anniversary" size="cover" [canDismiss]="canDismiss" 
+            [backdropDismiss]="false" >
               <ng-template>
                 <ion-datetime
                   max={{maxDate}}
                   presentation="date"
                   [(ngModel)]="Anniversary"
                   name="Anniversary"
+                  show-default-buttons="true"
                 >
                 <span slot="title"> {{ year }} </span>
               </ion-datetime>
@@ -92,7 +96,7 @@
             <ion-label position="floating"> Mobile No.  <span>*</span> </ion-label>
               <ion-input 
                 minlength="10" 
-                maxlength="10" 
+                maxlength="12" 
                 (keypress)="keyPressNumbers($event)" 
                 name="MobileNo" 
                 [(ngModel)]="contactModal.MobileNo" 
@@ -114,7 +118,7 @@
          
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
             <ion-label position="floating"> Alternate Mobile </ion-label>
-              <ion-input maxlength="10" (keypress)="keyPressNumbers($event)" name="AlternativeMobileNo" [(ngModel)]="contactModal.AlternativeMobileNo" class="form-control" ></ion-input>
+              <ion-input minlength="10" maxlength="12"  (keypress)="keyPressNumbers($event)" name="AlternativeMobileNo" [(ngModel)]="contactModal.AlternativeMobileNo" class="form-control" ></ion-input>
           </ion-col>
 
           <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
@@ -209,8 +213,8 @@
           
 
           <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
-            <ion-label position="floating"> Address  <span>*</span>  </ion-label>
-              <ion-textarea name="Address" [(ngModel)]="contactModal.Address" #Address="ngModel" [ngClass]="{'is-invalid': f.submitted && Address.invalid}" class="form-control" rows="3" required ></ion-textarea>
+            <ion-label position="floating"> Address   </ion-label>
+              <ion-textarea name="Address" [(ngModel)]="contactModal.Address" #Address="ngModel" [ngClass]="{'is-invalid': f.submitted && Address.invalid}" class="form-control" rows="3" ></ion-textarea>
               <div *ngIf="f.submitted && Address.invalid" class="invalid-feedback">
                 <div *ngIf="Address.errors.required">
                   Please enter address

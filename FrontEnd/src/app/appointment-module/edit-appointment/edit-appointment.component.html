@@ -39,7 +39,7 @@
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
-            <ion-label> DOB </ion-label>
+            <ion-label> BirthDate </ion-label>
             <ion-input 
               value="{{ birthDate | date: 'yyyy-MM-dd' }}" 
               [(ngModel)]="appointmentModal.birthDate" 
@@ -50,13 +50,15 @@
             >
             </ion-input>
 
-            <ion-modal trigger="birthDate" size="cover">
+            <ion-modal trigger="birthDate" size="cover" [canDismiss]="canDismiss" 
+            [backdropDismiss]="false" >
               <ng-template>
                 <ion-datetime 
                 max={{maxDate}}
                   presentation="date" 
                   [(ngModel)]="birthDate" 
                   name="birthDate"
+                  show-default-buttons="true"
                 >
                   <span slot="title"> {{ year }} </span>
                 </ion-datetime>
@@ -65,7 +67,7 @@
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
-            <ion-label> Phone No. <span>*</span> </ion-label>
+            <ion-label> Mobile No. <span>*</span> </ion-label>
             <ion-input 
               name="PhoneNo" 
               [(ngModel)]="appointmentModal.phoneNo" 
@@ -90,10 +92,12 @@
             >
             </ion-input>
 
-            <ion-modal trigger="appointmentDate" size="cover">
+            <ion-modal trigger="appointmentDate" size="cover" [canDismiss]="canDismiss" 
+            [backdropDismiss]="false" >
               <ng-template>
                 <ion-datetime  
                 min={{minDate}}
+                show-default-buttons="true"
                   [(ngModel)]="appointmentDate" 
                   name="appointmentDate">
                   <span slot="title"> {{ year }} </span>
@@ -168,17 +172,17 @@
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Society / Building Name </ion-label>
-            <ion-input name="Soc_BldgName" [(ngModel)]="appointmentModal.soc_BldgName" class="form-control" ></ion-input>
+            <ion-input name="Soc_BldgName" [(ngModel)]="appointmentModal.soc_BldgName" class="form-control text-capitalize" ></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="2" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Ward No. </ion-label>
-            <ion-input name="wardNo" [(ngModel)]="appointmentModal.wardNo" class="form-control"></ion-input>
+            <ion-input type="number" name="wardNo" [(ngModel)]="appointmentModal.wardNo" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="2" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Pincode </ion-label>
-            <ion-input name="Pincode" maxlength="6" [(ngModel)]="appointmentModal.pinCode" class="form-control" ></ion-input>
+            <ion-input type="number" name="Pincode" maxlength="6" [(ngModel)]="appointmentModal.pinCode" class="form-control" ></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">

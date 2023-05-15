@@ -18,7 +18,7 @@
           </form>
         </ion-col>
         <ion-col>
-          <a (click)="ShareWhatsapp1()">
+          <a (click)="ShareWhatsapp()">
             <img src="/assets/img/sharing.png" alt="">
           </a>
           <!-- <a href="https://api.whatsapp.com/send?phone={{ VoterListByUser.mobileNo }}" (click)="ShareWhatsapp()">
@@ -233,27 +233,28 @@
 
       </ion-row>
 
-      <ion-modal #modal trigger="address">
+      <ion-modal #modal trigger="address" (willDismiss)="onWillDismiss($event)" [backdropDismiss]="false" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
         <ng-template>
           <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
             <ion-grid>
               <ion-row>
                 <ion-col size="12" class="ion-text-center">
-                  <h6>Edit Address</h6>
+                  <h5>Edit Address</h5>
                 </ion-col>
+                
                 <ion-col size="12">
                   <div>
-                    <ion-textarea rows="4" name="Address" [(ngModel)]="adrsUpdate.Address" class="form-control"
+                    <ion-textarea maxlength="160" rows="4" name="Address" [(ngModel)]="adrsUpdate.Address" class="form-control"
                       required></ion-textarea>
                   </div>
                 </ion-col>
                 <ion-col size="12" class="ion-text-center">
-                  <ion-button type="submit" color="success" size="small" (click)="saveAddress()"
+                  <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
+                    {{'Cancel' | translate}}
+                  </ion-button>
+                  <ion-button type="submit" color="success" size="medium" (click)="saveAddress()"
                     [disabled]="!f.form.valid">
                     {{'Submit' | translate}}
-                  </ion-button>
-                  <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
-                    {{'Clear' | translate}}
                   </ion-button>
                 </ion-col>
               </ion-row>
@@ -343,13 +344,13 @@
 
       </ion-row>
 
-      <ion-modal trigger="mobile" (willDismiss)="onWillDismiss($event)">
+      <ion-modal trigger="mobile" (willDismiss)="onWillDismiss($event)" [backdropDismiss]="false" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
         <ng-template>
           <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
             <ion-grid>
               <ion-row>
                 <ion-col size="12" class="ion-text-center">
-                  <h6>Add Mob. No.</h6>
+                  <h5>Add Mob. No.</h5>
                 </ion-col>
                 <ion-col size="12">
                   <div>
@@ -359,12 +360,12 @@
                   </div>
                 </ion-col>
                 <ion-col size="12" class="ion-text-center">
-                  <ion-button type="submit" color="success" size="small" (click)="saveMobile()"
-                    [disabled]="!f.form.valid">
+                  <ion-button type="submit" color="success" size="medium" (click)="saveMobile()"
+                    >
                     {{'Submit' | translate}}
                   </ion-button>
-                  <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
-                    {{'Clear' | translate}}
+                  <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
+                    {{'Cancel' | translate}}
                   </ion-button>
                 </ion-col>
               </ion-row>
@@ -375,28 +376,27 @@
       </ion-modal>
 
 
-      <ion-modal #modal trigger="altMobile" (willDismiss)="onWillDismiss($event)">
+      <ion-modal #modal trigger="altMobile" (willDismiss)="onWillDismiss($event)" [backdropDismiss]="false" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
         <ng-template>
           <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
             <ion-grid>
               <ion-row>
                 <ion-col size="12" class="ion-text-center">
-                  <h6>Add Alt. No.</h6>
+                  <h5>Add Alt. Mobile No.</h5>
                 </ion-col>
                 <ion-col size="12">
                   <div>
                     <ion-input maxlength="12" minlength="10" name="altMobile"
                       [(ngModel)]="altmobUpdate.AlternateMobileNo" (keypress)="keyPressNumbers($event)"
-                      class="form-control" required></ion-input>
+                      class="form-control"></ion-input>
                   </div>
                 </ion-col>
                 <ion-col size="12" class="ion-text-center">
-                  <ion-button type="submit" color="success" size="small" (click)="saveAltMobile()"
-                    [disabled]="!f.form.valid">
+                  <ion-button type="submit" color="success" size="medium" (click)="saveAltMobile()">
                     {{'Submit' | translate}}
                   </ion-button>
-                  <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
-                    {{'Clear' | translate}}
+                  <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
+                    {{'Cancel' | translate}}
                   </ion-button>
                 </ion-col>
               </ion-row>
@@ -442,20 +442,20 @@
       </ion-row>
 
 
-      <ion-modal #modal trigger="deadAlive" (willDismiss)="onWillDismiss($event)">
+      <ion-modal #modal trigger="deadAlive" (willDismiss)="onWillDismiss($event)" [backdropDismiss]="false" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
         <ng-template>
           <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
             <ion-grid>
               <ion-row>
                 <ion-col size="12" class="ion-text-center">
-                  <h6>Alive</h6>
+                  <h5>Alive</h5>
                 </ion-col>
-                <ion-col size="12">
+                <ion-col size="4">
                   <ion-label>Is Alive ?</ion-label>
                 </ion-col>
-                <ion-col size="12">
+                <ion-col size="8">
 
-                  <div>
+                  <div class="aliveRadioBtn">
                     <ion-radio-group name="deadAlive" [(ngModel)]="deadAlive.YesNo">
                       <div class="radioBtn">
                         <ion-radio value="N"></ion-radio>
@@ -467,12 +467,12 @@
                   </div>
                 </ion-col>
                 <ion-col size="12" class="ion-text-center">
-                  <ion-button type="submit" color="success" size="small" (click)="aliveDead()"
+                  <ion-button type="submit" color="success" size="medium" (click)="aliveDead()"
                     [disabled]="!f.form.valid">
                     {{'Submit' | translate}}
                   </ion-button>
-                  <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
-                    {{'Clear' | translate}}
+                  <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
+                    {{'Cancel' | translate}}
                   </ion-button>
                 </ion-col>
               </ion-row>
@@ -520,14 +520,21 @@
         </ion-modal>
       </div> -->
 
-      <ion-modal #modal trigger="dob" [canDismiss]="canDismiss">
+      <ion-modal 
+        #modal trigger="dob" 
+        [canDismiss]="canDismiss" 
+        [backdropDismiss]="false" 
+        [initialBreakpoint]="1" 
+        [breakpoints]="[0, 1]"
+        
+      >
         <ng-template>
           <div>
             <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
               <ion-grid>
                 <ion-row>
                   <ion-col class="ion-text-center">
-                    <h6>Add Birthdate</h6>
+                    <h5>Add Birthdate</h5>
                   </ion-col>
                   <ion-col size="12">
                     <ion-list>
@@ -535,7 +542,7 @@
                         name="Birthdate" [(ngModel)]="BirthdateUpdate.ColoumnValue"></ion-input>
                       <ion-modal trigger="Birthdate" size="cover">
                         <ng-template>
-                          <ion-datetime presentation="date" [(ngModel)]="Birthdate" name="Birthdate">
+                          <ion-datetime presentation="date" [(ngModel)]="Birthdate" name="Birthdate" show-default-buttons="true">
                             <span slot="title"> {{ year }} </span>
                           </ion-datetime>
                         </ng-template>
@@ -543,11 +550,11 @@
                     </ion-list>
                   </ion-col>
                   <ion-col size="12" class="ion-text-center">
-                    <ion-button type="submit" color="success" size="small" (click)="saveBirthdate()">
+                    <ion-button type="submit" color="success" size="medium" (click)="saveBirthdate()">
                       {{'Submit' | translate}}
                     </ion-button>
-                    <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
-                      {{'Clear' | translate}}
+                    <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
+                      {{'Cancel' | translate}}
                     </ion-button>
                   </ion-col>
                 </ion-row>
@@ -560,7 +567,7 @@
 
       <ion-row>
         <ion-col class="title" size-xs="3">
-          <ion-label> Cast </ion-label>
+          <ion-label> Caste </ion-label>
           <div>
             <ion-icon name="add-circle-sharp" id="cast"></ion-icon>
           </div>
@@ -574,13 +581,13 @@
       </ion-row>
 
 
-      <ion-modal #modal trigger="cast" (willDismiss)="onWillDismiss($event)">
+      <ion-modal #modal trigger="cast" (willDismiss)="onWillDismiss($event)" [backdropDismiss]="false" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
         <ng-template>
           <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
             <ion-grid>
               <ion-row>
                 <ion-col class="ion-text-center">
-                  <h6>Add Cast</h6>
+                  <h5>Add Caste</h5>
                 </ion-col>
                 <ion-col size="12">
                   <ion-list>
@@ -600,11 +607,11 @@
                   </ion-list>
                 </ion-col>
                 <ion-col size="12" class="ion-text-center">
-                  <ion-button type="submit" color="success" size="small" (click)="saveCaste()">
+                  <ion-button type="submit" color="success" size="medium" (click)="saveCaste()">
                     {{'Submit' | translate}}
                   </ion-button>
-                  <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
-                    {{'Clear' | translate}}
+                  <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
+                    {{'Cancel' | translate}}
                   </ion-button>
                 </ion-col>
               </ion-row>
@@ -624,31 +631,31 @@
           :
         </ion-col>
         <ion-col size-xs="8">
-          <ion-label> {{VoterListByUser.occupation}} </ion-label>
+          <ion-label class="text-capitalize"> {{VoterListByUser.occupation}} </ion-label>
         </ion-col>
       </ion-row>
 
-      <ion-modal #modal trigger="profession" [canDismiss]="canDismiss">
+      <ion-modal #modal trigger="profession" [canDismiss]="canDismiss"  [backdropDismiss]="false" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
         <ng-template>
           <div>
             <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
               <ion-grid>
                 <ion-row>
                   <ion-col class="ion-text-center">
-                    <h6>Add Profession</h6>
+                    <h5>Add Profession</h5>
                   </ion-col>
                   <ion-col size="12">
                     <ion-list>
-                      <ion-input name="profession" [(ngModel)]="professionUpdate.ColoumnValue" class="form-control">
+                      <ion-input maxlength="30" (keypress)="onKeyPress($event)" name="profession" [(ngModel)]="professionUpdate.ColoumnValue" class="form-control text-capitalize">
                       </ion-input>
                     </ion-list>
                   </ion-col>
                   <ion-col size="12" class="ion-text-center">
-                    <ion-button type="submit" color="success" size="small" (click)="saveProfession()">
+                    <ion-button type="submit" color="success" size="medium" (click)="saveProfession()">
                       {{'Submit' | translate}}
                     </ion-button>
-                    <ion-button type="reset" color="danger" size="small" (click)="closeModal()">
-                      {{'Clear' | translate}}
+                    <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
+                      {{'Cancel' | translate}}
                     </ion-button>
                   </ion-col>
                 </ion-row>
@@ -870,7 +877,7 @@
 
 
     <!-- <ion-grid style="display: none;"> -->
-    <ion-grid style="display: none;">
+    <ion-grid>
       <ion-row class="ion-align-items-center">
         <ion-col size="8" style="height: 200px;">
           <ion-img style="height: 200px;" [src]="imgurl"></ion-img>

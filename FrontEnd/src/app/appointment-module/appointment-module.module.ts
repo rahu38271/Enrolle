@@ -13,9 +13,10 @@ import { TodaysAppointmentComponent } from './todays-appointment/todays-appointm
 import { AppointmentByDateComponent } from './appointment-by-date/appointment-by-date.component';
 import { AdminwiseComponent } from './adminwise/adminwise.component';
 import { AppointmentByAdminComponent } from './appointment-by-admin/appointment-by-admin.component';
+import { AllAppointmentsComponent } from './all-appointments/all-appointments.component';
 
 @NgModule({
-  declarations: [AppointmentComponent,AddAppointmentComponent,EditAppointmentComponent, TodaysAppointmentComponent, AppointmentByDateComponent, AdminwiseComponent, AppointmentByAdminComponent],
+  declarations: [AppointmentComponent,AddAppointmentComponent,EditAppointmentComponent, TodaysAppointmentComponent, AppointmentByDateComponent, AdminwiseComponent, AppointmentByAdminComponent, AllAppointmentsComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -25,6 +26,7 @@ import { AppointmentByAdminComponent } from './appointment-by-admin/appointment-
     NgSelectModule,
     RouterModule.forChild([
       {path: '', component:AppointmentComponent}, 
+      {path:'all-appointments', component:AllAppointmentsComponent},
       {path:'add-appointment', component:AddAppointmentComponent},
       {path:'edit-appointment', component:EditAppointmentComponent},
       {path:'today-appointment', component:TodaysAppointmentComponent},

@@ -13,12 +13,13 @@ export class OppositionListComponent implements OnInit {
   Language: any;
   userId: any;
   roleID:any;
-  oppositeVoter: any[]=[];
+  oppositeVoter: any;
   searchMob: string;
   isShow = false;
   PageNo:any=1;
-  NoofRow:any=25;
+  NoofRow:any=10;
   totalItems:any;
+  SearchText:any;
 
   constructor(
     private router:Router,
@@ -32,7 +33,13 @@ export class OppositionListComponent implements OnInit {
   ngOnInit(): void {
     this.userId = localStorage.getItem('loginId');
     this.roleID = localStorage.getItem('userType')
-    this.opposite(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language);
+    if(this.SearchText==undefined){
+      this.SearchText = ''
+    }
+    else{
+      this.SearchText = this.SearchText
+    }
+    this.opposite(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
   }
 
   voterDetails(item:any){
@@ -41,11 +48,12 @@ export class OppositionListComponent implements OnInit {
 
    event(event:any){
     this.PageNo = event;
-    this.opposite(this.userId,this.roleID,event,this.NoofRow,this.Language)
+    this.opposite(this.userId,this.roleID,event,this.NoofRow,this.Language,this.SearchText)
   }
 
-  opposite(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any){
-    this.loader.showLoading();
+  opposite(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){
+    this.Language = this.translateConfigService.getCurrentLang();
+    //this.loader.showLoading();
     if(this.Language == "kn"){
       this.Language = "Kannada"
     }
@@ -58,22 +66,36 @@ export class OppositionListComponent implements OnInit {
     else{
       this.Language = "English"
     }
-    this.voter.opposition(userId,roleID,PageNo,NoofRow,this.Language).subscribe(data=>{
-      if(data){
-        this.loader.hideLoader();
+    this.voter.opposition(userId,roleID,PageNo,NoofRow,this.Language,this.SearchText).subscribe(data=>{
+      if(data.length != 0){
+        //this.loader.hideLoader();
         this.oppositeVoter = data;
         this.totalItems = data[0].totalCount
       }
       else{
-        this.loader.hideLoader();
+        //this.loader.hideLoader();
       }
     },(err)=>{
-      this.loader.hideLoader();
+      //this.loader.hideLoader();
     })
   }
 
   search(){
     this.isShow = !this.isShow
+  }
+
+  onSearchChange(SearchText:any){
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    this.SearchText=SearchText;
+    this.opposite(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
+  }
+
+  keyPress(SearchText:any){
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    this.SearchText=SearchText;
+    this.opposite(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
   }
 
 }

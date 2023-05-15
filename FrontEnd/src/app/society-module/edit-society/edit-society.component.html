@@ -34,7 +34,7 @@
             
   
             <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
-              <ion-label position="floating"> Phone No. <span>*</span> </ion-label>
+              <ion-label position="floating"> Mobile No. <span>*</span> </ion-label>
                 <ion-input 
                   
                   (keypress)="keyPressNumbers($event)" 
@@ -49,7 +49,7 @@
             </ion-col>
            
             <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
-              <ion-label position="floating"> Alternate Phone No. </ion-label>
+              <ion-label position="floating"> Alternate Mobile No. </ion-label>
                 <ion-input 
                     (keypress)="keyPressNumbers($event)" 
                     name="AltPhoneNo" 
@@ -93,7 +93,7 @@
               </ion-col>
   
             
-            <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
+            <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="12" size-xs="12" >
               <ion-label>District</ion-label>
               <ng-select name="District" [(ngModel)]="societyModal.district" 
               (change)="getTaluka(societyModal.district)"
@@ -112,7 +112,7 @@
             
   
            
-            <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="12" size-xs="12">
               <ion-label>Taluka</ion-label>
               <ng-select 
                 name="Taluka" 

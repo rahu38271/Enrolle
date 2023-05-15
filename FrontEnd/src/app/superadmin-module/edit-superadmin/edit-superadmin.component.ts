@@ -29,6 +29,8 @@ export class EditSuperadminComponent implements OnInit {
   isSA = false
   isA = false
   isV = false
+  isSoc = false;
+  isM = false;
   
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -72,15 +74,21 @@ export class EditSuperadminComponent implements OnInit {
         this.isSA = !this.isSA;
         this.isA = !this.isA;
         this.isV = !this.isV;
+        this.isSoc = !this.isSoc
+        this.isM = !this.isM
       }
       
       if(this.roleId == 2){
         this.isA = !this.isA;
         this.isV = !this.isV;
+        this.isSoc = !this.isSoc
+        this.isM = !this.isM
       }
       
       if(this.roleId == 3){
         this.isV = !this.isV;
+        this.isSoc = !this.isSoc
+        this.isM = !this.isM
       }
 
       this.getAssembly();
@@ -134,7 +142,6 @@ export class EditSuperadminComponent implements OnInit {
   }
 
   editAdmin(){
-    debugger;
     this.editData.id = Number(this.editData.id);
     if(this.editData.roleName == "MasterAdmin"){
       this.editData.roleId = 1
@@ -148,6 +155,12 @@ export class EditSuperadminComponent implements OnInit {
     if(this.editData.roleName == "Volunteer"){
       this.editData.roleId = 4
     }
+    if(this.editData.roleName == "Society"){
+      this.editData.roleId = 5
+    }
+    if(this.editData.roleName == "Member"){
+      this.editData.roleId = 6
+    }
     this.editData.roleName = this.editData.roleName
     
     if(this.editData.roleId == 2){
@@ -160,18 +173,26 @@ export class EditSuperadminComponent implements OnInit {
       this.editData.superAdminId = Number(this.superAdminId);
       this.editData.adminId = Number(this.loginId);
     }
+    if(this.editData.roleId == 5){
+      this.editData.superAdminId = Number(this.superAdminId);
+      this.editData.adminId = Number(this.loginId);
+    }
+    if(this.editData.roleId == 6){
+      this.editData.superAdminId = Number(this.superAdminId);
+      this.editData.adminId = Number(this.loginId);
+    }
 
     this.loader.showLoading();
     this.sadmin.edit(this.editData).subscribe((data)=>{
         if(data){
           this.editData={};
           this.loader.hideLoader();
-          this.toast.presentToast("Superadmin updated successfully!", "success", 'checkmark-circle-sharp');
+          this.toast.presentToast("User updated successfully!", "success", 'checkmark-circle-sharp');
           this.router.navigate(['/superadmin']);
         }
         else{
           this.loader.hideLoader();
-        this.toast.presentToast("Superadmin not updated", "danger", 'alert-circle-sharp');
+        this.toast.presentToast("User not updated", "danger", 'alert-circle-sharp');
         }
     }, (err)=>{
       this.loader.hideLoader();

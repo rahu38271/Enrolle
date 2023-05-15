@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ContactService } from 'src/app/services/contact.service'
 import { LoaderService } from 'src/app/services/loader.service';
 import { AppointmentService } from 'src/app/services/appointment.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
-
+import { IonModal } from '@ionic/angular';
 
 @Component({
   selector: 'app-edit-appointment',
@@ -13,6 +13,8 @@ import { IonicToastService } from 'src/app/services/ionic-toast.service'
   styleUrls: ['./edit-appointment.component.scss'],
 })
 export class EditAppointmentComponent implements OnInit {
+
+  @ViewChild(IonModal) modal: IonModal;
 
   year : number = new Date().getFullYear();
 
@@ -94,8 +96,8 @@ export class EditAppointmentComponent implements OnInit {
     this.appointmentModal.id = Number(this.appointmentModal.id);
     this.appointmentModal.adminName = this.name;
     this.appointmentModal.userId = Number(this.UserId)
-    this.appointmentModal.wardNo = Number(this.appointmentModal.wardNo);
-    this.appointmentModal.pinCode = Number(this.appointmentModal.pinCode);
+    //this.appointmentModal.wardNo = Number(this.appointmentModal.wardNo);
+    //this.appointmentModal.pinCode = Number(this.appointmentModal.pinCode);
     this.appointmentModal.AppointmentDate = dateparts[0]+' '+hr;
     if(this.appointmentModal.fileName == ''){
       this.appointmentModal.fileName = ''
@@ -108,7 +110,7 @@ export class EditAppointmentComponent implements OnInit {
         this.loader.hideLoader();
         this.appointmentModal = {};
         this.toast.presentToast("Appointment added successfully!", "success", 'checkmark-circle-sharp');
-        this.router.navigate(['/appointment']);
+        this.router.navigate(['/appointment/all-appointments']);
       }
       else{
         this.loader.hideLoader();
@@ -126,6 +128,10 @@ export class EditAppointmentComponent implements OnInit {
     }
     f.resetForm();
     // window.location.reload();
+  }
+
+  cancel() {
+    this.modal.dismiss(null, 'cancel');
   }
 
 

@@ -95,6 +95,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("adminId", data.user[0].adminId);
         localStorage.setItem("superAdminId", data.user[0].superAdminId)
         localStorage.setItem("loginAssembly", data.user[0].assemblyName);
+        localStorage.setItem("loginDistrict", data.user[0].district);
+        localStorage.setItem("loginVillage", data.user[0].village);
         localStorage.setItem("state", data.user[0].state);
         //this.auth.sendOtp(this.loginModal.Username).subscribe((data) => {
         //   this.otpverify(data);

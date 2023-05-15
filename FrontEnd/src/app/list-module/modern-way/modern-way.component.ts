@@ -32,6 +32,11 @@ export class ModernWayComponent implements OnInit {
     ToAge:'',
     Village:'',
     Gender:'',
+    Cast:'',
+    Religion:'',
+    Society:'',
+    Occupation:'',
+    Education:'',
     UserId:'',
     PageNo:'',
     NoofRow:'',
@@ -87,6 +92,7 @@ export class ModernWayComponent implements OnInit {
 
   voterListBySearch(){
     this.isShow = !this.isShow;
+    this.Language = this.translateConfigService.getCurrentLang();
     this.searchModal.Language = this.Language
     this.searchModal.PageNo = this.PageNo;
     this.searchModal.NoofRow = this.NoofRow;
@@ -155,6 +161,36 @@ export class ModernWayComponent implements OnInit {
     }
     else{
       this.searchModal.Village = this.searchModal.Village;
+    }
+    if(this.searchModal.Cast == ''){
+      this.searchModal.Cast = null
+    }
+    else{
+      this.searchModal.Cast = this.searchModal.Cast;
+    }
+    if(this.searchModal.Occupation == ''){
+      this.searchModal.Occupation = null
+    }
+    else{
+      this.searchModal.Occupation = this.searchModal.Occupation;
+    }
+    if(this.searchModal.Education == ''){
+      this.searchModal.Education = null
+    }
+    else{
+      this.searchModal.Education = this.searchModal.Education;
+    }
+    if(this.searchModal.Religion == ''){
+      this.searchModal.Religion = null
+    }
+    else{
+      this.searchModal.Religion = this.searchModal.Religion;
+    }
+    if(this.searchModal.Society == ''){
+      this.searchModal.Society = null
+    }
+    else{
+      this.searchModal.Society = this.searchModal.Society;
     }
     this.searchModal.UserId = Number(this.id);
     this.searchModal.roleID = Number(this.roleID);

@@ -2,6 +2,9 @@
   <ion-header class="android">
     <ion-toolbar>
       <ion-buttons slot="start">
+        <ion-back-button (click)="goBack()" defaultHref=""></ion-back-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
         <ion-menu-button auto-hide="false"></ion-menu-button>
       </ion-buttons>
       <ion-title>  {{'By Village' | translate}}</ion-title>

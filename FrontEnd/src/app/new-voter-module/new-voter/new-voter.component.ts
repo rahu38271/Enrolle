@@ -30,11 +30,10 @@ export class NewVoterComponent implements OnInit {
 
   ngOnInit(): void {
    
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      this.newVoterList();
-    })
+  }
+
+  ionViewWillEnter(){
+    this.newVoterList();
   }
 
   newVoterList(){

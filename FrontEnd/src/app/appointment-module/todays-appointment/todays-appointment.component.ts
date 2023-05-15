@@ -27,6 +27,10 @@ export class TodaysAppointmentComponent implements OnInit {
     dateTime:''
   };
   Id:any;
+  SearchText:any;
+  PageNo:any=1;
+  NoofRow:any=10;
+  totalItems:any;
 
   constructor(
     public alertController: AlertController,
@@ -41,24 +45,42 @@ export class TodaysAppointmentComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    if(this.SearchText == undefined){
+      this.SearchText = ""
+    }
+    else{
+      this.SearchText = this.SearchText
+    }
+  }
+  
+  ionViewWillEnter(){
     this.UserId = localStorage.getItem("loginId");
     this.roleID = localStorage.getItem("userType")
-    this.todayApmList();
+    this.todayApmList(this.UserId,this.roleID,this.PageNo,this.NoofRow,this.SearchText);
   }
 
-  todayApmList(){
-    this.appointment.todaysApm(this.UserId,this.roleID).subscribe(data=>{
-      if(data != 0){
+  event(event:any){
+    this.PageNo=event
+    this.todayApmList(this.UserId,this.roleID,this.PageNo,this.NoofRow,this.SearchText);
+  }
+
+  todayApmList(UserId:any,roleID:any,PageNo:any,NoofRow:any,SearchText:any){
+    this.appointment.todaysApm(UserId,roleID,PageNo,NoofRow,SearchText).subscribe(data=>{
+      if(data.length != 0){
         this.todayApm = data;
+        this.totalItems = data[0].totalCount;
         this.todayApm.forEach(e => {
           e.birthDate = e.birthDate.split('T')[0];
         });
+        
       }
       else{
 
       }
     })
   }
+
+  
 
   goBack() {
     this.location.back();
@@ -114,7 +136,7 @@ export class TodaysAppointmentComponent implements OnInit {
           cssClass: 'yes',
           handler: () => {
             this.appointment.deleteAppointment(id).subscribe(data=>{
-              this.ngOnInit();
+              this.ionViewWillEnter();
               this.toast.presentToast("Appointment deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })
           }

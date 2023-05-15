@@ -142,3 +142,12 @@ ion-item img {
   .flex {
     display: flex;
   }
+  .table td {
+    text-transform: capitalize;
+  }
+
+  .file i {
+    font-size: 26px;
+    color: #3f7ef4;
+    cursor: pointer;
+  }

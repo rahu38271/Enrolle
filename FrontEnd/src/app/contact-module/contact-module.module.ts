@@ -9,8 +9,8 @@ import { ImportContactComponent } from './import-contact/import-contact.componen
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { EditContactComponent } from './edit-contact/edit-contact.component';
 import { HttpClientModule } from '@angular/common/http';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { Ng2SearchPipeModule,Ng2SearchPipe } from 'ng2-search-filter';
+import { NgxPaginationModule} from 'ngx-pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
@@ -27,6 +27,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     RouterModule.forChild([{path:'', component:ContactComponent}, { path:'add-contact', component:AddContactComponent}, {path:'import-contact', component:ImportContactComponent},{path:'edit-contact', component:EditContactComponent}])
   ],
   exports: [ RouterModule ],
-  bootstrap: [ ContactComponent ]
+  bootstrap: [ ContactComponent ],
+  providers:[Ng2SearchPipe]
 })
 export class ContactModuleModule { }

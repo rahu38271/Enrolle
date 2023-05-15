@@ -7,8 +7,7 @@ import { PopoverController } from '@ionic/angular';
 import { VoterService } from 'src/app/services/voter.service'
 import { ActivatedRoute } from '@angular/router'
 import { LoaderService } from 'src/app/services/loader.service'
-import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { ModalController } from '@ionic/angular';
 import { Location } from '@angular/common';
@@ -37,8 +36,8 @@ export class VoterDetailsComponent {
   //@ViewChild('myImg') myImg: ElementRef;
 
   text: string = ''
-  //imgurl: string = 'https://cdn.pixabay.com/photo/2019/12/26/05/10/pink-4719682_960_720.jpg'
-  imgurl: string = 'https://scontent-bom1-2.xx.fbcdn.net/v/t39.30808-6/262921346_1278659969288060_1495313806783760875_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=730e14&_nc_ohc=iloEXgmNY_oAX8-WTxc&_nc_ht=scontent-bom1-2.xx&oh=00_AfD0wJKOTdJ2M8sPLkL-e5DE9lW-kilOCJ91efD8hWczsQ&oe=643BAA03'
+  imgurl: string = 'https://cdn.pixabay.com/photo/2019/12/26/05/10/pink-4719682_960_720.jpg'
+  //imgurl: string = 'https://scontent-bom1-2.xx.fbcdn.net/v/t39.30808-6/262921346_1278659969288060_1495313806783760875_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=730e14&_nc_ohc=iloEXgmNY_oAX8-WTxc&_nc_ht=scontent-bom1-2.xx&oh=00_AfD0wJKOTdJ2M8sPLkL-e5DE9lW-kilOCJ91efD8hWczsQ&oe=643BAA03'
 
   ImagePath = ''
   VoterListByUser: any;
@@ -48,13 +47,9 @@ export class VoterDetailsComponent {
   YesNo: any;
   pageNo: any = 1;
   NoofRow: any = 100;
-  partNo:any;
+  partNo: any;
 
   @ViewChild('slipDesign') slipDesign: ElementRef;
-
-  ngAfterViewInit() {
-    //console.log(this.slipDesign.nativeElement.innerHTML);
-  }
 
   onWillDismiss(event: Event) {
     const ev = event as CustomEvent<OverlayEventDetail<string>>;
@@ -65,6 +60,15 @@ export class VoterDetailsComponent {
 
   async DismissClick() {
     await this.popoverController.dismiss();
+  }
+
+  onKeyPress(event) {
+    if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {
+      return true
+    }
+    else {
+      return false
+    }
   }
 
   //isStar: any;
@@ -79,13 +83,14 @@ export class VoterDetailsComponent {
   starUpdare: any = {};
   deadAlive: any = {};
   voteStatusUpdate: any = {}
-  professionUpdate:any = {}
-  BirthdateUpdate:any={}
-  CasteUpdate:any={}
+  professionUpdate: any = {}
+  BirthdateUpdate: any = {}
+  CasteUpdate: any = {}
   showStar: boolean;
   showVote: boolean;
-  casteList:any;
- 
+  casteList: any;
+  interval:any;
+
   bgColor = '#FFF';
   assemblyName1: any;
   closeModal() {
@@ -117,32 +122,65 @@ export class VoterDetailsComponent {
       private toast: IonicToastService,
       public modalCtrl: ModalController,
       private location: Location,
-      private alertController: AlertController,
-      private bluetoothSerial: BluetoothSerial,
-      private toastCtrl: ToastController,
-      private _cdr: ChangeDetectorRef,
       public translate: TranslateService,
+      private ref: ChangeDetectorRef,
       private translateConfigService: TranslateConfigService,
-    ) {
-      this.Language = this.translateConfigService.getCurrentLang();
-      
+  ) {
+    this.Language = this.translateConfigService.getCurrentLang();
+    this.Voter = this.router.getCurrentNavigation().extras.state;
+    
+
   }
 
   ngOnInit() {
     this.assemblyName1 = localStorage.getItem("loginAssembly");
-    this.Voter = this.router.getCurrentNavigation().extras.state
-    //pipe(map(() => window.history.state))
     this.voterDetails();
     this.AllCasts();
-  
+    this.mobUpdate.Mobile = this.VoterListByUser.mobileNo;
+    this.altmobUpdate.AlternateMobileNo = this.VoterListByUser.alternateMobileNo;
+    this.deadAlive.YesNo = this.VoterListByUser.isAlive;
+    if (this.VoterListByUser.isAlive == "1") {
+      this.deadAlive.YesNo = "Y"
+    }
+    else if (this.VoterListByUser.isAlive == "0") {
+      this.deadAlive.YesNo = "N"
+    }
+    else if (this.VoterListByUser.isAlive == null) {
+      this.deadAlive.YesNo = ''
+    }
+    this.BirthdateUpdate.ColoumnValue = this.VoterListByUser.birthDate;
+    this.CasteUpdate.ColoumnValue = this.VoterListByUser.caste;
+    this.professionUpdate.ColoumnValue = this.VoterListByUser.occupation;
+    this.adrsUpdate.Address = this.VoterListByUser.address;
   }
 
- 
+  // ngOnInit() {
+  //   this.assemblyName1 = localStorage.getItem("loginAssembly");
+  //   this.voterDetails();
+  //   this.AllCasts();
+  //   this.mobUpdate.Mobile = this.VoterListByUser.mobileNo;
+  //   this.altmobUpdate.AlternateMobileNo = this.VoterListByUser.alternateMobileNo;
+  //   this.deadAlive.YesNo = this.VoterListByUser.isAlive;
+  //   if (this.VoterListByUser.isAlive == "1") {
+  //     this.deadAlive.YesNo = "Y"
+  //   }
+  //   else if (this.VoterListByUser.isAlive == "0") {
+  //     this.deadAlive.YesNo = "N"
+  //   }
+  //   else if (this.VoterListByUser.isAlive == null) {
+  //     this.deadAlive.YesNo = ''
+  //   }
+  //   this.BirthdateUpdate.ColoumnValue = this.VoterListByUser.birthDate;
+  //   this.CasteUpdate.ColoumnValue = this.VoterListByUser.caste;
+  //   this.professionUpdate.ColoumnValue = this.VoterListByUser.occupation;
+  //   this.adrsUpdate.Address = this.VoterListByUser.address
+  // }
+
 
   voterDetails() {
     //this.loader.showLoading();
     this.VoterListByUser = this.Voter;
-    
+
     // to get star checked if voter is star voter or not 
 
     if (this.VoterListByUser.starVoter == null || this.VoterListByUser.starVoter == "N") {
@@ -166,10 +204,10 @@ export class VoterDetailsComponent {
     if (this.VoterListByUser.isAlive == "Y") {
       this.VoterListByUser.isAlive = 1
     }
-    else if(this.VoterListByUser.isAlive == "N") {
+    else if (this.VoterListByUser.isAlive == "N") {
       this.VoterListByUser.isAlive = 0
     }
-    else if(this.VoterListByUser.isAlive == null){
+    else if (this.VoterListByUser.isAlive == null) {
       this.VoterListByUser.isAlive = ''
     }
 
@@ -193,8 +231,6 @@ export class VoterDetailsComponent {
     this.router.navigate(['/voterdata-management/family', { Id: id }])
   }
 
- 
-
   sameAddressVoter(id: any) {
     this.router.navigate(['/voterdata-management/family', { Id: id }])
   }
@@ -206,8 +242,9 @@ export class VoterDetailsComponent {
     this.mobUpdate.Id = Number(this.id);
     this.voter.updateMob(this.mobUpdate.Id, this.mobUpdate.Mobile).subscribe(data => {
       if (data) {
-        this.voterDetails();
         this.closeModal();
+        this.ngOnInit();
+        this.ref.detectChanges();
         this.toast.presentToast("Mobile No. updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
@@ -258,64 +295,63 @@ export class VoterDetailsComponent {
 
   // add profession
 
-  saveProfession(){
+  saveProfession() {
     this.id = this.Voter.id;
     this.professionUpdate.Id = Number(this.id);
     this.professionUpdate.ColoumnName = "Occupation"
-    this.voter.updateProfession(this.professionUpdate.Id, this.professionUpdate.ColoumnName,this.professionUpdate.ColoumnValue).subscribe(data=>{
-      if(data){
+    this.voter.updateProfession(this.professionUpdate.Id, this.professionUpdate.ColoumnName, this.professionUpdate.ColoumnValue).subscribe(data => {
+      if (data) {
         this.voterDetails();
         this.closeModal();
         this.toast.presentToast("profession updated successfully!", "success", 'checkmark-circle-sharp');
       }
-      else{
+      else {
 
       }
-    },(err)=>{
+    }, (err) => {
 
     })
   }
 
   // add Birthdate
 
-  saveBirthdate(){
+  saveBirthdate() {
     debugger;
     this.id = this.Voter.id;
     this.BirthdateUpdate.Id = Number(this.id);
     this.BirthdateUpdate.ColoumnName = "Birthdate"
-    this.voter.updateDoB(this.BirthdateUpdate.Id, this.BirthdateUpdate.ColoumnName,this.BirthdateUpdate.ColoumnValue).subscribe(data=>{
-      if(data){
+    this.voter.updateDoB(this.BirthdateUpdate.Id, this.BirthdateUpdate.ColoumnName, this.BirthdateUpdate.ColoumnValue).subscribe(data => {
+      if (data) {
         this.voterDetails();
         this.closeModal();
         this.toast.presentToast("Birthdate updated successfully!", "success", 'checkmark-circle-sharp');
       }
-      else{
+      else {
 
       }
-    },(err)=>{
+    }, (err) => {
 
     })
   }
 
   // add Caste
 
-  saveCaste(){
-    debugger;
+  saveCaste() {
     this.id = this.Voter.id;
     this.CasteUpdate.Id = Number(this.id);
     this.CasteUpdate.ColoumnName = "Caste"
     this.CasteUpdate.ColoumnValue = this.CasteUpdate.ColoumnValue;
-    this.voter.updateCaste(this.CasteUpdate.Id, this.CasteUpdate.ColoumnName,this.CasteUpdate.ColoumnValue).subscribe(data=>{
-      if(data){
+    this.voter.updateCaste(this.CasteUpdate.Id, this.CasteUpdate.ColoumnName, this.CasteUpdate.ColoumnValue).subscribe(data => {
+      if (data) {
         this.voterDetails();
         this.closeModal();
 
         this.toast.presentToast("Caste updated successfully!", "success", 'checkmark-circle-sharp');
       }
-      else{
+      else {
 
       }
-    },(err)=>{
+    }, (err) => {
 
     })
   }
@@ -483,7 +519,7 @@ export class VoterDetailsComponent {
     })
   }
 
-  AllCasts(){
+  AllCasts() {
     if (this.Language == "kn") {
       this.Language = "Kannada"
     }
@@ -496,8 +532,7 @@ export class VoterDetailsComponent {
     else {
       this.Language = "English"
     }
-    this.voter.getAllCaste(this.Language).subscribe(data=>{
-      console.log(data)
+    this.voter.getAllCaste(this.Language).subscribe(data => {
       this.casteList = data;
     })
   }

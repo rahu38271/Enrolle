@@ -10,13 +10,14 @@ import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 import { Observable } from 'rxjs/Observable';
 import { ChangeDetectorRef } from '@angular/core';
 
+
 @Component({
   selector: 'app-voterby-user',
   templateUrl: './voterby-user.component.html',
   styleUrls: ['./voterby-user.component.css']
 })
 export class VoterbyUserComponent {
-  Language: any;
+  Language: any
   id: any;
   RoleId: any;
   voterListByUser: any;
@@ -25,25 +26,21 @@ export class VoterbyUserComponent {
   searchWeb: string;
   EditVoter: any;
   cp: number = 1;
-  PageNo: any = 1
-  NoofRow: any = 25;
+  PageNo: any =1
+  NoofRow: any =25
   totalCount: any;
   totalCountByUser:any;
   casteList:any;
-  filterModal: any = {
-    TableName: "Tbl_Voter",
-    ColumnName: "Fullname",
-    ColumnValue: '',
-    Condition: "Great",
-    UserId: '',
-    RoleId: '',
-    PageNo: '',
-    NoofRow: '',
-    Language: ''
-  }
+  searchTerm:string;
+  SearchText:any;
+  birthDate:any;
+
   search() {
     this.isShow = !this.isShow
   }
+
+  searchVoterModal:any
+
 
   constructor
     (
@@ -56,9 +53,10 @@ export class VoterbyUserComponent {
       public translate: TranslateService,
       private translateConfigService: TranslateConfigService,
       private speechRecognition: SpeechRecognition,
-      private cd: ChangeDetectorRef
+      private cd: ChangeDetectorRef,
+      
     ) {
-    this.Language = this.translateConfigService.getCurrentLang();
+    
     this.speechRecognition.requestPermission()
       .then(() => console.log('Permission granted'))
       .catch(() => console.log('Permission denied'));
@@ -66,28 +64,28 @@ export class VoterbyUserComponent {
   }
 
   ngOnInit() {
+    this.Language = this.translateConfigService.getCurrentLang();
     this.id = localStorage.getItem("loginId");
     this.RoleId = localStorage.getItem("userType");
-    this.voterList(this.id, this.RoleId, this.PageNo, this.NoofRow, this.Language);
+    
+  }
+
+  ionViewWillEnter(){
+    this.voterList(this.id, this.RoleId, this.PageNo, this.NoofRow,this.Language,this.SearchText);
     this.totalVoterCount();
     this.AllCasts();
-
   }
 
   totalVoterCount() {
     this.voter.getVoterCountByUser(this.id, this.RoleId).subscribe(data => {
-      console.log(data);
       this.totalCountByUser = data
     })
   }
 
-  event(event: any) {
-    this.PageNo = event;
-    this.voterList(this.id, this.RoleId, event, this.NoofRow, this.Language)
-  }
-
-  voterList(id: any, RoleId: any, PageNo: any, NoofRow: any, Language: any) {
-    this.loader.showLoading();
+  
+  voterList(id: any, RoleId: any, PageNo: any, NoofRow: any, Language:any,SearchText:any) {
+    //this.loader.showLoading();
+    this.Language = this.translateConfigService.getCurrentLang();
     if (this.Language == "kn") {
       this.Language = "Kannada"
     }
@@ -100,20 +98,41 @@ export class VoterbyUserComponent {
     else {
       this.Language = "English"
     }
-    this.voter.getVoterByUser(id, RoleId, PageNo, NoofRow, this.Language).subscribe(data => {
-      if (data != 0) {
-        this.loader.hideLoader();
+    if(this.SearchText == undefined){
+      this.SearchText = ''
+    }
+    else{
+      this.SearchText = this.SearchText
+    }
+    this.voter.getVoterByUser(id, RoleId, PageNo, NoofRow, this.Language, this.SearchText).subscribe(data => {
+      if (data.length != 0) {
+        //this.loader.hideLoader();
         this.voterListByUser = data;
-        this.totalCount = data[0].totalCount
+        this.totalCount = data[0].totalCount;
+        this.voterListByUser.forEach(e => {
+          e.birthDate = e.birthDate.split('T')[0];
+        });
       }
       else {
-        this.loader.hideLoader();
+        //this.loader.hideLoader();
         this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
       }
     }, (err) => {
-      this.loader.hideLoader();
+      //this.loader.hideLoader();
       this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
     })
+  }
+
+  event(event: any) {
+    this.PageNo = event;
+    this.voterList(this.id, this.RoleId, event, this.NoofRow,this.Language,this.SearchText)
+  }
+
+  onSearchChange(SearchText: string): void { 
+    this.SearchText=SearchText;
+    this.PageNo=1;
+    this.NoofRow=this.totalCount;
+    this.voterList(this.id, this.RoleId, this.PageNo, this.NoofRow,this.Language,this.SearchText)
   }
 
   voterDetails(item: any) {
@@ -162,14 +181,5 @@ export class VoterbyUserComponent {
       });
     }
   }
-
-  filterVoter() {
-    debugger;
-    this.voter.filterVoterByCondition(this.filterModal).subscribe(data => {
-
-    })
-  }
-
-
 
 }

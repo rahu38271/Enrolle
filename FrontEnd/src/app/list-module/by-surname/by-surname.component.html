@@ -2,6 +2,9 @@
   <ion-header class="android">
     <ion-toolbar>
       <ion-buttons slot="start">
+        <ion-back-button defaultHref="/list"></ion-back-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
         <ion-menu-button auto-hide="false"></ion-menu-button>
       </ion-buttons>
       <ion-title>  {{'By Lastname' | translate}} </ion-title>
@@ -84,11 +87,11 @@
       <ion-searchbar [(ngModel)]="searchMob" animated="true" *ngIf="isShow"></ion-searchbar>
       <ion-row>
         <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
-          <ion-list *ngFor="let item of allData | paginate: { itemsPerPage:5000, currentPage: PageNo, totalItems:totalItems } | filter:searchMob" (click)="lastName(item.columnName)">
+          <ion-list *ngFor="let item of allData | paginate: { itemsPerPage:itemsPerPage, currentPage: PageNo, totalItems:totalItems }" (click)="lastName(item.lastName)">
             <ion-item lines="none">
               <ion-label class="ion-text-center">
-                <h3>{{item.columnName}}</h3>
-                <h4>  {{'Total' | translate}}   : <span> {{item.count}} </span> </h4>
+                <h3>{{item.lastName}}</h3>
+                <h4>  {{'Total' | translate}}   : <span> {{item.counts}} </span> </h4>
               </ion-label>
             </ion-item>
           </ion-list>

@@ -49,8 +49,8 @@
           </ion-col> -->
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
-            <ion-label position="floating"> Village Name <span>*</span> </ion-label>
-              <ion-input name="vilageName" [(ngModel)]="EditData.vilageName" #vilageName="ngModel" class="form-control" required ></ion-input>
+            <ion-label position="floating"> Village Name </ion-label>
+              <ion-input name="vilageName" [(ngModel)]="EditData.vilageName" #vilageName="ngModel" class="form-control" ></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="calendar">
@@ -62,7 +62,8 @@
                   name="birthDate"
                   [(ngModel)]="EditData.birthDate"
                 ></ion-input>
-                <ion-modal trigger="birthDate" size="cover">
+                <ion-modal trigger="birthDate" size="cover" [canDismiss]="canDismiss" 
+                [backdropDismiss]="false" >
                   <ng-template>
                     <ion-datetime
                     max={{maxDate}}
@@ -85,7 +86,8 @@
             name="anniDate"
             [(ngModel)]="EditData.anniversary"
           ></ion-input>
-          <ion-modal trigger="anniDate" size="cover">
+          <ion-modal trigger="anniDate" size="cover" [canDismiss]="canDismiss" 
+          [backdropDismiss]="false" >
             <ng-template>
               <ion-datetime
               max={{maxDate}}
@@ -103,12 +105,12 @@
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
             <ion-label position="floating">  Mobile No. <span>*</span> </ion-label>
-              <ion-input maxlength="10" minlength="10" (keypress)="keyPressNumbers($event)" name="mobileNo" [(ngModel)]="EditData.mobileNo" #mobileNo="ngModel" class="form-control"  required></ion-input>
+              <ion-input maxlength="12" minlength="10" (keypress)="keyPressNumbers($event)" name="mobileNo" [(ngModel)]="EditData.mobileNo" #mobileNo="ngModel" class="form-control"  required></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Alternate Mobile </ion-label>
-              <ion-input maxlength="10" (keypress)="keyPressNumbers($event)" name="alternativeMobileNo" [(ngModel)]="EditData.alternativeMobileNo" #alternativeMobileNo="ngModel" class="form-control"></ion-input>
+              <ion-input maxlength="12" minlength="10" (keypress)="keyPressNumbers($event)" name="alternativeMobileNo" [(ngModel)]="EditData.alternativeMobileNo" #alternativeMobileNo="ngModel" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
@@ -158,8 +160,8 @@
           </ion-col>  -->
 
           <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
-            <ion-label position="floating">  Address <span>*</span>  </ion-label>
-              <ion-textarea name="address" [(ngModel)]="EditData.address" #address="ngModel" rows="3" class="form-control" required></ion-textarea>
+            <ion-label position="floating">   </ion-label>
+              <ion-textarea name="address" [(ngModel)]="EditData.address" #address="ngModel" rows="3" class="form-control"></ion-textarea>
           </ion-col> 
           
           <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
