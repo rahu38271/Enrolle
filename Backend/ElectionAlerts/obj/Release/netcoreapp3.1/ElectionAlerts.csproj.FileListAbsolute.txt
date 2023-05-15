@@ -181,3 +181,17 @@ F:\Abhay\GitClonned\Enrolle28jan23\Enrolle\Backend\ElectionAlerts\obj\Release\ne
 F:\Abhay\GitClonned\Enrolle28jan23\Enrolle\Backend\ElectionAlerts\obj\Release\netcoreapp3.1\ElectionAlerts.genruntimeconfig.cache
 F:\Abhay\GitClonned\Enrolle28jan23\Enrolle\Backend\ElectionAlerts\bin\Release\netcoreapp3.1\Quartz.dll
 F:\Abhay\GitClonned\Enrolle28jan23\Enrolle\Backend\ElectionAlerts\obj\Release\netcoreapp3.1\ElectionAlerts.csproj.AssemblyReference.cache
+F:\Abhay\GitClonned\Enrolle28jan23\Enrolle\Backend\ElectionAlerts\bin\Release\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+F:\Abhay\GitClonned\Enrolle28jan23\Enrolle\Backend\ElectionAlerts\bin\Release\netcoreapp3.1\System.Drawing.Common.dll
+F:\Abhay\GitClonned\Enrolle28jan23\Enrolle\Backend\ElectionAlerts\bin\Release\netcoreapp3.1\System.Security.AccessControl.dll
+F:\Abhay\GitClonned\Enrolle28jan23\Enrolle\Backend\ElectionAlerts\bin\Release\netcoreapp3.1\System.Security.Permissions.dll
+F:\Abhay\GitClonned\Enrolle28jan23\Enrolle\Backend\ElectionAlerts\bin\Release\netcoreapp3.1\System.Security.Principal.Windows.dll
+F:\Abhay\GitClonned\Enrolle28jan23\Enrolle\Backend\ElectionAlerts\bin\Release\netcoreapp3.1\System.Windows.Extensions.dll
+F:\Abhay\GitClonned\Enrolle28jan23\Enrolle\Backend\ElectionAlerts\bin\Release\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\Microsoft.Win32.SystemEvents.dll
+F:\Abhay\GitClonned\Enrolle28jan23\Enrolle\Backend\ElectionAlerts\bin\Release\netcoreapp3.1\runtimes\unix\lib\netcoreapp3.1\System.Drawing.Common.dll
+F:\Abhay\GitClonned\Enrolle28jan23\Enrolle\Backend\ElectionAlerts\bin\Release\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Drawing.Common.dll
+F:\Abhay\GitClonned\Enrolle28jan23\Enrolle\Backend\ElectionAlerts\bin\Release\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.AccessControl.dll
+F:\Abhay\GitClonned\Enrolle28jan23\Enrolle\Backend\ElectionAlerts\bin\Release\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
+F:\Abhay\GitClonned\Enrolle28jan23\Enrolle\Backend\ElectionAlerts\bin\Release\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Security.Principal.Windows.dll
+F:\Abhay\GitClonned\Enrolle28jan23\Enrolle\Backend\ElectionAlerts\bin\Release\netcoreapp3.1\runtimes\win\lib\netcoreapp3.1\System.Windows.Extensions.dll
+F:\Abhay\GitClonned\Enrolle28jan23\Enrolle\Backend\ElectionAlerts\bin\Release\netcoreapp3.1\SlackAPI.dll

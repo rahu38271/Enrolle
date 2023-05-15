@@ -8,13 +8,18 @@ using ElectionAlerts.Services.ServiceClasses;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using SlackAPI;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,7 +60,8 @@ namespace ElectionAlerts
             });
             services.AddControllers();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-
+           
+            
             services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
             {
                 builder
@@ -121,7 +127,6 @@ namespace ElectionAlerts
             app.UseCors("MyPolicy");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
             app.UseRouting();
 
             //app.UseAuthorization();
