@@ -149,18 +149,29 @@ namespace ElectionAlerts.Controller
         public IActionResult CreateUser(AdminUser user)
         {
             try
-            {    
-               IEnumerable<AdminUser>  users = _loginService.GetAllUser();
-                if (users != null)
+            {
+                IEnumerable<AdminUser> users = _loginService.GetAllUser();
+                if (user.Id>0)
                 {
-                    var result = from u in users where u.Contact == user.Contact || u.Password == user.Password select u;
+                    var result = from u in users where (u.Id!=user.Id) && (u.Contact == user.Contact || u.Password == user.Password) select u;
                     if (result.Count() != 0)
                         return Ok("User or Password Already Exist");
                     else
                         return Ok(_loginService.InsertUser(user));
                 }
                 else
-                    return Ok(_loginService.InsertUser(user));
+                {
+                    if (users != null)
+                    {
+                        var result = from u in users where u.Contact == user.Contact || u.Password == user.Password select u;
+                        if (result.Count() != 0)
+                            return Ok("User or Password Already Exist");
+                        else
+                            return Ok(_loginService.InsertUser(user));
+                    }
+                    else
+                        return Ok(_loginService.InsertUser(user));
+                }
             }
             catch(Exception ex)
             {

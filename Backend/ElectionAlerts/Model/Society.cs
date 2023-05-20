@@ -18,6 +18,8 @@ namespace ElectionAlerts.Model
         public string Taluka { get; set; }
         public string District { get; set; }
         public DateTime CreatedDate { get; set; }
+        public int UserId { get; set; }
+        public int AdminId { get; set; }
 
     }
 }

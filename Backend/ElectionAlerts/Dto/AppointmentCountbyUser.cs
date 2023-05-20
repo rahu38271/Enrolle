@@ -7,12 +7,12 @@ namespace ElectionAlerts.Dto
 {
     public class AppointmentCountbyUser
     {
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         public string AdminName { get; set; }
-        public int TotalAppointment { get; set; }
-        public int TodayAppointment { get; set; }
-        public int Approved { get; set; }
-        public int Rejected { get; set; }
+        public int? TotalAppointment { get; set; }
+        public int? TodayAppointment { get; set; }
+        public int? Approved { get; set; }
+        public int? Rejected { get; set; }
 
     }
 }

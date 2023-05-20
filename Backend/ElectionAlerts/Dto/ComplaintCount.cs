@@ -7,10 +7,10 @@ namespace ElectionAlerts.Dto
 {
     public class ComplaintCount
     {
-        public int TotalCount { get; set; }
-        public int Resolved { get; set; }
-        public int Pending { get; set; }
-        public int TodayCount { get; set; }
+        public int? TotalCount { get; set; }
+        public int? Resolved { get; set; }
+        public int? Pending { get; set; }
+        public int? TodayCount { get; set; }
 
     }
 }

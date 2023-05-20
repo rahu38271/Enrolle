@@ -1,13 +1,17 @@
 ﻿using ElectionAlerts.Dto;
 using ElectionAlerts.Model;
 using ElectionAlerts.Services.Interface;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-
+using System.Web;
 namespace ElectionAlerts.Controller
 {
     [Route("api/[controller]")]
@@ -16,6 +20,7 @@ namespace ElectionAlerts.Controller
     {
         private readonly ISocietyService _societyService;
         private readonly IExceptionLogService _exceptionLogService;
+       
 
         public SocietyController(ISocietyService societyService, IExceptionLogService exceptionLogService)
         {
@@ -38,11 +43,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetAllSociety")]
-        public IActionResult GetAllSociety()
+        public IActionResult GetAllSociety( int PageNo, int NoofRow, string SearchText)
         {
             try
             {
-                return Ok(_societyService.GetAllSociety());
+                return Ok(_societyService.GetAllSociety(PageNo,NoofRow,SearchText));
             }
             catch (Exception ex)
             {
@@ -55,7 +60,7 @@ namespace ElectionAlerts.Controller
         public IActionResult DeleteSocietybyId(int Id)
         {
             try
-            {
+            { 
                 return Ok(_societyService.DeleteSocietybuId(Id));
             }
             catch (Exception ex)
@@ -67,11 +72,29 @@ namespace ElectionAlerts.Controller
 
 
         [HttpPost("InsertUpdateSocietyComplaint")]
-        public IActionResult InsertUpdateSocietyComplaint(SocietyModel societyModel)
+        public IActionResult InsertUpdateSocietyComplaint([FromForm] string societycomplaint, [FromForm] IFormFile file)
         {
             try
             {
-                return Ok(_societyService.InsertUpdateSocietyComplaint(societyModel));
+                SocietyModel societyComplaint = JsonConvert.DeserializeObject<SocietyModel>(societycomplaint);
+              
+                if (file != null)
+                    societyComplaint.FileName = file.FileName;
+                var result = _societyService.InsertUpdateSocietyComplaint(societyComplaint);
+               
+                if (file != null&&result==1)
+                {
+                    string PathName = Path.Combine(Directory.GetCurrentDirectory(), "Image", "SocietyImages");
+                    if (!Directory.Exists(PathName))
+                        Directory.CreateDirectory(PathName);
+                    string FullPath = Path.Combine(PathName, file.FileName);
+                    using (var stream = new FileStream(FullPath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                    {
+                        file.CopyTo(stream);
+                    }
+
+                }
+                return Ok(result);
             }
             catch (Exception ex)
             {
@@ -81,11 +104,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetSocietyComplaints")]
-        public IActionResult GetSocietyComplaints()
+        public IActionResult GetSocietyComplaints(int PageNo, int NoofRow, string SearchText)
         {
             try
             {
-                return Ok(_societyService.GetSocietyComplaints());
+                return Ok(_societyService.GetSocietyComplaints(PageNo,NoofRow,SearchText));
             }
             catch (Exception ex)
             {
@@ -94,16 +117,16 @@ namespace ElectionAlerts.Controller
             }
         }
 
-        [HttpGet("GetSocietyComplaintbyId")]
-        public IActionResult GetSocietyComplaintbyId(int UserId)
+        [HttpGet("GetSocietyComplaintbyUserId")]
+        public IActionResult GetSocietyComplaintbyUserId(int UserId)
         {
             try
             {
-                return Ok(_societyService.GetSocietyComplaintbyId(UserId));
+                return Ok(_societyService.GetSocietyComplaintbyUserId(UserId));
             }
             catch (Exception ex)
             {
-                _exceptionLogService.ErrorLog(ex, "Exception", "SocietyController/GetSocietyComplaintbyId");
+                _exceptionLogService.ErrorLog(ex, "Exception", "SocietyController/GetSocietyComplaintbyUserId");
                 return BadRequest(ex);
             }
         }
@@ -123,11 +146,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetComplaintsbyStatus")]
-        public IActionResult GetComplaintsbyStatus(string Status)
+        public IActionResult GetComplaintsbyStatus(string Status, int PageNo, int NoofRow, string SearchText)
         {
             try
             {
-                return Ok(_societyService.GetComplaintsbyStatus(Status));
+                return Ok(_societyService.GetComplaintsbyStatus(Status,PageNo,NoofRow,SearchText));
             }
             catch(Exception ex)
             {
@@ -137,11 +160,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetTodayComplaint")]
-        public IActionResult GetTodayComplaint()
+        public IActionResult GetTodayComplaint(int PageNo, int NoofRow, string SearchText)
         {
             try
             {
-                return Ok(_societyService.GetTodayComplaint());
+                return Ok(_societyService.GetTodayComplaint(PageNo,NoofRow,SearchText));
             }
             catch(Exception ex)
             {
@@ -169,11 +192,64 @@ namespace ElectionAlerts.Controller
         {
             try
             {
-                return Ok(_societyService.DeleteSocietyComplaintbyId(Id));
+                    var result = _societyService.GetSocietyComplaintbyId(Id);
+                    if (result != null)
+                    {
+                        if (result.FileName != null)
+                        {
+                            var path = Path.Combine(Directory.GetCurrentDirectory(), "Image", "SocietyImages", result.FileName);
+                            System.IO.File.Delete(path);
+                        }
+                    }
+                    return Ok(_societyService.DeleteSocietyComplaintbyId(Id));
             }
             catch(Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "SocietyController/DeleteSocietyComplaintbyId");
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("GetSocietyComplaintbyId")]
+        public IActionResult GetSocietyComplaintbyId(int Id)
+        {
+            try
+            {
+                return Ok(_societyService.GetSocietyComplaintbyId(Id));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "SocietyController/GetSocietyComplaintbyId");
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("DownLoadFile")]
+        public IActionResult DownLoadFile(int Id)
+        {
+            try
+            {
+                var result = _societyService.GetSocietyComplaintbyId(Id);
+                if (result != null)
+                {
+                    if (!string.IsNullOrEmpty(result.FileName))
+                    {
+                        string Filepath = Path.Combine(Directory.GetCurrentDirectory(), "Image", "SocietyImages", result.FileName);
+                        var provider = new FileExtensionContentTypeProvider();
+                        if (!provider.TryGetContentType(Filepath, out var contentType))
+                        {
+                            contentType = "application/octet-stream";
+                        }
+
+                        var bytes = System.IO.File.ReadAllBytes(Filepath);
+                        return File(bytes, contentType, Path.GetFileName(Filepath));
+                    }
+                }
+                return Ok("File Not Present");
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "AppointmentController/DownoadFile");
                 return BadRequest(ex.Message);
             }
         }

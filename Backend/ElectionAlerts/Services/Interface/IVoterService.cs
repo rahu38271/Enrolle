@@ -20,9 +20,9 @@ namespace ElectionAlerts.Services.Interface
         VoterDTO GetVoterDetailbyId(int Id, string Language);
         IEnumerable<VoterDTO> GetVoterbyRelation(int Id,int UserId,int RoleId, int PageNo, int NoofRow,string Language);
         IEnumerable<Table> FilterColoumnCount(VoterTable table);
-        IEnumerable<LastNameCount> GetVoterCountbyLastName(int userid, int RoleId,int PageNo, int NoofRow, string Language);
+        IEnumerable<LastNameCount> GetVoterCountbyLastName(int userid, int RoleId,int PageNo, int NoofRow, string Language, string SearchText);
         IEnumerable<VoterDTO> VoterDetailsbyColumn(string ColoumnName, string ColoumnValue, int UserId,int RoleId, int PageNo, int NoofRow, string Language, string SearchText);
-        IEnumerable<VoterDTO> VoterDetailsbyLastName(string LName, int UserId,int RoleId, int PageNo, int NoofRow, string Language);
+        IEnumerable<VoterDTO> VoterDetailsbyLastName(string LName, int UserId,int RoleId, int PageNo, int NoofRow, string Language, string SearchText);
         IEnumerable<VoterDTO> VoterwithMobileNo(int UserId,int RoleId, int PageNo, int NoofRow, string Language, string SearchText);
         IEnumerable<VoterDTO> GetVoterbyRole(VoterSuperDto voterSuperDto);
         int UpadateMobileVoter(int Id, string MobileNo);

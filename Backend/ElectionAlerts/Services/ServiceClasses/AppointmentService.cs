@@ -33,14 +33,19 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _appointmentRepository.GetAppointmentbyDate(UserId,RoleId, dateTime);
         }
 
-        public IEnumerable<Appointment> GetAppointmentbyStatus(int UserId, int RoleId, string Status)
+        public Appointment GetAppointmentbyId(int Id)
         {
-            return _appointmentRepository.GetAppointmentbyStatus(UserId,RoleId, Status);
+            return _appointmentRepository.GetAppointmentbyId(Id);
         }
 
-        public IEnumerable<Appointment> GetAppointmentbyUserId(int UserId)
+        public IEnumerable<AppointmentDTO> GetAppointmentbyStatus(int UserId, int RoleId, string Status, int PageNo, int NoofRow, string SearchText)
         {
-            return _appointmentRepository.GetAppointmentbyUserId(UserId);
+            return _appointmentRepository.GetAppointmentbyStatus(UserId,RoleId, Status,PageNo,NoofRow,SearchText);
+        }
+
+        public IEnumerable<AppointmentDTO> GetAppointmentbyUserId(int UserId, int PageNo, int NoofRow, string SearchText)
+        {
+            return _appointmentRepository.GetAppointmentbyUserId(UserId,PageNo,NoofRow,SearchText);
         }
 
         public IEnumerable<AppointmentCount> GetAppointmentCount(int UserId, int RoleId)
@@ -53,19 +58,19 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _appointmentRepository.GetAppointmentCountbyUser();
         }
 
-        public IEnumerable<Appointment> GetAppointmentFromToDate(int UserId, int RoleId, string FromDate, string ToDate)
+        public IEnumerable<AppointmentDTO> GetAppointmentFromToDate(int UserId, int RoleId, string FromDate, string ToDate, int PageNo, int NoofRow, string SearchText)
         {
-            return _appointmentRepository.GetAppointmentFromToDate(UserId, RoleId, FromDate, ToDate);
+            return _appointmentRepository.GetAppointmentFromToDate(UserId, RoleId, FromDate, ToDate,PageNo,NoofRow,SearchText);
         }
 
-        public IEnumerable<Appointment> GetAppointments(int UserId, int RoleId)
+        public IEnumerable<AppointmentDTO> GetAppointments(int UserId, int RoleId, int PageNo, int NoofRow, string SearchText)
         {
-            return _appointmentRepository.GetAppointments(UserId, RoleId);
+            return _appointmentRepository.GetAppointments(UserId, RoleId,PageNo,NoofRow,SearchText);
         }
 
-        public IEnumerable<AppointmentDTO> GetTodayAppointment(int UserId, int RoleId)
+        public IEnumerable<AppointmentDTO> GetTodayAppointment(int UserId, int RoleId, int PageNo, int NoofRow, string SearchText)
         {
-            return _appointmentRepository.GetTodayAppointment(UserId,RoleId);
+            return _appointmentRepository.GetTodayAppointment(UserId,RoleId,PageNo,NoofRow,SearchText);
         }
 
         public int InsertUpdateAppintment(Appointment appointment)
