@@ -1,11 +1,8 @@
 import { Component, OnInit, ViewChild, ElementRef,ChangeDetectorRef } from '@angular/core';
-import * as xlsx from 'xlsx';
-import html2pdf from 'html2pdf.js'
 import { AlertController } from '@ionic/angular';
 import { SuperadminService } from 'src/app/services/superadmin.service'
 import { LoaderService } from 'src/app/services/loader.service'
-import { Router, ActivatedRoute,NavigationEnd } from '@angular/router'
-import { filter } from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router'
 import { Location } from '@angular/common';
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { SocietyService } from 'src/app/services/society.service'
@@ -105,17 +102,44 @@ export class SocietyComponent implements OnInit {
   }
 
   onSearchChange(SearchText:any){
-    this.PageNo=1;
-    this.NoofRow=this.totalItems;
-    this.SearchText=SearchText;
-    this.societyList(this.PageNo,this.NoofRow,this.SearchText);
+    if(this.SearchText==""){
+      this.PageNo=1;
+      this.NoofRow=this.totalItems;
+      this.SearchText=SearchText;
+      this.societyList(this.PageNo,this.NoofRow,this.SearchText);
+    }
+    else{
+      this.PageNo=1
+      this.NoofRow=10;
+      this.SearchText=SearchText;
+      this.society.getAllSociety(this.PageNo,this.NoofRow,SearchText).subscribe(data=>{
+        if(data){
+          this.getSocietyList = data;
+          this.totalItems = data[0].totalcount
+        }
+      })
+    }
+    
   }
   
   keyPress(SearchText:any){
-    this.PageNo=1;
-    this.NoofRow=this.totalItems;
-    this.SearchText=SearchText;
-    this.societyList(this.PageNo,this.NoofRow,this.SearchText);
+    if(this.SearchText==""){
+      this.PageNo=1;
+      this.NoofRow=this.totalItems;
+      this.SearchText=SearchText;
+      this.societyList(this.PageNo,this.NoofRow,this.SearchText);
+    }
+    else{
+      this.PageNo=1
+      this.NoofRow=10;
+      this.SearchText=SearchText;
+      this.society.getAllSociety(this.PageNo,this.NoofRow,SearchText).subscribe(data=>{
+        if(data){
+          this.getSocietyList = data;
+          this.totalItems = data[0].totalcount
+        }
+      })
+    }
   }
 
   goBack() {
@@ -153,11 +177,45 @@ export class SocietyComponent implements OnInit {
   }
 
   exportExcel():void {
-    this.excel.exportAsExcelFile(this.getSocietyList, 'Society');
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    var SearchText = ''
+    this.loader.showLoading();
+    this.society.getAllSociety(this.PageNo,this.NoofRow,SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.getSocietyList = data;
+        this.totalItems = data[0].totalcount;
+        this.excel.exportAsExcelFile(this.getSocietyList, 'Society');
+      }
+      else{
+        this.loader.hideLoader();
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
+    
   }
 
   exportToCSV() {
-    this.csv.exportToCsv(this.getSocietyList, 'Society');
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    var SearchText = ''
+    this.loader.showLoading();
+    this.society.getAllSociety(this.PageNo,this.NoofRow,SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.getSocietyList = data;
+        this.totalItems = data[0].totalcount;
+        this.csv.exportToCsv(this.getSocietyList, 'Society');
+      }
+      else{
+        this.loader.hideLoader();
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
+    
   }
 
 }

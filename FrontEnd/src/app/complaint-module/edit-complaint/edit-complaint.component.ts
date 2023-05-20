@@ -12,6 +12,26 @@ import { IonModal } from '@ionic/angular';
 })
 export class EditComplaintComponent implements OnInit {
 
+  keyPressNumbers(event) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  onKeyPress(event) {
+    if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {
+        return true
+    }
+    else {
+        return false
+    }
+}
+
   @ViewChild(IonModal) modal: IonModal;
   societycomplaint:any={}
 
@@ -57,9 +77,8 @@ export class EditComplaintComponent implements OnInit {
     this.societycomplaint = JSON.stringify(this.societycomplaint);
     //this.loader.showLoading();
     this.complaint.addSingleComplaint(this.file,this.societycomplaint).subscribe(data=>{
-      if(data){
+      if(data==1){
         //this.loader.hideLoader();
-        this.societycomplaint = {};
         this.toast.presentToast("Complaint updated successfully!", "success", 'checkmark-circle-sharp');
         this.router.navigate(['/complaint-book/all-complaints'])
       }

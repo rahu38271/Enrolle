@@ -335,6 +335,10 @@ const routes: Routes = [
     path: 'complaint-book',
     loadChildren: () => import('./complaint-module/complaint-module.module').then( m => m.ComplaintModuleModule)
   },
+  {
+    path: 'reports',
+    loadChildren: () => import('./reports-module/reports-module.module').then( m => m.ReportsModuleModule)
+  },
 ];
 
 @NgModule({

@@ -693,7 +693,26 @@
                 </ion-accordion>
               </ion-accordion-group>
 
+              <ion-accordion-group>
+                <ion-accordion value="setting">
+                  <ion-item slot="header" color="light">
+                    <i class="icofont icofont-ui-settings"></i>
+                    <ion-label>  Reports </ion-label>
+                  </ion-item>
+                  <div slot="content">
+                    <ion-item color="light" lines="none" [routerLink]="['/reports']" routerDirection="root">
+                      <i class="icofont icofont-ui-text-chat"></i>
+                      <ion-label> Adminwise Report</ion-label>
+                    </ion-item>
 
+                    <ion-item color="light" lines="none" [routerLink]="['/reports/datewise']" routerDirection="root">
+                      <i class="icofont icofont-ui-text-chat"></i>
+                      <ion-label> Datewise Report</ion-label>
+                    </ion-item>
+
+                  </div>
+                </ion-accordion>
+              </ion-accordion-group>
               
               <ion-accordion-group *ngIf="isSetting">
                 <ion-accordion value="setting">

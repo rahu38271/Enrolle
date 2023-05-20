@@ -20,7 +20,7 @@ export class VillagewiseListComponent implements OnInit {
   roleID:any;
   id:any;
   PageNo:any=1;
-  NoofRow:any=25;
+  NoofRow:any=10;
   totalItems:any;
   SearchText:any;
    
@@ -89,18 +89,44 @@ export class VillagewiseListComponent implements OnInit {
     })
   }
 
-  onSearchChange(SearchText:any){
-    this.PageNo=1;
-    this.SearchText=SearchText
-    this.NoofRow=this.totalItems;
-    this.villageWiseVoterList(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
+  onSearchChange(SearchText: any) {
+    if (this.SearchText == '') {
+      this.PageNo = 1;
+      this.SearchText = SearchText
+      this.NoofRow = this.totalItems;
+      this.villageWiseVoterList(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+    }
+    else {
+      this.PageNo = 1;
+      this.SearchText = SearchText
+      this.NoofRow = 10;
+      this.voter.voterByVillage(this.villageName, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+        if (data.length != 0) {
+          this.villageWiseVoter = data;
+          this.totalItems = data[0].totalCount
+        }
+      })
+    }
   }
 
   keyPress(SearchText:any){
-    this.PageNo=1;
-    this.SearchText=SearchText
-    this.NoofRow=this.totalItems;
-    this.villageWiseVoterList(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
+    if (this.SearchText == '') {
+      this.PageNo = 1;
+      this.SearchText = SearchText
+      this.NoofRow = this.totalItems;
+      this.villageWiseVoterList(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+    }
+    else {
+      this.PageNo = 1;
+      this.SearchText = SearchText
+      this.NoofRow = 10;
+      this.voter.voterByVillage(this.villageName, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+        if (data.length != 0) {
+          this.villageWiseVoter = data;
+          this.totalItems = data[0].totalCount
+        }
+      })
+    }
   }
 
 }

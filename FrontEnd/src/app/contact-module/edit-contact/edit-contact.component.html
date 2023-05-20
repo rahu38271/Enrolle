@@ -34,7 +34,7 @@
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" >
             <ion-label position="floating">  Full Name  <span>*</span> </ion-label>
-              <ion-input name="fullName" [(ngModel)]="EditData.fullName" #fullName="ngModel" (keypress)="onKeyPress($event)" class="text-capitalize form-control" required></ion-input>
+              <ion-input maxlength="30"  name="fullName" [(ngModel)]="EditData.fullName" #fullName="ngModel" (keypress)="onKeyPress($event)" class="text-capitalize form-control" required></ion-input>
           </ion-col>
 
           
@@ -50,7 +50,7 @@
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
             <ion-label position="floating"> Village Name </ion-label>
-              <ion-input name="vilageName" [(ngModel)]="EditData.vilageName" #vilageName="ngModel" class="form-control" ></ion-input>
+              <ion-input maxlength="30"  name="vilageName" [(ngModel)]="EditData.vilageName" (keypress)="onKeyPress($event)" #vilageName="ngModel" class="form-control" ></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="calendar">
@@ -61,6 +61,8 @@
                   class="form-control"
                   name="birthDate"
                   [(ngModel)]="EditData.birthDate"
+                  (keypress)="onKeyPress($event)"
+                  (keypress)="keyPressNumbers($event)" 
                 ></ion-input>
                 <ion-modal trigger="birthDate" size="cover" [canDismiss]="canDismiss" 
                 [backdropDismiss]="false" >
@@ -70,6 +72,7 @@
                       presentation="date"
                       [(ngModel)]="birthDate"
                       name="birthDate"
+                      show-default-buttons="true"
                     >
                     <div slot="title">{{ year }}</div>
                   </ion-datetime>
@@ -80,13 +83,15 @@
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="calendar">
             <ion-label>Anniversary </ion-label>
             <ion-input
-            value="{{ anniDate | date: 'yyyy-MM-dd' }}"
-            id="anniDate"
+            value="{{ anniversary | date: 'yyyy-MM-dd' }}"
+            id="anniversary"
             class="form-control"
-            name="anniDate"
+            name="anniversary"
             [(ngModel)]="EditData.anniversary"
+            (keypress)="onKeyPress($event)"
+            (keypress)="keyPressNumbers($event)" 
           ></ion-input>
-          <ion-modal trigger="anniDate" size="cover" [canDismiss]="canDismiss" 
+          <ion-modal trigger="anniversary" size="cover" [canDismiss]="canDismiss" 
           [backdropDismiss]="false" >
             <ng-template>
               <ion-datetime
@@ -94,6 +99,7 @@
                 presentation="date"
                 [(ngModel)]="anniversary"
                 name="anniDate"
+                show-default-buttons="true"
               >
               <div slot="title">{{ year }}</div>
             </ion-datetime>
@@ -160,8 +166,8 @@
           </ion-col>  -->
 
           <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
-            <ion-label position="floating">   </ion-label>
-              <ion-textarea name="address" [(ngModel)]="EditData.address" #address="ngModel" rows="3" class="form-control"></ion-textarea>
+            <ion-label position="floating"> Address  </ion-label>
+              <ion-textarea maxlength="160" name="address" [(ngModel)]="EditData.address" #address="ngModel" rows="3" class="form-control"></ion-textarea>
           </ion-col> 
           
           <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">

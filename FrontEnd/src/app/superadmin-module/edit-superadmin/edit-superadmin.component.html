@@ -22,7 +22,7 @@
               <ion-row>
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
                   <ion-label>Name <span>*</span></ion-label>
-                  <ion-input name="name" [(ngModel)]="editData.name" #name="ngModel"
+                  <ion-input maxlength="50" name="name" [(ngModel)]="editData.name" #name="ngModel"
                     class="text-capitalize form-control" required></ion-input>
                   <!-- <div *ngIf="f.submitted && Name.invalid" class="invalid-feedback">
                       <div *ngIf="Name.errors.required">
@@ -49,8 +49,9 @@
                 </ion-col>
 
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
-                  <ion-label>UserID/10 digit mob. no. <span>*</span></ion-label>
-                  <ion-input name="contact" [(ngModel)]="editData.contact" required maxlength="10"
+                  <ion-label>UserID / Mob. no. <span>*</span></ion-label>
+                  <ion-input name="contact" [(ngModel)]="editData.contact" required maxlength="12"
+                  minlength="10"
                     (keypress)="keyPressNumbers($event)" class="form-control">
                   </ion-input>
                   <!-- <div *ngIf="f.submitted && userID.invalid" class="invalid-feedback">
@@ -63,7 +64,7 @@
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
                   <div class="form-outline">
                     <ion-label>Password <span>*</span></ion-label>
-                    <ion-input [type]="ismyTextFieldType ? 'text' : 'password' " name="password"
+                    <ion-input maxlength="30" [type]="ismyTextFieldType ? 'text' : 'password' " name="password"
                       [(ngModel)]="editData.password" required class="form-control"></ion-input>
                     <!-- <div *ngIf="f.submitted && Password.invalid" class="invalid-feedback">
                         <div *ngIf="Password.errors.required">
@@ -77,8 +78,13 @@
 
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
                   <ion-label>Email</ion-label>
-                  <ion-input name="Email" [(ngModel)]="editData.email"
+                  <ion-input type="email" name="Email" [(ngModel)]="editData.email" maxlength="60" pattern="^[^ ]+@[^ ]+\.[a-z]{2,6}$"
                     class="form-control"></ion-input>
+                    <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+                      <div *ngIf="Email.errors.pattern">
+                        Invalid email
+                      </div>
+                    </div>
                 </ion-col>
 
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="editData.roleName == 'Superadmin'">

@@ -109,12 +109,11 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col class="title" size-xs="3">
+        <ion-col class="title rightText" size-xs="4">
+          <ion-label class="dash"> - </ion-label>
           <ion-label> {{'Name' | translate}}</ion-label>
         </ion-col>
-        <ion-col class="ion-text-center" size-xs="1">
-          :
-        </ion-col>
+       
         <ion-col size-xs="8">
           <ion-label>{{VoterListByUser.fullName}} </ion-label>
         </ion-col>
@@ -131,11 +130,9 @@
         </ion-col>
       </ion-row> -->
       <ion-row>
-        <ion-col class="title" size-xs="3">
+        <ion-col class="title" size-xs="4">
+          <ion-label class="dash"> - </ion-label>
           <ion-label> {{'Village' | translate}}</ion-label>
-        </ion-col>
-        <ion-col class="ion-text-center" size-xs="1">
-          :
         </ion-col>
         <ion-col size-xs="8">
           <ion-label> {{VoterListByUser.village}}</ion-label>
@@ -154,22 +151,18 @@
       </ion-row> -->
 
       <ion-row class="ageGender">
-        <ion-col class="title" size-xs="3">
+        <ion-col class="title" size-xs="4">
+          <ion-label class="dash"> - </ion-label>
           <ion-label>{{'Age' | translate}}</ion-label>
-        </ion-col>
-        <ion-col class="ion-text-center" size-xs="1">
-          :
         </ion-col>
         <ion-col size-xs="8">
           <ion-label>{{VoterListByUser.age}}</ion-label>
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col class="title" size-xs="3">
+        <ion-col class="title" size-xs="4">
+          <ion-label class="dash"> - </ion-label>
           <ion-label> {{'Gender' | translate}}</ion-label>
-        </ion-col>
-        <ion-col class="ion-text-center" size-xs="1">
-          :
         </ion-col>
         <ion-col size-xs="8">
           <ion-label> {{VoterListByUser.gender}}</ion-label>
@@ -202,11 +195,9 @@
       </ion-row> -->
 
       <ion-row>
-        <ion-col class="title" size-xs="3">
+        <ion-col class="title" size-xs="4">
+          <ion-label class="dash"> - </ion-label>
           <ion-label> {{'Voter ID' | translate}} </ion-label>
-        </ion-col>
-        <ion-col class="ion-text-center" size-xs="1">
-          :
         </ion-col>
         <ion-col size-xs="8">
           <ion-label> {{VoterListByUser.votingCardNo}} </ion-label>
@@ -214,26 +205,26 @@
       </ion-row>
 
       <ion-row>
-        <ion-col class="title" size-xs="3">
+        <ion-col class="title" size-xs="4">
+          <ion-label class="dash"> - </ion-label>
           <ion-label>
             {{'Address' | translate}}
           </ion-label>
-          <div>
-            <ion-icon name="create-sharp" id="address"></ion-icon>
-          </div>
-        </ion-col>
-        <ion-col class="ion-text-center" size-xs="1">
-          :
+          
         </ion-col>
         <ion-col size-xs="8">
-          <ion-label class="address">
-            {{VoterListByUser.address}}
-          </ion-label>
+          <div class="newFlex">
+            <ion-icon name="create-sharp" id="address"></ion-icon>
+            <ion-label class="address">
+              {{VoterListByUser.address}}
+            </ion-label>
+          </div>
+          
         </ion-col>
 
       </ion-row>
 
-      <ion-modal #modal trigger="address" (willDismiss)="onWillDismiss($event)" [backdropDismiss]="false" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+      <ion-modal #modal trigger="address" (willDismiss)="onWillDismiss($event)" [backdropDismiss]="false" >
         <ng-template>
           <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
             <ion-grid>
@@ -249,7 +240,7 @@
                   </div>
                 </ion-col>
                 <ion-col size="12" class="ion-text-center">
-                  <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
+                  <ion-button color="danger" size="medium" (click)="closeModal()">
                     {{'Cancel' | translate}}
                   </ion-button>
                   <ion-button type="submit" color="success" size="medium" (click)="saveAddress()"
@@ -266,11 +257,9 @@
 
 
       <ion-row>
-        <ion-col class="title" size-xs="3">
+        <ion-col class="title" size-xs="4">
+          <ion-label class="dash"> - </ion-label>
           <ion-label> {{'Part No.' | translate}}</ion-label>
-        </ion-col>
-        <ion-col class="ion-text-center" size-xs="1">
-          :
         </ion-col>
         <ion-col size-xs="8">
           <ion-label> {{VoterListByUser.partNo}} </ion-label>
@@ -278,11 +267,9 @@
       </ion-row>
 
       <ion-row>
-        <ion-col class="title" size-xs="3">
+        <ion-col class="title" size-xs="4">
+          <ion-label class="dash"> - </ion-label>
           <ion-label>{{'Sr. No.' | translate}}</ion-label>
-        </ion-col>
-        <ion-col class="ion-text-center" size-xs="1">
-          :
         </ion-col>
         <ion-col size-xs="8">
           <ion-label> {{VoterListByUser.srNo}} </ion-label>
@@ -291,37 +278,37 @@
 
 
       <ion-row>
-        <ion-col class="title" size-xs="3">
+        <ion-col class="title" size-xs="4">
+          <ion-label class="dash"> - </ion-label>
           <ion-label>
             {{'Mobile' | translate}}
           </ion-label>
-          <div>
-            <ion-icon name="add-circle-sharp" id="mobile" expand="block"></ion-icon>
+          
+        </ion-col>
+
+        <ion-col size-xs="8">
+          <div class="newFlex">
+            <ion-icon name="add-circle-outline" id="mobile" expand="block"></ion-icon>
+            <ion-label> {{VoterListByUser.mobileNo}} </ion-label>
           </div>
-        </ion-col>
-        <ion-col class="ion-text-center" size-xs="1">
-          :
-        </ion-col>
-        <ion-col size-xs="7">
-          <ion-label> {{VoterListByUser.mobileNo}} </ion-label>
         </ion-col>
 
       </ion-row>
 
       <ion-row>
-        <ion-col class="title" size-xs="3">
+        <ion-col class="title" size-xs="4">
+          <ion-label class="dash"> - </ion-label>
           <ion-label>
             {{'Alt. No.' | translate}}
           </ion-label>
-          <div>
-            <ion-icon name="add-circle-sharp" id="altMobile"></ion-icon>
+          
+        </ion-col>
+        <ion-col size-xs="8">
+          <div class="newFlex"> 
+            <ion-icon name="add-circle-outline" id="altMobile"></ion-icon>
+            <ion-label> {{VoterListByUser.alternateMobileNo}} </ion-label>
           </div>
-        </ion-col>
-        <ion-col class="ion-text-center" size-xs="1">
-          :
-        </ion-col>
-        <ion-col size-xs="7">
-          <ion-label> {{VoterListByUser.alternateMobileNo}} </ion-label>
+          
         </ion-col>
 
       </ion-row>
@@ -332,7 +319,7 @@
             Alt. No.
           </ion-label>
           <div>
-            <ion-icon name="add-circle-sharp" id="altMobile"></ion-icon>
+            <ion-icon name="add-circle-outline" id="altMobile"></ion-icon>
           </div>
         </ion-col>
         <ion-col class="ion-text-center" size-xs="1">
@@ -344,7 +331,7 @@
 
       </ion-row>
 
-      <ion-modal trigger="mobile" (willDismiss)="onWillDismiss($event)" [backdropDismiss]="false" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+      <ion-modal trigger="mobile" (willDismiss)="onWillDismiss($event)" [backdropDismiss]="false">
         <ng-template>
           <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
             <ion-grid>
@@ -360,13 +347,14 @@
                   </div>
                 </ion-col>
                 <ion-col size="12" class="ion-text-center">
-                  <ion-button type="submit" color="success" size="medium" (click)="saveMobile()"
-                    >
-                    {{'Submit' | translate}}
-                  </ion-button>
-                  <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
+                  <ion-button color="danger" size="medium" (click)="closeModal()">
                     {{'Cancel' | translate}}
                   </ion-button>
+                  <ion-button type="submit" color="success" size="medium" (click)="saveMobile()"
+                    [disabled]="!f.form.valid">
+                    {{'Submit' | translate}}
+                  </ion-button>
+                  
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -376,7 +364,7 @@
       </ion-modal>
 
 
-      <ion-modal #modal trigger="altMobile" (willDismiss)="onWillDismiss($event)" [backdropDismiss]="false" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+      <ion-modal #modal trigger="altMobile" (willDismiss)="onWillDismiss($event)" [backdropDismiss]="false">
         <ng-template>
           <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
             <ion-grid>
@@ -392,12 +380,13 @@
                   </div>
                 </ion-col>
                 <ion-col size="12" class="ion-text-center">
-                  <ion-button type="submit" color="success" size="medium" (click)="saveAltMobile()">
-                    {{'Submit' | translate}}
-                  </ion-button>
-                  <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
+                  <ion-button color="danger" size="medium" (click)="closeModal()">
                     {{'Cancel' | translate}}
                   </ion-button>
+                  <ion-button type="submit" color="success" size="medium" (click)="saveAltMobile()" [disabled]="!f.form.valid">
+                    {{'Submit' | translate}}
+                  </ion-button>
+                  
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -408,41 +397,30 @@
 
 
       <ion-row>
-        <ion-col class="title" size-xs="3">
-          <!-- <ion-label>Dead</ion-label> -->
+        <ion-col class="title" size-xs="4">
+          <ion-label class="dash"> - </ion-label>
           <ion-label> {{'Alive' | translate}}</ion-label>
-          <div>
-            <ion-icon name="add-circle-sharp" id="deadAlive"></ion-icon>
-          </div>
-        </ion-col>
-
-        <ion-col class="ion-text-center" size-xs="1">
-          :
         </ion-col>
         <ion-col size-xs="8">
-          <ion-label>
-            <ion-radio-group name="isAlive" [(ngModel)]="VoterListByUser.isAlive">
-              <div class="radioBtn">
-                <ion-radio [value]="0" disabled></ion-radio>
-                <ion-label>No</ion-label>
-                <ion-radio [value]="1" disabled></ion-radio>
-                <ion-label>Yes</ion-label>
-              </div>
-            </ion-radio-group>
-            <!-- <ion-radio-group >
-              <div class="radioBtn">
-                <ion-radio ></ion-radio>
-                  <ion-label> {{'No' | translate}}</ion-label>
-                  <ion-radio></ion-radio>
-                  <ion-label> {{'Yes' | translate}}</ion-label>
-              </div>
-            </ion-radio-group> -->
-          </ion-label>
+          <div>
+            <ion-label>
+              <ion-radio-group name="isAlive" [(ngModel)]="VoterListByUser.isAlive">
+                <div class="radioBtn">
+                  <ion-icon name="add-circle-outline" id="deadAlive"></ion-icon>
+                  <ion-radio [value]="0" disabled></ion-radio>
+                  <ion-label>No</ion-label>
+                  <ion-radio [value]="1" disabled></ion-radio>
+                  <ion-label>Yes</ion-label>
+                </div>
+              </ion-radio-group>
+            </ion-label>
+          </div>
+          
         </ion-col>
       </ion-row>
 
 
-      <ion-modal #modal trigger="deadAlive" (willDismiss)="onWillDismiss($event)" [backdropDismiss]="false" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+      <ion-modal #modal trigger="deadAlive" (willDismiss)="onWillDismiss($event)" [backdropDismiss]="false">
         <ng-template>
           <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
             <ion-grid>
@@ -467,13 +445,14 @@
                   </div>
                 </ion-col>
                 <ion-col size="12" class="ion-text-center">
+                  <ion-button color="danger" size="medium" (click)="closeModal()">
+                    {{'Cancel' | translate}}
+                  </ion-button>
                   <ion-button type="submit" color="success" size="medium" (click)="aliveDead()"
                     [disabled]="!f.form.valid">
                     {{'Submit' | translate}}
                   </ion-button>
-                  <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
-                    {{'Cancel' | translate}}
-                  </ion-button>
+                  
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -483,17 +462,17 @@
       </ion-modal>
 
       <ion-row>
-        <ion-col class="title" size-xs="3">
+        <ion-col class="title" size-xs="4">
+          <ion-label class="dash"> - </ion-label>
           <ion-label> DOB </ion-label>
-          <div>
-            <ion-icon name="add-circle-sharp" id="dob"></ion-icon>
-          </div>
         </ion-col>
-        <ion-col class="ion-text-center" size-xs="1">
-          :
-        </ion-col>
+       
         <ion-col size-xs="8">
-          <ion-label> {{VoterListByUser.birthDate}} </ion-label>
+          <div class="newFlex">
+            <ion-icon name="add-circle-outline" id="dob"></ion-icon>
+            <ion-label> {{VoterListByUser.birthDate}} </ion-label>
+          </div>
+          
         </ion-col>
       </ion-row>
 
@@ -524,9 +503,7 @@
         #modal trigger="dob" 
         [canDismiss]="canDismiss" 
         [backdropDismiss]="false" 
-        [initialBreakpoint]="1" 
-        [breakpoints]="[0, 1]"
-        
+         
       >
         <ng-template>
           <div>
@@ -542,7 +519,7 @@
                         name="Birthdate" [(ngModel)]="BirthdateUpdate.ColoumnValue"></ion-input>
                       <ion-modal trigger="Birthdate" size="cover">
                         <ng-template>
-                          <ion-datetime presentation="date" [(ngModel)]="Birthdate" name="Birthdate" show-default-buttons="true">
+                          <ion-datetime max={{maxDate}} presentation="date" [(ngModel)]="Birthdate" name="Birthdate" show-default-buttons="true">
                             <span slot="title"> {{ year }} </span>
                           </ion-datetime>
                         </ng-template>
@@ -550,12 +527,13 @@
                     </ion-list>
                   </ion-col>
                   <ion-col size="12" class="ion-text-center">
+                    <ion-button color="danger" size="medium" (click)="closeModal()">
+                      {{'Cancel' | translate}}
+                    </ion-button>
                     <ion-button type="submit" color="success" size="medium" (click)="saveBirthdate()">
                       {{'Submit' | translate}}
                     </ion-button>
-                    <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
-                      {{'Cancel' | translate}}
-                    </ion-button>
+                    
                   </ion-col>
                 </ion-row>
               </ion-grid>
@@ -566,22 +544,20 @@
       </ion-modal>
 
       <ion-row>
-        <ion-col class="title" size-xs="3">
+        <ion-col class="title" size-xs="4">
+          <ion-label class="dash"> - </ion-label>
           <ion-label> Caste </ion-label>
-          <div>
-            <ion-icon name="add-circle-sharp" id="cast"></ion-icon>
-          </div>
-        </ion-col>
-        <ion-col class="ion-text-center" size-xs="1">
-          :
         </ion-col>
         <ion-col size-xs="8">
-          <ion-label> {{VoterListByUser.caste}} </ion-label>
+          <div class="newFlex">
+            <ion-icon name="add-circle-outline" id="cast"></ion-icon>
+            <ion-label> {{VoterListByUser.caste}} </ion-label>
+          </div>
         </ion-col>
       </ion-row>
 
 
-      <ion-modal #modal trigger="cast" (willDismiss)="onWillDismiss($event)" [backdropDismiss]="false" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+      <ion-modal #modal trigger="cast" (willDismiss)="onWillDismiss($event)" [backdropDismiss]="false" >
         <ng-template>
           <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
             <ion-grid>
@@ -607,12 +583,13 @@
                   </ion-list>
                 </ion-col>
                 <ion-col size="12" class="ion-text-center">
+                  <ion-button color="danger" size="medium" (click)="closeModal()">
+                    {{'Cancel' | translate}}
+                  </ion-button>
                   <ion-button type="submit" color="success" size="medium" (click)="saveCaste()">
                     {{'Submit' | translate}}
                   </ion-button>
-                  <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
-                    {{'Cancel' | translate}}
-                  </ion-button>
+                  
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -621,21 +598,20 @@
       </ion-modal>
 
       <ion-row>
-        <ion-col class="title" size-xs="3">
+        <ion-col class="title" size-xs="4">
+          <ion-label class="dash"> - </ion-label>
           <ion-label> Profession </ion-label>
-          <div>
-            <ion-icon name="add-circle-sharp" id="profession"></ion-icon>
-          </div>
-        </ion-col>
-        <ion-col class="ion-text-center" size-xs="1">
-          :
         </ion-col>
         <ion-col size-xs="8">
-          <ion-label class="text-capitalize"> {{VoterListByUser.occupation}} </ion-label>
+          <div class="newFlex">
+            <ion-icon name="add-circle-outline" id="profession"></ion-icon>
+            <ion-label class="text-capitalize"> {{VoterListByUser.occupation}} </ion-label>
+          </div>
+          
         </ion-col>
       </ion-row>
 
-      <ion-modal #modal trigger="profession" [canDismiss]="canDismiss"  [backdropDismiss]="false" [initialBreakpoint]="1" [breakpoints]="[0, 1]">
+      <ion-modal #modal trigger="profession" [canDismiss]="canDismiss"  [backdropDismiss]="false">
         <ng-template>
           <div>
             <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
@@ -651,12 +627,13 @@
                     </ion-list>
                   </ion-col>
                   <ion-col size="12" class="ion-text-center">
+                    <ion-button color="danger" size="medium" (click)="closeModal()">
+                      {{'Cancel' | translate}}
+                    </ion-button>
                     <ion-button type="submit" color="success" size="medium" (click)="saveProfession()">
                       {{'Submit' | translate}}
                     </ion-button>
-                    <ion-button type="reset" color="danger" size="medium" (click)="closeModal()">
-                      {{'Cancel' | translate}}
-                    </ion-button>
+                    
                   </ion-col>
                 </ion-row>
               </ion-grid>
@@ -704,7 +681,7 @@
           <ion-label> 9158490455 </ion-label> 
         </ion-col>
         <ion-col size-xs="1" >
-          <ion-icon name="add-circle-sharp" (click)="addwapp()"></ion-icon>
+          <ion-icon name="add-circle-outline" (click)="addwapp()"></ion-icon>
         </ion-col>
       </ion-row>
 
@@ -734,7 +711,7 @@
           <ion-label>  </ion-label> 
         </ion-col>
         <ion-col size-xs="1">
-          <ion-icon name="add-circle-sharp" (click)="addEmail()"></ion-icon>
+          <ion-icon name="add-circle-outline" (click)="addEmail()"></ion-icon>
         </ion-col>
       </ion-row>
 

@@ -15,11 +15,10 @@ export class ImpVoterComponent implements OnInit {
   impVoterData: any;
   userId: any;
   roleID: any;
-  searchMob: string;
-  PageNo: any = 1;
-  NoofRow: any = 10;
-  totalItems: any;
-  SearchText: any;
+  PageNo:any=1;
+  NoofRow:any=10;
+  totalItems:any;
+  SearchText:any;
 
   search() {
     this.isShow = !this.isShow
@@ -37,18 +36,18 @@ export class ImpVoterComponent implements OnInit {
   ngOnInit(): void {
     this.userId = localStorage.getItem("loginId");
     this.roleID = localStorage.getItem("userType");
-    if (this.SearchText == undefined) {
+    if (this.SearchText==undefined) {
       this.SearchText = ''
     }
     else {
       this.SearchText = this.SearchText
     }
-    this.impVoterList(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+    this.impVoterList(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
   }
 
   event(event: any) {
     this.PageNo = event;
-    this.impVoterList(this.userId, this.roleID, event, this.NoofRow, this.Language, this.SearchText)
+    this.impVoterList(this.userId,this.roleID,event,this.NoofRow,this.Language,this.SearchText)
   }
 
   voterDetails(item: any) {
@@ -56,7 +55,6 @@ export class ImpVoterComponent implements OnInit {
   }
 
   impVoterList(userId: any, roleID: any, PageNo: any, NoofRow: any, Language: any, SearchText: any) {
-    //this.loader.showLoading();
     this.Language = this.translateConfigService.getCurrentLang();
     if (this.Language == "kn") {
       this.Language = "Kannada"
@@ -72,30 +70,58 @@ export class ImpVoterComponent implements OnInit {
     }
     this.voter.impVoter(userId, roleID, PageNo, NoofRow, this.Language, this.SearchText).subscribe(data => {
       if (data.length != 0) {
-        //this.loader.hideLoader();
         this.impVoterData = data;
         this.totalItems = data[0].totalCount
       }
       else {
-        //this.loader.hideLoader();
       }
     }, (err) => {
-      //this.loader.hideLoader();
+
     })
   }
 
   onSearchChange(SearchText: any) {
-    this.PageNo = 1;
-    this.NoofRow = this.totalItems;
-    this.SearchText = SearchText;
-    this.impVoterList(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+    if (this.SearchText == '') {
+      this.PageNo = 1;
+      this.NoofRow = this.totalItems;
+      this.SearchText = SearchText;
+      this.impVoterList(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+    }
+    else {
+      this.PageNo = 1;
+      this.NoofRow = 10;
+      this.SearchText = SearchText;
+      this.voter.impVoter(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+        if (data) {
+          this.impVoterData = data;
+          this.totalItems = data[0].totalCount
+        }
+        else {
+        }
+      })
+    }
   }
 
   keyPress(SearchText: any) {
-    this.PageNo = 1;
-    this.NoofRow = this.totalItems;
-    this.SearchText = SearchText;
-    this.impVoterList(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+    if (this.SearchText == '') {
+      this.PageNo = 1;
+      this.NoofRow = this.totalItems;
+      this.SearchText = SearchText;
+      this.impVoterList(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+    }
+    else {
+      this.PageNo = 1;
+      this.NoofRow = 10;
+      this.SearchText = SearchText;
+      this.voter.impVoter(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+        if (data) {
+          this.impVoterData = data;
+          this.totalItems = data[0].totalCount
+        }
+        else {
+        }
+      })
+    }
   }
 
 

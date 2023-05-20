@@ -16,33 +16,32 @@
             <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>Edit Society
           </ion-text>
         </ion-row>
-        <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+        <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
           <ion-row>
             <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
               <ion-label position="floating"> Society Name   <span>*</span> </ion-label>
-                <ion-input name="Name" [(ngModel)]="societyModal.name" class="text-capitalize form-control" required></ion-input>
+                <ion-input maxlength="30" name="Name" [(ngModel)]="societyModal.name" class="text-capitalize form-control" required></ion-input>
                 
             </ion-col>
   
             
             <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
               <ion-label position="floating"> Chairman  </ion-label>
-                <ion-input name="Chairman" [(ngModel)]="societyModal.chairman"  class="text-capitalize form-control" ></ion-input>
-                
+                <ion-input maxlength="30" name="Chairman" [(ngModel)]="societyModal.chairman"  class="text-capitalize form-control"></ion-input>
             </ion-col>
   
             
   
             <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
-              <ion-label position="floating"> Mobile No. <span>*</span> </ion-label>
+              <ion-label position="floating"> Mobile No. </ion-label>
                 <ion-input 
-                  
                   (keypress)="keyPressNumbers($event)" 
                   name="PhoneNo" 
                   [(ngModel)]="societyModal.phoneNo" 
                   class="form-control"
                   minlength="10"
                   maxlength="12"
+                  
                   >
                 </ion-input>
                 
@@ -67,6 +66,7 @@
                     [(ngModel)]="societyModal.address"  
                     class="form-control" 
                     rows="2" 
+                    maxlength="160"
                 ></ion-textarea>
                   
               </ion-col> 
@@ -84,8 +84,7 @@
 
               <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="12" size-xs="12">
                 <ion-label position="floating"> Ward No. </ion-label>
-                  <ion-input 
-                      (keypress)="keyPressNumbers($event)" 
+                  <ion-input  
                       name="WardNo" 
                       [(ngModel)]="societyModal.wardNo" 
                       class="form-control" 
@@ -146,7 +145,7 @@
             <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
               <div class="ion-text-center">
                 <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
-                <ion-button  type="submit" size="medium" (click)="EditSociety()" [disabled]="!f.form.valid" >Update</ion-button>
+                <ion-button  type="submit" size="medium" (click)="EditSociety()" >Update</ion-button>
                 <ion-button routerLink="/society" color="success" type="button" size="medium">Back To List</ion-button>
               </div>
             </ion-col>

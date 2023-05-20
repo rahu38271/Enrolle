@@ -168,3 +168,7 @@ ion-item img {
     display: flex;
   }
 
+  .namewithSelect {
+    display: flex;
+    justify-content: space-between;
+  }

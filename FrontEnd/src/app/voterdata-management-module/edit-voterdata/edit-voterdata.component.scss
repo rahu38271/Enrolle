@@ -33,3 +33,7 @@ ion-modal {
     --height: auto;
   --border-radius: 8px;
  }
+
+ ion-input, ion-textarea, ion-select {
+    text-transform: capitalize !important;
+  }

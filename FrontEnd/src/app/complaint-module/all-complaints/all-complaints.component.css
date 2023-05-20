@@ -194,4 +194,7 @@ ion-item img {
     display: block;
   }
 
-
+.namewithSelect {
+  display: flex;
+  justify-content: space-between;
+}

@@ -16,7 +16,6 @@ export class MobileListComponent implements OnInit {
   voterMobile: any;
   userId: any;
   roleID:any;
-  searchMob:string;
   PageNo:any=1;
   NoofRow:any=10;
   totalItems:any;
@@ -87,18 +86,49 @@ export class MobileListComponent implements OnInit {
     })
   }
 
-  onSearchChange(SearchText:any){
-    this.PageNo=1;
-    this.NoofRow=this.totalItems;
-    this.SearchText = SearchText;
-    this.mobileList(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
+  onSearchChange(SearchText: any) {
+    if (this.SearchText == '') {
+      this.PageNo = 1;
+      this.NoofRow = this.totalItems;
+      this.SearchText = SearchText;
+      this.mobileList(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+    }
+    else {
+      this.PageNo = 1;
+      this.NoofRow = 10;
+      this.SearchText = SearchText;
+      this.voter.voterWithMobile(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+        if (data.length != 0) {
+          //this.loader.hideLoader();
+          this.voterMobile = data;
+          this.totalItems = data[0].totalCount
+        }
+        else {
+          //this.loader.hideLoader();
+          this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+        }
+      })
+    }
   }
 
   keyPress(SearchText:any){
-    this.PageNo=1;
-    this.NoofRow=this.totalItems;
-    this.SearchText = SearchText;
-    this.mobileList(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
+    if (this.SearchText == '') {
+      this.PageNo = 1;
+      this.NoofRow = this.totalItems;
+      this.SearchText = SearchText;
+      this.mobileList(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+    }
+    else {
+      this.PageNo = 1;
+      this.NoofRow = 10;
+      this.SearchText = SearchText;
+      this.voter.voterWithMobile(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+        if (data) {
+          this.voterMobile = data;
+          this.totalItems = data[0].totalCount
+        }
+      })
+    }
   }
 
   }

@@ -46,7 +46,7 @@ export class ModernWayComponent implements OnInit {
   id: any;
   roleID:any;
   PageNo:any=1;
-  NoofRow:any=10;
+  NoofRow:any=100;
   totalItems:any;
 
   constructor
@@ -91,8 +91,20 @@ export class ModernWayComponent implements OnInit {
   }
 
   voterListBySearch(){
-    this.isShow = !this.isShow;
+    this.isShow = true
     this.Language = this.translateConfigService.getCurrentLang();
+    if (this.Language == "kn") {
+      this.Language = "Kannada"
+    }
+    else if (this.Language == "mr") {
+      this.Language = "Marathi"
+    }
+    else if (this.Language == "hi") {
+      this.Language = "Hindi"
+    }
+    else {
+      this.Language = "English"
+    }
     this.searchModal.Language = this.Language
     this.searchModal.PageNo = this.PageNo;
     this.searchModal.NoofRow = this.NoofRow;

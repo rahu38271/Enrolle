@@ -82,17 +82,69 @@ export class SurnamewiseListComponent implements OnInit {
   });
   }
 
-  onSearchChange(SearchText:any){
-    this.PageNo=1;
-    this.NoofRow=this.totalCount;
-    this.SearchText=SearchText;
-    this.lastNameWiseVoterData(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
+  onSearchChange(SearchText: any) {
+    if (this.SearchText == '') {
+      this.PageNo = 1;
+      this.NoofRow = this.totalCount;
+      this.SearchText = SearchText;
+      this.lastNameWiseVoterData(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+    }
+    else {
+      this.PageNo = 1;
+      this.NoofRow = 10;
+      this.SearchText = SearchText;
+      this.Language = this.translateConfigService.getCurrentLang();
+      if (this.Language == "kn") {
+        this.Language = "Kannada"
+      }
+      else if (this.Language == "mr") {
+        this.Language = "Marathi"
+      }
+      else if (this.Language == "hi") {
+        this.Language = "Hindi"
+      }
+      else {
+        this.Language = "English"
+      }
+      this.voter.voterByLastName(this.lastName, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+        if (data) {
+          this.surnameWiseData = data;
+          this.totalCount = data[0].totalCount
+        }
+      });
+    }
   }
 
    keyPress(SearchText:any){
-    this.PageNo=1;
-    this.NoofRow=this.totalCount;
-    this.SearchText=SearchText;
-    this.lastNameWiseVoterData(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
+    if (this.SearchText == '') {
+      this.PageNo = 1;
+      this.NoofRow = this.totalCount;
+      this.SearchText = SearchText;
+      this.lastNameWiseVoterData(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+    }
+    else {
+      this.PageNo = 1;
+      this.NoofRow = 10;
+      this.SearchText = SearchText;
+      this.Language = this.translateConfigService.getCurrentLang();
+      if (this.Language == "kn") {
+        this.Language = "Kannada"
+      }
+      else if (this.Language == "mr") {
+        this.Language = "Marathi"
+      }
+      else if (this.Language == "hi") {
+        this.Language = "Hindi"
+      }
+      else {
+        this.Language = "English"
+      }
+      this.voter.voterByLastName(this.lastName, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+        if (data) {
+          this.surnameWiseData = data;
+          this.totalCount = data[0].totalCount
+        }
+      });
+    }
   }
 }

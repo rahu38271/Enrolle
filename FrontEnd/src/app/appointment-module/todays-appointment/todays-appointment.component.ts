@@ -6,6 +6,7 @@ import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { AlertController,LoadingController,ToastController } from '@ionic/angular';
 import { Router, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
+import { LoaderService } from 'src/app/services/loader.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class TodaysAppointmentComponent implements OnInit {
 
   UserId:any;
   roleID:any;
-  todayApm:any[]=[];
+  todayApm:any;
   currentDate = new Date();
 
   updateStatusModal:any={
@@ -40,22 +41,30 @@ export class TodaysAppointmentComponent implements OnInit {
     private router:Router, 
     private toast:IonicToastService,
     private location: Location,
+    private loader:LoaderService
     ) {
     
    }
 
   ngOnInit(): void {
+    debugger;
     if(this.SearchText == undefined){
       this.SearchText = ""
     }
     else{
       this.SearchText = this.SearchText
     }
+    // if(this.totalItems==undefined){
+    //   this.totalItems=0
+    // }
+    // else{
+    //    this.totalItems = this.NoofRow
+    // }
   }
   
   ionViewWillEnter(){
     this.UserId = localStorage.getItem("loginId");
-    this.roleID = localStorage.getItem("userType")
+    this.roleID = localStorage.getItem("userType");
     this.todayApmList(this.UserId,this.roleID,this.PageNo,this.NoofRow,this.SearchText);
   }
 
@@ -118,6 +127,54 @@ export class TodaysAppointmentComponent implements OnInit {
         })
   }
 
+  onSearchChange(SearchText: any) {
+    if (this.SearchText == '') {
+      this.PageNo = 1;
+      this.NoofRow = this.totalItems;
+      this.SearchText = SearchText;
+      this.todayApmList(this.UserId, this.roleID, this.PageNo, this.NoofRow, this.SearchText);
+    }
+    else {
+      this.PageNo = 1;
+      this.NoofRow = 10;
+      this.SearchText = SearchText;
+      this.appointment.todaysApm(this.UserId, this.roleID, this.PageNo, this.NoofRow, SearchText).subscribe(data => {
+        if (data) {
+          this.todayApm = data;
+          this.totalItems = data[0].totalCount;
+          this.todayApm.forEach(e => {
+            e.birthDate = e.birthDate.split('T')[0];
+          });
+
+        }
+      })
+    }
+  }
+
+  keyPress(SearchText:any){
+    if (this.SearchText == '') {
+      this.PageNo = 1;
+      this.NoofRow = this.totalItems;
+      this.SearchText = SearchText;
+      this.todayApmList(this.UserId, this.roleID, this.PageNo, this.NoofRow, this.SearchText);
+    }
+    else {
+      this.PageNo = 1;
+      this.NoofRow = 10;
+      this.SearchText = SearchText;
+      this.appointment.todaysApm(this.UserId, this.roleID, this.PageNo, this.NoofRow, SearchText).subscribe(data => {
+        if (data) {
+          this.todayApm = data;
+          this.totalItems = data[0].totalCount;
+          this.todayApm.forEach(e => {
+            e.birthDate = e.birthDate.split('T')[0];
+          });
+
+        }
+      })
+    }
+  }
+
   async deleteApm(id:any) {
     const alert = await this.alertController.create({
       header: 'Delete Appointment',
@@ -148,11 +205,55 @@ export class TodaysAppointmentComponent implements OnInit {
   }
 
   exportExcel():void {
-    this.excel.exportAsExcelFile(this.todayApm, 'appointment');
+    this.PageNo=1;
+    this.NoofRow = this.totalItems;
+    var SearchText = ''
+    this.loader.showLoading();
+    this.appointment.todaysApm(this.UserId,this.roleID,this.PageNo,this.NoofRow,SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.todayApm = data;
+        this.totalItems = data[0].totalCount;
+        this.todayApm.forEach(e => {
+          e.birthDate = e.birthDate.split('T')[0];
+        });
+        this.toast.presentToast("File downloded successfully!", "success", 'checkmark-circle-sharp');
+        this.excel.exportAsExcelFile(this.todayApm, 'appointment');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+      }
+    }, (err)=>{
+      this.loader.hideLoader();
+    })
+    
   }
 
   exportToCSV() {
-    this.csv.exportToCsv(this.todayApm, 'appointment');
+    this.PageNo=1;
+    this.NoofRow = this.totalItems;
+    var SearchText = ''
+    this.loader.showLoading();
+    this.appointment.todaysApm(this.UserId,this.roleID,this.PageNo,this.NoofRow,SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.todayApm = data;
+        this.totalItems = data[0].totalCount;
+        this.todayApm.forEach(e => {
+          e.birthDate = e.birthDate.split('T')[0];
+        });
+        this.toast.presentToast("File downloded successfully!", "success", 'checkmark-circle-sharp');
+        this.csv.exportToCsv(this.todayApm, 'appointment');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+      }
+    }, (err)=>{
+      this.loader.hideLoader();
+    })
+    
   }
 
 

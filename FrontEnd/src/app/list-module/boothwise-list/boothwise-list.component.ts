@@ -88,18 +88,44 @@ export class BoothwiseListComponent implements OnInit {
     this.router.navigate(['voterdata-management/voter-details'], { state: item })
    }
 
-   onSearchChange(SearchText:any){
-    this.PageNo=1;
-    this.NoofRow=this.totalItems;
-    this.SearchText=SearchText;
-    this.partNoWiseVoter(this.userId, this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
-   }
+  onSearchChange(SearchText: any) {
+    if (this.SearchText == '') {
+      this.PageNo = 1;
+      this.NoofRow = this.totalItems;
+      this.SearchText = SearchText;
+      this.partNoWiseVoter(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+    }
+    else {
+      this.PageNo = 1;
+      this.NoofRow = 25;
+      this.SearchText = SearchText;
+      this.voter.voterByPart(this.partNumber, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+        if (data) {
+          this.partWiseVoter = data;
+          this.totalItems = data[0].totalCount
+        }
+      })
+    }
+  }
 
    keyPress(SearchText:any){
-    this.PageNo=1;
-    this.NoofRow=this.totalItems;
-    this.SearchText=SearchText;
-    this.partNoWiseVoter(this.userId, this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
+    if (this.SearchText == '') {
+      this.PageNo = 1;
+      this.NoofRow = this.totalItems;
+      this.SearchText = SearchText;
+      this.partNoWiseVoter(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+    }
+    else {
+      this.PageNo = 1;
+      this.NoofRow = 25;
+      this.SearchText = SearchText;
+      this.voter.voterByPart(this.partNumber, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+        if (data) {
+          this.partWiseVoter = data;
+          this.totalItems = data[0].totalCount
+        }
+      })
+    }
    }
 
 }

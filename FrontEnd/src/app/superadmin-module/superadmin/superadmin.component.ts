@@ -1,12 +1,8 @@
-
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
-import * as xlsx from 'xlsx';
-import html2pdf from 'html2pdf.js'
 import { AlertController } from '@ionic/angular';
 import { SuperadminService } from 'src/app/services/superadmin.service'
 import { LoaderService } from 'src/app/services/loader.service'
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router'
-import { filter } from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router'
 import { Location } from '@angular/common';
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 
@@ -18,7 +14,6 @@ import { IonicToastService } from 'src/app/services/ionic-toast.service'
 })
 export class SuperadminComponent implements OnInit {
   isDB = false;
-
   Template = '';
   Content = '';
   NormalMsg = '';
@@ -36,6 +31,7 @@ export class SuperadminComponent implements OnInit {
   superadminId: any;
   id: any;
   roleName: string;
+
 
   search() {
     this.isShow = !this.isShow
@@ -75,6 +71,7 @@ export class SuperadminComponent implements OnInit {
     else {
       this.isDB = this.isDB;
     }
+    
     this.getAllAdminList();
   }
 
@@ -200,7 +197,6 @@ export class SuperadminComponent implements OnInit {
   }
 
   EditSA(data: any) {
-    debugger;
     this.router.navigateByUrl('/superadmin/edit-superadmin', { state: data })
   }
 
@@ -211,8 +207,6 @@ export class SuperadminComponent implements OnInit {
   SAdetails(id: number) {
     this.router.navigate(['/superadmin/account', id])
   }
-
-
 
   goBack() {
     this.location.back();

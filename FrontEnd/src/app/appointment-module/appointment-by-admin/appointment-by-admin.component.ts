@@ -5,8 +5,7 @@ import html2pdf from 'html2pdf.js'
 import { AppointmentService } from 'src/app/services/appointment.service'
 import { LoaderService } from 'src/app/services/loader.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
-import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ExcelService } from 'src/app/services/excel.service'
 import { CsvService } from 'src/app/services/csv.service';
 
@@ -182,12 +181,57 @@ export class AppointmentByAdminComponent implements OnInit {
   //   xlsx.writeFile(wb, 'epltable.xlsx');
   // }
 
-  exportExcel():void {
-    this.excel.exportAsExcelFile(this.getApmList, 'appointment');
+  exportExcel(): void {
+    debugger;
+    this.PageNo = 1;
+    this.NoofRow = this.totalItems;
+    var SearchText = '';
+    this.loader.showLoading();
+    this.appointment.getAppointmentByUser(this.UserId, this.PageNo, this.NoofRow,SearchText).subscribe((data: any) => {
+      if (data.length != 0) {
+        this.loader.hideLoader();
+        // this.getApmList = data.filter(this.isBigEnough);
+        this.getApmList = data;
+        this.totalItems = data[0].totalCount
+        this.getApmList.forEach(e => {
+          e.birthDate = e.birthDate.split('T')[0];
+        });
+        this.excel.exportAsExcelFile( this.getApmList, 'appointment');
+        this.toast.presentToast("File downloded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else {
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+      }
+    }, (err) => {
+      this.loader.hideLoader();
+    })
   }
 
   exportToCSV() {
-    this.csv.exportToCsv(this.getApmList, 'appointment');
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    var SearchText = ''
+    this.loader.showLoading();
+    this.appointment.getAppointmentByUser(this.UserId,this.PageNo, this.NoofRow,SearchText).subscribe((data: any) => {
+      if (data.length != 0) {
+        // this.getApmList = data.filter(this.isBigEnough);
+        this.loader.hideLoader();
+        this.getApmList = data;
+        this.getApmList.forEach(e => {
+          e.birthDate = e.birthDate.split('T')[0];
+        });
+        this.csv.exportToCsv(this.getApmList, 'appointment');
+        this.toast.presentToast("File downloded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else {
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+      }
+    }, (err) => {
+      this.loader.hideLoader();
+    })
+    
   }
 
   pdf() {

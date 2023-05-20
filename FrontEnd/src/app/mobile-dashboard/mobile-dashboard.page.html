@@ -15,7 +15,7 @@
         </ion-button>
       </ion-buttons>
 
-      <ion-title>  {{'Dashboard' | translate}} </ion-title>
+      <ion-title class="text-capitalize">  {{superAdminName}} </ion-title>
     </ion-toolbar>
   </ion-header>
   <div class="main-content">
@@ -24,7 +24,7 @@
         <ion-col size-xs="12" size-sm="12" size-md="4">
           
             <ion-row>
-              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" >
+              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" class="hideDiv">
                 <ion-list class="survey-list" routerLink="/voterdata-management/voterby-user">
                     <ion-item lines="none">
                       <ion-label class="search">
@@ -36,7 +36,7 @@
                 </ion-list>
               </ion-col>
 
-              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" *ngIf="isList">
+              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" *ngIf="isList" class="hideDiv">
                 <ion-list class="survey-list" routerLink="/list">
                     <ion-item lines="none">
                       <ion-label>
@@ -107,7 +107,7 @@
                 </ion-list>
               </ion-col>
 
-              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" *ngIf="isSurvey">
+              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" *ngIf="isSurvey" class="hideDiv">
                 <ion-list class="survey-list" routerLink="/survey">
                   <ion-item lines="none">
                       <ion-label>
@@ -122,7 +122,7 @@
                 </ion-list>
               </ion-col>
 
-              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" >
+              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6">
                 <ion-list class="survey-list" (click)="changeLanguage()">
                   <ion-item lines="none" >
                       <ion-label>
@@ -136,7 +136,7 @@
                 </ion-list>
               </ion-col>
 
-              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" >
+              <ion-col size-lg="6" size-md="6" size-sm="4" size-xs="6" class="hideDiv">
                 <ion-list class="survey-list" >
                   <ion-item lines="none" >
                       <ion-label>

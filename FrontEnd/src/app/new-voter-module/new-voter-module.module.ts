@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { EditNewVoterComponent } from './edit-new-voter/edit-new-voter.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-
+import {NgxPaginationModule} from 'ngx-pagination';
 
 @NgModule({
   declarations: [
@@ -20,6 +20,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     IonicModule,
     FormsModule,
     Ng2SearchPipeModule,
+    NgxPaginationModule,
     RouterModule.forChild([{path:'', component:NewVoterComponent},{path:'add-new-voter', component:AddNewVoterComponent},{path:'edit-new-voter', component:EditNewVoterComponent}])
   ]
 })

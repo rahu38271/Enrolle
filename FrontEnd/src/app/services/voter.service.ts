@@ -37,6 +37,7 @@ export class VoterService {
   }
 
   addSingleVoter(addVoterModal:any):Observable<any>{
+    debugger;
     return this.http.post<any>(this.url+'Voter/InsertVoter', addVoterModal)
   }
 
@@ -45,6 +46,7 @@ export class VoterService {
   }
 
   update(editVoter:any){
+    debugger;
     return this.http.post<any>(this.url+"Voter/UpadateVoter", editVoter);
   }
 
@@ -150,14 +152,13 @@ export class VoterService {
   // filter / search voter by condition
 
   filterVoterByCondition(filterModal:any){
-    debugger;
     return this.http.post<any>(this.url+'Voter/FilterVoterbyCondition',filterModal)
   }
 
 
   // Imp Voter Data
 
-  impVoter(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
+  impVoter(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){
     return this.http.get<any>(this.url+'Voter/GetStarVoterbyUserId?UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText);
   }
 
@@ -202,7 +203,6 @@ export class VoterService {
   // advance search voter
 
   advanceSearch(searchModal:any){
-    debugger;
     return this.http.post<any>(this.url+'Voter/AdvancedSearchVoter', searchModal)
   }
 

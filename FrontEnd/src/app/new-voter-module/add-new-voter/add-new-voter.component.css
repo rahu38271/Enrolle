@@ -37,3 +37,7 @@ ion-modal {
   ion-radio {
     background: #FFF;
   }
+
+  ion-input,ion-textarea {
+    text-transform: capitalize;
+  }

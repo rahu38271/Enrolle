@@ -2,12 +2,10 @@ import { Component, OnInit  } from '@angular/core';
 import {AlertController, ToastController, LoadingController } from '@ionic/angular';
 import { ContactService } from 'src/app/services/contact.service'
 import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
 import { LoaderService } from 'src/app/services/loader.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { ExcelService } from 'src/app/services/excel.service'
 import { CsvService } from 'src/app/services/csv.service';
-import {Ng2SearchPipe} from 'ng2-search-filter';
 
 
 @Component({
@@ -23,13 +21,12 @@ export class ContactComponent implements OnInit {
   NormalMsg = '';
   whatsappMsg = '';
   isShow = false;
-  getContacts:any[];
+  getContacts:any;
   Cid:any;
   fileName= 'Contact.xlsx';
   PageNo:any=1;
   NoofRow:any=10; 
-  SearchText:string;
-  searchTerm: string = '';
+  SearchText:any;
   currentDate = new Date();
   birthDate: any;
   totalItems:any;
@@ -44,25 +41,21 @@ export class ContactComponent implements OnInit {
     private loader:LoaderService, 
     private toast:IonicToastService, 
     private excel:ExcelService,
-    private csv:CsvService,
-    private searchPipe: Ng2SearchPipe
+    private csv:CsvService
   ) { 
-    setInterval(()=>{
-      this.contactList(this.PageNo,this.NoofRow,this.SearchText);
-    },1000)
+    
   }
 
   ngOnInit() {
-   
-  }
-
-  ionViewWillEnter(){
     if(this.SearchText == undefined){
       this.SearchText = ''
     }
     else{
       this.SearchText = this.SearchText
     }
+  }
+
+  ionViewWillEnter(){
     this.contactList(this.PageNo,this.NoofRow,this.SearchText);
   }
 
@@ -91,7 +84,7 @@ export class ContactComponent implements OnInit {
         
       }
       else{
-        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+        //this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
       }
     }, (err)=>{
       //this.toast.presentToast("Something went wrong !", "danger", 'alert-circle-outline');
@@ -127,21 +120,110 @@ export class ContactComponent implements OnInit {
     await alert.present();
   }
 
-  exportExcel():void {
+  onSearchChange(SearchText:any){
+    
+    if(this.SearchText==''){
+      this.PageNo=1;
+      this.NoofRow=this.totalItems;
+      this.SearchText=SearchText;
+      this.contactList(this.PageNo,this.NoofRow,SearchText);
+    }
+    else{
+      this.PageNo=1;
+      this.NoofRow=10;
+      this.SearchText=SearchText;
+      this.contact.getContacts(this.PageNo,this.NoofRow,SearchText).subscribe(data=>{
+        if(data){
+          this.getContacts = data;
+          this.totalItems = data[0].totalCount;
+          this.getContacts.forEach(e => {
+            e.birthDate = e.birthDate.split('T')[0] == '1900-01-01' ? '' : e.birthDate.split('T')[0];
+            e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '' : e.anniversary.split('T')[0]; 
+          });
+          
+        }
+      });
+    }
+  }
+
+  keyPress(SearchText:any){
     debugger;
-    this.getContacts.forEach(e => {
-      e.birthDate = e.birthDate.split('T')[0]; 
-      e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '': e.anniversary.split('T')[0];
-    });
-    this.excel.exportAsExcelFile(this.getContacts, 'contact');
+    if(this.SearchText==''){
+      this.PageNo=1;
+      this.NoofRow=this.totalItems;
+      this.SearchText=SearchText;
+      this.contactList(this.PageNo,this.NoofRow,this.SearchText);
+    }
+    else{
+      this.PageNo=1;
+      this.NoofRow=10;
+      this.SearchText=SearchText;
+      this.contact.getContacts(this.PageNo,this.NoofRow,SearchText).subscribe(data=>{
+        if(data){
+          this.getContacts = data;
+          this.totalItems = data[0].totalCount;
+          this.getContacts.forEach(e => {
+            e.birthDate = e.birthDate.split('T')[0] == '1900-01-01' ? '' : e.birthDate.split('T')[0];
+            e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '' : e.anniversary.split('T')[0]; 
+          });
+          
+        }
+      });
+    }
+  }
+
+
+
+  exportExcel():void {
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    var SearchText = "";
+    this.loader.showLoading();
+    this.contact.getContacts(this.PageNo,this.NoofRow,SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.getContacts = data;
+        this.totalItems = data[0].totalCount;
+        this.getContacts.forEach(e => {
+          e.birthDate = e.birthDate.split('T')[0] == '1900-01-01' ? '' : e.birthDate.split('T')[0];
+          e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '' : e.anniversary.split('T')[0]; 
+        });
+        this.excel.exportAsExcelFile(this.getContacts, 'contact');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
   }
 
   exportToCSV() {
-    this.getContacts.forEach(e =>{
-      e.birthDate = e.birthDate.split('T')[0];
-      e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '': e.anniversary.split('T')[0];
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    var SearchText = "";
+    this.loader.showLoading();
+    this.contact.getContacts(this.PageNo,this.NoofRow,SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.getContacts = data;
+        this.totalItems = data[0].totalCount;
+        this.getContacts.forEach(e => {
+          e.birthDate = e.birthDate.split('T')[0] == '1900-01-01' ? '' : e.birthDate.split('T')[0];
+          e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '' : e.anniversary.split('T')[0]; 
+        });
+        this.csv.exportToCsv(this.getContacts, 'contact');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
     })
-    this.csv.exportToCsv(this.getContacts, 'contact');
   }
 
   // async downloadExcel() {

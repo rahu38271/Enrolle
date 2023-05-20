@@ -15,7 +15,11 @@ export class AddNewVoterComponent implements OnInit {
   @ViewChild(IonModal) modal: IonModal;
   newVoterModal:any={};
   maxDate:String = new Date().toISOString();
-
+  loginId:any;
+  name:any;
+  adminId:any;
+  superAdminId:any;
+  roleId:any;
   onKeyPress(event) {
     if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {
       return true
@@ -44,10 +48,25 @@ export class AddNewVoterComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
+    this.loginId = localStorage.getItem("loginId");
+    this.name = localStorage.getItem("loginUser");
+    this.adminId = localStorage.getItem("adminId");
+    this.superAdminId = localStorage.getItem("superAdminId");
+    this.roleId = localStorage.getItem("userType");
+    this.roleId = Number(this.roleId);
   }
+  
 
   addNewVoter(){
     this.loader.showLoading();
+    this.newVoterModal.UserId = Number(this.loginId);
+    this.newVoterModal.UserName = this.name;
+    if(this.roleId == 2){
+      this.newVoterModal.AdminId = Number(this.loginId)
+    }
+    if(this.roleId == 3){
+      this.newVoterModal.AdminId = Number(this.superAdminId)
+    }
     this.newVoterModal.AssemblyNo = Number(this.newVoterModal.AssemblyNo);
     this.newVoterModal.PartNo = Number(this.newVoterModal.PartNo);
     this.newVoterModal.Age = Number(this.newVoterModal.Age);

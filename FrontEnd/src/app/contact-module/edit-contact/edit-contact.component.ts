@@ -15,7 +15,7 @@ export class EditContactComponent implements OnInit {
   talukaList: any;
   id: any;
   edModal: any = {};
-  anniDate;
+  anniversary;
  EditData:any ={}; 
  maxDate:String = new Date().toISOString();
 

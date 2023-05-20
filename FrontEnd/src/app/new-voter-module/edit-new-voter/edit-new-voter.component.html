@@ -25,39 +25,55 @@
 
           <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
               <ion-label> Assembly No. </ion-label>
-              <ion-input name="assemblyNo" [(ngModel)]="newVoterModal.assemblyNo" class="form-control"></ion-input>
+              <ion-input (keypress)="keyPressNumbers($event)"   maxlength="3" name="assemblyNo" [(ngModel)]="newVoterModal.assemblyNo" class="form-control"></ion-input>
             </ion-col>
 
             <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
               <ion-label> Part No. </ion-label>
-              <ion-input name="partNo" [(ngModel)]="newVoterModal.partNo" class="form-control"></ion-input>
+              <ion-input (keypress)="keyPressNumbers($event)"   maxlength="5" name="partNo" [(ngModel)]="newVoterModal.partNo" class="form-control"></ion-input>
             </ion-col>
 
 
           <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
             <ion-label>First Name <span>*</span> </ion-label>
-            <ion-input name="firstName" [(ngModel)]="newVoterModal.firstName" (keypress)="onKeyPress($event)" class="text-capitalize form-control"></ion-input>
+            <ion-input  maxlength="20" name="firstName" [(ngModel)]="newVoterModal.firstName" (keypress)="onKeyPress($event)" class="text-capitalize form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
               <ion-label>Middle Name  </ion-label>
-              <ion-input name="middleName" [(ngModel)]="newVoterModal.middleName" (keypress)="onKeyPress($event)" class="text-capitalize form-control"></ion-input>
+              <ion-input  maxlength="20" name="middleName" [(ngModel)]="newVoterModal.middleName" (keypress)="onKeyPress($event)" class="text-capitalize form-control"></ion-input>
             </ion-col>
 
             <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
               <ion-label>Last Name <span>*</span> </ion-label>
-              <ion-input name="lastName" [(ngModel)]="newVoterModal.lastName" (keypress)="onKeyPress($event)" class="text-capitalize form-control"></ion-input>
+              <ion-input  maxlength="20" name="lastName" [(ngModel)]="newVoterModal.lastName" (keypress)="onKeyPress($event)" class="text-capitalize form-control"></ion-input>
             </ion-col>
 
 
           <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
               <ion-label> Mobile No. </ion-label>
-              <ion-input name="mobileNo" [(ngModel)]="newVoterModal.mobileNo" class="form-control" required></ion-input>
+              <ion-input 
+                name="mobileNo" 
+                [(ngModel)]="newVoterModal.mobileNo" 
+                class="form-control" 
+                minlength="10" 
+                maxlength="12" 
+                (keypress)="keyPressNumbers($event)"  
+                required
+                ></ion-input>
             </ion-col>
           
             <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
               <ion-label>Alt. Mobile No.  </ion-label>
-              <ion-input name="altMobileNo" [(ngModel)]="newVoterModal.altMobileNo" class="form-control" required></ion-input>
+              <ion-input 
+                name="altMobileNo" 
+                [(ngModel)]="newVoterModal.altMobileNo" 
+                class="form-control" 
+                minlength="10" 
+                maxlength="12" 
+                (keypress)="keyPressNumbers($event)"  
+                
+                ></ion-input>
             </ion-col>
 
             
@@ -69,7 +85,9 @@
               name="dob" 
               [(ngModel)]="newVoterModal.dob"
               class="form-control" 
-              required
+              (keypress)="onKeyPress($event)"
+                (keypress)="keyPressNumbers($event)" 
+              
             >
             </ion-input>
 
@@ -91,12 +109,12 @@
 
           <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
             <ion-label> House No. </ion-label>
-            <ion-input name="houseNo" [(ngModel)]="newVoterModal.houseNo" class="form-control" required></ion-input>
+            <ion-input maxlength="6" name="houseNo" [(ngModel)]="newVoterModal.houseNo" class="form-control" ></ion-input>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
               <ion-label>EPIC No. </ion-label>
-              <ion-input name="epicNo" [(ngModel)]="newVoterModal.epicNo" class="form-control" required></ion-input>
+              <ion-input maxlength="10" name="epicNo" [(ngModel)]="newVoterModal.epicNo" class="form-control" ></ion-input>
             </ion-col>
 
             <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
@@ -124,32 +142,32 @@
 
             <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
               <ion-label> Age </ion-label>
-              <ion-input name="age" [(ngModel)]="newVoterModal.age" class="form-control"></ion-input>
+              <ion-input (keypress)="keyPressNumbers($event)"   maxlength="3" name="age" [(ngModel)]="newVoterModal.age" class="form-control"></ion-input>
             </ion-col>
 
             <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
               <ion-label> Society Name </ion-label>
-              <ion-input  name="societyName" [(ngModel)]="newVoterModal.societyName" class="form-control" ></ion-input>
+              <ion-input maxlength="30" name="societyName" [(ngModel)]="newVoterModal.societyName" class="form-control" ></ion-input>
             </ion-col>
 
             <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
               <ion-label> Zone </ion-label>
-              <ion-input  name="zone"  [(ngModel)]="newVoterModal.zone"class="form-control" ></ion-input>
+              <ion-input maxlength="30" name="zone"  [(ngModel)]="newVoterModal.zone"class="form-control" ></ion-input>
             </ion-col>
 
             <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
               <ion-label> Address </ion-label>
-              <ion-input  name="address" [(ngModel)]="newVoterModal.address" class="form-control" ></ion-input>
+              <ion-input maxlength="160" name="address" [(ngModel)]="newVoterModal.address" class="form-control" ></ion-input>
             </ion-col>
             
             <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
               <ion-label> New Address </ion-label>
-              <ion-input  name="newAddress" [(ngModel)]="newVoterModal.newAddress" class="form-control" ></ion-input>
+              <ion-input maxlength="160" name="newAddress" [(ngModel)]="newVoterModal.newAddress" class="form-control" ></ion-input>
             </ion-col>
 
             <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
               <ion-label> Area </ion-label>
-              <ion-input  name="area" [(ngModel)]="newVoterModal.area" class="form-control" ></ion-input>
+              <ion-input maxlength="160" name="area" [(ngModel)]="newVoterModal.area" class="form-control" ></ion-input>
             </ion-col>
 
             <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
@@ -173,27 +191,27 @@
 
             <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
               <ion-label> Remark </ion-label>
-              <ion-input  name="remark" [(ngModel)]="newVoterModal.remark" class="form-control" ></ion-input>
+              <ion-input maxlength="160" name="remark" [(ngModel)]="newVoterModal.remark" class="form-control" ></ion-input>
             </ion-col>
 
             <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
               <ion-label> Reference Name </ion-label>
-              <ion-input  name="referenceName" [(ngModel)]="newVoterModal.referenceName" class="form-control" ></ion-input>
+              <ion-input maxlength="50" name="referenceName" [(ngModel)]="newVoterModal.referenceName" class="form-control" ></ion-input>
             </ion-col>
 
             <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
               <ion-label> Position </ion-label>
-              <ion-input  name="position" [(ngModel)]="newVoterModal.position" class="form-control" ></ion-input>
+              <ion-input maxlength="50" name="position" [(ngModel)]="newVoterModal.position" class="form-control" ></ion-input>
             </ion-col>
 
             <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
               <ion-label> Voting Card </ion-label>
-              <ion-input  name="votingCard" [(ngModel)]="newVoterModal.votingCard" class="form-control" ></ion-input>
+              <ion-input maxlength="10" name="votingCard" [(ngModel)]="newVoterModal.votingCard" class="form-control" ></ion-input>
             </ion-col>
 
             <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="6" size-xs="12">
               <ion-label> Personal Remark</ion-label>
-              <ion-input name="personalRelation" [(ngModel)]="newVoterModal.personalRelation" class="form-control" ></ion-input>
+              <ion-input maxlength="100" name="personalRelation" [(ngModel)]="newVoterModal.personalRelation" class="form-control" ></ion-input>
             </ion-col>
         </ion-row>
         <ion-row>

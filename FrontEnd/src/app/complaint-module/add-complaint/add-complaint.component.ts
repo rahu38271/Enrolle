@@ -15,6 +15,26 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 })
 export class AddComplaintComponent implements OnInit {
 
+  keyPressNumbers(event) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  onKeyPress(event) {
+    if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {
+        return true
+    }
+    else {
+        return false
+    }
+}
+
   @ViewChild(IonModal) modal: IonModal;
   societycomplaint:any={}
   addSingleComplaint:any={}
@@ -58,32 +78,34 @@ export class AddComplaintComponent implements OnInit {
   }
 
   addComplaint(){
-    //debugger;
+    debugger;
     this.societycomplaint.UserId = Number(this.UserId);
     this.societycomplaint.RoleId = Number(this.roleID);
     this.societycomplaint.UserName = this.name;
     this.societycomplaint = JSON.stringify(this.societycomplaint);
+  // this.societycomplaint = JSON.parse(this.societycomplaint);
     if(this.file==undefined){
       this.file = ''
     }
     else{
       this.file = this.file;
     }
-    //this.loader.showLoading();
-    //string filupload -ng modal-json sting serlize{""}
-   // this.complaint.addSingleComplaint(fileupload,lm.file,this.fileupload);
+    this.loader.showLoading();
+    
     this.complaint.addSingleComplaint(this.file, this.societycomplaint).subscribe((data)=>{
-      if(data = "Society Complaint Added SucessFully with File Upload"){
-        //this.loader.hideLoader();
+    if(data==1)
+    {
+      this.loader.hideLoader();
         this.toast.presentToast("Complaint added successfully!", "success", 'checkmark-circle-sharp');
         this.router.navigate(['/complaint-book/all-complaints'])
       }
       else{
-        //this.loader.hideLoader();
+        this.loader.hideLoader();
         this.toast.presentToast("Complaint not saved", "danger", 'alert-circle-sharp');
       }
     },(err)=>{
-      //this.loader.hideLoader();
+      this.loader.hideLoader();
+      
     })
   }
 
