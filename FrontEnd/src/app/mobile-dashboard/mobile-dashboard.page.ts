@@ -29,6 +29,8 @@ export class MobileDashboardPage implements OnInit {
   roleId:any;
   state:any;
   isMarathi:any;
+  superAdminName:any;
+
   public Search: string;
   public Lists: string;
   public Survey: string;
@@ -87,8 +89,15 @@ export class MobileDashboardPage implements OnInit {
     this.name = localStorage.getItem("loginUser");
     this.state = localStorage.getItem("state");
     this.roleId = localStorage.getItem("userType");
+    this.superAdminName = localStorage.getItem("superAdminName");
+    if(this.roleId==2){
+      this.superAdminName = this.name;
+    }
+    else{
+      this.superAdminName = this.superAdminName
+    }
     if(this.roleId == 1){
-      this.roleName = "MasterAdmin"
+      this.roleName = "MasterAdmin";
     }
     if(this.roleId == 2){
       this.roleName = "SuperAdmin"

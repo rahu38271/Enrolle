@@ -42,6 +42,11 @@ export class AddSocietyComponent implements OnInit {
   year: number = new Date().getFullYear();
 
   societyModal: any = {};
+  loginId:any;
+  adminId:any;
+  superAdminId:any;
+  name:any;
+  roleId:any;
 
   constructor
     (
@@ -81,6 +86,13 @@ export class AddSocietyComponent implements OnInit {
 
 
   ngOnInit() {
+    debugger;
+    this.loginId = localStorage.getItem("loginId");
+    this.name = localStorage.getItem("loginUser");
+    this.adminId = localStorage.getItem("adminId");
+    this.superAdminId = localStorage.getItem("superAdminId");
+    this.roleId = localStorage.getItem("userType");
+    this.roleId = Number(this.roleId);
     this.getDistrict();
   }
 
@@ -98,7 +110,20 @@ export class AddSocietyComponent implements OnInit {
   }
 
   addSociety() {
+    debugger;
     this.loader.showLoading();
+    if(this.roleId == 2){
+      this.societyModal.AdminId = Number(this.loginId)
+    }
+    if(this.roleId == 3){
+      this.societyModal.AdminId = Number(this.superAdminId)
+    }
+    // if(this.roleId == 4 || this.roleId == 5 || this.roleId == 6){
+    //   this.societyModal.AdminId = this.adminId
+    // }
+    this.societyModal.UserId = Number(this.loginId);
+    //this.societyModal.AdminId = Number(this.adminId);
+    this.societyModal.UserName = this.name;
     this.societyModal.PinCode = Number(this.societyModal.PinCode);
     this.societyModal.WardNo = Number(this.societyModal.WardNo);
     this.society.addSingleSociety(this.societyModal).subscribe((data) => {

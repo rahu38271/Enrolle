@@ -24,22 +24,17 @@
         <ion-row>
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Assembly </ion-label>
-              <ion-select
-                idlDefault 
-                name="Assembly" 
-                [(ngModel)]="addVoterModal.Assembly" 
-                placeholder="Select"  
-                class="form-control"
-              >
-                <ion-select-option class="select_option" *ngFor="let item of assemblyList" [value]="item.assemblyName"> 
-                  {{item.assemblyName}}
-                </ion-select-option>
-              </ion-select>
+              <ng-select name="District" [(ngModel)]="addVoterModal.Assembly" 
+                  #Assembly="ngModel" placeholder="Select Assembly">
+                    <ng-option *ngFor="let item of assemblyList" [value]="item.assemblyName">
+                      {{item.assemblyNo}} {{item.assemblyName}}
+                    </ng-option>
+                </ng-select>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Part No. </ion-label>
-            <ion-input type="number" name="partNo" [(ngModel)]="addVoterModal.PartNo" class="form-control"></ion-input>
+            <ion-input maxlength="4" (keypress)="keyPressNumbers($event)" name="partNo" [(ngModel)]="addVoterModal.PartNo" class="form-control"></ion-input>
               <!-- <ion-select type="number" name="partNo" [(ngModel)]="addVoterModal.PartNo" placeholder="Select" interface="popover" class="form-control">
                 <ion-select-option class="select_option" value="Part No. 1"> Part No. 1</ion-select-option>
                 <ion-select-option class="select_option" value="Part No. 2">Part No. 2</ion-select-option>
@@ -48,7 +43,7 @@
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Voter Sr. No. </ion-label>
-            <ion-input type="number" name="voterSrNo" [(ngModel)]="addVoterModal.voterSrNo" class="form-control"></ion-input>
+            <ion-input maxlength="10" (keypress)="keyPressNumbers($event)" name="voterSrNo" [(ngModel)]="addVoterModal.voterSrNo" class="form-control"></ion-input>
               <!-- <ion-select type="number" name="partNo" [(ngModel)]="addVoterModal.PartNo" placeholder="Select" interface="popover" class="form-control">
                 <ion-select-option class="select_option" value="Part No. 1"> Part No. 1</ion-select-option>
                 <ion-select-option class="select_option" value="Part No. 2">Part No. 2</ion-select-option>
@@ -57,7 +52,7 @@
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label>Full Name <span>*</span> </ion-label>
-              <ion-input [(ngModel)]="addVoterModal.FullName" name="FullName" (keypress)="onKeyPress($event)" class="form-control text-capitalize" required></ion-input>
+              <ion-input maxlength="50" [(ngModel)]="addVoterModal.FullName" name="FullName" (keypress)="onKeyPress($event)" class="form-control text-capitalize" required></ion-input>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
@@ -68,6 +63,8 @@
               class="form-control"
               name="BirthDate"
               [(ngModel)]="addVoterModal.BirthDate"
+              (keypress)="keyPressNumbers($event)"
+              (keypress)="onKeyPress($event)"
             ></ion-input>
             
             <ion-modal trigger="BirthDate" size="cover">
@@ -77,6 +74,7 @@
                   [(ngModel)]="BirthDate"
                   name="BirthDate"
                   (click)="cal_Age()"
+                  show-default-buttons="true"
                 >
                 <span slot="title"> {{ year }} </span>
               </ion-datetime>
@@ -86,25 +84,25 @@
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Age </ion-label>
-              <ion-input type="number" [(ngModel)]="addVoterModal.Age" name="Age" maxlength="3" class="form-control"></ion-input>
+              <ion-input [(ngModel)]="addVoterModal.Age" name="Age" (keypress)="keyPressNumbers($event)" maxlength="3" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Gender </ion-label>
-              <ion-select name="Gender" [(ngModel)]="addVoterModal.Gender" placeholder="Select" class="form-control">
-                <ion-select-option value="M" class="select_option"> Male</ion-select-option>
-                <ion-select-option value="F" class="select_option"> Female</ion-select-option>
-              </ion-select>
+              <ng-select name="Gender" [(ngModel)]="addVoterModal.Gender"  placeholder="Select">
+                <ng-option value="M">Male </ng-option>
+                <ng-option value="F">Female </ng-option>
+             </ng-select>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> House No. </ion-label>
-              <ion-input [(ngModel)]="addVoterModal.HouseNo" name="House" class="form-control"></ion-input>
+              <ion-input maxlength="5" [(ngModel)]="addVoterModal.HouseNo" name="House" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Voting Card No. <span>*</span></ion-label>
-              <ion-input [(ngModel)]="addVoterModal.VotingCardNo" name="votingCard" class="form-control"></ion-input>
+              <ion-input maxlength="10" minlength="10" [(ngModel)]="addVoterModal.VotingCardNo" name="votingCard" class="form-control text-uppercase"></ion-input>
           </ion-col>
 
 
@@ -200,12 +198,12 @@
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Cast </ion-label>
-              <ion-input [(ngModel)]="addVoterModal.Caste" name="Cast" class="form-control"></ion-input>
+              <ion-input maxlength="30" [(ngModel)]="addVoterModal.Caste" name="Cast" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> District  </ion-label>
-              <ion-select 
+              <!-- <ion-select 
                 idlDefault
                 name="District" 
                 [(ngModel)]="addVoterModal.DistrictId" 
@@ -216,16 +214,20 @@
                 <ion-select-option class="select_option" *ngFor="let item of districtList" [value]="item.dId">
                   {{ item.districtName }}
                 </ion-select-option>
-              </ion-select>
+              </ion-select> -->
+              <ng-select name="District" [(ngModel)]="addVoterModal.DistrictId" 
+                  (change)="getTaluka(addVoterModal.DistrictId)"
+                  #District="ngModel" placeholder="Select District">
+                    <ng-option *ngFor="let item of districtList" [value]="item.dId">
+                      {{ item.districtName }}
+                    </ng-option>
+                </ng-select>
           </ion-col>
 
           
-
-          
-
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Taluka  </ion-label>
-              <ion-select
+              <!-- <ion-select
                 idlDefault 
                 name="Taluka" 
                 [(ngModel)]="addVoterModal.Taluka" 
@@ -235,14 +237,19 @@
                 <ion-select-option class="select_option" *ngFor="let item of talukaList" [value]="item.talukaName">
                   {{ item.talukaName }}
                 </ion-select-option>
-              </ion-select>
+              </ion-select> -->
+              <ng-select name="Taluka" [(ngModel)]="addVoterModal.Taluka" #Taluka="ngModel" placeholder="Select Taluka">
+                <ng-option *ngFor="let item of talukaList" [value]="item.talukaName">
+                  {{ item.talukaName }}
+                </ng-option>
+             </ng-select>
           </ion-col>
 
           
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Ward </ion-label>
-              <ion-select
+              <!-- <ion-select
                 idlDefault 
                 name="Ward" 
                 [(ngModel)]="addVoterModal.Ward" 
@@ -252,37 +259,36 @@
                 <ion-select-option class="select_option" *ngFor="let item of wardList" [value]="item.wardName"> 
                   {{item.wardName}}
                 </ion-select-option>
-              </ion-select>
+              </ion-select> -->
+              <ng-select name="Ward" [(ngModel)]="addVoterModal.Ward" #Ward="ngModel" placeholder="Select Ward">
+                <ng-option *ngFor="let item of wardList" [value]="item.wardName">
+                  {{item.wardName}}
+                </ng-option>
+             </ng-select>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Booth </ion-label>
-              <ion-select
-              idlDefault 
-              name="Booth" 
-              [(ngModel)]="addVoterModal.Booth" 
-              placeholder="Select"  
-              class="form-control"
-            >
-                <ion-select-option class="select_option" *ngFor="let item of boothList" [value]="item.boothName"> 
+              <ng-select name="Booth" [(ngModel)]="addVoterModal.Booth" #Booth="ngModel" placeholder="Select Booth">
+                <ng-option *ngFor="let item of boothList" [value]="item.boothName">
                   {{item.boothName}}
-                </ion-select-option>
-              </ion-select>
+                </ng-option>
+             </ng-select>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Village </ion-label>
-              <ion-input [(ngModel)]="addVoterModal.Village" name="Village" class="form-control"></ion-input>
+              <ion-input maxlength="30" [(ngModel)]="addVoterModal.Village" name="Village" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Pin Code </ion-label>
-              <ion-input type="number" [(ngModel)]="addVoterModal.Pincode" name="pinCode" maxlength="6" (keypress)="keyPressNumbers($event)" class="form-control"></ion-input>
+              <ion-input [(ngModel)]="addVoterModal.Pincode" name="pinCode" maxlength="6" (keypress)="keyPressNumbers($event)" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Address  </ion-label>
-              <ion-input [(ngModel)]="addVoterModal.Address" name="Address" class="form-control"></ion-input>
+              <ion-input maxlength="160" [(ngModel)]="addVoterModal.Address" name="Address" class="form-control"></ion-input>
           </ion-col>
 
           <!-- <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
@@ -292,7 +298,7 @@
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Email </ion-label>
-              <ion-input [(ngModel)]="addVoterModal.Email" name="Email" class="form-control"></ion-input>
+              <ion-input type="email" maxlength="60" pattern="^[^ ]+@[^ ]+\.[a-z]{2,6}$" [(ngModel)]="addVoterModal.Email" name="Email" class="form-control"></ion-input>
           </ion-col>
 
           <!-- <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
@@ -308,39 +314,39 @@
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Is Family Head </ion-label>
-              <ion-select name="FamilyHead" [(ngModel)]="addVoterModal.FamilyHead" placeholder="Select" class="form-control">
-                <ion-select-option class="select_option" value="Yes"> Yes</ion-select-option>
-                <ion-select-option class="select_option" value="No"> No</ion-select-option>
-              </ion-select>
+              <ng-select name="FamilyHead" [(ngModel)]="addVoterModal.FamilyHead" placeholder="Select">
+                    <ng-option value="Y">Yes </ng-option>
+                    <ng-option value="N">No </ng-option>
+                 </ng-select>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Is Suspicious </ion-label>
-              <ion-select name="Suspicious" [(ngModel)]="addVoterModal.IsSuspisious" placeholder="Select" class="form-control">
-                <ion-select-option class="select_option" value="Yes"> Yes</ion-select-option>
-                <ion-select-option class="select_option" value="No"> No</ion-select-option>
-              </ion-select>
+              <ng-select name="Suspicious" [(ngModel)]="addVoterModal.IsSuspisious" placeholder="Select">
+                <ng-option value="Y">Yes </ng-option>
+                <ng-option value="N">No </ng-option>
+             </ng-select>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Is Out Station </ion-label>
-              <ion-select name="Station" [(ngModel)]="addVoterModal.IsOutStation" placeholder="Select" class="form-control">
-                <ion-select-option class="select_option" value="Yes"> Yes</ion-select-option>
-                <ion-select-option class="select_option" value="No"> No</ion-select-option>
-              </ion-select>
+              <ng-select name="Station" [(ngModel)]="addVoterModal.IsOutStation" placeholder="Select">
+                <ng-option value="Y">Yes </ng-option>
+                <ng-option value="N">No </ng-option>
+             </ng-select>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
-            <ion-label> Alive/Dead </ion-label>
-              <ion-select name="AliveDead" [(ngModel)]="addVoterModal.IsAlive" placeholder="Select" class="form-control">
-                <ion-select-option class="select_option" value="Alive"> Alive</ion-select-option>
-                <ion-select-option class="select_option" value="Dead"> Dead</ion-select-option>
-              </ion-select>
+            <ion-label> Is Alive </ion-label>
+              <ng-select name="AliveDead" [(ngModel)]="addVoterModal.IsAlive"  placeholder="Select">
+                <ng-option value="Y">Yes </ng-option>
+                <ng-option value="N">No </ng-option>
+             </ng-select>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Occupation </ion-label>
-            <ion-input name="Occupation" [(ngModel)]="addVoterModal.Occupation" class="form-control"></ion-input>
+            <ion-input (keypress)="onKeyPress($event)" maxlength="30" name="Occupation" [(ngModel)]="addVoterModal.Occupation" class="form-control"></ion-input>
               <!-- <ion-select name="Occupation" [(ngModel)]="addVoterModal.Occupation" placeholder="Select" class="form-control">
                 <ion-select-option class="select_option" value="Job Person"> Job Person</ion-select-option>
                 <ion-select-option class="select_option" value="Business"> Business</ion-select-option>
@@ -354,7 +360,7 @@
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Karyakarta </ion-label>
-            <ion-input  name="Karyakarta" [(ngModel)]="addVoterModal.PartyWorker" class="form-control"></ion-input>
+            <ion-input (keypress)="onKeyPress($event)" maxlength="30" name="Karyakarta" [(ngModel)]="addVoterModal.PartyWorker" class="form-control"></ion-input>
               <!-- <ion-select name="Karyakarta" [(ngModel)]="addVoterModal.PartyWorker" placeholder="Select" interface="popover" class="form-control">
                 <ion-select-option class="select_option" value="Karyakarta 1"> Karyakarta 1</ion-select-option>
                 <ion-select-option class="select_option" value="Karyakarta 2"> Karyakarta 2</ion-select-option>
@@ -363,35 +369,27 @@
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Voting inclination</ion-label>
-              <ion-select name="Inclination" [(ngModel)]="addVoterModal.VotingInclination" placeholder="Select" class="form-control">
-                <ion-select-option class="select_option" value="Supporter"> Supporter</ion-select-option>
-                <ion-select-option class="select_option" value="Opponent"> Opponent</ion-select-option>
-                <ion-select-option class="select_option" value="Neutral"> Neutral</ion-select-option>
-                <ion-select-option class="select_option" value="Special"> Special</ion-select-option>
-              </ion-select>
+              <ng-select name="Inclination" [(ngModel)]="addVoterModal.VotingInclination" placeholder="Select">
+                <ng-option value="Supporter">Supporter </ng-option>
+                <ng-option value="Opponent">Opponent </ng-option>
+                <ng-option value="Neutral">Neutral </ng-option>
+                <ng-option value="Special">Special </ng-option>
+             </ng-select>
           </ion-col>
-
-          
-
           
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label>Political Party </ion-label>
-              <ion-select
-                idlDefault 
-                name="Party" 
-                [(ngModel)]="addVoterModal.PoliticalParty" 
-                placeholder="Select" 
-                class="form-control"
-                >
-                <ion-select-option class="select_option" value="BJP"> BJP</ion-select-option>
-                <ion-select-option class="select_option" value="NCP"> NCP</ion-select-option>
-                <ion-select-option class="select_option" value="Congress"> Congress</ion-select-option>
-                <ion-select-option class="select_option" value="Shivsena"> Shivsena</ion-select-option>
-                <ion-select-option class="select_option" value="RPI"> RPI</ion-select-option>
-                <ion-select-option class="select_option" value="RSP"> RSP</ion-select-option>
-                <ion-select-option class="select_option" value="BSP"> BSP</ion-select-option>
-                <ion-select-option class="select_option" value="Other"> Other</ion-select-option>
-              </ion-select>
+              <ng-select name="Party" 
+              [(ngModel)]="addVoterModal.PoliticalParty"  placeholder="Select">
+                <ng-option value="BJP">BJP </ng-option>
+                <ng-option value="NCP">NCP </ng-option>
+                <ng-option value="Congress">Congress </ng-option>
+                <ng-option value="Shivsena">Shivsena </ng-option>
+                <ng-option value="RPI">RPI </ng-option>
+                <ng-option value="RSP">RSP </ng-option>
+                <ng-option value="BSP">BSP </ng-option>
+                <ng-option value="Other">Other </ng-option>
+             </ng-select>
           </ion-col>
 
           <!-- <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">

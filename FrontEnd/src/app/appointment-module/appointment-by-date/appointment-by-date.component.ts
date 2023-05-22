@@ -130,7 +130,7 @@ export class AppointmentByDateComponent implements OnInit {
       }
       else{
         //this.loader.hideLoader();
-        this.toast.presentToast("Appointment not searhced", "danger", 'alert-circle-sharp');
+        this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
       }
     },(err)=>{
       //this.loader.hideLoader();
@@ -145,11 +145,71 @@ export class AppointmentByDateComponent implements OnInit {
   
 
   exportExcel():void {
-    this.excel.exportAsExcelFile(this.getApmList, 'appointment');
+    this.PageNo=1;
+    this.NoofRow = this.totalItems;
+    var SearchText = ''
+    this.loader.showLoading();
+    this.appointment.searchAppointment(
+      this.searchApmModal.UserId,
+      this.searchApmModal.roleID,
+      this.searchApmModal.FromDate,
+      this.searchApmModal.ToDate,
+      this.searchApmModal.PageNo,
+      this.searchApmModal.NoofRow,
+      this.searchApmModal.SearchText
+    ).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.getApmList = data;
+        this.totalItems = data[0].totalCount;
+        this.getApmList.forEach(e => {
+          e.birthDate = e.birthDate.split('T')[0];
+        });
+        this.toast.presentToast("File downloded successfully!", "success", 'checkmark-circle-sharp');
+        this.excel.exportAsExcelFile(this.getApmList, 'appointment');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+      }
+    }, (err)=>{
+      this.loader.hideLoader();
+    })
+    
   }
 
   exportToCSV() {
-    this.csv.exportToCsv(this.getApmList, 'appointment');
+    this.PageNo=1;
+    this.NoofRow = this.totalItems;
+    var SearchText = ''
+    this.loader.showLoading();
+    this.appointment.searchAppointment(
+      this.searchApmModal.UserId,
+      this.searchApmModal.roleID,
+      this.searchApmModal.FromDate,
+      this.searchApmModal.ToDate,
+      this.searchApmModal.PageNo,
+      this.searchApmModal.NoofRow,
+      this.searchApmModal.SearchText
+    ).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.getApmList = data;
+        this.totalItems = data[0].totalCount;
+        this.getApmList.forEach(e => {
+          e.birthDate = e.birthDate.split('T')[0];
+        });
+        this.toast.presentToast("File downloded successfully!", "success", 'checkmark-circle-sharp');
+        this.csv.exportToCsv(this.getApmList, 'appointment');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+      }
+    }, (err)=>{
+      this.loader.hideLoader();
+    })
+    
   }
 
   pdf() {

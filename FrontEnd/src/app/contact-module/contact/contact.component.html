@@ -22,7 +22,7 @@
               <ion-col size-xs="12" size-sm="6">
                 <ion-card-header>
                   <ion-card-title>
-                     Contacts <span>  </span>
+                     Contacts, <span> Total - {{totalItems}}  </span>
                   </ion-card-title>
                   <div class="headerLine"></div>
                 </ion-card-header>
@@ -35,9 +35,6 @@
                   color="primary" fill="outline">
                   <ion-icon name="add-circle-sharp"></ion-icon>Import
                 </ion-button>
-                <ion-button class="button-download" (click)="refresh()" color="primary">
-                  <ion-icon name="refresh-circle-sharp"></ion-icon>Refresh
-                </ion-button>
                 <!-- <ion-button class="button-download" color="danger" (click)="downloadPDF()">
                   <ion-icon name="cloud-download-sharp"></ion-icon>PDF
                 </ion-button> -->
@@ -49,7 +46,7 @@
             <ion-card-content>
               <div class="headSection">
                 <div class="search">
-                  <ion-searchbar type="text" [(ngModel)]="SearchText" (keyup)="filterData()" animated="true"></ion-searchbar>
+                  <ion-searchbar (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
                 </div>
                 <div class="btns">
                   <ion-button class="button-download" color="success" (click)="exportExcel()">
@@ -61,39 +58,39 @@
                 </div>
                 
               </div>
-              <div class="horizontal-scroll">
+              <div>
                 <table id="contactTable" class="table">
                   <thead>
                     <tr>
                       <th style="width: 20px !important;">
-                        अ.क्र.
+                        Sr.No.
                       </th>
                       <th>
-                        संपूर्ण नाव
+                        Name
                       </th>
                       <th>
-                        गावाचे नाव
+                        Village
                       </th>
                       <th>
-                        वाढदिवस
+                        Birthday
                       </th>
                       <th>
-                        लग्नाचा वाढदिवस
+                        Anniversary
                       </th>
                       <th>
-                        मोबाइल
+                        Mobile No.
                       </th>
                       <th>
-                        पर्यायी मोबाइल
+                        Alt. Mobile No.
                       </th>
                       <th>
-                        पत्ता
+                        Address
                       </th>
                       <th>
-                        तालुका
+                        Taluka
                       </th>
                       <th>
-                        जिल्हा
+                        District
                       </th>
                       <th>Action</th>
                     </tr>
@@ -133,7 +130,7 @@
                   </thead>
                   <tbody>
                     <!-- <tr *ngFor="let item of getContacts | filter:searchWeb | paginate: { itemsPerPage: 10, currentPage: cp  }; let i=index"> -->
-                      <tr *ngFor="let item of getContacts | filter:SearchText | paginate: { itemsPerPage: NoofRow, currentPage: PageNo , totalItems:totalItems }; let i=index" >
+                      <tr *ngFor="let item of getContacts | paginate: { itemsPerPage: NoofRow,currentPage:PageNo ,totalItems:totalItems }; let i=index" >
                       <td> {{ item.id  }} </td>
                       <td class="text-capitalize"> {{ item.fullName }} </td>
                       <td class="text-capitalize"> {{ item.vilageName }} </td>
@@ -153,7 +150,7 @@
                     </tr>
                   </tbody>
                 </table>
-                <div *ngIf="!getContacts || getContacts.length === 0">
+                <div *ngIf="!getContacts || getContacts.length === 0" class="ion-text-center">
                   <p>No data</p>
                 </div>
                 <pagination-controls (pageChange)="event($event)"></pagination-controls>
@@ -166,10 +163,10 @@
 
 
     <ion-grid class="android">
-      <ion-searchbar *ngIf="isShow" [(ngModel)]="searchMob" animated="true"></ion-searchbar>
+      <ion-searchbar *ngIf="isShow" animated="true"></ion-searchbar>
       <ion-list>
         <!-- <ion-item  routerLink="/voterdata-management/voter-details"> -->
-        <ion-item-sliding *ngFor="let item of getContacts | filter:searchMob | paginate: { itemsPerPage: NoofRow, currentPage: PageNo , totalItems:totalItems }; let i=index">
+        <ion-item-sliding *ngFor="let item of getContacts | paginate: { itemsPerPage: NoofRow, currentPage: PageNo , totalItems:totalItems }; let i=index">
           <ion-item-options side="end">
             <!-- routerLink="/user/edit-user" -->
             <a>

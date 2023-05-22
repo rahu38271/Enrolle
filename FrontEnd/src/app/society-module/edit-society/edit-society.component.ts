@@ -16,6 +16,11 @@ export class EditSocietyComponent implements OnInit {
 
   districtList: any;
   talukaList: any;
+  loginId: any;
+  name: any;
+  adminId: any;
+  superAdminId: any;
+  roleId: any;
 
   onKeyPress(event) {
     if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {
@@ -83,6 +88,12 @@ export class EditSocietyComponent implements OnInit {
 
   ngOnInit() {
     this.getDistrict();
+    this.loginId = localStorage.getItem("loginId");
+    this.name = localStorage.getItem("loginUser");
+    this.adminId = localStorage.getItem("adminId");
+    this.superAdminId = localStorage.getItem("superAdminId");
+    this.roleId = localStorage.getItem("userType");
+    this.roleId = Number(this.roleId);
   }
 
   resetForm() {
@@ -100,9 +111,17 @@ export class EditSocietyComponent implements OnInit {
 
   EditSociety() {
     this.loader.showLoading();
+    if(this.roleId == 2){
+      this.societyModal.adminId = Number(this.loginId)
+    }
+    if(this.roleId == 3){
+      this.societyModal.adminId = Number(this.superAdminId)
+    }
     this.societyModal.id = Number(this.societyModal.id);
     this.societyModal.pinCode = Number(this.societyModal.pinCode);
     this.societyModal.wardNo = Number(this.societyModal.wardNo);
+    this.societyModal.userName = this.name;
+    this.societyModal.userId = Number(this.loginId);
     this.society.addSingleSociety(this.societyModal).subscribe((data) => {
       if (data) {
         this.toast.presentToast("Society updated successfully!", "success", 'checkmark-circle-sharp');

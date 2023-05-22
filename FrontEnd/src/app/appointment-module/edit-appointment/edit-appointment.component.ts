@@ -17,15 +17,17 @@ export class EditAppointmentComponent implements OnInit {
   @ViewChild(IonModal) modal: IonModal;
 
   year : number = new Date().getFullYear();
-
+  file:any;
   myForm;
   districtList: any;
   talukaList: any;
   id: any;
   anniDate;
-  appointmentModal:any ={}; 
+  appointments:any ={}; 
   UserId:any;
+  adminId:any;
   roleID:any;
+  superAdminId:any;
   name:any;
   minDate:String = new Date().toISOString();
   maxDate:String = new Date().toISOString();
@@ -63,11 +65,18 @@ export class EditAppointmentComponent implements OnInit {
     this.UserId = localStorage.getItem("loginId");
     this.roleID = localStorage.getItem("userType");
     this.name = localStorage.getItem("loginUser");
+    this.superAdminId = localStorage.getItem("superAdminId");
+    if(this.roleID==2 ){
+      this.adminId = this.UserId
+    }
+    else{
+      this.adminId = this.superAdminId
+    }
      this.getDistrict();
   }
 
   getDistrict(){
-    this.appointmentModal = this.router.getCurrentNavigation().extras.state;
+    this.appointments = this.router.getCurrentNavigation().extras.state;
     this.contact.getDistrictData().subscribe((data)=>{
       if(data.length > 0){
         this.districtList = data;
@@ -78,7 +87,7 @@ export class EditAppointmentComponent implements OnInit {
   getTaluka(dId:any){
     this.contact.getTalukaData(dId).subscribe((data)=>{
       if(data.length > 0){
-        this.appointmentModal.district = this.districtList.find(x => x.dId == dId).districtName;
+        this.appointments.district = this.districtList.find(x => x.dId == dId).districtName;
         this.talukaList = data;
       }
     })
@@ -88,33 +97,42 @@ export class EditAppointmentComponent implements OnInit {
     this.myForm.reset();
   }
 
+  onFileSelected(event:any){
+    const file:File = event.target.files[0];
+    this.file=file;
+  }
+
   save(){
+    debugger;
     this.loader.showLoading();
-    var dateparts = this.appointmentModal.appointmentDate.split(' ');
+    var dateparts = this.appointments.appointmentDate.split(' ');
     var time= dateparts[1].split(':');
     var hr = dateparts[2] == 'PM'?(Number(time[0])+12)+':'+time[1] :dateparts[1];
-    this.appointmentModal.id = Number(this.appointmentModal.id);
-    this.appointmentModal.adminName = this.name;
-    this.appointmentModal.userId = Number(this.UserId)
-    //this.appointmentModal.wardNo = Number(this.appointmentModal.wardNo);
-    //this.appointmentModal.pinCode = Number(this.appointmentModal.pinCode);
-    this.appointmentModal.AppointmentDate = dateparts[0]+' '+hr;
-    if(this.appointmentModal.fileName == ''){
-      this.appointmentModal.fileName = ''
+    this.appointments.id = Number(this.appointments.id);
+    this.appointments.adminName = this.name;
+    this.appointments.userName = this.name;
+    this.appointments.userId = Number(this.UserId)
+    this.appointments.wardNo = Number(this.appointments.wardNo);
+    this.appointments.pinCode = Number(this.appointments.pinCode);
+    this.appointments.adminId = Number(this.UserId);
+    this.appointments.appointmentDate = dateparts[0]+' '+hr;
+    if(this.file==undefined){
+      this.file = ""
     }
     else{
-      this.appointmentModal.fileName = this.appointmentModal.fileName
+      this.file = this.file
     }
-    this.appointment.addSingleAppointment(this.appointmentModal).subscribe(data=>{
-      if(data){
+    this.appointments =  JSON.stringify(this.appointments);
+    this.appointment.addSingleAppointment(this.file, this.appointments).subscribe(data=>{
+      if(data==2){
         this.loader.hideLoader();
-        this.appointmentModal = {};
-        this.toast.presentToast("Appointment added successfully!", "success", 'checkmark-circle-sharp');
+        //this.appointments = {};
+        this.toast.presentToast("Appointment updated successfully!", "success", 'checkmark-circle-sharp');
         this.router.navigate(['/appointment/all-appointments']);
       }
       else{
         this.loader.hideLoader();
-        this.toast.presentToast("Appointment not saved", "danger", 'alert-circle-sharp');
+        this.toast.presentToast("Appointment not updated", "danger", 'alert-circle-sharp');
       }
     },(err)=>{
       this.loader.hideLoader();
@@ -123,7 +141,7 @@ export class EditAppointmentComponent implements OnInit {
   }
 
   onSubmit(f: NgForm) {
-    if (this.appointmentModal.invalid) {
+    if (this.appointments.invalid) {
       return;
     }
     f.resetForm();

@@ -8,11 +8,12 @@
         </ion-buttons>
         <ion-title class="ion-text-center"> Complaint Book </ion-title>
         <ion-buttons slot="primary">
-          <!-- <ion-button (click)="search()">
+          <ion-button (click)="search()">
             <ion-icon name="search-outline"></ion-icon>
-          </ion-button> -->
+          </ion-button>
           <ion-menu-button auto-hide="false"></ion-menu-button>
         </ion-buttons>
+        
       </ion-toolbar>
     </ion-header>
     <div class="main-content">
@@ -42,7 +43,7 @@
         <ion-card-content>
           <div class="headSection">
             <div class="search">
-              <ion-searchbar (keypress)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)"  animated="true"></ion-searchbar>
+              <ion-searchbar (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)"  animated="true"></ion-searchbar>
             </div>
             <div class="btns">
               <ion-button class="button-download" color="danger" (click)="exportPDF()" ><ion-icon name="document-sharp"></ion-icon>PDF</ion-button>
@@ -75,15 +76,15 @@
                       <td>{{item.details}}</td>
                       <td>{{item.remark}}</td>
                       <!-- <td>{{item.fileName}}</td> -->
-                      <td class="file"><i class="icofont icofont-cloud-download"></i></td>
+                      <td class="file"><i (click)="downloadFile($event)" id={{item.id}} class="icofont icofont-cloud-download"></i></td>
                       <td>{{item.userName}} </td>
                       <td>
                         <select placeholder="Select" class="form-control-sm"  [(ngModel)]="complaintStatusModal.Status" (change)="changeStatus($event)" id={{item.id}} >
-                          <option value="" selected>Select</option>
+                          <option value="Select" disabled selected>Select</option>
                           <option value="Resolved">Resolved</option>
                           <option value="Pending">Pending</option>
                         </select>
-                        <!-- <ion-select placeholder="Select" class="form-control-sm"  [(ngModel)]="complaintStatusModal.Status" (ionChange)="changeStatus($event)" interface="popover" >
+                        <!-- <ion-select placeholder="Select" class="form-control-sm"  [(ngModel)]="complaintStatusModal.Status" (ionChange)="changeStatus($event)" interface="popover" id={{item.id}}>
                           <ion-select-option value="Resolved">Resolved</ion-select-option>
                           <ion-select-option value="Pending">Pending</ion-select-option>
                         </ion-select> -->
@@ -129,28 +130,49 @@
         </ion-list>
       </ion-grid> -->
       <ion-grid class="android">
-        <ion-searchbar *ngIf="isShow" [(ngModel)]="searchMob" animated="true"></ion-searchbar>
+        <ion-searchbar *ngIf="isShow" (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
         <ion-list  *ngFor="let item of allComplaints">
           <ion-item-sliding>
             <ion-item lines="none">
               <ion-label>
                 <div class="firstLine">
-                  <h3 class="text-capitalize">
-                    {{item.userName}} 
-                  </h3>
+                  <div class="namewithSelect">
+                    <h3 class="text-capitalize">
+                      {{item.userName}}
+                    </h3>
+                    <select placeholder="Select" class="form-control-sm" [(ngModel)]="complaintStatusModal.Status"
+                      (change)="changeStatus($event)" id={{item.id}}>
+                      <option value="" selected>Select</option>
+                      <option value="Resolved">Resolved</option>
+                      <option value="Pending">Pending</option>
+                    </select>
+                  </div>
                 </div>
                 <div class="firstLine">
-                    <h3 class="text-capitalize">
-                      {{item.subject}} 
-                    </h3>
+                    <p>Subject : {{item.subject}}</p>
                   </div>
+                  
                 <div class="details">
-                  <p> {{item.toDate}} </p>
-                  <p> {{item.fromDate}}</p>
+                  <p>From : {{item.fromDate}}</p>
+                  <p>To : {{item.toDate}} </p>
+                </div>
+                <div class="firstLine">
+                  <p>Details : {{item.details}}</p>
+                </div>
+                <div class="firstLine">
+                  <p>Remark : {{item.remark}}</p>
                 </div>
               </ion-label>
             </ion-item>
           </ion-item-sliding>
+        </ion-list>
+        <div *ngIf="!allComplaints || allComplaints.length === 0" class="text-center noData">
+          <img src="assets/img/question.png" />
+          <p>No data available</p>
+          <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
+        </div>
+        <ion-list>
+          <pagination-controls (pageChange)="event($event)"></pagination-controls>
         </ion-list>
       </ion-grid>
     </div>

@@ -34,6 +34,11 @@ export class EditVoterdataComponent implements OnInit {
   EditData:any = {};
   birthDate= ''
   CreatedDate = ''
+  name:any;
+  userId:any;
+  AdminId:any;
+  roleId:any;
+  superAdminId:any;
   // CreatedDate
  
   keyPressNumbers(event) {
@@ -75,6 +80,17 @@ export class EditVoterdataComponent implements OnInit {
 
       ngOnInit() {
         this.EditData.assembly = this.EditData.assembly;
+        this.name=localStorage.getItem('loginUser');
+        this.userId = localStorage.getItem("loginId");
+        this.AdminId = localStorage.getItem("adminId");
+        this.roleId = localStorage.getItem("userType");
+        this.superAdminId = localStorage.getItem("superAdminId");
+        if(this.roleId == 2){
+          this.AdminId = this.superAdminId
+        }
+        else{
+          this.AdminId = this.AdminId
+        }
         this.getDistrict();
         this.getAssembly();
         this.getWard();
@@ -95,7 +111,7 @@ export class EditVoterdataComponent implements OnInit {
 
   getTaluka(dId:any){
     this.contact.getTalukaData(dId).subscribe((data)=>{
-      this.editVoter.District = this.districtList.find(x => x.dId=dId).districtName;
+      this.editVoter.district = this.districtList.find(x => x.dId==dId).districtName;
       this.talukaList = data;
     })
   }
@@ -149,7 +165,10 @@ export class EditVoterdataComponent implements OnInit {
 
   save(){
     debugger;
-    console.log(this.EditData);
+    this.EditData.age=Number(this.EditData.age);
+    this.EditData.userId = Number(this.userId);
+    this.EditData.adminId = Number(this.AdminId);
+    this.EditData.userName= this.name;
     this.loader.showLoading();
     this.voter.update(this.EditData).subscribe((data)=>{
       this.EditData = {};

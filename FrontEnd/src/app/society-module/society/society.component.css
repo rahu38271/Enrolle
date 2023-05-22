@@ -177,3 +177,11 @@ td a {
   display: flex;
     justify-content: space-around;
 }
+
+.table th:nth-child(6){
+  width: 185px;
+}
+
+.table td:nth-child(6){
+  width: 185px;
+}

@@ -7,7 +7,6 @@ import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
-import { Observable } from 'rxjs/Observable';
 import { ChangeDetectorRef } from '@angular/core';
 
 
@@ -128,11 +127,56 @@ export class VoterbyUserComponent {
     this.voterList(this.id, this.RoleId, event, this.NoofRow,this.Language,this.SearchText)
   }
 
-  onSearchChange(SearchText: string): void { 
-    this.SearchText=SearchText;
-    this.PageNo=1;
-    this.NoofRow=this.totalCount;
-    this.voterList(this.id, this.RoleId, this.PageNo, this.NoofRow,this.Language,this.SearchText)
+  onSearchChange(SearchText: any): void { 
+    if (this.SearchText == '') {
+      this.SearchText = SearchText;
+      this.PageNo = 1;
+      this.NoofRow = this.totalCount;
+      this.voterList(this.id, this.RoleId, this.PageNo, this.NoofRow, this.Language, this.SearchText)
+    }
+    else {
+      this.SearchText = SearchText;
+      this.PageNo = 1;
+      this.NoofRow = 25;
+      this.voter.getVoterByUser(this.id, this.RoleId, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+        if (data.length != 0) {
+          //this.loader.hideLoader();
+          this.voterListByUser = data;
+          this.totalCount = data[0].totalCount;
+          this.voterListByUser.forEach(e => {
+            e.birthDate = e.birthDate.split('T')[0];
+          });
+        }
+        else {
+          //this.loader.hideLoader();
+          this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+        }
+      })
+    }
+  }
+
+  keyPress(SearchText: any){
+    if (this.SearchText == '') {
+      this.SearchText = SearchText;
+      this.PageNo = 1;
+      this.NoofRow = this.totalCount;
+      this.voterList(this.id, this.RoleId, this.PageNo, this.NoofRow, this.Language, this.SearchText)
+    }
+    else {
+      this.SearchText = SearchText;
+      this.PageNo = 1;
+      this.NoofRow = 25;
+      this.voter.getVoterByUser(this.id, this.RoleId, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+        if (data) {
+          //this.loader.hideLoader();
+          this.voterListByUser = data;
+          this.totalCount = data[0].totalCount;
+          this.voterListByUser.forEach(e => {
+            e.birthDate = e.birthDate.split('T')[0];
+          });
+        }
+      })
+    }
   }
 
   voterDetails(item: any) {

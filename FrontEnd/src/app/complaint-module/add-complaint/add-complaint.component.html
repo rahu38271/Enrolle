@@ -25,7 +25,7 @@
   
             <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
               <ion-label> Subject </ion-label>
-              <ion-input name="Subject" [(ngModel)]="societycomplaint.Subject" class="text-capitalize form-control"></ion-input>
+              <ion-input maxlength="50" name="Subject" [(ngModel)]="societycomplaint.Subject" class="text-capitalize form-control" required></ion-input>
             </ion-col>
 
             <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
@@ -36,6 +36,8 @@
                   name="FromDate" 
                   [(ngModel)]="societycomplaint.FromDate"
                   class="form-control"
+                  (keypress)="onKeyPress($event)"
+                  (keypress)="keyPressNumbers($event)" 
                 >
                 </ion-input>
     
@@ -63,6 +65,8 @@
                   name="ToDate" 
                   [(ngModel)]="societycomplaint.ToDate"
                   class="form-control"
+                  (keypress)="onKeyPress($event)"
+                  (keypress)="keyPressNumbers($event)" 
                 >
                 </ion-input>
     
@@ -84,12 +88,12 @@
 
               <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
                 <ion-label> Details </ion-label>
-                <ion-textarea rows="2" name="Details" [(ngModel)]="societycomplaint.Details"  class="form-control" ></ion-textarea>
+                <ion-textarea maxlength="160" rows="2" name="Details" [(ngModel)]="societycomplaint.Details"  class="form-control" ></ion-textarea>
               </ion-col>
 
               <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
                 <ion-label> Remark </ion-label>
-                <ion-textarea rows="2" name="Remark" [(ngModel)]="societycomplaint.Remark" class="form-control" ></ion-textarea>
+                <ion-textarea maxlength="160" rows="2" name="Remark" [(ngModel)]="societycomplaint.Remark" class="form-control" ></ion-textarea>
               </ion-col>
 
               <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
@@ -102,7 +106,7 @@
             <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
               <div class="ion-text-center">
                 <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
-                <ion-button type="submit" size="medium" (click)="addComplaint()">Save</ion-button>
+                <ion-button type="submit" size="medium" (click)="addComplaint()" [disabled]="!f.form.valid">Save</ion-button>
                 <ion-button routerLink="/complaint-book/all-complaints" color="success" type="button" size="medium">Back To List
                 </ion-button>
               </div>

@@ -49,7 +49,7 @@
               <ion-card-content>
                 <div class="headSection">
                   <div class="search">
-                    <ion-searchbar (keypress)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
+                    <ion-searchbar (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
                   </div>
                   <div class="btns">
                     <ion-button class="button-download" color="success" (click)="exportExcel()" ><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
@@ -99,7 +99,7 @@
                       
                       <tr *ngFor="let item of getSocietyList | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems};let i=index">
                         <td>{{item.id}}</td>
-                        <td><a>{{item.name}}</a></td>
+                        <td>{{item.name}}</td>
                         <td>{{item.chairman}}</td>
                         <td>{{item.phoneNo}}</td>
                         <td>{{item.altPhoneNo}}</td>

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient,HttpHeaders  } from '@angular/common/http'
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -34,10 +35,12 @@ export class ComplaintService {
   addSingleComplaint(file:any, societycomplaint:any):Observable<any>{
     debugger;
     const formData : FormData = new FormData();
+   // const formData1 : FormData = new FormData();
     // code to make file optional while adding complaint
     const blob = new Blob([file], {type:file.type})
     formData.append('file',blob,file.name);
     formData.append('societycomplaint',societycomplaint)
+     
     //formData.append('societycomplaint',JSON.stringify(societycomplaint));
     //formData.append('dataoje',data);
     //formData.append("file",fileupload);
@@ -60,7 +63,6 @@ export class ComplaintService {
   // update complaint status
 
   updateComplaintStatus(Id:any,Status:any){
-    debugger;
     return this.http.post<any>(this.url+'Society/UpdateComplaintStatus?Id='+Id+'&Status='+Status, Id)
   }
 
@@ -68,6 +70,11 @@ export class ComplaintService {
   deleteComplaint(id:any){
     // return this.http.get<any>(this.url+'Society/DeleteSocietyComplaintbyId='+id)
     return this.http.get<any>(this.url+'Society/DeleteSocietyComplaintbyId?Id='+id)
+  }
+
+  getFile(id:any){
+    debugger;
+    return this.http.get<any>(this.url+'Society/DownLoadFile?Id='+id)
   }
 
 }

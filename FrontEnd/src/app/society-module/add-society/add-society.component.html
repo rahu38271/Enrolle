@@ -20,15 +20,14 @@
           <ion-row>
             <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
               <ion-label position="floating"> Society Name   <span>*</span> </ion-label>
-                <ion-input name="Name" [(ngModel)]="societyModal.Name" class="text-capitalize form-control" required></ion-input>
+                <ion-input maxlength="30" name="Name" [(ngModel)]="societyModal.Name" class="text-capitalize form-control" required></ion-input>
                 
             </ion-col>
   
             
             <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
-              <ion-label position="floating"> Chairman  </ion-label>
-                <ion-input name="Chairman" [(ngModel)]="societyModal.Chairman"  class="text-capitalize form-control" ></ion-input>
-                
+              <ion-label position="floating"> Chairman <span>*</span> </ion-label>
+                <ion-input (keypress)="onKeyPress($event)" maxlength="30" name="Chairman" [(ngModel)]="societyModal.Chairman"  class="text-capitalize form-control" required ></ion-input>
             </ion-col>
   
             
@@ -42,7 +41,7 @@
                   name="PhoneNo" 
                   [(ngModel)]="societyModal.PhoneNo" 
                   class="form-control"
-                  
+                  required
                   >
                 </ion-input>
                 
@@ -67,7 +66,7 @@
                     [(ngModel)]="societyModal.Address"  
                     class="form-control" 
                     rows="2" 
-                     
+                    maxlength="160"
                 ></ion-textarea>
                   
               </ion-col> 
@@ -85,11 +84,11 @@
 
               <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="12" size-xs="12">
                 <ion-label position="floating"> Ward No. </ion-label>
-                  <ion-input 
-                      (keypress)="keyPressNumbers($event)" 
+                  <ion-input  
                       name="WardNo" 
                       [(ngModel)]="societyModal.WardNo" 
                       class="form-control" 
+                      maxlength="5" 
                   ></ion-input>
               </ion-col>
   

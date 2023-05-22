@@ -17,7 +17,7 @@ export class BySurnameComponent implements OnInit {
   userId: any;
   roleID:any;
   PageNo:any=1;
-  NoofRow:any=10;
+  NoofRow:any=50;
   totalItems:any;
   SearchText:any;
 
@@ -56,7 +56,7 @@ export class BySurnameComponent implements OnInit {
   }
 
   allLastName(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){
-    this.loader.showLoading();
+    //this.loader.showLoading();
     this.Language = this.translateConfigService.getCurrentLang();
     if(this.Language == "kn"){
       this.Language = "Kannada"
@@ -72,16 +72,60 @@ export class BySurnameComponent implements OnInit {
     }
     this.voter.lastNameData(userId,roleID,PageNo,NoofRow,this.Language,this.SearchText).subscribe(data=>{
       if(data.length != 0){
-        this.loader.hideLoader();
+        //this.loader.hideLoader();
         this.allData = data;
         this.totalItems = data[0].totalCount
       }
       else{
-        this.loader.hideLoader();
+        //this.loader.hideLoader();
       }
     },(err)=>{
-      this.loader.hideLoader();
+      //this.loader.hideLoader();
     })
+  }
+
+  onSearchChange(SearchText:any){
+    if(this.SearchText==''){
+      this.PageNo=1;
+      this.NoofRow=this.totalItems;
+      this.SearchText=SearchText;
+      this.allLastName(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
+    }
+    else{
+      this.PageNo=1;
+      this.NoofRow=50;
+      this.SearchText=SearchText;
+      this.voter.lastNameData(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
+        if(data.length != 0){
+          this.allData = data;
+          this.totalItems = data[0].totalCount
+        }
+        else{
+        }
+      })
+    }
+  }
+
+  keyPress(SearchText:any){
+    if(this.SearchText==''){
+      this.PageNo=1;
+      this.NoofRow=this.totalItems;
+      this.SearchText=SearchText;
+      this.allLastName(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
+    }
+    else{
+      this.PageNo=1;
+      this.NoofRow=50;
+      this.SearchText=SearchText;
+      this.voter.lastNameData(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
+        if(data.length != 0){
+          this.allData = data;
+          this.totalItems = data[0].totalCount
+        }
+        else{
+        }
+      })
+    }
   }
 
 }

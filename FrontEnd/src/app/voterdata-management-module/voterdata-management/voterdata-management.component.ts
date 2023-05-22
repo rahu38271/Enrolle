@@ -30,6 +30,9 @@ export class VoterdataManagementComponent {
   userId: any;
   roleID:any
   voterByPart:any;
+  searchedVoterByPart:any;
+  isSearched=false;
+  isList=true;
 
   searchModal: any = {
     LastName:'',
@@ -122,12 +125,18 @@ keyPressNumbers(event) {
   }
 
   event(event:any){
-    debugger;
     this.PageNo = event;
     this.boothWiseVoterListData(event,this.NoofRow,this.Language)
   }
 
+  event1(event:any){
+    this.PageNo = event;
+    this.searchData();
+  }
+
   boothWiseVoterListData(PageNo:any,NoofRow:any, Language:any){
+    this.isSearched=false;
+    this.isList=true;
     this.Language = this.translateConfigService.getCurrentLang();
     if (this.Language == "kn") {
       this.Language = "Kannada"
@@ -165,6 +174,7 @@ keyPressNumbers(event) {
   }
 
    voterDetails(id:number){
+     debugger;
     this.router.navigate(['voterdata-management/voter-details', id])
    }
    
@@ -179,6 +189,8 @@ keyPressNumbers(event) {
 
   searchData(){
     debugger;
+    this.isSearched=true;
+    this.isList=false;
     this.searchModal.Language = this.Language;
     this.searchModal.PageNo = 1;
     this.searchModal.NoofRow = 25;
@@ -228,13 +240,13 @@ keyPressNumbers(event) {
       this.searchModal.FromAge = null
     }
     else{
-      this.searchModal.FromAge = this.searchModal.FromAge;
+      this.searchModal.FromAge = Number(this.searchModal.FromAge);
     }
     if(this.searchModal.ToAge == ''){
       this.searchModal.ToAge = null
     }
     else{
-      this.searchModal.ToAge = this.searchModal.ToAge;
+      this.searchModal.ToAge = Number(this.searchModal.ToAge);
     }
     if(this.searchModal.Gender == ''){
       this.searchModal.Gender = null
@@ -287,7 +299,7 @@ keyPressNumbers(event) {
     this.voter.advanceSearch(this.searchModal).subscribe(data=>{
       if(data.length != 0){
         this.loader.hideLoader();
-        this.voterByPart = data;
+        this.searchedVoterByPart = data;
         this.totalItems = data[0].totalCount
       }
       else{
@@ -300,13 +312,79 @@ keyPressNumbers(event) {
     })
   }
 
+  async deleteVoter(id: any) {
+    const alert = await this.alertController.create({
+      header: ' Delete Voter ?',
+      cssClass: 'alertHeader',
+      message: 'Are you sure want to delete this voter',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'no',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Delete',
+          cssClass: 'yes',
+          handler: () => {
+            this.voter.deleteVoter(id).subscribe(data => {
+              this.ionViewWillEnter()
+              this.toast.presentToast("Voter deleted Succesfully!", "success", 'checkmark-circle-sharp');
+            })
+          }
+        }
+      ],
+    });
+
+    await alert.present();
+  }
+
 
   exportExcel():void {
-    this.excel.exportAsExcelFile(this.voterByPart, 'Society');
+    this.PageNo = 1;
+    this.NoofRow = this.totalItems;
+    this.Language= this.Language;
+    this.voter.boothWiseVoterList(this.partNo,this.PageNo,this.NoofRow,this.Language).subscribe((data:any)=>{
+      this.loader.hideLoader();
+      if(data){
+        this.voterByPart = data;
+        this.totalItems = data[0].totalCount;
+        this.excel.exportAsExcelFile(this.voterByPart, 'Voter');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    })
+    
   }
 
   exportToCSV() {
-    this.csv.exportToCsv(this.voterByPart, 'Society');
+    this.PageNo = 1;
+    this.NoofRow = this.totalItems;
+    this.Language= this.Language;
+    this.loader.showLoading();
+    this.voter.boothWiseVoterList(this.partNo,this.PageNo,this.NoofRow,this.Language).subscribe(data => {
+      if (this.voterByPart.length != 0) {
+        this.loader.hideLoader();
+        this.voterByPart = data;
+        this.voterByPart.forEach(e => {
+          e.fromDate = e.fromDate.split('T')[0];
+          e.toDate = e.toDate.split('T')[0];
+        });
+        this.csv.exportToCsv(this.voterByPart, 'Voter');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else {
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+      }
+    }, (err) => {
+      this.loader.hideLoader();
+    })
+    
   }
 
 }

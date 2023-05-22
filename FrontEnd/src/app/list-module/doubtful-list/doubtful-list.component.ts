@@ -87,18 +87,44 @@ export class DoubtfulListComponent implements OnInit {
     this.isShow = !this.isShow
   }
 
-  onSearchChange(SearchText:any){
-    this.PageNo=1;
-    this.NoofRow=this.totalItems;
-    this.SearchText=SearchText;
-    this.doubtfulList(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
+  onSearchChange(SearchText: any) {
+    if (this.SearchText == '') {
+      this.PageNo = 1;
+      this.NoofRow = this.totalItems;
+      this.SearchText = SearchText;
+      this.doubtfulList(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+    }
+    else {
+      this.PageNo = 1;
+      this.NoofRow =10;
+      this.SearchText = SearchText;
+      this.voter.doubtful(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+        if (data) {
+          this.doubtfulVoter = data;
+          this.totalItems = data[0].totalCount;
+        }
+      })
+    }
   }
 
   keyPress(SearchText:any){
-    this.PageNo=1;
-    this.NoofRow=this.totalItems;
-    this.SearchText=SearchText;
-    this.doubtfulList(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
+    if (this.SearchText == '') {
+      this.PageNo = 1;
+      this.NoofRow = this.totalItems;
+      this.SearchText = SearchText;
+      this.doubtfulList(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+    }
+    else {
+      this.PageNo = 1;
+      this.NoofRow = 10;
+      this.SearchText = SearchText;
+      this.voter.doubtful(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+        if (data) {
+          this.doubtfulVoter = data;
+          this.totalItems = data[0].totalCount;
+        }
+      })
+    }
   }
 
 }

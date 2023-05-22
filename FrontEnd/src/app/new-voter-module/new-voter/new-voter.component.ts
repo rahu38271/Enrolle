@@ -17,7 +17,7 @@ export class NewVoterComponent implements OnInit {
 
   getnewVoter:any;
   searchWeb: string;
-
+  cp: number = 1;
   constructor(
     private newVoter:NewVoterService,
     private loader:LoaderService,
@@ -39,7 +39,7 @@ export class NewVoterComponent implements OnInit {
   newVoterList(){
     this.loader.showLoading();
     this.newVoter.getAllNewVoter().subscribe(data=>{
-      if(data != 0){
+      if(data.length != 0){
         this.loader.hideLoader();
         this.getnewVoter = data;
         this.getnewVoter.forEach(e => {
@@ -60,9 +60,9 @@ export class NewVoterComponent implements OnInit {
 
   async deleteNewVoter(id:any) {
     const alert = await this.alertController.create({
-      header: 'Delete Appointment',
+      header: 'Delete Work',
       cssClass: 'alertHeader',
-      message: 'Are you sure want to delete this Appointment',
+      message: 'Are you sure want to delete this work',
       buttons: [
         {
           text: 'Cancel',
@@ -76,12 +76,8 @@ export class NewVoterComponent implements OnInit {
           cssClass: 'yes',
           handler: () => {
             this.newVoter.deleteNewVoter(id).subscribe(data=>{
-              this.router.events.pipe(
-                filter(event => event instanceof NavigationEnd)
-              ).subscribe(() => {
-                this.newVoterList();
-              })
-              this.toast.presentToast("Appointment deleted Succesfully!", "success", 'checkmark-circle-sharp');
+              this.ionViewWillEnter()
+              this.toast.presentToast("Work deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })
           }
         }
@@ -92,11 +88,11 @@ export class NewVoterComponent implements OnInit {
   }
 
   exportExcel():void {
-    this.excel.exportAsExcelFile(this.getnewVoter, 'New Voter');
+    this.excel.exportAsExcelFile(this.getnewVoter, 'work');
   }
 
   exportToCSV() {
-    this.csv.exportToCsv(this.getnewVoter, 'New Voter');
+    this.csv.exportToCsv(this.getnewVoter, 'work');
   }
 
 }

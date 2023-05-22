@@ -26,3 +26,7 @@ ion-label span {  color: #F00 !important; font-weight: 500; }
   --border-radius: 8px;
   --height: auto !important;
 }
+
+ion-input,ion-textarea {
+  text-transform: capitalize;
+}

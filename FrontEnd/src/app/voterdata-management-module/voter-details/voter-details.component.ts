@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, AfterViewInit, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, AfterViewInit, ElementRef, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { IonModal } from '@ionic/angular';
@@ -20,10 +20,11 @@ import { TranslateConfigService } from 'src/app/services/translate-config.servic
 @Component({
   selector: 'app-voter-details',
   templateUrl: './voter-details.component.html',
-  styleUrls: ['./voter-details.component.scss'],
+  styleUrls: ['./voter-details.component.scss']
 })
 export class VoterDetailsComponent {
   Language: any;
+  maxDate:String = new Date().toISOString();
   @ViewChild(IonModal) modal: IonModal;
   @ViewChild('myDiv') myDiv: ElementRef;
   @ViewChild('tr1') tr1: ElementRef;
@@ -123,8 +124,8 @@ export class VoterDetailsComponent {
       public modalCtrl: ModalController,
       private location: Location,
       public translate: TranslateService,
-      private ref: ChangeDetectorRef,
-      private translateConfigService: TranslateConfigService,
+      
+      private translateConfigService: TranslateConfigService
   ) {
     this.Language = this.translateConfigService.getCurrentLang();
     this.Voter = this.router.getCurrentNavigation().extras.state;
@@ -133,6 +134,10 @@ export class VoterDetailsComponent {
   }
 
   ngOnInit() {
+    
+  }
+
+  ngAfterViewInit(){
     this.assemblyName1 = localStorage.getItem("loginAssembly");
     this.voterDetails();
     this.AllCasts();
@@ -243,8 +248,7 @@ export class VoterDetailsComponent {
     this.voter.updateMob(this.mobUpdate.Id, this.mobUpdate.Mobile).subscribe(data => {
       if (data) {
         this.closeModal();
-        this.ngOnInit();
-        this.ref.detectChanges();
+        this.ngAfterViewInit();
         this.toast.presentToast("Mobile No. updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {

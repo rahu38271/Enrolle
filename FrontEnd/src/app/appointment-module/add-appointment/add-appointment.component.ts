@@ -17,7 +17,7 @@ export class AddAppointmentComponent implements OnInit {
 
   @ViewChild(IonModal) modal: IonModal;
 
-  appointmentModal:any={};
+  appointments:any={};
   districtList: any;
   talukaList: any;
   year : number = new Date().getFullYear();
@@ -33,8 +33,11 @@ export class AddAppointmentComponent implements OnInit {
   UserId:any;
   roleID:any;
   name:any;
+  file:any;
   minDate:String = new Date().toISOString();
   maxDate:String = new Date().toISOString();
+  adminId:any;
+  superAdminId:any;
 
   onKeyPress(event) {
     if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {
@@ -67,10 +70,18 @@ export class AddAppointmentComponent implements OnInit {
    }
 
   ngOnInit() {
+    debugger;
     this.UserId = localStorage.getItem("loginId");
+    this.superAdminId = localStorage.getItem("superAdminId");
     this.roleID = localStorage.getItem("userType");
     this.name = localStorage.getItem("loginUser");
     this.getDistrict();
+    if(this.roleID==2 ){
+      this.adminId = this.UserId
+    }
+    else{
+      this.adminId = this.superAdminId
+    }
   }
 
   getDistrict() {
@@ -88,7 +99,7 @@ export class AddAppointmentComponent implements OnInit {
     this.contact.getTalukaData(dId).subscribe((data) => {
       if (data.length > 0) {
         //console.log(data);
-        this.appointmentModal.District = this.districtList.find(x => x.dId == dId).districtName;
+        this.appointments.District = this.districtList.find(x => x.dId == dId).districtName;
         this.talukaList = data;
       }
     }, (error) => {
@@ -96,21 +107,37 @@ export class AddAppointmentComponent implements OnInit {
     })
   }
 
+  onFileSelected(event:any){
+    const file:File = event.target.files[0]
+    this.file = file
+    
+  }
+
   addAppointment(){
-    var dateparts = this.appointmentModal.AppointmentDate.split(' ');
+    debugger;
+    var dateparts = this.appointments.AppointmentDate.split(' ');
     var time= dateparts[1].split(':');
     var hr = dateparts[2] == 'PM'?(Number(time[0])+12)+':'+time[1] :dateparts[1];
-    this.appointmentModal.AppointmentDate = dateparts[0]+' '+hr;
-    this.appointmentModal.AdminName = this.name;
-    this.appointmentModal.UserId = Number(this.UserId);
-    this.appointmentModal.AppointmentDate = this.appointmentModal.AppointmentDate;
-    this.appointmentModal.WardNo = Number(this.appointmentModal.WardNo);
-    this.appointmentModal.PinCode = Number(this.appointmentModal.PinCode);
+    this.appointments.AppointmentDate = dateparts[0]+' '+hr;
+    this.appointments.AdminName = this.name;
+    this.appointments.UserName = this.name;
+    this.appointments.UserId = Number(this.UserId);
+    this.appointments.AppointmentDate = this.appointments.AppointmentDate;
+    this.appointments.WardNo = Number(this.appointments.WardNo);
+    this.appointments.PinCode = Number(this.appointments.PinCode);
+    this.appointments.AdminId = Number(this.UserId);
+    if(this.file==undefined){
+      this.file = ""
+    }
+    else{
+      this.file = this.file
+    }
+    this.appointments =  JSON.stringify(this.appointments);
     this.loader.showLoading();
-    this.appointment.addSingleAppointment(this.appointmentModal).subscribe(data=>{
-      if(data){
+    this.appointment.addSingleAppointment(this.file, this.appointments).subscribe(data=>{
+      if(data==2){
         this.loader.hideLoader();
-        this.appointmentModal = {};
+        //this.appointments = {};
         this.toast.presentToast("Appointment added successfully!", "success", 'checkmark-circle-sharp');
         this.router.navigate(['/appointment/all-appointments']);
         
@@ -126,8 +153,10 @@ export class AddAppointmentComponent implements OnInit {
     
   }
 
+ 
+
   onSubmit(f: NgForm) {
-    if (this.appointmentModal.invalid) {
+    if (this.appointments.invalid) {
       return;
     }
     f.resetForm();

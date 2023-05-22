@@ -1,0 +1,153 @@
+
+.header { width: 100%; }
+
+table { margin-top: 10px; }
+
+td ion-icon { cursor: pointer; font-size: 22px; font-weight: 600; padding-left: 2px;  }
+
+table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !important; }
+
+table td:last-child { padding: 0.25rem 0.1rem !important; width: 58px !important; }
+
+.file { font-size: 20px !important; color: #3880ff !important; font-weight: 600;}
+
+ion-modal {
+    --width: 290px;
+  --border-radius: 8px;
+  --height: auto !important;
+ }
+
+
+.headSection {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media screen and (max-width:576px){
+    .web {
+      display: none;
+    }
+    .contact {
+      display: initial !important;
+    }
+    .contact i {
+      line-height: 64px !important;
+    }
+    .contact h4 {
+      margin-top: 5px !important;
+    }
+    .contact h3 {
+      margin-top: 5px;
+    }
+    ion-item ion-label {
+      text-align: center;
+    }
+  }
+
+.action ion-icon {
+  font-size: 20px;
+  color: #3c7ff9;
+  cursor: pointer;
+}
+
+.action .delete {
+  font-size: 19px;
+  color: #ff4646;
+  cursor: pointer;
+}
+
+.select {
+  padding: 2px 1px;
+  background: #4578d1;
+  color: #FFF;
+}
+
+.approveBtn 
+{
+  color: #129730;
+}
+
+.rsBtn{
+  color: #0d72df;
+}
+
+.rejectBtn {
+  color: #F00;
+}
+
+
+
+
+.survey-list {
+  cursor: pointer;
+}
+
+ion-list { box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; border: 1px solid #e6ebf1;  border-radius: 0.625rem; }
+
+.contact i {
+  background: rgba(85,112,241,.12);
+  color: #757fef;
+  font-size: 27.5px;
+  border-radius: 0.625rem;
+  width: 55px;
+  height: 55px;
+  line-height: 32px;
+  padding: 13px;
+}
+
+ion-list:hover .contact i {
+  background-color: #757fef;
+  color: #FFF;
+}
+
+.contact h4 {
+    margin-top: 10px;
+    color: #5d5b95;
+    font-weight: 600;
+}
+
+ion-item ion-label {
+  color: #666666 !important;
+}
+
+ion-item img {
+  width: 45px;
+}
+
+.contact {
+  display: flex;
+  justify-content: space-between;
+}
+
+.contact h3 {
+  color: #260944;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.flex ion-icon {
+    font-size: 25px;
+    margin-right: 10px;
+    color: #3c7ff9;
+  }
+  
+  .flex {
+    display: flex;
+  }
+  .table td {
+    text-transform: capitalize;
+  }
+
+  .file i {
+    font-size: 26px;
+    color: #3f7ef4;
+    cursor: pointer;
+  }
+
+  .table th:nth-child(2){
+    width: 150px;
+  }
+
+  .table td:nth-child(2){
+    width: 150px;
+  }

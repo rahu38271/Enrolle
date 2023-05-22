@@ -28,7 +28,7 @@ export class AgewiseListComponent implements OnInit {
     PageNo:'',
     NoofRow:''
   };
-  ageList: any[] = [];
+  ageList: any;
   userId: any;
   roleID:any;
   searchMob:string;
@@ -36,6 +36,17 @@ export class AgewiseListComponent implements OnInit {
   NoofRow:any=25
   totalItems:any;
   SearchText:any;
+
+  keyPressNumbers(event) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
   
   constructor(
     private toast:IonicToastService, 
@@ -111,12 +122,7 @@ export class AgewiseListComponent implements OnInit {
     this.isShow = !this.isShow
   }
 
-  onSearchChange(SearchText:any){
-    this.PageNo=1;
-    this.NoofRow=this.totalItems;
-    this.SearchText=SearchText;
-    this.agewiseSearch(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language);
-  }
+  
 
   exportexcel() {
     const ws: xlsx.WorkSheet =

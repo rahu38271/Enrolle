@@ -7,6 +7,7 @@ import { Router } from '@angular/router'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'; 
 import { AlertController} from '@ionic/angular';
 import { Location } from '@angular/common';
+import { LoaderService  } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-todays-complaint',
@@ -25,6 +26,7 @@ export class TodaysComplaintComponent implements OnInit {
   NoofRow:any=10;
   SearchText:any;
   totalItems:any;
+  isShow = false;
 
   constructor(
     private complaint:ComplaintService,
@@ -33,7 +35,8 @@ export class TodaysComplaintComponent implements OnInit {
     private router:Router,
     private toast:IonicToastService,
     public alertController: AlertController,
-    private location: Location
+    private location: Location,
+    private loader:LoaderService
   ) { }
 
   ngOnInit(): void {
@@ -43,6 +46,10 @@ export class TodaysComplaintComponent implements OnInit {
     else{
       this.SearchText = this.SearchText
     }
+  }
+
+  search(){
+    this.isShow = !this.isShow
   }
 
   ionViewWillEnter(){
@@ -104,19 +111,60 @@ export class TodaysComplaintComponent implements OnInit {
     })
   }
 
-  onSearchChange(SearchText:any){
-    this.PageNo=1;
-    this.NoofRow=this.totalItems;
-    this.SearchText=SearchText;
-    var SearchText = SearchText.replace(/^\|+|\|+$/g, '');
-    this.complaintList(this.PageNo,this.NoofRow,this.SearchText);
+  onSearchChange(SearchText: any) {
+    if (this.SearchText == '') {
+      this.PageNo = 1;
+      this.NoofRow = this.totalItems;
+      this.SearchText = SearchText;
+      this.complaintList(this.PageNo, this.NoofRow, this.SearchText);
+    }
+    else {
+      this.PageNo = 1;
+      this.NoofRow = 10;
+      this.SearchText = SearchText;
+      this.complaint.getTodayComplaint(this.PageNo,this.NoofRow,SearchText).subscribe(data=>{
+        if(data.length != 0){
+          this.todayComplaints = data;
+          this.totalItems = data[0].totalCount;
+          this.todayComplaints.forEach(e => {
+            e.fromDate = e.fromDate.split('T')[0];
+            e.toDate = e.toDate.split('T')[0];
+          });
+          
+        }
+        else{
+  
+        }
+      })
+    }
   }
 
   keyPress(SearchText:any){
-    this.PageNo=1;
-    this.NoofRow=this.totalItems;
-    this.SearchText=SearchText;
-    this.complaintList(this.PageNo,this.NoofRow,this.SearchText);
+    if (this.SearchText == '') {
+      this.PageNo = 1;
+      this.NoofRow = this.totalItems;
+      this.SearchText = SearchText;
+      this.complaintList(this.PageNo, this.NoofRow, this.SearchText);
+    }
+    else {
+      this.PageNo = 1;
+      this.NoofRow = 10;
+      this.SearchText = SearchText;
+      this.complaint.getTodayComplaint(this.PageNo,this.NoofRow,SearchText).subscribe(data=>{
+        if(data.length != 0){
+          this.todayComplaints = data;
+          this.totalItems = data[0].totalCount;
+          this.todayComplaints.forEach(e => {
+            e.fromDate = e.fromDate.split('T')[0];
+            e.toDate = e.toDate.split('T')[0];
+          });
+          
+        }
+        else{
+  
+        }
+      })
+    }
   }
 
   async deleteCom(id:any) {
@@ -149,19 +197,55 @@ export class TodaysComplaintComponent implements OnInit {
   }
 
   exportExcel():void {
-    this.todayComplaints.forEach(e => {
-      e.fromDate = e.fromDate.split('T')[0];
-      e.toDate = e.toDate.split('T')[0];
-    });
     this.excel.exportAsExcelFile(this.todayComplaints, 'Complaints');
+    this.PageNo = 1;
+    this.NoofRow = this.totalItems;
+    var SearchText = "";
+    this.loader.showLoading();
+    this.complaint.getAllComplaints(this.PageNo, this.NoofRow, SearchText).subscribe(data => {
+      if (data.length != 0) {
+        this.loader.hideLoader();
+        this.todayComplaints = data;
+        this.todayComplaints.forEach(e => {
+          e.fromDate = e.fromDate.split('T')[0];
+          e.toDate = e.toDate.split('T')[0];
+        });
+        this.excel.exportAsExcelFile(this.todayComplaints, 'Complaints');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else {
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+      }
+    }, (err) => {
+      this.loader.hideLoader();
+    })
   }
 
   exportToCSV() {
-    this.todayComplaints.forEach(e => {
-      e.fromDate = e.fromDate.split('T')[0];
-      e.toDate = e.toDate.split('T')[0];
-    });
-    this.csv.exportToCsv(this.todayComplaints, 'Complaints');
+    this.excel.exportAsExcelFile(this.todayComplaints, 'Complaints');
+    this.PageNo = 1;
+    this.NoofRow = this.totalItems;
+    var SearchText = "";
+    this.loader.showLoading();
+    this.complaint.getAllComplaints(this.PageNo, this.NoofRow, SearchText).subscribe(data => {
+      if (data.length != 0) {
+        this.loader.hideLoader();
+        this.todayComplaints = data;
+        this.todayComplaints.forEach(e => {
+          e.fromDate = e.fromDate.split('T')[0];
+          e.toDate = e.toDate.split('T')[0];
+        });
+        this.csv.exportToCsv(this.todayComplaints, 'Complaints');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else {
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+      }
+    }, (err) => {
+      this.loader.hideLoader();
+    })
   }
 
   exportPDF() {

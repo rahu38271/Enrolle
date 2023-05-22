@@ -15,12 +15,12 @@ export class AddresswiseListComponent implements OnInit {
   isShow = false;
   addressName: any;
   coloumnName: any;
-  addressWiseList: any[]=[];
+  addressWiseList: any;
   searchMob:string;
   userId:any;
   roleID:any;
   PageNo:any=1;
-  NoofRow:any=25;
+  NoofRow:any=10;
   totalItems:any;
   SearchText:any
    
@@ -90,17 +90,43 @@ export class AddresswiseListComponent implements OnInit {
    }
 
   onSearchText(SearchText: any) {
-    this.PageNo = 1;
-    this.NoofRow = this.totalItems;
-    this.SearchText = SearchText;
-    this.addressWiseVoterData(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText)
+    if (this.SearchText == '') {
+      this.PageNo = 1;
+      this.NoofRow = this.totalItems;
+      this.SearchText = SearchText;
+      this.addressWiseVoterData(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText)
+    }
+    else {
+      this.PageNo = 1;
+      this.NoofRow = 10;
+      this.SearchText = SearchText;
+      this.voter.voterByAddress(this.addressName, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+        if (data) {
+          this.addressWiseList = data;
+          this.totalItems = data[0].totalCount
+        }
+      })
+    }
   }
 
   keyPress(SearchText: any) {
-    this.PageNo = 1;
-    this.NoofRow = this.totalItems;
-    this.SearchText = SearchText;
-    this.addressWiseVoterData(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText)
+    if (this.SearchText == '') {
+      this.PageNo = 1;
+      this.NoofRow = this.totalItems;
+      this.SearchText = SearchText;
+      this.addressWiseVoterData(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText)
+    }
+    else {
+      this.PageNo = 1;
+      this.NoofRow = 10;
+      this.SearchText = SearchText;
+      this.voter.voterByAddress(this.addressName, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+        if (data) {
+          this.addressWiseList = data;
+          this.totalItems = data[0].totalCount
+        }
+      })
+    }
   }
 
 }

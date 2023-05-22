@@ -41,7 +41,7 @@
         <ion-card-content>
           <div class="headSection">
             <div class="search">
-              <ion-searchbar (keypress)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
+              <ion-searchbar (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
             </div>
             <div class="btns">
               <ion-button class="button-download" color="danger" (click)="exportPDF()" ><ion-icon name="document-sharp"></ion-icon>PDF</ion-button>
@@ -88,7 +88,7 @@
                   <th *ngIf="isColumn">Ward</th>
                   <th *ngIf="isColumn">Pincode</th>
                   <th *ngIf="isColumn">City / Village</th>
-                  <th *ngIf="isColumn">File</th>
+                  <!-- <th *ngIf="isColumn">File</th> -->
                   <th *ngIf="isColumn">Remark</th>
                   <th *ngIf="isColumn">Added By</th>
                   <th *ngIf="isColumn">Status</th>
@@ -123,7 +123,7 @@
                   <td *ngIf="isColumn">{{item.wardNo}}</td>
                   <td *ngIf="isColumn">{{item.pinCode}}</td>
                   <td *ngIf="isColumn">{{item.city_Village}}</td>
-                  <td *ngIf="isColumn">{{item.fileName}}</td>
+                  <!-- <td *ngIf="isColumn">{{item.fileName}}</td> -->
                   <td *ngIf="isColumn">{{item.remark}}</td>
                   <td *ngIf="isColumn">{{item.adminName}}</td>
                   <td *ngIf="isColumn">

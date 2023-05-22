@@ -21,7 +21,7 @@
               <ion-row>
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
                   <ion-label>Name <span>*</span></ion-label>
-                  <ion-input name="name" [(ngModel)]="addMAmodal.Name" #Name="ngModel"
+                  <ion-input maxlength="50" name="name" [(ngModel)]="addMAmodal.Name" #Name="ngModel"
                     [ngClass]="{'is-invalid': f.submitted && Name.invalid}" required
                     class="text-capitalize form-control" required></ion-input>
                   <div *ngIf="f.submitted && Name.invalid" class="invalid-feedback">
@@ -33,30 +33,41 @@
 
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
                   <ion-label>User Role <span>*</span></ion-label>
-                  <ng-select name="RoleId" [(ngModel)]="addMAmodal.RoleId" #RoleId="ngModel"
-                  required placeholder="Select User Role">
+                  <ng-select name="RoleId" [(ngModel)]="addMAmodal.RoleId" #RoleId="ngModel" [ngClass]="{'is-invalid': f.submitted && RoleId.invalid}"
+                   placeholder="Select User Role"  required>
                     <ng-option value="2" *ngIf="isSA">Superadmin </ng-option>
                     <ng-option value="3" *ngIf="isA">Admin </ng-option>
                     <ng-option value="4" *ngIf="isV">Volunteer </ng-option>
                     <ng-option value="5" *ngIf="isSoc">Society </ng-option>
                     <ng-option value="6" *ngIf="isM">Member </ng-option>
                  </ng-select>
-                  
+                 <div *ngIf="f.submitted && RoleId.invalid" class="invalid-feedback">
+                  <div *ngIf="RoleId.errors.required">
+                    Role is required
+                  </div>
+                </div>
                 </ion-col>
 
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
-                  <ion-label>UserID/10 digit mob. no. <span>*</span></ion-label>
+                  <ion-label>UserID / Mob. no. <span>*</span></ion-label>
                   <ion-input name="Contact" [(ngModel)]="addMAmodal.Contact" #Contact="ngModel" required
-                    maxlength="10" (keypress)="keyPressNumbers($event)" class="form-control">
+                  [ngClass]="{'is-invalid': f.submitted && Contact.invalid}"
+                    maxlength="12" minlength="10" (keypress)="keyPressNumbers($event)" class="form-control">
                   </ion-input>
-                  
+                  <div *ngIf="f.submitted && Contact.invalid" class="invalid-feedback">
+                    <div *ngIf="Contact.errors.required">
+                      UserID is required
+                    </div>
+                  </div>
                 </ion-col>
 
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
                   <div class="form-outline">
                     <ion-label>Password <span>*</span></ion-label>
-                    <ion-input [type]="ismyTextFieldType ? 'text' : 'password' " name="Password"
-                      [(ngModel)]="addMAmodal.Password" #Password="ngModel" required class="form-control"></ion-input>
+                    <ion-input maxlength="30" [type]="ismyTextFieldType ? 'text' : 'password' " name="Password"
+                      [(ngModel)]="addMAmodal.Password" #Password="ngModel" required class="form-control"
+                      [ngClass]="{'is-invalid': f.submitted && Password.invalid}"
+                      ></ion-input>
                     <div *ngIf="f.submitted && Password.invalid" class="invalid-feedback">
                       <div *ngIf="Password.errors.required">
                         Password is required
@@ -69,8 +80,14 @@
 
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
                   <ion-label>Email</ion-label>
-                  <ion-input name="Email" [(ngModel)]="addMAmodal.Email"
+                  <ion-input type="email" name="Email" [(ngModel)]="addMAmodal.Email" maxlength="60" pattern="^[^ ]+@[^ ]+\.[a-z]{2,6}$"
+                  #Email="ngModel" [ngClass]="{'is-invalid': f.submitted && Email.invalid}"
                     class="form-control"></ion-input>
+                    <div *ngIf="f.submitted && Email.invalid" class="invalid-feedback">
+                      <div *ngIf="Email.errors.pattern">
+                        Invalid email
+                      </div>
+                    </div>
                 </ion-col>
 
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="addMAmodal.RoleId == '2'">
@@ -156,7 +173,7 @@
                 <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
                   <div class="ion-text-center">
                     <ion-button type="reset" color="danger" size="medium" (click)="resetForm()">Clear</ion-button>
-                    <ion-button type="submit" size="medium" (click)="addMAdmin()" >Add
+                    <ion-button type="submit" size="medium" (click)="addMAdmin()" [disabled]="!f.form.valid">Add
                       User</ion-button>
                     <ion-button routerLink="/superadmin" color="success" type="button" size="medium">Back To List
                     </ion-button>

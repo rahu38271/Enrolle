@@ -45,7 +45,7 @@ export class AllAppointmentsComponent implements OnInit {
   roleID: any;
   isColumn = false
   PageNo: any = 1;
-  NoofRow: any = 5;
+  NoofRow: any = 4;
   SearchText: String = '';
   totalItems: any;
   allDataExport:any;
@@ -89,9 +89,9 @@ export class AllAppointmentsComponent implements OnInit {
     this.appoinmentList(this.UserId, this.roleID, event, this.NoofRow, this.SearchText);
   }
 
-  isBigEnough(element, index, array) {
-    return (element.status == "" || element.status == null);
-  }
+  // isBigEnough(element, index, array) {
+  //   return (element.status == "" || element.status == null);
+  // }
 
   showColumn() {
     this.isColumn = !this.isColumn
@@ -103,9 +103,9 @@ export class AllAppointmentsComponent implements OnInit {
         // this.getApmList = data.filter(this.isBigEnough);
         this.getApmList = data;
         this.totalItems = data[0].totalCount
-        // this.getApmList.forEach(e => {
-        //   e.birthDate = e.birthDate.split('T')[0];
-        // });
+        this.getApmList.forEach(e => {
+          e.birthDate = e.birthDate.split('T')[0];
+        });
       }
       else {
       }
@@ -115,35 +115,53 @@ export class AllAppointmentsComponent implements OnInit {
   }
 
   onSearchChange(SearchText: any) {
-    debugger
-    if (SearchText == '') {
-      this.PageNo = 1;
-      this.NoofRow = this.NoofRow;
-      this.appoinmentList(this.UserId, this.roleID, this.PageNo, this.NoofRow, this.SearchText);
-      this.ionViewWillEnter()
-    }
-    else {
+    if (this.SearchText=='') {
       this.PageNo = 1;
       this.SearchText = SearchText;
       this.NoofRow = this.totalItems;
-      this.appoinmentList(this.UserId, this.roleID, this.PageNo, this.NoofRow, this.SearchText);
+      this.appoinmentList(this.UserId, this.roleID, this.PageNo, this.NoofRow, SearchText);
+    }
+    else {
+      this.PageNo=1
+      this.NoofRow=4;
+      this.SearchText=SearchText;
+      this.appointment.getAppointments(this.UserId, this.roleID, this.PageNo, this.NoofRow, this.SearchText).subscribe(data=> {
+        if (data) {
+          // this.getApmList = data.filter(this.isBigEnough);
+          this.getApmList = data;
+          this.totalItems = data[0].totalCount
+          this.getApmList.forEach(e => {
+            e.birthDate = e.birthDate.split('T')[0];
+          });
+        }
+      })
     }
   }
 
   keyPress(SearchText: any) {
-    debugger
-    if (SearchText == '') {
-      this.PageNo = 1;
-      this.NoofRow = this.NoofRow;
-      this.appoinmentList(this.UserId, this.roleID, this.PageNo, this.NoofRow, this.SearchText);
-    }
-    else {
+    if (this.SearchText=='') {
       this.PageNo = 1;
       this.SearchText = SearchText;
       this.NoofRow = this.totalItems;
-      this.appoinmentList(this.UserId, this.roleID, this.PageNo, this.NoofRow, this.SearchText);
+      this.appoinmentList(this.UserId, this.roleID, this.PageNo, this.NoofRow, SearchText);
+    }
+    else {
+      this.PageNo=1
+      this.NoofRow=4;
+      this.SearchText=SearchText;
+      this.appointment.getAppointments(this.UserId, this.roleID, this.PageNo, this.NoofRow, this.SearchText).subscribe((data: any) => {
+        if (data) {
+          // this.getApmList = data.filter(this.isBigEnough);
+          this.getApmList = data;
+          this.totalItems = data[0].totalCount
+          this.getApmList.forEach(e => {
+            e.birthDate = e.birthDate.split('T')[0];
+          });
+        }
+      })
     }
   }
+
 
 
   editAppointment(data: any) {
@@ -192,6 +210,7 @@ export class AllAppointmentsComponent implements OnInit {
 
 
   async deleteApm(id: any) {
+    debugger;
     const alert = await this.alertController.create({
       header: 'Delete Appointment',
       cssClass: 'alertHeader',
@@ -233,11 +252,53 @@ export class AllAppointmentsComponent implements OnInit {
     debugger;
     this.PageNo = 1;
     this.NoofRow = this.totalItems;
-    this.excel.exportAsExcelFile( this.getApmList, 'appointment');
+    var SearchText = '';
+    this.loader.showLoading();
+    this.appointment.getAppointments(this.UserId, this.roleID, this.PageNo, this.NoofRow,SearchText).subscribe((data: any) => {
+      if (data.length != 0) {
+        this.loader.hideLoader();
+        // this.getApmList = data.filter(this.isBigEnough);
+        this.getApmList = data;
+        this.totalItems = data[0].totalCount
+        this.getApmList.forEach(e => {
+          e.birthDate = e.birthDate.split('T')[0];
+        });
+        this.excel.exportAsExcelFile( this.getApmList, 'appointment');
+        this.toast.presentToast("File downloded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else {
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+      }
+    }, (err) => {
+      this.loader.hideLoader();
+    })
   }
 
   exportToCSV() {
-    this.csv.exportToCsv(this.getApmList, 'appointment');
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    var SearchText = ''
+    this.loader.showLoading();
+    this.appointment.getAppointments(this.UserId, this.roleID, this.PageNo, this.NoofRow,SearchText).subscribe((data: any) => {
+      if (data.length != 0) {
+        // this.getApmList = data.filter(this.isBigEnough);
+        this.loader.hideLoader();
+        this.getApmList = data;
+        this.getApmList.forEach(e => {
+          e.birthDate = e.birthDate.split('T')[0];
+        });
+        this.csv.exportToCsv(this.getApmList, 'appointment');
+        this.toast.presentToast("File downloded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else {
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+      }
+    }, (err) => {
+      this.loader.hideLoader();
+    })
+    
   }
 
   exportPDF() {

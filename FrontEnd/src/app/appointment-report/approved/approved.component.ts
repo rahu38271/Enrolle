@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { AlertController,ModalController } from '@ionic/angular';
 import { Location } from '@angular/common';
+import { LoaderService } from 'src/app/services/loader.service';
+import { ExcelService } from 'src/app/services/excel.service'
+import { CsvService } from 'src/app/services/csv.service';
 
 @Component({
   selector: 'app-approved',
@@ -44,6 +46,9 @@ export class ApprovedComponent implements OnInit {
     public modalCtrl: ModalController,
     private location: Location,
     public alertController: AlertController,
+    private loader:LoaderService,
+    private excel:ExcelService,
+    private csv:CsvService,
   ) { }
 
   ngOnInit(): void {
@@ -85,7 +90,6 @@ export class ApprovedComponent implements OnInit {
   }
 
   rejectApm(event){
-    debugger;
     this.Id = event.target.id
     this.updateStatusModal.Id = Number(this.Id)
     this.updateStatusModal.Status = "Rejected"
@@ -150,7 +154,6 @@ export class ApprovedComponent implements OnInit {
   }
 
   saveAppointment(){
-    debugger;
     this.Id = this.Id
     this.updateStatusModal.Id = Number(this.Id)
     this.updateStatusModal.Status = "Reschedule"
@@ -207,6 +210,58 @@ export class ApprovedComponent implements OnInit {
     });
 
     await alert.present();
+  }
+
+  exportExcel():void {
+    this.PageNo=1;
+    this.NoofRow = this.totalItems;
+    var SearchText = ''
+    this.loader.showLoading();
+    this.appointment.getApprovedAppointments(this.UserId,this.roleID,this.PageNo,this.NoofRow,SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.getApmList = data;
+        this.totalItems = data[0].totalCount;
+        this.getApmList.forEach(e => {
+          e.birthDate = e.birthDate.split('T')[0];
+        });
+        this.toast.presentToast("File downloded successfully!", "success", 'checkmark-circle-sharp');
+        this.excel.exportAsExcelFile(this.getApmList, 'approved appointment');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+      }
+    }, (err)=>{
+      this.loader.hideLoader();
+    })
+    
+  }
+
+  exportToCSV() {
+    this.PageNo=1;
+    this.NoofRow = this.totalItems;
+    var SearchText = ''
+    this.loader.showLoading();
+    this.appointment.getApprovedAppointments(this.UserId,this.roleID,this.PageNo,this.NoofRow,SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.getApmList = data;
+        this.totalItems = data[0].totalCount;
+        this.getApmList.forEach(e => {
+          e.birthDate = e.birthDate.split('T')[0];
+        });
+        this.toast.presentToast("File downloded successfully!", "success", 'checkmark-circle-sharp');
+        this.csv.exportToCsv(this.getApmList, 'approved appointment');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+      }
+    }, (err)=>{
+      this.loader.hideLoader();
+    })
+    
   }
 
 }

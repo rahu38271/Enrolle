@@ -23,7 +23,7 @@ export class AddVoterComponent implements OnInit {
   addVoterModal:any = { };
 
   myForm;
-
+  UserId:any;
   year : number = new Date().getFullYear();
 
   public BirthDate: Date;
@@ -31,6 +31,10 @@ export class AddVoterComponent implements OnInit {
   assemblyList: any;
   wardList: any;
   boothList: any;
+  AdminId: any;
+  roleId:any;
+  superAdminId:any;
+  name:any;
  
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -70,6 +74,17 @@ export class AddVoterComponent implements OnInit {
       }
 
       ngOnInit() {
+        this.UserId = localStorage.getItem("loginId");
+        this.AdminId = localStorage.getItem("adminId");
+        this.roleId = localStorage.getItem("userType");
+        this.superAdminId = localStorage.getItem("superAdminId");
+        this.name = localStorage.getItem("loginUser")
+        if(this.roleId == 2){
+          this.AdminId = this.superAdminId
+        }
+        else{
+          this.AdminId = this.AdminId
+        }
         this.getDistrict();
         this.getAssembly();
         this.getWard();
@@ -139,6 +154,12 @@ export class AddVoterComponent implements OnInit {
   addVoter(){
     debugger;
     this.loader.showLoading();
+    this.addVoterModal.UserId=Number(this.UserId);
+    this.addVoterModal.PartNo=Number(this.addVoterModal.PartNo);
+    this.addVoterModal.Age=Number(this.addVoterModal.Age);
+    this.addVoterModal.voterSrNo=Number(this.addVoterModal.voterSrNo);
+    this.addVoterModal.AdminId = Number(this.AdminId);
+    this.addVoterModal.UserName= this.name;
     if(this.addVoterModal.CreatedDate == undefined){
       this.addVoterModal.CreatedDate = "1900-01-01T00:00:00"
     }

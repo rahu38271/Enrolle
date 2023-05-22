@@ -8,9 +8,9 @@
         </ion-buttons>
         <ion-title class="ion-text-center"> Pending Complaints </ion-title>
         <ion-buttons slot="primary">
-          <!-- <ion-button (click)="search()">
+          <ion-button (click)="search()">
             <ion-icon name="search-outline"></ion-icon>
-          </ion-button> -->
+          </ion-button>
           <ion-menu-button auto-hide="false"></ion-menu-button>
         </ion-buttons>
       </ion-toolbar>
@@ -42,7 +42,7 @@
         <ion-card-content>
           <div class="headSection">
             <div class="search">
-              <ion-searchbar (keypress)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
+              <ion-searchbar (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
             </div>
             <div class="btns">
               <ion-button class="button-download" color="danger" (click)="exportPDF()" ><ion-icon name="document-sharp"></ion-icon>PDF</ion-button>
@@ -93,29 +93,48 @@
       </ion-card>
 
       <ion-grid class="android">
-        <ion-searchbar *ngIf="isShow" [(ngModel)]="searchMob" animated="true"></ion-searchbar>
-        <ion-list  *ngFor="let item of pendingList">
+        <ion-searchbar *ngIf="isShow" (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
+        <ion-list  *ngFor="let item of pendingList| paginate: { itemsPerPage: NoofRow, currentPage: PageNo, totalItems:totalItems  }">
           <ion-item-sliding>
             <ion-item lines="none">
               <ion-label>
                 <div class="firstLine">
-                  <h3 class="text-capitalize">
-                    {{item.userName}} 
-                  </h3>
+                  <div class="namewithSelect">
+                    <h3 class="text-capitalize">
+                      {{item.userName}}
+                    </h3>
+                    <select placeholder="Select" class="form-control-sm" [(ngModel)]="complaintStatusModal.Status"
+                      (change)="changeStatus($event)" id={{item.id}}>
+                      <option value="" selected>Select</option>
+                      <option value="Resolved">Resolved</option>
+                    </select>
+                  </div>
                 </div>
                 <div class="firstLine">
-                    <h3 class="text-capitalize">
-                      {{item.subject}} 
-                    </h3>
+                     <p>Subject : {{item.subject}} </p>
                   </div>
                 <div class="details">
-                  <p> {{item.toDate}} </p>
-                  <p> {{item.fromDate}}</p>
+                  <p>From : {{item.toDate}} </p>
+                  <p>To : {{item.fromDate}}</p>
+                </div>
+                <div class="firstLine">
+                   <p>Details : {{item.details}} </p>
+                </div>
+                <div class="firstLine">
+                   <p>Remark : {{item.remark}} </p>
                 </div>
               </ion-label>
             </ion-item>
           </ion-item-sliding>
         </ion-list>
+        <ion-list>
+          <pagination-controls (pageChange)="event($event)"></pagination-controls>
+        </ion-list>
+        <div *ngIf="!pendingList || pendingList.length === 0" class="text-center noData">
+          <img src="assets/img/question.png" />
+          <p>No data available</p>
+          <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
+        </div>
       </ion-grid>
   
     </div>
