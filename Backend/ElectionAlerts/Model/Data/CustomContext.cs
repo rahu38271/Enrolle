@@ -156,6 +156,9 @@ namespace ElectionAlerts.Model.Data
         public DbSet<ComplaintCount> ComplaintCounts { get; set; }
         public DbSet<SocietyDTO> SocietyDTOs { get; set; }
         public DbSet<SocietyComplaintDTO> SocietyComplaintDTOs { get; set; }
+        public DbSet<ActivityLog> ActivityLogs { get; set; }
+        public  DbSet<ActivityLogDTO> ActivityLogDTOs { get; set; }
+        public DbSet<ActivityLogCountDTO> ActivityLogCountDTOs { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -179,6 +182,7 @@ namespace ElectionAlerts.Model.Data
             modelBuilder.Entity<AppointmentCountbyUser>().HasNoKey();
             modelBuilder.Entity<VoterMobileNo>().HasNoKey();
             modelBuilder.Entity<ComplaintCount>().HasNoKey();
+            modelBuilder.Entity<ActivityLogCountDTO>().HasNoKey();
         }
     }
 }

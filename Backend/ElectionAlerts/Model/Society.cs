@@ -20,6 +20,6 @@ namespace ElectionAlerts.Model
         public DateTime CreatedDate { get; set; }
         public int UserId { get; set; }
         public int AdminId { get; set; }
-
+        public string UserName { get; set; }
     }
 }

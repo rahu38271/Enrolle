@@ -31,10 +31,10 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             try
             {
                 return _customContext.Database.ExecuteSqlRaw("EXEC Usp_CreateVoter {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21}," +
-                                                            "{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44},{45},{46},{47},{48},{49},{50},{51},{52},{53}", voter.SrNo, voter.FullName, voter.BirthDate, voter.Age, voter.Gender, voter.HouseNo, voter.VotingCardNo,
+                                                            "{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44},{45},{46},{47},{48},{49},{50},{51},{52},{53},{54}", voter.SrNo, voter.FullName, voter.BirthDate, voter.Age, voter.Gender, voter.HouseNo, voter.VotingCardNo,
                                                               voter.MobileNo, voter.Caste, voter.District, voter.Assembly, voter.Taluka, voter.Ward, voter.Booth, voter.Village, voter.Pincode, voter.Address, voter.Email, voter.FamilyHead, voter.IsSuspisious,
                                                               voter.IsOutStation, voter.IsAlive, voter.Occupation, voter.PartyWorker, voter.VotingInclination, voter.PoliticalParty, voter.UserId, voter.ExtraInfo, voter.WorkLeft, voter.HappywithService, voter.IsDisable,
-                                                              voter.PartNo, voter.AlternateMobileNo, voter.StarVoter, voter.Education, voter.FamilyMember, voter.IsSurvey,voter.AssemblyNo,voter.IsVoted,voter.AssemblyName_KR,voter.FullName_KR,voter.Village_KR,voter.Address_KR, voter.AssemblyName_HN, voter.FullName_HN, voter.Village_HN, voter.Address_HN,voter.Zone,voter.Family,voter.Religion,voter.Society,voter.FilePath,DateTime.Now,voter.AdminId);
+                                                              voter.PartNo, voter.AlternateMobileNo, voter.StarVoter, voter.Education, voter.FamilyMember, voter.IsSurvey,voter.AssemblyNo,voter.IsVoted,voter.AssemblyName_KR,voter.FullName_KR,voter.Village_KR,voter.Address_KR, voter.AssemblyName_HN, voter.FullName_HN, voter.Village_HN, voter.Address_HN,voter.Zone,voter.Family,voter.Religion,voter.Society,voter.FilePath,DateTime.Now,voter.AdminId,voter.UserName);
             }
             catch (Exception ex)
             {
@@ -389,13 +389,13 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             try
             {
                 return _customContext.Database.ExecuteSqlRaw("EXEC Usp_UpdateVoterbyId {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21}," +
-                                                            "{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44},{45},{46},{47},{48},{40},{50},{51},{52},{53},{54}", voter.Id, voter.SrNo, voter.FullName, voter.BirthDate, voter.Age, voter.Gender, voter.HouseNo, voter.VotingCardNo,
+                                                            "{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44},{45},{46},{47},{48},{40},{50},{51},{52},{53},{54},{55}", voter.Id, voter.SrNo, voter.FullName, voter.BirthDate, voter.Age, voter.Gender, voter.HouseNo, voter.VotingCardNo,
                                                               voter.MobileNo, voter.Caste, voter.District, voter.Assembly, voter.Taluka, voter.Ward, voter.Booth, voter.Village,
                                                               voter.Pincode, voter.Address, voter.Email, voter.FamilyHead, voter.IsSuspisious, voter.IsOutStation, voter.IsAlive,
                                                               voter.Occupation, voter.PartyWorker, voter.VotingInclination, voter.PoliticalParty, voter.UserId, voter.ExtraInfo, 
                                                               voter.WorkLeft, voter.HappywithService, voter.IsDisable, voter.PartNo, voter.AlternateMobileNo,
                                                               voter.StarVoter, voter.Education, voter.FamilyMember, voter.IsSurvey,voter.AssemblyNo, voter.IsVoted,voter.AssemblyName_KR, voter.FullName_KR,
-                                                              voter.Village_KR,voter.Address_KR, voter.AssemblyName_HN, voter.FullName_HN, voter.Village_HN, voter.Address_HN,voter.Zone,voter.Family,voter.Religion,voter.Society,voter.FilePath,voter.AdminId,DateTime.Now);
+                                                              voter.Village_KR,voter.Address_KR, voter.AssemblyName_HN, voter.FullName_HN, voter.Village_HN, voter.Address_HN,voter.Zone,voter.Family,voter.Religion,voter.Society,voter.FilePath,voter.AdminId,DateTime.Now,voter.UserName);
             }
             catch (Exception ex)
             {

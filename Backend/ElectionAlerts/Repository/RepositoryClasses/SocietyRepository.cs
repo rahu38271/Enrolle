@@ -20,7 +20,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _custonContext.Database.ExecuteSqlRaw("Exec USP_InsertUpdateSociety {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}",society.Id, society.Name, society.Chairman, society.PhoneNo, society.AltPhoneNo, society.Address, society.PinCode, society.WardNo, society.Taluka, society.District, DateTime.Now, society.UserId, society.AdminId);
+                return _custonContext.Database.ExecuteSqlRaw("Exec USP_InsertUpdateSociety {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13}",society.Id, society.Name, society.Chairman, society.PhoneNo, society.AltPhoneNo, society.Address, society.PinCode, society.WardNo, society.Taluka, society.District, DateTime.Now, society.UserId, society.AdminId,society.UserName);
             }
             catch(Exception ex)
             {

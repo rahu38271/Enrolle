@@ -28,16 +28,16 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpPost("InsertUpdateAppointment")]
-        public IActionResult InsertUpdateAppointment([FromForm] string appointment, [FromForm] IFormFile file)
+        public IActionResult InsertUpdateAppointment([FromForm] string appointments, [FromForm] IFormFile file)
         {
             try
             {
-                Appointment appointments = JsonConvert.DeserializeObject<Appointment>(appointment);
+                Appointment appointment = JsonConvert.DeserializeObject<Appointment>(appointments);
                 
                 if(file!=null)
-                    appointments.FileName = file.FileName;
+                    appointment.FileName = file.FileName;
 
-                var result = _appointmentService.InsertUpdateAppintment(appointments);
+                var result = _appointmentService.InsertUpdateAppintment(appointment);
                
                 if (file != null && result>1)
                 {
@@ -236,7 +236,7 @@ namespace ElectionAlerts.Controller
             }
         }
 
-
+        
         [HttpGet("DownLoadFile")]
         public IActionResult DownLoadFile(int Id)
         {

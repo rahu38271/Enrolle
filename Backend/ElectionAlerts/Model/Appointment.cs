@@ -33,7 +33,6 @@ namespace ElectionAlerts.Model
         public int? RoleId { get; set; }
         public byte[] FileContent { get; set; }
         public int? AdminId { get; set; }
-
-
+        public string UserName { get; set; }
     }
 }
