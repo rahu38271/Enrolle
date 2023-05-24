@@ -25,11 +25,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public IEnumerable<NewVoter> GetAllNewVoter()
+        public IEnumerable<NewVoter> GetAllNewVoter(int UserId, int RoleId, int PageNo, int NoofRow, string SearchText)
         {
             try
             {
-                return _customContext.Set<NewVoter>().FromSqlRaw("EXEC USP_GetAllNewVoter").ToList();
+                return _customContext.Set<NewVoter>().FromSqlRaw("EXEC USP_GetAllNewVoter {0},{1},{2},{3},{4}",UserId,RoleId,PageNo,NoofRow,SearchText).ToList();
             }
             catch(Exception ex)
             {

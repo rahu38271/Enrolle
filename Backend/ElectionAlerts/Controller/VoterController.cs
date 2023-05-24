@@ -866,10 +866,10 @@ namespace ElectionAlerts.Controller
                         Caste caste = new Caste();
                         if (worksheet.Cells[row, 2].Value != null)
                             caste.Caste_Eng = worksheet.Cells[row, 2].Value.ToString().Trim();
+                        if (worksheet.Cells[row, 1].Value != null)
+                            caste.Caste_Reg = worksheet.Cells[row, 1].Value.ToString().Trim();
                         if (worksheet.Cells[row, 3].Value != null)
-                            caste.Caste_Reg = worksheet.Cells[row, 3].Value.ToString().Trim();
-                        if (worksheet.Cells[row, 4].Value != null)
-                            caste.Caste_Hin = worksheet.Cells[row, 4].Value.ToString().Trim();
+                            caste.Caste_Hin = worksheet.Cells[row, 3].Value.ToString().Trim();
                         castes.Add(caste);
                     }
                 }

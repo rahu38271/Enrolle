@@ -22,7 +22,7 @@ namespace ElectionAlerts.Controller
             _newVoterService = newVoterService;
         }
 
-        [HttpPost("InsertUpdateNewVoter")]
+        [HttpPost("InsertUpdateOfficeWork")]
         public IActionResult InsertUpdateNewVoter(NewVoter newVoter)
         {
             try
@@ -31,12 +31,12 @@ namespace ElectionAlerts.Controller
             }
             catch (Exception ex)
             {
-                _exceptionLogService.ErrorLog(ex, "Exception", "NewVoterController/InsertUpdateNewVoter");
+                _exceptionLogService.ErrorLog(ex, "Exception", "NewVoterController/InsertUpdateOfficeWork");
                 return BadRequest(ex);
             }
         }
 
-        [HttpGet("DeleteNewVoterbyId")]
+        [HttpGet("DeleteOfficeWorkbyId")]
         public IActionResult DeleteNewVoterbyId(int Id)
         {
             try
@@ -45,17 +45,17 @@ namespace ElectionAlerts.Controller
             }
             catch(Exception ex)
             {
-                _exceptionLogService.ErrorLog(ex, "Exception", "NewVoterController/DeleteNewVoterbyId");
+                _exceptionLogService.ErrorLog(ex, "Exception", "NewVoterController/DeleteOfficeWorkbyId");
                 return BadRequest(ex);
             }
         }
 
-        [HttpGet("GetAllNewVoter")]
-        public IActionResult GetAllNewVoter()
+        [HttpGet("GetAllOfficeWork")]
+        public IActionResult GetAllNewVoter(int UserId, int RoleId, int PageNo, int NoofRow, string SearchText)
         {
             try
             {
-                return Ok(_newVoterService.GetAllNewVoter());
+                return Ok(_newVoterService.GetAllNewVoter(UserId,RoleId,PageNo,NoofRow,SearchText));
             }
             catch(Exception ex)
             {

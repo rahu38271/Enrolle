@@ -14,11 +14,23 @@ namespace ElectionAlerts.Repository.RepositoryClasses
     {
         private CustomContext _custonContext = new CustomContext();
 
-        public IEnumerable<ActivityLogCountDTO> GetActivityLogCountbyUserId()
+        public IEnumerable<ActivityLogDTO> GetActivityLogbyUserId(int UserId, int PageNo, int NoofRow, string FromDate, string ToDate)
         {
             try
             {
-                return _custonContext.Set<ActivityLogCountDTO>().FromSqlRaw("Exec Usp_ActivityLogUserwiseCount").ToList();
+                return _custonContext.Set<ActivityLogDTO>().FromSqlRaw("Exec USP_GetActivityLogbyUserId {0},{1},{2},{3}", UserId, PageNo, NoofRow,FromDate,ToDate);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<ActivityLogCount> GetActivityLogCountbyUserId(string FromDate, string ToDate)
+        {
+            try
+            {
+                return _custonContext.Set<ActivityLogCount>().FromSqlRaw("Exec Usp_ActivityLogUserwiseCount {0},{1}",FromDate,ToDate).ToList();
             }
             catch(Exception ex)
             {

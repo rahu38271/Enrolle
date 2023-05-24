@@ -10,6 +10,6 @@ namespace ElectionAlerts.Services.Interface
     {
         int NewVoterInsertUpdate(NewVoter newVoter);
         int DeleteNewVoterbyId(int Id);
-        IEnumerable<NewVoter> GetAllNewVoter();
+        IEnumerable<NewVoter> GetAllNewVoter(int UserId, int RoleId, int PageNo, int NoofRow, string SearchText);
     }
 }
