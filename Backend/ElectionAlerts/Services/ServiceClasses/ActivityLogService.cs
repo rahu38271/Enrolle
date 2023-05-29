@@ -23,9 +23,9 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _activityLogRepository.GetActivityLogbyUserId(UserId, PageNo, NoofRow,FromDate,ToDate);
         }
 
-        public IEnumerable<ActivityLogCount> GetActivityLogCountbyUserId(string FromDate, string ToDate)
+        public IEnumerable<ActivityLogCount> GetActivityLogCountbyUserId(int Id, int RoleId, string FromDate, string ToDate)
         {
-            return _activityLogRepository.GetActivityLogCountbyUserId(FromDate,ToDate);
+            return _activityLogRepository.GetActivityLogCountbyUserId(Id,RoleId, FromDate,ToDate);
         }
 
         public IEnumerable<ActivityLogDTO> GetActivityLogs(int UserId, int RoleId, int PageNo, int NoofRow, string SearchText)

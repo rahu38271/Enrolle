@@ -219,7 +219,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             {
                 throw ex;
             }
-        }
+         }
 
         public IEnumerable<AppointmentCountbyUser> GetAppointmentCountbyUser()
         {

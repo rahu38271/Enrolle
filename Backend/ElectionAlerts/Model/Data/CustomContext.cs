@@ -52,7 +52,7 @@ namespace ElectionAlerts.Model.Data
         public DbSet<SuperAdmin> SuperAdmins { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<MemberDetail> MemberDetails { get; set; }
-        public DbSet<VoterDTO> VoterDTOs { get; set; }
+        public DbSet<GetVoterByPartNo> VoterDTOs { get; set; }
         public DbSet<Table> Tables { get; set; }
         public DbSet<UserAssigned> UserAssigneds { get; set; }
         public DbSet<VoterCount> VoterCounts { get; set; }
@@ -122,7 +122,7 @@ namespace ElectionAlerts.Model.Data
         public DbSet<SuperAdmin> SuperAdmins { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<MemberDetail> MemberDetails { get; set; }
-        public DbSet<VoterDTO> VoterDTOs { get; set; }
+        public DbSet<GetVoterByPartNo> VoterDTOs { get; set; }
         public DbSet<Table> Tables { get; set; }
         public DbSet<UserAssigned> UserAssigneds { get; set; }
         public DbSet<VoterCount> VoterCounts { get; set; }
@@ -162,7 +162,7 @@ namespace ElectionAlerts.Model.Data
         public DbSet<DailyNews> DailyNews { get; set; }
         public DbSet<ActivityLogCount> activityLogCounts { get; set; }
         public DbSet<DailyNewsDTO> dailyNewsDTOs { get; set; }
-
+        public DbSet<VoterDTOPartNo> VoterDTOPartNos { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Districts>().HasNoKey();
@@ -175,7 +175,7 @@ namespace ElectionAlerts.Model.Data
             modelBuilder.Entity<VoterInclination>().HasNoKey();
             modelBuilder.Entity<BoothName>().HasNoKey();
             modelBuilder.Entity<PartNoAssigned>().HasNoKey();
-            modelBuilder.Entity<VoterDTO>().HasNoKey();
+            modelBuilder.Entity<GetVoterByPartNo>().HasNoKey();
             modelBuilder.Entity<DistrictDashboard>().HasNoKey();
             modelBuilder.Entity<AssemblyDashboard>().HasNoKey();
             modelBuilder.Entity<AppointmentDTO>().HasNoKey();

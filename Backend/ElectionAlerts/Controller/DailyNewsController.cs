@@ -109,7 +109,22 @@ namespace ElectionAlerts.Controller
             }
             catch (Exception ex)
             {
-                _exceptionLogService.ErrorLog(ex, "Exception", "AppointmentController/DownoadFile");
+                _exceptionLogService.ErrorLog(ex, "Exception", "DailyNewsController/DownoadFile");
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("DeleteDailyNews")]
+
+        public IActionResult DeleteDailyNews(int Id)
+        {
+            try
+            {
+                return Ok(_dataNewsService.DeleteDailyNews(Id));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "DailyNewsController/DeleteDailyNews");
                 return BadRequest(ex.Message);
             }
         }

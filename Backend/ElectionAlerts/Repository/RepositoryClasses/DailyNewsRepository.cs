@@ -14,6 +14,18 @@ namespace ElectionAlerts.Repository.RepositoryClasses
     {
         private CustomContext _customContext = new CustomContext();
 
+        public int DeleteDailyNews(int Id)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("Exec USP_DeleteDailyNewsId {0}", Id);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public IEnumerable<DailyNewsDTO> GetAllDailyNews(int UserId, int RoleId, int PageNo, int NoofRow, string SearchText)
         {
             try

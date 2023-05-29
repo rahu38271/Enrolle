@@ -26,7 +26,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public IEnumerable<ActivityLogCount> GetActivityLogCountbyUserId(string FromDate, string ToDate)
+        public IEnumerable<ActivityLogCount> GetActivityLogCountbyUserId(int Id,int RoleId,string FromDate, string ToDate)
         {
             try
             {

@@ -19,6 +19,8 @@ namespace ElectionAlerts.Dto
         public string District { get; set; }
         public DateTime CreatedDate { get; set; }
         public int Totalcount { get; set; }
+        public string Position { get; set; }
+
 
     }
 }

@@ -249,7 +249,7 @@ namespace ElectionAlerts.Controller
             }
             catch (Exception ex)
             {
-                _exceptionLogService.ErrorLog(ex, "Exception", "AppointmentController/DownoadFile");
+                _exceptionLogService.ErrorLog(ex, "Exception", "SocietyController/DownoadFile");
                 return BadRequest(ex.Message);
             }
         }

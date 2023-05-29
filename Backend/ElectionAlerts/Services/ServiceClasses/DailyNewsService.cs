@@ -18,6 +18,11 @@ namespace ElectionAlerts.Services.ServiceClasses
             _dailyNewsRepository = dailyNewsRepository;
         }
 
+        public int DeleteDailyNews(int Id)
+        {
+            return _dailyNewsRepository.DeleteDailyNews(Id);
+        }
+
         public IEnumerable<DailyNewsDTO> GetAllDailyNews(int UserId, int RoleId, int PageNo, int NoofRow, string SearchText)
         {
             return _dailyNewsRepository.GetAllDailyNews(UserId, RoleId, PageNo, NoofRow, SearchText);

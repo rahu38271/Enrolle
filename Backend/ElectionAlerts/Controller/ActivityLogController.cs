@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ElectionAlerts.Controller
@@ -67,13 +68,35 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetActivityLogCountbyUserId")]
-        public IActionResult GetActivityLogCount(string FromDate, string ToDate)
+        public IActionResult GetActivityLogCount(int Id, int RoleId, string FromDate, string ToDate)
         {
             try
             {
+                string Volunter = "";
+                if (RoleId == 2)
+                {
+                   
+                    var admin = _loginService.GetAllAdminbySuperAdminId(Id);
+                    var ad = string.Join(",", admin.Select(p => p.Id.ToString()));         
+                    foreach (var adminuser in admin)
+                    {
+                        var volt = _loginService.GetAllVolunterbyAdminId(adminuser.Id);
+                        var vol = string.Join(",", volt.Select(p => p.Id.ToString()));
+                        Volunter = Volunter+ vol + ",";
+                    }
+                    Volunter =Volunter + ad + "," +Id;
+                }
+                if (RoleId == 3)
+                {
+                    var volt = _loginService.GetAllVolunterbyAdminId(Id);
+                    var vol = string.Join(",", volt.Select(p => p.Id.ToString()));
+                    Volunter = Volunter + vol  + "," + Id; ;
+                }
+                var arr2 = Volunter.Trim(',');
+                var arr = arr2.Trim().Split(',');
                 var users = _loginService.GetAllUser();
-                var result=_activityLogService.GetActivityLogCountbyUserId(FromDate, ToDate);
-                var finalcount = from rescount in result join user in users on rescount.UserId equals user.Id select new { rescount.UserId, rescount.TotalCount, user.Name, user.RoleId,user.AdminId };
+                var result=_activityLogService.GetActivityLogCountbyUserId(Id,RoleId,FromDate, ToDate);
+                var finalcount = from rescount in result join user in users on rescount.UserId equals user.Id where arr.Contains(rescount.UserId.ToString()) select new { rescount.UserId, rescount.TotalCount, user.Name, user.RoleId,user.AdminId };
                 return Ok(finalcount);
             }
             catch(Exception ex)

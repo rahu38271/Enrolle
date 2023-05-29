@@ -12,5 +12,6 @@ namespace ElectionAlerts.Repository.Interface
         int InsetUpdateDailyNews(DailyNews dailyNews);
         IEnumerable<DailyNewsDTO> GetAllDailyNews(int UserId, int RoleId, int PageNo, int NoofRow, string SearchText);
         DailyNews GetDailyNewsbyId(int Id);
+        int DeleteDailyNews(int Id);
     }
 }
