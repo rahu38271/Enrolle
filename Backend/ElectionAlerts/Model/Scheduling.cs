@@ -27,6 +27,8 @@ namespace ElectionAlerts.Model
         }
         public void logfile(DateTime time)
         {
+            LogWrite("Scheduller Started Executing the Job : " + DateTime.Now.ToString());
+
             var connpara= GetConnection();
             foreach(var con in connpara)
             {
@@ -34,7 +36,7 @@ namespace ElectionAlerts.Model
                var birthday = GetBirthDay(constr);
                 foreach(var contact in birthday)
                 {
-                    SentBirthdaymsg(contact);
+                                                                                                                                                                                                                                        SentBirthdaymsg(contact);
                 }
                 var anniversary = GetAnniversary(constr);
                 foreach(var contact in anniversary)
@@ -61,7 +63,7 @@ namespace ElectionAlerts.Model
             //    writer.WriteLine(time);
             //    writer.Close();
             //}
-
+            LogWrite("Scheduller Completed Executing the Job : " + DateTime.Now.ToString());
         }
 
         private void SentBirthdaymsg(Contact contact)
@@ -255,7 +257,7 @@ namespace ElectionAlerts.Model
     {
         // private static  string ScheduleCronExpression = "0 0 18 * * ?";
         //private static string ScheduleCronExpression = "0 0 1 * * ?";
-        private static string ScheduleCronExpression = "0 0 10 ? * * *";//"0 0 12 ? * * *";//30 2 * * * 
+        private static string ScheduleCronExpression = "0 0 15 ? * * *";//"0 0 12 ? * * *";//30 2 * * * 
         // private static string ScheduleCronExpression = "0 0,00 0,19 ? * * *";
         public static async System.Threading.Tasks.Task StartAsync()
         {

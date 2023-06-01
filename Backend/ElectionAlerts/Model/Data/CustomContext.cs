@@ -163,6 +163,12 @@ namespace ElectionAlerts.Model.Data
         public DbSet<ActivityLogCount> activityLogCounts { get; set; }
         public DbSet<DailyNewsDTO> dailyNewsDTOs { get; set; }
         public DbSet<VoterDTOPartNo> VoterDTOPartNos { get; set; }
+        public DbSet<Area> Areas { get; set; }
+        public DbSet<TypeOfComplaint> TypeOfComplaints { get; set; }
+        public DbSet<TypeOfForm> TypeOfForms { get; set; }
+        public DbSet<TypeofWork> TypeofWorks { get; set; }
+        public DbSet<GeneralEnquiry> GeneralEnquiries { get; set; }
+        public DbSet<GeneralEnquiryDTO> generalEnquiryDTOs { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Districts>().HasNoKey();
@@ -187,6 +193,7 @@ namespace ElectionAlerts.Model.Data
             modelBuilder.Entity<ComplaintCount>().HasNoKey();
             modelBuilder.Entity<ActivityLogCountDTO>().HasNoKey();
             modelBuilder.Entity<ActivityLogCount>().HasNoKey();
+          
         }
     }
 }

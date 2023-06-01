@@ -78,5 +78,117 @@ namespace ElectionAlerts.Controller
             }
         }
 
+        [HttpGet("GetAllArea")]
+        public IActionResult GetAllArea() 
+        {
+            try
+            {
+                return Ok(_generalEnquiryService.GetAllArea());
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "GeneralEnquiryController/GetAllArea");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetAllTypeOfComplaints")]
+        public IActionResult GetAllTypeOfComplaints()
+        {
+            try
+            {
+                return Ok(_generalEnquiryService.GetAllTypeOfComplaints());
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "GeneralEnquiryController/GetAllTypeOfComplaints");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetAllTypeOfForms")]
+        public IActionResult GetAllTypeOfForms()
+        {
+            try
+            {
+                return Ok(_generalEnquiryService.GetAllTypeOfForms());
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "GeneralEnquiryController/GetAllTypeOfForms");
+                return BadRequest(ex);
+            }
+        }
+
+
+        [HttpGet("GetAllTypeofWorks")]
+        public IActionResult GetAllTypeofWorks()
+        {
+            try
+            {
+                return Ok(_generalEnquiryService.GetAllTypeofWorks());
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "GeneralEnquiryController/GetAllTypeofWorks");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPost("InsertUpdateGeneralEnquiry")]
+        public IActionResult InsertUpdateGeneralEnquiry(GeneralEnquiry generalEnquiry)
+        {
+            try
+            {
+                return Ok(_generalEnquiryService.InsertUpdateGeneralEnquiry(generalEnquiry));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "GeneralEnquiryController/InsertUpdateGeneralEnquiry");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetAllEnquiry")]
+        public IActionResult GetAllEnquiry(int UserId, int RoleId, int PageNo, int NoofRow, string SearchText)
+        {
+            try
+            {
+                return Ok(_generalEnquiryService.GetAllEnquiry(UserId, RoleId, PageNo, NoofRow, SearchText));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "GeneralEnquiryController/GetAllEnquiry");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetEnquirybyId")]
+        public IActionResult GetEnquirybyId(int Id)
+        {
+            try
+            {
+                return Ok(_generalEnquiryService.GetEnquirybyId(Id));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "GeneralEnquiryController/GetEnquirybyId");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("DeleteEnquirybyId")]
+        public IActionResult DeleteEnquirybyId(int Id)
+        {
+            try
+            {
+                return Ok(_generalEnquiryService.DeleteEnquirybyId(Id));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "GeneralEnquiryController/DeleteEnquirybyId");
+                return BadRequest(ex);
+            }
+        }
     }
 }

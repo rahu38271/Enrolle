@@ -77,7 +77,7 @@ namespace ElectionAlerts.Controller
                 {
                    
                     var admin = _loginService.GetAllAdminbySuperAdminId(Id);
-                    var ad = string.Join(",", admin.Select(p => p.Id.ToString()));         
+                    var ad = string.Join(",", admin.Where(x=>x.RoleId==3).Select(p => p.Id.ToString()));         
                     foreach (var adminuser in admin)
                     {
                         var volt = _loginService.GetAllVolunterbyAdminId(adminuser.Id);

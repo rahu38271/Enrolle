@@ -1,4 +1,5 @@
-﻿using ElectionAlerts.Model;
+﻿using ElectionAlerts.Dto;
+using ElectionAlerts.Model;
 using ElectionAlerts.Repository.Interface;
 using ElectionAlerts.Services.Interface;
 using System;
@@ -16,6 +17,42 @@ namespace ElectionAlerts.Services.ServiceClasses
         {
             _generalEnquiryRepository = generalEnquiryRepository;
         }
+
+        public int DeleteEnquirybyId(int Id)
+        {
+            return _generalEnquiryRepository.DeleteEnquirybyId(Id);
+        }
+
+        public IEnumerable<Area> GetAllArea()
+        {
+            return _generalEnquiryRepository.GetAllArea();
+        }
+
+        public IEnumerable<GeneralEnquiryDTO> GetAllEnquiry(int UserId, int RoleId, int PageNo, int NoofRow, string SearchText)
+        {
+            return _generalEnquiryRepository.GetAllEnquiry(UserId, RoleId, PageNo, NoofRow, SearchText);
+        }
+
+        public IEnumerable<TypeOfComplaint> GetAllTypeOfComplaints()
+        {
+            return _generalEnquiryRepository.GetAllTypeOfComplaints();
+        }
+
+        public IEnumerable<TypeOfForm> GetAllTypeOfForms()
+        {
+            return _generalEnquiryRepository.GetAllTypeOfForms();
+        }
+
+        public IEnumerable<TypeofWork> GetAllTypeofWorks()
+        {
+            return _generalEnquiryRepository.GetAllTypeofWorks();
+        }
+
+        public IEnumerable<GeneralEnquiry> GetEnquirybyId(int Id)
+        {
+            return _generalEnquiryRepository.GetEnquirybyId(Id);
+        }
+
         public int InsertArea(Area area)
         {
             return _generalEnquiryRepository.InsertArea(area);
@@ -34,6 +71,11 @@ namespace ElectionAlerts.Services.ServiceClasses
         public int InsertTypeofWork(TypeofWork typeofWork)
         {
             return _generalEnquiryRepository.InsertTypeofWork(typeofWork);
+        }
+
+        public int InsertUpdateGeneralEnquiry(GeneralEnquiry generalEnquiry)
+        {
+            return _generalEnquiryRepository.InsertUpdateGeneralEnquiry(generalEnquiry);
         }
     }
 }
