@@ -95,10 +95,12 @@ namespace ElectionAlerts.Controller
                 var result = _appointmentService.GetAppointmentbyId(Id);
                 if (result != null)
                 {
-                    if (result.FileName != null)
+                    if (!string.IsNullOrEmpty(result.FileName))
                     {
+                      
                         var path = Path.Combine(Directory.GetCurrentDirectory(), "Image", "AppointmentImage", result.FileName);
-                        System.IO.File.Delete(path);
+                        if (System.IO.File.Exists(path))
+                            System.IO.File.Delete(path);
                     }
                 }
                 return Ok(_appointmentService.DeleteAppointmentbyId(Id));

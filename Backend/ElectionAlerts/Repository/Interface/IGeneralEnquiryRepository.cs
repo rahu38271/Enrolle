@@ -13,6 +13,10 @@ namespace ElectionAlerts.Repository.Interface
         int InsertArea(Area area);
         int InsertTypeOfForm(TypeOfForm typeOfForm);
         int InsertTypeofComplaint(TypeOfComplaint typeOfComplaint);
+        int DeleteTypeofWork(int Id);
+        int DeleteArea(int Id);
+        int DeleteTypeOfForm(int Id);
+        int DeleteTypeofComplaint(int Id);
         IEnumerable<Area> GetAllArea();
         IEnumerable<TypeOfComplaint> GetAllTypeOfComplaints();
         IEnumerable<TypeOfForm> GetAllTypeOfForms();
@@ -21,5 +25,7 @@ namespace ElectionAlerts.Repository.Interface
         IEnumerable<GeneralEnquiryDTO> GetAllEnquiry(int UserId, int RoleId, int PageNo, int NoofRow, string SearchText);
         IEnumerable<GeneralEnquiry> GetEnquirybyId(int Id);
         int DeleteEnquirybyId(int Id);
+        IEnumerable<GeneralEnquiryDTO> GetEnquirybyDate(int UserId, int RoleId, int PageNo, int NoofRow,string FromDate,string ToDate);
+
     }
 }

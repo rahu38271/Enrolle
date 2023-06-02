@@ -190,5 +190,78 @@ namespace ElectionAlerts.Controller
                 return BadRequest(ex);
             }
         }
+        
+        [HttpGet("GetEnquirybyDate")]
+        public IActionResult GetEnquirybyDate(int UserId, int RoleId, int PageNo, int NoofRow, string FromDate, string ToDate)
+        {
+            try
+            {
+               return Ok(_generalEnquiryService.GetEnquirybyDate(UserId, RoleId, PageNo, NoofRow, FromDate,ToDate));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "GeneralEnquiryController/GetEnquirybyDate");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("DeleteArea")]
+        public IActionResult DeleteArea(int Id)
+        {
+            try
+            {
+                return Ok(_generalEnquiryService.DeleteArea(Id));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "GeneralEnquiryController/DeleteArea");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("DeleteTypeofComplaint")]
+        public IActionResult DeleteTypeofComplaint(int Id)
+        {
+            try
+            {
+                return Ok(_generalEnquiryService.DeleteTypeofComplaint(Id));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "GeneralEnquiryController/DeleteTypeofComplaint");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("DeleteTypeOfForm")]
+        public IActionResult DeleteTypeOfForm(int Id)
+        {
+            try
+            {
+                return Ok(_generalEnquiryService.DeleteTypeOfForm(Id));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "GeneralEnquiryController/DeleteTypeOfForm");
+                return BadRequest(ex);
+            }
+        }
+
+
+        [HttpGet("DeleteTypeofWork")]
+        public IActionResult DeleteTypeofWork(int Id)
+        {
+            try
+            {
+                return Ok(_generalEnquiryService.DeleteTypeofWork(Id));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "GeneralEnquiryController/DeleteTypeofWork");
+                return BadRequest(ex);
+            }
+        }
+
+
     }
 }

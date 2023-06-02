@@ -589,7 +589,10 @@ namespace ElectionAlerts.Controller
         {
             try
             {
-                return Ok(_voterService.GetDistinctPartNo(Role, UserId));
+                var result = _voterService.GetDistinctPartNo(Role, UserId);
+                //var result2 = result.Select(x => x.PartNo).Distinct().Select(x=>x);
+                var result2 = result.GroupBy(p => p.PartNo).Select(g => g.First()).ToList();
+                return Ok(result2);
             }
             catch (Exception ex)
             {

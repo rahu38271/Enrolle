@@ -18,9 +18,29 @@ namespace ElectionAlerts.Services.ServiceClasses
             _generalEnquiryRepository = generalEnquiryRepository;
         }
 
+        public int DeleteArea(int Id)
+        {
+            return _generalEnquiryRepository.DeleteArea(Id);
+        }
+
         public int DeleteEnquirybyId(int Id)
         {
             return _generalEnquiryRepository.DeleteEnquirybyId(Id);
+        }
+
+        public int DeleteTypeofComplaint(int Id)
+        {
+            return _generalEnquiryRepository.DeleteTypeofComplaint(Id);
+        }
+
+        public int DeleteTypeOfForm(int Id)
+        {
+            return _generalEnquiryRepository.DeleteTypeOfForm(Id);
+        }
+
+        public int DeleteTypeofWork(int Id)
+        {
+            return _generalEnquiryRepository.DeleteTypeofWork(Id);
         }
 
         public IEnumerable<Area> GetAllArea()
@@ -46,6 +66,11 @@ namespace ElectionAlerts.Services.ServiceClasses
         public IEnumerable<TypeofWork> GetAllTypeofWorks()
         {
             return _generalEnquiryRepository.GetAllTypeofWorks();
+        }
+
+        public IEnumerable<GeneralEnquiryDTO> GetEnquirybyDate(int UserId, int RoleId, int PageNo, int NoofRow, string FromDate, string ToDate)
+        {
+            return _generalEnquiryRepository.GetEnquirybyDate(UserId, RoleId, PageNo, NoofRow, FromDate,ToDate);
         }
 
         public IEnumerable<GeneralEnquiry> GetEnquirybyId(int Id)

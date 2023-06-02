@@ -157,5 +157,65 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 throw ex;
             }
         }
+
+        public IEnumerable<GeneralEnquiryDTO> GetEnquirybyDate(int UserId, int RoleId, int PageNo, int NoofRow, string FromDate, string ToDate)
+        {
+            try
+            {
+                return _customContext.Set<GeneralEnquiryDTO>().FromSqlRaw("Exec USP_GetEnquiryFromDate {0},{1},{2},{3},{4},{5}", UserId, RoleId, PageNo, NoofRow, FromDate,ToDate).ToList();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int DeleteTypeofWork(int Id)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("Exec USP_DeleteTypeOfWorkbyId {0}", Id);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int DeleteArea(int Id)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("Exec USP_DeleteAreabyId {0}", Id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int DeleteTypeOfForm(int Id)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("Exec USP_DeleteTypeofFormbyId {0}", Id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int DeleteTypeofComplaint(int Id)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("Exec USP_DeleteTypeofComplaintbyId {0}", Id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
