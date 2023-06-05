@@ -62,7 +62,7 @@ namespace ElectionAlerts.Model
         public string FilePath { get; set; }
         public DateTime? CreatedDate { get; set; }
         public int AdminId { get; set; }
-
+        public string UserName { get; set; }
     }
 
 }

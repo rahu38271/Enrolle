@@ -22,9 +22,9 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _newVoterRepository.DeleteNewVoterbyId(Id);
         }
 
-        public IEnumerable<NewVoter> GetAllNewVoter()
+        public IEnumerable<NewVoter> GetAllNewVoter(int UserId, int RoleId, int PageNo, int NoofRow, string SearchText)
         {
-            return _newVoterRepository.GetAllNewVoter();
+            return _newVoterRepository.GetAllNewVoter(UserId, RoleId, PageNo, NoofRow, SearchText);
         }
 
         public int NewVoterInsertUpdate(NewVoter newVoter)

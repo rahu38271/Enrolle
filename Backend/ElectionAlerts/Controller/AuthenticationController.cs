@@ -185,7 +185,7 @@ namespace ElectionAlerts.Controller
         {
             try
             {
-                return Ok(_iauthservice.InsertUserAssigned(userAssigned));
+                return Ok(_iauthservice.InsertUserAssigned(userAssigned));          
             }
             catch(Exception ex)
             {

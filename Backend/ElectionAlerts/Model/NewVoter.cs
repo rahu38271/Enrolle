@@ -31,7 +31,10 @@ namespace ElectionAlerts.Model
         public string Position { get; set; }
         public string VotingCard { get; set; }
         public string PersonalRelation { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public int? UserId { get; set; }
+        public int? AdminId { get; set; }
+        public string UserName { get; set; }
 
     }
 }

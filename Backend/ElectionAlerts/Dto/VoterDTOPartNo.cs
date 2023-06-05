@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ElectionAlerts.Dto
 {
-    public class GetVoterByPartNo
+    public class VoterDTOPartNo
     {
         public int Id { get; set; }
         public int? SrNo { get; set; }
@@ -13,6 +13,7 @@ namespace ElectionAlerts.Dto
         public string Village { get; set; }
         public int? Age { get; set; }
         public string Gender { get; set; }
+        public string HouseNo { get; set; }
         public string Caste { get; set; }
         public string VotingCardNo { get; set; }
         public string Address { get; set; }

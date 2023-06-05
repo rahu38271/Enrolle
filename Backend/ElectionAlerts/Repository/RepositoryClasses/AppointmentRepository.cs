@@ -120,7 +120,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                  Byte[] imgtype = { 0 };
               
                 var FileContent = appointment.FileContent?? imgtype;
-                return _customContext.Database.ExecuteSqlRaw("EXEC USP_InsertUpdateAppointment {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25}", appointment.Id, appointment.FirstName,appointment.MiddleName,appointment.LastName,appointment.BirthDate,appointment.PhoneNo,appointment.AppointmentDate,appointment.Category,appointment.Work,appointment.Other,appointment.District,appointment.Taluka,appointment.HouseNo,appointment.Soc_BldgName,appointment.WardNo,appointment.PinCode,appointment.City_Village,appointment.Remark,appointment.FileName,DateTime.Now.ToString(),appointment.Status, FileContent,appointment.UserId,appointment.AdminName,appointment.RoleId,appointment.AdminId);
+                return _customContext.Database.ExecuteSqlRaw("EXEC USP_InsertUpdateAppointment {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26}", appointment.Id, appointment.FirstName,appointment.MiddleName,appointment.LastName,appointment.BirthDate,appointment.PhoneNo,appointment.AppointmentDate,appointment.Category,appointment.Work,appointment.Other,appointment.District,appointment.Taluka,appointment.HouseNo,appointment.Soc_BldgName,appointment.WardNo,appointment.PinCode,appointment.City_Village,appointment.Remark,appointment.FileName,DateTime.Now.ToString(),appointment.Status, FileContent,appointment.UserId,appointment.AdminName,appointment.RoleId,appointment.AdminId,appointment.UserName);
             }
             catch (Exception ex)
             {
@@ -219,7 +219,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             {
                 throw ex;
             }
-        }
+         }
 
         public IEnumerable<AppointmentCountbyUser> GetAppointmentCountbyUser()
         {

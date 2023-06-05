@@ -12,7 +12,7 @@ namespace ElectionAlerts.Helper
     {
         public AutoMapperProfile()
         {
-            CreateMap<VoterDTO, Voter>().ReverseMap();
+            CreateMap<GetVoterByPartNo, Voter>().ReverseMap();
             CreateMap<User,UserModel>();
             CreateMap<Voter, VoterPPBooth>();
         }

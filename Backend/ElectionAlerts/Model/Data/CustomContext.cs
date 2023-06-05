@@ -52,7 +52,7 @@ namespace ElectionAlerts.Model.Data
         public DbSet<SuperAdmin> SuperAdmins { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<MemberDetail> MemberDetails { get; set; }
-        public DbSet<VoterDTO> VoterDTOs { get; set; }
+        public DbSet<GetVoterByPartNo> VoterDTOs { get; set; }
         public DbSet<Table> Tables { get; set; }
         public DbSet<UserAssigned> UserAssigneds { get; set; }
         public DbSet<VoterCount> VoterCounts { get; set; }
@@ -122,7 +122,7 @@ namespace ElectionAlerts.Model.Data
         public DbSet<SuperAdmin> SuperAdmins { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<MemberDetail> MemberDetails { get; set; }
-        public DbSet<VoterDTO> VoterDTOs { get; set; }
+        public DbSet<GetVoterByPartNo> VoterDTOs { get; set; }
         public DbSet<Table> Tables { get; set; }
         public DbSet<UserAssigned> UserAssigneds { get; set; }
         public DbSet<VoterCount> VoterCounts { get; set; }
@@ -156,7 +156,19 @@ namespace ElectionAlerts.Model.Data
         public DbSet<ComplaintCount> ComplaintCounts { get; set; }
         public DbSet<SocietyDTO> SocietyDTOs { get; set; }
         public DbSet<SocietyComplaintDTO> SocietyComplaintDTOs { get; set; }
-
+        public DbSet<ActivityLog> ActivityLogs { get; set; }
+        public  DbSet<ActivityLogDTO> ActivityLogDTOs { get; set; }
+        public DbSet<ActivityLogCountDTO> ActivityLogCountDTOs { get; set; }
+        public DbSet<DailyNews> DailyNews { get; set; }
+        public DbSet<ActivityLogCount> activityLogCounts { get; set; }
+        public DbSet<DailyNewsDTO> dailyNewsDTOs { get; set; }
+        public DbSet<VoterDTOPartNo> VoterDTOPartNos { get; set; }
+        public DbSet<Area> Areas { get; set; }
+        public DbSet<TypeOfComplaint> TypeOfComplaints { get; set; }
+        public DbSet<TypeOfForm> TypeOfForms { get; set; }
+        public DbSet<TypeofWork> TypeofWorks { get; set; }
+        public DbSet<GeneralEnquiry> GeneralEnquiries { get; set; }
+        public DbSet<GeneralEnquiryDTO> generalEnquiryDTOs { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Districts>().HasNoKey();
@@ -169,7 +181,7 @@ namespace ElectionAlerts.Model.Data
             modelBuilder.Entity<VoterInclination>().HasNoKey();
             modelBuilder.Entity<BoothName>().HasNoKey();
             modelBuilder.Entity<PartNoAssigned>().HasNoKey();
-            modelBuilder.Entity<VoterDTO>().HasNoKey();
+            modelBuilder.Entity<GetVoterByPartNo>().HasNoKey();
             modelBuilder.Entity<DistrictDashboard>().HasNoKey();
             modelBuilder.Entity<AssemblyDashboard>().HasNoKey();
             modelBuilder.Entity<AppointmentDTO>().HasNoKey();
@@ -179,6 +191,9 @@ namespace ElectionAlerts.Model.Data
             modelBuilder.Entity<AppointmentCountbyUser>().HasNoKey();
             modelBuilder.Entity<VoterMobileNo>().HasNoKey();
             modelBuilder.Entity<ComplaintCount>().HasNoKey();
+            modelBuilder.Entity<ActivityLogCountDTO>().HasNoKey();
+            modelBuilder.Entity<ActivityLogCount>().HasNoKey();
+          
         }
     }
 }
