@@ -6,7 +6,7 @@
         <ion-buttons slot="start">
             <ion-icon (click)="goBack()" name="arrow-back-sharp" class="backBtn"></ion-icon>
         </ion-buttons>
-        <ion-title class="ion-text-center"> Today's Complaints </ion-title>
+        <ion-title class="ion-text-center"> Today's Complaints, {{totalItems}} </ion-title>
         <ion-buttons slot="primary">
           <ion-button (click)="search()">
             <ion-icon name="search-outline"></ion-icon>
@@ -42,7 +42,7 @@
         <ion-card-content>
           <div class="headSection">
             <div class="search">
-              <ion-searchbar (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
+              <ion-searchbar (keypress)="omit_special_char($event)" (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
             </div>
             <div class="btns">
               <ion-button class="button-download" color="danger" (click)="exportPDF()" ><ion-icon name="document-sharp"></ion-icon>PDF</ion-button>

@@ -19,6 +19,7 @@ export class SuperadminService {
   }
 
   GetAdminbySuperAdminId(superId:any):Observable<any>{
+    debugger;
     return this.http.get<any>(this.url+'Login/GetAdminbySuperAdminId?superid='+superId)
   }
 
@@ -32,7 +33,6 @@ export class SuperadminService {
   }
 
   edit(edModal:any):Observable<any>{
-    debugger;
     return this.http.post<any>(this.url + 'Login/CreateUpdateUser', edModal);
   }
 

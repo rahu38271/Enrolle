@@ -64,13 +64,11 @@ export class AppointmentService {
 
   // delete appointment
   deleteAppointment(id:any):Observable<any>{
-    debugger;
     return this.http.get<any>(this.url+'Appointment/DeleteAppointmentbyId?Id='+id)
   }
 
   // get appointment by date
   searchAppointment(UserId:any,roleID:any,FromDate:any,ToDate:any,PageNo:any,NoofRow:any,SearchText:any){
-    debugger;
     // return this.http.get<any>(this.url+'Appointment/GetAppointmentbyFromToDate?UserId='+UserId+'&RoleId='+roleID+'&FromDate='+FromDate+'&ToDate='+ToDate)
     return this.http.get<any>(this.url+'Appointment/GetAppointmentbyFromToDate?UserId='+UserId+'&RoleId='+roleID+'&FromDate='+FromDate+'&ToDate='+ToDate+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText)
   }
@@ -78,7 +76,6 @@ export class AppointmentService {
   //approve reject reschedule appointment 
 
   updateApmStatus(id:any,Status:any,dateTime:any){
-    debugger;
     return this.http.post<any>(this.url+'Appointment/UpdateAppointmnetStatus?Id='+id+'&Status='+Status+'&dateTime='+dateTime, id)
   }
 

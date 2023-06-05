@@ -61,7 +61,7 @@
         <ion-card-content>
           <div class="headSection">
             <div class="search">
-              <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+              <ion-searchbar [(ngModel)]="searchWeb" (keypress)="omit_special_char($event)" animated="true"></ion-searchbar>
             </div>
             <div class="btns">
               <ion-button class="button-download" color="success" (click)="exportExcel()" ><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
@@ -159,6 +159,9 @@
               </tbody>
             </table>
             
+          </div>
+          <div *ngIf="!getnewVoter || getnewVoter.length === 0" class="ion-text-center">
+            <p>No data</p>
           </div>
           <pagination-controls (pageChange)="cp = $event"></pagination-controls>
         </ion-card-content>

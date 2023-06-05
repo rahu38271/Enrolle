@@ -7,6 +7,7 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-resolved',
@@ -25,6 +26,12 @@ export class ResolvedComponent implements OnInit {
   SearchText: any;
   Status: any;
   totalItems: any;
+
+  omit_special_char(event) {
+    var k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+  }
 
   search(){
     this.isShow = !this.isShow
@@ -74,6 +81,35 @@ export class ResolvedComponent implements OnInit {
       }
     }, (err) => {
 
+    })
+  }
+
+  saveFile(imageData:Blob){
+    // const fileName = 'file_name.extension';
+    // saveAs(blob,fileName);
+    const link = document.createElement('a');
+    link.href=window.URL.createObjectURL(imageData);
+    // link.download = 'image.jpg';
+    link.download = '';
+    link.click();
+  }
+
+  downloadFile(event: any) {
+    this.Id = Number(event.target.id);
+    this.loader.showLoading();
+    this.complaint.getFile(this.Id).subscribe((data : Blob) => {
+      if (data) {
+        this.loader.hideLoader();
+        this.saveFile(data);
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else {
+        this.loader.hideLoader();
+        this.toast.presentToast("File not downloaded!", "danger", 'alert-circle-sharp');
+      }
+    }, (err) => {
+      this.loader.hideLoader();
+      this.toast.presentToast("File not downloaded!", "danger", 'alert-circle-sharp');
     })
   }
 
@@ -148,36 +184,55 @@ export class ResolvedComponent implements OnInit {
   }
 
   exportExcel(): void {
-    this.loader.showLoading()
-    if (this.resolvedList.length != 0) {
-      this.loader.hideLoader();
-      this.excel.exportAsExcelFile(this.resolvedList, 'Resolved Complaints');
-      this.toast.presentToast("Downloaded successfully!", "success", 'checkmark-circle-sharp');
-    }
-    else {
-      this.loader.hideLoader();
-      this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
-    }
-
+    this.loader.showLoading();
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    var SearchText = "";
+    this.complaint.getComplaintByStatus(this.Status, this.PageNo, this.NoofRow, SearchText).subscribe(data => {
+      if (data.length != 0) {
+        this.loader.hideLoader();
+        this.resolvedList = data;
+        this.totalItems = data[0].totalCount;
+        this.resolvedList.forEach(e => {
+          e.fromDate = e.fromDate.split('T')[0];
+          e.toDate = e.toDate.split('T')[0];
+        });
+        this.excel.exportAsExcelFile(this.resolvedList, 'Resolved Complaints');
+        this.toast.presentToast("Downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+      }
+    })
   }
 
   exportToCSV() {
-    this.loader.showLoading()
-    if (this.resolvedList.length != 0) {
-      this.loader.hideLoader();
-      this.csv.exportToCsv(this.resolvedList, 'Resolved Complaints');
-      this.toast.presentToast("Downloaded successfully!", "success", 'checkmark-circle-sharp');
-    }
-    else {
-      this.loader.hideLoader();
-      this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
-    }
-
+    this.loader.showLoading();
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    var SearchText = "";
+    this.complaint.getComplaintByStatus(this.Status, this.PageNo, this.NoofRow, SearchText).subscribe(data => {
+      if (data.length != 0) {
+        this.loader.hideLoader();
+        this.resolvedList = data;
+        this.totalItems = data[0].totalCount;
+        this.resolvedList.forEach(e => {
+          e.fromDate = e.fromDate.split('T')[0];
+          e.toDate = e.toDate.split('T')[0];
+        });
+        this.csv.exportToCsv(this.resolvedList, 'Resolved Complaints');
+        this.toast.presentToast("Downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+      }
+    })
   }
 
   exportPDF() {
     var element = document.getElementById('table13');
-
     var opt = {
       margin: 0.2,
       filename: 'myfile.pdf',

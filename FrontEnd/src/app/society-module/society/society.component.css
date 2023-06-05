@@ -178,10 +178,27 @@ td a {
     justify-content: space-around;
 }
 
-.table th:nth-child(6){
-  width: 185px;
+.table th:nth-child(2){
+  max-width: 150px !important;
 }
 
-.table td:nth-child(6){
-  width: 185px;
+.table td:nth-child(2){
+  max-width: 150px !important;
+}
+
+
+.table th:nth-child(4){
+  max-width: 150px !important;
+}
+
+.table td:nth-child(4){
+  max-width: 150px !important;
+}
+
+.table th:nth-child(7){
+  max-width: 150px !important;
+}
+
+.table td:nth-child(7){
+  max-width: 150px !important;
 }

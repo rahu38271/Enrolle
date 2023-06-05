@@ -36,6 +36,7 @@ export class AddComplaintComponent implements OnInit {
 }
 
   @ViewChild(IonModal) modal: IonModal;
+  superAdminId:any;
   societycomplaint:any={}
   addSingleComplaint:any={}
   UserId:any;
@@ -44,7 +45,10 @@ export class AddComplaintComponent implements OnInit {
   file:any;
   year: number = new Date().getFullYear();
   maxDate:String = new Date().toISOString();
-
+  fileType:any;
+  fileSize:any;
+  filesize:any;
+  disabled:boolean= true;
   clickedImage: string;
   options: CameraOptions = {
     quality: 30,
@@ -66,19 +70,63 @@ export class AddComplaintComponent implements OnInit {
     this.UserId = localStorage.getItem("loginId");
     this.roleID = localStorage.getItem("userType");
     this.name = localStorage.getItem("loginUser");
+    this.superAdminId = localStorage.getItem("superAdminId");
   }
+
 
   onFileSelected(event:any){
     const file:File = event.target.files[0];
     this.file = file;
-    //this.addSingleComplaint(file,this.societycomplaint);
-    // const file:File = event.target.files[0];
-    // const societycomplaint = { }
-    // this.addSingleComplaint(file,this.societycomplaint);
+    this.fileSize = file.size;
+    this.fileType = file.type;
+    if(this.fileSize >= 10000000){
+      this.toast.presentToast("Maximum file size is 10 MB", "danger", 'checkmark-circle-sharp');
+      this.disabled=true;
+    }
+    else{
+      this.toast.presentToast("File added successfully!", "success", 'checkmark-circle-sharp');
+    }
+    //this.fileSize = this.fileSize + Math.round(this.fileSize/1024).toFixed(2) + " KB";
+    if(this.fileSize < 1000000){
+      this.fileSize = Math.round(this.fileSize/1024).toFixed(2) + " KB";
+    }
+    else{
+      this.fileSize = (this.fileSize / 1048576).toFixed(2) + " MB";
+      console.log(this.fileSize)
+    }
+    if(
+      this.fileType == "image/jpg" || 
+      this.fileType == "image/jpeg" || 
+      this.fileType == "image/png" || 
+      this.fileType == "video/mp4" || 
+      this.fileType == "video/3gp" || 
+      this.fileType == "video/mkv" || 
+      this.fileType == "video/webm" ||
+      this.fileType == "video/flv" || 
+      this.fileType == "video/mov" ||
+      this.fileType == "application/pdf"
+      ){
+        this.fileType = this.fileType;
+        this.fileSize = this.fileSize;
+      //  this.toast.presentToast("File added successfully!", "success", 'checkmark-circle-sharp');
+        // if(this.fileSize <= '10.00 MB'){
+        //   this.toast.presentToast("File added successfully!", "success", 'checkmark-circle-sharp');
+        //     this.disabled=false;
+        // }
+        // else{
+        //   this.toast.presentToast("Maximum file size is 10 MB", "danger", 'checkmark-circle-sharp');
+        //   this.disabled=true;
+        // } 
+    }
+    else{
+      this.disabled=true;
+      this.toast.presentToast("This file format is not allowed.", "danger", 'alert-circle-sharp');
+    }
+    
   }
 
+
   addComplaint(){
-    debugger;
     this.societycomplaint.UserId = Number(this.UserId);
     this.societycomplaint.RoleId = Number(this.roleID);
     this.societycomplaint.UserName = this.name;

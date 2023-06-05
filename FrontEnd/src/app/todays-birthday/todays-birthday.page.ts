@@ -37,7 +37,7 @@ export class TodaysBirthdayPage implements OnInit {
   NormalMsg = '';
   whatsappMsg = '';
   isShow = false;
-  getBirthdays:any;
+  getBirthdays:any[]=[];
   searchMob: string;
   searchWeb: string;
   cp: number = 1;

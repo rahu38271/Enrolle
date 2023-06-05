@@ -16,7 +16,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./all-appointments.component.css']
 })
 export class AllAppointmentsComponent implements OnInit {
-
+  isShow=false;
   isModalOpen = false;
   getApmList: any;
   searchWeb: string;
@@ -45,11 +45,13 @@ export class AllAppointmentsComponent implements OnInit {
   roleID: any;
   isColumn = false
   PageNo: any = 1;
-  NoofRow: any = 4;
+  NoofRow: any = 10;
   SearchText: String = '';
   totalItems: any;
   allDataExport:any;
-
+  search(){
+    this.isShow = !this.isShow
+  }
 
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
 
@@ -97,6 +99,12 @@ export class AllAppointmentsComponent implements OnInit {
     this.isColumn = !this.isColumn
   }
 
+  omit_special_char(event) {
+    var k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+  }
+
   appoinmentList(UserId: any, roleID: any, PageNo: any, NoofRow: any, SearchText: any) {
     this.appointment.getAppointments(UserId, roleID, PageNo, NoofRow, this.SearchText).subscribe((data: any) => {
       if (data.length != 0) {
@@ -123,7 +131,7 @@ export class AllAppointmentsComponent implements OnInit {
     }
     else {
       this.PageNo=1
-      this.NoofRow=4;
+      this.NoofRow=10;
       this.SearchText=SearchText;
       this.appointment.getAppointments(this.UserId, this.roleID, this.PageNo, this.NoofRow, this.SearchText).subscribe(data=> {
         if (data) {
@@ -147,7 +155,7 @@ export class AllAppointmentsComponent implements OnInit {
     }
     else {
       this.PageNo=1
-      this.NoofRow=4;
+      this.NoofRow=10;
       this.SearchText=SearchText;
       this.appointment.getAppointments(this.UserId, this.roleID, this.PageNo, this.NoofRow, this.SearchText).subscribe((data: any) => {
         if (data) {
@@ -210,7 +218,6 @@ export class AllAppointmentsComponent implements OnInit {
 
 
   async deleteApm(id: any) {
-    debugger;
     const alert = await this.alertController.create({
       header: 'Delete Appointment',
       cssClass: 'alertHeader',
@@ -249,7 +256,6 @@ export class AllAppointmentsComponent implements OnInit {
   // }
 
   exportExcel(): void {
-    debugger;
     this.PageNo = 1;
     this.NoofRow = this.totalItems;
     var SearchText = '';

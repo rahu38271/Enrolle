@@ -12,7 +12,6 @@ export class SettingService {
   constructor(private http:HttpClient) { }
 
   whatsappMsgSetting(whatsappSetting:any){
-    debugger;
     return this.http.post<any>(this.url+'WhatUp/CreateUpdateWhatUp', whatsappSetting);
   }
 

@@ -44,42 +44,24 @@
                     <tr>
                       
                       <th style="width: 20px !important;">
-                        अ.क्र.
+                        Sr.No.
                       </th>
                       <th>
-                        गावाचे नाव
+                        Status
                       </th>
                       <th>
-                        एकूण
+                        Total
                       </th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                    <tr *ngFor="let item of voterVoted">
                       
                       <td>1</td>
-                      <td>खडकवासला</td>
-                      <td>1398</td>
+                      <td>{{item.columnName}}</td>
+                      <td>{{'Total' | translate}} : <span> {{item.columnValue}} </span></td>
                     </tr>
-                    <tr>
-                      
-                      <td>2</td>
-                      <td>खडकवासला</td>
-                      <td>1244</td>
-                    </tr>
-                    <tr>
-                      
-                      <td>3</td>
-                      <td>खडकवासला</td>
-                      <td>610</td>
-                    </tr>
-                    <tr>
-                      
-                      <td>4</td>
-                      <td>खडकवासला</td>
-                      <td>1099</td>
-                    </tr>
-  
+                    
                   </tbody>
                 </table>
               </div>

@@ -20,6 +20,12 @@ export class AddNewVoterComponent implements OnInit {
   adminId:any;
   superAdminId:any;
   roleId:any;
+  omit_special_char(event) {
+    var k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+  }
+  
   onKeyPress(event) {
     if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {
       return true
@@ -55,7 +61,6 @@ export class AddNewVoterComponent implements OnInit {
     this.roleId = localStorage.getItem("userType");
     this.roleId = Number(this.roleId);
   }
-  
 
   addNewVoter(){
     this.loader.showLoading();

@@ -16,6 +16,11 @@ import { IonModal } from '@ionic/angular';
 export class AddAppointmentComponent implements OnInit {
 
   @ViewChild(IonModal) modal: IonModal;
+  omit_special_char(event) {
+    var k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+  }
 
   appointments:any={};
   districtList: any;
@@ -70,7 +75,6 @@ export class AddAppointmentComponent implements OnInit {
    }
 
   ngOnInit() {
-    debugger;
     this.UserId = localStorage.getItem("loginId");
     this.superAdminId = localStorage.getItem("superAdminId");
     this.roleID = localStorage.getItem("userType");
@@ -114,7 +118,6 @@ export class AddAppointmentComponent implements OnInit {
   }
 
   addAppointment(){
-    debugger;
     var dateparts = this.appointments.AppointmentDate.split(' ');
     var time= dateparts[1].split(':');
     var hr = dateparts[2] == 'PM'?(Number(time[0])+12)+':'+time[1] :dateparts[1];

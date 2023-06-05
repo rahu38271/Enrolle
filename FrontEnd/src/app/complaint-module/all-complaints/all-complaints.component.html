@@ -6,18 +6,18 @@
         <ion-buttons slot="start">
             <ion-icon (click)="goBack()" name="arrow-back-sharp" class="backBtn"></ion-icon>
         </ion-buttons>
-        <ion-title class="ion-text-center"> Complaint Book </ion-title>
+        <ion-title class="ion-text-center"> Complaint Book, {{totalItems}} </ion-title>
         <ion-buttons slot="primary">
           <ion-button (click)="search()">
             <ion-icon name="search-outline"></ion-icon>
           </ion-button>
           <ion-menu-button auto-hide="false"></ion-menu-button>
         </ion-buttons>
-        
+
       </ion-toolbar>
     </ion-header>
     <div class="main-content">
-      
+
       <div class="web">
         <ion-grid class="header">
           <ion-row>
@@ -36,14 +36,14 @@
           </ion-row>
         </ion-grid>
       </div>
-  
 
-      
+
+
       <ion-card class="web">
         <ion-card-content>
           <div class="headSection">
             <div class="search">
-              <ion-searchbar (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)"  animated="true"></ion-searchbar>
+              <ion-searchbar (keypress)="omit_special_char($event)" (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)"  animated="true"></ion-searchbar>
             </div>
             <div class="btns">
               <ion-button class="button-download" color="danger" (click)="exportPDF()" ><ion-icon name="document-sharp"></ion-icon>PDF</ion-button>
@@ -75,23 +75,21 @@
                       <td>{{item.toDate}}</td>
                       <td>{{item.details}}</td>
                       <td>{{item.remark}}</td>
-                      <!-- <td>{{item.fileName}}</td> -->
-                      <td class="file"><i (click)="downloadFile($event)" id={{item.id}} class="icofont icofont-cloud-download"></i></td>
+                      <td class="file">
+                        <!-- <img [src]="imageUrl" alt=""> -->
+                        <i *ngIf="!isShowFile" (click)="downloadFile($event)" id={{item.id}} class="icofont icofont-cloud-download"></i>
+                      </td>
                       <td>{{item.userName}} </td>
                       <td>
-                        <select placeholder="Select" class="form-control-sm"  [(ngModel)]="complaintStatusModal.Status" (change)="changeStatus($event)" id={{item.id}} >
-                          <option value="Select" disabled selected>Select</option>
+                        <select placeholder="Select" class="form-control" [(ngModel)]="complaintStatusModal.Status" (change)="changeStatus($event)" id={{item.id}} >
+                          <option value="" selected>Select</option>
                           <option value="Resolved">Resolved</option>
                           <option value="Pending">Pending</option>
                         </select>
-                        <!-- <ion-select placeholder="Select" class="form-control-sm"  [(ngModel)]="complaintStatusModal.Status" (ionChange)="changeStatus($event)" interface="popover" id={{item.id}}>
-                          <ion-select-option value="Resolved">Resolved</ion-select-option>
-                          <ion-select-option value="Pending">Pending</ion-select-option>
-                        </ion-select> -->
                       </td>
                       <td class="action">
                         <ion-icon name="create-sharp" (click)="editCmplaint(item)"></ion-icon>
-                        <ion-icon (click)="deleteCom(item.id)" class="delete" name="trash-bin-sharp"></ion-icon> 
+                        <ion-icon (click)="deleteCom(item.id)" class="delete" name="trash-bin-sharp"></ion-icon>
                       </td>
                   </tr>
               </tbody>
@@ -100,11 +98,11 @@
               <p> No data available </p>
           </div>
             <pagination-controls (pageChange)="event($event)"></pagination-controls>
-  
+
           </div>
         </ion-card-content>
       </ion-card>
-  
+
       <!-- <ion-grid class="android">
         <ion-searchbar *ngIf="isShow" [(ngModel)]="searchMob" animated="true"></ion-searchbar>
         <ion-list>
@@ -151,7 +149,7 @@
                 <div class="firstLine">
                     <p>Subject : {{item.subject}}</p>
                   </div>
-                  
+
                 <div class="details">
                   <p>From : {{item.fromDate}}</p>
                   <p>To : {{item.toDate}} </p>
@@ -177,7 +175,7 @@
       </ion-grid>
     </div>
   </ion-content>
-                          
+
   <!-- <ion-fab horizontal="end" vertical="bottom" slot="fixed" routerLink="/appointment/add-appointment">
     <ion-fab-button color="primary">
       <ion-icon name="add"></ion-icon>

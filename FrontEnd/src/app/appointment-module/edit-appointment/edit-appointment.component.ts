@@ -41,6 +41,12 @@ export class EditAppointmentComponent implements OnInit {
     }
   }
 
+  omit_special_char(event) {
+    var k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+  }
+
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
@@ -112,8 +118,19 @@ export class EditAppointmentComponent implements OnInit {
     this.appointments.adminName = this.name;
     this.appointments.userName = this.name;
     this.appointments.userId = Number(this.UserId)
-    this.appointments.wardNo = Number(this.appointments.wardNo);
-    this.appointments.pinCode = Number(this.appointments.pinCode);
+    if(this.appointments.wardNo == 0 || this.appointments.wardNo == ''){
+      this.appointments.wardNo = null
+    }
+    else{
+      this.appointments.wardNo = Number(this.appointments.wardNo);
+    }
+    if(this.appointments.pinCode == 0 || this.appointments.pinCode == ''){
+      this.appointments.pinCode = null
+    }
+    else{
+      this.appointments.pinCode = Number(this.appointments.pinCode);
+    }
+    
     this.appointments.adminId = Number(this.UserId);
     this.appointments.appointmentDate = dateparts[0]+' '+hr;
     if(this.file==undefined){
@@ -121,6 +138,12 @@ export class EditAppointmentComponent implements OnInit {
     }
     else{
       this.file = this.file
+    }
+    if(this.appointments.pinCode == 0){
+      this.appointments.pinCode = null
+    }
+    if(this.appointments.wardNo == 0){
+      this.appointments.wardNo = null
     }
     this.appointments =  JSON.stringify(this.appointments);
     this.appointment.addSingleAppointment(this.file, this.appointments).subscribe(data=>{

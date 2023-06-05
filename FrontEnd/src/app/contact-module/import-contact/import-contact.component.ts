@@ -50,7 +50,6 @@ export class ImportContactComponent implements OnInit {
   }
 
   ReadExcelData() {
-    debugger;
     var reader = new FileReader();
     reader.readAsBinaryString(this.file);
     reader.onload = (event) => {

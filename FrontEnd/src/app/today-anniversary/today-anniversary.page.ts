@@ -22,7 +22,7 @@ export class TodayAnniversaryPage implements OnInit {
   NormalMsg = '';
   whatsappMsg = ''; 
   isShow = false;
-  getAnniversary:any;
+  getAnniversary:any[]=[];
   searchMob: string;
   searchWeb: string;
   cp: number = 1;

@@ -17,7 +17,7 @@ export class MobileListComponent implements OnInit {
   userId: any;
   roleID:any;
   PageNo:any=1;
-  NoofRow:any=10;
+  NoofRow:any=25;
   totalItems:any;
   SearchText:any;
    

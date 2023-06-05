@@ -9,6 +9,8 @@ import { AlertController } from '@ionic/angular';
 import { Location } from '@angular/common';
 import { LoaderService } from 'src/app/services/loader.service';
 import { saveAs } from 'file-saver';
+import { HttpClient,HttpHeaders,HttpResponse } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-all-complaints',
@@ -30,6 +32,8 @@ export class AllComplaintsComponent implements OnInit {
   totalItems: any;
   Status: any;
   fileName: any;
+  url=environment.apiUrl;
+
 
   search(){
     this.isShow = !this.isShow
@@ -43,7 +47,8 @@ export class AllComplaintsComponent implements OnInit {
     private toast: IonicToastService,
     public alertController: AlertController,
     private location: Location,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private http:HttpClient
   ) { }
 
   ngOnInit(): void {
@@ -90,27 +95,42 @@ export class AllComplaintsComponent implements OnInit {
     })
   }
 
-  saveFile(blob:Blob){
-    const fileName = 'file_name.extension';
-    saveAs(blob,fileName);
+  saveFile(imageData:Blob){
+    // const fileName = 'file_name.extension';
+    // saveAs(blob,fileName);
+    const link = document.createElement('a');
+    link.href=window.URL.createObjectURL(imageData);
+    // link.download = 'image.jpg';
+    link.download = '';
+    link.click();
+  }
+
+  omit_special_char(event) {
+    var k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
   }
 
   downloadFile(event: any) {
-    debugger;
     this.Id = Number(event.target.id);
+    this.loader.showLoading();
     this.complaint.getFile(this.Id).subscribe((data : Blob) => {
       if (data) {
+        this.loader.hideLoader();
         this.saveFile(data);
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
-        this.toast.presentToast("File not downloaded!", "danger", 'alert-circle-sharp');
+        this.loader.hideLoader();
+        this.toast.presentToast("File download failed!", "danger", 'alert-circle-sharp');
       }
     }, (err) => {
-      this.toast.presentToast("File not downloaded!", "danger", 'alert-circle-sharp');
+      this.loader.hideLoader();
+      //this.toast.presentToast("File not downloaded!", "danger", 'alert-circle-sharp');
     })
   }
 
+  
   
 
   onSearchChange(SearchText: any) {
@@ -260,10 +280,6 @@ export class AllComplaintsComponent implements OnInit {
 
 
   exportToCSV() {
-    this.allComplaints.forEach(e => {
-      e.fromDate = e.fromDate.split('T')[0];
-      e.toDate = e.toDate.split('T')[0];
-    });
     this.PageNo = 1;
     this.NoofRow = this.totalItems;
     var SearchText = "";

@@ -121,3 +121,48 @@ ion-label {
   .android {  display: none; }
   .web { display: block; }
 }
+
+.table tr th:nth-child(10){
+  width: 200px !important;
+  display: block;
+}
+
+.table tr td:nth-child(10){
+  max-width: 200px !important;
+  display: block;
+}
+
+
+.table tr th:nth-child(2){
+  width: 200px !important;
+}
+
+.table tr td:nth-child(2){
+  width: 200px !important;
+}
+
+.table tr th:nth-child(4){
+  width: 200px !important;
+}
+
+.table tr td:nth-child(4){
+  width: 200px !important;
+}
+
+.table ion-icon {
+  cursor: pointer;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+@media screen and (max-width:576px) {
+  .hideMob {
+    display: none;
+  }
+}
+
+.search h5 {
+  color: #48484a;
+  font-weight: 600;
+  font-size: 16px;
+}

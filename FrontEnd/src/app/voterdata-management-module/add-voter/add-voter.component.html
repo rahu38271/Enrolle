@@ -70,6 +70,7 @@
             <ion-modal trigger="BirthDate" size="cover">
               <ng-template>
                 <ion-datetime
+                max={{maxDate}}
                   presentation="date"
                   [(ngModel)]="BirthDate"
                   name="BirthDate"
@@ -97,18 +98,18 @@
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> House No. </ion-label>
-              <ion-input maxlength="5" [(ngModel)]="addVoterModal.HouseNo" name="House" class="form-control"></ion-input>
+              <ion-input maxlength="6" [(ngModel)]="addVoterModal.HouseNo" name="House" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Voting Card No. <span>*</span></ion-label>
-              <ion-input maxlength="10" minlength="10" [(ngModel)]="addVoterModal.VotingCardNo" name="votingCard" class="form-control text-uppercase"></ion-input>
+              <ion-input (keypress)="omit_special_char($event)" maxlength="10" minlength="10" [(ngModel)]="addVoterModal.VotingCardNo" name="votingCard" class="form-control text-uppercase"></ion-input>
           </ion-col>
 
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Mobile No. </ion-label>
-              <ion-input [(ngModel)]="addVoterModal.MobileNo" name="Mobile" maxlength="10" (keypress)="keyPressNumbers($event)" class="form-control"></ion-input>
+              <ion-input [(ngModel)]="addVoterModal.MobileNo" name="Mobile" minlength="10" maxlength="12" (keypress)="keyPressNumbers($event)" class="form-control"></ion-input>
           </ion-col>
 
           
@@ -197,8 +198,8 @@
           </ion-col> -->
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
-            <ion-label> Cast </ion-label>
-              <ion-input maxlength="30" [(ngModel)]="addVoterModal.Caste" name="Cast" class="form-control"></ion-input>
+            <ion-label> Caste </ion-label>
+              <ion-input (keypress)="onKeyPress($event)" (keypress)="omit_special_char($event)" maxlength="30" [(ngModel)]="addVoterModal.Caste" name="Cast" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
@@ -278,7 +279,7 @@
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Village </ion-label>
-              <ion-input maxlength="30" [(ngModel)]="addVoterModal.Village" name="Village" class="form-control"></ion-input>
+              <ion-input (keypress)="onKeyPress($event)" (keypress)="omit_special_char($event)" maxlength="30" [(ngModel)]="addVoterModal.Village" name="Village" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">

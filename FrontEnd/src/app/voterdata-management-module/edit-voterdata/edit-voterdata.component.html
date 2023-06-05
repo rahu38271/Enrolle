@@ -20,10 +20,10 @@
         <ion-row>
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Assembly </ion-label>
-              <ng-select name="District" [(ngModel)]="EditData.assembly" 
-                  #Assembly="ngModel" placeholder="Select Assembly">
+              <ng-select name="Assembly" [(ngModel)]="EditData.assembly" 
+                  #assembly="ngModel" placeholder="Select Assembly">
                     <ng-option *ngFor="let item of assemblyList" [value]="item.assemblyName">
-                      {{item.assemblyName}}
+                      {{item.assemblyNo}} {{item.assemblyName}}
                     </ng-option>
                 </ng-select>
           </ion-col>
@@ -56,6 +56,7 @@
             <ion-modal trigger="birthDate" size="cover">
               <ng-template>
                 <ion-datetime
+                max={{maxDate}}
                   presentation="date"
                   [(ngModel)]="birthDate"
                   name="birthDate"
@@ -74,7 +75,7 @@
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
-            <ion-label> Gender <span>*</span> </ion-label>
+            <ion-label> Gender </ion-label>
               <ng-select name="Gender" [(ngModel)]="EditData.gender" placeholder="Select">
                 <ng-option value="M">Male </ng-option>
                 <ng-option value="F">Female </ng-option>
@@ -88,7 +89,7 @@
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Voting Card No. <span>*</span></ion-label>
-              <ion-input maxlength="10" minlength="10" [(ngModel)]="EditData.votingCardNo" name="votingCard" class="form-control text-uppercase"></ion-input>
+              <ion-input (keypress)="omit_special_char($event)" maxlength="10" minlength="10" [(ngModel)]="EditData.votingCardNo" name="votingCard" class="form-control text-uppercase" required></ion-input>
           </ion-col>
 
 
@@ -183,8 +184,8 @@
           </ion-col> -->
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
-            <ion-label> Cast </ion-label>
-              <ion-input (keypress)="onKeyPress($event)" maxlength="30" [(ngModel)]="EditData.caste" name="Cast" class="form-control"></ion-input>
+            <ion-label> Caste </ion-label>
+              <ion-input (keypress)="omit_special_char($event)" (keypress)="onKeyPress($event)" maxlength="30" [(ngModel)]="EditData.caste" name="Cast" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
@@ -202,7 +203,7 @@
                 </ion-select-option>
               </ion-select> -->
               <ng-select name="District" [(ngModel)]="EditData.district" 
-                  (change)="getTaluka(EditData.DistrictId)"
+                  (change)="getTaluka(EditData.district)"
                   #District="ngModel" placeholder="Select District">
                     <ng-option *ngFor="let item of districtList" [value]="item.dId">
                       {{ item.districtName }}
@@ -223,7 +224,7 @@
                   {{ item.talukaName }}
                 </ion-select-option>
               </ion-select> -->
-              <ng-select name="Taluka" [(ngModel)]="EditData.Taluka" #Taluka="ngModel" placeholder="Select Taluka">
+              <ng-select name="Taluka" [(ngModel)]="EditData.taluka" #taluka="ngModel" placeholder="Select Taluka">
                 <ng-option *ngFor="let item of talukaList" [value]="item.talukaName">
                   {{ item.talukaName }}
                 </ng-option>
@@ -252,7 +253,7 @@
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Village </ion-label>
-              <ion-input maxlength="30" [(ngModel)]="EditData.village" name="Village" class="form-control"></ion-input>
+              <ion-input (keypress)="onKeyPress($event)" (keypress)="omit_special_char($event)" maxlength="30" [(ngModel)]="EditData.village" name="Village" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">

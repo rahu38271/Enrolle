@@ -23,6 +23,11 @@ export class ImportVoterdataComponent implements OnInit {
   excelUploadedData: any = [];
   modal: any;
   f;
+  UserId:any;
+  AdminId:any;
+  roleId:any;
+  superAdminId:any;
+  name:any;
 
   constructor
     (
@@ -129,7 +134,19 @@ export class ImportVoterdataComponent implements OnInit {
   }
 
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.UserId = localStorage.getItem("loginId");
+    this.AdminId = localStorage.getItem("adminId");
+    this.roleId = localStorage.getItem("userType");
+    this.superAdminId = localStorage.getItem("superAdminId");
+    this.name = localStorage.getItem("loginUser")
+    if (this.roleId == 2) {
+      this.AdminId = this.UserId
+    }
+    else {
+      this.AdminId = this.superAdminId
+    }
+  }
 
   resetForm() {
     this.myForm.reset();
@@ -140,6 +157,7 @@ export class ImportVoterdataComponent implements OnInit {
   }
 
   upload(f: NgForm) {
+    debugger
     this.loader.showLoading();
     var exceldata = [];
     this.excelUploadedData.forEach(element => {
@@ -153,7 +171,7 @@ export class ImportVoterdataComponent implements OnInit {
           "PartNo": element.PartNo,
           "VotingCardNo": element.VotingCardNo,
           "Village": element.Village,
-          "BirthDate": "1989-10-18T00:00:00",
+          "BirthDate": "1900-01-01T00:00:00",
           "HouseNo": "",
 
           "MobileNo": "",
@@ -163,22 +181,28 @@ export class ImportVoterdataComponent implements OnInit {
           "Taluka": "",
           "Ward": "",
           "Booth": "",
-          "Pincode": 0,
+         // "Pincode": 0,
           "Email": "",
           "FamilyHead": "",
-          "IsSuspisious": "N",
-          "IsOutStation": "N",
-          "IsAlive": "N",
+          "IsSuspisious": "",
+          "IsOutStation": "",
+          "IsAlive": "",
           "Occupation": "",
           "PartyWorker": "",
           "VotingInclination": "",
           "PoliticalParty": "",
-          "UserId": 0,
-          "CreatedDate": "2022-12-06T00:00:00"
+          "UserId": Number(this.UserId),
+          "AdminId":Number(this.AdminId),
+          "name":this.name,
+          "CreatedDate": "1900-01-01T00:00:00"
         }
+        
       )
+      
     });
+
     this.voter.uploadExcel(exceldata).subscribe((data) => {
+      debugger;
       if (data) {
         this.loader.hideLoader();
         this.toast.presentToast("File uploded successfully!", "success", 'checkmark-circle-sharp');

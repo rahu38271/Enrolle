@@ -83,7 +83,7 @@
                   <div class="form-outline form-group">
                     <label class="form-label">Username</label>
 
-                    <ion-input minlength="10" maxlength="10" (keypress)="keyPressNumbers($event)" type="text"
+                    <ion-input minlength="10" maxlength="12" (keypress)="keyPressNumbers($event)" type="text"
                       class="form-control" name="Username" [(ngModel)]="loginModal.Username" #Username="ngModel"
                       [ngClass]="{'is-invalid': f.submitted && Username.invalid}" required></ion-input>
                     <div *ngIf="f.submitted && Username.invalid" class="invalid-feedback">
@@ -91,7 +91,7 @@
                         Please enter username
                       </div>
                       <div *ngIf="Username.errors.minlength">
-                        Enter valid 10 digit mobile number
+                        Enter valid mobile number
                       </div>
                     </div>
 

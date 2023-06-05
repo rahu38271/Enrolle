@@ -41,7 +41,7 @@
             <ion-card-content>
               <div class="headSection">
                 <div class="search">
-                  <ion-searchbar animated="true"></ion-searchbar>
+                  <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
                 </div>
                 <ion-button class="button-download" color="success" (click)="exportExcel()">
                   <ion-icon name="document-sharp"></ion-icon>Excel
@@ -61,7 +61,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let item of castData" (click)="caste(item.columnName)">
+                    <tr *ngFor="let item of castData | filter:searchWeb" (click)="caste(item.columnName)">
                       <td>{{item.columnName}}</td>
                       <td> {{item.count}}</td>
                     </tr>
@@ -78,9 +78,9 @@
     </ion-grid>
 
     <ion-grid class="android">
-      <ion-searchbar *ngIf="isShow"></ion-searchbar>
+      <ion-searchbar [(ngModel)]="searchWeb" *ngIf="isShow"></ion-searchbar>
 
-                <ion-list *ngFor="let item of castData" (click)="caste(item.columnName)">
+                <ion-list *ngFor="let item of castData | filter:searchWeb" (click)="caste(item.columnName)">
                   <ion-item lines="none">
                     <ion-label class="ion-text-center">
                       <h3>{{item.columnName}}</h3>

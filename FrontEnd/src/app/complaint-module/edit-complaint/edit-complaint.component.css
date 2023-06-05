@@ -20,3 +20,10 @@ ion-modal {
 --border-radius: 8px;
 --height: auto !important;
 }
+
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 7px;
+}

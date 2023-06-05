@@ -18,6 +18,20 @@ export class NewVoterComponent implements OnInit {
   getnewVoter:any;
   searchWeb: string;
   cp: number = 1;
+  SearchText:any;
+  PageNo:any=1;
+  NoofRow:any=10;
+  totalItems:any;
+  UserId:any;
+  RoleId:any;
+
+  omit_special_char(event) {
+    var k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+  }
+
+
   constructor(
     private newVoter:NewVoterService,
     private loader:LoaderService,
@@ -33,12 +47,20 @@ export class NewVoterComponent implements OnInit {
   }
 
   ionViewWillEnter(){
-    this.newVoterList();
+    this.UserId = localStorage.getItem("loginId");
+    this.RoleId = localStorage.getItem("userType");
+    if(this.SearchText == undefined){
+      this.SearchText = ''
+    }
+    else{
+      this.SearchText = this.SearchText
+    }
+    this.newVoterList(this.UserId,this.RoleId,this.PageNo,this.NoofRow,this.SearchText);
   }
 
-  newVoterList(){
+  newVoterList(UserId:any,RoleId:any,PageNo:any,NoofRow:any,SearchText:any){
     this.loader.showLoading();
-    this.newVoter.getAllNewVoter().subscribe(data=>{
+    this.newVoter.getAllNewVoter(UserId,RoleId,PageNo,NoofRow,SearchText).subscribe(data=>{
       if(data.length != 0){
         this.loader.hideLoader();
         this.getnewVoter = data;

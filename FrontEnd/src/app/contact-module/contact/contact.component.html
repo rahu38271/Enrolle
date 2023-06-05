@@ -4,7 +4,7 @@
       <ion-buttons slot="start">
         <ion-menu-button  auto-hide="false"></ion-menu-button>
       </ion-buttons>
-      <ion-title> Contacts </ion-title>
+      <ion-title> Contacts, <span> {{totalItems}}  </span> </ion-title>
       <ion-buttons slot="primary">
         <ion-button (click)="search()">
           <ion-icon name="search-outline"></ion-icon>
@@ -46,7 +46,7 @@
             <ion-card-content>
               <div class="headSection">
                 <div class="search">
-                  <ion-searchbar (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
+                  <ion-searchbar (keypress)="omit_special_char($event)" (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
                 </div>
                 <div class="btns">
                   <ion-button class="button-download" color="success" (click)="exportExcel()">
@@ -163,7 +163,7 @@
 
 
     <ion-grid class="android">
-      <ion-searchbar *ngIf="isShow" animated="true"></ion-searchbar>
+      <ion-searchbar (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)"  *ngIf="isShow" animated="true"></ion-searchbar>
       <ion-list>
         <!-- <ion-item  routerLink="/voterdata-management/voter-details"> -->
         <ion-item-sliding *ngFor="let item of getContacts | paginate: { itemsPerPage: NoofRow, currentPage: PageNo , totalItems:totalItems }; let i=index">
@@ -204,6 +204,9 @@
           <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
         </div>
 
+      </ion-list>
+      <ion-list>
+        <pagination-controls (pageChange)="event($event)"></pagination-controls>
       </ion-list>
     </ion-grid>
   </div>

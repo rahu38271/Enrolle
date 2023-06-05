@@ -19,7 +19,7 @@ export class AddVoterComponent implements OnInit {
 
   districtList:any;
   talukaList:any;
-
+  maxDate:String = new Date().toISOString();
   addVoterModal:any = { };
 
   myForm;
@@ -56,6 +56,12 @@ export class AddVoterComponent implements OnInit {
     }
 }
 
+omit_special_char(event) {
+  var k;
+  k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+  return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+}
+
   constructor
     (
       public loadingController: LoadingController, 
@@ -80,10 +86,10 @@ export class AddVoterComponent implements OnInit {
         this.superAdminId = localStorage.getItem("superAdminId");
         this.name = localStorage.getItem("loginUser")
         if(this.roleId == 2){
-          this.AdminId = this.superAdminId
+          this.AdminId = this.UserId
         }
         else{
-          this.AdminId = this.AdminId
+          this.AdminId = this.superAdminId
         }
         this.getDistrict();
         this.getAssembly();
@@ -156,10 +162,11 @@ export class AddVoterComponent implements OnInit {
     this.loader.showLoading();
     this.addVoterModal.UserId=Number(this.UserId);
     this.addVoterModal.PartNo=Number(this.addVoterModal.PartNo);
+    this.addVoterModal.Pincode=Number(this.addVoterModal.Pincode);
     this.addVoterModal.Age=Number(this.addVoterModal.Age);
     this.addVoterModal.voterSrNo=Number(this.addVoterModal.voterSrNo);
     this.addVoterModal.AdminId = Number(this.AdminId);
-    this.addVoterModal.UserName= this.name;
+    this.addVoterModal.UserName = this.name;
     if(this.addVoterModal.CreatedDate == undefined){
       this.addVoterModal.CreatedDate = "1900-01-01T00:00:00"
     }

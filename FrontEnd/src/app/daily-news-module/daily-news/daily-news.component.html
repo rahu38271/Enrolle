@@ -6,7 +6,7 @@
       <ion-buttons slot="start">
         <ion-menu-button color="primary" auto-hide="false"></ion-menu-button>
       </ion-buttons>
-      <ion-title> दैनंदिन बातम्या </ion-title>
+      <ion-title> Daily News </ion-title>
       <ion-buttons slot="primary">
         <ion-button (click)="search()">
           <ion-icon name="search-outline"></ion-icon>
@@ -19,18 +19,17 @@
       <ion-row>
         <ion-col size-xs="12" size-sm="6">
           <ion-card-header>
-            <ion-card-title>दैनंदिन बातम्या <span> ( 1 ) </span></ion-card-title>
+            <ion-card-title>Daily News</ion-card-title>
             <div class="headerLine"></div>
           </ion-card-header>
         </ion-col>
         <ion-col size-xs="12" size-sm="6" class="ion-text-right">
           <ion-button class="button-download" routerLink="/daily-news/add-daily-news" color="primary"><ion-icon name="add-circle-sharp"></ion-icon>News</ion-button>
-          <ion-button class="button-download" fill="outline"  class="button-download" color="primary"><ion-icon name="refresh-circle-sharp"></ion-icon>Refresh</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
 
-    <ion-grid class="topForm">
+    <!-- <ion-grid class="topForm">
       <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
         <ion-row>
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
@@ -94,72 +93,77 @@
           </ion-col>
         </ion-row>
       </form>
-    </ion-grid>
+    </ion-grid> -->
 
     <ion-card>
       <ion-card-content>
         <div class="headSection">
           <div class="search">
-            <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+            <ion-searchbar (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
           </div>
-          <ion-button class="button-download" color="success" (click)="exportExcel()">
+          <!-- <ion-button class="button-download" color="success" (click)="exportExcel()">
             <ion-icon name="document-sharp"></ion-icon>Excel
-          </ion-button>
+          </ion-button> -->
         </div>
         <div class="horizontal-scroll">
-          <table id="table10" #epltable>
+          <table id="table10" #epltable class="table">
             <thead>
               <tr>
                 
                 <th style="width: 40px;">
-                  अ.क्र.				
+                  Sr.No.				
                 </th>
                 <th>
-                  दिनांक			
+                  Date		
                 </th>
                 <th>
-                  बातमी विषय				
+                  Subject	
                 </th>
                 <th>
-                  माध्यम				
+                  Medium				
                 </th>
                 <th>
-                  माध्यमाचे नाव		
+                  Medium Name		
                 </th>
                 <th>
-                  पत्रकार	
+                  Reporter	
                 </th>
                 <th>
-                  कात्रण/व्हिडीओ
+                  File
                 </th>
-                
+                <th>Link</th>
+                <th>Favour</th>
                 <th id="element-to-hide" data-html2canvas-ignore="true">
                   Action
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                
-                <td>1</td>
-                <td>24/01/2022</td>
+              <tr *ngFor="let item of newsList | paginate: { itemsPerPage: NoofRow,currentPage:PageNo ,totalItems:totalItems }; let i=index">
+                <td>{{item.id}}</td>
+                <td>{{item.date}}</td>
                 <td>
-                  <span>test</span>
+                  {{item.subject}}
                 </td>
-                <td>TV</td>
-                <td>Zee News</td>
-                <td>Sagar Salunkhe</td>
-                <td></td>
-                
-                <td id="element-to-hide" data-html2canvas-ignore="true">
-                  <ion-button routerLink="/daily-news/edit-daily-news" color="success" size="small"><ion-icon name="pencil-sharp"></ion-icon></ion-button>
-                  <ion-button color="danger" size="small" (click)="deleteNews()"><ion-icon name="trash-sharp"></ion-icon></ion-button>
+                <td>{{item.medium}}</td>
+                <td>{{item.nameMedium}}</td>
+                <td>{{item.jounalist}}</td>
+                <td class="file">
+                  <i (click)="downloadFile($event)" id={{item.id}} class="icofont icofont-cloud-download"></i>
+                </td>
+                <td>
+                  <a href="{{item.newsLink}}" target="_blank">Link</a>
+                </td>
+                <td>{{item.inFavour}}</td>
+                <td class="action" id="element-to-hide" data-html2canvas-ignore="true">
+                  <ion-icon name="create-sharp" (click)="editNews(item)"></ion-icon>
+                  <ion-icon (click)="deleteNews(item.id)" class="delete" name="trash-bin-sharp"></ion-icon> 
                 </td>
               </tr>
               
             </tbody>
           </table>
-          <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+          <pagination-controls (pageChange)="event($event)"></pagination-controls>
         </div>
       </ion-card-content>
     </ion-card>

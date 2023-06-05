@@ -64,7 +64,7 @@
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
                   <div class="form-outline">
                     <ion-label>Password <span>*</span></ion-label>
-                    <ion-input maxlength="30" [type]="ismyTextFieldType ? 'text' : 'password' " name="Password"
+                    <ion-input minlength="3" maxlength="30" [type]="ismyTextFieldType ? 'text' : 'password' " name="Password"
                       [(ngModel)]="addMAmodal.Password" #Password="ngModel" required class="form-control"
                       [ngClass]="{'is-invalid': f.submitted && Password.invalid}"
                       ></ion-input>

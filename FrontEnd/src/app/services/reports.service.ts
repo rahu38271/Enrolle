@@ -16,14 +16,22 @@ export class ReportsService {
 
   // get All Reports
 
-  getReportsList(UserId:any,RoleId:any,PageNo:any,NoofRow:any,SearchText:any):Observable<any>{
-    return this.http.get<any>(this.url+'ActivityLog/GetActivityLogs?UserId='+UserId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText)
+  getReportsList(userId:any,RoleId:any,PageNo:any,NoofRow:any,SearchText:any):Observable<any>{
+    debugger;
+    return this.http.get<any>(this.url+'ActivityLog/GetActivityLogs?UserId='+userId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText)
   }
 
   // reports by Date
 
   getReportByDate(UserId:any,RoleId:any,PageNo:any,NoofRow:any,FromDate:any,ToDate:any){
-    debugger;
     return this.http.get<any>(this.url+'ActivityLog/GetActivityLogsBetweenDate?UserId='+UserId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&FromDate='+FromDate+'&ToDate='+ToDate)
   }
+
+  // reports by user
+
+  getReportByUser(FromDate:any,ToDate:any,Id:any,RoleId:any){
+    return this.http.get<any>(this.url+'ActivityLog/GetActivityLogCountbyUserId?FromDate='+FromDate+'&ToDate'+ToDate+'&RoleId='+RoleId+'&Id='+Id)
+  }
+
+  
 }

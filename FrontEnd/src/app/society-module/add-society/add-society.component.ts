@@ -47,6 +47,7 @@ export class AddSocietyComponent implements OnInit {
   superAdminId:any;
   name:any;
   roleId:any;
+  Position:any;
 
   constructor
     (
@@ -59,6 +60,12 @@ export class AddSocietyComponent implements OnInit {
       private society:SocietyService
     ) {
       
+  }
+
+  omit_special_char(event) {
+    var k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
   }
 
   getDistrict() {
@@ -86,7 +93,6 @@ export class AddSocietyComponent implements OnInit {
 
 
   ngOnInit() {
-    debugger;
     this.loginId = localStorage.getItem("loginId");
     this.name = localStorage.getItem("loginUser");
     this.adminId = localStorage.getItem("adminId");
@@ -100,6 +106,10 @@ export class AddSocietyComponent implements OnInit {
     this.myForm.reset();
   }
 
+  selected(event){
+    this.Position=event.target.value;
+  }
+
 
   onSubmit(f: NgForm) {
     if (this.societyModal.invalid) {
@@ -110,7 +120,6 @@ export class AddSocietyComponent implements OnInit {
   }
 
   addSociety() {
-    debugger;
     this.loader.showLoading();
     if(this.roleId == 2){
       this.societyModal.AdminId = Number(this.loginId)
@@ -122,10 +131,16 @@ export class AddSocietyComponent implements OnInit {
     //   this.societyModal.AdminId = this.adminId
     // }
     this.societyModal.UserId = Number(this.loginId);
-    //this.societyModal.AdminId = Number(this.adminId);
     this.societyModal.UserName = this.name;
     this.societyModal.PinCode = Number(this.societyModal.PinCode);
     this.societyModal.WardNo = Number(this.societyModal.WardNo);
+    if( this.societyModal.PinCode == 0){
+      this.societyModal.PinCode = null
+    }
+    if( this.societyModal.WardNo == 0){
+      this.societyModal.WardNo = null
+    }
+    
     this.society.addSingleSociety(this.societyModal).subscribe((data) => {
       if (data) {
         this.toast.presentToast("Society added successfully!", "success", 'checkmark-circle-sharp');

@@ -21,6 +21,7 @@ export class EditSocietyComponent implements OnInit {
   adminId: any;
   superAdminId: any;
   roleId: any;
+  position:any;
 
   onKeyPress(event) {
     if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {
@@ -40,6 +41,12 @@ export class EditSocietyComponent implements OnInit {
     } else {
       return true;
     }
+  }
+
+  omit_special_char(event) {
+    var k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
   }
 
   myForm;
@@ -85,6 +92,10 @@ export class EditSocietyComponent implements OnInit {
     })
   }
 
+  selected(event){
+    this.position=event.target.value;
+  }
+
 
   ngOnInit() {
     this.getDistrict();
@@ -118,8 +129,24 @@ export class EditSocietyComponent implements OnInit {
       this.societyModal.adminId = Number(this.superAdminId)
     }
     this.societyModal.id = Number(this.societyModal.id);
-    this.societyModal.pinCode = Number(this.societyModal.pinCode);
-    this.societyModal.wardNo = Number(this.societyModal.wardNo);
+    if(this.societyModal.pinCode == 0 || this.societyModal.pinCode == ''){
+      this.societyModal.pinCode = null;
+    }
+    else{
+      this.societyModal.pinCode = Number(this.societyModal.pinCode);
+    }
+    if(this.societyModal.wardNo == 0 || this.societyModal.wardNo == ''){
+      this.societyModal.wardNo = null;
+    }
+    else{
+      this.societyModal.wardNo = Number(this.societyModal.wardNo);
+    }
+    if(this.societyModal.pinCode == 0){
+      this.societyModal.pinCode = null;
+    }
+    if(this.societyModal.wardNo == 0){
+      this.societyModal.wardNo = null;
+    }
     this.societyModal.userName = this.name;
     this.societyModal.userId = Number(this.loginId);
     this.society.addSingleSociety(this.societyModal).subscribe((data) => {

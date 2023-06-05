@@ -42,11 +42,11 @@ export class VoterService {
   }
 
   uploadExcel(modal:any):Observable<any>{
+    debugger;
     return this.http.post<any>(this.url+'Voter/InsertBulkVoter', modal)
   }
 
   update(editVoter:any){
-    debugger;
     return this.http.post<any>(this.url+"Voter/UpadateVoter", editVoter);
   }
 
@@ -106,7 +106,6 @@ export class VoterService {
   // update DoB
 
   updateDoB(id:any, ColoumnName:any, ColoumnValue:any){
-    debugger;
     return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue, id)
   }
 
@@ -141,7 +140,6 @@ export class VoterService {
   }
 
   occupaionData(occupModal:any){
-    debugger;
     return this.http.post<any>(this.url+'Voter/FilterColoumnCount', occupModal)
   }
 
@@ -203,6 +201,7 @@ export class VoterService {
   // advance search voter
 
   advanceSearch(searchModal:any){
+    debugger;
     return this.http.post<any>(this.url+'Voter/AdvancedSearchVoter', searchModal)
   }
 

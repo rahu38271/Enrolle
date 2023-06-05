@@ -16,7 +16,7 @@ import { LoaderService } from 'src/app/services/loader.service';
 })
 export class TodaysAppointmentComponent implements OnInit {
   
-
+  isShow=false;
   UserId:any;
   roleID:any;
   todayApm:any;
@@ -32,6 +32,9 @@ export class TodaysAppointmentComponent implements OnInit {
   PageNo:any=1;
   NoofRow:any=10;
   totalItems:any;
+  search(){
+    this.isShow = !this.isShow
+  }
 
   constructor(
     public alertController: AlertController,
@@ -47,7 +50,6 @@ export class TodaysAppointmentComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    debugger;
     if(this.SearchText == undefined){
       this.SearchText = ""
     }
@@ -125,6 +127,12 @@ export class TodaysAppointmentComponent implements OnInit {
             this.toast.presentToast("Appointment rejected successfully!", "success", 'checkmark-circle-sharp');
           }
         })
+  }
+
+  omit_special_char(event) {
+    var k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
   }
 
   onSearchChange(SearchText: any) {

@@ -173,3 +173,9 @@ ion-item img {
     display: flex;
     justify-content: space-between;
   }
+
+  .file i {
+    font-size: 26px;
+    color: #3f7ef4;
+    cursor: pointer;
+  }

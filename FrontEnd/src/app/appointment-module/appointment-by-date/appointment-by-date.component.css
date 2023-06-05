@@ -24,9 +24,7 @@ ion-modal {
   }
 
   @media screen and (max-width:576px){
-    .web {
-      display: none;
-    }
+
     .contact {
       display: initial !important;
     }
@@ -38,9 +36,6 @@ ion-modal {
     }
     .contact h3 {
       margin-top: 5px;
-    }
-    ion-item ion-label {
-      text-align: center;
     }
   }
 
@@ -150,4 +145,12 @@ ion-item img {
     font-size: 26px;
     color: #3f7ef4;
     cursor: pointer;
+  }
+
+  @media screen and (max-width:576px){
+    .web {display: none;}
+  }
+  
+  @media screen and (min-width:577px){
+    .android { display: none;}
   }
