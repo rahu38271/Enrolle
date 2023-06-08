@@ -1,5 +1,6 @@
 import { Component, OnInit  } from '@angular/core';
 import { ReportsService } from 'src/app/services/reports.service';
+import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
   selector: 'app-reports',
@@ -8,7 +9,7 @@ import { ReportsService } from 'src/app/services/reports.service';
 })
 export class ReportsComponent implements OnInit {
 
-  UserId:any;
+  userId:any;
   RoleId:any;
   PageNo:any=1;
   NoofRow:any=25;
@@ -18,13 +19,15 @@ export class ReportsComponent implements OnInit {
   
   constructor
   (
-    private report:ReportsService
+    private report:ReportsService,
+    private route: ActivatedRoute,
   ) { 
     
   }
 
   ngOnInit() {
-    this.UserId = localStorage.getItem('loginId');
+    this.userId = this.route.snapshot.paramMap.get('userId')
+    // this.UserId = localStorage.getItem('loginId');
     this.RoleId = localStorage.getItem('userType');
    if(this.SearchText==undefined){
      this.SearchText = ''
@@ -35,11 +38,11 @@ export class ReportsComponent implements OnInit {
   }
 
   ionViewWillEnter(){
-    this.allReports(this.UserId,this.RoleId,this.PageNo,this.NoofRow,this.SearchText);
+    this.allReports(this.userId,this.RoleId,this.PageNo,this.NoofRow,this.SearchText);
   }
 
-  allReports(UserId:any,RoleId:any,PageNo:any,NoofRow:any,SearchText:any){
-    this.report.getReportsList(UserId,RoleId,PageNo,NoofRow,SearchText).subscribe(data=>{
+  allReports(userId:any,RoleId:any,PageNo:any,NoofRow:any,SearchText:any){
+    this.report.getReportsList(userId,RoleId,PageNo,NoofRow,SearchText).subscribe(data=>{
       if(data.length != 0){
         this.getReports = data
         this.totalItems=data[0].totalCount;
@@ -57,7 +60,7 @@ export class ReportsComponent implements OnInit {
 
   event(event:any){
     this.PageNo=event;
-    this.allReports(this.UserId,this.RoleId,event,this.NoofRow,this.SearchText);
+    this.allReports(this.userId,this.RoleId,event,this.NoofRow,this.SearchText);
   }
  
 }

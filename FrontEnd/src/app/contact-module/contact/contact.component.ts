@@ -121,7 +121,6 @@ export class ContactComponent implements OnInit {
   }
 
   onSearchChange(SearchText:any){
-    
     if(this.SearchText==''){
       this.PageNo=1;
       this.NoofRow=this.totalItems;
@@ -147,7 +146,6 @@ export class ContactComponent implements OnInit {
   }
 
   keyPress(SearchText:any){
-    debugger;
     if(this.SearchText==''){
       this.PageNo=1;
       this.NoofRow=this.totalItems;
@@ -172,7 +170,11 @@ export class ContactComponent implements OnInit {
     }
   }
 
-
+  omit_special_char(event) {
+    var k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+  }
 
   exportExcel():void {
     this.PageNo=1;

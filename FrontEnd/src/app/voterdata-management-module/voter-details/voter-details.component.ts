@@ -320,7 +320,6 @@ export class VoterDetailsComponent {
   // add Birthdate
 
   saveBirthdate() {
-    debugger;
     this.id = this.Voter.id;
     this.BirthdateUpdate.Id = Number(this.id);
     this.BirthdateUpdate.ColoumnName = "Birthdate"

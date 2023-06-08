@@ -18,34 +18,42 @@
       </ion-row>
       <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
         <ion-row>
-          <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" >
-            <ion-label position="floating"> Full Name   <span>*</span> </ion-label>
-              <ion-input name="FullName" maxlenght="10" [(ngModel)]="contactModal.FullName" #FullName="ngModel" [ngClass]="{'is-invalid': f.submitted && FullName.invalid}" (keypress)="onKeyPress($event)" class="text-capitalize form-control" required></ion-input>
-              <div *ngIf="f.submitted && FullName.invalid" class="invalid-feedback">
-                <div *ngIf="FullName.errors.required">
-                  Please enter full name
-                </div>
-              </div>
-          </ion-col> -->
+
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" >
             <ion-label> Full Name   <span>*</span> </ion-label>
               <ion-input maxlength="30" name="FullName" [(ngModel)]="contactModal.FullName" (keypress)="onKeyPress($event)" class="form-control" required></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
-            <ion-label> Village Name  </ion-label>
-              <ion-input maxlength="30" name="VilageName"   [(ngModel)]="contactModal.VilageName" (keypress)="onKeyPress($event)" class="form-control" ></ion-input>
-          </ion-col>
-          <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
-            <ion-label> Village Name  </ion-label>
-              <ion-input name="VilageName" maxlenght="30"  [(ngModel)]="contactModal.VilageName" #VilageName="ngModel" [ngClass]="{'is-invalid': f.submitted && VilageName.invalid}" class="text-capitalize form-control" ></ion-input>
-              <div *ngIf="f.submitted && VilageName.invalid" class="invalid-feedback">
-                <div *ngIf="VilageName.errors.required">
-                  Please enter village name
+            <ion-label position="floating"> Mobile No.  <span>*</span> </ion-label>
+              <ion-input 
+                minlength="10" 
+                maxlength="12" 
+                (keypress)="keyPressNumbers($event)" 
+                name="MobileNo" 
+                [(ngModel)]="contactModal.MobileNo" 
+                #MobileNo="ngModel" 
+                [ngClass]="{'is-invalid': f.submitted && MobileNo.invalid}" 
+                class="form-control"
+                required
+                >
+              </ion-input>
+              <div *ngIf="f.submitted && MobileNo.invalid" class="invalid-feedback">
+                <div *ngIf="MobileNo.errors.required">
+                  Please enter mobile number
+                </div>
+                <div *ngIf="MobileNo.errors.minlength">
+                  Please enter valid mobile number
                 </div>
               </div>
-          </ion-col> -->
+          </ion-col>
+         
+          <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+            <ion-label position="floating"> Alternate Mobile </ion-label>
+              <ion-input minlength="10" maxlength="12"  (keypress)="keyPressNumbers($event)" name="AlternativeMobileNo" [(ngModel)]="contactModal.AlternativeMobileNo" class="form-control" ></ion-input>
+          </ion-col>
 
+         
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="calendar">
             <ion-label> BirthDate </ion-label>
             <ion-input
@@ -102,34 +110,21 @@
           </ion-col>
 
 
-          <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
-            <ion-label position="floating"> Mobile No.  <span>*</span> </ion-label>
-              <ion-input 
-                minlength="10" 
-                maxlength="12" 
-                (keypress)="keyPressNumbers($event)" 
-                name="MobileNo" 
-                [(ngModel)]="contactModal.MobileNo" 
-                #MobileNo="ngModel" 
-                [ngClass]="{'is-invalid': f.submitted && MobileNo.invalid}" 
-                class="form-control"
-                required
-                >
-              </ion-input>
-              <div *ngIf="f.submitted && MobileNo.invalid" class="invalid-feedback">
-                <div *ngIf="MobileNo.errors.required">
-                  Please enter mobile number
-                </div>
-                <div *ngIf="MobileNo.errors.minlength">
-                  Please enter valid mobile number
+          
+          
+          <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Village Name  </ion-label>
+              <ion-input name="VilageName" maxlenght="30"  [(ngModel)]="contactModal.VilageName" #VilageName="ngModel" [ngClass]="{'is-invalid': f.submitted && VilageName.invalid}" class="text-capitalize form-control" ></ion-input>
+              <div *ngIf="f.submitted && VilageName.invalid" class="invalid-feedback">
+                <div *ngIf="VilageName.errors.required">
+                  Please enter village name
                 </div>
               </div>
-          </ion-col>
-         
-          <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
-            <ion-label position="floating"> Alternate Mobile </ion-label>
-              <ion-input minlength="10" maxlength="12"  (keypress)="keyPressNumbers($event)" name="AlternativeMobileNo" [(ngModel)]="contactModal.AlternativeMobileNo" class="form-control" ></ion-input>
-          </ion-col>
+          </ion-col> -->
+
+          
+
+          
 
           <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
             <ion-label> District  <span>*</span></ion-label>
@@ -155,6 +150,12 @@
                 </div>
               </div>
           </ion-col> -->
+
+
+          <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+            <ion-label> Village Name  </ion-label>
+              <ion-input maxlength="30" name="VilageName"   [(ngModel)]="contactModal.VilageName" (keypress)="onKeyPress($event)" class="form-control" ></ion-input>
+          </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" >
             <ion-label>District</ion-label>

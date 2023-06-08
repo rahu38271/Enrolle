@@ -20,14 +20,29 @@
           <ion-row>
             <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
               <ion-label position="floating"> Society Name   <span>*</span> </ion-label>
-                <ion-input maxlength="30" name="Name" [(ngModel)]="societyModal.Name" class="text-capitalize form-control" required></ion-input>
-                
+                <ion-input  maxlength="30" name="Name" (keypress)="omit_special_char($event)" [(ngModel)]="societyModal.Name" class="text-capitalize form-control" required></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+              <ion-label>Position <span>*</span></ion-label>
+              <ng-select name="Position" [(ngModel)]="societyModal.Position" (change)="selected($event)" #Position="ngModel" [ngClass]="{'is-invalid': f.submitted && Position.invalid}"
+               placeholder="Select Position"  required>
+                <ng-option value="Chairman">Chairman </ng-option>
+                <ng-option value="Secretory">Secretory </ng-option>
+                <ng-option value="Treasurer">Treasurer </ng-option>
+                <ng-option value="Manager">Manager </ng-option>
+             </ng-select>
+             <div *ngIf="f.submitted && RoleId.invalid" class="invalid-feedback">
+              <div *ngIf="RoleId.errors.required">
+                Role is required
+              </div>
+            </div>
             </ion-col>
   
             
             <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
-              <ion-label position="floating"> Chairman <span>*</span> </ion-label>
-                <ion-input (keypress)="onKeyPress($event)" maxlength="30" name="Chairman" [(ngModel)]="societyModal.Chairman"  class="text-capitalize form-control" required ></ion-input>
+              <ion-label position="floating"> Name <span>*</span> </ion-label>
+                <ion-input (keypress)="onKeyPress($event)" maxlength="50" name="Chairman" [(ngModel)]="societyModal.Chairman"  class="text-capitalize form-control" required ></ion-input>
             </ion-col>
   
             
@@ -79,6 +94,7 @@
                       [(ngModel)]="societyModal.PinCode" 
                       class="form-control"
                       maxlength="6" 
+                      minlength="6"
                   ></ion-input>
               </ion-col>
 

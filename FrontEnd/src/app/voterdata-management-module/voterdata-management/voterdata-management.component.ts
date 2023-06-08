@@ -63,7 +63,7 @@ export class VoterdataManagementComponent {
   //allVoters: number = 0;
   totalItems:any;
   SearchText:any;
-   
+  UserId:any;
   search(){
     this.isShow = !this.isShow
   }
@@ -121,6 +121,7 @@ keyPressNumbers(event) {
     this.partNo = this.route.snapshot.paramMap.get('partNo');
     this.userId = this.route.snapshot.paramMap.get('id');
     this.roleID = localStorage.getItem("userType");
+    this.UserId = localStorage.getItem("loginUser");
     this.boothWiseVoterListData(this.PageNo,this.NoofRow,this.Language);
   }
 
@@ -174,7 +175,6 @@ keyPressNumbers(event) {
   }
 
    voterDetails(id:number){
-     debugger;
     this.router.navigate(['voterdata-management/voter-details', id])
    }
    
@@ -188,12 +188,11 @@ keyPressNumbers(event) {
   }
 
   searchData(){
-    debugger;
     this.isSearched=true;
     this.isList=false;
     this.searchModal.Language = this.Language;
-    this.searchModal.PageNo = 1;
-    this.searchModal.NoofRow = 25;
+    this.NoofRow=this.totalItems;
+    this.PageNo=1;
     if(this.searchModal.LastName == ''){
       this.searchModal.LastName = null
     }
@@ -290,11 +289,18 @@ keyPressNumbers(event) {
     else{
       this.searchModal.Religion = this.searchModal.Religion;
     }
-    this.searchModal.UserId = Number(this.userId);
-    this.searchModal.roleID = Number(this.roleID);
-    this.searchModal.PartNo = this.partNo;
     this.searchModal.PageNo = Number(this.PageNo);
     this.searchModal.NoofRow = Number(this.NoofRow);
+    this.searchModal.UserId = Number(this.userId);
+    this.searchModal.roleID = Number(this.roleID);
+    if(this.searchModal.FromAge == 0){
+      this.searchModal.FromAge = null;
+    }
+    if(this.searchModal.ToAge == 0){
+      this.searchModal.ToAge = null;
+    }
+
+    this.searchModal.PartNo = this.partNo;
     this.loader.showLoading();
     this.voter.advanceSearch(this.searchModal).subscribe(data=>{
       if(data.length != 0){

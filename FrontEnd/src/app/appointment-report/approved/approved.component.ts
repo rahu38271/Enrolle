@@ -25,6 +25,13 @@ export class ApprovedComponent implements OnInit {
   apmId:any;
   apmStatus:string;
   rowId:any;
+  isShow=false;
+
+  omit_special_char(event) {
+    var k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+  }
 
   updateStatusModal:any={
     Id:'',
@@ -38,6 +45,10 @@ export class ApprovedComponent implements OnInit {
   NoofRow:any=10;
   SearchText:any;
   totalItems:any;
+
+  search(){
+    this.isShow = !this.isShow
+  }
 
   constructor(
     private appointment:AppointmentService,
@@ -87,6 +98,54 @@ export class ApprovedComponent implements OnInit {
 
     })
     
+  }
+
+  onSearchChange(SearchText: any) {
+    if (this.SearchText=='') {
+      this.PageNo = 1;
+      this.SearchText = SearchText;
+      this.NoofRow = this.totalItems;
+      this.approvedList(this.UserId,this.roleID,this.PageNo,this.NoofRow,this.SearchText);
+    }
+    else {
+      this.PageNo=1
+      this.NoofRow=4;
+      this.SearchText=SearchText;
+      this.appointment.getApprovedAppointments(this.UserId, this.roleID, this.PageNo, this.NoofRow, this.SearchText).subscribe(data=> {
+        if (data) {
+          // this.getApmList = data.filter(this.isBigEnough);
+          this.getApmList = data;
+          this.totalItems = data[0].totalCount
+          this.getApmList.forEach(e => {
+            e.birthDate = e.birthDate.split('T')[0];
+          });
+        }
+      })
+    }
+  }
+
+  keyPress(SearchText: any) {
+    if (this.SearchText=='') {
+      this.PageNo = 1;
+      this.SearchText = SearchText;
+      this.NoofRow = this.totalItems;
+      this.approvedList(this.UserId,this.roleID,this.PageNo,this.NoofRow,this.SearchText);
+    }
+    else {
+      this.PageNo=1
+      this.NoofRow=4;
+      this.SearchText=SearchText;
+      this.appointment.getApprovedAppointments(this.UserId, this.roleID, this.PageNo, this.NoofRow, this.SearchText).subscribe((data: any) => {
+        if (data) {
+          // this.getApmList = data.filter(this.isBigEnough);
+          this.getApmList = data;
+          this.totalItems = data[0].totalCount
+          this.getApmList.forEach(e => {
+            e.birthDate = e.birthDate.split('T')[0];
+          });
+        }
+      })
+    }
   }
 
   rejectApm(event){

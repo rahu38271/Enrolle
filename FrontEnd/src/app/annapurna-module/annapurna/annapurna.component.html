@@ -124,7 +124,9 @@
                     <ion-icon (click)="deleteAnp(item.id)" class="delete" name="trash-bin-sharp"></ion-icon>
                   </td>
                 </tr>
-
+                <div *ngIf="!getAnnapurna || getAnnapurna.length === 0" class="ion-text-center">
+                  <p>No data</p>
+                </div>
               </tbody>
             </table>
 
@@ -132,7 +134,7 @@
           </div>
         </ion-card-content>
       </ion-card>
-      <ion-card>
+      <!-- <ion-card>
         <tr *ngFor="let item of familyData">
           <td>{{item.id}}</td>
           <td>{{item.fullName}}</td>
@@ -141,7 +143,7 @@
           <td>{{item.address}}</td>
           <td>{{item.anpId}}</td>
         </tr>
-      </ion-card>
+      </ion-card> -->
     </div>
 
     <ion-modal [isOpen]="isModalOpen" [backdropDismiss]="false">

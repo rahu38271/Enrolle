@@ -42,13 +42,13 @@ export class AppointmentByDateComponent implements OnInit {
 
   UserId:any;
   roleID:any;
-
+  isShowList=false;
   isShow = false;
   totalItems:any;
   PageNo:any=1;
   NoofRow:any=10;
   SearchText:any;
-  maxDate:String = new Date().toISOString();
+
  
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
 
@@ -91,7 +91,7 @@ export class AppointmentByDateComponent implements OnInit {
   }
 
   search(){
-    this.isShow = true 
+    this.isShowList = true;
     //this.loader.showLoading();
     this.searchApmModal.UserId = Number(this.UserId);
     this.searchApmModal.roleID = this.roleID;

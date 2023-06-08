@@ -21,3 +21,8 @@ ion-modal {
 --height: auto !important;
 }
 
+.flex {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 7px;
+}

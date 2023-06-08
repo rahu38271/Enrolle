@@ -336,6 +336,10 @@ const routes: Routes = [
     loadChildren: () => import('./complaint-module/complaint-module.module').then( m => m.ComplaintModuleModule)
   },
   {
+    path: 'general-enquiry',
+    loadChildren: () => import('./general-enquiry-module/general-enquiry-module.module').then( m => m.GeneralEnquiryModuleModule)
+  },
+  {
     path: 'reports',
     loadChildren: () => import('./reports-module/reports-module.module').then( m => m.ReportsModuleModule)
   },

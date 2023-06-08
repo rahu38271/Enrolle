@@ -7,7 +7,7 @@ import { LoaderService } from 'src/app/services/loader.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { Router } from '@angular/router'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
-
+import { ExcelService } from 'src/app/services/excel.service'
 
 @Component({
   selector: 'app-modern-way',
@@ -38,16 +38,42 @@ export class ModernWayComponent implements OnInit {
     Occupation:'',
     Education:'',
     UserId:'',
-    PageNo:'',
-    NoofRow:'',
+    PageNo:1,
+    NoofRow:25,
     Language:''
   };
   searchList: any;
   id: any;
   roleID:any;
   PageNo:any=1;
-  NoofRow:any=100;
+  NoofRow:any=25;
   totalItems:any;
+
+  keyPressNumbers(event) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  onKeyPress(event) {
+    if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {
+        return true
+    }
+    else {
+        return false
+    }
+}
+
+omit_special_char(event) {
+  var k;
+  k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+  return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+}
 
   constructor
     (
@@ -58,6 +84,7 @@ export class ModernWayComponent implements OnInit {
       private loader:LoaderService,
       private toast:IonicToastService,
       private router:Router,
+      private excel:ExcelService,
       private translateConfigService: TranslateConfigService,
     ) {
       this.Language = this.translateConfigService.getCurrentLang();
@@ -90,7 +117,12 @@ export class ModernWayComponent implements OnInit {
     this.voterListBySearch()
   }
 
+  EditVoter(data:any){
+    this.router.navigateByUrl('/voterdata-management/edit-voterdata',{state: data})
+  }
+
   voterListBySearch(){
+    debugger;
     this.isShow = true
     this.Language = this.translateConfigService.getCurrentLang();
     if (this.Language == "kn") {
@@ -105,6 +137,8 @@ export class ModernWayComponent implements OnInit {
     else {
       this.Language = "English"
     }
+    //this.NoofRow=this.totalItems;
+    // this.PageNo=this.PageNo;
     this.searchModal.Language = this.Language
     this.searchModal.PageNo = this.PageNo;
     this.searchModal.NoofRow = this.NoofRow;
@@ -154,13 +188,13 @@ export class ModernWayComponent implements OnInit {
       this.searchModal.FromAge = null
     }
     else{
-      this.searchModal.FromAge = this.searchModal.FromAge;
+      this.searchModal.FromAge = Number(this.searchModal.FromAge);
     }
     if(this.searchModal.ToAge == ''){
       this.searchModal.ToAge = null
     }
     else{
-      this.searchModal.ToAge = this.searchModal.ToAge;
+      this.searchModal.ToAge = Number(this.searchModal.ToAge);
     }
     if(this.searchModal.Gender == ''){
       this.searchModal.Gender = null
@@ -206,11 +240,15 @@ export class ModernWayComponent implements OnInit {
     }
     this.searchModal.UserId = Number(this.id);
     this.searchModal.roleID = Number(this.roleID);
-    this.searchModal.PageNo = Number(this.PageNo);
-    this.searchModal.NoofRow = Number(this.NoofRow);
+    if(this.searchModal.FromAge == 0){
+      this.searchModal.FromAge = null
+    }
+    if(this.searchModal.ToAge == 0){
+      this.searchModal.ToAge = null
+    }
     this.loader.showLoading();
      this.voter.advanceSearch(this.searchModal).subscribe(data=>{
-       if(data.length > 0){
+       if(data.length != 0){
         this.loader.hideLoader();
         this.searchList = data;
         this.totalItems = data[0].totalCount
@@ -222,7 +260,7 @@ export class ModernWayComponent implements OnInit {
        }
      },(err)=>{
       this.loader.hideLoader();
-      this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+      //this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
      })
   }
 
@@ -232,12 +270,25 @@ export class ModernWayComponent implements OnInit {
 
 
 
-  exportexcel() {
-    const ws: xlsx.WorkSheet =
-      xlsx.utils.table_to_sheet(this.epltable.nativeElement);
-    const wb: xlsx.WorkBook = xlsx.utils.book_new();
-    xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
-    xlsx.writeFile(wb, 'epltable.xlsx');
+  exportExcel():void {
+    debugger;
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    this.loader.showLoading();
+    this.voter.advanceSearch(this.searchModal).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.searchList = data;
+        this.excel.exportAsExcelFile(this.searchList, 'Voter');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
   }
 
   pdf() {

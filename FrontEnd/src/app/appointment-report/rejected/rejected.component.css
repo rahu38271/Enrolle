@@ -76,3 +76,19 @@ ion-modal {
 .flex {
   display: flex;
 }
+
+@media screen and (max-width:576px){
+  .web {display: none;}
+}
+
+@media screen and (min-width:577px){
+  .android { display: none;}
+}
+
+.noData {
+  padding: 20%;
+}
+
+ .noData img {
+  width: 125px !important;
+ }

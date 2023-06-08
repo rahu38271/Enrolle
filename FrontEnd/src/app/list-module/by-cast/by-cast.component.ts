@@ -14,7 +14,7 @@ export class ByCastComponent implements OnInit {
   Language:any;
   isShow = false;
   castData: any;
-  searchMob:string;
+  searchWeb:string;
   id:any;
   roleId:any;
 

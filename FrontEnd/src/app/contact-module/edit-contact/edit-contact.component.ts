@@ -74,16 +74,36 @@ export class EditContactComponent implements OnInit {
   
 
   save(){
-    //debugger;
     //console.log(this.EditData);
+    if(this.EditData.birthDate == ""){
+      this.EditData.birthDate = '1900-01-01T00:00:00';
+    }
+    else{
+      this.EditData.birthDate = this.EditData.birthDate;
+    }
+
+    //this.contactModal.BirthDate = this.contactModal.BirthDate + "T00:00:00";
+    
+    if(this.EditData.anniversary == ""){
+      this.EditData.anniversary = '1900-01-01T00:00:00';
+    }
+    else{
+      this.EditData.anniversary = this.EditData.anniversary;
+    }
     this.loader.showLoading();
     this.contact.update(this.EditData).subscribe((data)=>{
-      this.loader.hideLoader();
+      if(data){
+        this.loader.hideLoader();
       this.EditData ={};
       this.toast.presentToast("Conact updated successfully!", "success", 'checkmark-circle-sharp');
       this.router.navigate(['/contact']);
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("Contact not updated", "danger", 'alert-circle-sharp');
+      }
     },(err)=>{
-      this.toast.presentToast("Contact not updated", "danger", 'alert-circle-sharp');
+      this.loader.hideLoader();
     })
   }
 }

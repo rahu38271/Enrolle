@@ -103,7 +103,15 @@ export class AddContactComponent implements OnInit {
 
   addContact() {
     var date = this.contactModal.Anniversary;
-    this.contactModal.BirthDate = this.contactModal.BirthDate + "T00:00:00";
+    
+    if(this.contactModal.BirthDate == undefined){
+      this.contactModal.BirthDate = '1900-01-01T00:00:00';
+    }
+    else{
+      this.contactModal.BirthDate = this.contactModal.BirthDate + "T00:00:00";
+    }
+
+    //this.contactModal.BirthDate = this.contactModal.BirthDate + "T00:00:00";
     
     if(this.contactModal.Anniversary == undefined){
       this.contactModal.Anniversary = '1900-01-01T00:00:00';
@@ -111,6 +119,7 @@ export class AddContactComponent implements OnInit {
     else{
       this.contactModal.Anniversary = this.contactModal.Anniversary + "T00:00:00";
     }
+
     
     this.loader.showLoading();
     this.contact.addSingleContact(this.contactModal).subscribe((data) => {

@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { LoaderService } from 'src/app/services/loader.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { SuperadminService } from 'src/app/services/superadmin.service'
-import { de } from 'date-fns/locale';
+
 
 @Component({
   selector: 'app-assign-data',

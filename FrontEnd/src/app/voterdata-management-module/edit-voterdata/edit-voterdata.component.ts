@@ -33,6 +33,7 @@ export class EditVoterdataComponent implements OnInit {
   boothList: any;
   EditData:any = {};
   birthDate= ''
+  maxDate:String = new Date().toISOString();
   CreatedDate = ''
   name:any;
   userId:any;
@@ -61,6 +62,12 @@ export class EditVoterdataComponent implements OnInit {
     }
 }
 
+omit_special_char(event) {
+  var k;
+  k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+  return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+}
+
   constructor
     (
       public loadingController: LoadingController, 
@@ -86,10 +93,10 @@ export class EditVoterdataComponent implements OnInit {
         this.roleId = localStorage.getItem("userType");
         this.superAdminId = localStorage.getItem("superAdminId");
         if(this.roleId == 2){
-          this.AdminId = this.superAdminId
+          this.AdminId = this.userId
         }
         else{
-          this.AdminId = this.AdminId
+          this.AdminId = this.superAdminId
         }
         this.getDistrict();
         this.getAssembly();
@@ -111,7 +118,7 @@ export class EditVoterdataComponent implements OnInit {
 
   getTaluka(dId:any){
     this.contact.getTalukaData(dId).subscribe((data)=>{
-      this.editVoter.district = this.districtList.find(x => x.dId==dId).districtName;
+      this.EditData.district = this.districtList.find(x => x.dId==dId).districtName;
       this.talukaList = data;
     })
   }
@@ -168,6 +175,7 @@ export class EditVoterdataComponent implements OnInit {
     this.EditData.age=Number(this.EditData.age);
     this.EditData.userId = Number(this.userId);
     this.EditData.adminId = Number(this.AdminId);
+    this.EditData.pincode = Number(this.EditData.pincode);
     this.EditData.userName= this.name;
     this.loader.showLoading();
     this.voter.update(this.EditData).subscribe((data)=>{

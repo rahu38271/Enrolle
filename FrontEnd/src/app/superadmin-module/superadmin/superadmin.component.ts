@@ -50,7 +50,7 @@ export class SuperadminComponent implements OnInit {
       private route: ActivatedRoute,
       private changeDetection: ChangeDetectorRef
     ) {
-
+      
   }
 
   ngOnInit() {
@@ -76,6 +76,7 @@ export class SuperadminComponent implements OnInit {
   }
 
   getAllAdminList() {
+    debugger;
     //All users List for Masteradmin
     if (this.roleId == 1) {
       this.sadmin.getAllAdmin().subscribe(data => {
@@ -106,6 +107,7 @@ export class SuperadminComponent implements OnInit {
             });
             ;
           });
+          
         }
         else {
           this.loader.hideLoader();
@@ -115,6 +117,7 @@ export class SuperadminComponent implements OnInit {
 
     //All users list for Superadmin
     if (this.roleId == 2) {
+      debugger;
       this.sadmin.GetAdminbySuperAdminId(this.superId).subscribe(AdminbyS => {
         if (AdminbyS != 0) {
           this.loader.hideLoader();

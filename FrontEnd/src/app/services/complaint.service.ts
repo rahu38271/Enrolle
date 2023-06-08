@@ -33,13 +33,12 @@ export class ComplaintService {
   // }
 
   addSingleComplaint(file:any, societycomplaint:any):Observable<any>{
-    debugger;
     const formData : FormData = new FormData();
    // const formData1 : FormData = new FormData();
     // code to make file optional while adding complaint
     const blob = new Blob([file], {type:file.type})
     formData.append('file',blob,file.name);
-    formData.append('societycomplaint',societycomplaint)
+    formData.append('societycomplaint',societycomplaint);
      
     //formData.append('societycomplaint',JSON.stringify(societycomplaint));
     //formData.append('dataoje',data);
@@ -72,9 +71,10 @@ export class ComplaintService {
     return this.http.get<any>(this.url+'Society/DeleteSocietyComplaintbyId?Id='+id)
   }
 
-  getFile(id:any){
-    debugger;
-    return this.http.get<any>(this.url+'Society/DownLoadFile?Id='+id)
+  getFile(id:any): Observable<Blob>{
+    return this.http.get(this.url+'Society/DownLoadFile?Id='+id,{responseType: "blob", reportProgress: true,})
   }
+
+  
 
 }

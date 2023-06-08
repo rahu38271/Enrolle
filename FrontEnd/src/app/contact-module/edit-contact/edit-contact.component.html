@@ -120,7 +120,7 @@
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
-            <ion-label>  District <span>*</span></ion-label>
+            <ion-label>  District </ion-label>
               <ng-select
                 placeholder="Please Select" 
                 name="district" 
@@ -128,7 +128,6 @@
                 #district="ngModel" 
                 (change)="getTaluka(EditData.district)" 
                 
-                required
               >
                 <ng-option *ngFor="let item of districtList" [value]="item.dId">
                   {{ item.districtName  }}
@@ -139,13 +138,13 @@
           
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
-            <ion-label>  Taluka <span>*</span></ion-label>
+            <ion-label>  Taluka </ion-label>
               <ng-select 
                 placeholder="Please Select" 
                 name="taluka" 
                 [(ngModel)]="EditData.taluka" 
                 #taluka="ngModel" 
-                required
+                
               >
                 <ng-option *ngFor="let item of talukaList" [value]="item.talukaName">
                   {{ item.talukaName}}

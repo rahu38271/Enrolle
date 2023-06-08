@@ -13,18 +13,19 @@ export class NewVoterService {
   constructor(private http:HttpClient) { }
 
   // get all new voters
-  getAllNewVoter():Observable<any>{
-    return this.http.get<any>(this.url+'NewVoter/GetAllNewVoter')
+  getAllNewVoter(UserId:any,RoleId:any,PageNo:any,NoofRow:any,SearchText:any):Observable<any>{
+    //return this.http.get<any>(this.url+'NewVoter/GetAllNewVoter');
+    return this.http.get<any>(this.url+'NewVoter/GetAllOfficeWork?UserId='+UserId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText)
   }
 
   // add / edit new voters
   addSingleNewVoter(newVoterModal:any){
-    return this.http.post<any>(this.url+'NewVoter/InsertUpdateNewVoter', newVoterModal)
+    return this.http.post<any>(this.url+'NewVoter/InsertUpdateOfficeWork', newVoterModal)
   }
 
   // delete new voter
   deleteNewVoter(id:any){
-    return this.http.get<any>(this.url+'NewVoter/DeleteNewVoterbyId?Id='+id)
+    return this.http.get<any>(this.url+'NewVoter/DeleteOfficeWorkbyId?Id='+id);
   }
 
 }

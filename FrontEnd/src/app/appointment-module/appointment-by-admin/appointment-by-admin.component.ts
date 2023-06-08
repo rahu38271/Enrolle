@@ -8,6 +8,8 @@ import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ExcelService } from 'src/app/services/excel.service'
 import { CsvService } from 'src/app/services/csv.service';
+import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-appointment-by-admin',
@@ -64,6 +66,7 @@ export class AppointmentByAdminComponent implements OnInit {
     private excel:ExcelService,
     private csv:CsvService,
     private route:ActivatedRoute,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -78,6 +81,10 @@ export class AppointmentByAdminComponent implements OnInit {
   ionViewWillEnter(){
     this.UserId = this.route.snapshot.paramMap.get('userId');
     this.appoinmentList(this.UserId,this.PageNo,this.NoofRow,this.SearchText);
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   event(event:any){
@@ -182,7 +189,6 @@ export class AppointmentByAdminComponent implements OnInit {
   // }
 
   exportExcel(): void {
-    debugger;
     this.PageNo = 1;
     this.NoofRow = this.totalItems;
     var SearchText = '';

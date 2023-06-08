@@ -578,6 +578,11 @@
                 </ion-accordion>
               </ion-accordion-group>
 
+              <ion-item [routerLink]="['/general-enquiry']" routerDirection="root" [routerLinkActive]="'active'" >
+                <i class="icofont icofont-calendar"></i>
+                <ion-label> General Enquiry </ion-label>
+              </ion-item>
+
               <!-- <ion-accordion-group *ngIf="isAppoReport">
                 <ion-accordion value="setting">
                   <ion-item slot="header" color="light">
@@ -700,7 +705,7 @@
                     <ion-label>  Reports </ion-label>
                   </ion-item>
                   <div slot="content">
-                    <ion-item color="light" lines="none" [routerLink]="['/reports']" routerDirection="root">
+                    <ion-item color="light" lines="none" [routerLink]="['/reports/userwise']" routerDirection="root">
                       <i class="icofont icofont-ui-text-chat"></i>
                       <ion-label> Adminwise Report</ion-label>
                     </ion-item>

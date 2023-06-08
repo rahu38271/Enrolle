@@ -184,12 +184,12 @@
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Society / Building Name </ion-label>
-            <ion-input maxlength="30" name="Soc_BldgName" [(ngModel)]="appointments.Soc_BldgName" class="form-control" ></ion-input>
+            <ion-input (keypress)="omit_special_char($event)" maxlength="30" name="Soc_BldgName" [(ngModel)]="appointments.Soc_BldgName" class="form-control" ></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="2" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Ward No. </ion-label>
-            <ion-input maxlength="6" name="wardNo" [(ngModel)]="appointments.WardNo" class="form-control"></ion-input>
+            <ion-input (keypress)="omit_special_char($event)" maxlength="6" name="wardNo" [(ngModel)]="appointments.WardNo" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="2" size-md="6" size-sm="6" size-xs="12">

@@ -178,12 +178,41 @@ ion-grid ion-text {
   cursor: pointer;
 }
 
+td ion-icon {
+  cursor: pointer;
+  font-size: 20px;
+  font-weight: 600;
+}
+
 .action .delete {
   font-size: 19px;
   color: #ff4646;
   cursor: pointer;
 }
-.address {
+
+
+.table tr th:nth-child(9){
   width: 200px !important;
   display: block;
+}
+
+.table tr td:nth-child(9){
+  width: 200px !important;
+  display: block;
+}
+
+.table tr th:nth-child(2){
+  width: 200px !important;
+}
+
+.table tr td:nth-child(2){
+  width: 200px !important;
+}
+
+.table tr th:nth-child(3){
+  width: 200px !important;
+}
+
+.table tr td:nth-child(3){
+  width: 200px !important;
 }

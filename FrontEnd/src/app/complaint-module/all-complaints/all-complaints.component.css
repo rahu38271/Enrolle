@@ -175,24 +175,27 @@ ion-item img {
   }
 
   .table th:nth-child(2){
-    width: 150px;
-    display: block;
+    max-width: 150px;
   }
 
 .table th:nth-child(5){
-    width: 150px;
-    display: block;
+  max-width: 150px;
   }
 
+  .table th:nth-child(6){
+    max-width: 150px;
+    }
 
   .table td:nth-child(2){
-    width: 150px;
-    display: block;
+    max-width: 150px;
   }
  .table td:nth-child(5){
-    width: 120px;
-    display: block;
+  max-width: 120px;
   }
+
+  .table td:nth-child(6){
+    max-width: 150px;
+    }
 
 .namewithSelect {
   display: flex;
