@@ -34,6 +34,7 @@ namespace ElectionAlerts.Model
         public string PersonEnteringData { get; set; }
         public int? UserId { get; set; }
         public DateTime CreatedDate { get; set; }
+        public string ReferenceId { get; set; }
 
     }
 }

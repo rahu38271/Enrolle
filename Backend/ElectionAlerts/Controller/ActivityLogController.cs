@@ -77,12 +77,16 @@ namespace ElectionAlerts.Controller
                 {
                    
                     var admin = _loginService.GetAllAdminbySuperAdminId(Id);
+                    var admin2 = admin.Where(x => x.RoleId == 3).Select(x => x);
                     var ad = string.Join(",", admin.Where(x=>x.RoleId==3).Select(p => p.Id.ToString()));         
-                    foreach (var adminuser in admin)
+                    foreach (var adminuser in admin2)
                     {
                         var volt = _loginService.GetAllVolunterbyAdminId(adminuser.Id);
-                        var vol = string.Join(",", volt.Select(p => p.Id.ToString()));
-                        Volunter = Volunter+ vol + ",";
+                        if (volt.Count()!= 0)
+                        {
+                            var vol = string.Join(",", volt.Select(p => p.Id.ToString()));
+                            Volunter = Volunter + vol + ",";
+                        }                  
                     }
                     Volunter =Volunter + ad + "," +Id;
                 }

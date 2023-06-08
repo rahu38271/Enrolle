@@ -1,4 +1,5 @@
-﻿using ElectionAlerts.Model;
+﻿using ElectionAlerts.Dto;
+using ElectionAlerts.Model;
 using ElectionAlerts.Services.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -262,6 +263,32 @@ namespace ElectionAlerts.Controller
             }
         }
 
+        [HttpPost("SearchEnquiry")]
+        public IActionResult SearchEnquiry(GeneralEnquirySearch generalEnquiry)
+        {
+            try
+            {
+                return Ok(_generalEnquiryService.SearchEnquiry(generalEnquiry));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "GeneralEnquiryController/SearchEnquiry");
+                return BadRequest(ex);
+            }
+        }
 
+        [HttpGet("GetEnquirybyTypeofWork")]
+        public IActionResult GetEnquirybyTypeofWork(int UserId, int RoleId, int PageNo, int NoofRow,string TypeofWork, string FromDate, string ToDate)
+        {
+            try
+            {
+                return Ok(_generalEnquiryService.GetEnquirybyTypeofWorkAndDate(UserId, RoleId, PageNo, NoofRow, TypeofWork, FromDate, ToDate));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "GeneralEnquiryController/SearchEnquiry");
+                return BadRequest(ex);
+            }
+        }
     }
 }
