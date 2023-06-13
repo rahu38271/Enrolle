@@ -167,12 +167,12 @@ omit_special_char(event) {
     this.addVoterModal.voterSrNo=Number(this.addVoterModal.voterSrNo);
     this.addVoterModal.AdminId = Number(this.AdminId);
     this.addVoterModal.UserName = this.name;
-    if(this.addVoterModal.CreatedDate == undefined){
-      this.addVoterModal.CreatedDate = "1900-01-01T00:00:00"
-    }
-    else{
-      this.addVoterModal.CreatedDate = this.addVoterModal.CreatedDate;
-    }
+    // if(this.addVoterModal.CreatedDate == undefined){
+    //   this.addVoterModal.CreatedDate = "1900-01-01T00:00:00"
+    // }
+    // else{
+    //   this.addVoterModal.CreatedDate = this.addVoterModal.CreatedDate;
+    // }
     this.voter.addSingleVoter(this.addVoterModal).subscribe((data)=>{
       if(data){
         console.log(data);

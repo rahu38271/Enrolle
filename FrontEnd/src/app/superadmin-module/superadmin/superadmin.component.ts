@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@an
 import { AlertController } from '@ionic/angular';
 import { SuperadminService } from 'src/app/services/superadmin.service'
 import { LoaderService } from 'src/app/services/loader.service'
-import { Router, ActivatedRoute } from '@angular/router'
+import { Router, ActivatedRoute,NavigationEnd } from '@angular/router'
 import { Location } from '@angular/common';
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
-
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-superadmin',
@@ -54,11 +54,6 @@ export class SuperadminComponent implements OnInit {
   }
 
   ngOnInit() {
-    
-    
-  }
-
-  ionViewWillEnter(){
     this.superId = localStorage.getItem("loginId");
     this.adminid = localStorage.getItem("loginId");
     this.roleId = localStorage.getItem("userType")
@@ -72,6 +67,10 @@ export class SuperadminComponent implements OnInit {
       this.isDB = this.isDB;
     }
     
+
+  }
+
+  ionViewWillEnter(){
     this.getAllAdminList();
   }
 
@@ -105,7 +104,7 @@ export class SuperadminComponent implements OnInit {
             this.getAdminList.forEach(e => {
               e.createdDate = e.createdDate.split('T')[0];
             });
-            ;
+            
           });
           
         }
@@ -117,14 +116,13 @@ export class SuperadminComponent implements OnInit {
 
     //All users list for Superadmin
     if (this.roleId == 2) {
-      debugger;
       this.sadmin.GetAdminbySuperAdminId(this.superId).subscribe(AdminbyS => {
         if (AdminbyS != 0) {
           this.loader.hideLoader();
           var list = AdminbyS.forEach(e => {
             this.sadmin.GetpartByUserid(e.id).subscribe(data => {
-              // this.Partnoassigned=data;
               e.Partnoassigned = data.partNo;
+              
             })
             if (e.roleId == 1) {
               e = { ...e, roleName: "MasterAdmin" };
@@ -148,11 +146,12 @@ export class SuperadminComponent implements OnInit {
             this.getAdminList.forEach(e => {
               e.createdDate = e.createdDate.split('T')[0];
             });
-
+            
           });
+          
         }
         else {
-          //this.loader.hideLoader();
+          
         }
       })
     }
@@ -161,11 +160,12 @@ export class SuperadminComponent implements OnInit {
     if (this.roleId == 3) {
       this.sadmin.GetVolunterbyAdminId(this.adminid).subscribe(data => {
         if (data != 0) {
-          //this.loader.hideLoader();
+          
           var list = data.forEach(e => {
             this.sadmin.GetpartByUserid(e.id).subscribe(data => {
-              // this.Partnoassigned=data;
+              
               e.Partnoassigned = data.partNo;
+              
             })
             if (e.roleId == 1) {
               e = { ...e, roleName: "MasterAdmin" };
@@ -193,7 +193,7 @@ export class SuperadminComponent implements OnInit {
           });
         }
         else {
-          //this.loader.hideLoader();
+          
         }
       })
     }
@@ -233,7 +233,7 @@ export class SuperadminComponent implements OnInit {
           cssClass: 'yes',
           handler: () => {
             this.sadmin.deleteUser(id).subscribe(data => {
-              this.ionViewWillEnter()
+              this.ionViewWillEnter();
               this.toast.presentToast("User deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })
           }

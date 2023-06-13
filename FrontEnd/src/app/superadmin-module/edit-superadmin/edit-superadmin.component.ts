@@ -91,6 +91,10 @@ export class EditSuperadminComponent implements OnInit {
         this.isM = !this.isM
       }
 
+      if(this.roleId == 5){
+        this.isM = !this.isM
+      }
+
       this.getAssembly();
       this.getDistrict();
     }

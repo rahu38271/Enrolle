@@ -33,11 +33,13 @@ export class ComplaintService {
   // }
 
   addSingleComplaint(file:any, societycomplaint:any):Observable<any>{
+    debugger;
     const formData : FormData = new FormData();
    // const formData1 : FormData = new FormData();
     // code to make file optional while adding complaint
     const blob = new Blob([file], {type:file.type})
     formData.append('file',blob,file.name);
+    
     formData.append('societycomplaint',societycomplaint);
      
     //formData.append('societycomplaint',JSON.stringify(societycomplaint));

@@ -74,7 +74,10 @@
                       <td>{{item.toDate}}</td>
                       <td>{{item.details}}</td>
                       <td>{{item.remark}}</td>
-                      <td>{{item.fileName}}</td>
+                      <td class="file">
+                        <i *ngIf="!isShowFile" (click)="downloadFile($event)" id={{item.id}} class="icofont icofont-cloud-download"></i>
+                      </td>
+                      <!-- <td>{{item.fileName}}</td> -->
                       <td>{{item.userName}} </td>
                       <td>
                         <select placeholder="Select" class="form-control-sm"  [(ngModel)]="complaintStatusModal.Status" (change)="changeStatus($event)" id={{item.id}} >

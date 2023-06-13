@@ -104,9 +104,6 @@ export class ImportWardComponent implements OnInit {
     reader.onerror = function (event) { console.error("File could not be read! Code "); };
   }
 
-  onSubmit(){
-    
-  }
 
   upload(f:NgForm){
     this.loader.showLoading();

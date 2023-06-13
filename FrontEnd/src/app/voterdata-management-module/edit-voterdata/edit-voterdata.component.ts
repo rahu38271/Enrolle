@@ -173,6 +173,10 @@ omit_special_char(event) {
   save(){
     debugger;
     this.EditData.age=Number(this.EditData.age);
+    if(this.EditData.age == 0){
+      this.EditData.age=null;
+    }
+    
     this.EditData.userId = Number(this.userId);
     this.EditData.adminId = Number(this.AdminId);
     this.EditData.pincode = Number(this.EditData.pincode);

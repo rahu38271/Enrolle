@@ -32,6 +32,7 @@ export class DatewiseReportComponent implements OnInit {
   apmId:any;
   apmStatus:string;
   rowId:any;
+  FromDate:any;
 
   UserId:any;
   roleID:any;

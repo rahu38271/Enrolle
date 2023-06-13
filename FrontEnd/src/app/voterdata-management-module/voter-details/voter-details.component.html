@@ -235,7 +235,7 @@
                 
                 <ion-col size="12">
                   <div>
-                    <ion-textarea maxlength="160" rows="4" name="Address" [(ngModel)]="adrsUpdate.Address" class="form-control"
+                    <ion-textarea maxlength="160" name="Address" [(ngModel)]="adrsUpdate.Address" class="form-control"
                       required></ion-textarea>
                   </div>
                 </ion-col>
@@ -791,7 +791,7 @@
       </ion-row>
       <ion-row class="ion-text-center">
         <ion-col>
-          <ion-button size="block" (click)="sameBoothVoter()">Voter on Same Booth</ion-button>
+          <ion-button size="block" (click)="sameBoothVoter(VoterListByUser.partNo)">Voter on Same Booth</ion-button>
         </ion-col>
       </ion-row>
       <ion-row class="ion-text-center">

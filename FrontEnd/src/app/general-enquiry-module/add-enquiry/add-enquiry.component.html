@@ -3,7 +3,7 @@
     <ion-header class="android">
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-back-button color="primary" defaultHref="/general-enquiry"></ion-back-button>
+          <ion-back-button  defaultHref="/general-enquiry"></ion-back-button>
         </ion-buttons>
         <ion-title> Add Enquiry </ion-title>
       </ion-toolbar>
@@ -48,8 +48,7 @@
                                       name="work" 
                                       [(ngModel)]="workModal.WorkName"
                                       placeholder="Add Work" 
-                                      (keypress)="omit_special_char($event)"
-                                      (keypress)="onKeyPress($event)"
+                                     
                                       class="form-control"
                                        required
                                        >
@@ -81,7 +80,7 @@
 
             <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" *ngIf="this.enquiryModal.TypeofWork == 'Aadhar Card'">
               <ion-label> Bill Book No. </ion-label>
-                <ion-input maxlength="20" name="BillBookNo" [(ngModel)]="enquiryModal.BillBookNo" class="form-control"></ion-input>
+                <ion-input (keypress)="omit_special_char($event)"  maxlength="20" name="BillBookNo" [(ngModel)]="enquiryModal.BillBookNo" class="form-control"></ion-input>
             </ion-col>
   
             <!-- *ngIf="this.enquiryModal.TypeofWork == 'Passport' 
@@ -195,7 +194,8 @@
                   name="email" 
                   class="form-control text-lowercase"
                   pattern="^[^ ]+@[^ ]+\.[a-z]{2,6}$"
-                  [(ngModel)]="enquiryModal.Email" 
+                  [(ngModel)]="enquiryModal.Email"
+                  maxlength="50" 
                    ></ion-input>
             </ion-col>
 
@@ -396,8 +396,7 @@
                                 <ion-col size="12">
                                     <ion-input 
                                       maxlength="50" 
-                                      name="Area"
-                                      (keypress)="omit_special_char($event)" 
+                                      name="Area" 
                                       placeholder="Add Area" 
                                       class="form-control"
                                       [(ngModel)]="areaModal.AreaName"
@@ -485,23 +484,25 @@
               </ion-modal>
             </ion-col> -->
 
-            <!-- <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="calendar">
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="calendar"
+            *ngIf="this.enquiryModal.TypeofWork == 'RTE Form' || this.enquiryModal.TypeofWork == 'Pandharpur Yatra'"
+            >
                 <ion-label> Year </ion-label>
                   <ion-input
-                  value="{{ year | date: 'YYYY' }}"
-                  id="year"
+                  value="{{ Year | date: 'YYYY' }}"
+                  id="Year"
                   class="form-control"
-                  name="year" 
+                  name="Year" 
                   [(ngModel)]="enquiryModal.Year"
                   (keypress)="onKeyPress($event)"
                   (keypress)="keyPressNumbers($event)" 
                 ></ion-input>
-                <ion-modal trigger="year" size="cover" [canDismiss]="canDismiss" 
+                <ion-modal trigger="Year" size="cover" [canDismiss]="canDismiss" 
                 [backdropDismiss]="false" >
                   <ng-template>
                     <ion-datetime
                       presentation="year"
-                      name="year"
+                      name="Year"
                       [(ngModel)]="Year"
                       show-default-buttons="true"
                     >
@@ -509,9 +510,9 @@
                   </ion-datetime>
                   </ng-template>
                 </ion-modal>
-              </ion-col> -->
+              </ion-col>
   
-              <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" 
+              <!-- <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" 
               *ngIf="this.enquiryModal.TypeofWork == 'RTE Form' || this.enquiryModal.TypeofWork == 'Pandharpur Yatra'">
                 <ion-label> Year </ion-label>
                   <ion-input 
@@ -521,7 +522,7 @@
                     [(ngModel)]="enquiryModal.Year"
                     maxlength="4"
                      ></ion-input>
-              </ion-col>
+              </ion-col> -->
 
             
               <!-- *ngIf="this.enquiryModal.TypeofWork == 'Voting Form'" -->
@@ -593,6 +594,19 @@
             </ion-col>
 
             <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12"
+            *ngIf="this.enquiryModal.TypeofWork == 'Voting Form'" 
+            >
+              <ion-label> Reference Id </ion-label>
+                <ion-input 
+                  name="ReferenceId"  
+                  class="form-control"
+                  (keypress)="omit_special_char($event)"
+                  [(ngModel)]="enquiryModal.ReferenceId"
+                  maxlength="12"
+                   ></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12"
             *ngIf="this.enquiryModal.TypeofWork == 'Voting Form' 
             || this.enquiryModal.TypeofWork == 'QRT Team' 
             || this.enquiryModal.TypeofWork == 'Pandharpur Yatra'
@@ -632,7 +646,6 @@
                                     maxlength="50" 
                                     name="Complaint" 
                                     (keypress)="omit_special_char($event)"
-                                    (keypress)="onKeyPress($event)"
                                     placeholder="Add Complaint" 
                                     class="form-control"
                                     [(ngModel)]="complaintModal.ComplaintName" 

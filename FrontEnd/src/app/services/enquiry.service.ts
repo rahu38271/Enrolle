@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders  } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -66,5 +67,19 @@ export class EnquiryService {
   //add enquiry
   addSingleEnquiry(enquiryModal:any){
     return this.http.post(this.url+'GeneralEnquiry/InsertUpdateGeneralEnquiry',enquiryModal)
+  }
+
+  // search enquiry
+
+  searchEnquiry(searchModal:any):Observable<any>{
+    debugger;
+    return this.http.post(this.url+'GeneralEnquiry/SearchEnquiry',searchModal)
+  }
+
+  // datewise enquiry
+
+  enquiryByDate(UserId:any,RoleId:any,PageNo:any,NoofRow:any,TypeofWork:any,FromDate:any,ToDate:any){
+    debugger;
+    return this.http.get(this.url+'GeneralEnquiry/GetEnquirybyTypeofWork?UserId='+UserId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&TypeofWork='+TypeofWork+'&FromDate='+FromDate+'&ToDate='+ToDate)
   }
 }

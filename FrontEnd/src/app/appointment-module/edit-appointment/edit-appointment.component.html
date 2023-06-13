@@ -180,7 +180,7 @@
 
           <ion-col size-xl="2" size-lg="2" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Ward No. </ion-label>
-            <ion-input (keypress)="omit_special_char($event)"  maxlength="6" name="wardNo" [(ngModel)]="appointments.wardNo" class="form-control"></ion-input>
+            <ion-input (keypress)="keyPressNumbers($event)"  (keypress)="omit_special_char($event)"  maxlength="6" name="wardNo" [(ngModel)]="appointments.wardNo" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="2" size-md="6" size-sm="6" size-xs="12">
@@ -190,7 +190,7 @@
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> City / Village </ion-label>
-            <ion-input maxlength="30" name="Society" [(ngModel)]="appointments.city_Village" class="form-control" ></ion-input>
+            <ion-input maxlength="30" name="Society" (keypress)="onKeyPress($event)" (keypress)="omit_special_char($event)" [(ngModel)]="appointments.city_Village" class="form-control" ></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
@@ -207,7 +207,7 @@
           <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
             <div class="ion-text-center">
               <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
-              <ion-button type="submit" size="medium" (click)="save()">Update</ion-button>
+              <ion-button type="submit" size="medium" (click)="save()" [disabled]="!f.form.valid"> Update</ion-button>
               <ion-button routerLink="/appointment" color="success" type="button" size="medium">Back To List
               </ion-button>
             </div>

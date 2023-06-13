@@ -8,7 +8,7 @@
       </ion-buttons>
       <ion-title> प्रेस नोट </ion-title>
       <ion-buttons slot="primary">
-        <ion-button (click)="search()">
+        <ion-button>
           <ion-icon name="search-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
@@ -32,7 +32,7 @@
     </ion-grid>
 
     <ion-grid class="topForm">
-      <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+      <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
         <ion-row>
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
             <ion-label>  प्रेस नोट सामायिक पत्रकार   </ion-label>
@@ -43,12 +43,12 @@
           </ion-col>
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
             <ion-label>    दिनांक    </ion-label>
-            <ion-input value="{{ BirthDate | date: 'yyyy-MM-dd' }}" id="BirthDate" class="form-control" required>
+            <ion-input  id="BirthDate" class="form-control" required>
             </ion-input>
 
             <ion-modal trigger="BirthDate" size="cover">
               <ng-template>
-                <ion-datetime presentation="date" [(ngModel)]="BirthDate" name="BirthDate">
+                <ion-datetime presentation="date" name="BirthDate">
                   <span slot="title"> {{ year }} </span>
                 </ion-datetime>
               </ng-template>
@@ -79,7 +79,7 @@
       <ion-card-content>
         <div class="headSection">
           <div class="search">
-            <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+            <ion-searchbar animated="true"></ion-searchbar>
           </div>
           <ion-button class="button-download" color="success" (click)="downloadExcel()" ><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
         </div>
@@ -119,7 +119,7 @@
               
             </tbody>
           </table>
-          <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+          <pagination-controls ></pagination-controls>
         </div>
       </ion-card-content>
     </ion-card>

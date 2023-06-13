@@ -24,12 +24,12 @@
           <ion-row>
   
             <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
-              <ion-label> Subject </ion-label>
+              <ion-label> Subject <span>*</span> </ion-label>
               <ion-input maxlength="50" name="Subject" [(ngModel)]="societycomplaint.subject" class="text-capitalize form-control" required></ion-input>
             </ion-col>
 
             <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
-                <ion-label> From Date </ion-label>
+                <ion-label> From Date <span>*</span> </ion-label>
                 <ion-input 
                   value="{{ fromDate | date: 'yyyy-MM-dd' }}" 
                   id="fromDate" 
@@ -38,9 +38,10 @@
                   class="form-control"
                   (keypress)="onKeyPress($event)"
                   (keypress)="keyPressNumbers($event)" 
+                  required
                 >
                 </ion-input>
-    
+                <!-- show-default-buttons="true" -->
                 <ion-modal trigger="fromDate" size="cover" [canDismiss]="canDismiss" 
                 [backdropDismiss]="false" >
                   <ng-template>
@@ -69,7 +70,7 @@
                   (keypress)="keyPressNumbers($event)" 
                 >
                 </ion-input>
-    
+                <!-- show-default-buttons="true" -->
                 <ion-modal trigger="toDate" size="cover" [canDismiss]="canDismiss" 
                 [backdropDismiss]="false" >
                   <ng-template>
@@ -98,15 +99,14 @@
 
               <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
                 <div class="flex">
-                  <ion-label> File </ion-label>
+                  <ion-label> File <span>( image, video, pdf )</span> </ion-label>
                   <ion-label> Size - <span> {{fileSize}} </span> </ion-label>
                 </div>
-                <input type="file" name="file" (change)="onFileSelected($event)" class="form-control">
+                <input type="file" name="file" [(ngModel)]="societycomplaint.fileName" (change)="onFileSelected($event);saveFile()"  class="form-control">
+                <!-- <input name="file"  [(ngModel)]="societycomplaint.fileName" class="form-control"> -->
               </ion-col>
 
-              <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
-                <ion-button (click)="downloadFile($event)">File</ion-button>
-              </ion-col>
+              
 
             <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
               <div class="ion-text-center">

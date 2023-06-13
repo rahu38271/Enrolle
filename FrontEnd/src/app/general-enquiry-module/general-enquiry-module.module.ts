@@ -9,12 +9,14 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { EditEnquiryComponent } from './edit-enquiry/edit-enquiry.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPaginationModule} from 'ngx-pagination';
+import { DatewiseEnquiryComponent } from './datewise-enquiry/datewise-enquiry.component';
 
 @NgModule({
   declarations: [
     GeneralEnquiryComponent,
     AddEnquiryComponent,
-    EditEnquiryComponent
+    EditEnquiryComponent,
+    DatewiseEnquiryComponent
   ],
   imports: [
     CommonModule,
@@ -27,6 +29,7 @@ import { NgxPaginationModule} from 'ngx-pagination';
       {path:'', component:GeneralEnquiryComponent},
       {path:'add-enquiry', component:AddEnquiryComponent},
       {path:'edit-enquiry', component:EditEnquiryComponent},
+      {path:'datewise-enquiry', component:DatewiseEnquiryComponent}
     ])
   ]
 })

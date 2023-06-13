@@ -180,7 +180,7 @@ export class ImportVoterdataComponent implements OnInit {
           "Assembly": "",
           "Taluka": "",
           "Ward": "",
-          "Booth": "",
+          "Booth": null,
          // "Pincode": 0,
           "Email": "",
           "FamilyHead": "",

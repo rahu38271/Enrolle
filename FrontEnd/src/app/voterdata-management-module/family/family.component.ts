@@ -11,13 +11,15 @@ import { TranslateConfigService } from 'src/app/services/translate-config.servic
 })
 export class FamilyComponent {
   id: any;
-  familyData: any[]=[];
+  familyData: any;
   userId: any;
   roleID:any;
   searchWeb:string;
   PageNo:any=1;
-  NoofRow:any=25;
+  NoofRow:any=10;
   Language:any;
+  totalItems:any;
+  address:any;
   
   constructor(
     private loader:LoaderService, 
@@ -39,6 +41,7 @@ export class FamilyComponent {
     this.userId = localStorage.getItem("loginId");
     this.roleID = localStorage.getItem("userType");
     this.id = this.route.snapshot.paramMap.get('Id');
+    this.address = this.route.snapshot.paramMap.get('Address')
     this.familyWiseVoterData(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language);
   }
 
@@ -63,6 +66,7 @@ export class FamilyComponent {
     this.voter.getByRelation(this.id, userId,roleID,PageNo,NoofRow,this.Language).subscribe(data=>{
       if(data){
         this.familyData= data;
+        this.totalItems = data[0].totalCount
       }else{
 
       }

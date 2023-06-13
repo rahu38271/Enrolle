@@ -91,6 +91,8 @@ export class VoterDetailsComponent {
   showVote: boolean;
   casteList: any;
   interval:any;
+  partNumber:any;
+  columnName:any;
 
   bgColor = '#FFF';
   assemblyName1: any;
@@ -230,6 +232,8 @@ export class VoterDetailsComponent {
       this.bgColor = '#fff'
     }
 
+    //this.partNumber =this.partNo
+
   }
 
   family(id: any) {
@@ -239,6 +243,15 @@ export class VoterDetailsComponent {
   sameAddressVoter(id: any) {
     this.router.navigate(['/voterdata-management/family', { Id: id }])
   }
+
+  sameBoothVoter(columnName:any) {
+    this.columnName ==this.partNo;
+    this.router.navigate(['/list/boothwise-list', {partNumber :columnName}])
+  }
+
+  // partNo(columnName:any){
+  //   this.router.navigate(['/list/boothwise-list',  {partNumber :columnName} ])
+  //  }
 
   // edit mobile number
 

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ContactService  } from 'src/app/services/contact.service'
+import { ContactService } from 'src/app/services/contact.service'
 import { LoaderService } from 'src/app/services/loader.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-edit-contact',
@@ -16,8 +17,8 @@ export class EditContactComponent implements OnInit {
   id: any;
   edModal: any = {};
   anniversary;
- EditData:any ={}; 
- maxDate:String = new Date().toISOString();
+  EditData: any = {};
+  maxDate: String = new Date().toISOString();
 
   onKeyPress(event) {
     if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {
@@ -42,19 +43,19 @@ export class EditContactComponent implements OnInit {
 
   year: number = new Date().getFullYear();
 
-  constructor(private contact:ContactService, private loader : LoaderService,
-     private toast:IonicToastService,   private router:Router) {
+  constructor(private contact: ContactService, private loader: LoaderService,
+    private toast: IonicToastService, private router: Router) {
 
-      }
+  }
 
-      ngOnInit() { 
-        this.getDistrict();
-      }
+  ngOnInit() {
+    this.getDistrict();
+  }
 
-  getDistrict(){
+  getDistrict() {
     this.EditData = this.router.getCurrentNavigation().extras.state;
-    this.contact.getDistrictData().subscribe((data)=>{
-      if(data.length > 0){
+    this.contact.getDistrictData().subscribe((data) => {
+      if (data.length > 0) {
         this.districtList = data;
         //this.EditData.dId =  this.districtList.find(x => x.districtName == this.EditData.district).dId;
         //this.getTaluka(this.EditData.dId);
@@ -62,9 +63,9 @@ export class EditContactComponent implements OnInit {
     })
   }
 
-  getTaluka(dId:any){
-    this.contact.getTalukaData(dId).subscribe((data)=>{
-      if(data.length > 0){
+  getTaluka(dId: any) {
+    this.contact.getTalukaData(dId).subscribe((data) => {
+      if (data.length > 0) {
         this.EditData.district = this.districtList.find(x => x.dId == dId).districtName;
         this.talukaList = data;
       }
@@ -73,36 +74,36 @@ export class EditContactComponent implements OnInit {
 
   
 
-  save(){
-    //console.log(this.EditData);
-    if(this.EditData.birthDate == ""){
+  save() {
+    debugger;
+    if (this.EditData.birthDate == "") {
       this.EditData.birthDate = '1900-01-01T00:00:00';
     }
-    else{
+    else {
       this.EditData.birthDate = this.EditData.birthDate;
     }
 
     //this.contactModal.BirthDate = this.contactModal.BirthDate + "T00:00:00";
-    
-    if(this.EditData.anniversary == ""){
+
+    if (this.EditData.anniversary == "") {
       this.EditData.anniversary = '1900-01-01T00:00:00';
     }
-    else{
+    else {
       this.EditData.anniversary = this.EditData.anniversary;
     }
     this.loader.showLoading();
-    this.contact.update(this.EditData).subscribe((data)=>{
-      if(data){
+    this.contact.update(this.EditData).subscribe((data) => {
+      if (data) {
         this.loader.hideLoader();
-      this.EditData ={};
-      this.toast.presentToast("Conact updated successfully!", "success", 'checkmark-circle-sharp');
-      this.router.navigate(['/contact']);
+        this.EditData = {};
+        this.toast.presentToast("Conact updated successfully!", "success", 'checkmark-circle-sharp');
+        this.router.navigate(['/contact']);
       }
-      else{
+      else {
         this.loader.hideLoader();
         this.toast.presentToast("Contact not updated", "danger", 'alert-circle-sharp');
       }
-    },(err)=>{
+    }, (err) => {
       this.loader.hideLoader();
     })
   }

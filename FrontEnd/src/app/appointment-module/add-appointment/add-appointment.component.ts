@@ -118,14 +118,14 @@ export class AddAppointmentComponent implements OnInit {
   }
 
   addAppointment(){
-    var dateparts = this.appointments.AppointmentDate.split(' ');
-    var time= dateparts[1].split(':');
-    var hr = dateparts[2] == 'PM'?(Number(time[0])+12)+':'+time[1] :dateparts[1];
-    this.appointments.AppointmentDate = dateparts[0]+' '+hr;
+    // var dateparts = this.appointments.AppointmentDate.split(' ');
+    // var time= dateparts[1].split(':');
+    // var hr = dateparts[2] == 'PM'?(Number(time[0])+12)+':'+time[1] :dateparts[1];
+    // this.appointments.AppointmentDate = dateparts[0]+' '+hr;
+    this.appointments.AppointmentDate = this.appointments.AppointmentDate
     this.appointments.AdminName = this.name;
     this.appointments.UserName = this.name;
     this.appointments.UserId = Number(this.UserId);
-    this.appointments.AppointmentDate = this.appointments.AppointmentDate;
     this.appointments.WardNo = Number(this.appointments.WardNo);
     this.appointments.PinCode = Number(this.appointments.PinCode);
     this.appointments.AdminId = Number(this.UserId);
@@ -140,7 +140,6 @@ export class AddAppointmentComponent implements OnInit {
     this.appointment.addSingleAppointment(this.file, this.appointments).subscribe(data=>{
       if(data==2){
         this.loader.hideLoader();
-        //this.appointments = {};
         this.toast.presentToast("Appointment added successfully!", "success", 'checkmark-circle-sharp');
         this.router.navigate(['/appointment/all-appointments']);
         

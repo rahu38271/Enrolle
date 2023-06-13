@@ -48,6 +48,9 @@ onKeyPress(event) {
   roleID:any;
   superAdminId:any;
   Medium:any;
+  fileSize:any;
+  fileType:any;
+  disabled: boolean = true;
 
   constructor(
     private news:NewsService,
@@ -70,8 +73,44 @@ onKeyPress(event) {
   }
 
   onFileSelected(event:any){
-    const file:File = event.target.files[0];
-    this.file=file;
+    const file: File = event.target.files[0];
+    this.file = file;
+    this.fileSize = file.size;
+    this.fileType = file.type;
+    if (this.fileSize >= 10000000) {
+      this.toast.presentToast("Maximum file size is 10 MB", "danger", 'checkmark-circle-sharp');
+      this.disabled = true;
+    }
+    else {
+      this.toast.presentToast("File added successfully!", "success", 'checkmark-circle-sharp');
+    }
+    //this.fileSize = this.fileSize + Math.round(this.fileSize/1024).toFixed(2) + " KB";
+    if (this.fileSize < 1000000) {
+      this.fileSize = Math.round(this.fileSize / 1024).toFixed(2) + " KB";
+    }
+    else {
+      this.fileSize = (this.fileSize / 1048576).toFixed(2) + " MB";
+      console.log(this.fileSize)
+    }
+    if (
+      this.fileType == "image/jpg" ||
+      this.fileType == "image/jpeg" ||
+      this.fileType == "image/png" ||
+      this.fileType == "video/mp4" ||
+      this.fileType == "video/3gp" ||
+      this.fileType == "video/mkv" ||
+      this.fileType == "video/webm" ||
+      this.fileType == "video/flv" ||
+      this.fileType == "video/mov" ||
+      this.fileType == "application/pdf"
+    ) {
+      this.fileType = this.fileType;
+      this.fileSize = this.fileSize;
+    }
+    else {
+      this.disabled = true;
+      this.toast.presentToast("This file format is not allowed.", "danger", 'alert-circle-sharp');
+    }
   }
 
   addNews(){
