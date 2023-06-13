@@ -78,6 +78,11 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _generalEnquiryRepository.GetEnquirybyId(Id);
         }
 
+        public IEnumerable<GeneralEnquiryDTO> GetEnquirybyTypeofWorkAndDate(int UserId, int RoleId, int PageNo, int NoofRow, string TypeofWork, string FromDate, string ToDate)
+        {
+            return _generalEnquiryRepository.GetEnquirybyTypeofWorkAndDate(UserId, RoleId, PageNo, NoofRow, TypeofWork, FromDate, ToDate);
+        }
+
         public int InsertArea(Area area)
         {
             return _generalEnquiryRepository.InsertArea(area);
@@ -101,6 +106,11 @@ namespace ElectionAlerts.Services.ServiceClasses
         public int InsertUpdateGeneralEnquiry(GeneralEnquiry generalEnquiry)
         {
             return _generalEnquiryRepository.InsertUpdateGeneralEnquiry(generalEnquiry);
+        }
+
+        public IEnumerable<GeneralEnquiryDTO> SearchEnquiry(GeneralEnquirySearch generalEnquiry)
+        {
+            return _generalEnquiryRepository.SearchEnquiry(generalEnquiry);
         }
     }
 }

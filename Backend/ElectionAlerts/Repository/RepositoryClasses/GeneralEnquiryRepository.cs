@@ -114,7 +114,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _customContext.Database.ExecuteSqlRaw("Exec USP_InsertUpdateEnquiry {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26}", generalEnquiry.Id, generalEnquiry.TypeofWork, generalEnquiry.FullNameStudent, generalEnquiry.BirthDate, generalEnquiry.Society_BuildingName, generalEnquiry.AcknowledgementNumber, generalEnquiry.TypeofForm, generalEnquiry.BillBookNo, generalEnquiry.MobileNo, generalEnquiry.Anniversary, generalEnquiry.Landmark_Locality, generalEnquiry.SubmitDate, generalEnquiry.EpicNo, generalEnquiry.FullName, generalEnquiry.AlternateMobile, generalEnquiry.Gender, generalEnquiry.Area, generalEnquiry.Year, generalEnquiry.TypeofComplaints, generalEnquiry.FullNameParent, generalEnquiry.Email, generalEnquiry.Flat_HouseNo, generalEnquiry.AaddharCardNumber, generalEnquiry.Reference, generalEnquiry.PersonEnteringData, generalEnquiry.UserId, DateTime.Now);
+                return _customContext.Database.ExecuteSqlRaw("Exec USP_InsertUpdateEnquiry {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23},{24},{25},{26},{27}", generalEnquiry.Id, generalEnquiry.TypeofWork, generalEnquiry.FullNameStudent, generalEnquiry.BirthDate, generalEnquiry.Society_BuildingName, generalEnquiry.AcknowledgementNumber, generalEnquiry.TypeofForm, generalEnquiry.BillBookNo, generalEnquiry.MobileNo, generalEnquiry.Anniversary, generalEnquiry.Landmark_Locality, generalEnquiry.SubmitDate, generalEnquiry.EpicNo, generalEnquiry.FullName, generalEnquiry.AlternateMobile, generalEnquiry.Gender, generalEnquiry.Area, generalEnquiry.Year, generalEnquiry.TypeofComplaints, generalEnquiry.FullNameParent, generalEnquiry.Email, generalEnquiry.Flat_HouseNo, generalEnquiry.AaddharCardNumber, generalEnquiry.Reference, generalEnquiry.PersonEnteringData, generalEnquiry.UserId, DateTime.Now,generalEnquiry.ReferenceId);
             }
             catch(Exception ex)
             {
@@ -213,6 +213,31 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 return _customContext.Database.ExecuteSqlRaw("Exec USP_DeleteTypeofComplaintbyId {0}", Id);
             }
             catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<GeneralEnquiryDTO> SearchEnquiry(GeneralEnquirySearch generalEnquiry)
+        {
+            try
+            {
+                return _customContext.Set<GeneralEnquiryDTO>().FromSqlRaw("Exec USP_EnquirySearchAdvance {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13}", generalEnquiry.TypeofWork,generalEnquiry.FullName,generalEnquiry.MobileNo,generalEnquiry.Society_BuildingName,generalEnquiry.Area,generalEnquiry.AaddharCardNumber,generalEnquiry.Reference,generalEnquiry.TypeofForm,generalEnquiry.TypeofComplaints,generalEnquiry.PersonEnteringData,generalEnquiry.UserId,generalEnquiry.RoleId,generalEnquiry.PageNo,generalEnquiry.NoofRow).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<GeneralEnquiryDTO> GetEnquirybyTypeofWorkAndDate(int UserId, int RoleId, int PageNo, int NoofRow, string TypeofWork, string FromDate, string ToDate)
+        {
+          try
+            {
+                var result= _customContext.Set<GeneralEnquiryDTO>().FromSqlRaw("Exec USP_GetEnquiryFromToDate {0},{1},{2},{3},{4},{5},{6}", UserId, RoleId, PageNo, NoofRow, TypeofWork, FromDate, ToDate);
+                return result;
+            }
+            catch(Exception ex)
             {
                 throw ex;
             }

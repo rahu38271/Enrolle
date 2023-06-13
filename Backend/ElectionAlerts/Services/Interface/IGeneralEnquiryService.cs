@@ -26,5 +26,7 @@ namespace ElectionAlerts.Services.Interface
         IEnumerable<GeneralEnquiry> GetEnquirybyId(int Id);
         int DeleteEnquirybyId(int Id);
         IEnumerable<GeneralEnquiryDTO> GetEnquirybyDate(int UserId, int RoleId, int PageNo, int NoofRow, string FromDate, string ToDate);
+        IEnumerable<GeneralEnquiryDTO> SearchEnquiry(GeneralEnquirySearch generalEnquiry);
+        IEnumerable<GeneralEnquiryDTO> GetEnquirybyTypeofWorkAndDate(int UserId, int RoleId, int PageNo, int NoofRow,string TypeofWork,string FromDate, string ToDate);
     }
 }
