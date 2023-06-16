@@ -103,7 +103,7 @@ namespace ElectionAlerts.Controller
                 return BadRequest(ex);
             }
         }
-
+     
         [HttpGet("DeleteDBConfigure")]
         public IActionResult DeleteDBConfigure(int Id)
         {
@@ -368,5 +368,7 @@ namespace ElectionAlerts.Controller
                 return BadRequest(ex);
             }
         }
+
     }
+
 }

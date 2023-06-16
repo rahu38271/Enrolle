@@ -319,63 +319,65 @@ namespace ElectionAlerts.Controller
                             if (worksheet.Cells[row, 2].Value != null)
                                 voter1.PartNo = int.Parse(worksheet.Cells[row, 2].Value.ToString().Trim());
 
-                            //if ((worksheet.Cells[row, 9].Value != null) && (worksheet.Cells[row, 10].Value != null))
-                            //    voter1.FullName = worksheet.Cells[row, 9].Value.ToString().Trim() + " " + worksheet.Cells[row, 10].Value.ToString().Trim();
+                            if ((worksheet.Cells[row, 9].Value != null) && (worksheet.Cells[row, 10].Value != null))
+                                voter1.FullName = worksheet.Cells[row, 9].Value.ToString().Trim() + " " + worksheet.Cells[row, 10].Value.ToString().Trim();
 
-                            //if ((worksheet.Cells[row, 9].Value != null) && (worksheet.Cells[row, 10].Value == null))
-                            //    voter1.FullName = worksheet.Cells[row, 9].Value.ToString().Trim();
+                            if ((worksheet.Cells[row, 9].Value != null) && (worksheet.Cells[row, 10].Value == null))
+                                voter1.FullName = worksheet.Cells[row, 9].Value.ToString().Trim();
 
-                            if (worksheet.Cells[row, 5].Value != null)
-                                voter1.FullName = worksheet.Cells[row, 5].Value.ToString().Trim();
+                            if ((worksheet.Cells[row, 9].Value == null) && (worksheet.Cells[row, 10].Value != null))
+                                voter1.FullName = worksheet.Cells[row, 10].Value.ToString().Trim();
 
-                            if (worksheet.Cells[row, 7].Value != null)
-                            {
-                                if (worksheet.Cells[row, 7].Value.ToString().Trim() == "पुरुष")
-                                    voter1.Gender ="M" ;
-                                else
-                                    voter1.Gender = "F";
-                            }
+                            //if (worksheet.Cells[row, 7].Value != null)
+                            //{
+                            //    if (worksheet.Cells[row, 7].Value.ToString().Trim() == "पुरुष")
+                            //        voter1.Gender ="M" ;
+                            //    else
+                            //        voter1.Gender = "F";
+                            //}
+                            if (worksheet.Cells[row, 13].Value != null)
+                                voter1.Gender = worksheet.Cells[row, 13].Value.ToString().Trim();
 
-                            if (worksheet.Cells[row, 6].Value != null)
-                                voter1.Age = int.Parse(worksheet.Cells[row, 6].Value.ToString().Trim());
+                            if (worksheet.Cells[row, 19].Value != null)
+                                voter1.Age = int.Parse(worksheet.Cells[row, 19].Value.ToString().Trim());
                             //if (worksheet.Cells[row, 27].Value != null)
                             //    voter1.Village = worksheet.Cells[row, 27].Value.ToString().Trim();
-                            if (worksheet.Cells[row,9].Value != null)
-                                voter1.VotingCardNo = worksheet.Cells[row, 9].Value.ToString().Trim();
-                            if (worksheet.Cells[row, 11].Value != null)
-                                voter1.Address = worksheet.Cells[row, 11].Value.ToString().Trim();
-                            if (worksheet.Cells[row, 10].Value != null)
-                                voter1.Address_KR = worksheet.Cells[row, 10].Value.ToString().Trim();
-                            if (worksheet.Cells[row, 10].Value != null)
-                                voter1.Address_HN = worksheet.Cells[row, 10].Value.ToString().Trim();
+                            if (worksheet.Cells[row,20].Value != null)
+                                voter1.VotingCardNo = worksheet.Cells[row, 20].Value.ToString().Trim();
+                            if (worksheet.Cells[row, 5].Value != null)
+                                voter1.Address = worksheet.Cells[row, 5].Value.ToString().Trim();
+                            if (worksheet.Cells[row, 7].Value != null)
+                                voter1.Address_KR = worksheet.Cells[row, 7].Value.ToString().Trim();
+                            //if (worksheet.Cells[row, 10].Value != null)
+                            //    voter1.Address_HN = worksheet.Cells[row, 10].Value.ToString().Trim();
                             //if (worksheet.Cells[row, 22].Value != null)
                             //    voter1.MobileNo = worksheet.Cells[row, 22].Value.ToString().Trim();
 
-                            //if ((worksheet.Cells[row, 11].Value != null) && (worksheet.Cells[row, 12].Value != null))
-                            //    voter1.FullName_KR = worksheet.Cells[row, 11].Value.ToString().Trim() + " " + worksheet.Cells[row, 12].Value.ToString().Trim();
+                            if ((worksheet.Cells[row, 11].Value != null) && (worksheet.Cells[row, 12].Value != null))
+                                voter1.FullName_KR = worksheet.Cells[row, 11].Value.ToString().Trim() + " " + worksheet.Cells[row, 12].Value.ToString().Trim();
 
-                            //if ((worksheet.Cells[row, 11].Value != null) && (worksheet.Cells[row, 12].Value == null))
-                            //    voter1.FullName_KR = worksheet.Cells[row, 11].Value.ToString().Trim();
+                            if ((worksheet.Cells[row, 11].Value != null) && (worksheet.Cells[row, 12].Value == null))
+                                voter1.FullName_KR = worksheet.Cells[row, 11].Value.ToString().Trim();
 
-                            if (worksheet.Cells[row, 4].Value != null)
-                                voter1.FullName_KR = worksheet.Cells[row, 4].Value.ToString().Trim();
+                            if ((worksheet.Cells[row, 11].Value == null) && (worksheet.Cells[row, 12].Value != null))
+                                voter1.FullName_KR = worksheet.Cells[row, 12].Value.ToString().Trim();
 
 
-                            //if ((worksheet.Cells[row, 24].Value != null) && (worksheet.Cells[row, 25].Value != null))
-                            //    voter1.FullName_HN = worksheet.Cells[row, 24].Value.ToString().Trim() + " " + worksheet.Cells[row, 25].Value.ToString().Trim();
+                            if ((worksheet.Cells[row, 24].Value != null) && (worksheet.Cells[row, 25].Value != null))
+                                voter1.FullName_HN = worksheet.Cells[row, 24].Value.ToString().Trim() + " " + worksheet.Cells[row, 25].Value.ToString().Trim();
 
-                            //if ((worksheet.Cells[row, 24].Value != null) && (worksheet.Cells[row,25].Value == null))
-                            //    voter1.FullName_HN = worksheet.Cells[row, 24].Value.ToString().Trim();
+                            if ((worksheet.Cells[row, 24].Value != null) && (worksheet.Cells[row, 25].Value == null))
+                                voter1.FullName_HN = worksheet.Cells[row, 24].Value.ToString().Trim();
 
-                            if (worksheet.Cells[row, 5].Value != null) 
-                                voter1.FullName_HN = worksheet.Cells[row, 5].Value.ToString().Trim();
+                            if ((worksheet.Cells[row, 24].Value == null) && (worksheet.Cells[row, 25].Value != null))
+                                voter1.FullName_HN = worksheet.Cells[row, 25].Value.ToString().Trim();
 
                             //if (worksheet.Cells[row, 21].Value != null)
-                            //voter1.Assembly = "Kothrud";
+                            voter1.Assembly = "Kothrud";
 
                             //  if (worksheet.Cells[row, 22].Value != null)
-                            //   voter1.AssemblyName_KR = "कोथरूड";
-                            //  voter1.AssemblyName_HN= "कोथरूड";
+                               voter1.AssemblyName_KR = "कोथरूड";
+                              voter1.AssemblyName_HN= "कोथरूड";
 
                             //if (worksheet.Cells[row, 28].Value != null)
                             //    voter1.Village_KR = worksheet.Cells[row, 28].Value.ToString().Trim();
