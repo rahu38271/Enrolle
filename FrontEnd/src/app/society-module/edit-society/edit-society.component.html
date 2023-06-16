@@ -95,7 +95,8 @@
               <ion-col size-xl="3" size-lg="3" size-md="6" size-sm="12" size-xs="12">
                 <ion-label position="floating"> Ward No. </ion-label>
                   <ion-input  
-                      name="WardNo" 
+                      name="WardNo"
+                      (keypress)="omit_special_char($event)" 
                       [(ngModel)]="societyModal.wardNo" 
                       class="form-control" 
                       maxlength="5"

@@ -31,7 +31,8 @@
               required>
             </ion-input>
 
-            <ion-modal trigger="Date" size="cover">
+            <ion-modal trigger="Date" size="cover" [canDismiss]="canDismiss" 
+            [backdropDismiss]="false">
               <ng-template>
                 <ion-datetime 
                   presentation="date" 
@@ -82,7 +83,10 @@
           </ion-col>
           
           <ion-col size-xl="6" size-lg="12" size-md="12" size-sm="12" size-xs="12" class="file">
-            <ion-label> File  </ion-label>
+            <div class="flex">
+              <ion-label> File <span>( image, video, pdf )</span>  </ion-label>
+              <ion-label> Size - <span> {{fileSize}} </span> </ion-label>
+            </div>
               <input 
                 type="file" 
                 name="file" 

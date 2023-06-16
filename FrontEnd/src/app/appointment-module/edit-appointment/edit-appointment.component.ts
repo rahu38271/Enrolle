@@ -109,11 +109,10 @@ export class EditAppointmentComponent implements OnInit {
   }
 
   save(){
-    debugger;
     this.loader.showLoading();
-    var dateparts = this.appointments.appointmentDate.split(' ');
-    var time= dateparts[1].split(':');
-    var hr = dateparts[2] == 'PM'?(Number(time[0])+12)+':'+time[1] :dateparts[1];
+    // var dateparts = this.appointments.appointmentDate.split(' ');
+    // var time= dateparts[1].split(':');
+    // var hr = dateparts[2] == 'PM'?(Number(time[0])+12)+':'+time[1] :dateparts[1];
     this.appointments.id = Number(this.appointments.id);
     this.appointments.adminName = this.name;
     this.appointments.userName = this.name;
@@ -132,7 +131,6 @@ export class EditAppointmentComponent implements OnInit {
     }
     
     this.appointments.adminId = Number(this.UserId);
-    this.appointments.appointmentDate = dateparts[0]+' '+hr;
     if(this.file==undefined){
       this.file = ""
     }

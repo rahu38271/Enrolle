@@ -4,7 +4,7 @@
         <ion-buttons slot="start">
           <ion-menu-button auto-hide="false"></ion-menu-button>
         </ion-buttons>
-        <ion-title>  {{'Total' | translate}} : {{familyData.length}} </ion-title>
+        <ion-title>  {{'Total' | translate}} : {{totalItems}} </ion-title>
         <ion-buttons slot="primary">
           <ion-button>
             <ion-icon name="search-outline"></ion-icon>
@@ -14,12 +14,86 @@
     </ion-header>
     <div class="main-content">
      
-      
+      <ion-card>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              
+            </ion-row>
+          </ion-grid>
+          <ion-grid class="header">
+            <ion-row>
+              <ion-col size-lg="2" size-md="2"  size-sm="2"> 
+                <ion-text> Address : {{address}}</ion-text>
+              </ion-col>
+              <ion-col size-lg="2" size-md="3" size-sm="3">
+                <!-- <ion-text>Total Count : {{voterByPart.length}} </ion-text> -->
+                <ion-text>Total Count : {{totalItems}}  </ion-text>
+              </ion-col>
+              <ion-col size-lg="8" size-md="7" size-sm="7" class="ion-text-right">
+                <!-- <ion-button class="button-download" color="success" (click)="exportExcel()">
+                  <ion-icon name="document-sharp"></ion-icon>Excel
+                </ion-button>
+                <ion-button class="button-download" color="success">
+                  <ion-icon name="document-sharp"></ion-icon>CSV
+                </ion-button> -->
+
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <div class="horizontal-scroll" id="table" #epltable>
+            <!-- <h3 class="ion-text-center"><span> ( 334 ) </span>जिल्हा परिषद शाळा, खडकवासला, उत्तरमुखी पूर्वेकडून खोली क्र.1
+            </h3> -->
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Sr.No.</th>
+                  <th>Name</th>
+                  <!-- <th>Booth No.</th> -->
+                  <th>Booth Name</th>
+                  <th>Age</th>
+                  <th>Gender</th>
+                  <th>House</th>
+                  <th>Voting Card No.</th>
+                  <th>Village</th>
+                  <th class="address">Address</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of familyData | paginate: { itemsPerPage:NoofRow, currentPage: PageNo,totalItems:totalItems }; let i=index">
+                  <td>{{item.id}}</td>
+                  <td class="text-capitalize editVoter" (click)="EditVoter(item)">{{item.fullName}}</td>
+                  <td>{{item.booth}}</td>
+                  <td>{{item.age}}</td>
+                  <td>{{item.gender}}</td>
+                  <td>{{item.houseNo}}</td>
+                  <td>{{item.votingCardNo}}</td>
+                  <td>{{item.village}}</td>
+                  <td class="address">{{item.address}}</td>
+                  <td class="action">
+                    <ion-icon name="create-sharp" (click)="EditVoter(item)"></ion-icon>
+                    <ion-icon (click)="deleteVoter(item.id)" class="delete" name="trash-bin-sharp"></ion-icon>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <ion-list>
+              <pagination-controls (pageChange)="event($event)"></pagination-controls>
+            </ion-list>
+            <div *ngIf="!familyData || familyData.length === 0" class="ion-text-center">
+              <p>
+                No data available
+              </p>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
       <!-- routerLink="/voterdata-management/voter-details" -->
   
       <ion-grid class="android userList">
         <ion-searchbar ></ion-searchbar>
-        <ion-list *ngFor="let item of familyData | paginate: { itemsPerPage:100, currentPage: PageNo, totalItems:10 } | filter:searchWeb" (click)="voterDetails(item)">
+        <ion-list *ngFor="let item of familyData | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems } | filter:searchWeb" (click)="voterDetails(item)">
           <ion-item lines="none">
             <ion-label>
               <div class="firstLine">

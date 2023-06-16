@@ -71,6 +71,8 @@ export class AppComponent implements OnInit {
   isconfigureDB:any;
   isLetterTracking:any;
   isAppoReport:any;
+  isEnquiry:any;
+  isReports:any;
   isComBook:any;
   isRequest:any;
   isTab:any;
@@ -178,7 +180,7 @@ export class AppComponent implements OnInit {
     this.isSurvey = isVolunteer;
     this.isSearch = isVolunteer;
     this.isLists = isVolunteer;
-    this.isUser = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isUser = isMasterAdmin|| isSuperAdmin || isAdmin || isSociety;
     this.isAppointment = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isAnnapurna = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isNewVoter = isMasterAdmin|| isSuperAdmin || isAdmin;
@@ -191,6 +193,8 @@ export class AppComponent implements OnInit {
     this.isNotifications = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isLetterTracking = isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isAppoReport =  isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isEnquiry = isMasterAdmin|| isSuperAdmin || isAdmin;
+    this.isReports =  isMasterAdmin|| isSuperAdmin || isAdmin;
     this.isComBook = isMasterAdmin|| isSuperAdmin || isAdmin || isSociety || isMember;
     })
     

@@ -132,6 +132,10 @@ export class AddSuperadminComponent implements OnInit {
       this.isSoc = !this.isSoc
       this.isM = !this.isM
     }
+
+    if(this.roleId == 5){
+      this.isM = !this.isM
+    }
     
 
     this.getAssembly();
@@ -161,12 +165,16 @@ export class AddSuperadminComponent implements OnInit {
     }
     this.loader.showLoading();
     this.sadmin.addMAdminData(this.addMAmodal).subscribe((data) => {
-      if (data) {
+      if (data==1) {
         this.loader.hideLoader();
         this.addMAmodal = {};
         this.toast.presentToast("User added successfully!", "success", 'checkmark-circle-sharp');
         //this.router.navigate(['/superadmin']);
         this.router.navigateByUrl('/superadmin')
+      }
+      else if(data==="User or Password Already Exist"){
+        this.loader.hideLoader();
+        this.toast.presentToast("Username or Password already exist", "danger", 'alert-circle-sharp');
       }
       else {
         this.loader.hideLoader();

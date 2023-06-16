@@ -53,7 +53,8 @@
               required
             ></ion-input>
             
-            <ion-modal trigger="birthDate" size="cover">
+            <ion-modal trigger="birthDate" size="cover" [canDismiss]="canDismiss" 
+            [backdropDismiss]="false">
               <ng-template>
                 <ion-datetime
                 max={{maxDate}}
@@ -358,7 +359,7 @@
           <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
             <div class="ion-text-center">
               <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
-              <ion-button type="submit" size="medium" (click)="save()">Save</ion-button>
+              <ion-button type="submit" size="medium" (click)="save()" [disabled]="!f.form.valid">Save</ion-button>
               <ion-button color="success" type="button" size="medium" (click)="goBack()">Back To List</ion-button>
             </div>
           </ion-col>

@@ -76,7 +76,6 @@
                       <td>{{item.details}}</td>
                       <td>{{item.remark}}</td>
                       <td class="file">
-                        <!-- <img [src]="imageUrl" alt=""> -->
                         <i *ngIf="!isShowFile" (click)="downloadFile($event)" id={{item.id}} class="icofont icofont-cloud-download"></i>
                       </td>
                       <td>{{item.userName}} </td>

@@ -67,7 +67,8 @@
               (keypress)="onKeyPress($event)"
             ></ion-input>
             
-            <ion-modal trigger="BirthDate" size="cover">
+            <ion-modal trigger="BirthDate" size="cover" [canDismiss]="canDismiss" 
+            [backdropDismiss]="false">
               <ng-template>
                 <ion-datetime
                 max={{maxDate}}

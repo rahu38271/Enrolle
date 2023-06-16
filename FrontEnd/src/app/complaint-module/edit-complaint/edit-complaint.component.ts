@@ -47,6 +47,7 @@ export class EditComplaintComponent implements OnInit {
   disabled:boolean= true;
   id:any;
   link:any;
+  fileName:any;
   constructor(
     private complaint:ComplaintService,
     private loader:LoaderService,
@@ -54,50 +55,42 @@ export class EditComplaintComponent implements OnInit {
     private router:Router
   ) {
     this.societycomplaint = this.router.getCurrentNavigation().extras.state
+    this.societycomplaint.fileName = this.fileName
    }
 
   ngOnInit(): void {
     this.UserId = localStorage.getItem("loginId");
     this.roleID = localStorage.getItem("userType");
     this.name = localStorage.getItem("loginUser");
+    
   }
 
-  // saveFile(imageData:Blob){
-  //   debugger;
-  //   this.id = this.societycomplaint.id;
-  //   const link = document.createElement('a');
-  //   link.href=window.URL.createObjectURL(imageData);
-  //   this.complaint.getFile(this.id).subscribe((data : Blob) => {
-  //     if (data) {
-  //       this.loader.hideLoader();
-  //       this.saveFile(data);
-  //     }
-  //     else {
-  //       this.loader.hideLoader();
-  //     }
-  //   }, (err) => {
-  //     this.loader.hideLoader();
-  //   })
-  // }
+  saveFile(imageData: Blob) {
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(imageData);
+    // link.download = 'image.jpg';
+    link.download = '';
+    link.click();
+  }
 
-  // downloadFile(event: any) {
-  //   debugger;
-  //   this.id = Number(event.target.id);
-  //   this.loader.showLoading();
-  //   this.complaint.getFile(this.id).subscribe((data : Blob) => {
-  //     if (data) {
-  //       this.loader.hideLoader();
-  //       this.saveFile(data);
-  //     }
-  //     else {
-  //       this.loader.hideLoader();
-  //     }
-  //   }, (err) => {
-  //     this.loader.hideLoader();
-  //   })
-  // }
+  downloadFile(event: any) {
+    debugger;
+    this.id = Number(event.target.id);
+    this.loader.showLoading();
+    this.complaint.getFile(this.id).subscribe((data : Blob) => {
+      if (data) {
+        this.loader.hideLoader();
+        this.saveFile(data);
+      }
+      else {
+        this.loader.hideLoader();
+      }
+    }, (err) => {
+      this.loader.hideLoader();
+    })
+  }
 
-  onFileSelected(event:any){
+  onFileSelected(event){
     const file:File = event.target.files[0];
     this.file = file;
     this.fileSize = file.size;
@@ -109,7 +102,6 @@ export class EditComplaintComponent implements OnInit {
     else{
       this.toast.presentToast("File added successfully!", "success", 'checkmark-circle-sharp');
     }
-    //this.fileSize = this.fileSize + Math.round(this.fileSize/1024).toFixed(2) + " KB";
     if(this.fileSize < 1000000){
       this.fileSize = Math.round(this.fileSize/1024).toFixed(2) + " KB";
     }

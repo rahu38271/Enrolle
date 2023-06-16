@@ -26,6 +26,8 @@ export class DailyNewsComponent implements OnInit {
   totalItems:any;
   id:any;
   Id:any;
+  newsLink:any;
+  isLink=false;
 
   year : number = new Date().getFullYear();
 
@@ -49,7 +51,7 @@ export class DailyNewsComponent implements OnInit {
     else{
       this.SearchText = this.SearchText
     }
-    
+   
   }
 
   ionViewWillEnter(){
@@ -62,6 +64,7 @@ export class DailyNewsComponent implements OnInit {
   }
 
   allNewsList(UserId:any,RoleId:any,PageNo:any,NoofRow:any,SearchText:any){
+    debugger;
     this.news.getAllNews(UserId,RoleId,PageNo,NoofRow,SearchText).subscribe(data=>{
       if(data.length != 0){
         this.newsList=data;
@@ -69,6 +72,7 @@ export class DailyNewsComponent implements OnInit {
         this.newsList.forEach(e => {
           e.date = e.date.split('T')[0];
         });
+        
       }
       else{
 

@@ -102,6 +102,7 @@
                 <ion-label position="floating"> Ward No. </ion-label>
                   <ion-input  
                       name="WardNo" 
+                      (keypress)="omit_special_char($event)" 
                       [(ngModel)]="societyModal.WardNo" 
                       class="form-control" 
                       maxlength="5" 

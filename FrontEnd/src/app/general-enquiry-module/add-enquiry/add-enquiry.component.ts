@@ -63,7 +63,9 @@ selectedWork(event){
     private loader:LoaderService,
     private toast:IonicToastService,
     private router:Router
-  ) { }
+  ) { 
+    
+  }
 
   ngOnInit(): void {
     
@@ -192,7 +194,6 @@ selectedWork(event){
 
   //add enquiry
   addEnquiry(){
-    debugger;
     this.loader.showLoading();
     this.enquiryModal.UserId = Number(this.UserId);
     this.enquiry.addSingleEnquiry(this.enquiryModal).subscribe(data=>{

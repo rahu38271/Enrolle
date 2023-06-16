@@ -152,7 +152,9 @@
                   <i (click)="downloadFile($event)" id={{item.id}} class="icofont icofont-cloud-download"></i>
                 </td>
                 <td>
-                  <a href="{{item.newsLink}}" target="_blank">Link</a>
+                  <div *ngIf="isLink">
+                    <a href="{{item.newsLink}}" target="_blank">Link</a>
+                  </div>
                 </td>
                 <td>{{item.inFavour}}</td>
                 <td class="action" id="element-to-hide" data-html2canvas-ignore="true">

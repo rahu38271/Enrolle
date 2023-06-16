@@ -100,7 +100,7 @@ export class PendingComponent implements OnInit {
     this.Id = Number(event.target.id);
     this.loader.showLoading();
     this.complaint.getFile(this.Id).subscribe((data : Blob) => {
-      if (data) {
+      if (data.size!=0) {
         this.loader.hideLoader();
         this.saveFile(data);
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
