@@ -166,3 +166,29 @@ ion-list {
   width: 125px !important;
  }
 
+ .table tr th:nth-child(9){
+  width: 200px !important;
+  display: block;
+}
+
+.table tr td:nth-child(9){
+  max-width: 200px !important;
+  display: block;
+}
+
+
+.table tr th:nth-child(2){
+  width: 200px !important;
+}
+
+.table tr td:nth-child(2){
+  width: 200px !important;
+}
+
+.table tr th:nth-child(3){
+  width: 200px !important;
+}
+
+.table tr td:nth-child(3){
+  width: 200px !important;
+}

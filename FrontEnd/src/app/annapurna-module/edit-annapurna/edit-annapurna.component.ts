@@ -12,6 +12,8 @@ import { AnnapurnaService } from 'src/app/services/annapurna.service';
 })
 export class EditAnnapurnaComponent implements OnInit {
 
+  year:number=new Date().getFullYear();
+
    onKeyPress(event) {
     if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {
       return true
@@ -31,6 +33,12 @@ export class EditAnnapurnaComponent implements OnInit {
       return true;
     }
   }
+
+  omit_special_char(event) {
+    var k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
+  }
   
   annapurnaModal: any;
   constructor(
@@ -49,15 +57,45 @@ export class EditAnnapurnaComponent implements OnInit {
   EditAnnapurna(){
     debugger;
     this.loader.showLoading();
-    this.annapurnaModal.yadiNo_PartNo = Number(this.annapurnaModal.yadiNo_PartNo);
-    this.annapurnaModal.srNo = Number(this.annapurnaModal.srNo);
-    this.annapurnaModal.tokenNo = Number(this.annapurnaModal.tokenNo);
+    if(this.annapurnaModal.yadiNo_PartNo==0 || this.annapurnaModal.yadiNo_PartNo==''){
+      this.annapurnaModal.yadiNo_PartNo = null
+    }
+    else{
+      this.annapurnaModal.yadiNo_PartNo = Number(this.annapurnaModal.yadiNo_PartNo);
+    }
+    if(this.annapurnaModal.yadiNo_PartNo==0){
+      this.annapurnaModal.yadiNo_PartNo = null
+    }
+    if(this.annapurnaModal.srNo==0 || this.annapurnaModal.srNo == ''){
+      this.annapurnaModal.srNo = null
+    }
+    else{
+      this.annapurnaModal.srNo = Number(this.annapurnaModal.srNo);
+    }
+    if(this.annapurnaModal.srNo==0){
+      this.annapurnaModal.srNo=null
+    }
+    if(this.annapurnaModal.tokenNo==0 || this.annapurnaModal.tokenNo ==''){
+      this.annapurnaModal.tokenNo = null
+    }
+    else{
+      this.annapurnaModal.tokenNo = Number(this.annapurnaModal.tokenNo);
+    }
+    if(this.annapurnaModal.tokenNo==0){
+      this.annapurnaModal.tokenNo=null
+    }
     this.annapurnaModal.id = Number(this.annapurnaModal.id);
     if(this.annapurnaModal.cardDone == true){
       this.annapurnaModal.cardDone = 'Y'
     }
     else{
       this.annapurnaModal.cardDone = 'N'
+    }
+    if(this.annapurnaModal.tokenDate==''){
+      this.annapurnaModal.tokenDate=null
+    }
+    else{
+      this.annapurnaModal.tokenDate = this.annapurnaModal.tokenDate;
     }
     this.annapurna.addSingleAnnapurna(this.annapurnaModal).subscribe(data=>{
       if(data){

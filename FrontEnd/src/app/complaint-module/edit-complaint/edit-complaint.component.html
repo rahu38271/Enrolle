@@ -20,7 +20,8 @@
             <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>Complaint
           </ion-text>
         </ion-row>
-        <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate >
+        <!-- <form  [formGroup]="imageUpload" (ngSubmit)="f.form.valid" #f="ngForm" novalidate > -->
+          <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate >
           <ion-row>
   
             <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
@@ -100,9 +101,9 @@
               <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
                 <div class="flex">
                   <ion-label> File <span>( image, video, pdf )</span> </ion-label>
-                  <ion-label> Size - <span> {{fileSize}} </span> </ion-label>
+                  <ion-label> Size - <span>  </span> </ion-label>
                 </div>
-                <input type="file" name="file" [(ngModel)]="societycomplaint.fileName" (change)="onFileSelected($event);saveFile()"  class="form-control">
+                <input type="file" name="file" [(ngModel)]="societycomplaint.fileName" (change)="onFileSelected($event)"  class="form-control">
                 <!-- <input name="file"  [(ngModel)]="societycomplaint.fileName" class="form-control"> -->
               </ion-col>
 

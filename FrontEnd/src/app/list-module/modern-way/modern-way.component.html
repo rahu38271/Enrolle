@@ -108,8 +108,12 @@
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
-            <ion-label> Caste </ion-label>
-            <ion-input (keypress)="onKeyPress($event)" maxlength="30" name="Cast" [(ngModel)]="searchModal.Cast" class="form-control" ></ion-input>
+            <ion-label> {{'Caste' | translate}} </ion-label>
+            <ng-select name="Caste" placeholder="Select Caste" [(ngModel)]="searchModal.Caste">
+              <ng-option *ngFor="let item of casteList" [value]="item.casteName">
+                {{item.casteName}}
+              </ng-option>
+            </ng-select>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">

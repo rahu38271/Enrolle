@@ -17,7 +17,6 @@ export class ReportsService {
   // get All Reports
 
   getReportsList(userId:any,RoleId:any,PageNo:any,NoofRow:any,SearchText:any):Observable<any>{
-    debugger;
     return this.http.get<any>(this.url+'ActivityLog/GetActivityLogs?UserId='+userId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText)
   }
 

@@ -50,7 +50,7 @@
 
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
                   <ion-label>UserID / Mob. no. <span>*</span></ion-label>
-                  <ion-input name="Contact" [(ngModel)]="addMAmodal.Contact" #Contact="ngModel" required
+                  <ion-input placeholder="10 / 12 digit mobile no." name="Contact" [(ngModel)]="addMAmodal.Contact" #Contact="ngModel" required
                   [ngClass]="{'is-invalid': f.submitted && Contact.invalid}"
                     maxlength="12" minlength="10" (keypress)="keyPressNumbers($event)" class="form-control">
                   </ion-input>
@@ -64,7 +64,7 @@
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
                   <div class="form-outline">
                     <ion-label>Password <span>*</span></ion-label>
-                    <ion-input minlength="3" maxlength="30" [type]="ismyTextFieldType ? 'text' : 'password' " name="Password"
+                    <ion-input placeholder="Min 3 char." minlength="3" maxlength="30" [type]="ismyTextFieldType ? 'text' : 'password' " name="Password"
                       [(ngModel)]="addMAmodal.Password" #Password="ngModel" required class="form-control"
                       [ngClass]="{'is-invalid': f.submitted && Password.invalid}"
                       ></ion-input>

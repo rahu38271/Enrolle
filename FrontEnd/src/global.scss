@@ -186,17 +186,28 @@ ion-menu-button {
      }
 
      ion-input.has-focus {
-        border: 1px solid #228bd2 !important;
+        border: 1px solid #228bd2  !important;
+        box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 2px;
       }
 
       ion-textarea:focus {
         border: 1px solid #228bd2 !important;
+        box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 2px;
       }
 
       ion-select:focus {
         border: 1px solid #228bd2 !important;
-        box-shadow: none !important;
+        box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 2px;
       }
+
+      ng-select:focus {
+        --border: 1px solid #228bd2 !important;
+        --box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 2px;
+      }
+
+      .ng-select.ng-select-single .ng-select-container {
+        height: 38px;
+    }
 
      .searchBtn {
          margin-top: 18px;
@@ -205,6 +216,8 @@ ion-menu-button {
      ion-radio {
         width: 15px;
         height: 15px;
+        background: #FFF;
+        border-radius: 50%;
      }
 
 .select_option { 

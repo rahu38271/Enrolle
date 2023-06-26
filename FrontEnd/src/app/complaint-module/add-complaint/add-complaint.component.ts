@@ -113,17 +113,15 @@ export class AddComplaintComponent implements OnInit {
       this.disabled = true;
       this.toast.presentToast("This file format is not allowed.", "danger", 'alert-circle-sharp');
     }
-
+    
   }
 
 
   addComplaint() {
-    debugger;
     this.societycomplaint.UserId = Number(this.UserId);
     this.societycomplaint.RoleId = Number(this.roleID);
     this.societycomplaint.UserName = this.name;
     this.societycomplaint = JSON.stringify(this.societycomplaint);
-    // this.societycomplaint = JSON.parse(this.societycomplaint);
     if (this.file == undefined) {
       this.file = ''
     }

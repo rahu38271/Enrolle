@@ -48,6 +48,7 @@ export class EditComplaintComponent implements OnInit {
   id:any;
   link:any;
   fileName:any;
+
   constructor(
     private complaint:ComplaintService,
     private loader:LoaderService,
@@ -55,7 +56,9 @@ export class EditComplaintComponent implements OnInit {
     private router:Router
   ) {
     this.societycomplaint = this.router.getCurrentNavigation().extras.state
-    this.societycomplaint.fileName = this.fileName
+    //let input = this.f.controls.state
+    //this.file = window.URL.createObjectURL(this.societycomplaint.filename);
+    this.societycomplaint.fileName = this.societycomplaint.fileName
    }
 
   ngOnInit(): void {
@@ -73,22 +76,6 @@ export class EditComplaintComponent implements OnInit {
     link.click();
   }
 
-  downloadFile(event: any) {
-    debugger;
-    this.id = Number(event.target.id);
-    this.loader.showLoading();
-    this.complaint.getFile(this.id).subscribe((data : Blob) => {
-      if (data) {
-        this.loader.hideLoader();
-        this.saveFile(data);
-      }
-      else {
-        this.loader.hideLoader();
-      }
-    }, (err) => {
-      this.loader.hideLoader();
-    })
-  }
 
   onFileSelected(event){
     const file:File = event.target.files[0];

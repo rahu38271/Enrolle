@@ -27,21 +27,21 @@
     </ion-grid>
     <ion-card>
       <ion-card-content>
-        <div class="title">
+        <div class="title" *ngIf="isAssembly">
           <h3 class="ion-text-center">
             Assembly : {{assemblyName}}
           </h3>
         </div>
-        <!-- <div class="title">
+        <div class="title">
           <h3 class="ion-text-center">
             District : {{district}}
           </h3>
-        </div> -->
-        <!-- <div class="title" *ngIf="isVillage">
+        </div>
+        <div class="title" *ngIf="isVillage">
           <h3 class="ion-text-center">
             Village : {{village}}
           </h3>
-        </div> -->
+        </div>
         <div class="headSection">
           <div class="search">
             <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>

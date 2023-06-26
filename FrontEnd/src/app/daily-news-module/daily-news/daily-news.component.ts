@@ -64,7 +64,6 @@ export class DailyNewsComponent implements OnInit {
   }
 
   allNewsList(UserId:any,RoleId:any,PageNo:any,NoofRow:any,SearchText:any){
-    debugger;
     this.news.getAllNews(UserId,RoleId,PageNo,NoofRow,SearchText).subscribe(data=>{
       if(data.length != 0){
         this.newsList=data;

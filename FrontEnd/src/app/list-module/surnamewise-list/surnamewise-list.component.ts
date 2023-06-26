@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { VoterService } from 'src/app/services/voter.service'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { LoaderService } from 'src/app/services/loader.service';
+import { IonicToastService } from 'src/app/services/ionic-toast.service';
+import { ExcelService } from 'src/app/services/excel.service'
+import { CsvService } from 'src/app/services/csv.service';
 
 @Component({
   selector: 'app-surnamewise-list',
@@ -19,20 +23,34 @@ export class SurnamewiseListComponent implements OnInit {
   id:any;
   PageNo:any=1;
   NoofRow:any=10;
-  totalCount:any;
+  totalItems:any;
   SearchText:any;
+
 
   search() {
     this.isShow = !this.isShow
   }
 
-  constructor(private voter: VoterService, private route: ActivatedRoute, private router:Router,private translateConfigService: TranslateConfigService,) {
+  constructor(
+    private voter: VoterService, 
+    private route: ActivatedRoute, 
+    private router:Router,
+    private translateConfigService: TranslateConfigService,
+    private loader:LoaderService,
+    private toast:IonicToastService,
+    private excel:ExcelService,
+      private csv:CsvService,
+    ) {
     this.Language = this.translateConfigService.getCurrentLang();
   }
 
   event(event:any){
     this.PageNo = event;
     this.lastNameWiseVoterData(this.userId,this.roleID,event,this.NoofRow,this.Language,this.SearchText)
+  }
+
+  EditVoter(data:any){
+    this.router.navigateByUrl('/voterdata-management/edit-voterdata',{state: data})
   }
 
   ngOnInit() {
@@ -72,7 +90,7 @@ export class SurnamewiseListComponent implements OnInit {
     this.voter.voterByLastName(this.lastName,userId,roleID,PageNo,NoofRow,this.Language,this.SearchText).subscribe(data => {
       if(data.length != 0){
         this.surnameWiseData = data;
-        this.totalCount = data[0].totalCount
+        this.totalItems = data[0].totalCount
       }
       else{
 
@@ -85,7 +103,7 @@ export class SurnamewiseListComponent implements OnInit {
   onSearchChange(SearchText: any) {
     if (this.SearchText == '') {
       this.PageNo = 1;
-      this.NoofRow = this.totalCount;
+      this.NoofRow = this.totalItems;
       this.SearchText = SearchText;
       this.lastNameWiseVoterData(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
     }
@@ -109,7 +127,7 @@ export class SurnamewiseListComponent implements OnInit {
       this.voter.voterByLastName(this.lastName, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
         if (data) {
           this.surnameWiseData = data;
-          this.totalCount = data[0].totalCount
+          this.totalItems = data[0].totalCount
         }
       });
     }
@@ -118,7 +136,7 @@ export class SurnamewiseListComponent implements OnInit {
    keyPress(SearchText:any){
     if (this.SearchText == '') {
       this.PageNo = 1;
-      this.NoofRow = this.totalCount;
+      this.NoofRow = this.totalItems;
       this.SearchText = SearchText;
       this.lastNameWiseVoterData(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
     }
@@ -142,9 +160,53 @@ export class SurnamewiseListComponent implements OnInit {
       this.voter.voterByLastName(this.lastName, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
         if (data) {
           this.surnameWiseData = data;
-          this.totalCount = data[0].totalCount
+          this.totalItems = data[0].totalCount
         }
       });
     }
+  }
+
+  exportExcel():void {
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    var SearchText = "";
+    this.loader.showLoading();
+    this.voter.voterByLastName(this.lastName,this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.surnameWiseData = data;
+        this.totalItems = data[0].totalCount;
+        this.excel.exportAsExcelFile(this.surnameWiseData, 'surnameWise Voter');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
+  }
+
+  exportToCSV() {
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    var SearchText = "";
+    this.loader.showLoading();
+    this.voter.voterByLastName(this.lastName,this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.surnameWiseData = data;
+        this.totalItems = data[0].totalCount;
+        this.csv.exportToCsv(this.surnameWiseData, 'surnameWise Voter');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
   }
 }

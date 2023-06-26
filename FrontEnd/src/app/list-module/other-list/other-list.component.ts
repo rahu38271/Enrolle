@@ -4,6 +4,8 @@ import { VoterService } from 'src/app/services/voter.service'
 import { LoaderService } from 'src/app/services/loader.service'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
+import { ExcelService } from 'src/app/services/excel.service'
+import { CsvService } from 'src/app/services/csv.service';
 
 
 @Component({
@@ -30,7 +32,9 @@ export class OtherListComponent implements OnInit {
     private voter:VoterService,
     private loader:LoaderService,
     private translateConfigService: TranslateConfigService,
-    private toast:IonicToastService
+    private toast:IonicToastService,
+    private excel:ExcelService,
+    private csv:CsvService
   ) { 
     this.Language = this.translateConfigService.getCurrentLang();
   }
@@ -61,7 +65,9 @@ export class OtherListComponent implements OnInit {
     this.router.navigate(['voterdata-management/voter-details'], { state: item })
    }
 
- 
+   EditVoter(data:any){
+    this.router.navigateByUrl('/voterdata-management/edit-voterdata',{state: data})
+  }
 
   otherList(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){
     // if(SearchText==""){
@@ -154,6 +160,50 @@ export class OtherListComponent implements OnInit {
 
       })
     }
+  }
+
+  exportExcel():void {
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    var SearchText = "";
+    this.loader.showLoading();
+    this.voter.other(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.otherVoter = data;
+        this.totalItems = data[0].totalCount;
+        this.excel.exportAsExcelFile(this.otherVoter, 'Other Voter');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
+  }
+
+  exportToCSV() {
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    var SearchText = "";
+    this.loader.showLoading();
+    this.voter.other(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.otherVoter = data;
+        this.totalItems = data[0].totalCount;
+        this.csv.exportToCsv(this.otherVoter, 'Other Voter');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
   }
 
 }

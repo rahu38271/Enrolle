@@ -187,3 +187,43 @@ ion-grid ion-text {
   right: 14px;
   z-index: 12;
  }
+
+ .table th:nth-child(9){
+  max-width: 150px !important;
+ }
+
+ .table td:nth-child(9){
+  max-width: 150px !important;
+ }
+
+ .table th:nth-child(2){
+  max-width: 100px !important;
+ }
+
+ .table td:nth-child(2){
+  max-width: 100px !important;
+ }
+
+ .table th:nth-child(3){
+  max-width: 200px !important;
+ }
+
+ .table td:nth-child(3){
+  max-width: 200px !important;
+ }
+
+ .voterSec {
+   display: flex;
+ }
+
+ .voterSec img {
+   width: 45px;
+ }
+
+ .photo {
+  padding-top: 6px;
+ }
+
+ .voterSec ion-label {
+   padding-left: 5px;
+ }

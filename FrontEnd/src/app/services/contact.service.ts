@@ -53,7 +53,6 @@ export class ContactService {
    }
 
   addSingleContact(contactModal:any):Observable<any>{
-    debugger;
     return this.http.post<any>(this.url+'contact/InsertSingleContact', contactModal)
   }
 

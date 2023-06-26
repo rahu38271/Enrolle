@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-annapurna.component.css']
 })
 export class AddAnnapurnaComponent implements OnInit {
-
+  year:number=new Date().getFullYear();
   onKeyPress(event) {
     if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {
       return true
@@ -29,6 +29,12 @@ export class AddAnnapurnaComponent implements OnInit {
     } else {
       return true;
     }
+  }
+
+  omit_special_char(event) {
+    var k;
+    k = event.charCode;  //         k = event.keyCode;  (Both can be used)
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57));
   }
 
   annapurnaModal:any={};
@@ -54,6 +60,7 @@ export class AddAnnapurnaComponent implements OnInit {
     else{
       this.annapurnaModal.CardDone = 'N'
     }
+    
     this.loader.showLoading();
     this.annapurna.addSingleAnnapurna(this.annapurnaModal).subscribe(data=>{
       if(data){

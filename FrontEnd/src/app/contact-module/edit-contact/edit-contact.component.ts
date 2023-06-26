@@ -75,7 +75,6 @@ export class EditContactComponent implements OnInit {
   
 
   save() {
-    debugger;
     if (this.EditData.birthDate == "") {
       this.EditData.birthDate = '1900-01-01T00:00:00';
     }

@@ -47,17 +47,14 @@
                 <div class="search">
                   <ion-searchbar [(ngModel)]="searchMob" animated="true"></ion-searchbar>
                 </div>
-                <ion-button class="button-download" color="success">
+                <!-- <ion-button class="button-download" color="success">
                   <ion-icon name="document-sharp"></ion-icon>Excel
-                </ion-button>
+                </ion-button> -->
               </div>
               <div class="horizontal-scroll">
                 <table id="villageTable" #epltable class="table">
                   <thead>
                     <tr>
-                      <th>
-                        Sr.No.
-                      </th>
                       <th>
                         Village
                       </th>
@@ -68,8 +65,7 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let item of vilModal | filter:searchMob">
-                      <td>{{item.id}}</td>
-                      <td>{{item.columnName}}</td>
+                      <td (click)="villageName(item.columnName)">{{item.columnName}}</td>
                       <td>{{item.count}}</td>
                     </tr>
                   </tbody>

@@ -17,7 +17,7 @@ export class ByProfessionComponent implements OnInit {
   searchMob:string;
   id:any;
   roleId:any;
-  occuData:any;
+  occuList:any;
 
   constructor(
     private voter: VoterService, 
@@ -33,18 +33,16 @@ export class ByProfessionComponent implements OnInit {
   }
 
   ngOnInit() {
-    debugger;
     this.id = localStorage.getItem("loginId");
     this.roleId = localStorage.getItem("userType");
     this.allOccupData();
   }
 
   occupation(columnName:any){
-    this.router.navigate(['/list/by-profession',  {occupation :columnName} ])
+    this.router.navigate(['/list/professionwise-list',  {occupation :columnName} ])
    }
 
    allOccupData() {
-     debugger;
     this.loader.showLoading();
     this.Language = this.translateConfigService.getCurrentLang();
     if(this.Language == "kn"){
@@ -66,10 +64,9 @@ export class ByProfessionComponent implements OnInit {
       roleID: Number(this.roleId),
       Language: this.Language
     }).subscribe(data => {
-      if(data.length != 0){
-        console.log(data);
+      if(data != 0){
         this.loader.hideLoader();
-        this.occuData = data;
+        this.occuList = data;
       }
       else{
         this.loader.hideLoader();

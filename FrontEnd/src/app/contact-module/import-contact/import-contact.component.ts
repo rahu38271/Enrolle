@@ -162,10 +162,12 @@ export class ImportContactComponent implements OnInit {
       }
       else {
         f.resetForm();
+        this.loader.hideLoader();
         this.toast.presentToast("File not uploded", "danger", 'alert-circle-sharp');
       }
     }, (err) => {
       f.resetForm();
+      this.loader.hideLoader();
       this.toast.presentToast("File uploding failed!", "danger", 'alert-circle-sharp')
     }
     )

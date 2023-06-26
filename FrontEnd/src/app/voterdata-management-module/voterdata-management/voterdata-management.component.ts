@@ -48,7 +48,7 @@ export class VoterdataManagementComponent {
     Gender:'',
     Occupation:'',
     Education:'',
-    Cast:'',
+    Caste:'',
     Religion:'',
     Society:'',
     UserId:'',
@@ -64,6 +64,7 @@ export class VoterdataManagementComponent {
   totalItems:any;
   SearchText:any;
   UserId:any;
+  casteList: any;
   search(){
     this.isShow = !this.isShow
   }
@@ -115,14 +116,16 @@ keyPressNumbers(event) {
     else{
       this.SearchText = this.SearchText
     }
+    
   }
 
   ionViewWillEnter(){
     this.partNo = this.route.snapshot.paramMap.get('partNo');
     this.userId = this.route.snapshot.paramMap.get('id');
     this.roleID = localStorage.getItem("userType");
-    this.UserId = localStorage.getItem("loginUser");
+    this.UserId=localStorage.getItem('loginId');
     this.boothWiseVoterListData(this.PageNo,this.NoofRow,this.Language);
+    this.AllCasts();
   }
 
   event(event:any){
@@ -188,6 +191,7 @@ keyPressNumbers(event) {
   }
 
   searchData(){
+    debugger;
     this.isSearched=true;
     this.isList=false;
     this.searchModal.Language = this.Language;
@@ -271,11 +275,11 @@ keyPressNumbers(event) {
     else{
       this.searchModal.Education = this.searchModal.Education;
     }
-    if(this.searchModal.Cast == ''){
-      this.searchModal.Cast = null
+    if(this.searchModal.Caste == ''){
+      this.searchModal.Caste = null
     }
     else{
-      this.searchModal.Cast = this.searchModal.Cast;
+      this.searchModal.Caste = this.searchModal.Caste;
     }
     if(this.searchModal.Society == ''){
       this.searchModal.Society = null
@@ -391,6 +395,12 @@ keyPressNumbers(event) {
       this.loader.hideLoader();
     })
     
+  }
+
+  AllCasts(){
+    this.voter.getAllCaste(this.Language).subscribe(data=>{
+      this.casteList=data;
+    })
   }
 
 }

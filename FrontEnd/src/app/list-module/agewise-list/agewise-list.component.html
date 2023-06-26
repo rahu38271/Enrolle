@@ -25,7 +25,7 @@
             <ion-row>
               <ion-col size-xs="12" size-sm="6">
                 <ion-card-header>
-                  <ion-card-title class="header1">By Age    </ion-card-title>
+                  <ion-card-title class="header1">{{'By Age' | translate}}, {{'Total' | translate}}  - {{totalItems}}  </ion-card-title>
                   <div class="headerLine"></div>
                 </ion-card-header>
                 
@@ -90,15 +90,20 @@
           </ion-grid>
 
           
-          <ion-card *ngIf="!isShow">
+          <ion-card *ngIf="isShow">
             <ion-card-content>
               <div class="headSection">
                 <div class="search">
-                  <ion-searchbar animated="true"></ion-searchbar>
+                  <!-- <ion-searchbar animated="true"></ion-searchbar> -->
                 </div>
-                <ion-button class="button-download" color="success" >
-                  <ion-icon name="document-sharp"></ion-icon>Excel
-                </ion-button>
+                <div class="btns">
+                  <ion-button class="button-download" color="success" (click)="exportExcel()">
+                    <ion-icon name="document-sharp"></ion-icon>Excel
+                  </ion-button>
+                  <ion-button class="button-download" color="success" (click)="exportToCSV()" id="export">
+                    <ion-icon name="document-sharp"></ion-icon>CSV
+                  </ion-button>
+                </div>
               </div>
               <div class="horizontal-scroll">
                 <table id="villageTable" #epltable class="table">
@@ -116,7 +121,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let item of ageList | paginate: {itemsPerPage:100, currentPage: PageNo, totalItems:totalItems } | filter:searchMob" (click)="voterDetails(item)">
+                    <tr *ngFor="let item of ageList | paginate: {itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems }" (click)="voterDetails(item)">
                       <td>{{item.id}}</td>
                       <td class="text-capitalize">{{item.fullName}}</td>
                       <td>{{item.booth}}</td>

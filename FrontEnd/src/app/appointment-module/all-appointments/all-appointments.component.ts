@@ -112,7 +112,13 @@ export class AllAppointmentsComponent implements OnInit {
         this.getApmList = data;
         this.totalItems = data[0].totalCount
         this.getApmList.forEach(e => {
-          e.birthDate = e.birthDate.split('T')[0];
+          if(e.birthDate==null){
+            e.birthDate=''
+          }
+          else{
+            e.birthDate = e.birthDate.split('T')[0];
+          }
+          
         });
       }
       else {

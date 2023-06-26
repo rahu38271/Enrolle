@@ -60,6 +60,7 @@ export class DbComponent implements OnInit {
   }
 
   dbAssign(){
+    debugger;
     this.DBConfigModal.superAdminId = Number(this.id);
     this.loader.showLoading();
     this.auth.DBConfig(this.DBConfigModal).subscribe(data=>{

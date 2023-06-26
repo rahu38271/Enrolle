@@ -157,7 +157,7 @@ export class ImportVoterdataComponent implements OnInit {
   }
 
   upload(f: NgForm) {
-    debugger
+    debugger;
     this.loader.showLoading();
     var exceldata = [];
     this.excelUploadedData.forEach(element => {
@@ -202,7 +202,7 @@ export class ImportVoterdataComponent implements OnInit {
     });
 
     this.voter.uploadExcel(exceldata).subscribe((data) => {
-      debugger;
+      
       if (data) {
         this.loader.hideLoader();
         this.toast.presentToast("File uploded successfully!", "success", 'checkmark-circle-sharp');

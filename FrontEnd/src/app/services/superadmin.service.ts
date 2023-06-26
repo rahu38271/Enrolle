@@ -19,7 +19,6 @@ export class SuperadminService {
   }
 
   GetAdminbySuperAdminId(superId:any):Observable<any>{
-    debugger;
     return this.http.get<any>(this.url+'Login/GetAdminbySuperAdminId?superid='+superId)
   }
 
@@ -27,8 +26,11 @@ export class SuperadminService {
     return this.http.get<any>(this.url+'Login/GetVolunterbyAdminId?adminid='+adminid)
   }
 
+  getMemberBySociety(id:any):Observable<any>{
+    return this.http.get<any>(this.url+'Login/GetAllSocietyMember?userid='+id)
+  }
+
   addMAdminData(addMAmodal:any):Observable<any>{
-    debugger;
     return this.http.post<any>(this.url+'Login/CreateUpdateUser', addMAmodal)
   }
 
