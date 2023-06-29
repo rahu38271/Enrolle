@@ -30,6 +30,7 @@ export class MobileDashboardPage implements OnInit {
   state:any;
   isMarathi:any;
   superAdminName:any;
+  isImage=true;
 
   public Search: string;
   public Lists: string;
@@ -78,6 +79,9 @@ export class MobileDashboardPage implements OnInit {
     ) {
       this.translateConfigService.getDefaultLanguage();
       this.language = this.translateConfigService.getCurrentLang();
+      setTimeout(()=>{
+        this.isImage = false;
+      },3000);
   }
 
   ionViewWillEnter() {

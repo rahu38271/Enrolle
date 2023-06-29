@@ -22,21 +22,11 @@
         <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
           <ion-grid class="header">
             <ion-row>
-              <ion-col size-xs="12" size-sm="6">
+              <ion-col size-xs="12" size-sm="12">
                 <ion-card-header>
-                  <ion-card-title class="header1"> काळेवाडी (यादीभाग - 160, बूथ क्रमांक - 160) </ion-card-title>
+                  <ion-card-title class="header1"> {{addressName}}, {{'Total' | translate}} - {{totalItems}} </ion-card-title>
                   <div class="headerLine"></div>
                 </ion-card-header>
-                
-              </ion-col>
-              <ion-col size-xs="12" size-sm="6" class="ion-text-right">
-                <!-- <ion-button class="button-download" fill="outline" color="success" >
-                  <ion-icon name="document-sharp"></ion-icon>Excel
-                </ion-button>
-                <ion-button class="button-download" fill="outline" color="danger" >
-                  <ion-icon name="cloud-download-sharp"></ion-icon>PDF
-                </ion-button>
-                 -->
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -44,77 +34,54 @@
             <ion-card-content>
               <div class="headSection">
                 <div class="search">
-                  <ion-searchbar animated="true"></ion-searchbar>
+                  <ion-searchbar (keyup)="keyPress($event.target.value)" (change)="onSearchText($event.target.value)" animated="true"></ion-searchbar>
                 </div>
-                <ion-button class="button-download" color="success">
-                  <ion-icon name="document-sharp"></ion-icon>Excel
-                </ion-button>
+                <div class="btns">
+                  <ion-button class="button-download" color="success" (click)="exportExcel()">
+                    <ion-icon name="document-sharp"></ion-icon>Excel
+                  </ion-button>
+                  <ion-button class="button-download" color="success" (click)="exportToCSV()" id="export">
+                    <ion-icon name="document-sharp"></ion-icon>CSV
+                  </ion-button>
+                </div>
               </div>
               <div class="horizontal-scroll">
                 <table id="villageTable" #epltable class="table">
                   <thead>
                     <tr>
-                      
-                      <th>
-                        Sr.No.				
-                      </th>
-                      <th>
-                        Booth No.			
-                      </th>
-                      <th>
-                        Name				
-                      </th>
-                      <th>
-                        Age				
-                      </th>
-                      <th>
-                        Gender	
-                      </th>
-                      <th>
-                        Voting Card	
-                      </th>
-                      <th>
-                        Booth Name
-                      </th>
-      
-                      <th>
-                        House
-                      </th>
-                      <th>
-                        Address
-                      </th>
-                      <th>
-                        Mobile No.
-                      </th>
-                      
-                      <th id="element-to-hide" data-html2canvas-ignore="true">
-                        Action
-                      </th>
+                      <th>Sr.No.</th>
+                      <th>Name</th>
+                      <th>Part No.</th>
+                      <th>Booth Name</th>
+                      <th>Age</th>
+                      <th>Gender</th>
+                      <th>House</th>
+                      <th>Voting Card No.</th>
+                      <th>Village</th>
+                      <th>Address</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      
-                      <td>1</td>
-                      <td>44</td>
-                      <td>
-                        Sagar Salunkhe
-                      </td>
-                      <td>28</td>
-                      <td>Male</td>
-                      <td>121123123</td>
-                      <td>Kondhwa bk.</td>
-                      <td>11</td>
-                      <td>Pune</td>
-                      <td>9579743709</td>
-                      <td id="element-to-hide" data-html2canvas-ignore="true">
-                        <ion-button routerLink="/daily-news/edit-daily-news" color="success" size="small"><ion-icon name="pencil-sharp"></ion-icon></ion-button>
-                        <ion-button color="danger" size="small"><ion-icon name="trash-sharp"></ion-icon></ion-button>
+                    <tr *ngFor="let item of addressWiseList | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems }">
+                      <td>{{item.id}}</td>
+                      <td class="text-capitalize">{{item.fullName}}</td>
+                      <td>{{item.partNo}}</td>
+                      <td>{{item.booth}}</td>
+                      <td>{{item.age}}</td>
+                      <td>{{item.gender}}</td>
+                      <td>{{item.houseNo}}</td>
+                      <td>{{item.votingCardNo}}</td>
+                      <td>{{item.village}}</td>
+                      <td>{{item.address}}</td>
+                      <td class="action">
+                        <ion-icon name="create-sharp" (click)="EditVoter(item)"></ion-icon>
                       </td>
                     </tr>
                     
                   </tbody>
                 </table>
+                <pagination-controls (pageChange)="event($event)"></pagination-controls>
               </div>
             </ion-card-content>
           </ion-card>

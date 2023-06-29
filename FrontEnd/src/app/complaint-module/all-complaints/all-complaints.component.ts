@@ -8,9 +8,7 @@ import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { AlertController } from '@ionic/angular';
 import { Location } from '@angular/common';
 import { LoaderService } from 'src/app/services/loader.service';
-import { saveAs } from 'file-saver';
-import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+
 
 @Component({
   selector: 'app-all-complaints',
@@ -22,7 +20,7 @@ export class AllComplaintsComponent implements OnInit {
   isShow = false;
   allComplaints: any;
   fromDate = '';
-  ToDate = '';
+  toDate = '';
   complaintCount: any;
   Id: any;
   complaintStatusModal: any = {}
@@ -36,8 +34,6 @@ export class AllComplaintsComponent implements OnInit {
   fileSize: any;
   fileType: any;
   id:any;
-  url = environment.apiUrl;
-
 
   search() {
     this.isShow = !this.isShow
@@ -51,12 +47,10 @@ export class AllComplaintsComponent implements OnInit {
     private toast: IonicToastService,
     public alertController: AlertController,
     private location: Location,
-    private loader: LoaderService,
-    private http: HttpClient
+    private loader: LoaderService
   ) { }
 
   ngOnInit(): void {
-
     if (this.SearchText == undefined) {
       this.SearchText = ''
     }
@@ -82,16 +76,25 @@ export class AllComplaintsComponent implements OnInit {
   }
 
   complaintList(PageNo: any, NoofRow: any, SearchText: any) {
-    debugger;
     this.complaint.getAllComplaints(PageNo, NoofRow, SearchText).subscribe(data => {
       if (data.length != 0) {
         this.allComplaints = data;
-        this.totalItems = data[0].totalCount
+        this.totalItems = data[0].totalCount;
         this.allComplaints.forEach(e => {
-          e.fromDate = e.fromDate.split('T')[0];
-          e.toDate = e.toDate.split('T')[0];
+          if(e.fromDate==null){
+            e.fromDate=""
+          }
+          else{
+            e.fromDate = e.fromDate.split('T')[0];
+          }
+          if(e.toDate==null){
+            e.toDate=""
+          }
+          else{
+            e.toDate = e.toDate.split('T')[0];
+          }
         });
-
+        
       }
       else {
 
@@ -104,7 +107,6 @@ export class AllComplaintsComponent implements OnInit {
   saveFile(imageData: Blob) {
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(imageData);
-    // link.download = 'image.jpg';
     link.download = '';
     link.click();
   }
@@ -116,7 +118,6 @@ export class AllComplaintsComponent implements OnInit {
   }
 
   downloadFile(event: any) {
-    debugger;
     this.Id = Number(event.target.id);
     this.loader.showLoading();
     this.complaint.getFile(this.Id).subscribe((data: Blob) => {
@@ -200,7 +201,6 @@ export class AllComplaintsComponent implements OnInit {
 
 
   editCmplaint(data: any) {
-    debugger;
     this.router.navigateByUrl('/complaint-book/edit-complaint', { state: data })
   }
 

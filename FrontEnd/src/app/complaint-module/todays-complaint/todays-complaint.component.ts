@@ -56,13 +56,7 @@ export class TodaysComplaintComponent implements OnInit {
     this.complaintList(this.PageNo,this.NoofRow,this.SearchText);
   }
 
-  saveFile(imageData: Blob) {
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(imageData);
-    // link.download = 'image.jpg';
-    link.download = '';
-    link.click();
-  }
+
 
   event(event:any){
     this.PageNo=event;
@@ -89,28 +83,9 @@ export class TodaysComplaintComponent implements OnInit {
   }
 
 
-  editCmplaint(data:any){
-    this.router.navigateByUrl('/complaint-book/edit-complaint', {state:data})
-  }
-
-  downloadFile(event: any) {
+  editCmplaint(data: any) {
     debugger;
-    this.Id = Number(event.target.id);
-    this.loader.showLoading();
-    this.complaint.getFile(this.Id).subscribe((data: Blob) => {
-      if (data.size!=0) {
-        this.loader.hideLoader();
-        this.saveFile(data);
-        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
-      }
-      else {
-        this.loader.hideLoader();
-        this.toast.presentToast("File download failed!", "danger", 'alert-circle-sharp');
-      }
-    }, (err) => {
-      this.loader.hideLoader();
-      //this.toast.presentToast("File not downloaded!", "danger", 'alert-circle-sharp');
-    })
+    this.router.navigateByUrl('/complaint-book/edit-complaint', { state: data })
   }
 
   goBack() {

@@ -1,4 +1,4 @@
-import { Component, OnInit,ChangeDetectorRef  } from '@angular/core';
+import {Component, OnInit,ChangeDetectorRef  } from '@angular/core';
 import {
   Router,
   // import as RouterEvent to avoid confusion with the DOM Event
@@ -26,7 +26,6 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 //import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
-
 
 
 @Component({
@@ -79,6 +78,7 @@ export class AppComponent implements OnInit {
   role:any;
   language: any;
   state:any;
+
   getClass() {
     return "active"
   }
@@ -107,7 +107,7 @@ export class AppComponent implements OnInit {
     this.translateConfigService.getDefaultLanguage();
     this.language = this.translateConfigService.getCurrentLang();
     this.initializeApp();
-    
+  
     platform.ready().then(() => {
 
       androidPermissions.requestPermissions(
@@ -131,6 +131,8 @@ export class AppComponent implements OnInit {
       }
     });
   }
+
+
 
   ngOnInit() {
     this.router.events.pipe(
@@ -207,7 +209,7 @@ export class AppComponent implements OnInit {
     // else {
     //  this.router.navigate(['/']);
     // }
-    
+
     this.firebaseX.getToken()
       .then(token => console.log(`The token is ${token}`)) // save the token server-side and use it to push notifications to this device
       .catch(error => console.error('Error getting token', error));
@@ -223,6 +225,7 @@ export class AppComponent implements OnInit {
     this.menuCtrl.enable(true);
   }
 
+  
 
   initializeApp() {
     this.platform.ready().then(() => {

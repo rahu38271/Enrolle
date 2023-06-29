@@ -87,9 +87,12 @@
                       <h4> Total : <span> {{item.count}} </span> </h4>
                     </ion-label>
                   </ion-item>
-          
                 </ion-list>
-
+                <div *ngIf="!castData || castData.length === 0" class="text-center noData">
+                  <img src="assets/img/question.png" />
+                  <p> {{'No data available' | translate}}</p>
+                  <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
+                </div>
     </ion-grid>
   </div>
  

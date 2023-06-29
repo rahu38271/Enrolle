@@ -47,9 +47,9 @@ table td:last-child { padding: 0.25rem 0.1rem !important; width: 58px !important
     overflow: scroll;
 }
 
-.table {
+/* .table {
     width: 1800px;
-}
+} */
 
 .action ion-icon {
   font-size: 20px;

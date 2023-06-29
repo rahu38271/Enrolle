@@ -4,6 +4,9 @@ import { Router, ActivatedRoute } from '@angular/router'
 import { IonicToastService} from 'src/app/services/ionic-toast.service'
 import { LoaderService } from 'src/app/services/loader.service'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { ExcelService } from 'src/app/services/excel.service'
+import { CsvService } from 'src/app/services/csv.service';
+
 
 @Component({
   selector: 'app-addresswise-list',
@@ -34,6 +37,8 @@ export class AddresswiseListComponent implements OnInit {
       private route:ActivatedRoute,
       private toast:IonicToastService,
       private loader:LoaderService,
+      private excel:ExcelService,
+      private csv:CsvService,
       private translateConfigService: TranslateConfigService,
       ) {
         this.Language = this.translateConfigService.getCurrentLang();
@@ -56,6 +61,10 @@ export class AddresswiseListComponent implements OnInit {
   event(event:any){
     this.PageNo = event;
     this.addressWiseVoterData(this.userId,this.roleID,event,this.NoofRow,this.Language,this.SearchText)
+  }
+
+  EditVoter(data:any){
+    this.router.navigateByUrl('/voterdata-management/edit-voterdata',{state: data})
   }
 
   addressWiseVoterData(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){
@@ -127,6 +136,50 @@ export class AddresswiseListComponent implements OnInit {
         }
       })
     }
+  }
+
+  exportExcel():void {
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    var SearchText = "";
+    this.loader.showLoading();
+    this.voter.voterByAddress(this.addressName,this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.addressWiseList = data;
+        this.totalItems = data[0].totalCount;
+        this.excel.exportAsExcelFile(this.addressWiseList, 'Addresswise Voter');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
+  }
+
+  exportToCSV() {
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    var SearchText = "";
+    this.loader.showLoading();
+    this.voter.voterByAddress(this.addressName,this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.addressWiseList = data;
+        this.totalItems = data[0].totalCount;
+        this.csv.exportToCsv(this.addressWiseList, 'Addresswise Voter');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
   }
 
 }

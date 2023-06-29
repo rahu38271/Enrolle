@@ -37,12 +37,10 @@ export class VoterService {
   }
 
   addSingleVoter(addVoterModal:any):Observable<any>{
-    debugger;
     return this.http.post<any>(this.url+'Voter/InsertVoter', addVoterModal)
   }
 
   uploadExcel(modal:any):Observable<any>{
-    debugger;
     return this.http.post<any>(this.url+'Voter/InsertBulkVoter', modal)
   }
 
@@ -110,6 +108,7 @@ export class VoterService {
   }
 
   updateCaste(id:any, ColoumnName:any, ColoumnValue:any){
+    debugger;
     return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue, id)
   }
 
@@ -198,10 +197,15 @@ export class VoterService {
     return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Caste&ColoumnValue='+Caste+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language)
   }
 
+  // voter by occupation / profession
+
+  voterByProf(occupation:number,userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Occupation&ColoumnValue='+occupation+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
+  }
+
   // advance search voter
 
   advanceSearch(searchModal:any){
-    debugger;
     return this.http.post<any>(this.url+'Voter/AdvancedSearchVoter', searchModal)
   }
 

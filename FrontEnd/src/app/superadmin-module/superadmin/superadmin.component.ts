@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@an
 import { AlertController } from '@ionic/angular';
 import { SuperadminService } from 'src/app/services/superadmin.service'
 import { LoaderService } from 'src/app/services/loader.service'
-import { Router, ActivatedRoute,NavigationEnd } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router'
 import { Location } from '@angular/common';
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
-import { filter } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-superadmin',
@@ -54,6 +54,10 @@ export class SuperadminComponent implements OnInit {
   }
 
   ngOnInit() {
+    
+  }
+
+  ionViewWillEnter(){
     this.superId = localStorage.getItem("loginId");
     this.adminid = localStorage.getItem("loginId");
     this.roleId = localStorage.getItem("userType")
@@ -66,16 +70,10 @@ export class SuperadminComponent implements OnInit {
     else {
       this.isDB = this.isDB;
     }
-    
-
-  }
-
-  ionViewWillEnter(){
     this.getAllAdminList();
   }
 
   getAllAdminList() {
-    debugger;
     //All users List for Masteradmin
     if (this.roleId == 1) {
       this.sadmin.getAllAdmin().subscribe(data => {
@@ -101,9 +99,9 @@ export class SuperadminComponent implements OnInit {
             }
             
             this.getAdminList.push(e);
-            this.getAdminList.forEach(e => {
-              e.createdDate = e.createdDate.split('T')[0];
-            });
+            // this.getAdminList.forEach(e => {
+            //   e.createdDate = e.createdDate.split('T')[0];
+            // });
             
           });
           
@@ -143,9 +141,9 @@ export class SuperadminComponent implements OnInit {
               e = { ...e, roleName: "Member" };
             }
             this.getAdminList.push(e);
-            this.getAdminList.forEach(e => {
-              e.createdDate = e.createdDate.split('T')[0];
-            });
+            // this.getAdminList.forEach(e => {
+            //   e.createdDate = e.createdDate.split('T')[0];
+            // });
             
           });
           
@@ -186,14 +184,25 @@ export class SuperadminComponent implements OnInit {
               e = { ...e, roleName: "Member" };
             }
             this.getAdminList.push(e);
-            this.getAdminList.forEach(e => {
-              e.createdDate = e.createdDate.split('T')[0];
-            });
 
           });
         }
         else {
           
+        }
+      })
+    }
+
+    // All users list for Society
+    if(this.roleId == 5){
+      this.sadmin.getMemberBySociety(this.id).subscribe(memberByso=>{
+        if(memberByso.length != 0){
+          var list = memberByso.forEach(e => {
+            if (e.roleId == 6) {
+              e = { ...e, roleName: "Member" };
+            }
+            this.getAdminList.push(e);
+          });
         }
       })
     }

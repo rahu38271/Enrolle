@@ -189,7 +189,6 @@ export class GeneralEnquiryComponent implements OnInit {
   }
 
   searchData(){
-    debugger;
     this.loader.showLoading();
     this.isE=false;
     this.isShowEnq=true;
@@ -265,6 +264,9 @@ export class GeneralEnquiryComponent implements OnInit {
         this.searchEnqList = data;
         this.totalItems = data[0].totalCount;
         this.toast.presentToast("Searched successfully!", "success", 'checkmark-circle-sharp');
+        this.searchEnqList.forEach(e => {
+          e.birthDate = e.birthDate.split('T')[0];
+        });
       }
       else{
         this.loader.hideLoader();

@@ -90,33 +90,14 @@
           </ion-label>
         </ion-item>
       </ion-list>
+      <div *ngIf="!adrsData || adrsData.length === 0" class="text-center noData">
+        <img src="assets/img/question.png" />
+        <p> {{'No data available' | translate}}</p>
+        <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
+      </div>
     </ion-grid>
   </div>
 
 
 </ion-content>
 
-
-<!-- <table datatable class="row-border hover">
-  <thead>
-    <tr>
-      <th>Sr.No.</th>
-      <th>Name</th>
-      <th>Country</th>
-      <th>IPL Team</th>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Virat Kohli</td>
-      <td>India</td>
-      <td>Banglore</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>MS Dhoni</td>
-      <td>India</td>
-      <td>Chennai</td>
-    </tr>
-    </tbody>
-    </table> -->

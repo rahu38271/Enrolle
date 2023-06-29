@@ -170,7 +170,6 @@ omit_special_char(event) {
 
   //add complaint
   addComplaint(){
-    debugger;
     this.loader.showLoading();
     this.enquiry.addSingleComplaint(this.complaintModal).subscribe(data=>{
       if(data){
@@ -191,7 +190,6 @@ omit_special_char(event) {
 
   //add enquiry
   editEnquiry(){
-    debugger;
     this.loader.showLoading();
     this.enquiryModal.id = Number(this.enquiryModal.id);
     this.enquiryModal.userId = Number(this.UserId);

@@ -172,10 +172,6 @@ export class AddSuperadminComponent implements OnInit {
         //this.router.navigate(['/superadmin']);
         this.router.navigateByUrl('/superadmin')
       }
-      else if(data==="User or Password Already Exist"){
-        this.loader.hideLoader();
-        this.toast.presentToast("Username or Password already exist", "danger", 'alert-circle-sharp');
-      }
       else {
         this.loader.hideLoader();
         this.toast.presentToast("User not saved", "danger", 'alert-circle-sharp');

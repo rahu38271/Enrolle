@@ -5,7 +5,6 @@ import html2pdf from 'html2pdf.js'
 import { AnnapurnaService } from 'src/app/services/annapurna.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { Router, NavigationEnd } from '@angular/router';
-import { filter } from 'rxjs/operators';
 import { IonicToastService }  from 'src/app/services/ionic-toast.service'
 import { ExcelService } from 'src/app/services/excel.service'
 import { CsvService } from 'src/app/services/csv.service';
@@ -38,7 +37,6 @@ export class AnnapurnaComponent implements OnInit {
  
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
   
-
   constructor(
     public modalCtrl: ModalController,
     public alertController: AlertController,
@@ -51,13 +49,12 @@ export class AnnapurnaComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-      
-      this.router.events.pipe(
-        filter(event => event instanceof NavigationEnd)
-      ).subscribe(() => {
-        this.annapurnaList();
+
+    }
+
+    ionViewWillEnter(){
+      this.annapurnaList();
         this.familyList();
-      })
     }
 
     family(event){
@@ -76,10 +73,7 @@ export class AnnapurnaComponent implements OnInit {
       if(data != 0){
         //this.loader.hideLoader();
         this.getAnnapurna = data
-        this.getAnnapurna.forEach(e => {
-          e.tokenDate = e.tokenDate.split('T')[0];
-        });
-        
+        this.anpId = data[0].id;
         
         if(this.getAnnapurna.cardDone == "Y"){
           this.checked = true;
@@ -87,6 +81,14 @@ export class AnnapurnaComponent implements OnInit {
         else{
           this.checked = false;
         }
+        this.getAnnapurna.forEach(e => {
+          if(e.tokenDate==null){
+            e.tokenDate = ''
+          }
+          else{
+            e.tokenDate = e.tokenDate.split('T')[0];
+          }
+        });
       }
       else{
         //this.loader.hideLoader();
@@ -112,18 +114,6 @@ export class AnnapurnaComponent implements OnInit {
     },(err)=>{
 
     })
-  }
-
-  familyList(){
-    debugger;
-    this.anpid = 5
-    this.annapurna.getFamilyList(this.anpid).subscribe(data=>{
-      console.log(data);
-      this.familyData = data;
-    })
-  }
-
-  addrow(){
     this.getAnnapurna.push({
       fullName:this.fullName,
       contactNo:this.contactNo,
@@ -132,6 +122,28 @@ export class AnnapurnaComponent implements OnInit {
       anpId:this.anpId
     })
   }
+
+  familyList(){
+    debugger;
+    this.anpid = 1;
+    this.annapurna.getFamilyList(this.anpid).subscribe(data=>{
+      this.familyData = data;
+    })
+  }
+
+  addFamRow(){
+    this.getAnnapurna.push(this.familyData)
+  }
+
+  // addrow(){
+  //   this.getAnnapurna.push({
+  //     fullName:this.fullName,
+  //     contactNo:this.contactNo,
+  //     altContactNo:this.altContactNo,
+  //     address:this.address,
+  //     anpId:this.anpId
+  //   })
+  // }
 
   editAnnapurna(data:any){
     this.router.navigateByUrl('/annapurna/edit-annapurna', {state:data})
@@ -159,12 +171,7 @@ export class AnnapurnaComponent implements OnInit {
           cssClass: 'yes',
           handler: () => {
             this.annapurna.deleteAnnapurna(id).subscribe(data=>{
-              this.router.events.pipe(
-                filter(event => event instanceof NavigationEnd)
-              ).subscribe(() => {
-                this.annapurnaList();
-                this.familyList();
-              })
+              this.ionViewWillEnter();
               this.toast.presentToast("Annapurna deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })
           }

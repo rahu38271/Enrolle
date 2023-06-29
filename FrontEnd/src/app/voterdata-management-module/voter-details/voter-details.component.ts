@@ -35,11 +35,11 @@ export class VoterDetailsComponent {
   @ViewChild('tr6') tr6: ElementRef;
   @ViewChild('tr7') tr7: ElementRef;
   //@ViewChild('myImg') myImg: ElementRef;
-
+  year=new Date().getFullYear();
   text: string = ''
-  imgurl: string = 'https://cdn.pixabay.com/photo/2019/12/26/05/10/pink-4719682_960_720.jpg'
-  //imgurl: string = 'https://scontent-bom1-2.xx.fbcdn.net/v/t39.30808-6/262921346_1278659969288060_1495313806783760875_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=730e14&_nc_ohc=iloEXgmNY_oAX8-WTxc&_nc_ht=scontent-bom1-2.xx&oh=00_AfD0wJKOTdJ2M8sPLkL-e5DE9lW-kilOCJ91efD8hWczsQ&oe=643BAA03'
-
+  // imgurl: string = 'https://cdn.pixabay.com/photo/2019/12/26/05/10/pink-4719682_960_720.jpg'
+  imgurl: string = 'https://tinysms.in/bjp.png'
+ 
   ImagePath = ''
   VoterListByUser: any;
   id: any;
@@ -93,9 +93,11 @@ export class VoterDetailsComponent {
   interval:any;
   partNumber:any;
   columnName:any;
-
   bgColor = '#FFF';
-  assemblyName1: any;
+  assemblyName: any;
+  isAssembly=true;
+  isVillage=true;
+  village:any;
   closeModal() {
     this.modalCtrl.dismiss();
   }
@@ -140,9 +142,22 @@ export class VoterDetailsComponent {
   }
 
   ngAfterViewInit(){
-    this.assemblyName1 = localStorage.getItem("loginAssembly");
+    this.assemblyName = localStorage.getItem("loginAssembly");
+    this.village = localStorage.getItem("loginVillage");
     this.voterDetails();
     this.AllCasts();
+    if(this.assemblyName=="null"){
+      this.isAssembly=!this.isAssembly;
+    }
+    else{
+      this.isAssembly=this.isAssembly;
+    }
+    if(this.village=="null"){
+      this.isVillage=!this.isVillage;
+    }
+    else{
+      this.isVillage=this.isVillage;
+    }
     this.mobUpdate.Mobile = this.VoterListByUser.mobileNo;
     this.altmobUpdate.AlternateMobileNo = this.VoterListByUser.alternateMobileNo;
     this.deadAlive.YesNo = this.VoterListByUser.isAlive;
@@ -230,6 +245,13 @@ export class VoterDetailsComponent {
     }
     else if (this.VoterListByUser.votingInclination == "Other") {
       this.bgColor = '#fff'
+    }
+
+    if(this.VoterListByUser.birthDate == null){
+      this.VoterListByUser.birthDate = ''
+    }
+    else{
+      this.VoterListByUser.birthDate = this.VoterListByUser.birthDate.split('T')[0];
     }
 
     //this.partNumber =this.partNo
@@ -359,7 +381,8 @@ export class VoterDetailsComponent {
     this.CasteUpdate.ColoumnValue = this.CasteUpdate.ColoumnValue;
     this.voter.updateCaste(this.CasteUpdate.Id, this.CasteUpdate.ColoumnName, this.CasteUpdate.ColoumnValue).subscribe(data => {
       if (data) {
-        this.voterDetails();
+        // this.voterDetails();
+        this.VoterListByUser.caste = this.VoterListByUser.caste;
         this.closeModal();
 
         this.toast.presentToast("Caste updated successfully!", "success", 'checkmark-circle-sharp');
@@ -550,6 +573,32 @@ export class VoterDetailsComponent {
     }
     this.voter.getAllCaste(this.Language).subscribe(data => {
       this.casteList = data;
+    })
+  }
+
+  AllCasts1(ColoumnValue){
+    debugger;
+    this.id = this.Voter.id;
+    this.CasteUpdate.Id = Number(this.id);
+    this.CasteUpdate.ColoumnName = "Caste"
+    if(this.CasteUpdate.ColoumnValue == null){
+      this.CasteUpdate.ColoumnValue = '';
+    }
+    else{
+      this.CasteUpdate.ColoumnValue = this.CasteUpdate.ColoumnValue;
+    }
+    this.voter.updateCaste(this.CasteUpdate.Id, this.CasteUpdate.ColoumnName, this.CasteUpdate.ColoumnValue).subscribe(data => {
+      if (data) {
+        this.voterDetails();
+        this.closeModal();
+
+        this.toast.presentToast("Caste updated successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else {
+
+      }
+    }, (err) => {
+
     })
   }
 

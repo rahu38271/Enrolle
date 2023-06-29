@@ -7,6 +7,8 @@ import { LoaderService } from 'src/app/services/loader.service'
 import { Router} from '@angular/router'
 import { IonicToastService} from 'src/app/services/ionic-toast.service'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { ExcelService } from 'src/app/services/excel.service'
+import { CsvService } from 'src/app/services/csv.service';
 
 @Component({
   selector: 'app-agewise-list',
@@ -33,7 +35,7 @@ export class AgewiseListComponent implements OnInit {
   roleID:any;
   searchMob:string;
   PageNo:any=1;
-  NoofRow:any=25
+  NoofRow:any=10;
   totalItems:any;
   SearchText:any;
 
@@ -57,6 +59,8 @@ export class AgewiseListComponent implements OnInit {
     public toastController: ToastController, 
     private voter:VoterService,
     private translateConfigService: TranslateConfigService,
+    private excel:ExcelService,
+      private csv:CsvService,
     ) { 
       this.Language = this.translateConfigService.getCurrentLang();
       if(this.Language == "kn"){
@@ -89,7 +93,7 @@ export class AgewiseListComponent implements OnInit {
    }
 
    agewiseSearch(userId:any,roleID:any,PageNo:any,NofRow:any,Language:any) {
-     this.isShow = !this.isShow;
+     this.isShow = true;
      //this.Language = this.translateConfigService.getCurrentLang();
     this.ageModal.Language = this.Language
     this.voter.voterBetweenAge(
@@ -124,12 +128,64 @@ export class AgewiseListComponent implements OnInit {
 
   
 
-  exportexcel() {
-    const ws: xlsx.WorkSheet =
-      xlsx.utils.table_to_sheet(this.epltable.nativeElement);
-    const wb: xlsx.WorkBook = xlsx.utils.book_new();
-    xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
-    xlsx.writeFile(wb, 'epltable.xlsx');
+  exportExcel():void {
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    this.loader.showLoading();
+    this.voter.voterBetweenAge(
+      this.ageModal.age1, 
+      this.ageModal.age2, 
+      this.ageModal.gender, 
+      this.userId, 
+      this.roleID,
+      this.ageModal.PageNo = this.PageNo,
+      this.ageModal.NoofRow = this.NoofRow,
+      this.ageModal.Language
+      ).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.ageList = data;
+        this.totalItems = data[0].totalCount;
+        this.excel.exportAsExcelFile(this.ageList, 'Agewise Voter');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
+  }
+
+  exportToCSV() {
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    this.loader.showLoading();
+    this.voter.voterBetweenAge(
+      this.ageModal.age1, 
+      this.ageModal.age2, 
+      this.ageModal.gender, 
+      this.userId, 
+      this.roleID,
+      this.ageModal.PageNo = this.PageNo,
+      this.ageModal.NoofRow = this.NoofRow,
+      this.ageModal.Language
+      ).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.ageList = data;
+        this.totalItems = data[0].totalCount;
+        this.csv.exportToCsv(this.ageList, 'Agewise Voter');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
   }
 
   pdf() {

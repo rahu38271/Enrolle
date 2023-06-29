@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AlertController,LoadingController,ToastController } from '@ionic/angular';
-import * as xlsx from 'xlsx';
 import html2pdf from 'html2pdf.js'
 import { VoterService } from 'src/app/services/voter.service'
 import { LoaderService } from 'src/app/services/loader.service'
@@ -32,7 +31,7 @@ export class ModernWayComponent implements OnInit {
     ToAge:'',
     Village:'',
     Gender:'',
-    Cast:'',
+    Caste:'',
     Religion:'',
     Society:'',
     Occupation:'',
@@ -48,6 +47,7 @@ export class ModernWayComponent implements OnInit {
   PageNo:any=1;
   NoofRow:any=25;
   totalItems:any;
+  casteList: any;
 
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -105,7 +105,11 @@ omit_special_char(event) {
   ngOnInit() {
     this.id = localStorage.getItem("loginId");
     this.roleID = localStorage.getItem("userType");
- 
+    
+  }
+
+  ionViewWillEnter(){
+    this.AllCasts();
   }
 
    voterDetails(item:any){
@@ -122,7 +126,6 @@ omit_special_char(event) {
   }
 
   voterListBySearch(){
-    debugger;
     this.isShow = true
     this.Language = this.translateConfigService.getCurrentLang();
     if (this.Language == "kn") {
@@ -208,11 +211,11 @@ omit_special_char(event) {
     else{
       this.searchModal.Village = this.searchModal.Village;
     }
-    if(this.searchModal.Cast == ''){
-      this.searchModal.Cast = null
+    if(this.searchModal.Caste == ''){
+      this.searchModal.Caste = null
     }
     else{
-      this.searchModal.Cast = this.searchModal.Cast;
+      this.searchModal.Caste = this.searchModal.Caste;
     }
     if(this.searchModal.Occupation == ''){
       this.searchModal.Occupation = null
@@ -271,7 +274,6 @@ omit_special_char(event) {
 
 
   exportExcel():void {
-    debugger;
     this.PageNo=1;
     this.NoofRow=this.totalItems;
     this.loader.showLoading();
@@ -306,6 +308,12 @@ omit_special_char(event) {
 
     // Old monolithic-style usage:
     html2pdf(element, opt);
+  }
+
+  AllCasts(){
+    this.voter.getAllCaste(this.Language).subscribe(data=>{
+      this.casteList=data;
+    })
   }
 
 }

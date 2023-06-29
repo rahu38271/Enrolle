@@ -3,6 +3,9 @@ import { Router } from '@angular/router'
 import { VoterService } from 'src/app/services/voter.service'
 import { LoaderService } from 'src/app/services/loader.service'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { ExcelService } from 'src/app/services/excel.service'
+import { CsvService } from 'src/app/services/csv.service';
+import { IonicToastService } from 'src/app/services/ionic-toast.service';
 
 @Component({
   selector: 'app-imp-voter',
@@ -29,6 +32,9 @@ export class ImpVoterComponent implements OnInit {
     private voter: VoterService,
     private loader: LoaderService,
     private translateConfigService: TranslateConfigService,
+    private excel:ExcelService,
+    private csv:CsvService,
+    private toast:IonicToastService
   ) {
     this.Language = this.translateConfigService.getCurrentLang();
   }
@@ -122,6 +128,50 @@ export class ImpVoterComponent implements OnInit {
         }
       })
     }
+  }
+
+  exportExcel():void {
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    var SearchText = "";
+    this.loader.showLoading();
+    this.voter.impVoter(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.impVoterData = data;
+        this.totalItems = data[0].totalCount;
+        this.excel.exportAsExcelFile(this.impVoterData, 'Imp Voter');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
+  }
+
+  exportToCSV() {
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    var SearchText = "";
+    this.loader.showLoading();
+    this.voter.impVoter(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.impVoterData = data;
+        this.totalItems = data[0].totalCount;
+        this.csv.exportToCsv(this.impVoterData, 'Imp Voter');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
   }
 
 

@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://eaapi.test.obicas.in/api/'
-  // apiUrl:'http://45.249.108.42:8013/api/'
+  //apiUrl: 'https://eaapi.test.obicas.in/api/'
+  apiUrl:'http://45.249.108.42:8013/api/'
 };
 
 /*

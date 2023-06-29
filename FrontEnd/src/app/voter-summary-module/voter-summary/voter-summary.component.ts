@@ -4,7 +4,6 @@ import * as xlsx from 'xlsx';
 import html2pdf from 'html2pdf.js'
 import { VoterService } from 'src/app/services/voter.service'
 import { Router } from '@angular/router'
-import { th } from 'date-fns/locale';
 
 
 @Component({
@@ -22,8 +21,8 @@ export class VoterSummaryComponent implements OnInit {
   district:any;
   village:any;
   searchWeb:string;
-  isAssembly=false;
-  isVillage=false;
+  isAssembly=true;
+  isVillage=true;
   constructor(public alertController: AlertController, private voter:VoterService, private router:Router) { }
 
   ngOnInit() { 
@@ -33,7 +32,18 @@ export class VoterSummaryComponent implements OnInit {
     this.district = localStorage.getItem("loginDistrict");
     this.village = localStorage.getItem("loginVillage");
     this.voterByBooth();
-    
+    if(this.assemblyName=="null"){
+      this.isAssembly=!this.isAssembly;
+    }
+    else{
+      this.isAssembly=this.isAssembly;
+    }
+    if(this.village=="null"){
+      this.isVillage=!this.isVillage;
+    }
+    else{
+      this.isVillage=this.isVillage;
+    }
     
   }
 

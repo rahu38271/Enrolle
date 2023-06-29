@@ -4,6 +4,8 @@ import { LoaderService } from 'src/app/services/loader.service'
 import { Router } from '@angular/router'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { IonicToastService } from 'src/app/services/ionic-toast.service'; 
+import { ExcelService } from 'src/app/services/excel.service'
+import { CsvService } from 'src/app/services/csv.service';
 
 @Component({
   selector: 'app-doubtful-list',
@@ -27,7 +29,9 @@ export class DoubtfulListComponent implements OnInit {
     private loader:LoaderService,
     private router:Router,
     private translateConfigService: TranslateConfigService,
-    private toast:IonicToastService
+    private toast:IonicToastService,
+    private excel:ExcelService,
+    private csv:CsvService
   ) {
     this.Language = this.translateConfigService.getCurrentLang();
    }
@@ -87,6 +91,10 @@ export class DoubtfulListComponent implements OnInit {
     this.isShow = !this.isShow
   }
 
+  EditVoter(data:any){
+    this.router.navigateByUrl('/voterdata-management/edit-voterdata',{state: data})
+  }
+
   onSearchChange(SearchText: any) {
     if (this.SearchText == '') {
       this.PageNo = 1;
@@ -125,6 +133,51 @@ export class DoubtfulListComponent implements OnInit {
         }
       })
     }
+  }
+
+  exportExcel():void {
+    debugger;
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    var SearchText = "";
+    this.loader.showLoading();
+    this.voter.doubtful(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.doubtfulVoter = data;
+        this.totalItems = data[0].totalCount;
+        this.excel.exportAsExcelFile(this.doubtfulVoter, 'Doubtful Voter');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
+  }
+
+  exportToCSV() {
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    var SearchText = "";
+    this.loader.showLoading();
+    this.voter.doubtful(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.doubtfulVoter = data;
+        this.totalItems = data[0].totalCount;
+        this.csv.exportToCsv(this.doubtfulVoter, 'Doubtful Voter');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
   }
 
 }

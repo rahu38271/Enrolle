@@ -104,7 +104,8 @@ export class LoginComponent implements OnInit {
         //});
           this.toast.presentToast("Logged In Succesfully", "success", 'checkmark-circle-sharp');
           this.loader.hideLoader();
-          this.router.navigate(['/home/mobile-dashboard']);
+          //this.router.navigate(['/home/mobile-dashboard']);
+          this.router.navigate(['/image']);
       }
     },
     (err)=>{

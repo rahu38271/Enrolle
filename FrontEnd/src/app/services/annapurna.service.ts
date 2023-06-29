@@ -19,6 +19,7 @@ export class AnnapurnaService {
 
   // add / edit single annapurna
   addSingleAnnapurna(annapurnaModal:any){
+    debugger;
     return this.http.post<any>(this.url+'Annapurna/InsertUpdateAnnapurna',annapurnaModal)
   }
 

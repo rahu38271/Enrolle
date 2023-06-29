@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { LoaderService } from 'src/app/services/loader.service'
+import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { VoterService } from 'src/app/services/voter.service'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { ExcelService } from 'src/app/services/excel.service'
+import { CsvService } from 'src/app/services/csv.service';
 
 @Component({
   selector: 'app-opposition-list',
@@ -26,6 +29,9 @@ export class OppositionListComponent implements OnInit {
     private loader:LoaderService,
     private voter:VoterService,
     private translateConfigService: TranslateConfigService,
+    private excel:ExcelService,
+    private csv:CsvService,
+    private toast:IonicToastService
   ) { 
     this.Language = this.translateConfigService.getCurrentLang();
   }
@@ -49,6 +55,10 @@ export class OppositionListComponent implements OnInit {
    event(event:any){
     this.PageNo = event;
     this.opposite(this.userId,this.roleID,event,this.NoofRow,this.Language,this.SearchText)
+  }
+
+  EditVoter(data:any){
+    this.router.navigateByUrl('/voterdata-management/edit-voterdata',{state: data})
   }
 
   opposite(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){
@@ -122,6 +132,50 @@ export class OppositionListComponent implements OnInit {
         }
       })
     }
+  }
+
+  exportExcel():void {
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    var SearchText = "";
+    this.loader.showLoading();
+    this.voter.opposition(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.oppositeVoter = data;
+        this.totalItems = data[0].totalCount;
+        this.excel.exportAsExcelFile(this.oppositeVoter, 'Doubtful Voter');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
+  }
+
+  exportToCSV() {
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    var SearchText = "";
+    this.loader.showLoading();
+    this.voter.opposition(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.oppositeVoter = data;
+        this.totalItems = data[0].totalCount;
+        this.csv.exportToCsv(this.oppositeVoter, 'Doubtful Voter');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
   }
 
 }

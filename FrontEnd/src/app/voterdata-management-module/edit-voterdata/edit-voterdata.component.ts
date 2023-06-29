@@ -102,7 +102,12 @@ omit_special_char(event) {
         this.getAssembly();
         this.getWard();
         this.getBooth()
-        
+        if(this.EditData.birthDate==null){
+          this.EditData.birthDate = ''
+        }
+        else{
+          this.EditData.birthDate = this.EditData.birthDate.split('T')[0];
+        }
       }
 
   getDistrict(){

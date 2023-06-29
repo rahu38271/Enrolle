@@ -316,10 +316,6 @@ const routes: Routes = [
     loadChildren: () => import('./annapurna-module/annapurna-module.module').then( m => m.AnnapurnaModuleModule)
   },
   {
-    path: 'new-voter',
-    loadChildren: () => import('./new-voter-module/new-voter-module.module').then( m => m.NewVoterModuleModule)
-  },
-  {
     path: 'society',
     loadChildren: () => import('./society-module/society-module.module').then( m => m.SocietyModuleModule)
   },
@@ -342,6 +338,10 @@ const routes: Routes = [
   {
     path: 'reports',
     loadChildren: () => import('./reports-module/reports-module.module').then( m => m.ReportsModuleModule)
+  },
+  {
+    path: 'image',
+    loadChildren: () => import('./image-module/image-module.module').then( m => m.ImageModuleModule)
   },
 ];
 

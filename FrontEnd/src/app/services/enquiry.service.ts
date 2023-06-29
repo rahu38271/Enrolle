@@ -79,7 +79,6 @@ export class EnquiryService {
   // datewise enquiry
 
   enquiryByDate(UserId:any,RoleId:any,PageNo:any,NoofRow:any,TypeofWork:any,FromDate:any,ToDate:any){
-    debugger;
     return this.http.get(this.url+'GeneralEnquiry/GetEnquirybyTypeofWork?UserId='+UserId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&TypeofWork='+TypeofWork+'&FromDate='+FromDate+'&ToDate='+ToDate)
   }
 }

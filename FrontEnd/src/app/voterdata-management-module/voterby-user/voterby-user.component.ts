@@ -6,9 +6,8 @@ import { LoaderService } from 'src/app/services/loader.service'
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
-import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 import { ChangeDetectorRef } from '@angular/core';
-
+import { VoiceSearchService } from 'src/app/services/voice-search.service';
 
 @Component({
   selector: 'app-voterby-user',
@@ -51,14 +50,11 @@ export class VoterbyUserComponent {
       public alertController: AlertController,
       public translate: TranslateService,
       private translateConfigService: TranslateConfigService,
-      private speechRecognition: SpeechRecognition,
       private cd: ChangeDetectorRef,
-      
+      private voiceSearch:VoiceSearchService
     ) {
     
-    this.speechRecognition.requestPermission()
-      .then(() => console.log('Permission granted'))
-      .catch(() => console.log('Permission denied'));
+   
 
   }
 
@@ -206,24 +202,7 @@ export class VoterbyUserComponent {
     let options = {
       Language: this.Language
     }
-    if (!this.isMike) {
-      this.speechRecognition.hasPermission()
-        .then((hasPermission: boolean) => {
-          if (!hasPermission) {
-            this.speechRecognition.requestPermission();
-          }
-        });
-      this.speechRecognition.startListening().subscribe(voterListByUser => {
-        this.voterListByUser = this.voterListByUser;
-        this.cd.detectChanges();
-      });
-      this.isMike = true;
-    }
-    else if (this.isMike) {
-      this.speechRecognition.stopListening().then(() => {
-        this.isMike = false;
-      });
-    }
+   
   }
 
 }

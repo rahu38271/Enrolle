@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { VoterService } from 'src/app/services/voter.service'
 import { Router } from '@angular/router'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
-
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-by-address',
@@ -22,6 +22,7 @@ export class ByAddressComponent implements OnInit {
     private voter:VoterService, 
     private router:Router,
     private translateConfigService: TranslateConfigService,
+    private loader:LoaderService
     ) { 
       this.Language = this.translateConfigService.getCurrentLang();
     }
@@ -54,6 +55,7 @@ export class ByAddressComponent implements OnInit {
     else{
       this.Language = "English"
     }
+    this.loader.showLoading();
     this.voter.addressData({
       TableName: "Tbl_Voter",
       ColumnName: "Address",
@@ -61,7 +63,15 @@ export class ByAddressComponent implements OnInit {
       roleID: Number(this.roleId),
       Language: this.Language
     }).subscribe(data=>{
-      this.adrsData = data;
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.adrsData = data;
+      }
+      else{
+        this.loader.hideLoader();
+      }
+    },(err)=>{
+      this.loader.hideLoader();
     })
   }
 

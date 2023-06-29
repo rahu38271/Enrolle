@@ -76,6 +76,7 @@
                   <th>Name</th>
                   <th>Phone No.</th>
                   <th>Alt. Phone No.</th>
+                  <th>Relation</th>
                   <th>Chal / Society Name</th>
                   <th>Present Address Near Landmark</th>
                   <th>Area</th>
@@ -94,53 +95,96 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of getAnnapurna | filter:searchWeb">
-                  <td>{{item.id}}</td>
-                  <td>{{item.firstName}} {{item.middleName}} {{item.lastName}}</td>
-                  <td>{{item.phoneNo}}</td>
-                  <td>{{item.altPhoneNo}}</td>
-                  <td>{{item.chal_SocietyName}}</td>
-                  <td>{{item.presentAddress}}</td>
-                  <td>{{item.area}}</td>
-                  <td>{{item.yadiNo_PartNo}}</td>
-                  <td>{{item.srNo}}</td>
-                  <td>{{item.epicNo}}</td>
-                  <td>{{item.voterNo}}</td>
-                  <td>{{item.tokenDate}}</td>
-                  <td>{{item.tokenNo}}</td>
-                  <td>{{item.volunterName}}</td>
-                  <td>
-                      <input type="checkbox" 
-                      name="anpCheckBox"
-                      
-                      >
-                      <!-- {{item.cardDone}} -->
-                  </td>
-                  <td>{{item.newEntry_Remarks}}</td>
-                  <td id="element-to-hide" data-html2canvas-ignore="true" class="action">
-                    <ion-icon (click)="editAnnapurna(item)" name="create-sharp"></ion-icon>
-                    <ion-icon (click)="family($event)" id="{{item.id}}" name="add-circle-sharp"></ion-icon>
-                    <ion-icon (click)="addrow()" name="add-sharp"></ion-icon>
-                    <ion-icon (click)="deleteAnp(item.id)" class="delete" name="trash-bin-sharp"></ion-icon>
-                  </td>
-                </tr>
+                  <tr *ngFor="let item of getAnnapurna | filter:searchWeb;let i=index">
+                    <td>{{item.id}}</td>
+                    <td>{{item.firstName}} {{item.middleName}} {{item.lastName}}</td>
+                    <td>{{item.phoneNo}}</td>
+                    <td>{{item.altPhoneNo}}</td>
+                    <td>{{item.relation}}</td>
+                    <td>{{item.chal_SocietyName}}</td>
+                    <td>{{item.presentAddress}}</td>
+                    <td>{{item.area}}</td>
+                    <td>{{item.yadiNo_PartNo}}</td>
+                    <td>{{item.srNo}}</td>
+                    <td>{{item.epicNo}}</td>
+                    <td>{{item.voterNo}}</td>
+                    <td>{{item.tokenDate}}</td>
+                    <td>{{item.tokenNo}}</td>
+                    <td>{{item.volunterName}}</td>
+                    <td>
+                        <input type="checkbox" 
+                        name="anpCheckBox"
+                        >
+                    </td>
+                    <td>{{item.newEntry_Remarks}}</td>
+                    <td id="element-to-hide" data-html2canvas-ignore="true" class="action">
+                      <ion-icon (click)="editAnnapurna(item)" name="create-sharp"></ion-icon>
+                      <ion-icon (click)="family($event)" id="{{item.id}}" name="add-circle-sharp"></ion-icon>
+                      <ion-icon (click)="deleteAnp(item.id)" class="delete" name="trash-bin-sharp"></ion-icon>
+                    </td>
+                  </tr>
+                  <tr *ngFor="let item of familyData">
+                    <td></td>
+                    <td>{{item.fullName}}</td>
+                    <td>{{item.contactNo}}</td>
+                    <td>{{item.altContactNo}}</td>
+                    <td>{{item.relation}}</td>
+                    <td>{{item.address}}</td>
+                  </tr>
                 <div *ngIf="!getAnnapurna || getAnnapurna.length === 0" class="ion-text-center">
                   <p>No data</p>
                 </div>
               </tbody>
             </table>
-
-            
           </div>
+          <table>
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>Name</th>
+                <th>Mobile</th>
+                <th>Alt.Mob.</th>
+                <th>Address</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Sagar Salunkhe</td>
+                <td>9158490455</td>
+                <td>9158490455</td>
+                <td>Pune</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Santosh Salunkhe</td>
+                <td>1111111111</td>
+                <td>1111111111</td>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>Sagar Salunkhe</td>
+                <td>9158490455</td>
+                <td>9158490455</td>
+                <td>Pune</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Santosh Salunkhe</td>
+                <td>1111111111</td>
+                <td>1111111111</td>
+              </tr>
+            </tbody>
+          </table>
         </ion-card-content>
       </ion-card>
       <!-- <ion-card>
         <tr *ngFor="let item of familyData">
-          <td>{{item.id}}</td>
           <td>{{item.fullName}}</td>
           <td>{{item.contactNo}}</td>
           <td>{{item.altContactNo}}</td>
           <td>{{item.address}}</td>
+          <td>{{item.relation}}</td>
           <td>{{item.anpId}}</td>
         </tr>
       </ion-card> -->
@@ -166,6 +210,11 @@
                 <ion-input name="FullName" [(ngModel)]="FamilyModal.FullName" class="form-control" required></ion-input>
               </ion-col>
 
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                <ion-label> Relation </ion-label>
+                <ion-input name="Relation" [(ngModel)]="FamilyModal.Relation" class="form-control" required></ion-input>
+              </ion-col>
+
               <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
                 <ion-label> Phone No.  <span>*</span> </ion-label>
                 <ion-input name="phone" [(ngModel)]="FamilyModal.ContactNo" class="form-control" required></ion-input>
@@ -173,12 +222,12 @@
 
               <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
                 <ion-label> Alt. Phone No. </ion-label>
-                <ion-input name="altPhone" [(ngModel)]="FamilyModal.AltContactNo" class="form-control" required></ion-input>
+                <ion-input name="altPhone" [(ngModel)]="FamilyModal.AltContactNo" class="form-control"></ion-input>
               </ion-col>
 
               <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
                 <ion-label>Present Address / Near Landmark </ion-label>
-                <ion-textarea name="address" [(ngModel)]="FamilyModal.Address" class="form-control" required rows="4"></ion-textarea>
+                <ion-textarea name="address" [(ngModel)]="FamilyModal.Address" class="form-control" ></ion-textarea>
               </ion-col>
 
               <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
