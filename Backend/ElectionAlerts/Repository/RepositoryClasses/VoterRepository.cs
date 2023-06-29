@@ -240,7 +240,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
             catch (Exception ex)
             {
-                throw ex;
+                 throw ex;
             }
         }
 
@@ -266,7 +266,13 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                         for (int i = 0; i < Props.Length; i++)
                         {
                             //inserting property values to datatable rows
-                            values[i] = Props[i].GetValue(item, null);
+                            //if (i == 3)
+                            //{
+                            //    var dateTimeutc = string.Format("{0:yyyy-MM-ddTHH:mm:ss.FFFZ}", Props[i].GetValue(item, null));  
+                            //    values[i] = DateTime.Parse(dateTimeutc);
+                            //}
+                            //else
+                                values[i] = Props[i].GetValue(item, null);
                         }
                         dt.Rows.Add(values);
                     }

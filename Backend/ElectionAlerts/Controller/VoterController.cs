@@ -43,6 +43,7 @@ namespace ElectionAlerts.Controller
                 return BadRequest(ex);
             }
         }
+       
         /// <summary>
         /// Abhay 
         /// </summary>
@@ -110,7 +111,7 @@ namespace ElectionAlerts.Controller
         {
             try
             {
-                voters.ForEach(x => x.CreatedDate = DateTime.Now);
+               // voters.ForEach(x => x.CreatedDate = DateTime.Now);
                 return Ok(_voterService.InsertBulkVoter(voters));
             }
             catch (Exception ex)

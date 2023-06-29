@@ -36,30 +36,31 @@ namespace ElectionAlerts.Controller
         [HttpGet("LoginUser")]
         public IActionResult LoginUser(string Username, string Password)
         {
-            string msg="DB Changed";
-            string token = "";
-            Startup.ElectionAlertConStr = null;
-            List<AdminUser> adminUsers=new List<AdminUser>();
-            var user = _loginService.LoginUser(Username, Password);
-            if (user != null)
+            try
             {
-                adminUsers.Add(user);
-                msg = "User Logined";
-                if (user.RoleId>1)
+                string msg = "DB Changed";
+                string token = "";
+                Startup.ElectionAlertConStr = null;
+                List<AdminUser> adminUsers = new List<AdminUser>();
+                var user = _loginService.LoginUser(Username, Password);
+                if (user != null)
                 {
-                    try
+                    adminUsers.Add(user);
+                    msg = "User Logined";
+                    if (user.RoleId > 1)
                     {
+
                         ConfigureDB configDB = null;
                         if (user.RoleId == 2)
                         {
 
-                             configDB = _loginService.GetConfigureDBbyUser(Convert.ToInt32(user.Id));
+                            configDB = _loginService.GetConfigureDBbyUser(Convert.ToInt32(user.Id));
                         }
                         else
                         {
-                             configDB = _loginService.GetConfigureDBbyUser(Convert.ToInt32(user.SuperAdminId));
+                            configDB = _loginService.GetConfigureDBbyUser(Convert.ToInt32(user.SuperAdminId));
                         }
-                        
+
                         if (configDB != null)
                         {
                             string cnstr = "Server=" + configDB.IPAddress + ";Database=" + configDB.DBName + ";User Id=" + configDB.UserName + ";Password =" + configDB.Password + ";pooling=false;";
@@ -68,25 +69,27 @@ namespace ElectionAlerts.Controller
                         }
                         else
                             msg = "No DB Config Found";
+
                     }
-                    catch(Exception ex)
+                    if (user.RoleId == 3 || user.RoleId == 4)
                     {
-                        msg = ex.InnerException + "  Message : " + ex.Message;
-                    }              
+                        var User = _loginService.GetAllUser();
+                        var userdet = from us in User where us.Contact == Username select us;
+                        var SuperAdmin = from u in User where u.Id == user.SuperAdminId select u;
+                        var UserDetails = (from u in userdet join s in SuperAdmin on u.SuperAdminId equals s.Id select new { Id = u.Id, Name = u.Name, Contact = u.Contact, UserName = u.UserName, Password = u.Password, Email = u.Email, State = s.State, District = s.District, Taluka = s.Taluka, AssemblyName = s.AssemblyName, Village = s.Village, RoleId = u.RoleId, CreatedDate = u.CreatedDate, IsActive = u.IsActive, AdminId = u.AdminId, SuperAdminId = u.SuperAdminId, SuperAdminName = s.Name }).ToList();
+                        return Ok(new { token = token, ExpiryTime = 1800, User = UserDetails });
+                    }
+                    return Ok(new { token = token, ExpiryTime = 1800, User = adminUsers });
                 }
-                if (user.RoleId == 3|| user.RoleId==4)
+                else
                 {
-                    var User = _loginService.GetAllUser();
-                    var userdet = from us in User where us.Contact == Username select us;
-                    var SuperAdmin = from u in User where u.Id == user.SuperAdminId select u;
-                    var UserDetails = (from u in userdet join s in SuperAdmin on u.SuperAdminId equals s.Id select new { Id = u.Id, Name = u.Name, Contact = u.Contact, UserName = u.UserName, Password = u.Password, Email = u.Email, State = s.State, District = s.District, Taluka = s.Taluka, AssemblyName = s.AssemblyName, Village = s.Village, RoleId = u.RoleId, CreatedDate = u.CreatedDate, IsActive = u.IsActive, AdminId = u.AdminId, SuperAdminId = u.SuperAdminId, SuperAdminName = s.Name }).ToList();
-                    return Ok(new { token = token, ExpiryTime = 1800, User = UserDetails });
+                    return Ok("Invalid Username or Password!");
                 }
-                return Ok(new { token = token, ExpiryTime = 1800, User = adminUsers });
             }
-            else
+            catch (Exception ex)
             {
-                return Ok("Invalid Username or Password!");
+                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/LoginUser");
+                return BadRequest(ex);
             }
         }
 
@@ -155,7 +158,7 @@ namespace ElectionAlerts.Controller
                 {
                     var result = from u in users where (u.Id!=user.Id) && (u.Contact == user.Contact || u.Password == user.Password) select u;
                     if (result.Count() != 0)
-                        return Ok("User or Password Already Exist");
+                        return BadRequest(0);
                     else
                         return Ok(_loginService.InsertUser(user));
                 }
@@ -165,7 +168,7 @@ namespace ElectionAlerts.Controller
                     {
                         var result = from u in users where u.Contact == user.Contact || u.Password == user.Password select u;
                         if (result.Count() != 0)
-                            return Ok("User or Password Already Exist");
+                            return BadRequest(0);
                         else
                             return Ok(_loginService.InsertUser(user));
                     }
@@ -365,6 +368,20 @@ namespace ElectionAlerts.Controller
             catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/GetAllassembly");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetAllSocietyMember")]
+        public IActionResult GetAllSocietyMember(int userid)
+        {
+            try
+            {
+                return Ok(_loginService.GetAllSocietyMember(userid));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/GetAllSocietyMember");
                 return BadRequest(ex);
             }
         }

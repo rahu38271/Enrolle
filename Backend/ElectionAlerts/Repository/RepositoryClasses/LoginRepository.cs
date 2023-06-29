@@ -217,5 +217,18 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 throw ex;
             }
         }
+
+        public IEnumerable<AdminUser> GetAllSocietyMember(int userid)
+        {
+            try
+            {
+                return _customContext.Set<AdminUser>().FromSqlRaw("Exec USP_GetSocietyMemberbyId {0}", userid);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+            
     }
 }
