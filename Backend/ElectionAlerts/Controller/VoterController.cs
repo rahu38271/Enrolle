@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
+using Newtonsoft.Json;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -912,6 +914,137 @@ namespace ElectionAlerts.Controller
             catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetAllCasteName");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPost("InsertProfession")]
+
+        public IActionResult InsertProfession(string ProfessionName)
+        {
+            try
+            {
+                return Ok(_voterService.InsertProfession(ProfessionName));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/InsertProfession");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetAllProfession")]
+        public IActionResult GetAllProfession()
+        {
+            try
+            {
+                return Ok(_voterService.GetAllProfession());
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetAllProfession");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetAllLandingPage")]
+        public IActionResult GetAllLandingPage(int UserId)
+        {
+            try
+            {
+                var result = _voterService.GetAllLandingPage(UserId);
+                if (result != null)
+                {
+                    if (!string.IsNullOrEmpty(result.ImagePath))
+                    {
+                        string Filepath = Path.Combine(Directory.GetCurrentDirectory(), "Image", "LandingPage",result.ImageName);
+                        var provider = new FileExtensionContentTypeProvider();
+                        if (!provider.TryGetContentType(Filepath, out var contentType))
+                        {
+                            contentType = "application/octet-stream";
+                        }
+
+                        var bytes = System.IO.File.ReadAllBytes(Filepath);
+                        return File(bytes, contentType, Path.GetFileName(Filepath));
+                    }
+                }
+                return Ok("File Not Present");
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetAllLandingPage");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPost("InsertLandingPage")]
+        public IActionResult InsertLandingPage([FromForm] string LandingPageImage, [FromForm] IFormFile file)
+        {
+            try
+            {
+                LandingPage landingPage = JsonConvert.DeserializeObject<LandingPage>(LandingPageImage);
+                var result=_voterService.InsertLandingPage(landingPage.ImageName, landingPage.ImagePath,landingPage.UserId);
+                if(file != null && result == 1)
+                {
+                    string PathName = Path.Combine(Directory.GetCurrentDirectory(), "Image", "LandingPage");
+                    if (!Directory.Exists(PathName))
+                        Directory.CreateDirectory(PathName);
+                    string FullPath = Path.Combine(PathName, file.FileName);
+                    using (var stream = new FileStream(FullPath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                    {
+                        file.CopyTo(stream);
+                    }
+                }
+                return Ok(result);
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/InsertLandingPage");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpPost("InsertUpdateWhatUpContent")]
+        public IActionResult InsertUpdateWhatUpContent([FromForm] string WhatUpContent, [FromForm] IFormFile file)
+        {
+            try
+            {
+                WhatAppContent whatAppContent = JsonConvert.DeserializeObject<WhatAppContent>(WhatUpContent);
+                var result = _voterService.InsertUpdateWhatUpContent(whatAppContent);
+                if (file != null && result == 1)
+                {
+                    string PathName = Path.Combine(Directory.GetCurrentDirectory(), "Image", "WhatAppImage");
+                    if (!Directory.Exists(PathName))
+                        Directory.CreateDirectory(PathName);
+                    string FullPath = Path.Combine(PathName, file.FileName);
+                    //using (var stream = new FileStream(FullPath, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                    //{
+                    //    file.CopyTo(stream);
+                    //}
+                    using (var stream = new FileStream(FullPath, FileMode.Create))
+                    {
+                        file.CopyTo(stream);
+                    }
+                }
+                return Ok(result);
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/InsertUpdateWhatUpContent");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetWhatAppContentbyUserId")]
+        public IActionResult GetWhatAppContentbyUserId(int UserId)
+        {
+            try
+            {
+                return Ok(_voterService.GetWhatAppContentbyUserId(UserId));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetWhatAppContentbyUserId");
                 return BadRequest(ex);
             }
         }

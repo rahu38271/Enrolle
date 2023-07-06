@@ -52,6 +52,12 @@ namespace ElectionAlerts.Repository.Interface
         int AddCastName(List<Caste> castes);
         IEnumerable<CastebyLanguage> GetAllCaste(string Language);
         IEnumerable<VoterMobileNo> GetAllMobile();
+        IEnumerable<Profession> GetAllProfession();
+        int InsertProfession(string ProfessionName);
+        int InsertLandingPage(string ImageName, string ImagePath,int UserId);
+        LandingPage GetAllLandingPage(int UserId);
+        int InsertUpdateWhatUpContent(WhatAppContent whatAppContent);
+        WhatAppContent GetWhatAppContentbyUserId(int UserId);
 
     }
 }

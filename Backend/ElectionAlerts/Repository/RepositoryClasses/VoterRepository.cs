@@ -802,6 +802,78 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 throw ex;
             }
         }
+
+        public IEnumerable<Profession> GetAllProfession()
+        {
+            try
+            {
+                return _customContext.Set<Profession>().FromSqlRaw("Exec Usp_GetAllProfession").ToList();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int InsertProfession(string ProfessionName)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("Exec Usp_InsertProfession {0}", ProfessionName);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int InsertLandingPage(string ImageName, string ImagePath, int UserId)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("Exec Usp_InsertLandingPage {0},{1},{2}", ImageName, ImagePath,UserId);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public LandingPage GetAllLandingPage(int UserId)
+        {
+            try
+            {
+                return _customContext.Set<LandingPage>().FromSqlRaw("Exec Usp_GetLandingPage {0}",UserId).ToList().FirstOrDefault();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int InsertUpdateWhatUpContent(WhatAppContent whatAppContent)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("Exec Usp_InsertUpdateWhatUpContent {0},{1},{2},{3},{4}", whatAppContent.Id, whatAppContent.FileName, whatAppContent.FilePath, whatAppContent.MessageContent, whatAppContent.UserId);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public WhatAppContent GetWhatAppContentbyUserId(int UserId)
+        {
+            try
+            {
+                return _customContext.Set<WhatAppContent>().FromSqlRaw("Exec Usp_GetWhatUpContentbyUserId {0}", UserId).ToList().FirstOrDefault();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
     public static class Extensions
     {

@@ -59,9 +59,19 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.GetAllCaste(Language);
         }
 
+        public LandingPage GetAllLandingPage(int UserId)
+        {
+            return _voterRepository.GetAllLandingPage(UserId);
+        }
+
         public IEnumerable<VoterMobileNo> GetAllMobile()
         {
             return _voterRepository.GetAllMobile();
+        }
+
+        public IEnumerable<Profession> GetAllProfession()
+        {
+            return _voterRepository.GetAllProfession();
         }
 
         public IEnumerable<GetVoterByPartNo> GetAllVoter(int UserId, int RoleId ,int PageNo, int NoofRow,string Language, string SearcText)
@@ -144,6 +154,11 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.GetVoterInclinationUserId(inclination, userid,roleid,PageNo,NoofRow,Language,SearchText);
         }
 
+        public WhatAppContent GetWhatAppContentbyUserId(int UserId)
+        {
+            return _voterRepository.GetWhatAppContentbyUserId(UserId);
+        }
+
         public int InsertBulkMobile(List<Mobile> mobiles)
         {
             return _voterRepository.InsertBulkMobile(mobiles);
@@ -154,14 +169,29 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.InsertBulkVoter(voters);
         }
 
+        public int InsertLandingPage(string ImageName, string ImagePath, int UserId)
+        {
+            return _voterRepository.InsertLandingPage(ImageName, ImagePath,UserId);
+        }
+
         public int InsertMemberDetail(MemberDetail memberDetail)
         {
             return _voterRepository.InsertMemberDetail(memberDetail);
         }
 
+        public int InsertProfession(string ProfessionName)
+        {
+            return _voterRepository.InsertProfession(ProfessionName);
+        }
+
         public int InsertSurveyDetails(VoterSurvey voterSurvey)
         {
             return _voterRepository.InsertSurveyDetails(voterSurvey);
+        }
+
+        public int InsertUpdateWhatUpContent(WhatAppContent whatAppContent)
+        {
+            return _voterRepository.InsertUpdateWhatUpContent(whatAppContent);
         }
 
         public int UpadateAltMobileVoter(int Id, string AltMobileNo)

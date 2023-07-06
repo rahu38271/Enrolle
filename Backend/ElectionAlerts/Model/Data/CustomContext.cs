@@ -34,9 +34,9 @@ namespace ElectionAlerts.Model.Data
 
             if (!optionsBuilder.IsConfigured)
             {
-                MasterDBconstr = "Server=184.168.194.78;Database=EnrolleMasterQA;User Id=EnrolleMasterQA; Password=EnrolleMasterQA@123;pooling=false;";
+               // MasterDBconstr = "Server=184.168.194.78;Database=EnrolleMasterQA;User Id=EnrolleMasterQA; Password=EnrolleMasterQA@123;pooling=false;";
+                MasterDBconstr = "Server=45.249.108.42;Database=EnrolleMasterQA;User Id=EnrolleMasterQA; Password=EnrolleMasterQA@123;pooling=false;";
 
-                
                 optionsBuilder.UseSqlServer(MasterDBconstr, x => x.EnableRetryOnFailure());
             }
         }
@@ -169,6 +169,10 @@ namespace ElectionAlerts.Model.Data
         public DbSet<TypeofWork> TypeofWorks { get; set; }
         public DbSet<GeneralEnquiry> GeneralEnquiries { get; set; }
         public DbSet<GeneralEnquiryDTO> generalEnquiryDTOs { get; set; }
+        public DbSet<Profession> Professions { get; set; }
+        public DbSet<LandingPage> LandingPages { get; set; }
+        public DbSet<WhatAppContent> whatAppContents { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Districts>().HasNoKey();
