@@ -204,7 +204,7 @@ export class AppComponent implements OnInit {
     // keeps user logged in for android app so that user doesnt have to login every time app opens
     // but dont use this code for web view bcoz when i refresh from any page in the app, it redirects me to dashboard page
     // if (localStorage.getItem('loginId') != undefined || null) {
-    //  this.router.navigate(['/home/mobile-dashboard']);
+    //   this.router.navigate(['/image']);
     // }
     // else {
     //  this.router.navigate(['/']);

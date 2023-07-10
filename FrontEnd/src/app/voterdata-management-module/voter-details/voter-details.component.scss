@@ -242,3 +242,22 @@ ng-select {
     margin-left: 10px;
     color: #000 !important;
  }
+
+ .whatTextContent p {
+   line-height: 28px;
+    border-top: solid 1px #000;
+ }
+
+ .dottedLine {
+    background-color: #FFF;
+ }
+
+//  .ng-select {
+//    height: 30px;
+// }
+
+.sendImage, .whatTextContent{
+   position: absolute;
+   bottom: 0px;
+   z-index: -1;
+}

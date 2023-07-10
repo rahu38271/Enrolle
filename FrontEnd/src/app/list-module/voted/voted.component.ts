@@ -49,12 +49,12 @@ export class VotedComponent implements OnInit {
     })
   }
 
-  isVoted(){
-    if(this.columnName == "Voted"){
+  isVotedOrNot(columnName:any){
+    if(columnName == "Voted"){
       this.router.navigateByUrl('/list/voted-voter')
     }
-    else{
-      this.router.navigateByUrl('/list/notvoted-voter')
+    else if(columnName == "NotVoted"){
+      this.router.navigateByUrl('/list/notVoted-voter')
     }
     
   }

@@ -108,7 +108,6 @@ export class VoterService {
   }
 
   updateCaste(id:any, ColoumnName:any, ColoumnValue:any){
-    debugger;
     return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue, id)
   }
 
@@ -117,7 +116,12 @@ export class VoterService {
   getAllCaste(Language:any){
     //return this.http.get<any>(this.url+'Voter/GetAllCasteName')
     return this.http.get<any>(this.url+'Voter/GetAllCasteName?Language='+Language)
-    
+  }
+
+  // get profession
+
+  getAllProfession(){
+    return this.http.get<any>(this.url+'Voter/GetAllProfession')
   }
 
   // village name and count
@@ -138,12 +142,22 @@ export class VoterService {
     return this.http.post<any>(this.url+'Voter/FilterColoumnCount', partModal)
   }
 
+  // occupatioin and count
+
   occupaionData(occupModal:any){
     return this.http.post<any>(this.url+'Voter/FilterColoumnCount', occupModal)
   }
 
+   // caste and count
+
   CastData(castModal:any){
     return this.http.post<any>(this.url+'Voter/FilterColoumnCount',castModal)
+  }
+
+   // caste and count
+
+   SociData(sociModal:any){
+    return this.http.post<any>(this.url+'Voter/FilterColoumnCount',sociModal)
   }
 
   // filter / search voter by condition
@@ -203,24 +217,42 @@ export class VoterService {
     return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Occupation&ColoumnValue='+occupation+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
   }
 
+  // add profession
+
+  addProf(ProfessionName:any){
+    return this.http.post<any>(this.url+'Voter/InsertProfession?ProfessionName='+ProfessionName,ProfessionName)
+  }
+
+  // voter by Society
+
+  voterBySoci(society:number,userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Society&ColoumnValue='+society+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
+  }
+
   // advance search voter
 
   advanceSearch(searchModal:any){
     return this.http.post<any>(this.url+'Voter/AdvancedSearchVoter', searchModal)
   }
 
+  updateSociety(id:any, ColoumnName:any, ColoumnValue:any){
+    return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue, id)
+  }
+
+  updateHouse(id:any, ColoumnName:any, ColoumnValue:any){
+    return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue, id)
+  }
+
   // all voter with Mobile
 
   voterWithMobile(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
     return this.http.get<any>(this.url+'Voter/VoterwithMobileNo?UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText);
-    
   }
 
   // boothwise voter count
 
   boothWiseVoterCount(userID,roleID:number){
     return this.http.get<any>(this.url+'Voter/VoterCountbyBooth?userid='+userID+'&roleid='+roleID);
-    
   }
 
   // boothwise voter list
@@ -288,4 +320,38 @@ export class VoterService {
     return this.http.get<any>(this.url+'Voter/DeleteVoterbyId?Id='+voterId)
   }
 
+  // voted voter
+
+  getvoterVoted(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=isVoted&ColoumnValue=Y&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
+  }
+
+  // not voted voter
+
+  getvoterNotVoted(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=isVoted&ColoumnValue=N&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
+  }
+
+   // dead voter
+
+   getDeadVoter(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=isAlive&ColoumnValue=N&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
+  }
+
+  // alive voter
+
+  getAliveVoter(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=isAlive&ColoumnValue=Y&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
+  }
+
+  // landing Image
+
+  // getLandingImage(userId:any):Observable<Blob>{
+  //   debugger;
+  //   return this.http.get<any>(this.url+'Voter/GetAllLandingPage?UserId='+userId,{responseType: "blob", reportProgress: true,})
+  // }
+
+  getLandingImage(userId:number):Observable<Blob>{
+    return this.http.get(this.url+'Voter/GetAllLandingPage?UserId='+userId,{responseType: "blob", reportProgress: true,})
+  }
 }

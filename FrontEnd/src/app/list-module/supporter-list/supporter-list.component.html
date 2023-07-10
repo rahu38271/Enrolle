@@ -109,17 +109,23 @@
         *ngFor="let item of supportVoter | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems }"
         (click)="voterDetails(item)">
         <ion-item lines="none">
-          <ion-label>
-            <div class="firstLine">
-              <h3>{{item.fullName}}</h3>
+          <div class="voterSec">
+            <div class="photo">
+              <img src="./assets/img/user.jpg" alt="">
             </div>
-            <div class="details">
-              <p> {{'Part No.' | translate}} : <span>{{item.partNo}}</span> </p>
-              <p> {{'Age' | translate}} : <span> {{item.age}} </span> </p>
-              <p> {{'Gender' | translate}} : <span> {{item.gender}} </span></p>
-            </div>
-
-          </ion-label>
+            <ion-label>
+              <div class="firstLine">
+                <h3 class="text-capitalize">
+                  {{ (item.fullName) | translate}}
+                </h3>
+              </div>
+              <div class="details">
+                <p> {{'Part No.' | translate}} :  {{item.partNo}}  </p>
+                <p> {{'Age' | translate}} : {{item.age}} </p>
+                <p> {{'Gender' | translate}} : {{item.gender}}  </p>
+              </div>
+            </ion-label>
+          </div>
         </ion-item>
       </ion-list>
       <ion-list>

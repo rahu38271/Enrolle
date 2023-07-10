@@ -65,6 +65,7 @@
                       <th>Added By</th>
                       <th>Status</th>
                       <th>Action</th>
+                      <th>Image</th>
                   </tr>
               </thead>
               <tbody>
@@ -89,6 +90,9 @@
                       <td class="action">
                         <ion-icon name="create-sharp" (click)="editCmplaint(item)"></ion-icon>
                         <ion-icon (click)="deleteCom(item.id)" class="delete" name="trash-bin-sharp"></ion-icon>
+                      </td>
+                      <td>
+                        <img [src]="imageUrl" alt="">
                       </td>
                   </tr>
               </tbody>
