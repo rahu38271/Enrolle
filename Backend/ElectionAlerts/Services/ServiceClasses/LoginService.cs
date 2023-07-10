@@ -95,5 +95,10 @@ namespace ElectionAlerts.Services.ServiceClasses
         {
             return _loginRepository.GetConfigureDB();
         }
+
+        public IEnumerable<AdminUser> GetAllSocietyMember(int userid)
+        {
+            return _loginRepository.GetAllSocietyMember(userid);
+        }
     }
 }

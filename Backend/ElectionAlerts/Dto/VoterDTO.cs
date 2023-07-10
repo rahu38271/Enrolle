@@ -15,6 +15,8 @@ namespace ElectionAlerts.Dto
         public string Gender { get; set; }
         public string Caste { get; set; }
         public string VotingCardNo { get; set; }
+        public string HouseNo { get; set; }
+        public string Society { get; set; }
         public string Address { get; set; }
         public int? PartNo { get; set; }
         public string MobileNo { get; set; }

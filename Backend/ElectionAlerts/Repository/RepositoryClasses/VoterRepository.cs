@@ -240,7 +240,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
             catch (Exception ex)
             {
-                throw ex;
+                 throw ex;
             }
         }
 
@@ -266,7 +266,13 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                         for (int i = 0; i < Props.Length; i++)
                         {
                             //inserting property values to datatable rows
-                            values[i] = Props[i].GetValue(item, null);
+                            //if (i == 3)
+                            //{
+                            //    var dateTimeutc = string.Format("{0:yyyy-MM-ddTHH:mm:ss.FFFZ}", Props[i].GetValue(item, null));  
+                            //    values[i] = DateTime.Parse(dateTimeutc);
+                            //}
+                            //else
+                                values[i] = Props[i].GetValue(item, null);
                         }
                         dt.Rows.Add(values);
                     }
@@ -790,6 +796,78 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             {
                 var result = _customContext.Set<VoterMobileNo>().FromSqlRaw("EXEC USP_GetAllMobileNo").ToList();
                 return result;
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<Profession> GetAllProfession()
+        {
+            try
+            {
+                return _customContext.Set<Profession>().FromSqlRaw("Exec Usp_GetAllProfession").ToList();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int InsertProfession(string ProfessionName)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("Exec Usp_InsertProfession {0}", ProfessionName);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int InsertLandingPage(string ImageName, string ImagePath, int UserId)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("Exec Usp_InsertLandingPage {0},{1},{2}", ImageName, ImagePath,UserId);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public LandingPage GetAllLandingPage(int UserId)
+        {
+            try
+            {
+                return _customContext.Set<LandingPage>().FromSqlRaw("Exec Usp_GetLandingPage {0}",UserId).ToList().FirstOrDefault();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int InsertUpdateWhatUpContent(WhatAppContent whatAppContent)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("Exec Usp_InsertUpdateWhatUpContent {0},{1},{2},{3},{4}", whatAppContent.Id, whatAppContent.FileName, whatAppContent.FilePath, whatAppContent.MessageContent, whatAppContent.UserId);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public WhatAppContent GetWhatAppContentbyUserId(int UserId)
+        {
+            try
+            {
+                return _customContext.Set<WhatAppContent>().FromSqlRaw("Exec Usp_GetWhatUpContentbyUserId {0}", UserId).ToList().FirstOrDefault();
             }
             catch(Exception ex)
             {

@@ -24,5 +24,6 @@ namespace ElectionAlerts.Services.Interface
         List<Districts> GetAllDistricts();
         List<Taluka> GetAllTaluka(int DId);
         IEnumerable<Assembly> GetAssembly();
+        IEnumerable<AdminUser> GetAllSocietyMember(int userid);
     }
 }

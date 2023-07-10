@@ -13,10 +13,13 @@ namespace ElectionAlerts.Repository.RepositoryClasses
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         private CustomContext _customContext;
+        private MasterCustomContext _masterCustom;
         public ExceptionLogRepository(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
             _customContext = new CustomContext(_httpContextAccessor);
+            _masterCustom = new MasterCustomContext();
+
         }
         //public void ErrorLog(Exception ex, string LogName, string LogType)
         //{
@@ -26,9 +29,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                DateTime today = DateTime.Now;
-                _customContext.Database.ExecuteSqlRaw("EXEC USP_InsertErrorLogs {0},{1},{2},{3},{4},{5}",
-                    ex.Message, ex.StackTrace, LogType, ExLocation, 1, today.ToString());
+                if(ExLocation.Contains("LoginController"))
+                    _masterCustom.Database.ExecuteSqlRaw("EXEC USP_InsertErrorLog {0},{1},{2},{3},{4},{5}", ex.Message, ex.StackTrace, LogType, ExLocation, 1, DateTime.Now);
+                else
+                    _customContext.Database.ExecuteSqlRaw("EXEC USP_InsertErrorLog {0},{1},{2},{3},{4},{5}", ex.Message, ex.StackTrace, LogType, ExLocation, 1, DateTime.Now);
+
                 //DateTime today = DateTime.Now;
                 //_customContext.Database.ExecuteSqlRaw("EXEC USP_InsertErrorLog {0},{1},{2},{3},{4},{5}",
                 //    ex.Message, ex.StackTrace, LogType, ExLocation, "1", string.Empty);
