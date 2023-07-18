@@ -118,6 +118,7 @@ export class AddComplaintComponent implements OnInit {
 
 
   addComplaint() {
+    debugger;
     this.societycomplaint.UserId = Number(this.UserId);
     this.societycomplaint.RoleId = Number(this.roleID);
     this.societycomplaint.UserName = this.name;

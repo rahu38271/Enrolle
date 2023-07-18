@@ -43,6 +43,8 @@ import { DeadvoterComponent } from './deadvoter/deadvoter.component';
 import { TranslateModule } from '@ngx-translate/core';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { BySocietyComponent } from './by-society/by-society.component';
+import { SocietywiseListComponent } from './societywise-list/societywise-list.component';
 
 @NgModule({
   declarations: [
@@ -82,7 +84,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     VotedvoterComponent, 
     NotvotedvoterComponent, 
     AlivevoterComponent, 
-    DeadvoterComponent,
+    DeadvoterComponent, BySocietyComponent, SocietywiseListComponent,
   ],
   imports: [
     CommonModule,
@@ -156,7 +158,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
       {path:'alive', component:AlivevoterComponent},
       {path:'dead', component:DeadvoterComponent},
       {path:'voted-voter', component:VotedvoterComponent},
-      {path:'nonVoter-voter', component:NotvotedvoterComponent}
+      {path:'notVoted-voter', component:NotvotedvoterComponent},
+      {path:'by-society', component:BySocietyComponent},
+      {path:'societywise-list', component:SocietywiseListComponent}
    ])
   ]
 })

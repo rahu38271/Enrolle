@@ -205,7 +205,11 @@ ion-menu-button {
         --box-shadow: rgba(3, 102, 214, 0.3) 0px 0px 0px 2px;
       }
 
-      .ng-select.ng-select-single .ng-select-container {
+    //   .ng-select.ng-select-single .ng-select-container {
+    //     height: 38px;
+    // }
+
+    .ng-select {
         height: 38px;
     }
 
@@ -313,4 +317,47 @@ ion-back-button {
 
 .backBtn {
     font-size: 20px;
+}
+
+.voterSec {
+    display: flex;
+  }
+ 
+  .voterSec img {
+    width: 45px;
+  }
+ 
+//   .photo {
+//    padding-top: 6px;
+//   }
+ 
+  .voterSec ion-label {
+    padding-left: 5px;
+  }
+
+  .voterSec ion-label {
+    padding-left: 5px;
+}
+
+@media screen and (max-width:576px) {
+    // .ng-select.ng-select-single .ng-select-container {
+    //     height: 33px;
+    // }
+    .ng-select {
+        height: 33px;
+    }
+
+    .ng-select .ng-select-container .ng-value-container {
+        align-items: center;
+        padding-left: 5px;
+    }
+
+    .ng-select .ng-arrow-wrapper {
+        width: 14px;
+        padding-right: 0px;
+    }
+
+    .ng-select.ng-select-single .ng-select-container .ng-value-container, .ng-select.ng-select-single .ng-select-container .ng-value-container .ng-value {
+        text-overflow: inherit !important;
+    }
 }

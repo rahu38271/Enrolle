@@ -74,6 +74,7 @@ export class ComplaintService {
   }
 
   getFile(id:any): Observable<Blob>{
+    debugger;
     return this.http.get(this.url+'Society/DownLoadFile?Id='+id,{responseType: "blob", reportProgress: true,})
   }
 

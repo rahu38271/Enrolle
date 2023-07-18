@@ -34,7 +34,12 @@ export class AllComplaintsComponent implements OnInit {
   fileSize: any;
   fileType: any;
   id:any;
+  imageUrl:string='';
+  showImage:any;
+  
 
+  // imageUrl:string='https://tinysms.in/bjp.png';
+  
   search() {
     this.isShow = !this.isShow
   }
@@ -48,7 +53,9 @@ export class AllComplaintsComponent implements OnInit {
     public alertController: AlertController,
     private location: Location,
     private loader: LoaderService
-  ) { }
+  ) {
+    
+   }
 
   ngOnInit(): void {
     if (this.SearchText == undefined) {
@@ -63,7 +70,7 @@ export class AllComplaintsComponent implements OnInit {
     else {
       this.Status = this.Status
     }
-
+    
   }
 
   ionViewWillEnter() {
@@ -118,12 +125,15 @@ export class AllComplaintsComponent implements OnInit {
   }
 
   downloadFile(event: any) {
+    debugger;
     this.Id = Number(event.target.id);
     this.loader.showLoading();
     this.complaint.getFile(this.Id).subscribe((data: Blob) => {
       if (data.size!=0) {
         this.loader.hideLoader();
         this.saveFile(data);
+        //this.imageUrl = URL.createObjectURL(data);
+        this.fetchImage(data);
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
@@ -135,9 +145,15 @@ export class AllComplaintsComponent implements OnInit {
       //this.toast.presentToast("File not downloaded!", "danger", 'alert-circle-sharp');
     })
   }
-
-
-
+  
+  // to download image from get api
+  fetchImage(image:Blob){
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      this.imageUrl = reader.result as string;
+    };
+    reader.readAsDataURL(image);
+  }
 
   onSearchChange(SearchText: any) {
     if (this.SearchText == '') {

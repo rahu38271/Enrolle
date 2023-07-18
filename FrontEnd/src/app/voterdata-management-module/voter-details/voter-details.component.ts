@@ -5,9 +5,8 @@ import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { PopoverController } from '@ionic/angular';
 import { VoterService } from 'src/app/services/voter.service'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute,Router, NavigationEnd } from '@angular/router'
 import { LoaderService } from 'src/app/services/loader.service'
-import { Router } from '@angular/router';
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { ModalController } from '@ionic/angular';
 import { Location } from '@angular/common';
@@ -15,7 +14,7 @@ import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
 import { AlertController, ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
-
+import { SettingService } from 'src/app/services/setting.service';
 
 @Component({
   selector: 'app-voter-details',
@@ -34,21 +33,24 @@ export class VoterDetailsComponent {
   @ViewChild('tr5') tr5: ElementRef;
   @ViewChild('tr6') tr6: ElementRef;
   @ViewChild('tr7') tr7: ElementRef;
+  @ViewChild('p') p: ElementRef;
   //@ViewChild('myImg') myImg: ElementRef;
   year=new Date().getFullYear();
   text: string = ''
   // imgurl: string = 'https://cdn.pixabay.com/photo/2019/12/26/05/10/pink-4719682_960_720.jpg'
-  imgurl: string = 'https://tinysms.in/bjp.png'
- 
+  //imgurl: string = 'https://tinysms.in/bjp.png'
   ImagePath = ''
   VoterListByUser: any;
   id: any;
   RoleId: any;
   colorUpdate: any = {};
+  Mobile:any;
   YesNo: any;
   pageNo: any = 1;
   NoofRow: any = 100;
   partNo: any;
+  ProfessionName:any;
+  professionModal:any={};
 
   @ViewChild('slipDesign') slipDesign: ElementRef;
 
@@ -87,6 +89,8 @@ export class VoterDetailsComponent {
   professionUpdate: any = {}
   BirthdateUpdate: any = {}
   CasteUpdate: any = {}
+  societyUpdate:any={};
+  houseUpdate:any={};
   showStar: boolean;
   showVote: boolean;
   casteList: any;
@@ -98,6 +102,12 @@ export class VoterDetailsComponent {
   isAssembly=true;
   isVillage=true;
   village:any;
+  professionList:any;
+  userId:any;
+  imgurl:any;
+  imgText:any;
+  whatsText:any;
+  msgText:any;
   closeModal() {
     this.modalCtrl.dismiss();
   }
@@ -128,12 +138,12 @@ export class VoterDetailsComponent {
       public modalCtrl: ModalController,
       private location: Location,
       public translate: TranslateService,
-      
+      private setting:SettingService,
       private translateConfigService: TranslateConfigService
   ) {
+
     this.Language = this.translateConfigService.getCurrentLang();
     this.Voter = this.router.getCurrentNavigation().extras.state;
-    
 
   }
 
@@ -141,11 +151,14 @@ export class VoterDetailsComponent {
     
   }
 
-  ngAfterViewInit(){
+  ionViewWillEnter(){
     this.assemblyName = localStorage.getItem("loginAssembly");
     this.village = localStorage.getItem("loginVillage");
+    this.userId = localStorage.getItem("loginId");
+    this.userId = Number(this.userId);
     this.voterDetails();
     this.AllCasts();
+    this.allProfession();
     if(this.assemblyName=="null"){
       this.isAssembly=!this.isAssembly;
     }
@@ -174,7 +187,43 @@ export class VoterDetailsComponent {
     this.CasteUpdate.ColoumnValue = this.VoterListByUser.caste;
     this.professionUpdate.ColoumnValue = this.VoterListByUser.occupation;
     this.adrsUpdate.Address = this.VoterListByUser.address;
+    this.setting.getWhatsappImage(this.userId).subscribe(data=>{
+      if(data){
+        this.saveFile(data);
+        this.fetchImage(data);
+        this.imgurl = true;
+      }
+    })
+    this.setting.getWhatsappText(this.userId).subscribe(data=>{
+      if(data){
+        console.log(data);
+        this.whatsText = data;
+        this.msgText = data[0].messageContent;
+      }
+      else{
+
+      }
+    },(err)=>{
+
+    })
   }
+
+  saveFile(imageData: Blob) {
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(imageData);
+    
+  }
+
+  // to download image from get api
+  fetchImage(image:Blob){
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      this.imgurl = reader.result as string;
+    };
+    reader.readAsDataURL(image);
+  }
+
+
 
   // ngOnInit() {
   //   this.assemblyName1 = localStorage.getItem("loginAssembly");
@@ -283,8 +332,12 @@ export class VoterDetailsComponent {
     this.voter.updateMob(this.mobUpdate.Id, this.mobUpdate.Mobile).subscribe(data => {
       if (data) {
         this.closeModal();
-        this.ngAfterViewInit();
+        setTimeout(()=>{
+          this.ionViewWillEnter();
+          this.voterDetails();
+        },1000);
         this.toast.presentToast("Mobile No. updated successfully!", "success", 'checkmark-circle-sharp');
+        
       }
       else {
         this.toast.presentToast("Mobile No. not updated", "danger", 'alert-circle-sharp');
@@ -352,6 +405,19 @@ export class VoterDetailsComponent {
     })
   }
 
+  addProfession(){
+    this.voter.addProf(this.professionModal.ProfessionName).subscribe(data=>{
+      if(data){
+        this.voterDetails();
+        this.closeModal();
+        this.toast.presentToast("profession added successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+
+      }
+    })
+  }
+
   // add Birthdate
 
   saveBirthdate() {
@@ -395,6 +461,45 @@ export class VoterDetailsComponent {
     })
   }
 
+   // add society
+
+   saveSociety() {
+    this.id = this.Voter.id;
+    this.societyUpdate.Id = Number(this.id);
+    this.societyUpdate.ColoumnName = "Society"
+    this.voter.updateSociety(this.societyUpdate.Id, this.societyUpdate.ColoumnName, this.societyUpdate.ColoumnValue).subscribe(data => {
+      if (data) {
+        this.voterDetails();
+        this.closeModal();
+        this.toast.presentToast("society updated successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else {
+
+      }
+    }, (err) => {
+
+    })
+  }
+
+  // add houseNo
+
+  saveHouseNo() {
+    this.id = this.Voter.id;
+    this.houseUpdate.Id = Number(this.id);
+    this.houseUpdate.ColoumnName = "HouseNo"
+    this.voter.updateHouse(this.houseUpdate.Id, this.houseUpdate.ColoumnName, this.houseUpdate.ColoumnValue).subscribe(data => {
+      if (data) {
+        this.voterDetails();
+        this.closeModal();
+        this.toast.presentToast("HouseNo updated successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else {
+
+      }
+    }, (err) => {
+
+    })
+  }
 
   // voter select color for supporter
 
@@ -577,7 +682,6 @@ export class VoterDetailsComponent {
   }
 
   AllCasts1(ColoumnValue){
-    debugger;
     this.id = this.Voter.id;
     this.CasteUpdate.Id = Number(this.id);
     this.CasteUpdate.ColoumnName = "Caste"
@@ -593,6 +697,39 @@ export class VoterDetailsComponent {
         this.closeModal();
 
         this.toast.presentToast("Caste updated successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else {
+
+      }
+    }, (err) => {
+
+    })
+  }
+
+  allProfession(){
+    this.voter.getAllProfession().subscribe(data=>{
+      this.professionList = data;
+    },(err)=>{
+
+    })
+  }
+
+  allProfession1(ColoumnValue){
+    this.id = this.Voter.id;
+    this.professionUpdate.Id = Number(this.id);
+    this.professionUpdate.ColoumnName = "Occupation"
+    if(this.professionUpdate.ColoumnValue == null){
+      this.professionUpdate.ColoumnValue = '';
+    }
+    else{
+      this.professionUpdate.ColoumnValue = this.professionUpdate.ColoumnValue;
+    }
+    this.voter.updateCaste(this.professionUpdate.Id, this.professionUpdate.ColoumnName, this.professionUpdate.ColoumnValue).subscribe(data => {
+      if (data) {
+        this.voterDetails();
+        this.closeModal();
+
+        this.toast.presentToast("Profession updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
 
@@ -710,15 +847,30 @@ export class VoterDetailsComponent {
   }
 
   ShareWhatsapp1() {
-    this.socialSharing.shareViaWhatsApp(this.myDiv.nativeElement.innerText
+    //const Mobile = this.VoterListByUser.mobileNo;
+    this.socialSharing.shareViaWhatsApp(
+      this.myDiv.nativeElement.innerText
       + '\n' + this.tr1.nativeElement.innerText
       + '\n' + this.tr2.nativeElement.innerText
       + '\n' + this.tr3.nativeElement.innerText
       + '\n' + this.tr4.nativeElement.innerText
       + '\n' + this.tr5.nativeElement.innerText
       + '\n' + this.tr6.nativeElement.innerText
-      + '\n' + this.tr7.nativeElement.innerText, this.imgurl)
+      + '\n' + this.tr7.nativeElement.innerText
+      + '\n' + '----------------------------------------------------'
+      + '\n' + this.p.nativeElement.innerText,
+      this.imgurl
+      //Mobile
+      )
   }
+
+
+  // ShareWhatsapp2() {
+  //   debugger;
+  //   this.socialSharing.shareViaWhatsApp(
+  //     this.tr8.nativeElement.innerText
+  //     )
+  // }
 
 }
 
