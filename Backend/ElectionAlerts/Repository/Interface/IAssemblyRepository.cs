@@ -22,6 +22,7 @@ namespace ElectionAlerts.Repository.Interface
         int DeleteAssemblybyId(int id);
 
         IEnumerable<Assembly> GetAssemblyDistrictwise(string district);
+        IEnumerable<Assembly> GetAssemblyRegLang(int Assembly);
 
     }
 }

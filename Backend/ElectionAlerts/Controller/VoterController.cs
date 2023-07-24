@@ -1040,11 +1040,47 @@ namespace ElectionAlerts.Controller
         {
             try
             {
-                return Ok(_voterService.GetWhatAppContentbyUserId(UserId));
+                List<WhatAppContent> whatAppContents = new List<WhatAppContent>();
+                var result = _voterService.GetWhatAppContentbyUserId(UserId);
+
+                if(result!=null)
+                     whatAppContents.Add(result);
+
+                return Ok(whatAppContents);
             }
             catch(Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetWhatAppContentbyUserId");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetWhatAppImagebyUserId")]
+        public IActionResult GetWhatAppImagebyUserId(int UserId)
+        {
+            try
+            {
+                var result = _voterService.GetWhatAppContentbyUserId(UserId);
+                if (result != null)
+                {
+                    if (!string.IsNullOrEmpty(result.FileName))
+                    {
+                        string Filepath = Path.Combine(Directory.GetCurrentDirectory(), "Image", "WhatAppImage", result.FileName);
+                        var provider = new FileExtensionContentTypeProvider();
+                        if (!provider.TryGetContentType(Filepath, out var contentType))
+                        {
+                            contentType = "application/octet-stream";
+                        }
+
+                        var bytes = System.IO.File.ReadAllBytes(Filepath);
+                        return File(bytes, contentType, Path.GetFileName(Filepath));
+                    }
+                }
+                return Ok("File Not Present");
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetWhatAppImagebyUserId");
                 return BadRequest(ex);
             }
         }
