@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ChangeDetectorRef } from '@angular/core';
 import { VoterService } from 'src/app/services/voter.service'
 import { Router, ActivatedRoute } from '@angular/router'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
@@ -6,8 +6,6 @@ import { LoaderService } from 'src/app/services/loader.service'
 import { AlertController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
-import { ChangeDetectorRef } from '@angular/core';
-import { VoiceSearchService } from 'src/app/services/voice-search.service';
 
 @Component({
   selector: 'app-voterby-user',
@@ -50,8 +48,8 @@ export class VoterbyUserComponent {
       public alertController: AlertController,
       public translate: TranslateService,
       private translateConfigService: TranslateConfigService,
-      private cd: ChangeDetectorRef,
-      private voiceSearch:VoiceSearchService
+      private cdRef: ChangeDetectorRef
+      
     ) {
     
    
@@ -104,9 +102,11 @@ export class VoterbyUserComponent {
         //this.loader.hideLoader();
         this.voterListByUser = data;
         this.totalCount = data[0].totalCount;
+        this.cdRef.detectChanges();
         this.voterListByUser.forEach(e => {
           e.birthDate = e.birthDate.split('T')[0];
         });
+        
       }
       else {
         //this.loader.hideLoader();

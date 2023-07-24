@@ -101,10 +101,10 @@
               <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
                 <div class="flex">
                   <ion-label> File <span>( image, video, pdf )</span> </ion-label>
-                  <ion-label> Size - <span>  </span> </ion-label>
+                  <ion-label> Size - <span> {{fileSize}} </span> </ion-label>
                 </div>
-                <input type="file" name="file" [(ngModel)]="societycomplaint.fileName" (change)="onFileSelected($event)"  class="form-control">
-                <!-- <input name="file"  [(ngModel)]="societycomplaint.fileName" class="form-control"> -->
+                <!-- <input type="file" #file name="file" [(ngModel)]="societycomplaint.fileName" (change)="onFileSelected($event.target.files)"  class="form-control" value="this.societycomplaint.fileName" > -->
+                <input type="file" #file name="file" [(ngModel)]="societycomplaint.fileName" (change)="onFileSelected($event)"  class="form-control" value="this.societycomplaint.fileName" >
               </ion-col>
 
               

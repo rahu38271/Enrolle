@@ -14,6 +14,8 @@ export class ImageComponent implements OnInit {
   isImage=true;
   isStatic=false;
   imageUrl:any;
+  roleId:any;
+  superId:any;
 
   constructor(
     private router:Router,
@@ -30,6 +32,14 @@ export class ImageComponent implements OnInit {
   ionViewWillEnter(){
     this.userId = localStorage.getItem("loginId");
     this.userId = Number(this.userId);
+    this.roleId = localStorage.getItem('userType');
+    this.superId = localStorage.getItem('superAdminId');
+    if(this.roleId == 2){
+      this.userId = this.userId
+    }
+    else{
+      this.userId = this.superId
+    }
     this.voter.getLandingImage(this.userId).subscribe((data: Blob) => {
       if(data.type != 'text/plain'){
         this.saveFile(data);

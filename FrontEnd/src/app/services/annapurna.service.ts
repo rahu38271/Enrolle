@@ -19,7 +19,6 @@ export class AnnapurnaService {
 
   // add / edit single annapurna
   addSingleAnnapurna(annapurnaModal:any){
-    debugger;
     return this.http.post<any>(this.url+'Annapurna/InsertUpdateAnnapurna',annapurnaModal)
   }
 
@@ -38,5 +37,10 @@ export class AnnapurnaService {
     return this.http.get<any>(this.url+'Annapurna/GetAllFamilybyId?anpnid='+anpnid)
   }
 
+  //remove family 
+  removeFamily(remFamModal:any){
+    debugger;
+    return this.http.post(this.url+'Annapurna/RemoveFamily',remFamModal)
+  }
 
 }

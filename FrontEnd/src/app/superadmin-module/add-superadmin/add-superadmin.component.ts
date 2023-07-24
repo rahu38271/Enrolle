@@ -14,7 +14,7 @@ import { Router } from '@angular/router'
 })
 export class AddSuperadminComponent implements OnInit {
 
-  addMAmodal: any = { };
+  addMAmodal: any = {};
   myForm;
   Quote;
   assemblyList: any;
@@ -22,9 +22,9 @@ export class AddSuperadminComponent implements OnInit {
   talukaList: any;
   villageList: any;
   adminId: any;
-  loginId:any;
-  superAdminId:any;
-  roleId:any;
+  loginId: any;
+  superAdminId: any;
+  roleId: any;
   isSA = false
   isA = false
   isV = false
@@ -60,7 +60,7 @@ export class AddSuperadminComponent implements OnInit {
       public contact: ContactService,
       private router: Router,
       private changeDetection: ChangeDetectorRef
-  ) { }
+    ) { }
 
   ismyTextFieldType: boolean;
   togglemyPasswordFieldType() {
@@ -112,31 +112,31 @@ export class AddSuperadminComponent implements OnInit {
     this.superAdminId = localStorage.getItem("superAdminId")
     this.roleId = localStorage.getItem("userType")
     this.roleId = Number(this.roleId);
-    if(this.roleId == 1){
+    if (this.roleId == 1) {
       this.isSA = !this.isSA;
       this.isA = !this.isA;
       this.isV = !this.isV;
       this.isSoc = !this.isSoc
       this.isM = !this.isM
     }
-    
-    if(this.roleId == 2){
+
+    if (this.roleId == 2) {
       this.isA = !this.isA;
       this.isV = !this.isV;
       this.isSoc = !this.isSoc
       this.isM = !this.isM
     }
-    
-    if(this.roleId == 3){
+
+    if (this.roleId == 3) {
       this.isV = !this.isV;
       this.isSoc = !this.isSoc
       this.isM = !this.isM
     }
 
-    if(this.roleId == 5){
+    if (this.roleId == 5) {
       this.isM = !this.isM
     }
-    
+
 
     this.getAssembly();
     this.getDistrict();
@@ -145,21 +145,21 @@ export class AddSuperadminComponent implements OnInit {
   addMAdmin() {
     debugger;
     this.addMAmodal.RoleId = Number(this.addMAmodal.RoleId);
-    if(this.addMAmodal.RoleId == 2){
+    if (this.addMAmodal.RoleId == 2) {
       this.addMAmodal.SuperAdminId = Number(this.loginId);
     }
-    if(this.addMAmodal.RoleId == 3){
+    if (this.addMAmodal.RoleId == 3) {
       this.addMAmodal.SuperAdminId = Number(this.loginId);
     }
-    if(this.addMAmodal.RoleId == 4){
+    if (this.addMAmodal.RoleId == 4) {
       this.addMAmodal.SuperAdminId = Number(this.superAdminId);
       this.addMAmodal.AdminId = Number(this.loginId);
     }
-    if(this.addMAmodal.RoleId == 5){
+    if (this.addMAmodal.RoleId == 5) {
       this.addMAmodal.SuperAdminId = Number(this.superAdminId);
       this.addMAmodal.AdminId = Number(this.loginId);
     }
-    if(this.addMAmodal.RoleId == 6){
+    if (this.addMAmodal.RoleId == 6) {
       this.addMAmodal.SuperAdminId = Number(this.superAdminId);
       this.addMAmodal.AdminId = Number(this.loginId);
     }

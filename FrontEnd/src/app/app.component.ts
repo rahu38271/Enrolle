@@ -78,6 +78,7 @@ export class AppComponent implements OnInit {
   role:any;
   language: any;
   state:any;
+  apkName:any;
 
   getClass() {
     return "active"
@@ -142,6 +143,7 @@ export class AppComponent implements OnInit {
     this.name = localStorage.getItem("loginUser");
     this.roleId = localStorage.getItem("userType");
     this.state = localStorage.getItem("state");
+    //this.apkName = localStorage.getItem("superAdminName")
     if(this.roleId == 1){
       this.roleName = "MasterAdmin"
     }

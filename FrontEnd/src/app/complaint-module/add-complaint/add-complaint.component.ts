@@ -49,6 +49,7 @@ export class AddComplaintComponent implements OnInit {
   fileSize: any;
   filesize: any;
   disabled: boolean = true;
+  fileName:any;
   clickedImage: string;
   options: CameraOptions = {
     quality: 30,
@@ -75,10 +76,12 @@ export class AddComplaintComponent implements OnInit {
 
 
   onFileSelected(event: any) {
+    debugger;
     const file: File = event.target.files[0];
     this.file = file;
     this.fileSize = file.size;
     this.fileType = file.type;
+    this.fileName = file.name;
     if (this.fileSize >= 10000000) {
       this.toast.presentToast("Maximum file size is 10 MB", "danger", 'checkmark-circle-sharp');
       this.disabled = true;

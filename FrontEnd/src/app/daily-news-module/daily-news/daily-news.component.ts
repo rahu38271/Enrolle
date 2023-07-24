@@ -157,14 +157,14 @@ export class DailyNewsComponent implements OnInit {
     this.Id = Number(event.target.id);
     this.loader.showLoading();
     this.news.getFile(this.Id).subscribe((data : Blob) => {
-      if (data) {
+      if (data.size!=0) {
         this.loader.hideLoader();
         this.saveFile(data);
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
         this.loader.hideLoader();
-        this.toast.presentToast("File download failed!", "danger", 'alert-circle-sharp');
+        this.toast.presentToast("No File!", "danger", 'alert-circle-sharp');
       }
     }, (err) => {
       this.loader.hideLoader();

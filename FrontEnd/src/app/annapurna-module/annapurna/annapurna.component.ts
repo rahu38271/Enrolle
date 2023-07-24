@@ -17,6 +17,7 @@ import { CsvService } from 'src/app/services/csv.service';
 export class AnnapurnaComponent implements OnInit {
   
   isModalOpen = false;
+  familyModalList = false;
 
   year : number = new Date().getFullYear();
   searchWeb:string;
@@ -29,13 +30,36 @@ export class AnnapurnaComponent implements OnInit {
   Fid:any;
   anpid:any;
   anpId:any;
+  anpID:any;
   checked:boolean = false;
   fullName:string;
   contactNo:string;
   altContactNo:string;
   address:string;
- 
+  checkedFamily:string[]=[];
+  changedFamily:any;
+  remFamModal={};
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
+
+  onKeyPress(event) {
+    if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {
+      return true
+    }
+    else {
+      return false
+    }
+  }
+
+  keyPressNumbers(event) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
   
   constructor(
     public modalCtrl: ModalController,
@@ -49,7 +73,7 @@ export class AnnapurnaComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-
+      
     }
 
     ionViewWillEnter(){
@@ -59,11 +83,44 @@ export class AnnapurnaComponent implements OnInit {
 
     family(event){
       this.isModalOpen = true;
-      this.Fid = event.target.id
+      this.anpId = Number(event.target.id)
+    }
+
+    seeFamily(event){
+      this.familyModalList = true;
+      this.anpId = Number(event.target.id);
+      this.familyList();
+    }
+
+    changeFamily(item:any){
+     if(item.checked){
+      this.checkedFamily.push(item);
+     }
+    }
+
+    newFamily(){
+      debugger;
+      this.remFamModal = this.checkedFamily;
+      this.annapurna.removeFamily(this.remFamModal).subscribe(data=>{
+        if(data==1){
+          this.remFamModal={};
+          this.familyModalList = false;
+          this.annapurnaList();
+          this.toast.presentToast("Created new family successfully!", "success", 'checkmark-circle-sharp');
+        }
+        else{
+          this.familyModalList = true;
+          this.toast.presentToast("Select family member", "danger", 'alert-circle-sharp');
+        }
+      })
     }
 
     closeFamily(){
       this.isModalOpen = false;
+    }
+
+    closeFamilyList(){
+      this.familyModalList = false;
     }
 
    
@@ -73,7 +130,7 @@ export class AnnapurnaComponent implements OnInit {
       if(data != 0){
         //this.loader.hideLoader();
         this.getAnnapurna = data
-        this.anpId = data[0].id;
+        this.anpID = data[0].id;
         
         if(this.getAnnapurna.cardDone == "Y"){
           this.checked = true;
@@ -99,8 +156,7 @@ export class AnnapurnaComponent implements OnInit {
   }
 
   addFamily(){
-    debugger;
-    this.FamilyModal.ANPId = this.Fid;
+    this.FamilyModal.ANPId = this.anpId;
     this.FamilyModal.ANPId = Number(this.FamilyModal.ANPId)
     this.annapurna.addAnnapurnaFamily(this.FamilyModal).subscribe(data=>{
       if(data){
@@ -114,36 +170,15 @@ export class AnnapurnaComponent implements OnInit {
     },(err)=>{
 
     })
-    this.getAnnapurna.push({
-      fullName:this.fullName,
-      contactNo:this.contactNo,
-      altContactNo:this.altContactNo,
-      address:this.address,
-      anpId:this.anpId
-    })
   }
 
   familyList(){
-    debugger;
-    this.anpid = 1;
+    this.anpid = this.anpId;
     this.annapurna.getFamilyList(this.anpid).subscribe(data=>{
       this.familyData = data;
     })
   }
 
-  addFamRow(){
-    this.getAnnapurna.push(this.familyData)
-  }
-
-  // addrow(){
-  //   this.getAnnapurna.push({
-  //     fullName:this.fullName,
-  //     contactNo:this.contactNo,
-  //     altContactNo:this.altContactNo,
-  //     address:this.address,
-  //     anpId:this.anpId
-  //   })
-  // }
 
   editAnnapurna(data:any){
     this.router.navigateByUrl('/annapurna/edit-annapurna', {state:data})

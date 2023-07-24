@@ -17,9 +17,9 @@ table td:last-child { padding: 0.25rem 0.1rem !important; width: 58px !important
 
 @media screen and (min-width:768px){
   ion-modal {
-    --width: 500px;
-  
+    --width: 750px;
  }
+
 }
 /* ion-modal {
     --width: 290px;
@@ -65,3 +65,20 @@ table td:last-child { padding: 0.25rem 0.1rem !important; width: 58px !important
 
 table tr:nth-child(even) {background: #f7f7f8}
 table tr:nth-child(odd) {background: #FFF}
+
+.familyTable thead tr th:nth-child(1){
+  width: 10px;
+}
+
+.familyTable tbody tr td:nth-child(1){
+  width: 10px;
+}
+
+.familyTable thead tr th:nth-child(6){
+  width: 200px;
+}
+
+.familyTable tbody tr td:nth-child(6){
+  width: 200px;
+}
+

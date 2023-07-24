@@ -265,7 +265,6 @@ export class VoterService {
 
   voterBetweenAge(age1:number, age2:number, gender:string, userId:number, roleID:number,PageNo:number,NoofRow:number,Language:any){
     return this.http.get<any>(this.url+'Voter/GetVoterBetweenAge?age1='+age1+'&age2='+age2+'&gender='+gender+'&UserId='+userId+'&roleid='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
-   
   }
 
   // search voter for web view
@@ -346,12 +345,13 @@ export class VoterService {
 
   // landing Image
 
-  // getLandingImage(userId:any):Observable<Blob>{
-  //   debugger;
-  //   return this.http.get<any>(this.url+'Voter/GetAllLandingPage?UserId='+userId,{responseType: "blob", reportProgress: true,})
-  // }
-
   getLandingImage(userId:number):Observable<Blob>{
     return this.http.get(this.url+'Voter/GetAllLandingPage?UserId='+userId,{responseType: "blob", reportProgress: true,})
+  }
+
+  // Assembly Name
+
+  getAssemblyName(assemblyName:any){
+    return this.http.get(this.url+'Assembly/GetAssemblyRegLang?Assembly='+assemblyName)
   }
 }

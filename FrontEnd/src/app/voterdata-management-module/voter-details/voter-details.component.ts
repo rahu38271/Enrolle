@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, Input, AfterViewInit, ElementRef, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, } from '@angular/core';
 import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { IonModal } from '@ionic/angular';
@@ -10,8 +10,6 @@ import { LoaderService } from 'src/app/services/loader.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { ModalController } from '@ionic/angular';
 import { Location } from '@angular/common';
-import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
-import { AlertController, ToastController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { SettingService } from 'src/app/services/setting.service';
@@ -19,7 +17,7 @@ import { SettingService } from 'src/app/services/setting.service';
 @Component({
   selector: 'app-voter-details',
   templateUrl: './voter-details.component.html',
-  styleUrls: ['./voter-details.component.scss']
+  styleUrls: ['./voter-details.component.scss'],
 })
 export class VoterDetailsComponent {
   Language: any;
@@ -108,6 +106,9 @@ export class VoterDetailsComponent {
   imgText:any;
   whatsText:any;
   msgText:any;
+  assemblyNameByLang:any;
+  nonEngAssembly=false;
+  engAssembly=false;
   closeModal() {
     this.modalCtrl.dismiss();
   }
@@ -139,20 +140,34 @@ export class VoterDetailsComponent {
       private location: Location,
       public translate: TranslateService,
       private setting:SettingService,
+      private cdRef: ChangeDetectorRef,
+      private cdr: ChangeDetectorRef,
       private translateConfigService: TranslateConfigService
   ) {
-
     this.Language = this.translateConfigService.getCurrentLang();
     this.Voter = this.router.getCurrentNavigation().extras.state;
-
+    if(this.Language == 'en'){
+      this.engAssembly = true;
+    }
+    else{
+      this.nonEngAssembly = true;
+    }
   }
 
   ngOnInit() {
     
+   
   }
+
+  ngOnChanges(){
+    
+  }
+
+ 
 
   ionViewWillEnter(){
     this.assemblyName = localStorage.getItem("loginAssembly");
+    this.assemblyNameLang();
     this.village = localStorage.getItem("loginVillage");
     this.userId = localStorage.getItem("loginId");
     this.userId = Number(this.userId);
@@ -187,6 +202,8 @@ export class VoterDetailsComponent {
     this.CasteUpdate.ColoumnValue = this.VoterListByUser.caste;
     this.professionUpdate.ColoumnValue = this.VoterListByUser.occupation;
     this.adrsUpdate.Address = this.VoterListByUser.address;
+    this.societyUpdate.ColoumnValue = this.VoterListByUser.society;
+    this.houseUpdate.ColoumnValue = this.VoterListByUser.houseNo;
     this.setting.getWhatsappImage(this.userId).subscribe(data=>{
       if(data){
         this.saveFile(data);
@@ -196,7 +213,6 @@ export class VoterDetailsComponent {
     })
     this.setting.getWhatsappText(this.userId).subscribe(data=>{
       if(data){
-        console.log(data);
         this.whatsText = data;
         this.msgText = data[0].messageContent;
       }
@@ -223,7 +239,11 @@ export class VoterDetailsComponent {
     reader.readAsDataURL(image);
   }
 
-
+  assemblyNameLang(){
+    this.voter.getAssemblyName(this.assemblyName).subscribe(data=>{
+      this.assemblyNameByLang = data;
+    })
+  }
 
   // ngOnInit() {
   //   this.assemblyName1 = localStorage.getItem("loginAssembly");
@@ -302,7 +322,7 @@ export class VoterDetailsComponent {
     else{
       this.VoterListByUser.birthDate = this.VoterListByUser.birthDate.split('T')[0];
     }
-
+    this.cdr.detectChanges();
     //this.partNumber =this.partNo
 
   }
@@ -332,12 +352,13 @@ export class VoterDetailsComponent {
     this.voter.updateMob(this.mobUpdate.Id, this.mobUpdate.Mobile).subscribe(data => {
       if (data) {
         this.closeModal();
-        setTimeout(()=>{
-          this.ionViewWillEnter();
-          this.voterDetails();
-        },1000);
+        this.voterDetails();
+        this.ionViewWillEnter();
+        this.cdr.detectChanges();
         this.toast.presentToast("Mobile No. updated successfully!", "success", 'checkmark-circle-sharp');
-        
+        this.VoterListByUser = this.interval(1000).subscribe(data=>{
+          this.voterDetails();
+        })
       }
       else {
         this.toast.presentToast("Mobile No. not updated", "danger", 'alert-circle-sharp');
@@ -357,6 +378,7 @@ export class VoterDetailsComponent {
         this.voterDetails();
         this.closeModal();
         this.toast.presentToast("Mobile No. updated successfully!", "success", 'checkmark-circle-sharp');
+        
       }
       else {
         this.toast.presentToast("Mobile No. not updated", "danger", 'alert-circle-sharp');

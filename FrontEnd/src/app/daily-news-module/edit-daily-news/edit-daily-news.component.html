@@ -92,7 +92,7 @@
               <ion-label> File <span>( image, video, pdf )</span>  </ion-label>
               <ion-label> Size - <span> {{fileSize}} </span> </ion-label>
             </div>
-              <input type="file" name="file" (change)="onFileSelected($event)" class="form-control">
+              <input type="file" #file name="file" [(ngModel)]="dailynews.file" (change)="onFileSelected($event)"  class="form-control" value="this.dailynews.fileName">
           </ion-col>
           
           
