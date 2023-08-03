@@ -180,7 +180,7 @@
                     <ion-button type="reset" color="danger" size="medium" (click)="resetForm()">Clear</ion-button>
                     <ion-button type="submit" size="medium" (click)="addMAdmin()" [disabled]="!f.form.valid">Add
                       User</ion-button>
-                    <ion-button routerLink="/superadmin" color="success" type="button" size="medium">Back To List
+                    <ion-button (click)="goBack()" color="success" type="button" size="medium">Back To List
                     </ion-button>
                   </div>
                 </ion-col>

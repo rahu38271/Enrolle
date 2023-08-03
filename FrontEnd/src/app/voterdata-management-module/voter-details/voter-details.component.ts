@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef,ChangeDetectorRef,NgZone  } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef,ChangeDetectorRef,NgZone,Input   } from '@angular/core';
 import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { IonModal } from '@ionic/angular';
@@ -19,8 +19,9 @@ import { SettingService } from 'src/app/services/setting.service';
   templateUrl: './voter-details.component.html',
   styleUrls: ['./voter-details.component.scss'],
 })
-export class VoterDetailsComponent {
+export class VoterDetailsComponent  {
   Language: any;
+  VoterListByUser: any;
   maxDate:String = new Date().toISOString();
   @ViewChild(IonModal) modal: IonModal;
   @ViewChild('myDiv') myDiv: ElementRef;
@@ -38,7 +39,7 @@ export class VoterDetailsComponent {
   // imgurl: string = 'https://cdn.pixabay.com/photo/2019/12/26/05/10/pink-4719682_960_720.jpg'
   //imgurl: string = 'https://tinysms.in/bjp.png'
   ImagePath = ''
-  VoterListByUser: any;
+  
   id: any;
   RoleId: any;
   colorUpdate: any = {};
@@ -354,10 +355,6 @@ export class VoterDetailsComponent {
         this.closeModal();
         this.ionViewWillEnter();
         this.toast.presentToast("Mobile No. updated successfully!", "success", 'checkmark-circle-sharp');
-        const currentRoute = this.route.snapshot.url.join('/'); // Get the current route
-        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-          this.router.navigate([currentRoute]); // Navigate back to the current route
-        });
       }
       else {
         this.toast.presentToast("Mobile No. not updated", "danger", 'alert-circle-sharp');

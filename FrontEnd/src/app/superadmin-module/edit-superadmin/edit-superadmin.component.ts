@@ -6,6 +6,7 @@ import { LoaderService} from 'src/app/services/loader.service'
 import {IonicToastService } from 'src/app/services/ionic-toast.service'
 import { ContactService } from 'src/app/services/contact.service';
 import { Router } from '@angular/router'
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-edit-superadmin',
@@ -59,6 +60,7 @@ export class EditSuperadminComponent implements OnInit {
       private loader:LoaderService,
       private toast:IonicToastService,
       public contact: ContactService,
+      private location: Location,
       private router:Router
     ) 
     { }
@@ -102,6 +104,10 @@ export class EditSuperadminComponent implements OnInit {
   ismyTextFieldType: boolean;
   togglemyPasswordFieldType(){
     this.ismyTextFieldType = !this.ismyTextFieldType;
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   getDistrict() {

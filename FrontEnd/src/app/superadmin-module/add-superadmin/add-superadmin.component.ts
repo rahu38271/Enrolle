@@ -6,6 +6,7 @@ import { LoaderService } from 'src/app/services/loader.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { ContactService } from 'src/app/services/contact.service';
 import { Router } from '@angular/router'
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-superadmin',
@@ -59,6 +60,7 @@ export class AddSuperadminComponent implements OnInit {
       private toast: IonicToastService,
       public contact: ContactService,
       private router: Router,
+      private location: Location,
       private changeDetection: ChangeDetectorRef
     ) { }
 
@@ -104,6 +106,10 @@ export class AddSuperadminComponent implements OnInit {
         this.villageList = data;
       }
     })
+  }
+
+  goBack() {
+    this.location.back();
   }
 
   ngOnInit() {
