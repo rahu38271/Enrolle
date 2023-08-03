@@ -27,7 +27,7 @@ table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !impo
 
   .close { color: #1c1a1a !important; padding: 4px 5px; background: #e1e1e1 !important; cursor: pointer; }
 
-  ion-card { margin-inline: 1px; margin-top: 1px; width: 60%; margin: 0 auto; }
+  ion-card { margin-inline: 1px; margin-top: 1px; width: 98%; margin: 0 auto; }
 
   @media screen and (max-width:768px){
     ion-card { width: 70%; }

@@ -19,7 +19,7 @@ export class MobileListComponent implements OnInit {
   userId: any;
   roleID:any;
   PageNo:any=1;
-  NoofRow:any=10;
+  NoofRow:any=25;
   totalItems:any;
   SearchText:any;
    
@@ -62,7 +62,7 @@ export class MobileListComponent implements OnInit {
 
   mobileList(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){
     this.Language = this.translateConfigService.getCurrentLang();
-    //this.loader.showLoading();
+    this.loader.showLoading();
     if(this.Language == "kn"){
       this.Language = "Kannada"
     }
@@ -77,16 +77,16 @@ export class MobileListComponent implements OnInit {
     }
     this.voter.voterWithMobile(userId,roleID,PageNo,NoofRow,this.Language,this.SearchText).subscribe(data=>{
       if(data.length != 0){
-        //this.loader.hideLoader();
+        this.loader.hideLoader();
         this.voterMobile = data;
         this.totalItems = data[0].totalCount
       }
       else{
-        //this.loader.hideLoader();
+        this.loader.hideLoader();
         this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
       }
     },(err)=>{
-      //this.loader.hideLoader();
+      this.loader.hideLoader();
     })
   }
 
@@ -99,7 +99,7 @@ export class MobileListComponent implements OnInit {
     }
     else {
       this.PageNo = 1;
-      this.NoofRow = 10;
+      this.NoofRow = 25;
       this.SearchText = SearchText;
       this.voter.voterWithMobile(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
         if (data.length != 0) {
@@ -124,7 +124,7 @@ export class MobileListComponent implements OnInit {
     }
     else {
       this.PageNo = 1;
-      this.NoofRow = 10;
+      this.NoofRow = 25;
       this.SearchText = SearchText;
       this.voter.voterWithMobile(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
         if (data) {

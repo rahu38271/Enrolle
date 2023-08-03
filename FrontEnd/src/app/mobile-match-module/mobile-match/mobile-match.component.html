@@ -16,7 +16,6 @@
     <ion-grid class="topForm">
       <form #myForm1="ngForm">
         <ion-row>
-          
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
             <ion-label>     First Name <span>*</span> </ion-label>
               <ion-input name="Fname" [(ngModel)]="Fname" (keypress)="onKeyPress($event)" class="text-capitalize form-control"></ion-input>
@@ -41,21 +40,14 @@
             <ion-label> Voter Id </ion-label>
               <ion-input name="Vid" [(ngModel)]="Vid" maxlength="10" class="form-control"></ion-input>
           </ion-col>
-          <ion-col size-xl="3" size-lg="3" size-md="3" size-sm="6" size-xs="12">
-            <div class="checkbox">
-              <ion-checkbox></ion-checkbox>
-              <ion-label> Include Already Match Mobile No </ion-label>
-            </div>
-          </ion-col>
 
           <ion-col size-xl="3" size-lg="2" size-md="4" size-sm="6" size-xs="12">
               <ion-button class="mt-3" type="submit" (click)="presentLoading()">Search</ion-button>
-              <!-- <ion-button shape="round" type="reset" (click)="resetForm()" class="mt-5" color="danger">Clear</ion-button> -->
           </ion-col>
         </ion-row>
       </form>
     </ion-grid>
-    <ion-grid class="topForm">
+    <!-- <ion-grid class="topForm">
       <form #myForm1="ngForm">
         <ion-row>
           <ion-col size-lg="3" size-md="3" size-sm="6" size-xs="12">
@@ -76,52 +68,84 @@
           </ion-col>
         </ion-row>
       </form>
-    </ion-grid>
-    <ion-card>
-      
-      <ion-card-content>
-        
-        <div class="horizontal-scroll">
-          <table id="table51" #epltable>
-            <thead>
-              <tr>
-                <th style="width: 40px;">
-                  Name	
-                </th>
-                <th>
-                  LastName	
-                </th>
-                <th>
-                  House No		
-                </th>
-                <th>
-                  Vibhag No		
-                </th>
-                <th>
-                  Vibhag Name	
-                </th>
-                <th>
-                  Mobile No	
-                </th>
-                
-                
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>rahul</td>
-                <td> gaikwad</td>
-                <td>11</td>
-                <td>12</td>
-                <td>name</td>
-                <td>9158490455</td>
-              </tr>
-              
-            </tbody>
-          </table>
-        </div>
-      </ion-card-content>
-    </ion-card>
+    </ion-grid> -->
+
+      <ion-row>
+        <ion-col size-xl="6" size-lg="6">
+            <ion-card>
+              <table class="table">
+                <tr>
+                  <th>Name</th>
+                  <td>Sagar</td>
+                </tr>
+                <tr>
+                  <th>Age</th>
+                  <td>28</td>
+                </tr>
+                <tr>
+                  <th>House No.</th>
+                  <td>B 301</td>
+                </tr>
+                <tr>
+                  <th>Voting Card</th>
+                  <td>111111111</td>
+                </tr>
+                <tr>
+                  <th>Gender</th>
+                  <td>M</td>
+                </tr>
+                <tr>
+                  <th>Village</th>
+                  <td>Pune</td>
+                </tr>
+                <tr>
+                  <th>Address</th>
+                  <td>Mu Po Baleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</td>
+                </tr>
+              </table>
+            </ion-card>
+        </ion-col>
+        <ion-col size-xl="6" size-lg="6">
+            <ion-card>
+              <table class="table">
+                <tr>
+                  <th>Name</th>
+                  <td>Sagar</td>
+                </tr>
+                <tr>
+                  <th>Age</th>
+                  <td>28</td>
+                </tr>
+                <tr>
+                  <th>House No.</th>
+                  <td>B 301</td>
+                </tr>
+                <tr>
+                  <th>Voting Card</th>
+                  <td>111111111</td>
+                </tr>
+                <tr>
+                  <th>Gender</th>
+                  <td>M</td>
+                </tr>
+                <tr>
+                  <th>Village</th>
+                  <td>Pune</td>
+                </tr>
+                <tr>
+                  <th>Address</th>
+                  <td>Mu Po Baleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</td>
+                </tr>
+              </table>
+            </ion-card>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <input type="checkbox">Match Mobile No.
+          <ion-button>Submit</ion-button>
+        </ion-col>
+      </ion-row>
   </div>
 </ion-content>
 						

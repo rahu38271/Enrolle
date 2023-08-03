@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgOtpInputModule } from  'ng-otp-input';
 import { OtpPage } from '../otp/otp.page';
 
+
 @NgModule({
   declarations: [LoginComponent,OtpPage],
   imports: [

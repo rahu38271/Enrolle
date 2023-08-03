@@ -63,7 +63,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let item of occuList" (click)="occupation(item.columnName)">
+                      <tr *ngFor="let item of sociList" (click)="society(item.columnName)">
                         <td >
                           {{item.columnName}}
                         </td>
@@ -72,6 +72,9 @@
                       
                     </tbody>
                   </table>
+                </div>
+                <div *ngIf="!sociList || sociList.length === 0" class="text-center noData">
+                  <p> {{'No data available' | translate}}</p>
                 </div>
               </ion-card-content>
   
@@ -94,6 +97,11 @@
             </ion-label>
           </ion-item>
         </ion-list>
+        <div *ngIf="!sociList || sociList.length === 0" class="text-center noData">
+          <img src="assets/img/question.png" />
+          <p> {{'No data available' | translate}}</p>
+          <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
+        </div>
       </ion-grid>
     </div>
   </ion-content>

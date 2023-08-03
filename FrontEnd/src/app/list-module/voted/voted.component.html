@@ -21,7 +21,7 @@
               <ion-row>
                 <ion-col size-xs="12" size-sm="6">
                   <ion-card-header>
-                    <ion-card-title class="header1">Voted <span>  ( 44 ) </span> </ion-card-title>
+                    <ion-card-title class="header1">Voted  </ion-card-title>
                   </ion-card-header>
                   
                 </ion-col>
@@ -43,9 +43,6 @@
                   <thead>
                     <tr>
                       
-                      <th style="width: 20px !important;">
-                        Sr.No.
-                      </th>
                       <th>
                         Status
                       </th>
@@ -56,14 +53,16 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let item of voterVoted">
-                      
-                      <td>1</td>
-                      <td>{{item.columnName}}</td>
+                      <td (click)="isVotedOrNot(item.columnName)">{{item.columnName}}</td>
                       <td>{{'Total' | translate}} : <span> {{item.columnValue}} </span></td>
                     </tr>
                     
                   </tbody>
                 </table>
+                <pagination-controls (pageChange)="event($event)"></pagination-controls>
+              </div>
+              <div *ngIf="!voterVoted || voterVoted.length === 0" class="text-center noData">
+                <p>No data available</p>
               </div>
             </ion-card-content>
             
@@ -86,6 +85,14 @@
                   </ion-label>
                 </ion-item>
               </ion-list>
+              <ion-list>
+                <pagination-controls (pageChange)="event($event)"></pagination-controls>
+              </ion-list>
+              <div *ngIf="!voterVoted || voterVoted.length === 0" class="text-center noData">
+                <img src="assets/img/question.png" />
+                <p>No data available</p>
+                <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
+              </div>
           </ion-card>
         </ion-col>
       </ion-row>

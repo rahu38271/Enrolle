@@ -16,7 +16,7 @@ export class ByAddressComponent implements OnInit {
   searchMob:string;
   id:any
   roleId:any;
-  
+  cp: number = 1;
   
   constructor(
     private voter:VoterService, 

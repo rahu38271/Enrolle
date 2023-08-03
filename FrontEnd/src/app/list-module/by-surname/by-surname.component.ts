@@ -17,7 +17,7 @@ export class BySurnameComponent implements OnInit {
   userId: any;
   roleID:any;
   PageNo:any=1;
-  NoofRow:any=100;
+  NoofRow:any=25;
   totalItems:any;
   SearchText:any;
 
@@ -56,7 +56,7 @@ export class BySurnameComponent implements OnInit {
   }
 
   allLastName(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){
-    //this.loader.showLoading();
+    this.loader.showLoading();
     this.Language = this.translateConfigService.getCurrentLang();
     if(this.Language == "kn"){
       this.Language = "Kannada"
@@ -72,15 +72,15 @@ export class BySurnameComponent implements OnInit {
     }
     this.voter.lastNameData(userId,roleID,PageNo,NoofRow,this.Language,this.SearchText).subscribe(data=>{
       if(data.length != 0){
-        //this.loader.hideLoader();
+        this.loader.hideLoader();
         this.allData = data;
         this.totalItems = data[0].totalCount
       }
       else{
-        //this.loader.hideLoader();
+        this.loader.hideLoader();
       }
     },(err)=>{
-      //this.loader.hideLoader();
+      this.loader.hideLoader();
     })
   }
 

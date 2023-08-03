@@ -125,7 +125,6 @@ export class AllComplaintsComponent implements OnInit {
   }
 
   downloadFile(event: any) {
-    debugger;
     this.Id = Number(event.target.id);
     this.loader.showLoading();
     this.complaint.getFile(this.Id).subscribe((data: Blob) => {

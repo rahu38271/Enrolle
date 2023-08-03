@@ -90,7 +90,6 @@
                   </table>
                   <pagination-controls (pageChange)="event($event)"></pagination-controls>
                   <div *ngIf="!voterMobile || voterMobile.length === 0" class="text-center">
-                    <img src="assets/img/question.png" />
                     <p> {{'No data available' | translate}}</p>
                   </div>
                 </div>

@@ -63,6 +63,7 @@
                       <th>File</th>
                       <th>Added By</th>
                       <th>Status</th>
+                      <th>Action</th>
                   </tr>
               </thead>
               <tbody>
@@ -82,6 +83,10 @@
                             <option value="" selected>Select</option>
                             <option value="Resolved">Resolved</option>
                           </select>
+                      </td>
+                      <td class="action">
+                        <ion-icon name="create-sharp" (click)="editCmplaint(item)"></ion-icon>
+                        <ion-icon (click)="deleteCom(item.id)" class="delete" name="trash-bin-sharp"></ion-icon>
                       </td>
                   </tr>
               </tbody>

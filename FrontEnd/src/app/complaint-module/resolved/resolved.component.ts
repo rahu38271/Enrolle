@@ -8,6 +8,7 @@ import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { saveAs } from 'file-saver';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-resolved',
@@ -44,7 +45,8 @@ export class ResolvedComponent implements OnInit {
     private loader: LoaderService,
     private toast: IonicToastService,
     private location: Location,
-    private router: Router
+    private router: Router,
+    public alertController: AlertController
   ) { }
 
   ngOnInit(): void {
@@ -92,6 +94,10 @@ export class ResolvedComponent implements OnInit {
     // link.download = 'image.jpg';
     link.download = '';
     link.click();
+  }
+
+  editCmplaint(data: any) {
+    this.router.navigateByUrl('/complaint-book/edit-complaint', { state: data })
   }
 
   downloadFile(event: any) {
@@ -246,6 +252,37 @@ export class ResolvedComponent implements OnInit {
 
     // Old monolithic-style usage:
     html2pdf(element, opt);
+  }
+
+  async deleteCom(id: any) {
+    const alert = await this.alertController.create({
+      header: 'Delete Complaint',
+      cssClass: 'alertHeader',
+      message: 'Are you sure want to delete this Complaint',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'no',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Delete',
+          cssClass: 'yes',
+          handler: () => {
+            this.loader.showLoading();
+            this.complaint.deleteComplaint(id).subscribe(data => {
+              this.loader.hideLoader();
+              this.ionViewWillEnter();
+              this.toast.presentToast("Complaint deleted Succesfully!", "success", 'checkmark-circle-sharp');
+            })
+          }
+        }
+      ],
+    });
+
+    await alert.present();
   }
 
 }

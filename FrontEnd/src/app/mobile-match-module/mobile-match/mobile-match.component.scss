@@ -7,15 +7,9 @@ ion-item { --background: #fff; border: solid 1px #cccccc; height: 40px; ; }
 
 h2 { color: #435fbe; padding-left: 10px; font-weight: 500; }
 
-
-
-table { margin-top: 10px; }
-
 td ion-icon { cursor: pointer; font-size: 12px; font-weight: 600;  }
 
 table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !important; }
-
-table td:last-child { width: 58px !important; }
 
 .file { font-size: 20px !important; color: #3880ff !important; font-weight: 600;}
 
@@ -23,3 +17,24 @@ ion-label span {  color: #F00 !important; font-weight: 500;}
 
 .table td, .table th {
     padding: 0.75rem 0.55rem !important; }
+
+.table tr th {
+    width: 20%;
+    overflow: hidden;
+    display: inline-block;
+    white-space: nowrap;
+}
+
+.table tr td {
+    width: 76%;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.table {
+    background: #FFF;
+}
+
+ion-card {
+    padding: 10px
+}

@@ -18,7 +18,6 @@ import { Platform } from '@ionic/angular';
 //import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 import { AndroidPermissions } from '@awesome-cordova-plugins/android-permissions/ngx';
 import { LoaderService } from 'src/app/services/loader.service'
-import { FirebaseX } from '@awesome-cordova-plugins/firebase-x/ngx';
 import { AuthenticationService } from 'src/app/services/authentication.service'
 import { Location } from '@angular/common'
 
@@ -91,7 +90,6 @@ export class AppComponent implements OnInit {
     public popoverController: PopoverController,
     //private socialSharing: SocialSharing,
     private androidPermissions: AndroidPermissions,
-    private firebaseX: FirebaseX,
     private loader: LoaderService,
     private auth: AuthenticationService,
     private _location: Location,
@@ -212,15 +210,6 @@ export class AppComponent implements OnInit {
     //  this.router.navigate(['/']);
     // }
 
-    this.firebaseX.getToken()
-      .then(token => console.log(`The token is ${token}`)) // save the token server-side and use it to push notifications to this device
-      .catch(error => console.error('Error getting token', error));
-
-    this.firebaseX.onMessageReceived()
-      .subscribe(data => console.log(`User opened a notification ${data}`));
-
-    this.firebaseX.onTokenRefresh()
-      .subscribe((token: string) => console.log(`Got a new token ${token}`));
   }
 
   ionViewWillEnter() {

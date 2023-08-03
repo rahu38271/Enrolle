@@ -18,7 +18,7 @@ export class NotvotedvoterComponent implements OnInit {
   roleID:any;
   isVoted:any;
   PageNo:any=1;
-  NoofRow:any=10;
+  NoofRow:any=25;
   notvotedvoterList:any;
   totalItems:any;
 
@@ -95,7 +95,7 @@ export class NotvotedvoterComponent implements OnInit {
     else {
       this.PageNo = 1;
       this.SearchText = SearchText
-      this.NoofRow = 10;
+      this.NoofRow = 25;
       this.voter.getvoterNotVoted(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
         if(data.length != 0){
           this.notvotedvoterList=data;
@@ -118,7 +118,7 @@ export class NotvotedvoterComponent implements OnInit {
     else {
       this.PageNo = 1;
       this.SearchText = SearchText
-      this.NoofRow = 10;
+      this.NoofRow = 25;
       this.voter.getvoterNotVoted(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
         if(data.length != 0){
           this.notvotedvoterList=data;

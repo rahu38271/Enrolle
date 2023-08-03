@@ -6,6 +6,7 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { VoterService } from 'src/app/services/voter.service';
 import * as  XLSX from 'xlsx';
 import { Router } from '@angular/router'
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-import-voterdata',
@@ -35,7 +36,8 @@ export class ImportVoterdataComponent implements OnInit {
       private toast: IonicToastService,
       private loader: LoaderService,
       private voter: VoterService,
-      private router:Router
+      private router:Router,
+      private location: Location
     ) {
 
   }
@@ -219,6 +221,10 @@ export class ImportVoterdataComponent implements OnInit {
       this.toast.presentToast("File not uploded", "danger", 'alert-circle-sharp');
       this.loader.hideLoader();
     })
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

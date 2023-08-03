@@ -1,4 +1,4 @@
-import { Component,ChangeDetectorRef } from '@angular/core';
+import { Component,ChangeDetectorRef,ViewChild } from '@angular/core';
 import { VoterService } from 'src/app/services/voter.service'
 import { Router, ActivatedRoute } from '@angular/router'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
@@ -47,9 +47,7 @@ export class VoterbyUserComponent {
       private loader: LoaderService,
       public alertController: AlertController,
       public translate: TranslateService,
-      private translateConfigService: TranslateConfigService,
-      private cdRef: ChangeDetectorRef
-      
+      private translateConfigService: TranslateConfigService
     ) {
     
    
@@ -74,6 +72,7 @@ export class VoterbyUserComponent {
       this.totalCountByUser = data
     })
   }
+
 
   
   voterList(id: any, RoleId: any, PageNo: any, NoofRow: any, Language:any,SearchText:any) {
@@ -102,7 +101,7 @@ export class VoterbyUserComponent {
         //this.loader.hideLoader();
         this.voterListByUser = data;
         this.totalCount = data[0].totalCount;
-        this.cdRef.detectChanges();
+
         this.voterListByUser.forEach(e => {
           e.birthDate = e.birthDate.split('T')[0];
         });
@@ -178,6 +177,8 @@ export class VoterbyUserComponent {
   voterDetails(item: any) {
     this.router.navigate(['voterdata-management/voter-details'], { state: item })
   }
+
+  
 
   AllCasts(){
     if (this.Language == "kn") {

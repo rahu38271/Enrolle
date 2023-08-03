@@ -26,7 +26,7 @@ export class AuthenticationService {
   loginAdmin(Username:string,Password:string):Observable<any>{
     return this.http.get<any>(this.url+'Login/LoginUser?Username='+Username+'&Password='+Password+'');
   }
-
+  
 
   // step - 2. DB configure 
   DBConfig(DBConfigModal:any){

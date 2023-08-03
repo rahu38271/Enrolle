@@ -62,6 +62,7 @@ export class BoothwiseListComponent implements OnInit {
   }
 
   partNoWiseVoter(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){
+    this.loader.showLoading();
     this.Language = this.translateConfigService.getCurrentLang();
     if(this.Language == "kn"){
       this.Language = "Kannada"
@@ -77,14 +78,16 @@ export class BoothwiseListComponent implements OnInit {
     }
     this.voter.voterByPart(this.partNumber,userId,roleID,PageNo,NoofRow,this.Language,this.SearchText).subscribe(data=>{
       if(data.length != 0){
+        this.loader.hideLoader();
         this.partWiseVoter = data;
         this.totalItems = data[0].totalCount
       }
       else{
+        this.loader.hideLoader();
         this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
       }
     },(err)=>{
-
+      this.loader.hideLoader();
     })
   }
 

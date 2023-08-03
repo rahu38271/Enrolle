@@ -16,6 +16,8 @@ import { loginResponce } from 'src/app/models/loginResponce'
 })
 export class LoginComponent implements OnInit {
 
+// Store the appName in localStorage
+
   generatedOtp:any;
 
   loginModal:any= {
@@ -69,6 +71,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     //this.login();
+
   }
 
 
@@ -98,10 +101,26 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("loginDistrict", data.user[0].district);
         localStorage.setItem("loginVillage", data.user[0].village);
         localStorage.setItem("state", data.user[0].state);
-        localStorage.setItem("superAdminName", data.user[0].superAdminName)
+        localStorage.setItem("superAdminName", data.user[0].superAdminName);
+        const apkName = data.user[0].name;
+        localStorage.setItem("apkName", apkName);
+        // cordova.exec(
+        //   () => {
+        //     console.log('Cordova hook executed successfully.');
+        //   },
+        //   (err) => {
+        //     console.error('Error executing Cordova hook: ' + err);
+        //   },
+        //   'UpdateAppName',
+        //   'update',
+        //   [data.user[0].superAdminName]
+        // );
+        // Call the Cordova hook to update the app name in config.xml
+
         //this.auth.sendOtp(this.loginModal.Username).subscribe((data) => {
         //   this.otpverify(data);
         //});
+        
           this.toast.presentToast("Logged In Succesfully", "success", 'checkmark-circle-sharp');
           this.loader.hideLoader();
           //this.router.navigate(['/home/mobile-dashboard']);
@@ -147,6 +166,8 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     
   }
+
+  
 
 }
  

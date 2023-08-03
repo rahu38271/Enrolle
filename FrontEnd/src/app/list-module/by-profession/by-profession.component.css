@@ -110,4 +110,10 @@ table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !impo
     margin-top: 2px;
   }
 
+  .android .noData {
+    padding: 20%;
+  }
   
+   .noData img {
+    width: 125px !important;
+   }

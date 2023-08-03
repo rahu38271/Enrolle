@@ -158,7 +158,6 @@ omit_special_char(event) {
   }
 
   addVoter(){
-    debugger;
     this.loader.showLoading();
     this.addVoterModal.UserId=Number(this.UserId);
     this.addVoterModal.PartNo=Number(this.addVoterModal.PartNo);

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef, } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef,ChangeDetectorRef,NgZone  } from '@angular/core';
 import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { IonModal } from '@ionic/angular';
@@ -140,9 +140,8 @@ export class VoterDetailsComponent {
       private location: Location,
       public translate: TranslateService,
       private setting:SettingService,
-      private cdRef: ChangeDetectorRef,
-      private cdr: ChangeDetectorRef,
-      private translateConfigService: TranslateConfigService
+      private translateConfigService: TranslateConfigService,
+      private ngZone: NgZone
   ) {
     this.Language = this.translateConfigService.getCurrentLang();
     this.Voter = this.router.getCurrentNavigation().extras.state;
@@ -152,12 +151,12 @@ export class VoterDetailsComponent {
     else{
       this.nonEngAssembly = true;
     }
+
   }
 
   ngOnInit() {
     
-   
-  }
+    }
 
   ngOnChanges(){
     
@@ -270,6 +269,7 @@ export class VoterDetailsComponent {
 
   voterDetails() {
     //this.loader.showLoading();
+
     this.VoterListByUser = this.Voter;
 
     // to get star checked if voter is star voter or not 
@@ -322,7 +322,7 @@ export class VoterDetailsComponent {
     else{
       this.VoterListByUser.birthDate = this.VoterListByUser.birthDate.split('T')[0];
     }
-    this.cdr.detectChanges();
+    
     //this.partNumber =this.partNo
 
   }
@@ -352,13 +352,12 @@ export class VoterDetailsComponent {
     this.voter.updateMob(this.mobUpdate.Id, this.mobUpdate.Mobile).subscribe(data => {
       if (data) {
         this.closeModal();
-        this.voterDetails();
         this.ionViewWillEnter();
-        this.cdr.detectChanges();
         this.toast.presentToast("Mobile No. updated successfully!", "success", 'checkmark-circle-sharp');
-        this.VoterListByUser = this.interval(1000).subscribe(data=>{
-          this.voterDetails();
-        })
+        const currentRoute = this.route.snapshot.url.join('/'); // Get the current route
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate([currentRoute]); // Navigate back to the current route
+        });
       }
       else {
         this.toast.presentToast("Mobile No. not updated", "danger", 'alert-circle-sharp');

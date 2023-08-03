@@ -19,7 +19,7 @@ export class SocietywiseListComponent implements OnInit {
   society:any;
   voterWithSoci:any;
   PageNo:any=1;
-  NoofRow:any=10;
+  NoofRow:any=25;
   totalItems:any;
   search(){
     this.isShow = !this.isShow
@@ -87,7 +87,7 @@ export class SocietywiseListComponent implements OnInit {
     }
     else {
       this.PageNo = 1;
-      this.NoofRow = 10;
+      this.NoofRow = 25;
       this.SearchText = SearchText;
       this.voter.voterBySoci(this.society,this.UserId,this.roleId,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data => {
         if (data) {
@@ -107,7 +107,7 @@ export class SocietywiseListComponent implements OnInit {
     }
     else {
       this.PageNo = 1;
-      this.NoofRow = 10;
+      this.NoofRow = 25;
       this.SearchText = SearchText;
       this.voter.voterBySoci(this.society,this.UserId,this.roleId,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data => {
         if (data) {

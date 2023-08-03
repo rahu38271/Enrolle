@@ -45,7 +45,7 @@
             <div class="ion-text-center">
               <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
               <ion-button [disabled]="disabled"  type="submit" size="medium" (click)="upload(f)">Upload</ion-button>
-              <ion-button routerLink="/voterdata-management" color="success" type="button" size="medium">Back To List</ion-button>
+              <ion-button (click)="goBack()" color="success" type="button" size="medium">Back To List</ion-button>
             </div>
           </ion-col>
         </ion-row>
