@@ -94,6 +94,11 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.GetMemberDetailsbyVId(voterid);
         }
 
+        public IEnumerable<VoterMobile> GetMobileMatch(string VoterName)
+        {
+            return _voterRepository.GetMobileMatch(VoterName);
+        }
+
         public IEnumerable<GetVoterByPartNo> GetStarVoterbyUserId(int userid,int roleid, int PageNo, int NoofRow, string Language, string SearchText)
         {
             return _voterRepository.GetStarVoterbyUserId(userid,roleid,PageNo,NoofRow,Language,SearchText);

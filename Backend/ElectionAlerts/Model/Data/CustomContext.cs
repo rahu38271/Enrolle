@@ -110,6 +110,7 @@ namespace ElectionAlerts.Model.Data
                 optionsBuilder.UseSqlServer(ElectionAlertconstr, x => x.EnableRetryOnFailure());
             }
         }
+        public DbSet<VoterMobile> VoterMobiles { get; set; }
         public DbSet<Village> Villages { get; set; }
         public DbSet<Contact> Contact { get; set; }
         public DbSet<User> UsersDetails { get; set; }

@@ -58,6 +58,6 @@ namespace ElectionAlerts.Repository.Interface
         LandingPage GetAllLandingPage(int UserId);
         int InsertUpdateWhatUpContent(WhatAppContent whatAppContent);
         WhatAppContent GetWhatAppContentbyUserId(int UserId);
-
+        IEnumerable<VoterMobile> GetMobileMatch(string VoterName);   
     }
 }

@@ -874,6 +874,18 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 throw ex;
             }
         }
+
+        public IEnumerable<VoterMobile> GetMobileMatch(string VoterName)
+        {
+            try
+            {
+                return _customContext.Set<VoterMobile>().FromSqlRaw("Exec USP_MobileMatching {0}", VoterName).ToList();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
     public static class Extensions
     {

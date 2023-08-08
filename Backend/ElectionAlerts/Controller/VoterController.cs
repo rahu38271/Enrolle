@@ -1055,6 +1055,19 @@ namespace ElectionAlerts.Controller
             }
         }
 
+        [HttpGet("GetMobileMatch")]
+        public IActionResult GetMobileMatch(string VoterName)
+        {
+            try
+            {
+                return Ok(_voterService.GetMobileMatch(VoterName));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetWhatAppContentbyUserId");
+                return BadRequest(ex);
+            }
+        }
         [HttpGet("GetWhatAppImagebyUserId")]
         public IActionResult GetWhatAppImagebyUserId(int UserId)
         {
