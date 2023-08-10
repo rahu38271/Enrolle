@@ -35,7 +35,7 @@ export class AgewiseListComponent implements OnInit {
   roleID:any;
   searchMob:string;
   PageNo:any=1;
-  NoofRow:any=10;
+  NoofRow:any=25;
   totalItems:any;
   SearchText:any;
 

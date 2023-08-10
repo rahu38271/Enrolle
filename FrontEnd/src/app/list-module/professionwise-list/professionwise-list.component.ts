@@ -19,7 +19,7 @@ export class ProfessionwiseListComponent implements OnInit {
   occupation:any;
   voterWithProf:any;
   PageNo:any=1;
-  NoofRow:any=10;
+  NoofRow:any=25;
   totalItems:any;
   search(){
     this.isShow = !this.isShow
@@ -65,6 +65,7 @@ export class ProfessionwiseListComponent implements OnInit {
     this.voter.voterByProf(this.occupation,UserId,roleId,PageNo,NoofRow,this.Language,this.SearchText).subscribe(data=>{
       if(data != 0){
         this.voterWithProf = data;
+        this.totalItems = data[0].totalCount;
       }
       else{
 
@@ -87,8 +88,8 @@ export class ProfessionwiseListComponent implements OnInit {
     }
     else {
       this.PageNo = 1;
-      this.NoofRow = 10;
-      this.SearchText = SearchText;
+      this.NoofRow = 25;
+      this.SearchText = SearchText.trim();
       this.voter.voterByProf(this.occupation,this.UserId,this.roleId,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data => {
         if (data) {
           this.voterWithProf = data;
@@ -107,8 +108,8 @@ export class ProfessionwiseListComponent implements OnInit {
     }
     else {
       this.PageNo = 1;
-      this.NoofRow = 10;
-      this.SearchText = SearchText;
+      this.NoofRow = 25;
+      this.SearchText = SearchText.trim();
       this.voter.voterByProf(this.occupation,this.UserId,this.roleId,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data => {
         if (data) {
           this.voterWithProf = data;

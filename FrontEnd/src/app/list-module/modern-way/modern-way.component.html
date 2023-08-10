@@ -37,32 +37,32 @@
         <ion-row>
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
             <ion-label>     {{'Last Name' | translate}}    </ion-label>
-              <ion-input (keypress)="onKeyPress($event)" name="LastName" [(ngModel)]="searchModal.LastName" class="form-control"></ion-input>
+              <ion-input (keypress)="onKeyPress($event)" name="LastName" [(ngModel)]="searchModal.LastName" (change)="trimInput()" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
             <ion-label>     {{'First Name' | translate}}    </ion-label>
-              <ion-input (keypress)="onKeyPress($event)" name="FirstName" [(ngModel)]="searchModal.FirstName" class="form-control"></ion-input>
+              <ion-input (keypress)="onKeyPress($event)" name="FirstName" [(ngModel)]="searchModal.FirstName" (change)="trimInput()" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
             <ion-label>    {{'Father / Husbands Name' | translate}}    </ion-label>
-              <ion-input (keypress)="onKeyPress($event)" name="MiddleName" [(ngModel)]="searchModal.MiddleName" class="form-control"></ion-input>
+              <ion-input (keypress)="onKeyPress($event)" name="MiddleName" [(ngModel)]="searchModal.MiddleName" (change)="trimInput()" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
             <ion-label>    {{'Voting Card' | translate}}   </ion-label>
-              <ion-input (keypress)="omit_special_char($event)"  name="VotingCardNo" [(ngModel)]="searchModal.VotingCardNo" class="form-control"></ion-input>
+              <ion-input (keypress)="omit_special_char($event)"  name="VotingCardNo" [(ngModel)]="searchModal.VotingCardNo" (change)="trimInput()" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
             <ion-label>   From Age   </ion-label>
-              <ion-input (keypress)="keyPressNumbers($event)"  maxlength="3" name="FromAge" [(ngModel)]="searchModal.FromAge" class="form-control"></ion-input>
+              <ion-input (keypress)="keyPressNumbers($event)"  maxlength="3" name="FromAge" [(ngModel)]="searchModal.FromAge" (change)="trimInput()" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
             <ion-label>   To Age  </ion-label>
-              <ion-input (keypress)="keyPressNumbers($event)"  maxlength="3" name="ToAge" [(ngModel)]="searchModal.ToAge" class="form-control"></ion-input>
+              <ion-input (keypress)="keyPressNumbers($event)"  maxlength="3" name="ToAge" [(ngModel)]="searchModal.ToAge" (change)="trimInput()" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
@@ -89,22 +89,22 @@
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
             <ion-label>    {{'Part No.' | translate}} </ion-label>
-              <ion-input (keypress)="keyPressNumbers($event)" maxlength="5" name="PartNo" [(ngModel)]="searchModal.PartNo" class="form-control"></ion-input>
+              <ion-input (keypress)="keyPressNumbers($event)" maxlength="5" name="PartNo" [(ngModel)]="searchModal.PartNo" (change)="trimInput()" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
             <ion-label>     {{'Mobile' | translate}}   </ion-label>
-              <ion-input (keypress)="keyPressNumbers($event)" maxlength="12" minlength="10" name="MobileNo" [(ngModel)]="searchModal.MobileNo" class="form-control"></ion-input>
+              <ion-input (keypress)="keyPressNumbers($event)" maxlength="12" minlength="10" name="MobileNo" [(ngModel)]="searchModal.MobileNo" (change)="trimInput()" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
             <ion-label>    {{'Village' | translate}} </ion-label>
-              <ion-input (keypress)="onKeyPress($event)"  maxlength="30" name="Village" [(ngModel)]="searchModal.Village" class="form-control"></ion-input>
+              <ion-input (keypress)="onKeyPress($event)"  maxlength="30" name="Village" [(ngModel)]="searchModal.Village" (change)="trimInput()" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
             <ion-label>    {{'House No.' | translate}} </ion-label>
-              <ion-input maxlength="6" name="HouseNo" [(ngModel)]="searchModal.HouseNo" class="form-control"></ion-input>
+              <ion-input maxlength="6" name="HouseNo" [(ngModel)]="searchModal.HouseNo" (change)="trimInput()" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
@@ -118,12 +118,12 @@
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
             <ion-label> Occupation / Profession</ion-label>
-            <ion-input (keypress)="onKeyPress($event)" maxlength="30" name="Profession" [(ngModel)]="searchModal.Occupation" class="form-control" ></ion-input>
+            <ion-input (keypress)="onKeyPress($event)" maxlength="30" name="Profession" [(ngModel)]="searchModal.Occupation" (change)="trimInput()" class="form-control" ></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
             <ion-label> Education </ion-label>
-            <ion-input (keypress)="omit_special_char($event)" maxlength="30" name="Education" [(ngModel)]="searchModal.Education" class="form-control" ></ion-input>
+            <ion-input (keypress)="omit_special_char($event)" maxlength="30" name="Education" [(ngModel)]="searchModal.Education" (change)="trimInput()" class="form-control" ></ion-input>
           </ion-col>
 
           <!-- <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
@@ -138,12 +138,12 @@
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
             <ion-label> Society </ion-label>
-            <ion-input (keypress)="omit_special_char($event)" maxlength="30" name="Society" [(ngModel)]="searchModal.Society" class="form-control" ></ion-input>
+            <ion-input (keypress)="omit_special_char($event)" maxlength="30" name="Society" [(ngModel)]="searchModal.Society" (change)="trimInput()" class="form-control" ></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
             <ion-label> Religion </ion-label>
-            <ion-input (keypress)="onKeyPress($event)"  maxlength="30" name="Religion" [(ngModel)]="searchModal.Religion" class="form-control" ></ion-input>
+            <ion-input (keypress)="onKeyPress($event)"  maxlength="30" name="Religion" [(ngModel)]="searchModal.Religion" (change)="trimInput()"  class="form-control" ></ion-input>
           </ion-col>
           
           <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
@@ -211,7 +211,6 @@
     </ion-card>
 
     <ion-grid class="android userList">
-      <ion-searchbar *ngIf="isShow"></ion-searchbar>
       <ion-list>
         <ion-item lines="none">
            {{'Total' | translate}} : {{totalItems}}

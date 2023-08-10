@@ -1,18 +1,18 @@
-import { Component, OnInit, ViewChild, ElementRef,ChangeDetectorRef,NgZone,Input   } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
 import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { PopoverController } from '@ionic/angular';
 import { VoterService } from 'src/app/services/voter.service'
-import { ActivatedRoute,Router, NavigationEnd } from '@angular/router'
+import { ActivatedRoute,Router, NavigationEnd  } from '@angular/router'
 import { LoaderService } from 'src/app/services/loader.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { ModalController } from '@ionic/angular';
 import { Location } from '@angular/common';
-import { TranslateService } from '@ngx-translate/core';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { SettingService } from 'src/app/services/setting.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-voter-details',
@@ -113,9 +113,9 @@ export class VoterDetailsComponent  {
   closeModal() {
     this.modalCtrl.dismiss();
   }
-
+  UserId:any;
   content: string;
-
+  SearchText:any;
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
@@ -139,33 +139,57 @@ export class VoterDetailsComponent  {
       private toast: IonicToastService,
       public modalCtrl: ModalController,
       private location: Location,
-      public translate: TranslateService,
       private setting:SettingService,
       private translateConfigService: TranslateConfigService,
-      private ngZone: NgZone
+      public translate: TranslateService
   ) {
     this.Language = this.translateConfigService.getCurrentLang();
-    this.Voter = this.router.getCurrentNavigation().extras.state;
     if(this.Language == 'en'){
       this.engAssembly = true;
     }
     else{
       this.nonEngAssembly = true;
     }
-
+    if (this.Language == "kn") {
+      this.Language = "Kannada"
+    }
+    else if (this.Language == "mr") {
+      this.Language = "Marathi"
+    }
+    else if (this.Language == "hi") {
+      this.Language = "Hindi"
+    }
+    else {
+      this.Language = "English"
+    }
+    if(this.SearchText == undefined){
+      this.SearchText = ''
+    }
+    else{
+      this.SearchText = this.SearchText
+    }
+    
   }
 
   ngOnInit() {
+    // data with state
+    this.Voter = this.router.getCurrentNavigation().extras.state;
     
-    }
+    //data with id
+    // this.UserId = localStorage.getItem('loginId');
+    // this.RoleId = localStorage.getItem('userType');
+    // this.voter.getVoterByUser(this.id=this.UserId,this.RoleId,this.pageNo,this.NoofRow,this.Language,this.SearchText).subscribe((data) =>{
+    //   const Vid = this.route.snapshot.paramMap.get('id');
+    //   [this.Voter] = data.filter((Voter) => Voter.id == Vid);
+    //   this.VoterListByUser = this.Voter;
+    // })
+  }
 
   ngOnChanges(){
     
   }
 
- 
-
-  ionViewWillEnter(){
+  ionViewDidEnter(){
     this.assemblyName = localStorage.getItem("loginAssembly");
     this.assemblyNameLang();
     this.village = localStorage.getItem("loginVillage");
@@ -224,6 +248,65 @@ export class VoterDetailsComponent  {
     })
   }
 
+  // ionViewWillEnter(){
+  //   this.assemblyName = localStorage.getItem("loginAssembly");
+  //   this.assemblyNameLang();
+  //   this.village = localStorage.getItem("loginVillage");
+  //   this.userId = localStorage.getItem("loginId");
+  //   this.userId = Number(this.userId);
+  //   this.voterDetails();
+  //   this.AllCasts();
+  //   this.allProfession();
+  //   if(this.assemblyName=="null"){
+  //     this.isAssembly=!this.isAssembly;
+  //   }
+  //   else{
+  //     this.isAssembly=this.isAssembly;
+  //   }
+  //   if(this.village=="null"){
+  //     this.isVillage=!this.isVillage;
+  //   }
+  //   else{
+  //     this.isVillage=this.isVillage;
+  //   }
+  //   this.mobUpdate.Mobile = this.VoterListByUser.mobileNo;
+  //   this.altmobUpdate.AlternateMobileNo = this.VoterListByUser.alternateMobileNo;
+  //   this.deadAlive.YesNo = this.VoterListByUser.isAlive;
+  //   if (this.VoterListByUser.isAlive == "1") {
+  //     this.deadAlive.YesNo = "Y"
+  //   }
+  //   else if (this.VoterListByUser.isAlive == "0") {
+  //     this.deadAlive.YesNo = "N"
+  //   }
+  //   else if (this.VoterListByUser.isAlive == null) {
+  //     this.deadAlive.YesNo = ''
+  //   }
+  //   this.BirthdateUpdate.ColoumnValue = this.VoterListByUser.birthDate;
+  //   this.CasteUpdate.ColoumnValue = this.VoterListByUser.caste;
+  //   this.professionUpdate.ColoumnValue = this.VoterListByUser.occupation;
+  //   this.adrsUpdate.Address = this.VoterListByUser.address;
+  //   this.societyUpdate.ColoumnValue = this.VoterListByUser.society;
+  //   this.houseUpdate.ColoumnValue = this.VoterListByUser.houseNo;
+  //   this.setting.getWhatsappImage(this.userId).subscribe(data=>{
+  //     if(data){
+  //       this.saveFile(data);
+  //       this.fetchImage(data);
+  //       this.imgurl = true;
+  //     }
+  //   })
+  //   this.setting.getWhatsappText(this.userId).subscribe(data=>{
+  //     if(data){
+  //       this.whatsText = data;
+  //       this.msgText = data[0].messageContent;
+  //     }
+  //     else{
+
+  //     }
+  //   },(err)=>{
+
+  //   })
+  // }
+
   saveFile(imageData: Blob) {
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(imageData);
@@ -244,28 +327,6 @@ export class VoterDetailsComponent  {
       this.assemblyNameByLang = data;
     })
   }
-
-  // ngOnInit() {
-  //   this.assemblyName1 = localStorage.getItem("loginAssembly");
-  //   this.voterDetails();
-  //   this.AllCasts();
-  //   this.mobUpdate.Mobile = this.VoterListByUser.mobileNo;
-  //   this.altmobUpdate.AlternateMobileNo = this.VoterListByUser.alternateMobileNo;
-  //   this.deadAlive.YesNo = this.VoterListByUser.isAlive;
-  //   if (this.VoterListByUser.isAlive == "1") {
-  //     this.deadAlive.YesNo = "Y"
-  //   }
-  //   else if (this.VoterListByUser.isAlive == "0") {
-  //     this.deadAlive.YesNo = "N"
-  //   }
-  //   else if (this.VoterListByUser.isAlive == null) {
-  //     this.deadAlive.YesNo = ''
-  //   }
-  //   this.BirthdateUpdate.ColoumnValue = this.VoterListByUser.birthDate;
-  //   this.CasteUpdate.ColoumnValue = this.VoterListByUser.caste;
-  //   this.professionUpdate.ColoumnValue = this.VoterListByUser.occupation;
-  //   this.adrsUpdate.Address = this.VoterListByUser.address
-  // }
 
 
   voterDetails() {
@@ -341,10 +402,11 @@ export class VoterDetailsComponent  {
     this.router.navigate(['/list/boothwise-list', {partNumber :columnName}])
   }
 
-  // partNo(columnName:any){
-  //   this.router.navigate(['/list/boothwise-list',  {partNumber :columnName} ])
-  //  }
+  refreshPage() {
+    
+  }
 
+  
   // edit mobile number
 
   saveMobile() {
@@ -353,7 +415,9 @@ export class VoterDetailsComponent  {
     this.voter.updateMob(this.mobUpdate.Id, this.mobUpdate.Mobile).subscribe(data => {
       if (data) {
         this.closeModal();
-        this.ionViewWillEnter();
+        this.ionViewDidEnter();
+        this.voterDetails();
+        //this.router.navigate(['voterdata-management/voter-details'], { state: item })
         this.toast.presentToast("Mobile No. updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {

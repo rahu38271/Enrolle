@@ -8,21 +8,18 @@ import { EditVoterdataComponent } from './edit-voterdata/edit-voterdata.componen
 import { AddVoterComponent } from './add-voter/add-voter.component'
 import { ImportVoterdataComponent } from './import-voterdata/import-voterdata.component'
 import { VoterDetailsComponent } from './voter-details/voter-details.component'
-import { MatTableModule } from '@angular/material/table'
 import { MatFormFieldModule  } from '@angular/material/form-field' 
 import { MatPaginatorModule } from '@angular/material/paginator'
 import { MatInputModule } from '@angular/material/input';
-import { NgxDropzoneModule } from 'ngx-dropzone';
 //import { SocialSharing } from '@awesome-cordova-plugins/social-sharing/ngx';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FamilyComponent } from './family/family.component';
 import { VoterbyUserComponent } from './voterby-user/voterby-user.component';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import {NgxPaginationModule} from 'ngx-pagination';
-import { TranslateModule } from '@ngx-translate/core';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { HttpClientModule } from '@angular/common/http';
-
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [VoterdataManagementComponent,EditVoterdataComponent,AddVoterComponent,ImportVoterdataComponent,VoterDetailsComponent, FamilyComponent, VoterbyUserComponent],
@@ -30,15 +27,13 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule,
     IonicModule,
     FormsModule,
-    MatTableModule,
-    TranslateModule,
     MatFormFieldModule,
     MatInputModule,
-    NgxDropzoneModule,
     MatPaginatorModule,
     Ng2SearchPipeModule,
     NgSelectModule,
     HttpClientModule,
+    TranslateModule,
     NgxPaginationModule,
     RouterModule.forChild([{
         path:'', component:VoterdataManagementComponent},
@@ -46,6 +41,7 @@ import { HttpClientModule } from '@angular/common/http';
         {path:'add-voter', component:AddVoterComponent},
         {path:'import-voter', component:ImportVoterdataComponent},
         {path:'voter-details', component:VoterDetailsComponent},  
+        //{path:'voter-details/:id', component:VoterDetailsComponent},  
         {path:'family', component:FamilyComponent}, 
         {path:'voterby-user', component:VoterbyUserComponent} ])
   ],

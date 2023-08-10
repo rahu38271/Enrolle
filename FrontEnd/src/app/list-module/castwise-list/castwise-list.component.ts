@@ -79,45 +79,45 @@ export class CastwiseListComponent implements OnInit {
     this.router.navigate(['voterdata-management/voter-details'], { state: item })
    }
 
-  //  onSearchChange(SearchText: any) {
-  //   if (this.SearchText == '') {
-  //     this.PageNo = 1;
-  //     this.NoofRow = this.totalItems;
-  //     this.SearchText = SearchText;
-  //     this.casteWiseVoter(this.userId, this.roleID,this.PageNo,this.NoofRow,this.Language);
-  //   }
-  //   else {
-  //     this.PageNo = 1;
-  //     this.NoofRow = 25;
-  //     this.SearchText = SearchText;
-  //     this.voter.voterByPart(this.partNumber, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
-  //       if (data) {
-  //         this.VoterwithCaste = data;
-  //         this.totalItems = data[0].totalCount
-  //       }
-  //     })
-  //   }
-  // }
+   onSearchChange(SearchText: any) {
+    if (this.SearchText == '') {
+      this.PageNo = 1;
+      this.NoofRow = this.totalItems;
+      this.SearchText = SearchText;
+      this.casteWiseVoter(this.userId, this.roleID,this.PageNo,this.NoofRow,this.Language);
+    }
+    else {
+      this.PageNo = 1;
+      this.NoofRow = 25;
+      this.SearchText = SearchText.trim();
+      this.voter.voterByPart(this.partNumber, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+        if (data) {
+          this.VoterwithCaste = data;
+          this.totalItems = data[0].totalCount
+        }
+      })
+    }
+  }
 
-  //  keyPress(SearchText:any){
-  //   if (this.SearchText == '') {
-  //     this.PageNo = 1;
-  //     this.NoofRow = this.totalItems;
-  //     this.SearchText = SearchText;
-  //     this.casteWiseVoter(this.userId, this.roleID,this.PageNo,this.NoofRow,this.Language);
-  //   }
-  //   else {
-  //     this.PageNo = 1;
-  //     this.NoofRow = 25;
-  //     this.SearchText = SearchText;
-  //     this.voter.voterByPart(this.partNumber, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
-  //       if (data) {
-  //         this.VoterwithCaste = data;
-  //         this.totalItems = data[0].totalCount
-  //       }
-  //     })
-  //   }
-  //  }
+   keyPress(SearchText:any){
+    if (this.SearchText == '') {
+      this.PageNo = 1;
+      this.NoofRow = this.totalItems;
+      this.SearchText = SearchText;
+      this.casteWiseVoter(this.userId, this.roleID,this.PageNo,this.NoofRow,this.Language);
+    }
+    else {
+      this.PageNo = 1;
+      this.NoofRow = 25;
+      this.SearchText = SearchText.trim();
+      this.voter.voterByPart(this.partNumber, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+        if (data) {
+          this.VoterwithCaste = data;
+          this.totalItems = data[0].totalCount
+        }
+      })
+    }
+   }
 
   exportExcel():void {
     this.PageNo=1;

@@ -22,7 +22,7 @@
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
                   <ion-label>Name <span>*</span></ion-label>
                   <ion-input maxlength="50" name="name" [(ngModel)]="addMAmodal.Name" #Name="ngModel"
-                    [ngClass]="{'is-invalid': f.submitted && Name.invalid}" required
+                    [ngClass]="{'is-invalid': f.submitted && Name.invalid}" (change)="trimInput()"
                     class="text-capitalize form-control" required></ion-input>
                   <div *ngIf="f.submitted && Name.invalid" class="invalid-feedback">
                     <div *ngIf="Name.errors.required">
@@ -64,7 +64,7 @@
                 <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
                   <div class="form-outline">
                     <ion-label>Password <span>*</span></ion-label>
-                    <ion-input placeholder="Min 3 char." minlength="3" maxlength="30" [type]="ismyTextFieldType ? 'text' : 'password' " name="Password"
+                    <ion-input onkeypress="return event.charCode != 32" placeholder="Min 3 char." minlength="3" maxlength="30" [type]="ismyTextFieldType ? 'text' : 'password' " name="Password"
                       [(ngModel)]="addMAmodal.Password" #Password="ngModel" required class="form-control"
                       [ngClass]="{'is-invalid': f.submitted && Password.invalid}"
                       ></ion-input>

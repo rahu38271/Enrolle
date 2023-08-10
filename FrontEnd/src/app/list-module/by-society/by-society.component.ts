@@ -75,4 +75,10 @@ export class BySocietyComponent implements OnInit {
     })
   }
 
+  trimInput(event:CustomEvent){
+    if(event.detail.value){
+      this.searchMob = event.detail.value.trim();
+    }
+  }
+
 }

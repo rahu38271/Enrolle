@@ -31,6 +31,7 @@ export class SuperadminService {
   }
 
   addMAdminData(addMAmodal:any):Observable<any>{
+    debugger;
     return this.http.post<any>(this.url+'Login/CreateUpdateUser', addMAmodal)
   }
 

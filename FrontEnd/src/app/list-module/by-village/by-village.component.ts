@@ -77,4 +77,10 @@ export class ByVillageComponent implements OnInit {
     })
   }
 
+  onSearchChange(event: CustomEvent) {
+    if (event.detail.value) {
+      this.searchMob = event.detail.value.trim();
+    }
+  }
+
 }

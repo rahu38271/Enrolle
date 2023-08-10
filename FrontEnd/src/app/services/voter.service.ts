@@ -354,4 +354,10 @@ export class VoterService {
   getAssemblyName(assemblyName:any){
     return this.http.get(this.url+'Assembly/GetAssemblyRegLang?Assembly='+assemblyName)
   }
+  
+  // mobile match search
+  
+  getMobileMatchedName(Name:any){
+    return this.http.get<any>(this.url+'Voter/GetMobileMatch?VoterName='+Name)
+  }
 }

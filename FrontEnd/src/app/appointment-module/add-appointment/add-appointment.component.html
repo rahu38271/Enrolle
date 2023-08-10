@@ -25,17 +25,17 @@
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> First Name <span>*</span> </ion-label>
-            <ion-input maxlength="20" name="FirstName" [(ngModel)]="appointments.FirstName" (keypress)="onKeyPress($event)" class="form-control" required></ion-input>
+            <ion-input maxlength="20" name="FirstName" [(ngModel)]="appointments.FirstName" (change)="trimInput()" (keypress)="onKeyPress($event)" class="form-control" required></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Middle Name  </ion-label>
-            <ion-input maxlength="20" name="MiddleName" [(ngModel)]="appointments.MiddleName" (keypress)="onKeyPress($event)" class="form-control"></ion-input>
+            <ion-input maxlength="20" name="MiddleName" [(ngModel)]="appointments.MiddleName" (change)="trimInput()"  (keypress)="onKeyPress($event)" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Last Name <span>*</span> </ion-label>
-            <ion-input maxlength="20" name="LastName" [(ngModel)]="appointments.LastName" (keypress)="onKeyPress($event)" class="form-control" required></ion-input>
+            <ion-input maxlength="20" name="LastName" [(ngModel)]="appointments.LastName" (change)="trimInput()"  (keypress)="onKeyPress($event)" class="form-control" required></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
@@ -180,27 +180,27 @@
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Flat / House No. </ion-label>
-            <ion-input maxlength="7" name="HouseNo" [(ngModel)]="appointments.HouseNo" class="form-control"></ion-input>
+            <ion-input maxlength="7" name="HouseNo" [(ngModel)]="appointments.HouseNo" (change)="trimInput()" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Society / Building Name </ion-label>
-            <ion-input (keypress)="omit_special_char($event)" maxlength="30" name="Soc_BldgName" [(ngModel)]="appointments.Soc_BldgName" class="form-control" ></ion-input>
+            <ion-input (keypress)="omit_special_char($event)" maxlength="30" name="Soc_BldgName"  (change)="trimInput()" [(ngModel)]="appointments.Soc_BldgName" class="form-control" ></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="2" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Ward No. </ion-label>
-            <ion-input (keypress)="omit_special_char($event)" maxlength="6" name="wardNo" [(ngModel)]="appointments.WardNo" class="form-control"></ion-input>
+            <ion-input (keypress)="omit_special_char($event)" maxlength="6" name="wardNo" [(ngModel)]="appointments.WardNo" (change)="trimInput()" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="2" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Pincode </ion-label>
-            <ion-input name="Pincode" maxlength="6" [(ngModel)]="appointments.PinCode" class="form-control" ></ion-input>
+            <ion-input name="Pincode" maxlength="6" [(ngModel)]="appointments.PinCode" (change)="trimInput()" class="form-control" ></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> City / Village </ion-label>
-            <ion-input (keypress)="onKeyPress($event)" maxlength="30" name="Society" [(ngModel)]="appointments.City_Village" class="form-control" ></ion-input>
+            <ion-input (keypress)="onKeyPress($event)" maxlength="30" name="Society" [(ngModel)]="appointments.City_Village" (change)="trimInput()" class="form-control" ></ion-input>
           </ion-col>
 
           <!-- <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
@@ -210,7 +210,7 @@
           
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Remark </ion-label>
-            <ion-textarea maxlength="100" rows="2" name="Remark" [(ngModel)]="appointments.Remark" class="form-control" ></ion-textarea>
+            <ion-textarea maxlength="100" rows="2" name="Remark" [(ngModel)]="appointments.Remark" (change)="trimInput()" class="form-control" ></ion-textarea>
           </ion-col>
 
           

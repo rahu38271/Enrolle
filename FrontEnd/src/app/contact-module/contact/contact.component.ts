@@ -81,7 +81,7 @@ export class ContactComponent implements OnInit {
           e.birthDate = e.birthDate.split('T')[0] == '1900-01-01' ? '' : e.birthDate.split('T')[0];
           e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '' : e.anniversary.split('T')[0]; 
         });
-        
+
       }
       else{
         //this.toast.presentToast("No data available", "danger", 'alert-circle-outline');

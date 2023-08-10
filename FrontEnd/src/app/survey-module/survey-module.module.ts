@@ -9,7 +9,8 @@ import { AddVillageComponent } from './add-village/add-village.component'
 import { EditSurveyComponent } from './edit-survey/edit-survey.component'
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { TranslateModule } from '@ngx-translate/core';
-
+import { HttpClientModule } from '@angular/common/http';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [SurveyListComponent,AddSurveyComponent, EditSurveyComponent,AddVillageComponent],
@@ -18,6 +19,8 @@ import { TranslateModule } from '@ngx-translate/core';
     IonicModule,
     FormsModule,
     TranslateModule,
+    HttpClientModule,
+    NgSelectModule,
     Ng2SearchPipeModule,
     RouterModule.forChild([{path:'', component:SurveyListComponent},{path:'add-survey', component:AddSurveyComponent},{path:'edit-survey', component:EditSurveyComponent},{path:'add-village', component:AddVillageComponent}])
   ]

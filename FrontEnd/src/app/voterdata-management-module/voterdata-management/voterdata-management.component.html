@@ -48,36 +48,36 @@
   
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> Last Name </ion-label>
-              <ion-input maxlength="30" name="Lastname" [(ngModel)]="searchModal.LastName" (keypress)="onKeyPress($event)"
+              <ion-input maxlength="30" name="Lastname" [(ngModel)]="searchModal.LastName" (change)="trimInput()" (keypress)="onKeyPress($event)"
                 class="form-control"></ion-input>
             </ion-col>
   
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> First Name </ion-label>
-              <ion-input maxlength="30" name="Firstname" [(ngModel)]="searchModal.FirstName" (keypress)="onKeyPress($event)"
+              <ion-input maxlength="30" name="Firstname" [(ngModel)]="searchModal.FirstName" (change)="trimInput()" (keypress)="onKeyPress($event)"
                 class="form-control"></ion-input>
             </ion-col>
   
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> Father / Husbands Name </ion-label>
-              <ion-input maxlength="30" name="FHname" [(ngModel)]="searchModal.MiddleName" (keypress)="onKeyPress($event)"
+              <ion-input maxlength="30" name="FHname" [(ngModel)]="searchModal.MiddleName" (change)="trimInput()" (keypress)="onKeyPress($event)"
                 class="form-control"></ion-input>
             </ion-col>
   
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> VotingCard No. </ion-label>
-              <ion-input maxlength="10" minlength="10" name="VotingCard" [(ngModel)]="searchModal.VotingCardNo" maxlength="10" class="form-control text-uppercase"></ion-input>
+              <ion-input maxlength="10" minlength="10" name="VotingCard" [(ngModel)]="searchModal.VotingCardNo" (change)="trimInput()" maxlength="10" class="form-control text-uppercase"></ion-input>
             </ion-col>
 
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label>From Age  </ion-label>
-              <ion-input name="ageFrom" maxlength="3" [(ngModel)]="searchModal.FromAge" (keypress)="keyPressNumbers($event)" maxlength="3"
+              <ion-input name="ageFrom" maxlength="3" [(ngModel)]="searchModal.FromAge" (change)="trimInput()" (keypress)="keyPressNumbers($event)" maxlength="3"
                 class="form-control"></ion-input>
             </ion-col>
   
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label>To Age  </ion-label>
-              <ion-input name="ageTo" maxlength="3" [(ngModel)]="searchModal.ToAge" (keypress)="keyPressNumbers($event)" maxlength="3"
+              <ion-input name="ageTo" maxlength="3" [(ngModel)]="searchModal.ToAge" (change)="trimInput()" (keypress)="keyPressNumbers($event)" maxlength="3"
                 class="form-control"></ion-input>
             </ion-col>
 
@@ -105,24 +105,24 @@
   
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> Mobile No. </ion-label>
-              <ion-input maxlength="12" minlength="10" name="MobileNumber" [(ngModel)]="searchModal.MobileNo" (keypress)="keyPressNumbers($event)"
+              <ion-input maxlength="12" minlength="10" name="MobileNumber" [(ngModel)]="searchModal.MobileNo" (change)="trimInput()" (keypress)="keyPressNumbers($event)"
                 class="form-control" ></ion-input>
             </ion-col>
 
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> Part No. </ion-label>
-              <ion-input name="partNumber" [(ngModel)]="searchModal.PartNo" (keypress)="keyPressNumbers($event)"
+              <ion-input name="partNumber" [(ngModel)]="searchModal.PartNo" (change)="trimInput()" (keypress)="keyPressNumbers($event)"
                 class="form-control" maxlength="5"></ion-input>
             </ion-col>
 
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
             <ion-label>   Village </ion-label>
-              <ion-input maxlength="30" name="Village" [(ngModel)]="searchModal.Village" class="form-control"></ion-input>
+              <ion-input maxlength="30" name="Village" [(ngModel)]="searchModal.Village" (change)="trimInput()" class="form-control"></ion-input>
           </ion-col>
 
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> House No. </ion-label>
-              <ion-input name="houseNumber" [(ngModel)]="searchModal.HouseNo"
+              <ion-input name="houseNumber" [(ngModel)]="searchModal.HouseNo" (change)="trimInput()"
                 class="form-control" maxlength="6"></ion-input>
             </ion-col>
 
@@ -142,12 +142,12 @@
 
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> Occupation / Profession</ion-label>
-              <ion-input maxlength="30" name="Occupation" [(ngModel)]="searchModal.Occupation" (keypress)="onKeyPress($event)"  class="form-control" ></ion-input>
+              <ion-input maxlength="30" name="Occupation" [(ngModel)]="searchModal.Occupation" (change)="trimInput()" (keypress)="onKeyPress($event)"  class="form-control" ></ion-input>
             </ion-col>
 
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> Education </ion-label>
-              <ion-input maxlength="30" name="Education" [(ngModel)]="searchModal.Education" class="form-control" ></ion-input>
+              <ion-input maxlength="30" name="Education" [(ngModel)]="searchModal.Education" (change)="trimInput()" class="form-control" ></ion-input>
             </ion-col>
 
             <!-- <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
@@ -162,12 +162,12 @@
 
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> Society </ion-label>
-              <ion-input maxlength="30" name="Society" [(ngModel)]="searchModal.Society" class="form-control" ></ion-input>
+              <ion-input maxlength="30" name="Society" [(ngModel)]="searchModal.Society" (change)="trimInput()" class="form-control" ></ion-input>
             </ion-col>
 
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> Religion </ion-label>
-              <ion-input maxlength="30" name="Religion" (keypress)="onKeyPress($event)" [(ngModel)]="searchModal.Religion" class="form-control" ></ion-input>
+              <ion-input maxlength="30" name="Religion" (keypress)="onKeyPress($event)" [(ngModel)]="searchModal.Religion" (change)="trimInput()" class="form-control" ></ion-input>
             </ion-col>
   
             

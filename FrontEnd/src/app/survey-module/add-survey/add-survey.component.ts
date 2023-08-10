@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
+import { SurveyService } from 'src/app/services/survey.service';
+import { IonicToastService } from 'src/app/services/ionic-toast.service'
+import { LoaderService } from 'src/app/services/loader.service';
+import { VoterService } from 'src/app/services/voter.service';
+import { TranslateConfigService } from 'src/app/services/translate-config.service';
 
 @Component({
   selector: 'app-add-survey',
@@ -10,9 +15,9 @@ import { NgForm } from '@angular/forms';
 export class AddSurveyComponent implements OnInit {
 
   year : number = new Date().getFullYear();
-
+  maxDate:String = new Date().toISOString();
   surveyModel: any = {};
-
+  Language:any;
   myForm;
   Name = '';
   Gender = '';
@@ -36,7 +41,7 @@ export class AddSurveyComponent implements OnInit {
   Info = '';
   WorkLeft = '';
   Service = '';
-
+  AllCasts:any;
 
   public date: Date;
   public Age: number;
@@ -62,9 +67,32 @@ export class AddSurveyComponent implements OnInit {
     }
 }
 
-  constructor(public loadingController: LoadingController) { }
+  constructor(
+    public loadingController: LoadingController,
+    private surveyService:SurveyService,
+    private toast: IonicToastService,
+    private loader:LoaderService,
+    private voter: VoterService,
+    private translateConfigService: TranslateConfigService,
+    ) {
+      this.Language = this.translateConfigService.getCurrentLang();
+      if (this.Language == "kn") {
+        this.Language = "Kannada"
+      }
+      else if (this.Language == "mr") {
+        this.Language = "Marathi"
+      }
+      else if (this.Language == "hi") {
+        this.Language = "Hindi"
+      }
+      else {
+        this.Language = "English"
+      }
+     }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.castList();
+  }
 
   resetForm(){
     this.myForm.reset();
@@ -102,6 +130,32 @@ export class AddSurveyComponent implements OnInit {
 
     const { role, data } = await loading.onDidDismiss();
     console.log('Loading dismissed!');
+  }
+
+  castList(){
+    this.voter.getAllCaste(this.Language).subscribe(data=>{
+      this.AllCasts = data;
+    })
+  }
+
+  addSurvey(){
+    debugger;
+    this.loader.showLoading();
+    this.surveyModel.Age = Number(this.surveyModel.Age);
+    this.surveyModel.MemberAge = Number(this.surveyModel.MemberAge);
+    this.surveyService.addSingleSurvey(this.surveyModel).subscribe(data=>{
+      if(data==1){
+        this.loader.hideLoader();
+        this.surveyModel={};
+        this.toast.presentToast("Survey added successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("Survey not added", "danger", 'alert-circle-sharp');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
   }
 
 }

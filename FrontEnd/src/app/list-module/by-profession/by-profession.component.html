@@ -85,7 +85,7 @@
     </ion-grid>
 
     <ion-grid class="android">
-      <ion-searchbar [(ngModel)]="searchMob" animated="true" *ngIf="isShow"></ion-searchbar>
+      <ion-searchbar [(ngModel)]="searchMob" (ionChange)="trimInput($event)" animated="true" *ngIf="isShow"></ion-searchbar>
       <ion-list *ngFor="let item of occuList | filter:searchMob" (click)="occupation(item.columnName)">
       <!-- <ion-list *ngFor="let item of occupData | filter:searchMob" (click)="occupation(item.columnName)"> -->
         <ion-item lines="none" class="ion-text-center">

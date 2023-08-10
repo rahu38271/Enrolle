@@ -88,7 +88,7 @@ export class SocietywiseListComponent implements OnInit {
     else {
       this.PageNo = 1;
       this.NoofRow = 25;
-      this.SearchText = SearchText;
+      this.SearchText = SearchText.trim();
       this.voter.voterBySoci(this.society,this.UserId,this.roleId,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data => {
         if (data) {
           this.voterWithSoci = data;
@@ -108,7 +108,7 @@ export class SocietywiseListComponent implements OnInit {
     else {
       this.PageNo = 1;
       this.NoofRow = 25;
-      this.SearchText = SearchText;
+      this.SearchText = SearchText.trim();
       this.voter.voterBySoci(this.society,this.UserId,this.roleId,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data => {
         if (data) {
           this.voterWithSoci = data;

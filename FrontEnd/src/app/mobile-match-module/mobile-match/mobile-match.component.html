@@ -9,26 +9,27 @@
           </ion-card-header>
         </ion-col>
         <ion-col class="ion-text-right">
+          <ion-button routerLink="/mobile-match/import">Import Excel</ion-button>
           <ion-button class="button-download" fill="outline" color="success" (click)="downloadExcel()"><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
         </ion-col>
       </ion-row>
     </ion-grid>
     <ion-grid class="topForm">
-      <form #myForm1="ngForm">
+      <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
         <ion-row>
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
             <ion-label>     First Name <span>*</span> </ion-label>
-              <ion-input name="Fname" [(ngModel)]="Fname" (keypress)="onKeyPress($event)" class="text-capitalize form-control"></ion-input>
+              <ion-input name="Fname" [(ngModel)]="searchMobName.Fname" (keypress)="onKeyPress($event)" (change)="trimInput()" class="text-capitalize form-control" required></ion-input>
           </ion-col>
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
-            <ion-label>     Middle Name  </ion-label>
-              <ion-input name="Mname" [(ngModel)]="Mname" (keypress)="onKeyPress($event)" class="text-capitalize form-control"></ion-input>
+            <ion-label>     Middle Name <span>*</span> </ion-label>
+              <ion-input name="Mname" [(ngModel)]="searchMobName.Mname" (keypress)="onKeyPress($event)" class="text-capitalize form-control" required></ion-input>
           </ion-col>
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
             <ion-label>     Last Name <span>*</span> </ion-label>
-              <ion-input name="Lname" [(ngModel)]="Lname" (keypress)="onKeyPress($event)" class="text-capitalize form-control"></ion-input>
+              <ion-input name="Lname" [(ngModel)]="searchMobName.Lname" (keypress)="onKeyPress($event)" class="text-capitalize form-control" required></ion-input>
           </ion-col>
-          <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
+          <!-- <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
             <ion-label>    Address </ion-label>
               <ion-input name="Address" [(ngModel)]="Address" class="form-control"></ion-input>
           </ion-col>
@@ -39,10 +40,10 @@
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
             <ion-label> Voter Id </ion-label>
               <ion-input name="Vid" [(ngModel)]="Vid" maxlength="10" class="form-control"></ion-input>
-          </ion-col>
+          </ion-col> -->
 
           <ion-col size-xl="3" size-lg="2" size-md="4" size-sm="6" size-xs="12">
-              <ion-button class="mt-3" type="submit" (click)="presentLoading()">Search</ion-button>
+              <ion-button class="mt-3" type="submit" (click)="nameInMobileData();nameInVoterData()">Search</ion-button>
           </ion-col>
         </ion-row>
       </form>
@@ -71,79 +72,85 @@
     </ion-grid> -->
 
       <ion-row>
-        <ion-col size-xl="6" size-lg="6">
+        <ion-col size-xl="6" size-lg="6" *ngIf="!isShow">
             <ion-card>
-              <table class="table">
+              <div class="heading">
+                <h6>Voterlist Data</h6>
+              </div>
+              <table class="table" *ngFor="let item of voterListByUser">
                 <tr>
                   <th>Name</th>
-                  <td>Sagar</td>
-                </tr>
-                <tr>
-                  <th>Age</th>
-                  <td>28</td>
-                </tr>
-                <tr>
-                  <th>House No.</th>
-                  <td>B 301</td>
-                </tr>
-                <tr>
-                  <th>Voting Card</th>
-                  <td>111111111</td>
-                </tr>
-                <tr>
-                  <th>Gender</th>
-                  <td>M</td>
+                  <td>{{item.fullName}}</td>
                 </tr>
                 <tr>
                   <th>Village</th>
-                  <td>Pune</td>
+                  <td>{{item.village}}</td>
+                </tr>
+                <tr>
+                  <th>Age</th>
+                  <td>{{item.age}}  {{item.gender}}</td>
+                </tr>
+                <tr>
+                  <th>Caste</th>
+                  <td>{{item.caste}}</td>
+                </tr>
+                <tr>
+                  <th>Voting Card No.</th>
+                  <td>{{item.votingCardNo}}</td>
                 </tr>
                 <tr>
                   <th>Address</th>
-                  <td>Mu Po Baleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</td>
+                  <td>{{item.address}}</td>
                 </tr>
               </table>
+              <div *ngIf="!voterListByUser || voterListByUser.length === 0">
+                <p>
+                  No data available
+                </p>
+              </div>
             </ion-card>
         </ion-col>
-        <ion-col size-xl="6" size-lg="6">
+        <ion-col size-xl="6" size-lg="6" *ngIf="!isShow">
             <ion-card>
-              <table class="table">
+              <table class="table" *ngIf="matchedMobName">
                 <tr>
                   <th>Name</th>
-                  <td>Sagar</td>
+                  <td>{{matchedMobName.fullName}}</td>
                 </tr>
                 <tr>
-                  <th>Age</th>
-                  <td>28</td>
+                  <th>Mobile No.</th>
+                  <td>{{matchedMobName.mobileNo}}</td>
                 </tr>
                 <tr>
-                  <th>House No.</th>
-                  <td>B 301</td>
+                  <th>Alt .Mobile No.</th>
+                  <td>{{matchedMobName.altMobileNo}}</td>
                 </tr>
                 <tr>
-                  <th>Voting Card</th>
-                  <td>111111111</td>
+                  <th>Birthdate</th>
+                  <td>{{matchedMobName.birthDate}}</td>
                 </tr>
                 <tr>
-                  <th>Gender</th>
-                  <td>M</td>
+                  <th>Email</th>
+                  <td>{{matchedMobName.email}}</td>
                 </tr>
                 <tr>
-                  <th>Village</th>
-                  <td>Pune</td>
+                  <th>L. Address</th>
+                  <td>{{matchedMobName.localAddress}}</td>
                 </tr>
                 <tr>
-                  <th>Address</th>
-                  <td>Mu Po Baleeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee</td>
+                  <th>P. Address</th>
+                  <td>{{matchedMobName.permanentAddress}}</td>
                 </tr>
               </table>
+              <div *ngIf="!matchedMobName || matchedMobName.length === 0">
+                  <p>No data available</p>
+              </div>
             </ion-card>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row *ngIf="!isMatchShow">
         <ion-col>
-          <input type="checkbox">Match Mobile No.
-          <ion-button>Submit</ion-button>
+          <ion-button (click)="matchMobile()">Match Mobile</ion-button>
         </ion-col>
       </ion-row>
   </div>

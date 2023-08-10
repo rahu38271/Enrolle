@@ -271,7 +271,22 @@ omit_special_char(event) {
     this.myForm1.reset();
   }
 
-
+  trimInput(){
+    this.searchModal.LastName = this.searchModal.LastName.trim();
+    this.searchModal.FirstName = this.searchModal.FirstName.trim();
+    this.searchModal.MiddleName = this.searchModal.MiddleName.trim();
+    this.searchModal.VotingCardNo = this.searchModal.VotingCardNo.trim();
+    this.searchModal.FromAge = this.searchModal.FromAge.trim();
+    this.searchModal.ToAge = this.searchModal.ToAge.trim();
+    this.searchModal.PartNo = this.searchModal.PartNo.trim();
+    this.searchModal.MobileNo = this.searchModal.MobileNo.trim();
+    this.searchModal.Village = this.searchModal.Village.trim();
+    this.searchModal.HouseNo = this.searchModal.HouseNo.trim();
+    this.searchModal.Occupation = this.searchModal.Occupation.trim();
+    this.searchModal.Education = this.searchModal.Education.trim();
+    this.searchModal.Society = this.searchModal.Society.trim();
+    this.searchModal.Religion = this.searchModal.Religion.trim();
+  }
 
   exportExcel():void {
     this.PageNo=1;

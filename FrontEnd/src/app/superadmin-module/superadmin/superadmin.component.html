@@ -48,7 +48,7 @@
           <ion-card>
             <ion-card-content>
               <div class="search">
-                <ion-searchbar [(ngModel)]="searchWeb" (input)="trimText(searchWeb)" animated="true"></ion-searchbar>
+                <ion-searchbar [(ngModel)]="searchWeb" (ionChange)="onSearchChange($event)" animated="true"></ion-searchbar>
               </div>
               <div class="horizontal-scroll">
                 <table id="userAdminTable" #epltable class="table">

@@ -83,8 +83,11 @@
         <div class="mike">
           <ion-icon (click)="toggleMike()" [name]="isMike ?'mic-off-sharp' : 'mic-sharp' " name="mic-sharp"></ion-icon>
         </div> 
-        <ion-searchbar *ngIf="isShow" (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)"></ion-searchbar>
+        <ion-searchbar *ngIf="isShow" (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value);trimInput($events)"></ion-searchbar>
+        <!-- data with state -->
         <ion-list *ngFor="let item of voterListByUser | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalCount } " (click)="voterDetails(item)">
+          <!-- data with id -->
+          <!-- <ion-list *ngFor="let item of voterListByUser | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalCount } " (click)="voterDetails(item.id)"> -->
           <ion-item lines="none">
             <div class="voterSec">
               <div class="photo">

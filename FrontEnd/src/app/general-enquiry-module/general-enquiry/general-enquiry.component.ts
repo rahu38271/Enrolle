@@ -309,6 +309,15 @@ export class GeneralEnquiryComponent implements OnInit {
     })
   }
 
+  trimInput(){
+    this.searchModal.TypeofWork = this.searchModal.TypeofWork.trim();
+    this.searchModal.FullName = this.searchModal.FullName.trim();
+    this.searchModal.MobileNo = this.searchModal.MobileNo.trim();
+    this.searchModal.Society_BuildingName = this.searchModal.Society_BuildingName.trim();
+    this.searchModal.AaddharCardNumber = this.searchModal.AaddharCardNumber.trim();
+    this.searchModal.Reference = this.searchModal.Reference.trim();
+    this.searchModal.PersonEnteringData = this.searchModal.PersonEnteringData.trim();
+  }
 
   async deleteEnq(id:any) {
     const alert = await this.alertController.create({

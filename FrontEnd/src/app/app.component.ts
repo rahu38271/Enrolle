@@ -20,10 +20,9 @@ import { AndroidPermissions } from '@awesome-cordova-plugins/android-permissions
 import { LoaderService } from 'src/app/services/loader.service'
 import { AuthenticationService } from 'src/app/services/authentication.service'
 import { Location } from '@angular/common'
-
+import { TranslateService } from '@ngx-translate/core';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 //import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { TranslateService } from '@ngx-translate/core';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 
 
@@ -98,8 +97,8 @@ export class AppComponent implements OnInit {
     private alertController: AlertController,
     private activatedRoute: ActivatedRoute,
     public menuCtrl: MenuController,
-    private translate: TranslateService,
     private cdr: ChangeDetectorRef,
+    public translate: TranslateService,
     private translateConfigService: TranslateConfigService,
     private platform: Platform) {
     

@@ -74,4 +74,10 @@ export class ByCastComponent implements OnInit {
     this.router.navigate(['/list/castwise-list',  {Caste :columnName} ])
    }
 
+   onSearchChange(event: CustomEvent) {
+    if (event.detail.value) {
+      this.searchWeb = event.detail.value.trim();
+    }
+  }
+
 }

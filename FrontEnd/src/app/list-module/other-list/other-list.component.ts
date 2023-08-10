@@ -21,7 +21,7 @@ export class OtherListComponent implements OnInit {
   otherVoter: any;
   isShow = false;
   PageNo:any=1;
-  NoofRow:any=10;
+  NoofRow:any=25;
   SearchMob:string;
   totalItems:any;
   SearchText:any;
@@ -119,8 +119,8 @@ export class OtherListComponent implements OnInit {
     }
     else {
       this.PageNo = 1;
-      this.NoofRow = 10;
-      this.SearchText = SearchText;
+      this.NoofRow = 25;
+      this.SearchText = SearchText.trim();
       this.voter.other(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
         if (data.length != 0) {
           //this.loader.hideLoader();
@@ -145,8 +145,8 @@ export class OtherListComponent implements OnInit {
     }
     else {
       this.PageNo = 1;
-      this.NoofRow = 10;
-      this.SearchText = SearchText;
+      this.NoofRow = 25;
+      this.SearchText = SearchText.trim();
       this.voter.other(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
         if (data.length != 0) {
           //this.loader.hideLoader();

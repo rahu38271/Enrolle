@@ -41,7 +41,7 @@
             <ion-card-content>
               <div class="headSection">
                 <div class="search">
-                  <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+                  <ion-searchbar [(ngModel)]="searchWeb" (ionChange)="onSearchChange($event)" animated="true"></ion-searchbar>
                 </div>
                 <ion-button class="button-download" color="success" (click)="exportExcel()">
                   <ion-icon name="document-sharp"></ion-icon>Excel

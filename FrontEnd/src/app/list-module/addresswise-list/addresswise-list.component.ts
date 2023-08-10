@@ -108,7 +108,7 @@ export class AddresswiseListComponent implements OnInit {
     else {
       this.PageNo = 1;
       this.NoofRow = 10;
-      this.SearchText = SearchText;
+      this.SearchText = SearchText.trim();
       this.voter.voterByAddress(this.addressName, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
         if (data) {
           this.addressWiseList = data;
@@ -128,7 +128,7 @@ export class AddresswiseListComponent implements OnInit {
     else {
       this.PageNo = 1;
       this.NoofRow = 10;
-      this.SearchText = SearchText;
+      this.SearchText = SearchText.trim();
       this.voter.voterByAddress(this.addressName, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
         if (data) {
           this.addressWiseList = data;

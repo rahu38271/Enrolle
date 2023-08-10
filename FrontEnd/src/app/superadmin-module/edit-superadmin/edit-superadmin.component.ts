@@ -206,10 +206,17 @@ export class EditSuperadminComponent implements OnInit {
         }
     }, (err)=>{
       this.loader.hideLoader();
-      //this.toast.presentToast("Superadmin not updated", "danger", 'alert-circle-sharp');
+      console.error(err);
+      if(err.status === 400){
+        this.toast.presentToast("Username or Password already exists", "danger", 'alert-circle-sharp');
+        this.router.navigate(['/superadmin']);
+      }
     })
   }
   
+  trimInput(){
+    this.editData.name = this.editData.name.trim();
+  }
 
   // editAdmin(){
   //   debugger;

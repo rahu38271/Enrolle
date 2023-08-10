@@ -94,7 +94,7 @@ export class NotvotedvoterComponent implements OnInit {
     }
     else {
       this.PageNo = 1;
-      this.SearchText = SearchText
+      this.SearchText = SearchText.trim();
       this.NoofRow = 25;
       this.voter.getvoterNotVoted(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
         if(data.length != 0){
@@ -117,7 +117,7 @@ export class NotvotedvoterComponent implements OnInit {
     }
     else {
       this.PageNo = 1;
-      this.SearchText = SearchText
+      this.SearchText = SearchText.trim();
       this.NoofRow = 25;
       this.voter.getvoterNotVoted(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
         if(data.length != 0){

@@ -4,14 +4,20 @@ import { IonicModule} from '@ionic/angular'
 import { FormsModule} from '@angular/forms'
 import {RouterModule } from '@angular/router'
 import {MobileMatchComponent } from './mobile-match/mobile-match.component'
+import { HttpClientModule } from '@angular/common/http';
+import { ImportComponent } from './import/import.component';
 
 @NgModule({
-  declarations: [MobileMatchComponent],
+  declarations: [MobileMatchComponent, ImportComponent],
   imports: [
     CommonModule,
     IonicModule,
     FormsModule,
-    RouterModule.forChild([{path:'', component:MobileMatchComponent}])
+    HttpClientModule,
+    RouterModule.forChild([
+      {path:'', component:MobileMatchComponent},
+      {path:'import', component:ImportComponent}
+    ])
   ]
 })
 export class MobileMatchModuleModule { }

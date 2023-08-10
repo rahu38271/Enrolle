@@ -21,7 +21,7 @@ export class SuperadminComponent implements OnInit {
   isShow = false;
   searchWeb: string;
   cp: number = 1;
-  getAdminList: any = [];
+  getAdminList: any[] = [];
 
   currentDate = new Date();
   roleId: any;
@@ -36,6 +36,7 @@ export class SuperadminComponent implements OnInit {
   search() {
     this.isShow = !this.isShow
   }
+  
 
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
 
@@ -222,6 +223,12 @@ export class SuperadminComponent implements OnInit {
 
   goBack() {
     this.location.back();
+  }
+
+  onSearchChange(event: CustomEvent) {
+    if (event.detail.value) {
+      this.searchWeb = event.detail.value.trim();
+    }
   }
 
   async deleteUser(id: any) {

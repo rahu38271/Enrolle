@@ -108,7 +108,7 @@ export class VillagewiseListComponent implements OnInit {
     }
     else {
       this.PageNo = 1;
-      this.SearchText = SearchText
+      this.SearchText = SearchText.trim();
       this.NoofRow = 10;
       this.voter.voterByVillage(this.villageName, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
         if (data.length != 0) {
@@ -128,7 +128,7 @@ export class VillagewiseListComponent implements OnInit {
     }
     else {
       this.PageNo = 1;
-      this.SearchText = SearchText
+      this.SearchText = SearchText.trim();
       this.NoofRow = 10;
       this.voter.voterByVillage(this.villageName, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
         if (data.length != 0) {
@@ -140,7 +140,6 @@ export class VillagewiseListComponent implements OnInit {
   }
 
   exportExcel():void {
-    debugger;
     this.PageNo=1;
     this.NoofRow=this.totalItems;
     var SearchText = "";

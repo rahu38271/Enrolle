@@ -56,7 +56,7 @@ export class BySurnameComponent implements OnInit {
   }
 
   allLastName(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){
-    this.loader.showLoading();
+    //this.loader.showLoading();
     this.Language = this.translateConfigService.getCurrentLang();
     if(this.Language == "kn"){
       this.Language = "Kannada"
@@ -72,15 +72,15 @@ export class BySurnameComponent implements OnInit {
     }
     this.voter.lastNameData(userId,roleID,PageNo,NoofRow,this.Language,this.SearchText).subscribe(data=>{
       if(data.length != 0){
-        this.loader.hideLoader();
+        //this.loader.hideLoader();
         this.allData = data;
         this.totalItems = data[0].totalCount
       }
       else{
-        this.loader.hideLoader();
+        //this.loader.hideLoader();
       }
     },(err)=>{
-      this.loader.hideLoader();
+      //this.loader.hideLoader();
     })
   }
 
@@ -93,7 +93,7 @@ export class BySurnameComponent implements OnInit {
     }
     else{
       this.PageNo=1;
-      this.NoofRow=100;
+      this.NoofRow=25;
       this.SearchText=SearchText;
       this.voter.lastNameData(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
         if(data.length != 0){
@@ -115,7 +115,7 @@ export class BySurnameComponent implements OnInit {
     }
     else{
       this.PageNo=1;
-      this.NoofRow=100;
+      this.NoofRow=25;
       this.SearchText=SearchText;
       this.voter.lastNameData(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
         if(data.length != 0){

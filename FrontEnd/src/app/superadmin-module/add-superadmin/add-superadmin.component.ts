@@ -184,11 +184,16 @@ export class AddSuperadminComponent implements OnInit {
       }
     }, (err) => {
       this.loader.hideLoader();
-      //this.toast.presentToast("Superadmin not saved", "danger", 'alert-circle-sharp');
+      console.error(err);
+      if(err.status === 400){
+        this.toast.presentToast("Username or Password already exists", "danger", 'alert-circle-sharp');
+      }
     })
   }
 
-
+  trimInput(){
+    this.addMAmodal.Name = this.addMAmodal.Name.trim();
+  }
 
   resetForm() {
     this.myForm.reset();

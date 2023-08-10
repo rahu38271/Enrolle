@@ -49,9 +49,7 @@ export class VoterbyUserComponent {
       public translate: TranslateService,
       private translateConfigService: TranslateConfigService
     ) {
-    
-   
-
+      
   }
 
   ngOnInit() {
@@ -105,7 +103,7 @@ export class VoterbyUserComponent {
         this.voterListByUser.forEach(e => {
           e.birthDate = e.birthDate.split('T')[0];
         });
-        
+        this.searchWeb = this.searchWeb.trim();
       }
       else {
         //this.loader.hideLoader();
@@ -113,7 +111,7 @@ export class VoterbyUserComponent {
       }
     }, (err) => {
       //this.loader.hideLoader();
-      this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      
     })
   }
 
@@ -122,7 +120,9 @@ export class VoterbyUserComponent {
     this.voterList(this.id, this.RoleId, event, this.NoofRow,this.Language,this.SearchText)
   }
 
+
   onSearchChange(SearchText: any): void { 
+    this.SearchText = this.SearchText.trim();
     if (this.SearchText == '') {
       this.SearchText = SearchText;
       this.PageNo = 1;
@@ -130,7 +130,7 @@ export class VoterbyUserComponent {
       this.voterList(this.id, this.RoleId, this.PageNo, this.NoofRow, this.Language, this.SearchText)
     }
     else {
-      this.SearchText = SearchText;
+      this.SearchText = SearchText.trim();
       this.PageNo = 1;
       this.NoofRow = 25;
       this.voter.getVoterByUser(this.id, this.RoleId, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
@@ -158,7 +158,7 @@ export class VoterbyUserComponent {
       this.voterList(this.id, this.RoleId, this.PageNo, this.NoofRow, this.Language, this.SearchText)
     }
     else {
-      this.SearchText = SearchText;
+      this.SearchText = SearchText.trim();
       this.PageNo = 1;
       this.NoofRow = 25;
       this.voter.getVoterByUser(this.id, this.RoleId, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
@@ -174,11 +174,15 @@ export class VoterbyUserComponent {
     }
   }
 
+  // data with state
   voterDetails(item: any) {
     this.router.navigate(['voterdata-management/voter-details'], { state: item })
   }
 
-  
+  // data with id
+  // voterDetails(id: number) {
+  //   this.router.navigate(['/voterdata-management/voter-details', id])
+  // }
 
   AllCasts(){
     if (this.Language == "kn") {
