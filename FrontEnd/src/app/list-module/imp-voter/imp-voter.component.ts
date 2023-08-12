@@ -6,6 +6,7 @@ import { TranslateConfigService } from 'src/app/services/translate-config.servic
 import { ExcelService } from 'src/app/services/excel.service'
 import { CsvService } from 'src/app/services/csv.service';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-imp-voter',
@@ -34,7 +35,8 @@ export class ImpVoterComponent implements OnInit {
     private translateConfigService: TranslateConfigService,
     private excel:ExcelService,
     private csv:CsvService,
-    private toast:IonicToastService
+    private toast:IonicToastService,
+    private location:Location
   ) {
     this.Language = this.translateConfigService.getCurrentLang();
   }
@@ -56,8 +58,14 @@ export class ImpVoterComponent implements OnInit {
     this.impVoterList(this.userId,this.roleID,event,this.NoofRow,this.Language,this.SearchText)
   }
 
-  voterDetails(item: any) {
-    this.router.navigate(['voterdata-management/voter-details'], { state: item })
+  // data with state
+  // voterDetails(item: any) {
+  //   this.router.navigate(['voterdata-management/voter-details'], { state: item })
+  // }
+
+  // data with id
+  voterDetails(id: number) {
+    this.router.navigate(['/voterdata-management/voter-details', id])
   }
 
   impVoterList(userId: any, roleID: any, PageNo: any, NoofRow: any, Language: any, SearchText: any) {
@@ -86,6 +94,10 @@ export class ImpVoterComponent implements OnInit {
     })
   }
 
+  EditVoter(data:any){
+    this.router.navigateByUrl('/voterdata-management/edit-voterdata',{state: data})
+  }
+
   onSearchChange(SearchText: any) {
     if (this.SearchText == '') {
       this.PageNo = 1;
@@ -96,7 +108,7 @@ export class ImpVoterComponent implements OnInit {
     else {
       this.PageNo = 1;
       this.NoofRow = 25;
-      this.SearchText = SearchText;
+      this.SearchText = SearchText.trim();
       this.voter.impVoter(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
         if (data) {
           this.impVoterData = data;
@@ -118,7 +130,7 @@ export class ImpVoterComponent implements OnInit {
     else {
       this.PageNo = 1;
       this.NoofRow = 25;
-      this.SearchText = SearchText;
+      this.SearchText = SearchText.trim();
       this.voter.impVoter(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
         if (data) {
           this.impVoterData = data;
@@ -172,6 +184,10 @@ export class ImpVoterComponent implements OnInit {
     },(err)=>{
       this.loader.hideLoader();
     })
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 

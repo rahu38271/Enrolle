@@ -7,6 +7,7 @@ import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { Router } from '@angular/router'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { ExcelService } from 'src/app/services/excel.service'
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-modern-way',
@@ -85,6 +86,7 @@ omit_special_char(event) {
       private toast:IonicToastService,
       private router:Router,
       private excel:ExcelService,
+      private location:Location,
       private translateConfigService: TranslateConfigService,
     ) {
       this.Language = this.translateConfigService.getCurrentLang();
@@ -112,9 +114,14 @@ omit_special_char(event) {
     this.AllCasts();
   }
 
-   voterDetails(item:any){
-    this.router.navigate(['voterdata-management/voter-details'], { state: item })
-   }
+  //  voterDetails(item:any){
+  //   this.router.navigate(['voterdata-management/voter-details'], { state: item })
+  //  }
+
+       // data with id
+  voterDetails(id: number) {
+    this.router.navigate(['/voterdata-management/voter-details', id])
+  }
 
    event(event: any) {
     this.PageNo = event;
@@ -329,6 +336,10 @@ omit_special_char(event) {
     this.voter.getAllCaste(this.Language).subscribe(data=>{
       this.casteList=data;
     })
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

@@ -23,11 +23,14 @@
           <ion-grid class="header">
             <ion-row>
               <ion-col size-xs="12" size-sm="6">
-                <ion-card-header>
-                  <ion-card-title class="header1"> {{'Occupation' | translate}}  </ion-card-title>
-                  <div class="headerLine"></div>
-                </ion-card-header>
-
+                
+                <div class="flexArrow">
+                  <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
+                  <ion-card-header>
+                    <ion-card-title class="header1"> {{'Occupation' | translate}}  </ion-card-title>
+                    <div class="headerLine"></div>
+                  </ion-card-header>
+                </div>
               </ion-col>
               <ion-col size-xs="12" size-sm="6" class="ion-text-right">
                 <!-- <ion-button class="button-download" fill="outline" color="success" >
@@ -44,7 +47,7 @@
             <ion-card-content>
               <div class="headSection">
                 <div class="search">
-                  <ion-searchbar animated="true"></ion-searchbar>
+                  <ion-searchbar [(ngModel)]="searchMob" (ionChange)="trimInput($event)" animated="true"></ion-searchbar>
                 </div>
                 <ion-button class="button-download" color="success" (click)="exportExcel()">
                   <ion-icon name="document-sharp"></ion-icon>Excel
@@ -63,7 +66,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let item of occuList" (click)="occupation(item.columnName)">
+                    <tr *ngFor="let item of occuList | filter:searchMob" (click)="occupation(item.columnName)">
                       <td >
                         {{item.columnName}}
                       </td>

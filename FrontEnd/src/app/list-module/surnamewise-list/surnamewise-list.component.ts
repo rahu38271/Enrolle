@@ -6,6 +6,7 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { ExcelService } from 'src/app/services/excel.service'
 import { CsvService } from 'src/app/services/csv.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-surnamewise-list',
@@ -40,6 +41,7 @@ export class SurnamewiseListComponent implements OnInit {
     private toast:IonicToastService,
     private excel:ExcelService,
       private csv:CsvService,
+      private location:Location
     ) {
     this.Language = this.translateConfigService.getCurrentLang();
   }
@@ -68,9 +70,15 @@ export class SurnamewiseListComponent implements OnInit {
     this.lastNameWiseVoterData(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language,this.SearchText);
   }
 
-  voterDetails(item:any){
-    this.router.navigate(['voterdata-management/voter-details'], { state: item })
-   }
+  // data with state
+  // voterDetails(item:any){
+  //   this.router.navigate(['voterdata-management/voter-details'], { state: item })
+  //  }
+
+       // data with id
+  voterDetails(id: number) {
+    this.router.navigate(['/voterdata-management/voter-details', id])
+  }
 
 
   lastNameWiseVoterData(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){
@@ -182,5 +190,9 @@ export class SurnamewiseListComponent implements OnInit {
     },(err)=>{
       this.loader.hideLoader();
     })
+  }
+
+  goBack(){
+    this.location.back();
   }
 }

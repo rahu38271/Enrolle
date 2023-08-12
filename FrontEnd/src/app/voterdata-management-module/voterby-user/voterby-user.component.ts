@@ -92,7 +92,7 @@ export class VoterbyUserComponent {
       this.SearchText = ''
     }
     else{
-      this.SearchText = this.SearchText
+      this.SearchText = this.SearchText.trim();
     }
     this.voter.getVoterByUser(id, RoleId, PageNo, NoofRow, this.Language, this.SearchText).subscribe(data => {
       if (data.length != 0) {
@@ -100,10 +100,10 @@ export class VoterbyUserComponent {
         this.voterListByUser = data;
         this.totalCount = data[0].totalCount;
 
-        this.voterListByUser.forEach(e => {
-          e.birthDate = e.birthDate.split('T')[0];
-        });
-        this.searchWeb = this.searchWeb.trim();
+        // this.voterListByUser.forEach(e => {
+        //   e.birthDate = e.birthDate.split('T')[0];
+        // });
+        // this.searchWeb = this.searchWeb.trim();
       }
       else {
         //this.loader.hideLoader();
@@ -175,14 +175,14 @@ export class VoterbyUserComponent {
   }
 
   // data with state
-  voterDetails(item: any) {
-    this.router.navigate(['voterdata-management/voter-details'], { state: item })
-  }
+  // voterDetails(item: any) {
+  //   this.router.navigate(['voterdata-management/voter-details'], { state: item })
+  // }
 
   // data with id
-  // voterDetails(id: number) {
-  //   this.router.navigate(['/voterdata-management/voter-details', id])
-  // }
+  voterDetails(id: number) {
+    this.router.navigate(['/voterdata-management/voter-details', id])
+  }
 
   AllCasts(){
     if (this.Language == "kn") {

@@ -4,6 +4,7 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { Router } from '@angular/router';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import {Route, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-alivevoter',
@@ -19,7 +20,7 @@ export class AlivevoterComponent implements OnInit {
   roleID:any;
   isVoted:any;
   PageNo:any=1;
-  NoofRow:any=10;
+  NoofRow:any=25;
   totalItems:any;
   aliveVoterList:any;
 
@@ -32,6 +33,7 @@ export class AlivevoterComponent implements OnInit {
     private loader:LoaderService,
     private router:Router,
     private route:ActivatedRoute,
+    private location:Location,
     private translateConfigService:TranslateConfigService
   ) {
     this.Language = this.translateConfigService.getCurrentLang();
@@ -55,9 +57,15 @@ export class AlivevoterComponent implements OnInit {
     this.aliveVoter(this.userId,this.roleID,event,this.NoofRow,this.Language,this.SearchText)
   }
 
-  voterDetails(item:any){
-    this.router.navigate(['voterdata-management/voter-details'], { state: item })
-   }
+  // data with state
+  // voterDetails(item:any){
+  //   this.router.navigate(['voterdata-management/voter-details'], { state: item })
+  //  }
+
+  // data with id
+  voterDetails(id: number) {
+    this.router.navigate(['/voterdata-management/voter-details', id])
+  }
 
    aliveVoter(userId:any,roleId:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){
     this.Language = this.translateConfigService.getCurrentLang();
@@ -95,8 +103,8 @@ export class AlivevoterComponent implements OnInit {
     }
     else {
       this.PageNo = 1;
-      this.SearchText = SearchText
-      this.NoofRow = 10;
+      this.SearchText = SearchText.trim();
+      this.NoofRow = 25;
       this.voter.getAliveVoter(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
         if(data.length != 0){
           this.aliveVoterList=data;
@@ -118,8 +126,8 @@ export class AlivevoterComponent implements OnInit {
     }
     else {
       this.PageNo = 1;
-      this.SearchText = SearchText
-      this.NoofRow = 10;
+      this.SearchText = SearchText.trim();
+      this.NoofRow = 25;
       this.voter.getAliveVoter(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
         if(data.length != 0){
           this.aliveVoterList=data;
@@ -130,6 +138,14 @@ export class AlivevoterComponent implements OnInit {
         }
       })
     }
+  }
+
+  EditVoter(data:any){
+    this.router.navigateByUrl('/voterdata-management/edit-voterdata',{state: data})
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

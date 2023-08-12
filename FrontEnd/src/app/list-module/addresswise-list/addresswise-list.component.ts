@@ -6,7 +6,7 @@ import { LoaderService } from 'src/app/services/loader.service'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { ExcelService } from 'src/app/services/excel.service'
 import { CsvService } from 'src/app/services/csv.service';
-
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-addresswise-list',
@@ -23,7 +23,7 @@ export class AddresswiseListComponent implements OnInit {
   userId:any;
   roleID:any;
   PageNo:any=1;
-  NoofRow:any=10;
+  NoofRow:any=25;
   totalItems:any;
   SearchText:any
    
@@ -39,6 +39,7 @@ export class AddresswiseListComponent implements OnInit {
       private loader:LoaderService,
       private excel:ExcelService,
       private csv:CsvService,
+      private location:Location,
       private translateConfigService: TranslateConfigService,
       ) {
         this.Language = this.translateConfigService.getCurrentLang();
@@ -63,9 +64,7 @@ export class AddresswiseListComponent implements OnInit {
     this.addressWiseVoterData(this.userId,this.roleID,event,this.NoofRow,this.Language,this.SearchText)
   }
 
-  EditVoter(data:any){
-    this.router.navigateByUrl('/voterdata-management/edit-voterdata',{state: data})
-  }
+
 
   addressWiseVoterData(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){
     this.Language = this.translateConfigService.getCurrentLang();
@@ -94,9 +93,15 @@ export class AddresswiseListComponent implements OnInit {
     })
   }
 
-  voterDetails(item:any){
-    this.router.navigate(['voterdata-management/voter-details'], { state: item })
-   }
+  // data with state
+  // voterDetails(item:any){
+  //   this.router.navigate(['voterdata-management/voter-details'], { state: item })
+  //  }
+
+       // data with id
+  voterDetails(id: number) {
+    this.router.navigate(['/voterdata-management/voter-details', id])
+  }
 
   onSearchText(SearchText: any) {
     if (this.SearchText == '') {
@@ -107,7 +112,7 @@ export class AddresswiseListComponent implements OnInit {
     }
     else {
       this.PageNo = 1;
-      this.NoofRow = 10;
+      this.NoofRow = 25;
       this.SearchText = SearchText.trim();
       this.voter.voterByAddress(this.addressName, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
         if (data) {
@@ -127,7 +132,7 @@ export class AddresswiseListComponent implements OnInit {
     }
     else {
       this.PageNo = 1;
-      this.NoofRow = 10;
+      this.NoofRow = 25;
       this.SearchText = SearchText.trim();
       this.voter.voterByAddress(this.addressName, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
         if (data) {
@@ -180,6 +185,14 @@ export class AddresswiseListComponent implements OnInit {
     },(err)=>{
       this.loader.hideLoader();
     })
+  }
+
+  EditVoter(data:any){
+    this.router.navigateByUrl('/voterdata-management/edit-voterdata',{state: data})
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

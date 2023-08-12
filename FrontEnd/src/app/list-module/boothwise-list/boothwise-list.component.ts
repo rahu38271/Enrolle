@@ -6,6 +6,7 @@ import { TranslateConfigService } from 'src/app/services/translate-config.servic
 import { IonicToastService } from 'src/app/services/ionic-toast.service'; 
 import { ExcelService } from 'src/app/services/excel.service'
 import { CsvService } from 'src/app/services/csv.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-boothwise-list',
@@ -37,6 +38,7 @@ export class BoothwiseListComponent implements OnInit {
     private translateConfigService: TranslateConfigService,
     private toast:IonicToastService,
     private excel:ExcelService,
+    private location:Location,
       private csv:CsvService,
     ) { 
       this.Language = this.translateConfigService.getCurrentLang();
@@ -91,9 +93,15 @@ export class BoothwiseListComponent implements OnInit {
     })
   }
 
-  voterDetails(item:any){
-    this.router.navigate(['voterdata-management/voter-details'], { state: item })
-   }
+  // data with state
+  // voterDetails(item:any){
+  //   this.router.navigate(['voterdata-management/voter-details'], { state: item })
+  //  }
+
+       // data with id
+  voterDetails(id: number) {
+    this.router.navigate(['/voterdata-management/voter-details', id])
+  }
 
   onSearchChange(SearchText: any) {
     if (this.SearchText == '') {
@@ -177,6 +185,14 @@ export class BoothwiseListComponent implements OnInit {
     },(err)=>{
       this.loader.hideLoader();
     })
+  }
+
+  EditVoter(data:any){
+    this.router.navigateByUrl('/voterdata-management/edit-voterdata',{state: data})
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

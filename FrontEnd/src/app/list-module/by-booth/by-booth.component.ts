@@ -3,6 +3,7 @@ import { VoterService } from 'src/app/services/voter.service'
 import { Router } from '@angular/router'
 import { LoaderService } from 'src/app/services/loader.service'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-by-booth',
@@ -21,6 +22,7 @@ export class ByBoothComponent implements OnInit {
     private voter: VoterService, 
     private router:Router,
     private loader:LoaderService,
+    private location:Location,
     private translateConfigService: TranslateConfigService,
     ) { 
       this.Language = this.translateConfigService.getCurrentLang();
@@ -77,6 +79,10 @@ export class ByBoothComponent implements OnInit {
     if(event.detail.value){
       this.searchMob = event.detail.value.trim();
     }
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

@@ -23,11 +23,13 @@
           <ion-grid class="header">
             <ion-row>
               <ion-col size-xs="12" size-sm="6">
-                <ion-card-header>
-                  <ion-card-title class="header1">By Village <span> </span> </ion-card-title>
-                  <div class="headerLine"></div>
-                </ion-card-header>
-
+                <div class="flexArrow">
+                  <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
+                  <ion-card-header>
+                    <ion-card-title class="header1">By Village </ion-card-title>
+                    <div class="headerLine"></div>
+                  </ion-card-header>
+                </div>
               </ion-col>
               <ion-col size-xs="12" size-sm="6" class="ion-text-right">
                 <!-- <ion-button class="button-download" fill="outline" color="success" >

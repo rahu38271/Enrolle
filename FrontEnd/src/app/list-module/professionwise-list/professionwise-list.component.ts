@@ -3,6 +3,7 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { VoterService } from 'src/app/services/voter.service';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { ActivatedRoute,Route,Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-professionwise-list',
@@ -31,6 +32,7 @@ export class ProfessionwiseListComponent implements OnInit {
     private route:ActivatedRoute,
     private router:Router,
     private translateConfigService: TranslateConfigService,
+    private location:Location
     ) {
       this.Language = this.translateConfigService.getCurrentLang();
      }
@@ -75,9 +77,15 @@ export class ProfessionwiseListComponent implements OnInit {
     })
   }
 
-  voterDetails(item:any){
-    this.router.navigate(['voterdata-management/voter-details'], { state: item })
-   }
+  // data with state
+  // voterDetails(item:any){
+  //   this.router.navigate(['voterdata-management/voter-details'], { state: item })
+  //  }
+
+      // data with id
+  voterDetails(id: number) {
+    this.router.navigate(['/voterdata-management/voter-details', id])
+  }
 
    onSearchChange(SearchText: any) {
     if (this.SearchText == '') {
@@ -117,6 +125,14 @@ export class ProfessionwiseListComponent implements OnInit {
         }
       })
     }
+   }
+
+   EditVoter(data:any){
+    this.router.navigateByUrl('/voterdata-management/edit-voterdata',{state: data})
+  }
+
+   goBack(){
+    this.location.back();
    }
 
 }

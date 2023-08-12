@@ -4,6 +4,7 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { Router } from '@angular/router';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import {Route, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-votedvoter',
@@ -31,7 +32,8 @@ export class VotedvoterComponent implements OnInit {
     private loader:LoaderService,
     private router:Router,
     private route:ActivatedRoute,
-    private translateConfigService:TranslateConfigService
+    private translateConfigService:TranslateConfigService,
+    private location:Location
   ) {
     this.Language = this.translateConfigService.getCurrentLang();
    }
@@ -54,9 +56,15 @@ export class VotedvoterComponent implements OnInit {
     this.votedList(this.userId,this.roleID,event,this.NoofRow,this.Language,this.SearchText)
   }
 
-  voterDetails(item:any){
-    this.router.navigate(['voterdata-management/voter-details'], { state: item })
-   }
+  // data with state
+  // voterDetails(item:any){
+  //   this.router.navigate(['voterdata-management/voter-details'], { state: item })
+  //  }
+
+     // data with id
+  voterDetails(id: number) {
+    this.router.navigate(['/voterdata-management/voter-details', id])
+  }
 
   votedList(userId:any,roleId:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){
     this.Language = this.translateConfigService.getCurrentLang();
@@ -129,6 +137,14 @@ export class VotedvoterComponent implements OnInit {
         }
       })
     }
+  }
+
+  EditVoter(data:any){
+    this.router.navigateByUrl('/voterdata-management/edit-voterdata',{state: data})
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

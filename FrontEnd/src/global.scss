@@ -97,7 +97,7 @@ ion-split-pane {
     --side-max-width: 14%;
 }
 
-  ion-title { padding-inline: 5px; font-size: 15px; font-weight: 600; line-height: 28px; color: #fff; }
+  ion-title { padding-inline: 5px; font-size: 18px; font-weight: 600; line-height: 28px; color: #fff; }
 
   ion-back-button{
     --icon-font-size: 18px !important;
@@ -318,10 +318,6 @@ ion-back-button {
 .backBtn {
     font-size: 20px;
 }
-
-.voterSec {
-    display: flex;
-  }
  
   .voterSec img {
     width: 45px;
@@ -330,14 +326,7 @@ ion-back-button {
 //   .photo {
 //    padding-top: 6px;
 //   }
- 
-  .voterSec ion-label {
-    padding-left: 5px;
-  }
 
-  .voterSec ion-label {
-    padding-left: 5px;
-}
 
 @media screen and (max-width:576px) {
     // .ng-select.ng-select-single .ng-select-container {
@@ -361,3 +350,19 @@ ion-back-button {
         text-overflow: inherit !important;
     }
 }
+
+.nameLink {
+    cursor: pointer;
+    color: #2c6ad7;
+  }
+
+  .flexArrow ion-icon {
+    font-size: 25px;
+    margin-right: 10px;
+    color: #3c7ff9;
+  }
+  
+  .flexArrow {
+    display: flex;
+  }
+

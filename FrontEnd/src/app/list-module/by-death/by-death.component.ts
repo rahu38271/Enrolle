@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoaderService } from 'src/app/services/loader.service';
 import { VoterService } from 'src/app/services/voter.service'
 import { Router,ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-by-death',
@@ -22,7 +23,8 @@ export class ByDeathComponent implements OnInit {
     private loader:LoaderService,
     private voter:VoterService,
     private router:Router,
-    private route:ActivatedRoute
+    private route:ActivatedRoute,
+    private location:Location
     ) { }
 
   search(){
@@ -57,6 +59,10 @@ export class ByDeathComponent implements OnInit {
     else if(columnName=="Dead"){
       this.router.navigateByUrl('/list/dead')
     }
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

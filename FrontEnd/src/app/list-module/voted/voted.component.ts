@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LoaderService } from 'src/app/services/loader.service';
 import { VoterService } from 'src/app/services/voter.service'
 import { Router } from '@angular/router'
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-voted',
@@ -21,7 +22,8 @@ export class VotedComponent implements OnInit {
   constructor(
     private loader:LoaderService,
     private voter:VoterService,
-    private router:Router
+    private router:Router,
+    private location:Location
     ) { }
 
   search(){
@@ -57,6 +59,10 @@ export class VotedComponent implements OnInit {
       this.router.navigateByUrl('/list/notVoted-voter')
     }
     
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

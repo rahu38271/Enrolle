@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { PopoverController } from '@ionic/angular';
 import { VoterService } from 'src/app/services/voter.service'
-import { ActivatedRoute,Router, NavigationEnd  } from '@angular/router'
+import { ActivatedRoute,Router, NavigationEnd } from '@angular/router'
 import { LoaderService } from 'src/app/services/loader.service'
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { ModalController } from '@ionic/angular';
@@ -46,7 +46,7 @@ export class VoterDetailsComponent  {
   Mobile:any;
   YesNo: any;
   pageNo: any = 1;
-  NoofRow: any = 100;
+  NoofRow: any;
   partNo: any;
   ProfessionName:any;
   professionModal:any={};
@@ -141,9 +141,10 @@ export class VoterDetailsComponent  {
       private location: Location,
       private setting:SettingService,
       private translateConfigService: TranslateConfigService,
-      public translate: TranslateService
+      public translate: TranslateService,
   ) {
     this.Language = this.translateConfigService.getCurrentLang();
+    
     if(this.Language == 'en'){
       this.engAssembly = true;
     }
@@ -173,24 +174,76 @@ export class VoterDetailsComponent  {
 
   ngOnInit() {
     // data with state
-    this.Voter = this.router.getCurrentNavigation().extras.state;
-    
+    //this.Voter = this.router.getCurrentNavigation().extras.state;
     //data with id
-    // this.UserId = localStorage.getItem('loginId');
-    // this.RoleId = localStorage.getItem('userType');
-    // this.voter.getVoterByUser(this.id=this.UserId,this.RoleId,this.pageNo,this.NoofRow,this.Language,this.SearchText).subscribe((data) =>{
-    //   const Vid = this.route.snapshot.paramMap.get('id');
-    //   [this.Voter] = data.filter((Voter) => Voter.id == Vid);
-    //   this.VoterListByUser = this.Voter;
-    // })
+    this.UserId = localStorage.getItem('loginId');
+    this.RoleId = localStorage.getItem('userType');
+    this.NoofRow =  this.route.snapshot.paramMap.get('id');
+    this.loader.showLoading();
+    this.voter.getVoterByUser(this.id=this.UserId,this.RoleId,this.pageNo,this.NoofRow,this.Language,this.SearchText).subscribe((data) =>{
+      this.loader.hideLoader();
+      const Vid = this.NoofRow;
+      [this.Voter] = data.filter((Voter) => Voter.id == Vid);
+      this.VoterListByUser = this.Voter;
+      if(this.VoterListByUser.birthDate == null || this.VoterListByUser.birthDate == undefined){
+        this.VoterListByUser.birthDate = ''
+      }
+      else{
+        this.VoterListByUser.birthDate = this.VoterListByUser.birthDate.split('T')[0];
+      }
+      
+      this.mobUpdate.Mobile = this.VoterListByUser.mobileNo;
+      this.altmobUpdate.AlternateMobileNo = this.VoterListByUser.alternateMobileNo;
+      this.BirthdateUpdate.ColoumnValue = this.VoterListByUser.birthDate;
+      this.CasteUpdate.ColoumnValue = this.VoterListByUser.caste;
+      this.professionUpdate.ColoumnValue = this.VoterListByUser.occupation;
+      this.adrsUpdate.Address = this.VoterListByUser.address;
+      this.societyUpdate.ColoumnValue = this.VoterListByUser.society;
+      this.houseUpdate.ColoumnValue = this.VoterListByUser.houseNo;
+      this.deadAlive.YesNo = this.VoterListByUser.isAlive;
+      //to get color checked if voter is supporter, opposite, doubtful or other
+      if (this.VoterListByUser.votingInclination == "Supporter") {
+        this.bgColor = '#0bbb5f'
+      }
+      else if (this.VoterListByUser.votingInclination == "Opposition") {
+        this.bgColor = '#F00'
+      }
+      else if (this.VoterListByUser.votingInclination == "Doubtful") {
+        this.bgColor = '#ffd34f'
+      }
+      else if (this.VoterListByUser.votingInclination == "Other") {
+        this.bgColor = '#fff'
+      }
+       // is Star status 
+      if (this.VoterListByUser.starVoter == null || this.VoterListByUser.starVoter == "N") {
+        this.showStar = !this.showStar
+      }
+      else {
+        this.showStar = this.showStar
+      }
+      // is voted status 
+      if (this.VoterListByUser.isVoted == null || this.VoterListByUser.isVoted == "N") {
+        this.showVote = !this.showVote
+      }
+      else {
+        this.showVote = this.showVote
+      }
+      if (this.VoterListByUser.isAlive == "Y") {
+        this.VoterListByUser.isAlive = 1
+      }
+      else if (this.VoterListByUser.isAlive == "N") {
+        this.VoterListByUser.isAlive = 0
+      }
+      else if (this.VoterListByUser.isAlive == null) {
+        this.VoterListByUser.isAlive = ''
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
   }
 
-  ngOnChanges(){
-    
-  }
-
-  ionViewDidEnter(){
-    this.assemblyName = localStorage.getItem("loginAssembly");
+ngAfterViewInit(){
+  this.assemblyName = localStorage.getItem("loginAssembly");
     this.assemblyNameLang();
     this.village = localStorage.getItem("loginVillage");
     this.userId = localStorage.getItem("loginId");
@@ -210,24 +263,7 @@ export class VoterDetailsComponent  {
     else{
       this.isVillage=this.isVillage;
     }
-    this.mobUpdate.Mobile = this.VoterListByUser.mobileNo;
-    this.altmobUpdate.AlternateMobileNo = this.VoterListByUser.alternateMobileNo;
-    this.deadAlive.YesNo = this.VoterListByUser.isAlive;
-    if (this.VoterListByUser.isAlive == "1") {
-      this.deadAlive.YesNo = "Y"
-    }
-    else if (this.VoterListByUser.isAlive == "0") {
-      this.deadAlive.YesNo = "N"
-    }
-    else if (this.VoterListByUser.isAlive == null) {
-      this.deadAlive.YesNo = ''
-    }
-    this.BirthdateUpdate.ColoumnValue = this.VoterListByUser.birthDate;
-    this.CasteUpdate.ColoumnValue = this.VoterListByUser.caste;
-    this.professionUpdate.ColoumnValue = this.VoterListByUser.occupation;
-    this.adrsUpdate.Address = this.VoterListByUser.address;
-    this.societyUpdate.ColoumnValue = this.VoterListByUser.society;
-    this.houseUpdate.ColoumnValue = this.VoterListByUser.houseNo;
+    
     this.setting.getWhatsappImage(this.userId).subscribe(data=>{
       if(data){
         this.saveFile(data);
@@ -246,66 +282,13 @@ export class VoterDetailsComponent  {
     },(err)=>{
 
     })
+}
+
+ 
+
+  ionViewWillEnter(){
+    
   }
-
-  // ionViewWillEnter(){
-  //   this.assemblyName = localStorage.getItem("loginAssembly");
-  //   this.assemblyNameLang();
-  //   this.village = localStorage.getItem("loginVillage");
-  //   this.userId = localStorage.getItem("loginId");
-  //   this.userId = Number(this.userId);
-  //   this.voterDetails();
-  //   this.AllCasts();
-  //   this.allProfession();
-  //   if(this.assemblyName=="null"){
-  //     this.isAssembly=!this.isAssembly;
-  //   }
-  //   else{
-  //     this.isAssembly=this.isAssembly;
-  //   }
-  //   if(this.village=="null"){
-  //     this.isVillage=!this.isVillage;
-  //   }
-  //   else{
-  //     this.isVillage=this.isVillage;
-  //   }
-  //   this.mobUpdate.Mobile = this.VoterListByUser.mobileNo;
-  //   this.altmobUpdate.AlternateMobileNo = this.VoterListByUser.alternateMobileNo;
-  //   this.deadAlive.YesNo = this.VoterListByUser.isAlive;
-  //   if (this.VoterListByUser.isAlive == "1") {
-  //     this.deadAlive.YesNo = "Y"
-  //   }
-  //   else if (this.VoterListByUser.isAlive == "0") {
-  //     this.deadAlive.YesNo = "N"
-  //   }
-  //   else if (this.VoterListByUser.isAlive == null) {
-  //     this.deadAlive.YesNo = ''
-  //   }
-  //   this.BirthdateUpdate.ColoumnValue = this.VoterListByUser.birthDate;
-  //   this.CasteUpdate.ColoumnValue = this.VoterListByUser.caste;
-  //   this.professionUpdate.ColoumnValue = this.VoterListByUser.occupation;
-  //   this.adrsUpdate.Address = this.VoterListByUser.address;
-  //   this.societyUpdate.ColoumnValue = this.VoterListByUser.society;
-  //   this.houseUpdate.ColoumnValue = this.VoterListByUser.houseNo;
-  //   this.setting.getWhatsappImage(this.userId).subscribe(data=>{
-  //     if(data){
-  //       this.saveFile(data);
-  //       this.fetchImage(data);
-  //       this.imgurl = true;
-  //     }
-  //   })
-  //   this.setting.getWhatsappText(this.userId).subscribe(data=>{
-  //     if(data){
-  //       this.whatsText = data;
-  //       this.msgText = data[0].messageContent;
-  //     }
-  //     else{
-
-  //     }
-  //   },(err)=>{
-
-  //   })
-  // }
 
   saveFile(imageData: Blob) {
     const link = document.createElement('a');
@@ -336,54 +319,47 @@ export class VoterDetailsComponent  {
 
     // to get star checked if voter is star voter or not 
 
-    if (this.VoterListByUser.starVoter == null || this.VoterListByUser.starVoter == "N") {
-      this.showStar = !this.showStar
-    }
-    else {
-      this.showStar = this.showStar
-    }
+    // if (this.VoterListByUser.starVoter == null || this.VoterListByUser.starVoter == "N") {
+    //   this.showStar = !this.showStar
+    // }
+    // else {
+    //   this.showStar = this.showStar
+    // }
 
     //to get if voter is voted or not
 
-    if (this.VoterListByUser.isVoted == null || this.VoterListByUser.isVoted == "N") {
-      this.showVote = !this.showVote
-    }
-    else {
-      this.showVote = this.showVote
-    }
+    // if (this.VoterListByUser.isVoted == null || this.VoterListByUser.isVoted == "N") {
+    //   this.showVote = !this.showVote
+    // }
+    // else {
+    //   this.showVote = this.showVote
+    // }
 
     //to get radio button checked if voter is alive or dead
 
-    if (this.VoterListByUser.isAlive == "Y") {
-      this.VoterListByUser.isAlive = 1
-    }
-    else if (this.VoterListByUser.isAlive == "N") {
-      this.VoterListByUser.isAlive = 0
-    }
-    else if (this.VoterListByUser.isAlive == null) {
-      this.VoterListByUser.isAlive = ''
-    }
+    // if (this.VoterListByUser.isAlive == "Y") {
+    //   this.VoterListByUser.isAlive = 1
+    // }
+    // else if (this.VoterListByUser.isAlive == "N") {
+    //   this.VoterListByUser.isAlive = 0
+    // }
+    // else if (this.VoterListByUser.isAlive == null) {
+    //   this.VoterListByUser.isAlive = ''
+    // }
 
     //to get color checked if voter is supporter, opposite, doubtful or other
-    if (this.VoterListByUser.votingInclination == "Supporter") {
-      this.bgColor = '#0bbb5f'
-    }
-    else if (this.VoterListByUser.votingInclination == "Opposition") {
-      this.bgColor = '#F00'
-    }
-    else if (this.VoterListByUser.votingInclination == "Doubtful") {
-      this.bgColor = '#ffd34f'
-    }
-    else if (this.VoterListByUser.votingInclination == "Other") {
-      this.bgColor = '#fff'
-    }
-
-    if(this.VoterListByUser.birthDate == null){
-      this.VoterListByUser.birthDate = ''
-    }
-    else{
-      this.VoterListByUser.birthDate = this.VoterListByUser.birthDate.split('T')[0];
-    }
+    // if (this.VoterListByUser.votingInclination == "Supporter") {
+    //   this.bgColor = '#0bbb5f'
+    // }
+    // else if (this.VoterListByUser.votingInclination == "Opposition") {
+    //   this.bgColor = '#F00'
+    // }
+    // else if (this.VoterListByUser.votingInclination == "Doubtful") {
+    //   this.bgColor = '#ffd34f'
+    // }
+    // else if (this.VoterListByUser.votingInclination == "Other") {
+    //   this.bgColor = '#fff'
+    // }
     
     //this.partNumber =this.partNo
 
@@ -402,11 +378,10 @@ export class VoterDetailsComponent  {
     this.router.navigate(['/list/boothwise-list', {partNumber :columnName}])
   }
 
-  refreshPage() {
-    
-  }
+  // partNo(columnName:any){
+  //   this.router.navigate(['/list/boothwise-list',  {partNumber :columnName} ])
+  //  }
 
-  
   // edit mobile number
 
   saveMobile() {
@@ -414,10 +389,9 @@ export class VoterDetailsComponent  {
     this.mobUpdate.Id = Number(this.id);
     this.voter.updateMob(this.mobUpdate.Id, this.mobUpdate.Mobile).subscribe(data => {
       if (data) {
-        this.closeModal();
-        this.ionViewDidEnter();
         this.voterDetails();
-        //this.router.navigate(['voterdata-management/voter-details'], { state: item })
+        this.closeModal();
+        this.ngOnInit();
         this.toast.presentToast("Mobile No. updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
@@ -437,6 +411,7 @@ export class VoterDetailsComponent  {
       if (data) {
         this.voterDetails();
         this.closeModal();
+        this.ngOnInit();
         this.toast.presentToast("Mobile No. updated successfully!", "success", 'checkmark-circle-sharp');
         
       }
@@ -457,6 +432,7 @@ export class VoterDetailsComponent  {
       if (data) {
         this.voterDetails();
         this.closeModal();
+        this.ngOnInit();
         this.toast.presentToast("Address updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
@@ -477,6 +453,7 @@ export class VoterDetailsComponent  {
       if (data) {
         this.voterDetails();
         this.closeModal();
+        this.ngOnInit();
         this.toast.presentToast("profession updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
@@ -510,6 +487,7 @@ export class VoterDetailsComponent  {
       if (data) {
         this.voterDetails();
         this.closeModal();
+        this.ngOnInit();
         this.toast.presentToast("Birthdate updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
@@ -529,10 +507,9 @@ export class VoterDetailsComponent  {
     this.CasteUpdate.ColoumnValue = this.CasteUpdate.ColoumnValue;
     this.voter.updateCaste(this.CasteUpdate.Id, this.CasteUpdate.ColoumnName, this.CasteUpdate.ColoumnValue).subscribe(data => {
       if (data) {
-        // this.voterDetails();
-        this.VoterListByUser.caste = this.VoterListByUser.caste;
+        this.voterDetails();
         this.closeModal();
-
+        this.ngOnInit();
         this.toast.presentToast("Caste updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
@@ -553,6 +530,7 @@ export class VoterDetailsComponent  {
       if (data) {
         this.voterDetails();
         this.closeModal();
+        this.ngOnInit();
         this.toast.presentToast("society updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
@@ -573,6 +551,7 @@ export class VoterDetailsComponent  {
       if (data) {
         this.voterDetails();
         this.closeModal();
+        this.ngOnInit();
         this.toast.presentToast("HouseNo updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
@@ -735,6 +714,7 @@ export class VoterDetailsComponent  {
       if (data) {
         this.voterDetails();
         this.closeModal();
+        this.ngOnInit();
         this.toast.presentToast("Voter updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
@@ -777,7 +757,7 @@ export class VoterDetailsComponent  {
       if (data) {
         this.voterDetails();
         this.closeModal();
-
+        this.ngOnInit();
         this.toast.presentToast("Caste updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
@@ -810,7 +790,7 @@ export class VoterDetailsComponent  {
       if (data) {
         this.voterDetails();
         this.closeModal();
-
+        this.ngOnInit();
         this.toast.presentToast("Profession updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {

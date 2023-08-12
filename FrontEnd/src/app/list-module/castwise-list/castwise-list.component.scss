@@ -42,8 +42,6 @@ ion-list-header {  font-size: 15px; color: #3e4684; padding-inline-start:10px;  
 
 .android { display: none; }
 
-ion-label p {  color: #81767a; margin-bottom: 1px;  }
-
 @media screen and (max-width:576px){
     .main-content ion-card { display: none; }
     .header1 {
@@ -88,8 +86,6 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
 }
 
 .firstLine { display: flex; justify-content: space-between; }
-
-.userList p span { color: #228bd2; }
 
 .details {
     display: flex;

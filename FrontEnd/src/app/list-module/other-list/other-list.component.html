@@ -22,11 +22,13 @@
             <ion-grid class="header">
               <ion-row>
                 <ion-col size-xs="12" size-sm="6">
-                  <ion-card-header>
-                    <ion-card-title class="header1">  {{'Other' | translate}},  {{'Total' | translate}} - <span> {{totalItems}} </span> </ion-card-title>
-                    <div class="headerLine"></div>
-                  </ion-card-header>
-  
+                  <div class="flexArrow">
+                    <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
+                    <ion-card-header>
+                      <ion-card-title class="header1">  {{'Other' | translate}},  {{'Total' | translate}} - <span> {{totalItems}} </span> </ion-card-title>
+                      <div class="headerLine"></div>
+                    </ion-card-header>
+                  </div>
                 </ion-col>
                 <ion-col size-xs="12" size-sm="6" class="ion-text-right">
                   <!-- <ion-button class="button-download" fill="outline" color="success" >
@@ -68,13 +70,12 @@
                         <th>Voting Card No.</th>
                         <th>Village</th>
                         <th>Address</th>
-                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr *ngFor="let item of otherVoter | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems }">
                         <td>{{item.id}}</td>
-                        <td class="text-capitalize">{{item.fullName}}</td>
+                        <td (click)="EditVoter(item)" class="text-capitalize nameLink">{{item.fullName}}</td>
                         <td>{{item.partNo}}</td>
                         <td>{{item.booth}}</td>
                         <td>{{item.age}}</td>
@@ -83,9 +84,6 @@
                         <td>{{item.votingCardNo}}</td>
                         <td>{{item.village}}</td>
                         <td>{{item.address}}</td>
-                        <td class="action">
-                          <ion-icon name="create-sharp" (click)="EditVoter(item)"></ion-icon>
-                        </td>
                       </tr>
   
                     </tbody>
@@ -102,7 +100,7 @@
       <!-- (keypress)="keyPress($event.target.value)" -->
       <ion-grid class="android userList">
         <ion-searchbar (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true" *ngIf="isShow"></ion-searchbar>
-        <ion-list *ngFor="let item of otherVoter | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems }"  (click)="voterDetails(item)">
+        <ion-list *ngFor="let item of otherVoter | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems }"  (click)="voterDetails(item.id)">
           <ion-item lines="none">
             <div class="voterSec">
               <div class="photo">

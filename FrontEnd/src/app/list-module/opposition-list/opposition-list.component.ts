@@ -6,6 +6,7 @@ import { VoterService } from 'src/app/services/voter.service'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { ExcelService } from 'src/app/services/excel.service'
 import { CsvService } from 'src/app/services/csv.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-opposition-list',
@@ -31,7 +32,8 @@ export class OppositionListComponent implements OnInit {
     private translateConfigService: TranslateConfigService,
     private excel:ExcelService,
     private csv:CsvService,
-    private toast:IonicToastService
+    private toast:IonicToastService,
+    private location:Location
   ) { 
     this.Language = this.translateConfigService.getCurrentLang();
   }
@@ -48,9 +50,15 @@ export class OppositionListComponent implements OnInit {
     this.opposite(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
   }
 
-  voterDetails(item:any){
-    this.router.navigate(['voterdata-management/voter-details'], { state: item })
-   }
+  // data with state
+  // voterDetails(item:any){
+  //   this.router.navigate(['voterdata-management/voter-details'], { state: item })
+  //  }
+
+    // data with id
+  voterDetails(id: number) {
+    this.router.navigate(['/voterdata-management/voter-details', id])
+  }
 
    event(event:any){
     this.PageNo = event;
@@ -176,6 +184,10 @@ export class OppositionListComponent implements OnInit {
     },(err)=>{
       this.loader.hideLoader();
     })
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

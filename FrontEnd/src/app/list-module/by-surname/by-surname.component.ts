@@ -3,6 +3,7 @@ import { VoterService} from 'src/app/services/voter.service'
 import { Router } from '@angular/router'
 import { LoaderService } from 'src/app/services/loader.service'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-by-surname',
@@ -26,6 +27,7 @@ export class BySurnameComponent implements OnInit {
     private router:Router,
     private loader:LoaderService,
     private translateConfigService: TranslateConfigService,
+    private location:Location
     ) { 
       this.Language = this.translateConfigService.getCurrentLang();
     }
@@ -126,6 +128,10 @@ export class BySurnameComponent implements OnInit {
         }
       })
     }
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

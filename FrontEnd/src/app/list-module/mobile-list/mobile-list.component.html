@@ -24,11 +24,14 @@
             <ion-grid class="header">
               <ion-row>
                 <ion-col size-xs="12" size-sm="6">
-                  <ion-card-header>
-                    <ion-card-title class="header1">{{'Mobile' | translate}},  {{'Total' | translate}} - <span> {{totalItems}} </span> </ion-card-title>
-                    <div class="headerLine"></div>
-                  </ion-card-header>
-  
+                  
+                  <div class="flexArrow">
+                    <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
+                    <ion-card-header>
+                      <ion-card-title class="header1">{{'Mobile' | translate}},  {{'Total' | translate}} - <span> {{totalItems}} </span> </ion-card-title>
+                      <div class="headerLine"></div>
+                    </ion-card-header>
+                  </div>
                 </ion-col>
                 <ion-col size-xs="12" size-sm="6" class="ion-text-right">
                   <!-- <ion-button class="button-download" fill="outline" color="success" >
@@ -62,6 +65,7 @@
                       <tr>
                         <th>Sr.No.</th>
                         <th>Name</th>
+                        <th>Part No.</th>
                         <th>Booth Name</th>
                         <th>Age</th>
                         <th>Gender</th>
@@ -73,9 +77,10 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr (click)="voterDetails(item)" *ngFor="let item of voterMobile | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems}">
+                      <tr *ngFor="let item of voterMobile | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems}">
                         <td>{{item.id}}</td>
-                        <td class="text-capitalize">{{item.fullName}}</td>
+                        <td (click)="EditVoter(item)" class="text-capitalize nameLink">{{item.fullName}}</td>
+                        <td>{{item.partNo}}</td>
                         <td>{{item.booth}}</td>
                         <td>{{item.age}}</td>
                         <td>{{item.gender}}</td>
@@ -101,7 +106,7 @@
       </ion-grid>
       <ion-grid class="android userList">
         <ion-searchbar (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true" *ngIf="isShow"></ion-searchbar>
-        <ion-list (click)="voterDetails(item)" *ngFor="let item of voterMobile | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems }">
+        <ion-list (click)="voterDetails(item.id)" *ngFor="let item of voterMobile | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems }">
           <ion-item lines="none">
             <div class="voterSec">
               <div class="photo">

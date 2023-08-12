@@ -755,8 +755,6 @@ form ion-label { color: #228bd2 !important; --font-weight: 400 !important; font-
     padding-top: 2px !important;
 }
 
-ion-item ion-label { font-size: 13px !important; }
-
 ion-input,  ion-textarea { color: #4e4e4e !important; background: #fafafa !important;  border: solid 1px #cccccc !important; --padding-top: 3px !important; --padding-bottom: 3px !important;}
 
 ion-select { color: #4e4e4e !important; background: #fafafa !important; border: solid 1px #cccccc !important; --placeholder-color: #878585; --placeholder-opacity: 1; }
@@ -783,15 +781,43 @@ ion-card-title {
 .android h3 {
   color: #ff5151;
   // color: #228bd2;
-  font-size: 15px;
+  font-size: 20px;
   line-height: 20px;
   font-weight: 600;
 }
 
+.android ion-label p {
+  font-size: 16px !important;
+  color: #202020 !important;
+}
+
+
+.lists ion-item ion-label h3  {
+  color: #202020 !important;
+  font-size: 20px !important;
+  font-weight: 600;
+  margin-bottom: 0px !important;
+}
+
+.voterSec {
+  display: flex;
+}
+
+.voterSec img {
+  width: 45px;
+}
+
+// .photo {
+//  padding-top: 6px;
+// }
+
+.voterSec ion-label {
+  padding-left: 5px;
+}
 
 .android h4 {
-  color: #7a7a7a;
-  font-size: 14px;
+  color: #202020;
+  font-size: 18px;
   margin-bottom: 1px;
 }
 
@@ -800,10 +826,6 @@ ion-card-title {
   font-weight: 600;
 }
 
-ion-label p {
-  font-size: 14px !important;
-  color: #81767a;
-}
 
 @media screen and (max-width:576px){
   .web {

@@ -6,6 +6,7 @@ import { TranslateConfigService } from 'src/app/services/translate-config.servic
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { ExcelService } from 'src/app/services/excel.service'
 import { CsvService } from 'src/app/services/csv.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-supporter-list',
@@ -31,7 +32,8 @@ export class SupporterListComponent implements OnInit {
     private translateConfigService: TranslateConfigService,
     private toast:IonicToastService,
     private excel:ExcelService,
-    private csv:CsvService
+    private csv:CsvService,
+    private location:Location
   ) {
     this.Language = this.translateConfigService.getCurrentLang();
    }
@@ -53,9 +55,15 @@ export class SupporterListComponent implements OnInit {
     this.supporterList(this.userId,this.roleID,event,this.NoofRow,this.Language,this.SearchText)
   }
 
-  voterDetails(item:any){
-    this.router.navigate(['voterdata-management/voter-details'], { state: item })
-   }
+  // data with state
+  // voterDetails(item:any){
+  //   this.router.navigate(['voterdata-management/voter-details'], { state: item })
+  //  }
+
+    // data with id
+  voterDetails(id: number) {
+    this.router.navigate(['/voterdata-management/voter-details', id])
+  }
 
   supporterList(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){
     //this.loader.showLoading();
@@ -178,6 +186,10 @@ export class SupporterListComponent implements OnInit {
     },(err)=>{
       this.loader.hideLoader();
     })
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

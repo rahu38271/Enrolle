@@ -9,6 +9,7 @@ import { IonicToastService} from 'src/app/services/ionic-toast.service'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { ExcelService } from 'src/app/services/excel.service'
 import { CsvService } from 'src/app/services/csv.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-agewise-list',
@@ -61,6 +62,7 @@ export class AgewiseListComponent implements OnInit {
     private translateConfigService: TranslateConfigService,
     private excel:ExcelService,
       private csv:CsvService,
+      private location:Location
     ) { 
       this.Language = this.translateConfigService.getCurrentLang();
       if(this.Language == "kn"){
@@ -88,9 +90,15 @@ export class AgewiseListComponent implements OnInit {
     this.agewiseSearch(this.userId,this.roleID,event,this.NoofRow,this.Language)
   }
 
-  voterDetails(item:any){
-    this.router.navigate(['voterdata-management/voter-details'], { state: item })
-   }
+  // data with state
+  // voterDetails(item:any){
+  //   this.router.navigate(['voterdata-management/voter-details'], { state: item })
+  //  }
+
+  // data with id
+  voterDetails(id: number) {
+    this.router.navigate(['/voterdata-management/voter-details', id])
+  }
 
    agewiseSearch(userId:any,roleID:any,PageNo:any,NofRow:any,Language:any) {
      this.isShow = true;
@@ -204,6 +212,10 @@ export class AgewiseListComponent implements OnInit {
 
     // Old monolithic-style usage:
     html2pdf(element, opt);
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

@@ -38,8 +38,6 @@ ion-list-header {  font-size: 15px; color: #3e4684; padding-inline-start:10px;  
 
 .android { display: none; }
 
-ion-label p {  color: #81767a; margin-bottom: 1px;  }
-
 @media screen and (max-width:576px){
     .main-content ion-card { display: none; }
 
@@ -118,7 +116,6 @@ ion-label {
 ion-list {
   margin-top: 2px;
 }
-
 
 .noData {
   padding: 20%;

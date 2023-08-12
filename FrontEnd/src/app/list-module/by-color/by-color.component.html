@@ -2,13 +2,15 @@
     <ion-header class="android">
       <ion-toolbar>
         <ion-buttons slot="start">
+          <ion-back-button defaultHref="/list"></ion-back-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
           <ion-menu-button auto-hide="false"></ion-menu-button>
         </ion-buttons>
-        <ion-title> {{'By Color' | translate}} </ion-title>
-        <ion-buttons slot="primary">
-          
-        </ion-buttons>
+        <ion-title>  {{'By Color' | translate}}</ion-title>
+        
       </ion-toolbar>
+      
     </ion-header>
     <div class="main-content">
       <!-- <ion-searchbar></ion-searchbar> -->
@@ -18,11 +20,14 @@
             <ion-grid class="header">
               <ion-row>
                 <ion-col size-xs="12" size-sm="6">
-                  <ion-card-header>
-                    <ion-card-title class="header1"> {{'By Color' | translate}} <span>  </span> </ion-card-title>
-                    <div class="headerLine"></div>
-                  </ion-card-header>
-  
+                  
+                  <div class="flexArrow">
+                    <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
+                    <ion-card-header>
+                      <ion-card-title class="header1"> {{'By Color' | translate}} <span>  </span> </ion-card-title>
+                      <div class="headerLine"></div>
+                    </ion-card-header>
+                  </div>
                 </ion-col>
                 <ion-col size-xs="12" size-sm="6" class="ion-text-right">
                   <!-- <ion-button class="button-download" fill="outline" color="success" >

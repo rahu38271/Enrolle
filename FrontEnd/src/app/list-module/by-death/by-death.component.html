@@ -2,10 +2,17 @@
     <ion-header class="android">
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-menu-button></ion-menu-button>
+          <ion-back-button defaultHref="/list"></ion-back-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-menu-button auto-hide="false"></ion-menu-button>
         </ion-buttons>
         <ion-title> Alive / Dead </ion-title>
-  
+        <ion-buttons slot="primary">
+          <ion-button (click)="search()">
+            <ion-icon name="search-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
     <div class="main-content">
@@ -17,10 +24,13 @@
               <ion-grid class="header">
                 <ion-row>
                   <ion-col size-xs="12" size-sm="6">
-                    <ion-card-header>
-                      <ion-card-title class="header1">Alive / Dead  </ion-card-title>
-                    </ion-card-header>
                     
+                    <div class="flexArrow">
+                      <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
+                      <ion-card-header>
+                        <ion-card-title class="header1">Alive / Dead  </ion-card-title>
+                      </ion-card-header>
+                    </div>
                   </ion-col>
                   <ion-col size-xs="12" size-sm="6" class="ion-text-right">
                     <!-- <ion-button class="button-download" fill="outline" color="success" >
@@ -40,43 +50,19 @@
                     <thead>
                       <tr>
                         
-                        <th style="width: 20px !important;">
-                          अ.क्र.
+                        <th>
+                          Alive / Dead
                         </th>
                         <th>
-                          गावाचे नाव
-                        </th>
-                        <th>
-                          एकूण
+                          Total
                         </th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        
-                        <td>1</td>
-                        <td>खडकवासला</td>
-                        <td>1398</td>
+                      <tr *ngFor="let item of voterDead">
+                        <td (click)="isDead(item.columnName)">{{item.columnName}}</td>
+                        <td>{{item.columnValue}}</td>
                       </tr>
-                      <tr>
-                        
-                        <td>2</td>
-                        <td>खडकवासला</td>
-                        <td>1244</td>
-                      </tr>
-                      <tr>
-                        
-                        <td>3</td>
-                        <td>खडकवासला</td>
-                        <td>610</td>
-                      </tr>
-                      <tr>
-                        
-                        <td>4</td>
-                        <td>खडकवासला</td>
-                        <td>1099</td>
-                      </tr>
-    
                     </tbody>
                   </table>
                 </div>

@@ -207,8 +207,8 @@ export class VoterService {
 
   // voter by Caste
 
-  voterByCaste(Caste:number,userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any){
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Caste&ColoumnValue='+Caste+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language)
+  voterByCaste(Caste:number,userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Caste&ColoumnValue='+Caste+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
   }
 
   // voter by occupation / profession

@@ -6,6 +6,7 @@ import { TranslateConfigService } from 'src/app/services/translate-config.servic
 import { ExcelService } from 'src/app/services/excel.service'
 import { CsvService } from 'src/app/services/csv.service';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-castwise-list',
@@ -22,7 +23,7 @@ export class CastwiseListComponent implements OnInit {
   searchMob:string;
   roleID:any;
   PageNo:any=1;
-  NoofRow:any=10;
+  NoofRow:any=25;
   totalItems:any;
   VoterwithCaste:any;
   SearchText:any;
@@ -39,7 +40,8 @@ export class CastwiseListComponent implements OnInit {
     private translateConfigService: TranslateConfigService,
     private excel:ExcelService,
     private csv:CsvService,
-    private toast:IonicToastService
+    private toast:IonicToastService,
+    private location: Location
   ) {
     this.Language = this.translateConfigService.getCurrentLang();
    }
@@ -48,15 +50,21 @@ export class CastwiseListComponent implements OnInit {
     this.userId = localStorage.getItem("loginId");
     this.roleID = localStorage.getItem("userType")
     this.caste = this.route.snapshot.paramMap.get('Caste');
-    this.casteWiseVoter(this.userId, this.roleID,this.PageNo,this.NoofRow,this.Language);
+    if(this.SearchText==undefined){
+      this.SearchText = ''
+    }
+    else{
+      this.SearchText = this.SearchText
+    }
+    this.casteWiseVoter(this.userId, this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
   }
 
   event(event:any){
     this.PageNo = event;
-    this.casteWiseVoter(this.userId,this.roleID,event,this.NoofRow,this.Language)
+    this.casteWiseVoter(this.userId,this.roleID,event,this.NoofRow,this.Language,this.SearchText)
   }
 
-  casteWiseVoter(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any){
+  casteWiseVoter(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){
     if(this.Language == "kn"){
       this.Language = "Kannada"
     }
@@ -69,28 +77,34 @@ export class CastwiseListComponent implements OnInit {
     else{
       this.Language = "English"
     }
-    this.voter.voterByCaste(this.caste,userId,roleID,PageNo,NoofRow,this.Language).subscribe(data=>{
+    this.voter.voterByCaste(this.caste,userId,roleID,PageNo,NoofRow,this.Language,this.SearchText).subscribe(data=>{
       this.VoterwithCaste = data;
       this.totalItems = data[0].totalCount
     })
   }
 
-  voterDetails(item:any){
-    this.router.navigate(['voterdata-management/voter-details'], { state: item })
-   }
+  // data with state
+  // voterDetails(item:any){
+  //   this.router.navigate(['voterdata-management/voter-details'], { state: item })
+  //  }
+
+       // data with id
+  voterDetails(id: number) {
+    this.router.navigate(['/voterdata-management/voter-details', id])
+  }
 
    onSearchChange(SearchText: any) {
     if (this.SearchText == '') {
       this.PageNo = 1;
       this.NoofRow = this.totalItems;
       this.SearchText = SearchText;
-      this.casteWiseVoter(this.userId, this.roleID,this.PageNo,this.NoofRow,this.Language);
+      this.casteWiseVoter(this.userId, this.roleID,this.PageNo,this.NoofRow,this.Language,SearchText);
     }
     else {
       this.PageNo = 1;
       this.NoofRow = 25;
       this.SearchText = SearchText.trim();
-      this.voter.voterByPart(this.partNumber, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+      this.voter.voterByCaste(this.caste, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language,this.SearchText).subscribe(data => {
         if (data) {
           this.VoterwithCaste = data;
           this.totalItems = data[0].totalCount
@@ -104,13 +118,13 @@ export class CastwiseListComponent implements OnInit {
       this.PageNo = 1;
       this.NoofRow = this.totalItems;
       this.SearchText = SearchText;
-      this.casteWiseVoter(this.userId, this.roleID,this.PageNo,this.NoofRow,this.Language);
+      this.casteWiseVoter(this.userId, this.roleID,this.PageNo,this.NoofRow,this.Language,SearchText);
     }
     else {
       this.PageNo = 1;
       this.NoofRow = 25;
       this.SearchText = SearchText.trim();
-      this.voter.voterByPart(this.partNumber, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+      this.voter.voterByCaste(this.caste, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language,this.SearchText).subscribe(data => {
         if (data) {
           this.VoterwithCaste = data;
           this.totalItems = data[0].totalCount
@@ -124,7 +138,7 @@ export class CastwiseListComponent implements OnInit {
     this.NoofRow=this.totalItems;
     var SearchText = "";
     this.loader.showLoading();
-    this.voter.voterByCaste(this.caste,this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language).subscribe(data=>{
+    this.voter.voterByCaste(this.caste,this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
       if(data.length != 0){
         this.loader.hideLoader();
         this.VoterwithCaste = data;
@@ -146,7 +160,7 @@ export class CastwiseListComponent implements OnInit {
     this.NoofRow=this.totalItems;
     var SearchText = "";
     this.loader.showLoading();
-    this.voter.voterByCaste(this.caste,this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language).subscribe(data=>{
+    this.voter.voterByCaste(this.caste,this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
       if(data.length != 0){
         this.loader.hideLoader();
         this.VoterwithCaste = data;
@@ -161,6 +175,14 @@ export class CastwiseListComponent implements OnInit {
     },(err)=>{
       this.loader.hideLoader();
     })
+  }
+
+  goBack() {
+    this.location.back();
+  }
+
+  EditVoter(data:any){
+    this.router.navigateByUrl('/voterdata-management/edit-voterdata',{state: data})
   }
 
 }

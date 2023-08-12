@@ -3,6 +3,7 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { VoterService } from 'src/app/services/voter.service';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { ActivatedRoute,Route,Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-societywise-list',
@@ -31,6 +32,7 @@ export class SocietywiseListComponent implements OnInit {
     private route:ActivatedRoute,
     private router:Router,
     private translateConfigService: TranslateConfigService,
+    private location:Location
     ) {
       this.Language = this.translateConfigService.getCurrentLang();
      }
@@ -65,6 +67,7 @@ export class SocietywiseListComponent implements OnInit {
     this.voter.voterBySoci(this.society,UserId,roleId,PageNo,NoofRow,this.Language,this.SearchText).subscribe(data=>{
       if(data != 0){
         this.voterWithSoci = data;
+        this.totalItems = data[0].totalCount;
       }
       else{
 
@@ -74,9 +77,15 @@ export class SocietywiseListComponent implements OnInit {
     })
   }
 
-  voterDetails(item:any){
-    this.router.navigate(['voterdata-management/voter-details'], { state: item })
-   }
+  // data with state
+  // voterDetails(item:any){
+  //   this.router.navigate(['voterdata-management/voter-details'], { state: item })
+  //  }
+
+     // data with id
+  voterDetails(id: number) {
+    this.router.navigate(['/voterdata-management/voter-details', id])
+  }
 
    onSearchChange(SearchText: any) {
     if (this.SearchText == '') {
@@ -118,5 +127,12 @@ export class SocietywiseListComponent implements OnInit {
     }
    }
 
+   EditVoter(data:any){
+    this.router.navigateByUrl('/voterdata-management/edit-voterdata',{state: data})
+  }
+
+  goBack(){
+    this.location.back();
+  }
 
 }

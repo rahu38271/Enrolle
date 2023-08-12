@@ -4,6 +4,7 @@ import { Router } from '@angular/router'
 import { IonicToastService} from 'src/app/services/ionic-toast.service'
 import { LoaderService } from 'src/app/services/loader.service'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -25,6 +26,7 @@ export class ByVillageComponent implements OnInit {
     private toast:IonicToastService,
     private loader:LoaderService,
     private translateConfigService: TranslateConfigService,
+    private location:Location
     ) {
       this.Language = this.translateConfigService.getCurrentLang();
      }
@@ -81,6 +83,10 @@ export class ByVillageComponent implements OnInit {
     if (event.detail.value) {
       this.searchMob = event.detail.value.trim();
     }
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

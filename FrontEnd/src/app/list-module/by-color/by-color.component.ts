@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { VoterService } from 'src/app/services/voter.service'
 import { Router } from '@angular/router'
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-by-color',
@@ -15,7 +16,11 @@ export class ByColorComponent implements OnInit {
   roleID:any;
   searchMob:string;
 
-  constructor(private voter: VoterService, private router: Router) { }
+  constructor(
+    private voter: VoterService, 
+    private router: Router,
+    private location:Location
+    ) { }
 
   search() {
     this.isShow = !this.isShow
@@ -48,6 +53,10 @@ export class ByColorComponent implements OnInit {
 
   other(){
     this.router.navigate(['/list/other']);
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 

@@ -3,6 +3,7 @@ import { VoterService } from 'src/app/services/voter.service'
 import { Router } from '@angular/router'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { LoaderService } from 'src/app/services/loader.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-by-address',
@@ -17,12 +18,14 @@ export class ByAddressComponent implements OnInit {
   id:any
   roleId:any;
   cp: number = 1;
+  totalItems:any;
   
   constructor(
     private voter:VoterService, 
     private router:Router,
     private translateConfigService: TranslateConfigService,
-    private loader:LoaderService
+    private loader:LoaderService,
+    private location:Location
     ) { 
       this.Language = this.translateConfigService.getCurrentLang();
     }
@@ -66,6 +69,7 @@ export class ByAddressComponent implements OnInit {
       if(data.length != 0){
         this.loader.hideLoader();
         this.adrsData = data;
+        this.totalItems = data[0].totalCount
       }
       else{
         this.loader.hideLoader();
@@ -73,6 +77,10 @@ export class ByAddressComponent implements OnInit {
     },(err)=>{
       this.loader.hideLoader();
     })
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

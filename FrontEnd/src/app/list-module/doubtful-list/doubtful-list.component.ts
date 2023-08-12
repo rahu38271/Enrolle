@@ -6,6 +6,7 @@ import { TranslateConfigService } from 'src/app/services/translate-config.servic
 import { IonicToastService } from 'src/app/services/ionic-toast.service'; 
 import { ExcelService } from 'src/app/services/excel.service'
 import { CsvService } from 'src/app/services/csv.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-doubtful-list',
@@ -31,7 +32,8 @@ export class DoubtfulListComponent implements OnInit {
     private translateConfigService: TranslateConfigService,
     private toast:IonicToastService,
     private excel:ExcelService,
-    private csv:CsvService
+    private csv:CsvService,
+    private location:Location
   ) {
     this.Language = this.translateConfigService.getCurrentLang();
    }
@@ -48,9 +50,15 @@ export class DoubtfulListComponent implements OnInit {
     this.doubtfulList(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
   }
 
-  voterDetails(item:any){
-    this.router.navigate(['voterdata-management/voter-details'], { state: item })
-   }
+  // data with state
+  // voterDetails(item:any){
+  //   this.router.navigate(['voterdata-management/voter-details'], { state: item })
+  //  }
+
+    // data with id
+  voterDetails(id: number) {
+    this.router.navigate(['/voterdata-management/voter-details', id])
+  }
 
    event(event:any){
     this.PageNo = event;
@@ -136,7 +144,6 @@ export class DoubtfulListComponent implements OnInit {
   }
 
   exportExcel():void {
-    debugger;
     this.PageNo=1;
     this.NoofRow=this.totalItems;
     var SearchText = "";
@@ -178,6 +185,10 @@ export class DoubtfulListComponent implements OnInit {
     },(err)=>{
       this.loader.hideLoader();
     })
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

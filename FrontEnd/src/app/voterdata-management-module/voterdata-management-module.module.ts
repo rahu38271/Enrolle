@@ -40,8 +40,8 @@ import { TranslateModule } from '@ngx-translate/core';
         {path:'edit-voterdata', component:EditVoterdataComponent},
         {path:'add-voter', component:AddVoterComponent},
         {path:'import-voter', component:ImportVoterdataComponent},
-        {path:'voter-details', component:VoterDetailsComponent},  
-        //{path:'voter-details/:id', component:VoterDetailsComponent},  
+        //{path:'voter-details', component:VoterDetailsComponent},  
+        {path:'voter-details/:id', component:VoterDetailsComponent},  
         {path:'family', component:FamilyComponent}, 
         {path:'voterby-user', component:VoterbyUserComponent} ])
   ],

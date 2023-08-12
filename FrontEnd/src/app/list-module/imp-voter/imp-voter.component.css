@@ -42,11 +42,9 @@ ion-list-header {  font-size: 15px; color: #3e4684; padding-inline-start:10px;  
 
 .android { display: none; }
 
-ion-label p { float: left; margin-bottom: 1px !important;  color: #81767a;  }
-
 @media screen and (max-width:576px){
     .main-content ion-card { display: none; }
-    .firstLine h3 { width: 300px; }
+    /* .firstLine h3 { width: 300px; } */
     .header1 {
         color: #f03d9e !important;
          width: 86% !important; 

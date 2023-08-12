@@ -42,8 +42,6 @@ ion-list-header {  font-size: 15px; color: #3e4684; padding-inline-start:10px;  
 
 .android { display: none; }
 
-ion-label p { float: left; margin-bottom: 1px !important;  color: #81767a;  }
-
 @media screen and (max-width:576px){
     .main-content ion-card { display: none; }
     .firstLine h3 { width: 300px; }
@@ -167,28 +165,28 @@ ion-list {
  }
 
  .table tr th:nth-child(9){
-  width: 200px !important;
-  display: block;
+  max-width: 200px !important;
 }
 
 .table tr td:nth-child(9){
   max-width: 200px !important;
-  display: block;
 }
 
-
 .table tr th:nth-child(2){
-  width: 200px !important;
+  max-width: 150px !important;
+  //background: #F00;
 }
 
 .table tr td:nth-child(2){
-  width: 200px !important;
+  max-width: 150px !important;
+  //background: #F00;
 }
 
+
 .table tr th:nth-child(3){
-  width: 200px !important;
+  max-width: 150px !important;
 }
 
 .table tr td:nth-child(3){
-  width: 200px !important;
+  max-width: 150px !important;
 }
