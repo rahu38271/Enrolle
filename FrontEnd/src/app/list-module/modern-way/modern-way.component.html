@@ -33,7 +33,7 @@
       <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
         <ion-row>
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
-            <ion-label> {{'Last Name' | translate}} </ion-label>
+            <ion-label> {{'Sur Name' | translate}} </ion-label>
             <ion-input (keypress)="onKeyPress($event)" name="LastName" [(ngModel)]="searchModal.LastName"
               (change)="trimInput()" class="form-control"></ion-input>
           </ion-col>
@@ -45,47 +45,49 @@
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
-            <ion-label> {{'Father / Husbands Name' | translate}} </ion-label>
+            <ion-label> {{'Middle Name' | translate}} </ion-label>
             <ion-input (keypress)="onKeyPress($event)" name="MiddleName" [(ngModel)]="searchModal.MiddleName"
               (change)="trimInput()" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
-            <ion-label> {{'Voting Card' | translate}} </ion-label>
+            <ion-label> {{'Voter ID' | translate}} </ion-label>
             <ion-input (keypress)="omit_special_char($event)" name="VotingCardNo" [(ngModel)]="searchModal.VotingCardNo"
               (change)="trimInput()" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
-            <ion-label> From Age </ion-label>
+            <ion-label> Age From </ion-label>
             <ion-input (keypress)="keyPressNumbers($event)" maxlength="3" name="FromAge"
               [(ngModel)]="searchModal.FromAge" (change)="trimInput()" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
-            <ion-label> To Age </ion-label>
+            <ion-label> Age To </ion-label>
             <ion-input (keypress)="keyPressNumbers($event)" maxlength="3" name="ToAge" [(ngModel)]="searchModal.ToAge"
               (change)="trimInput()" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
             <ion-label> {{'Gender' | translate}} </ion-label>
-            <ion-radio-group name="Gender" [(ngModel)]="searchModal.Gender">
-              <div class="radioBtn">
+            <ion-radio-group name="Gender" [(ngModel)]="searchModal.Gender" class="form-control">
+              <!-- <div class="radioBtn">
                 <div>
                   <ion-radio value="M"></ion-radio>
-                  <ion-label> {{'Male' | translate}}</ion-label>
+                  <ion-label> {{'M' | translate}}</ion-label>
                 </div>
 
                 <div>
                   <ion-radio value="F"></ion-radio>
-                  <ion-label> {{'Female' | translate}}</ion-label>
+                  <ion-label> {{'F' | translate}}</ion-label>
                 </div>
 
-                <!-- <div>
-                  <ion-radio value="O" ></ion-radio>
-                  <ion-label>Other</ion-label>
-                </div> -->
+              </div> -->
+              <div class="radioBtn">
+                <ion-radio value="M"></ion-radio>
+                <ion-label>{{'M' | translate}}</ion-label>
+                <ion-radio value="F" class="female"></ion-radio>
+                <ion-label>{{'F' | translate}}</ion-label>
               </div>
             </ion-radio-group>
           </ion-col>
@@ -193,7 +195,7 @@
                 <th>Age</th>
                 <th>Gender</th>
                 <th>House</th>
-                <th>Voting Card No.</th>
+                <th>Voter ID</th>
                 <th>Village</th>
                 <th>Address</th>
               </tr>

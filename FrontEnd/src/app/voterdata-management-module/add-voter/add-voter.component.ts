@@ -9,6 +9,7 @@ import {WardService } from 'src/app/services/ward.service'
 import { BoothService } from 'src/app/services/booth.service'
 import { Router } from '@angular/router'
 import { Location } from '@angular/common'
+import { TranslateConfigService } from 'src/app/services/translate-config.service';
 
 @Component({
   selector: 'app-add-voter',
@@ -21,6 +22,7 @@ export class AddVoterComponent implements OnInit {
   talukaList:any;
   maxDate:String = new Date().toISOString();
   addVoterModal:any = { };
+  casteList:any;
 
   myForm;
   UserId:any;
@@ -35,6 +37,7 @@ export class AddVoterComponent implements OnInit {
   roleId:any;
   superAdminId:any;
   name:any;
+  Language:any;
  
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -73,10 +76,11 @@ omit_special_char(event) {
       private ward:WardService,
       private booth:BoothService,
       private router:Router,
-      private location: Location
+      private location: Location,
+      private translateConfigService: TranslateConfigService,
     )
      {
-
+      this.Language = this.translateConfigService.getCurrentLang();
       }
 
       ngOnInit() {
@@ -95,6 +99,7 @@ omit_special_char(event) {
         this.getAssembly();
         this.getWard();
         this.getBooth();
+        this.AllCasts();
       }
 
   getDistrict(){
@@ -192,6 +197,24 @@ omit_special_char(event) {
 
   goBack(){
     this.location.back();
+  }
+
+  AllCasts() {
+    if (this.Language == "kn") {
+      this.Language = "Kannada"
+    }
+    else if (this.Language == "mr") {
+      this.Language = "Marathi"
+    }
+    else if (this.Language == "hi") {
+      this.Language = "Hindi"
+    }
+    else {
+      this.Language = "English"
+    }
+    this.voter.getAllCaste(this.Language).subscribe(data => {
+      this.casteList = data;
+    })
   }
 
 }

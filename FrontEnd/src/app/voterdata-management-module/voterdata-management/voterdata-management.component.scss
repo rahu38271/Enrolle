@@ -143,9 +143,6 @@ ion-searchbar {
     padding-bottom: 5px;
 }
 
-table th, td {
-  font-size: 13px !important;
-}
 
 .search { width: 250px; font-size: 10px !important; }
 
@@ -169,10 +166,9 @@ ion-grid ion-text {
     font-size: 16px;
 }
 
-// .radioBtn {
-//   display: flex;
-// justify-content: space-between;
-// }
+.radioBtn {
+  display: flex;
+}
 
 .editVoter {
   cursor: pointer;
@@ -214,3 +210,4 @@ td ion-icon {
 .table tr td:nth-child(3){
   width: 200px !important;
 }
+

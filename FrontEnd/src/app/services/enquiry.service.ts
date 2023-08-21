@@ -8,77 +8,119 @@ import { Observable } from 'rxjs';
 })
 export class EnquiryService {
 
+  token:String=''
+
   url = environment.apiUrl;
 
   constructor(
     private http:HttpClient
-  ) { }
+  ) {
+    this.token = localStorage.getItem('token');
+   }
 
   // add type of work 
   getWork(){
-    return this.http.get(this.url+'GeneralEnquiry/GetAllTypeofWorks')
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get(this.url+'GeneralEnquiry/GetAllTypeofWorks',{ headers })
   }
   
   // get type of complaint 
   getComplaints(){
-    return this.http.get(this.url+'GeneralEnquiry/GetAllTypeOfComplaints')
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get(this.url+'GeneralEnquiry/GetAllTypeOfComplaints',{ headers })
   }
 
   // get type of form 
   getForms(){
-    return this.http.get(this.url+'GeneralEnquiry/GetAllTypeOfForms')
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get(this.url+'GeneralEnquiry/GetAllTypeOfForms',{ headers })
   }
 
   // get type of area 
   getArea(){
-    return this.http.get(this.url+'GeneralEnquiry/GetAllArea')
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get(this.url+'GeneralEnquiry/GetAllArea',{ headers })
   }
 
   // add type of work
   addSingleWork(workModal:any){
-    return this.http.post(this.url+'GeneralEnquiry/InsertTypeofWork', workModal)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post(this.url+'GeneralEnquiry/InsertTypeofWork', workModal,{ headers })
   }
 
   //add area
   addSingleArea(areaModal:any){
-    return this.http.post(this.url+'GeneralEnquiry/InsertArea',areaModal)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post(this.url+'GeneralEnquiry/InsertArea',areaModal,{ headers })
   }
 
   // add type of form
   addSingleform(formsModal:any){
-    return this.http.post(this.url+'GeneralEnquiry/InsertTypeOfForm', formsModal)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post(this.url+'GeneralEnquiry/InsertTypeOfForm', formsModal,{ headers })
   }
 
   // add type of complaint
   addSingleComplaint(complaintModal:any){
-    return this.http.post(this.url+'GeneralEnquiry/InsertTypeofComplaint',complaintModal)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post(this.url+'GeneralEnquiry/InsertTypeofComplaint',complaintModal,{ headers })
   }
 
   //get all general enquiry
   getAllEnquiry(UserId:any,RoleId:any,PageNo:any,NoofRow:any,SearchText:any){
-    return this.http.get(this.url+'GeneralEnquiry/GetAllEnquiry?UserId='+UserId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get(this.url+'GeneralEnquiry/GetAllEnquiry?UserId='+UserId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText,{ headers })
   }
 
   //delete enquiry
   deleteEnq(id:any){
-    return this.http.get(this.url+'GeneralEnquiry/DeleteEnquirybyId?Id='+id)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get(this.url+'GeneralEnquiry/DeleteEnquirybyId?Id='+id,{ headers })
   }
 
   //add enquiry
   addSingleEnquiry(enquiryModal:any){
-    return this.http.post(this.url+'GeneralEnquiry/InsertUpdateGeneralEnquiry',enquiryModal)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post(this.url+'GeneralEnquiry/InsertUpdateGeneralEnquiry',enquiryModal,{ headers })
   }
 
   // search enquiry
 
   searchEnquiry(searchModal:any):Observable<any>{
-    debugger;
-    return this.http.post(this.url+'GeneralEnquiry/SearchEnquiry',searchModal)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post(this.url+'GeneralEnquiry/SearchEnquiry',searchModal,{ headers })
   }
 
   // datewise enquiry
 
   enquiryByDate(UserId:any,RoleId:any,PageNo:any,NoofRow:any,TypeofWork:any,FromDate:any,ToDate:any){
-    return this.http.get(this.url+'GeneralEnquiry/GetEnquirybyTypeofWork?UserId='+UserId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&TypeofWork='+TypeofWork+'&FromDate='+FromDate+'&ToDate='+ToDate)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get(this.url+'GeneralEnquiry/GetEnquirybyTypeofWork?UserId='+UserId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&TypeofWork='+TypeofWork+'&FromDate='+FromDate+'&ToDate='+ToDate,{ headers })
   }
 }

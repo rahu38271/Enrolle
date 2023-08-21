@@ -109,7 +109,7 @@
                   </thead>
                   <tbody>
                     <tr
-                      *ngFor="let item of getAnniversary | filter:searchWeb | paginate: { itemsPerPage: 10, currentPage: cp  }; let i=index">
+                      *ngFor="let item of getAnniversary | filter:searchWeb | paginate: { itemsPerPage: 25, currentPage: cp  }; let i=index">
                       <td> {{ (cp - 1) * 10 + i + 1 }} </td>
                       <td class="text-capitalize"> {{ item.fullName }} </td>
                       <td class="text-capitalize"> {{ item.vilageName }} </td>

@@ -2,10 +2,10 @@ import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@an
 import { AlertController } from '@ionic/angular';
 import { SuperadminService } from 'src/app/services/superadmin.service'
 import { LoaderService } from 'src/app/services/loader.service'
-import { Router, ActivatedRoute } from '@angular/router'
+import { Router, ActivatedRoute,NavigationEnd } from '@angular/router'
 import { Location } from '@angular/common';
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
-
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-superadmin',
@@ -32,12 +32,10 @@ export class SuperadminComponent implements OnInit {
   id: any;
   roleName: string;
 
-
   search() {
     this.isShow = !this.isShow
   }
   
-
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
 
   constructor
@@ -49,7 +47,7 @@ export class SuperadminComponent implements OnInit {
       private location: Location,
       private toast: IonicToastService,
       private route: ActivatedRoute,
-      private changeDetection: ChangeDetectorRef
+      private cdRef: ChangeDetectorRef
     ) {
       
   }
@@ -98,14 +96,10 @@ export class SuperadminComponent implements OnInit {
             else if (e.roleId == 6) {
               e = { ...e, roleName: "Member" };
             }
-            
             this.getAdminList.push(e);
-            // this.getAdminList.forEach(e => {
-            //   e.createdDate = e.createdDate.split('T')[0];
-            // });
             
           });
-          
+         
         }
         else {
           this.loader.hideLoader();
@@ -142,9 +136,6 @@ export class SuperadminComponent implements OnInit {
               e = { ...e, roleName: "Member" };
             }
             this.getAdminList.push(e);
-            // this.getAdminList.forEach(e => {
-            //   e.createdDate = e.createdDate.split('T')[0];
-            // });
             
           });
           
@@ -185,7 +176,7 @@ export class SuperadminComponent implements OnInit {
               e = { ...e, roleName: "Member" };
             }
             this.getAdminList.push(e);
-
+           
           });
         }
         else {
@@ -203,6 +194,7 @@ export class SuperadminComponent implements OnInit {
               e = { ...e, roleName: "Member" };
             }
             this.getAdminList.push(e);
+            
           });
         }
       })

@@ -91,6 +91,7 @@ export class OppositionListComponent implements OnInit {
         this.totalItems = data[0].totalCount
       }
       else{
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
         //this.loader.hideLoader();
       }
     },(err)=>{

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient,HttpHeaders } from '@angular/common/http'
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
@@ -8,28 +8,41 @@ import { Observable } from 'rxjs';
 })
 export class ReportsService {
 
+  token:String=''
+
   url = environment.apiUrl
 
   constructor(
     private http:HttpClient
-  ) { }
+  ) {
+    this.token = localStorage.getItem('token');
+   }
 
   // get All Reports
 
   getReportsList(userId:any,RoleId:any,PageNo:any,NoofRow:any,SearchText:any):Observable<any>{
-    return this.http.get<any>(this.url+'ActivityLog/GetActivityLogs?UserId='+userId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'ActivityLog/GetActivityLogs?UserId='+userId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText,{ headers })
   }
 
   // reports by Date
 
   getReportByDate(UserId:any,RoleId:any,PageNo:any,NoofRow:any,FromDate:any,ToDate:any){
-    return this.http.get<any>(this.url+'ActivityLog/GetActivityLogsBetweenDate?UserId='+UserId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&FromDate='+FromDate+'&ToDate='+ToDate)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'ActivityLog/GetActivityLogsBetweenDate?UserId='+UserId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&FromDate='+FromDate+'&ToDate='+ToDate,{ headers })
   }
 
   // reports by user
 
   getReportByUser(FromDate:any,ToDate:any,Id:any,RoleId:any){
-    return this.http.get<any>(this.url+'ActivityLog/GetActivityLogCountbyUserId?FromDate='+FromDate+'&ToDate'+ToDate+'&RoleId='+RoleId+'&Id='+Id)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'ActivityLog/GetActivityLogCountbyUserId?FromDate='+FromDate+'&ToDate'+ToDate+'&RoleId='+RoleId+'&Id='+Id,{ headers })
   }
 
   

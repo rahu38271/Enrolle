@@ -73,6 +73,9 @@
                     
                   </tbody>
                 </table>
+                <div *ngIf="!castData || castData.length === 0" class="text-center noData">
+                  <p> {{'No data available' | translate}}</p>
+                </div>
               </div>
             </ion-card-content>
             

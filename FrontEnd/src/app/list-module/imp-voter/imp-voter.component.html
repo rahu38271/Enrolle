@@ -68,7 +68,7 @@
                         <th>Age</th>
                         <th>Gender</th>
                         <th>House</th>
-                        <th>Voting Card No.</th>
+                        <th>Voter ID</th>
                         <th>Village</th>
                         <th>Address</th>
                       </tr>
@@ -88,11 +88,11 @@
   
                     </tbody>
                   </table>
-                  <pagination-controls (pageChange)="event($event)"></pagination-controls>
+                  
                   <div *ngIf="!impVoterData || impVoterData.length === 0" class="text-center">
-                    <img src="assets/img/question.png" />
                     <p> {{'No data available' | translate}}</p>
                   </div>
+                  <pagination-controls (pageChange)="event($event)"></pagination-controls>
                 </div>
               </ion-card-content>
             </ion-card>

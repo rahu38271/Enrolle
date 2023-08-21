@@ -29,33 +29,30 @@
       </ion-row>
       <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate >
         <ion-row>
-          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6" size-xs="12">
-            <ion-label>  {{'House No.' | translate}} </ion-label>
-              <ion-input name="House" [(ngModel)]="surveyModel.HouseNo"  maxlength="6" class="form-control text-capitalize"></ion-input>
-          </ion-col>
 
           <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label>  {{'Name' | translate}} </ion-label>
               <ion-input name="Name" [(ngModel)]="surveyModel.FullName" (keypress)="onKeyPress($event)" class="form-control text-capitalize" required></ion-input>
           </ion-col>
 
-          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+          <ion-col size-xl="1" size-lg="2" size-md="6" size-sm="6" size-xs="12">
+            <ion-label>  {{'House No.' | translate}} </ion-label>
+              <ion-input name="House" [(ngModel)]="surveyModel.HouseNo"  maxlength="6" class="form-control text-capitalize"></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="2" size-lg="2" size-md="6" size-sm="6" size-xs="12">
             <ion-label>  {{'Gender' | translate}} </ion-label>
-              <ion-radio-group name="Gender" [(ngModel)]="surveyModel.Gender">
-                <div class="radioBtn" >
-                  <div>
-                    <ion-radio value="M" ></ion-radio>
-                    <ion-label>{{'Male' | translate}}</ion-label>
-                  </div>
-                  <div>
-                    <ion-radio value="F" ></ion-radio>
-                    <ion-label>{{'Female' | translate}}</ion-label>
-                  </div>
+              <ion-radio-group name="Gender" [(ngModel)]="surveyModel.Gender" class="form-control">
+                <div class="radioBtn">
+                  <ion-radio value="M"></ion-radio>
+                  <ion-label>{{'M' | translate}}</ion-label>
+                  <ion-radio value="F" class="female"></ion-radio>
+                  <ion-label>{{'F' | translate}}</ion-label>
                 </div>
               </ion-radio-group>
           </ion-col>
 
-          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+          <ion-col size-xl="2" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label>   {{'DOB' | translate}} </ion-label>
              <ion-input
               value="{{ BirthDate | date : 'yyyy-MM-dd'}}"
@@ -81,7 +78,7 @@
              </ion-modal>
           </ion-col>
 
-          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+          <ion-col size-xl="1" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label>   {{'Age' | translate}}</ion-label>
               <ion-input [(ngModel)]="surveyModel.Age" name="Age" maxlength="3" class="form-control">
               </ion-input>
@@ -92,34 +89,34 @@
               <ion-input [(ngModel)]="surveyModel.MobileNo" name="Mobile" minlength="10" maxlength="12" (keypress)="keyPressNumbers($event)" class="form-control"></ion-input>
           </ion-col>
 
-          <ion-col size-xl="6" size-lg="6" size-md="12" size-sm="12" size-xs="12">
+          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+            <ion-label>{{'Alt. No.' | translate}}  </ion-label>
+              <ion-input name="AltMobile" [(ngModel)]="surveyModel.AlternateMobileNo"  minlength="10" maxlength="12"  (keypress)="keyPressNumbers($event)" class="form-control"></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="4" size-lg="6" size-md="12" size-sm="12" size-xs="12">
             <ion-label>   {{'Address' | translate}}   </ion-label>
               <ion-textarea name="Address" [(ngModel)]="surveyModel.Address" class="form-control"></ion-textarea>
           </ion-col>
 
-          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+          <ion-col size-xl="2" size-lg="3" size-md="6" size-sm="6" size-xs="12">
             <ion-label>  {{'Family Members' | translate}}  </ion-label>
               <ion-input name="Family" [(ngModel)]="surveyModel.Family" maxlength="2" (keypress)="keyPressNumbers($event)" class="text-capitalize" class="form-control"></ion-input>
           </ion-col>
 
-          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6">
+          <ion-col size-xl="2" size-lg="3" size-md="6" size-sm="6">
             <ion-label> {{'Disability' | translate}} </ion-label>
-            
               <ion-radio-group name="Disability" [(ngModel)]="surveyModel.IsDisable">
-                <div class="radioBtn" >
-                  <div>
-                    <ion-radio value="Y" ></ion-radio>
+                <div class="radioBtn">
+                  <ion-radio value="Y" ></ion-radio>
                     <ion-label>{{'Yes' | translate}}</ion-label>
-                  </div>
-                  <div>
-                    <ion-radio value="N" ></ion-radio>
+                    <ion-radio value="N" class="female"></ion-radio>
                     <ion-label>{{'No' | translate}}</ion-label>
-                  </div>
                 </div>
               </ion-radio-group>
           </ion-col>
 
-          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+          <ion-col size-xl="1" size-lg="2" size-md="6" size-sm="6" size-xs="12">
             <ion-label>  {{'Education' | translate}} </ion-label>
               <ion-input name="Education" [(ngModel)]="surveyModel.Education"  class="form-control"></ion-input>
           </ion-col>
@@ -129,10 +126,7 @@
               <ion-input name="Occupation" [(ngModel)]="surveyModel.Occupation"  class="form-control"></ion-input>
           </ion-col>
 
-          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6" size-xs="12">
-            <ion-label>{{'Alt. No.' | translate}}  </ion-label>
-              <ion-input name="AltMobile" [(ngModel)]="surveyModel.AlternateMobileNo"  minlength="10" maxlength="12"  (keypress)="keyPressNumbers($event)" class="form-control"></ion-input>
-          </ion-col>
+          
 
           <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label>  {{'Caste' | translate}} </ion-label>
@@ -153,10 +147,10 @@
               <ion-textarea name="WorkLeft" [(ngModel)]="surveyModel.WorkLeft" class="form-control"></ion-textarea>
           </ion-col>
 
-          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6">
+          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6">
             <ion-label>   {{' Right now you are happy with the service ?' | translate}} </ion-label>
               <ion-radio-group name="Service" [(ngModel)]="surveyModel.HappywithService">
-                <div class="radioBtn" >
+                <!-- <div class="radioBtn" >
                   <div>
                     <ion-radio value="Y" ></ion-radio>
                     <ion-label>{{'Yes' | translate}}</ion-label>
@@ -169,6 +163,14 @@
                     <ion-radio value="O" ></ion-radio>
                     <ion-label>{{'Other' | translate}}</ion-label>
                   </div>
+                </div> -->
+                <div class="radioBtn">
+                  <ion-radio value="Y" ></ion-radio>
+                    <ion-label>{{'Yes' | translate}}</ion-label>
+                    <ion-radio value="N" class="female" ></ion-radio>
+                    <ion-label>{{'No' | translate}}</ion-label>
+                    <ion-radio value="O" class="female"></ion-radio>
+                    <ion-label>{{'Other' | translate}}</ion-label>
                 </div>
               </ion-radio-group>
           </ion-col>

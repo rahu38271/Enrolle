@@ -130,10 +130,6 @@ form ion-input {
   background: #fff !important;
 }
 
-.radioBtn ion-label {
-  padding-left: 8px;
-}
-
 ion-radio {
   background: #FFF;
 }
@@ -174,19 +170,17 @@ ion-list {
 
 .table tr th:nth-child(2){
   max-width: 150px !important;
-  //background: #F00;
 }
 
 .table tr td:nth-child(2){
   max-width: 150px !important;
-  //background: #F00;
 }
 
 
 .table tr th:nth-child(3){
-  max-width: 150px !important;
+  max-width: 200px !important;
 }
 
 .table tr td:nth-child(3){
-  max-width: 150px !important;
+  max-width: 200px !important;
 }

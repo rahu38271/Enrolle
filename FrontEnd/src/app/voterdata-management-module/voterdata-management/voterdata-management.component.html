@@ -47,7 +47,7 @@
           <ion-row>
   
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
-              <ion-label> Last Name </ion-label>
+              <ion-label> Sur Name </ion-label>
               <ion-input maxlength="30" name="Lastname" [(ngModel)]="searchModal.LastName" (change)="trimInput()" (keypress)="onKeyPress($event)"
                 class="form-control"></ion-input>
             </ion-col>
@@ -59,32 +59,32 @@
             </ion-col>
   
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
-              <ion-label> Father / Husbands Name </ion-label>
+              <ion-label> Middle Name </ion-label>
               <ion-input maxlength="30" name="FHname" [(ngModel)]="searchModal.MiddleName" (change)="trimInput()" (keypress)="onKeyPress($event)"
                 class="form-control"></ion-input>
             </ion-col>
   
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
-              <ion-label> VotingCard No. </ion-label>
+              <ion-label> Voter ID. </ion-label>
               <ion-input maxlength="10" minlength="10" name="VotingCard" [(ngModel)]="searchModal.VotingCardNo" (change)="trimInput()" maxlength="10" class="form-control text-uppercase"></ion-input>
             </ion-col>
 
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
-              <ion-label>From Age  </ion-label>
+              <ion-label> Age From  </ion-label>
               <ion-input name="ageFrom" maxlength="3" [(ngModel)]="searchModal.FromAge" (change)="trimInput()" (keypress)="keyPressNumbers($event)" maxlength="3"
                 class="form-control"></ion-input>
             </ion-col>
   
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
-              <ion-label>To Age  </ion-label>
+              <ion-label>Age To  </ion-label>
               <ion-input name="ageTo" maxlength="3" [(ngModel)]="searchModal.ToAge" (change)="trimInput()" (keypress)="keyPressNumbers($event)" maxlength="3"
                 class="form-control"></ion-input>
             </ion-col>
 
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
             <ion-label>  Gender  </ion-label>
-            <ion-radio-group name="Gender" [(ngModel)]="searchModal.Gender">
-              <div class="radioBtn" >
+            <ion-radio-group name="Gender" [(ngModel)]="searchModal.Gender" class="form-control">
+              <!-- <div class="radioBtn" >
                 <div>
                   <ion-radio value="M" ></ion-radio>
                   <ion-label>Male</ion-label>
@@ -94,11 +94,12 @@
                   <ion-radio value="F" ></ion-radio>
                   <ion-label>Female</ion-label>
                 </div>
-
-                <!-- <div>
-                  <ion-radio value="O" ></ion-radio>
-                  <ion-label>Other</ion-label>
-                </div> -->
+              </div> -->
+              <div class="radioBtn">
+                <ion-radio value="M"></ion-radio>
+                <ion-label>{{'M' | translate}}</ion-label>
+                <ion-radio value="F" class="female"></ion-radio>
+                <ion-label>{{'F' | translate}}</ion-label>
               </div>
             </ion-radio-group>
           </ion-col>
@@ -312,7 +313,7 @@
                   <th>Age</th>
                   <th>Gender</th>
                   <th>House</th>
-                  <th>Voting Card No.</th>
+                  <th>Voter Id</th>
                   <th>Village</th>
                   <th class="address">Address</th>
                   <th>Action</th>
@@ -321,7 +322,7 @@
               <tbody>
                 <tr *ngFor="let item of voterByPart | paginate: { itemsPerPage:NoofRow, currentPage: PageNo,totalItems:totalItems }; let i=index">
                   <td>{{item.id}}</td>
-                  <td class="text-capitalize editVoter" (click)="EditVoter(item)">{{item.fullName}}</td>
+                  <td class="text-capitalize editVoter nameLink" (click)="EditVoter(item)">{{item.fullName}}</td>
                   <td>{{item.booth}}</td>
                   <td>{{item.age}}</td>
                   <td>{{item.gender}}</td>

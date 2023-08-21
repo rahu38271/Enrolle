@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient,HttpHeaders } from '@angular/common/http'
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs'
 
@@ -9,9 +9,13 @@ import { Observable } from 'rxjs'
 })
 export class VoterService {
 
+  token:String=''
+
   url = environment.apiUrl
  
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) {
+    this.token = localStorage.getItem('token');
+   }
 
   // all voterlist 
 
@@ -20,344 +24,514 @@ export class VoterService {
   }
 
   // voter by user id
-
-  // getVoterByUser(id:number, roleID:number){
-  //   return this.http.get<any[]>(this.url+'Voter/GetAllVoter?UserId='+id+'&RoleId='+roleID)
-  // }
   
   getVoterByUser(id:any,RoleId:any,PageNo:any,NoofRow:any,Language:any,SearchText:any):Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
     //return this.http.get<any[]>(this.url+'Voter/GetAllVoter?UserId='+id+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language)
-    return this.http.get<any[]>(this.url+'Voter/GetAllVoter?UserId='+id+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
+    return this.http.get<any[]>(this.url+'Voter/GetAllVoter?UserId='+id+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText,{ headers })
   }
 
 
   // total voter count by user
   getVoterCountByUser(id:number,RoleId:number){
-    return this.http.get<any>(this.url+'Voter/GetTotalVoterCount?userid='+id+'&roleid='+RoleId)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/GetTotalVoterCount?userid='+id+'&roleid='+RoleId,{ headers })
   }
 
   addSingleVoter(addVoterModal:any):Observable<any>{
-    return this.http.post<any>(this.url+'Voter/InsertVoter', addVoterModal)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/InsertVoter', addVoterModal,{ headers })
   }
 
   uploadExcel(modal:any):Observable<any>{
-    return this.http.post<any>(this.url+'Voter/InsertBulkVoter', modal)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/InsertBulkVoter', modal,{ headers })
   }
 
   update(editVoter:any){
-    return this.http.post<any>(this.url+"Voter/UpadateVoter", editVoter);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+"Voter/UpadateVoter", editVoter,{ headers });
   }
 
   // get list by family
 
   getByRelation(id:any,userId:number,roleID:any,pageNo:any,NoofRow:any,Language:any){
-    return this.http.get<any[]>(this.url+'Voter/GetVoterbyRelation?Id='+id+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+pageNo+'&NoofRow='+NoofRow+'&Language='+Language);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any[]>(this.url+'Voter/GetVoterbyRelation?Id='+id+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+pageNo+'&NoofRow='+NoofRow+'&Language='+Language,{ headers });
     
   }
 
   // update voter mobile number from android
 
   updateMob(id:any, Mobile:string){
-    return this.http.post<any>(this.url+'Voter/UpdateMobileVoter?Id='+id+'&Mobile='+Mobile+'',id)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/UpdateMobileVoter?Id='+id+'&Mobile='+Mobile+'',id,{ headers })
   }
 
   // update voter alternate mobile number from android
 
   updateAltMob(id:any, AltMobile:string){
-    return this.http.post<any>(this.url+'Voter/UpdateAltMobileVoter?Id='+id+'&AlternateMobileNo='+AltMobile+'',id)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/UpdateAltMobileVoter?Id='+id+'&AlternateMobileNo='+AltMobile+'',id,{ headers })
   }
 
   updateStar(id:any, YesNo:any){
-    return this.http.post<any>(this.url+'Voter/UpdateStarVoter?Id='+id+'&YesNo='+YesNo+'', id)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/UpdateStarVoter?Id='+id+'&YesNo='+YesNo+'', id,{ headers })
   }
 
   // update voter colour
 
   updateColor(id:any, color:any){
-    return this.http.post<any>(this.url+'Voter/UpdateVoterInclination?Id='+id+'&Colour='+color+'', id)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/UpdateVoterInclination?Id='+id+'&Colour='+color+'', id,{ headers })
   }
 
   // update voter address from android
 
   updateAdrs(id:any, address:any){
-    return this.http.post<any>(this.url+'Voter/UpdateAddressVoter?Id='+id+'&Address='+address+'', id)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/UpdateAddressVoter?Id='+id+'&Address='+address+'', id,{ headers })
   }
 
   // voted status update
 
   updateVotedStatus(id:any, YesNo:any){
-    return this.http.post<any>(this.url+'Voter/UpdateIsVoted?Id='+id+'&YesNo='+YesNo, id)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/UpdateIsVoted?Id='+id+'&YesNo='+YesNo, id,{ headers })
   }
 
   // dead or alive update
 
   updateAliveDead(id:any, YesNo:any){
-    return this.http.post<any>(this.url+'Voter/UpdateIsAliveVoter?Id='+id+'&YesNo='+YesNo, id)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/UpdateIsAliveVoter?Id='+id+'&YesNo='+YesNo, id,{ headers })
   }
 
   // update profession
 
   updateProfession(id:any, ColoumnName:any, ColoumnValue:any){
-    return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue, id)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue, id,{ headers })
   }
 
   // update DoB
 
   updateDoB(id:any, ColoumnName:any, ColoumnValue:any){
-    return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue, id)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue, id,{ headers })
   }
 
   updateCaste(id:any, ColoumnName:any, ColoumnValue:any){
-    return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue, id)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue, id,{ headers })
   }
 
   // get Cast 
 
   getAllCaste(Language:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
     //return this.http.get<any>(this.url+'Voter/GetAllCasteName')
-    return this.http.get<any>(this.url+'Voter/GetAllCasteName?Language='+Language)
+    return this.http.get<any>(this.url+'Voter/GetAllCasteName?Language='+Language,{ headers })
   }
 
   // get profession
 
   getAllProfession(){
-    return this.http.get<any>(this.url+'Voter/GetAllProfession')
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/GetAllProfession',{ headers })
   }
 
   // village name and count
 
   villagedata(vilModal:any):Observable<any>{
-    return this.http.post<any>(this.url+'Voter/FilterColoumnCount', vilModal);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/FilterColoumnCount', vilModal,{ headers });
   }
 
   // address and count
 
   addressData(addrsModal:any){
-    return this.http.post<any>(this.url+'Voter/FilterColoumnCount', addrsModal)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/FilterColoumnCount', addrsModal,{ headers })
   }
 
   // part no. and count
 
   partNoData(partModal:any){
-    return this.http.post<any>(this.url+'Voter/FilterColoumnCount', partModal)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/FilterColoumnCount', partModal,{ headers })
   }
 
   // occupatioin and count
 
   occupaionData(occupModal:any){
-    return this.http.post<any>(this.url+'Voter/FilterColoumnCount', occupModal)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/FilterColoumnCount', occupModal,{ headers })
   }
 
    // caste and count
 
   CastData(castModal:any){
-    return this.http.post<any>(this.url+'Voter/FilterColoumnCount',castModal)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/FilterColoumnCount',castModal,{ headers })
   }
 
    // caste and count
 
    SociData(sociModal:any){
-    return this.http.post<any>(this.url+'Voter/FilterColoumnCount',sociModal)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/FilterColoumnCount',sociModal,{ headers })
   }
 
   // filter / search voter by condition
 
   filterVoterByCondition(filterModal:any){
-    return this.http.post<any>(this.url+'Voter/FilterVoterbyCondition',filterModal)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/FilterVoterbyCondition',filterModal,{ headers })
   }
 
 
   // Imp Voter Data
 
   impVoter(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){
-    return this.http.get<any>(this.url+'Voter/GetStarVoterbyUserId?UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/GetStarVoterbyUserId?UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText,{ headers });
   }
 
   // lastname and count
 
   lastNameData(userid:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
     //return this.http.get<any>(this.url+'Voter/GetVoterCountbyLastName?userid='+userid+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
-    return this.http.get<any>(this.url+'Voter/GetVoterCountbyLastName?userid='+userid+'&roleid='+roleID+'&pageno='+PageNo+'&noofrow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText);
+    return this.http.get<any>(this.url+'Voter/GetVoterCountbyLastName?userid='+userid+'&roleid='+roleID+'&pageno='+PageNo+'&noofrow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText,{ headers });
   }
 
   // all voter by lastname
 
   voterByLastName(lastName:any, userid:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyLastName?Name='+lastName+'&UserId='+userid+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyLastName?Name='+lastName+'&UserId='+userid+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText,{ headers });
   }
 
   // all voter by villages
 
   voterByVillage(villageName:any, userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
     //return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Village&ColoumnValue='+villageName+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Village&ColoumnValue='+villageName+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText);
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Village&ColoumnValue='+villageName+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText,{ headers });
   }
 
   // all voter by address
 
   voterByAddress(addressName:any,userId:number, roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Address&ColoumnValue='+addressName+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Address&ColoumnValue='+addressName+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText,{ headers })
   }
 
    // all voter by part no
 
    voterByPart(partNumber:number,userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=PartNo&ColoumnValue='+partNumber+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=PartNo&ColoumnValue='+partNumber+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText,{ headers })
   }
 
   // voter by Caste
 
   voterByCaste(Caste:number,userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Caste&ColoumnValue='+Caste+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Caste&ColoumnValue='+Caste+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText,{ headers })
   }
 
   // voter by occupation / profession
 
   voterByProf(occupation:number,userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Occupation&ColoumnValue='+occupation+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Occupation&ColoumnValue='+occupation+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText,{ headers })
   }
 
   // add profession
 
   addProf(ProfessionName:any){
-    return this.http.post<any>(this.url+'Voter/InsertProfession?ProfessionName='+ProfessionName,ProfessionName)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/InsertProfession?ProfessionName='+ProfessionName,ProfessionName,{ headers })
   }
 
   // voter by Society
 
   voterBySoci(society:number,userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Society&ColoumnValue='+society+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=Society&ColoumnValue='+society+'&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText,{ headers })
   }
 
   // advance search voter
 
   advanceSearch(searchModal:any){
-    return this.http.post<any>(this.url+'Voter/AdvancedSearchVoter', searchModal)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/AdvancedSearchVoter', searchModal,{ headers })
   }
 
   updateSociety(id:any, ColoumnName:any, ColoumnValue:any){
-    return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue, id)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue, id,{ headers })
   }
 
   updateHouse(id:any, ColoumnName:any, ColoumnValue:any){
-    return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue, id)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue, id,{ headers })
   }
 
   // all voter with Mobile
 
   voterWithMobile(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
-    return this.http.get<any>(this.url+'Voter/VoterwithMobileNo?UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/VoterwithMobileNo?UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText,{ headers });
   }
 
   // boothwise voter count
 
-  boothWiseVoterCount(userID,roleID:number){
-    return this.http.get<any>(this.url+'Voter/VoterCountbyBooth?userid='+userID+'&roleid='+roleID);
+  boothWiseVoterCount(userID:number,roleID:number){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/VoterCountbyBooth?userid='+userID+'&roleid='+roleID,{ headers });
   }
 
   // boothwise voter list
 
   boothWiseVoterList(partNo:number,PageNo:number,NoofRow:number,Language:any){
-    return this.http.get<any>(this.url+'Voter/GetVoterbyPartNo?partno='+partNo+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/GetVoterbyPartNo?partno='+partNo+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language,{ headers })
   }
 
   // all voter by age
 
   voterBetweenAge(age1:number, age2:number, gender:string, userId:number, roleID:number,PageNo:number,NoofRow:number,Language:any){
-    return this.http.get<any>(this.url+'Voter/GetVoterBetweenAge?age1='+age1+'&age2='+age2+'&gender='+gender+'&UserId='+userId+'&roleid='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/GetVoterBetweenAge?age1='+age1+'&age2='+age2+'&gender='+gender+'&UserId='+userId+'&roleid='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language,{ headers });
   }
 
   // search voter for web view
 
   searchVoter(searchModal:any){
-    return this.http.post<any>(this.url+'Voter/FilterVoterList', searchModal)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/FilterVoterList', searchModal,{ headers })
   }
 
   // voter by color
 
   getVoterByColor(userId:number,roleID:number){
-    return this.http.get<any>(this.url+'Voter/GetVoterInclination?UserId='+userId+'&RoleId='+roleID)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/GetVoterInclination?UserId='+userId+'&RoleId='+roleID,{ headers })
     
   }
 
   // supporter voter list
 
   supporter(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
-    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?Inclination=Supporter&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?Inclination=Supporter&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText,{ headers })
   }
 
   // opposition voter list
 
   opposition(userId:number, roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
-    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Opposition&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Opposition&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText,{ headers });
   }
 
   // doubtful voter list
 
   doubtful(userId:number, roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
-    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Doubtful&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Doubtful&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText,{ headers });
   }
 
   // other voter list
 
   other(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
-    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Other&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText);
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/GetVoterInclinationUserId?inclination=Other&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText,{ headers });
   }
 
   // is voted / non-voted
   getIsVoted(UserId:number, RoleId:number, Coloumn:any){
-    return this.http.get<any>(this.url+'Voter/GetColoumncount?UserId='+UserId+'&RoleId='+RoleId+'&Coloumn='+Coloumn)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/GetColoumncount?UserId='+UserId+'&RoleId='+RoleId+'&Coloumn='+Coloumn,{ headers })
   }
 
   // is Dead / Alive
   getIsAlive(UserId:number, RoleId:number, Coloumn:any){
-    return this.http.get<any>(this.url+'Voter/GetColoumncount?UserId='+UserId+'&RoleId='+RoleId+'&Coloumn='+Coloumn)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/GetColoumncount?UserId='+UserId+'&RoleId='+RoleId+'&Coloumn='+Coloumn,{ headers })
   }
 
   //delete voter
   deleteVoter(voterId:any){
-    return this.http.get<any>(this.url+'Voter/DeleteVoterbyId?Id='+voterId)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/DeleteVoterbyId?Id='+voterId,{ headers })
   }
 
   // voted voter
 
   getvoterVoted(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=isVoted&ColoumnValue=Y&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=isVoted&ColoumnValue=Y&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText,{ headers })
   }
 
   // not voted voter
 
   getvoterNotVoted(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=isVoted&ColoumnValue=N&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=isVoted&ColoumnValue=N&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText,{ headers })
   }
 
    // dead voter
 
    getDeadVoter(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=isAlive&ColoumnValue=N&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=isAlive&ColoumnValue=N&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText,{ headers })
   }
 
   // alive voter
 
   getAliveVoter(userId:number,roleID:number,PageNo:number,NoofRow:number,Language:any,SearchText:any){
-    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=isAlive&ColoumnValue=Y&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName=isAlive&ColoumnValue=Y&UserId='+userId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText,{ headers })
   }
 
   // landing Image
 
   getLandingImage(userId:number):Observable<Blob>{
-    return this.http.get(this.url+'Voter/GetAllLandingPage?UserId='+userId,{responseType: "blob", reportProgress: true,})
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get(this.url+'Voter/GetAllLandingPage?UserId='+userId,{responseType: "blob", reportProgress: true,headers})
   }
 
   // Assembly Name
 
   getAssemblyName(assemblyName:any){
-    return this.http.get(this.url+'Assembly/GetAssemblyRegLang?Assembly='+assemblyName)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get(this.url+'Assembly/GetAssemblyRegLang?Assembly='+assemblyName,{ headers })
   }
   
   // mobile match search
   
   getMobileMatchedName(Name:any){
-    return this.http.get<any>(this.url+'Voter/GetMobileMatch?VoterName='+Name)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/GetMobileMatch?VoterName='+Name,{ headers })
   }
 }

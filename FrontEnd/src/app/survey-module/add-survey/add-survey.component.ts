@@ -6,6 +6,7 @@ import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { LoaderService } from 'src/app/services/loader.service';
 import { VoterService } from 'src/app/services/voter.service';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-add-survey',
@@ -73,6 +74,7 @@ export class AddSurveyComponent implements OnInit {
     private toast: IonicToastService,
     private loader:LoaderService,
     private voter: VoterService,
+    public translate: TranslateService,
     private translateConfigService: TranslateConfigService,
     ) {
       this.Language = this.translateConfigService.getCurrentLang();

@@ -88,7 +88,7 @@
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
-            <ion-label> Voting Card No. <span>*</span></ion-label>
+            <ion-label> Voter ID. <span>*</span></ion-label>
               <ion-input (keypress)="omit_special_char($event)" maxlength="10" minlength="10" [(ngModel)]="EditData.votingCardNo" name="votingCard" class="form-control text-uppercase" required></ion-input>
           </ion-col>
 
@@ -185,7 +185,11 @@
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Caste </ion-label>
-              <ion-input (keypress)="omit_special_char($event)" (keypress)="onKeyPress($event)" maxlength="30" [(ngModel)]="EditData.caste" name="Cast" class="form-control"></ion-input>
+              <ng-select name="Caste" [(ngModel)]="EditData.caste" placeholder="Select Caste">
+                    <ng-option *ngFor="let item of casteList" [value]="item.casteName">
+                      {{ item.casteName }}
+                    </ng-option>
+                </ng-select>
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">

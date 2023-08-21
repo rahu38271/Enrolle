@@ -1,4 +1,4 @@
-ion-item { position: relative !important; font-size: 14px; --min-height: 40px; color: #687fcd; font-weight: 500;  }
+ion-item { position: relative !important; font-size: 15px; --min-height: 40px; color: #687fcd; font-weight: 500;  }
 
 ion-item:hover { --ion-background-color: #f9f9f9 !important; --color: #435fbe !important; }
 
@@ -113,7 +113,7 @@ ion-item:hover { --ion-background-color: #f9f9f9 !important; --color: #435fbe !i
 
    @media screen and (min-width: 1200px) {
     .subnav .subnavbtn {
-      font-size: 14px;
+      font-size: 15px;
       padding: 6px 7px;
   }
   
@@ -150,7 +150,7 @@ ion-item:hover { --ion-background-color: #f9f9f9 !important; --color: #435fbe !i
 
    .mobileMenu ion-label {
      padding: 3px 0px 0px 14px;
-     font-size: 15px !important;
+     font-size: 17px !important;
    }
 
 
@@ -167,9 +167,11 @@ ion-item:hover { --ion-background-color: #f9f9f9 !important; --color: #435fbe !i
 .icofont {
   //color: #0189cb;
   color: #6f75ef;
-  font-size: 17px;
+  font-size: 21px;
   font-weight: 500;
 }
+
+
 
 
 ion-item {

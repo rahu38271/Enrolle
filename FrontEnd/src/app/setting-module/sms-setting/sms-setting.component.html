@@ -87,7 +87,7 @@
 
           <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" *ngFor="let template of templates;let i = index">
             <ion-label>  Template<span>*</span>  </ion-label>
-              <ion-textarea name="Template_{{template.id}}" [(ngModel)]="template.Template" #Template="ngModel" [ngClass]="{'is-invalid': f.submitted && Template.invalid}" class="form-control" rows="3" required></ion-textarea>
+              <ion-textarea name="Template_{{template.id}}" [(ngModel)]="template.Template" #Template="ngModel" [ngClass]="{'is-invalid': f.submitted && Template.invalid}" class="form-control" required></ion-textarea>
               <div *ngIf="f.submitted && Template.invalid" class="invalid-feedback">
                 <div *ngIf="Template.errors.required">
                   Template is required

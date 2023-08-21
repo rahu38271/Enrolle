@@ -71,7 +71,7 @@
                         <th>Age</th>
                         <th>Gender</th>
                         <th>House</th>
-                        <th>Voting Card No.</th>
+                        <th>Voter ID</th>
                         <th>Village</th>
                         <th>Address</th>
                       </tr>
@@ -92,6 +92,9 @@
   
                     </tbody>
                   </table>
+                  <div *ngIf="!deadvoterList || deadvoterList.length === 0" class="text-center">
+                    <p>No data available</p>
+                  </div>
                   <pagination-controls (pageChange)="event($event)"></pagination-controls>
                 </div>
               </ion-card-content>

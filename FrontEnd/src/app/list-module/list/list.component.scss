@@ -6,7 +6,7 @@ ion-item {  --padding-start: 10px; text-align: center; }
 
 // ion-list { padding-top: 2px !important; padding-bottom: 2px !important; }
 
-ion-item ion-label h3  { color: #252626; font-size: 13px; font-weight: 600; margin-bottom: 0px !important;  }
+ion-item ion-label h3  { color: #252626; font-size: 16px; font-weight: 600; margin-bottom: 0px !important;  }
 
 // color: #1B6DDF;
 
@@ -56,24 +56,24 @@ ion-col {  padding-top: var(--ion-grid-column-padding-xs, var(--ion-grid-column-
 
  .advanced ion-item { --background: #fff; }
 
- .advanced ion-item:hover { --background: #378ef7; }
+//  .advanced ion-item:hover { --background: #378ef7; }
 
  ion-list {
      padding-top: 0px;
      padding-bottom: 0px;
  }
 
- ion-list:hover {
-    --background: #378ef7;
- }
+//  ion-list:hover {
+//     --background: #378ef7;
+//  }
 
- ion-list:hover h3 {
-    color: #FFF !important;
- }
+//  ion-list:hover h3 {
+//     color: #FFF !important;
+//  }
 
- ion-list:hover .advanced i {
-    background: #FFF !important;
- }
+//  ion-list:hover .advanced i {
+//     background: #FFF !important;
+//  }
 
 @media screen and (max-width:576px){
     .main-content {
@@ -104,6 +104,6 @@ ion-grid {
     padding-bottom: 14px;
 }
 
-.web ion-item h3 {
-    margin-top: 14px;
-}
+// .web ion-item h3 {
+//     margin-top: 14px;
+// }

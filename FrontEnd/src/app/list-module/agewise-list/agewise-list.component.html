@@ -48,33 +48,23 @@
               <ion-row>
       
                 <ion-col size-lg="2" size-md="3" size-sm="6" size-xs="6">
-                  <ion-label> From Age </ion-label>
+                  <ion-label> Age From </ion-label>
                   <ion-input maxlength="3" (keypress)="keyPressNumbers($event)"  name="age1" [(ngModel)]="ageModal.age1" class="form-control" required></ion-input>
                 </ion-col>
       
                 <ion-col size-lg="2" size-md="3" size-sm="6" size-xs="6">
-                  <ion-label> To Age </ion-label>
+                  <ion-label>  Age To </ion-label>
                   <ion-input maxlength="3" (keypress)="keyPressNumbers($event)"  name="age2" [(ngModel)]="ageModal.age2" class="form-control" required></ion-input>
                 </ion-col>
       
-                <ion-col size-lg="3" size-md="4" size-sm="6" size-xs="12">
+                <ion-col size-lg="2" size-md="3" size-sm="6" size-xs="12">
                   <ion-label>  {{'Gender' | translate}} </ion-label>
-                  <ion-radio-group name="Gender" [(ngModel)]="ageModal.gender">
-                    <div class="radioBtn" >
-                      <div>
-                        <ion-radio value="M" ></ion-radio>
-                        <ion-label>  {{'Male' | translate}}</ion-label>
-                      </div>
-      
-                      <div>
-                        <ion-radio value="F" ></ion-radio>
-                        <ion-label>   {{'Female' | translate}}</ion-label>
-                      </div>
-      
-                      <!-- <div>
-                        <ion-radio value="O" ></ion-radio>
-                        <ion-label>Other</ion-label>
-                      </div> -->
+                  <ion-radio-group name="Gender" [(ngModel)]="ageModal.gender" class="form-control">
+                    <div class="radioBtn">
+                      <ion-radio value="M"></ion-radio>
+                      <ion-label>{{'M' | translate}}</ion-label>
+                      <ion-radio value="F" class="female"></ion-radio>
+                      <ion-label>{{'F' | translate}}</ion-label>
                     </div>
                   </ion-radio-group>
                 </ion-col>
@@ -117,7 +107,7 @@
                       <th>Age</th>
                       <th>Gender</th>
                       <th>House</th>
-                      <th>Voting Card No.</th>
+                      <th>Voter ID</th>
                       <th>Village</th>
                       <th>Address</th>
                     </tr>
@@ -137,9 +127,7 @@
                   </tbody>
                 </table>
                 <div *ngIf="!ageList || ageList.length === 0" class="text-center">
-                  <img src="assets/img/question.png" />
                   <p> {{'No data available' | translate}}</p>
-                  <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
                 </div>
                 <pagination-controls (pageChange)="event($event)"></pagination-controls>
               </div>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http'
+import { HttpClient,HttpHeaders} from '@angular/common/http'
 import { environment } from 'src/environments/environment'
 import { Observable } from 'rxjs';
 
@@ -8,39 +8,60 @@ import { Observable } from 'rxjs';
 })
 export class AnnapurnaService {
 
-  url = environment.apiUrl
+  token:String=''
 
-  constructor(private http:HttpClient) { }
+  url = environment.apiUrl;
+
+  constructor(private http:HttpClient) {
+    this.token = localStorage.getItem('token');
+   }
 
   // get all list of annapurna
   getAnnapurnaList():Observable<any>{
-    return this.http.get<any>(this.url+'Annapurna/GetAllAnnapurna')
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Annapurna/GetAllAnnapurna',{ headers })
   }
 
   // add / edit single annapurna
   addSingleAnnapurna(annapurnaModal:any){
-    return this.http.post<any>(this.url+'Annapurna/InsertUpdateAnnapurna',annapurnaModal)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Annapurna/InsertUpdateAnnapurna',annapurnaModal,{ headers })
   }
 
   // delete annapurna
   deleteAnnapurna(id:any){
-    return this.http.get<any>(this.url+'Annapurna/DeleteAnnapurnabyId?Id='+id)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Annapurna/DeleteAnnapurnabyId?Id='+id,{ headers })
   }
 
   // add family
   addAnnapurnaFamily(FamilyModal:any){
-    return this.http.post<any>(this.url+'Annapurna/InsertUpdateFamily', FamilyModal)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Annapurna/InsertUpdateFamily', FamilyModal,{ headers })
   }
 
    //getFamilyList
   getFamilyList(anpnid:any){
-    return this.http.get<any>(this.url+'Annapurna/GetAllFamilybyId?anpnid='+anpnid)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Annapurna/GetAllFamilybyId?anpnid='+anpnid,{ headers })
   }
 
   //remove family 
   removeFamily(remFamModal:any){
-    debugger;
-    return this.http.post(this.url+'Annapurna/RemoveFamily',remFamModal)
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post(this.url+'Annapurna/RemoveFamily',remFamModal,{ headers })
   }
 
 }

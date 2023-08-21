@@ -146,7 +146,6 @@ ion-list {
   margin-top: 2px;
 }
 
-
 .noData {
   padding: 20%;
 }
@@ -157,12 +156,10 @@ ion-list {
 
  .table tr th:nth-child(11){
   width: 200px !important;
-  display: block;
 }
 
 .table tr td:nth-child(11){
   max-width: 200px !important;
-  display: block;
 }
 
 

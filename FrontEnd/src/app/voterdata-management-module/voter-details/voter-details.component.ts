@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-import { IonModal } from '@ionic/angular';
+import { IonModal,NavController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { PopoverController } from '@ionic/angular';
 import { VoterService } from 'src/app/services/voter.service'
@@ -13,6 +13,7 @@ import { Location } from '@angular/common';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { SettingService } from 'src/app/services/setting.service';
 import { TranslateService } from '@ngx-translate/core';
+import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
 
 @Component({
   selector: 'app-voter-details',
@@ -52,7 +53,7 @@ export class VoterDetailsComponent  {
   professionModal:any={};
 
   @ViewChild('slipDesign') slipDesign: ElementRef;
-
+  
   onWillDismiss(event: Event) {
     const ev = event as CustomEvent<OverlayEventDetail<string>>;
     if (ev.detail.role === 'confirm') {
@@ -127,6 +128,7 @@ export class VoterDetailsComponent  {
     }
   }
 
+
   constructor
     (
       private pdfGenerator: PDFGenerator,
@@ -141,6 +143,7 @@ export class VoterDetailsComponent  {
       private location: Location,
       private setting:SettingService,
       private translateConfigService: TranslateConfigService,
+      private bluetoothSerial: BluetoothSerial,
       public translate: TranslateService,
   ) {
     this.Language = this.translateConfigService.getCurrentLang();
@@ -171,6 +174,8 @@ export class VoterDetailsComponent  {
     }
     
   }
+
+  
 
   ngOnInit() {
     // data with state
@@ -284,10 +289,31 @@ ngAfterViewInit(){
     })
 }
 
- 
+  
 
   ionViewWillEnter(){
     
+  }
+
+   async printToBluetoothPrinter() {
+    try {
+      const isEnabled = await this.bluetoothSerial.isEnabled();
+      if (isEnabled) {
+        const devices = await this.bluetoothSerial.list();
+        if (devices.length > 0) {
+          const printer = devices[0];
+          await this.bluetoothSerial.connect(printer.address);
+          await this.bluetoothSerial.write('Hello from Ionic app!\n');
+          await this.bluetoothSerial.disconnect();
+        } else {
+          console.log('No paired Bluetooth printers found.');
+        }
+      } else {
+        console.log('Bluetooth is not enabled.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   }
 
   saveFile(imageData: Blob) {
@@ -878,6 +904,8 @@ ngAfterViewInit(){
       });
 
   }
+
+  
 
   // share() {
   //   var options = {

@@ -35,6 +35,7 @@ export class ImportContactComponent implements OnInit {
 
 
   onFileChange(event: any) {
+    debugger;
     if (event.target.files.length > 0) {
       this.file = event.target.files[0];
       this.ReadExcelData();
@@ -50,7 +51,9 @@ export class ImportContactComponent implements OnInit {
   }
 
   ReadExcelData() {
+  debugger;
     var reader = new FileReader();
+    var data = reader.result;
     reader.readAsBinaryString(this.file);
     reader.onload = (event) => {
       var data = reader.result;
@@ -76,7 +79,7 @@ export class ImportContactComponent implements OnInit {
         this.toast.presentToast("List is Empty!", "danger", 'alert-circle-sharp')
         this.disabled = true; 
       }
-
+      
       //arraylist = arraylist.map((u: any) => ({ value: u.vin }));
       if (this.arraylist.length > 0) {
         for (var i = 0; i < this.arraylist.length; i++) {
@@ -84,6 +87,7 @@ export class ImportContactComponent implements OnInit {
           if(this.arraylist[i].DateofBirth != undefined){
             var rawdob = this.arraylist[i].DateofBirth;
             var DB = new Date((rawdob - 25569) * 86400000);
+
             var Dob = DB.toISOString().replace(/.\d+Z$/g, "");
           }
           else{
@@ -112,6 +116,14 @@ export class ImportContactComponent implements OnInit {
             this.arraylist[i].AnniversaryDate = Anniversaydate;
           }
 
+          // for mobile number if excel column is empty
+          if(this.arraylist[i].Mobile == undefined){
+            this.arraylist[i].Mobile = '';
+          }
+          else{
+            this.arraylist[i].Mobile = this.arraylist[i].Mobile.toString();
+          }
+
           // for alternate mobile number if excel column is empty
           if(this.arraylist[i].AlternateMobile == undefined){
             this.arraylist[i].AlternateMobile = '';
@@ -121,7 +133,7 @@ export class ImportContactComponent implements OnInit {
           }
          
 
-          
+         debugger;
           var obj = {
             VilageName: this.arraylist[i].VillageName,
             FullName: this.arraylist[i].Name,
@@ -135,7 +147,9 @@ export class ImportContactComponent implements OnInit {
             District: this.arraylist[i].District
           }
           debugger;
+          console.log(this.excelUploadedData);
           this.excelUploadedData.push(obj);
+       
         }
       }
       //this.excelUploadedData = arraylist;
@@ -152,6 +166,7 @@ export class ImportContactComponent implements OnInit {
   }
 
   upload(f: NgForm) {
+    debugger;
     this.loader.showLoading();
     this.contact.UploadExcel(this.excelUploadedData).subscribe((data) => {
       if (data) {
@@ -168,7 +183,7 @@ export class ImportContactComponent implements OnInit {
     }, (err) => {
       f.resetForm();
       this.loader.hideLoader();
-      this.toast.presentToast("File uploding failed!", "danger", 'alert-circle-sharp')
+      //this.toast.presentToast("File uploding failed!", "danger", 'alert-circle-sharp')
     }
     )
   }

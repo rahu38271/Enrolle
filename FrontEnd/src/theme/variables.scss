@@ -362,7 +362,7 @@ thead tr { color: #1a3353; background: #f5f5f5 !important; }
 
 // table th,td { border: solid 1px #dee2e6 !important; padding: 0.45rem 0.75rem !important; font-size: 15px !important; font-family: 'Mukta', sans-serif !important;  }
 
-table th,td {   font-size: 13px !important;  }
+table th,td {   font-size: 14px !important;  }
 
 table { width: 100%; }
 
@@ -580,7 +580,7 @@ ion-toolbar ion-button {
 }
 
 .form-control {
-  font-size: 13px !important;
+  font-size: 16px !important;
 }
 
 .invalid-feedback {
@@ -745,7 +745,14 @@ ion-toolbar {  --min-height: 55px; --background: #6f75ef; }
   background: #5e5b75 !important; 
 }
 
-form ion-label { color: #228bd2 !important; --font-weight: 400 !important; font-size: 13px; }
+form ion-label { color: #228bd2 !important; --font-weight: 400 !important; font-size: 15px; line-height: 18px; }
+
+@media screen and (max-width:576px){
+  form ion-label { color: #228bd2 !important; --font-weight: 400 !important; font-size: 18px; }
+  .form-control {
+    font-size: 18px !important;
+  }
+}
 
 .checkbox ion-label {
   color: #228bd2 !important;
@@ -840,7 +847,7 @@ ion-card-header ion-icon {
 }
 
 ion-radio {
-  margin-inline-end: 10px !important;
+  margin-inline-end: 6px !important;
 }
 
 .radio { display: flex; }
@@ -851,4 +858,14 @@ ion-radio {
   --color: #FFF !important;
 }
 
+.female {
+  margin-left: 10px !important;
+}
 
+.table th {
+  border: solid 1px #dddddd;
+}
+
+.table td {
+  border: solid 1px #dddddd;
+}

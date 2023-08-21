@@ -34,6 +34,11 @@
                   <ion-radio value="Anniversary"></ion-radio>
                   <ion-label>Anniversary </ion-label>
                 </div>
+
+                <div>
+                  <ion-radio value="Other"></ion-radio>
+                  <ion-label>Other </ion-label>
+                </div>
           
               </div>
             </ion-radio-group>
@@ -71,7 +76,7 @@
             placeholder="Select Type"
           >
             <ng-option class="select_option" value="text">Text</ng-option>
-            <ng-option class="select_option" value="media">Media</ng-option>
+            <ng-option class="select_option" value="media">Text & Media</ng-option>
          </ng-select>
           </ion-col>
 
@@ -95,6 +100,11 @@
               </div>
           </ion-col>
 
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" *ngIf="whatsappSetting.mtype == 'media' && whatsappSetting.msgType =='Other'">
+            <ion-label>Other Media URL <span>*</span> </ion-label>
+              <ion-input name="otherDayMediaurl"  class="form-control"></ion-input>
+          </ion-col>
+
           <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" *ngIf="whatsappSetting.mtype == 'media' && whatsappSetting.msgType =='Birthday'">
             <ion-label>Birthday File Name <span>*</span></ion-label>
               <ion-input name="bithDayFileName" [(ngModel)]="whatsappSetting.bithDayFileName" #bithDayFileName="ngModel" [ngClass]="{'is-invalid': f.submitted && bithDayFileName.invalid}" class="form-control"></ion-input>
@@ -113,6 +123,11 @@
                   Filename is required
                 </div>
               </div>
+          </ion-col>
+
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" *ngIf="whatsappSetting.mtype == 'media' && whatsappSetting.msgType =='Other'">
+            <ion-label>Other File Name <span>*</span></ion-label>
+              <ion-input name="otherFileName" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
@@ -157,6 +172,13 @@
                   Message is required
                 </div>
               </div>
+          </ion-col>
+
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" *ngIf="whatsappSetting.msgType =='Other'">
+            <div class="d-flex labels"> 
+              <ion-label>Other  Message <span>*</span>  </ion-label>
+            </div>
+              <ion-textarea name="anniverDMessage" class="form-control text-style" rows="3"></ion-textarea>
           </ion-col>
           
           <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">

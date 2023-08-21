@@ -25,7 +25,7 @@ export class ContactComponent implements OnInit {
   Cid:any;
   fileName= 'Contact.xlsx';
   PageNo:any=1;
-  NoofRow:any=10; 
+  NoofRow:any=25; 
   SearchText:any;
   currentDate = new Date();
   birthDate: any;
@@ -47,6 +47,7 @@ export class ContactComponent implements OnInit {
   }
 
   ngOnInit() {
+    debugger;
     if(this.SearchText == undefined){
       this.SearchText = ''
     }

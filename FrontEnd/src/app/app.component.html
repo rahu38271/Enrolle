@@ -3,7 +3,11 @@
   <ion-header *ngIf="showHead" class="web">
     <div class="navbar">
       <div class="leftnav">
-        
+        <!-- <div class="subnav">
+          <ion-button (click)="toggleMenuWidth()">
+            Menu
+          </ion-button>
+        </div> -->
         <div *ngIf="isDashboard" class="subnav" routerLink="/home">
           <button class="subnavbtn"> <img src="assets/img/home.png" alt=""> <br>{{'Dashboard' | translate}} </button>
         </div>
@@ -128,7 +132,7 @@
         </div> -->
 
         <div  class="subnav" *ngIf="isVoterList">
-          <button class="subnavbtn"><img src="assets/img/shopping-list.png" alt=""><br> {{'Voter List' | translate}}  </button>
+          <button class="subnavbtn"><img src="assets/img/shopping-list.png" alt=""><br> {{'Election' | translate}}  </button>
           <div class="subnav-content">
             <ion-item lines="full" class="sub-menu" routerLink="/dashboard">
               Voter Dashboard
@@ -475,9 +479,10 @@
       <ion-label>Log Out</ion-label>
     </ion-item> -->
 
+    <!-- [style.width.px]="menuWidth" -->
     <ion-split-pane content-id="main-content">
-      <ion-menu side="start" content-id="main-content" auto-hide="false">
-        <ion-content class="mobileMenu">
+      <ion-menu side="start" content-id="main-content" >
+        <ion-content class="mobileMenu" >
           <ion-menu-toggle autoHide="false">
             <ion-list>
               <ion-item lines="full" class="birthday user-info">
