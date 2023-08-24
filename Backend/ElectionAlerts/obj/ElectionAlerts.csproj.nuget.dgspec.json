@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "F:\\Abhay\\GitClonned\\Enrolle28jan23\\Enrolle\\Backend\\ElectionAlerts\\ElectionAlerts.csproj": {}
+    "E:\\GitClonned\\Backend\\ElectionAlerts\\ElectionAlerts.csproj": {}
   },
   "projects": {
-    "F:\\Abhay\\GitClonned\\Enrolle28jan23\\Enrolle\\Backend\\ElectionAlerts\\ElectionAlerts.csproj": {
+    "E:\\GitClonned\\Backend\\ElectionAlerts\\ElectionAlerts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\Abhay\\GitClonned\\Enrolle28jan23\\Enrolle\\Backend\\ElectionAlerts\\ElectionAlerts.csproj",
+        "projectUniqueName": "E:\\GitClonned\\Backend\\ElectionAlerts\\ElectionAlerts.csproj",
         "projectName": "ElectionAlerts",
-        "projectPath": "F:\\Abhay\\GitClonned\\Enrolle28jan23\\Enrolle\\Backend\\ElectionAlerts\\ElectionAlerts.csproj",
-        "packagesPath": "C:\\Users\\rahul\\.nuget\\packages\\",
-        "outputPath": "F:\\Abhay\\GitClonned\\Enrolle28jan23\\Enrolle\\Backend\\ElectionAlerts\\obj\\",
+        "projectPath": "E:\\GitClonned\\Backend\\ElectionAlerts\\ElectionAlerts.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "E:\\GitClonned\\Backend\\ElectionAlerts\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\rahul\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -58,6 +55,10 @@
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[3.1.1, )"
+            },
+            "Microsoft.AspNetCore.Http.Abstractions": {
+              "target": "Package",
+              "version": "[2.2.0, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
@@ -106,7 +107,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.414\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.426\\RuntimeIdentifierGraph.json"
         }
       }
     }
