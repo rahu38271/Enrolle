@@ -135,7 +135,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _customContext.Set<VoterbyBooth>().FromSqlRaw("USP_VoterGroupbyBooth {0},{1}", userid, roleid).ToList();
+                return _customContext.Set<VoterbyBooth>().FromSqlRaw("USP_VoterGroupbyBoothTotal {0},{1}", userid, roleid).ToList();
             }
             catch (Exception ex)
             {
@@ -244,23 +244,23 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public int InsertBulkVoter(List<Voter> voters)
+        public int InsertBulkVoter(List<VoterBulk> voters)
         {
             var partitions = voters.partition(10000);
 
 
-            foreach (List<Voter> voters1 in partitions)
+            foreach (List<VoterBulk> voters1 in partitions)
             {
                 try
                 {
                     DataTable dt = new DataTable();
-                    PropertyInfo[] Props = typeof(Voter).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                    PropertyInfo[] Props = typeof(VoterBulk).GetProperties(BindingFlags.Public | BindingFlags.Instance);
                     foreach (PropertyInfo prop in Props)
                     {
                         //Setting column names as Property names
                         dt.Columns.Add(prop.Name);
                     }
-                    foreach (Voter item in voters1)
+                    foreach (VoterBulk item in voters1)
                     {
                         var values = new object[Props.Length];
                         for (int i = 0; i < Props.Length; i++)
@@ -301,8 +301,8 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                     throw ex;
                 }
             }
-
-            InsertDistinctPartNoBooth(voters);
+            var targetList = voters.Select(x => new Voter() { PartNo = x.PartNo,Booth=x.Booth }).ToList();
+            InsertDistinctPartNoBooth(targetList);
             return 1;
 
         }
@@ -663,23 +663,23 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public int InsertBulkMobile(List<Mobile> mobiles)
+        public int InsertBulkMobile(List<VoterMobileBulk> mobiles)
         {
 
             var partitions = mobiles.partition(10000);
 
-            foreach (List<Mobile> mobileData1 in partitions)
+            foreach (List<VoterMobileBulk> mobileData1 in partitions)
             {
                 try
                 {
                     DataTable dt = new DataTable();
-                    PropertyInfo[] Props = typeof(Mobile).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                    PropertyInfo[] Props = typeof(VoterMobileBulk).GetProperties(BindingFlags.Public | BindingFlags.Instance);
                     foreach (PropertyInfo prop in Props)
                     {
                         //Setting column names as Property names
                         dt.Columns.Add(prop.Name);
                     }
-                    foreach (Mobile item in mobileData1)
+                    foreach (VoterMobileBulk item in mobileData1)
                     {
                         var values = new object[Props.Length];
                         for (int i = 0; i < Props.Length; i++)
@@ -694,21 +694,19 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                     if (dt.Rows.Count > 0)
                     {
 
-                        using (SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=MobileData;Integrated Security=True"))
+                        using (SqlConnection con = new SqlConnection(_customContext.Database.GetConnectionString()))
                         {
-                            using (SqlCommand cmd = new SqlCommand("USP_InsertBulkMobile"))
+                            using (SqlCommand cmd = new SqlCommand("USP_InsertBulkVoterMobile"))
                             {
                                 cmd.CommandType = CommandType.StoredProcedure;
                                 cmd.Connection = con;
-                                cmd.Parameters.AddWithValue("@MobileType", dt);
+                                cmd.Parameters.AddWithValue("@VoterMobileType", dt);
                                 con.Open();
                                 cmd.ExecuteNonQuery();
                                 con.Close();
                             }
                         }
                     }
-
-
                 }
                 catch (Exception ex)
                 {
@@ -716,7 +714,6 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 }
             }
             return 1;
-
         }
 
         public int UpdateColoumnTbl(int Id, string ColoumnName, string ColoumnValue)
@@ -882,6 +879,18 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 return _customContext.Set<VoterMobile>().FromSqlRaw("Exec USP_MobileMatching {0}", VoterName).ToList();
             }
             catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<GetVoterByPartNo> GetAllVoterSurvey(int userid, int RoleId, int PageNo, int NoofRow, string Language, string SearcText)
+        {
+            try
+            {
+                return _customContext.Set<GetVoterByPartNo>().FromSqlRaw("EXEC USP_GetAllVoter_Survey {0},{1},{2},{3},{4},{5}", userid, RoleId, PageNo, NoofRow, Language, SearcText).ToList();
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }

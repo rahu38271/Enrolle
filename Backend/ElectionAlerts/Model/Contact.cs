@@ -10,8 +10,8 @@ namespace ElectionAlerts.Model
         public int Id { get; set; }
         public string FullName { get; set; }
         public string VilageName { get; set; }
-        public DateTime BirthDate { get; set; }
-        public DateTime Anniversary { get; set; }
+        public DateTime? BirthDate { get; set; }
+        public DateTime? Anniversary { get; set; }
         public string MobileNo { get; set; }
         public string AlternativeMobileNo { get; set; }
         public string Address { get; set; }

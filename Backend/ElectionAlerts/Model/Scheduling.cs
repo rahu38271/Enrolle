@@ -29,17 +29,19 @@ namespace ElectionAlerts.Model
         {
             LogWrite("Scheduller Started Executing the Job : " + DateTime.Now.ToString());
 
-            var connpara= GetConnection();
-            foreach(var con in connpara)
+            var connpara = GetConnection();
+            foreach (var con in connpara)
             {
-               var constr = $"Server={con.IPAddress};Database= {con.DBName};User Id={ con.UserName};Password={con.Password};pooling=false;";
-               var birthday = GetBirthDay(constr);
-                foreach(var contact in birthday)
+                var constr = $"Server={con.IPAddress};Database= {con.DBName};User Id={ con.UserName};Password={con.Password};pooling=false;";
+                var birthday = GetBirthDay(constr);
+
+                //var Name = new List<Contact> { new Contact { FullName = "Abhay Ashok Bhalerao",BirthDate=Convert.ToDateTime("14-08-2023"), MobileNo = "7020212230" } };
+                foreach (var contact in birthday)
                 {
-                                                                                                                                                                                                                                        SentBirthdaymsg(contact);
+                    SentBirthdaymsg(contact); SentBirthdaymsg(contact);
                 }
                 var anniversary = GetAnniversary(constr);
-                foreach(var contact in anniversary)
+                foreach (var contact in anniversary)
                 {
                     SentAnniversarymsg(contact);
                 }
@@ -47,7 +49,7 @@ namespace ElectionAlerts.Model
             //NotificationRepository _notificationRepository = new NotificationRepository(null);
             //var BirthdayList = _notificationRepository.GetTodaysNotifications("Birthday");
             //var AnniversaryList = _notificationRepository.GetTodaysNotifications("Anniversary");
-            //call your function here
+
             //foreach (var contact in BirthdayList)
             //{
             //    SentBirthdaymsg(contact);
@@ -57,12 +59,7 @@ namespace ElectionAlerts.Model
             //{
             //    SentAnniversarymsg(contact);
             //}
-            //string path = "c:\\log\\sample.txt";
-            //using (StreamWriter writer = new StreamWriter(path, true))
-            //{
-            //    writer.WriteLine(time);
-            //    writer.Close();
-            //}
+
             LogWrite("Scheduller Completed Executing the Job : " + DateTime.Now.ToString());
         }
 
@@ -257,7 +254,7 @@ namespace ElectionAlerts.Model
     {
         // private static  string ScheduleCronExpression = "0 0 18 * * ?";
         //private static string ScheduleCronExpression = "0 0 1 * * ?";
-        private static string ScheduleCronExpression = "0 0 15 ? * * *";//"0 0 12 ? * * *";//30 2 * * * 
+        private static string ScheduleCronExpression = "0 19 12 ? * * *";//"0 0 12 ? * * *";//30 2 * * * 
         // private static string ScheduleCronExpression = "0 0,00 0,19 ? * * *";
         public static async System.Threading.Tasks.Task StartAsync()
         {

@@ -10,10 +10,11 @@ namespace ElectionAlerts.Services.Interface
     public interface IVoterService
     {
         IEnumerable<GetVoterByPartNo> GetAllVoter(int UserId, int RoleId, int PageNo, int NoofRow,string Language, string SearcText);
+        IEnumerable<GetVoterByPartNo> GetAllVoterSurvey(int userid, int RoleId, int PageNo, int NoofRow, string Language, string SearcText);
         int CreateVoter(Voter voter);
         int UpadateVoter(Voter voter);
-        int InsertBulkVoter(List<Voter> voters);
-        int InsertBulkMobile(List<Mobile> mobiles);
+        int InsertBulkVoter(List<VoterBulk> voters);
+        int InsertBulkMobile(List<VoterMobileBulk> mobiles);
         int DeleteVoterbyId(int Id);
         IEnumerable<GetVoterByPartNo> FilterVoterbyCondition(VoterTable table);
         IEnumerable<GetVoterByPartNo> FilterVoterList(VoterTable table);

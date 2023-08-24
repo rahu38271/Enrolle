@@ -99,15 +99,26 @@ namespace ElectionAlerts.Model.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
-         
-            string ElectionAlertconstr;
+            string constr=null;
+            var identity = _httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
+            if (identity.Claims.Count() > 0)
+            {
+                IEnumerable<Claim> claims = identity.Claims;
+                foreach (var c in claims)
+                {
+                    if (c.Type.Contains("name"))
+                        constr = c.Value;
+                }
+            }
 
             if (!optionsBuilder.IsConfigured)
             {
-              
-                ElectionAlertconstr = Startup.ElectionAlertConStr;
-                optionsBuilder.UseSqlServer(ElectionAlertconstr, x => x.EnableRetryOnFailure());
+                var username = _httpContextAccessor.HttpContext.User.Identity.Name;
+                //var storedData = _httpContextAccessor.HttpContext.Session.GetString(username);
+                // ElectionAlertconstr = Startup.ElectionAlertConStr;
+                //ElectionAlertconstr = storedData;
+                // optionsBuilder.UseSqlServer(ElectionAlertconstr, x => x.EnableRetryOnFailure());
+                optionsBuilder.UseSqlServer(constr, x => x.EnableRetryOnFailure());
             }
         }
         public DbSet<VoterMobile> VoterMobiles { get; set; }

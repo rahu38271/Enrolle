@@ -18,6 +18,7 @@ namespace ElectionAlerts.Controller
 {
     [Route("api/Auth")]
     [ApiController]
+    [Authorize]
     public class AuthenticationController: ControllerBase
     {
         private readonly IAuthService _iauthservice;

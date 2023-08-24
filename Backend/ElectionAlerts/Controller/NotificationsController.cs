@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ElectionAlerts.Model;
 using ElectionAlerts.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,7 @@ namespace ElectionAlerts.Controller
 {
     [Route("api/notifications")]
     [ApiController]
+    [Authorize]
     public class NotificationsController : ControllerBase
     {
         private INotificationService _notificationService;

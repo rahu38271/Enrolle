@@ -51,44 +51,50 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
            
         }
-        public int InsertBulkContact(List<Contact> contact)
+        public int InsertBulkContact(List<BulkContact> contact)
         {
             try
             {
-                DataTable dt = new DataTable();
-                PropertyInfo[] Props = typeof(Contact).GetProperties(BindingFlags.Public | BindingFlags.Instance);
-                foreach (PropertyInfo prop in Props)
+                var contactpartition = contact.partition(10000);
+                foreach(var cnt in contactpartition)
                 {
-                    //Setting column names as Property names
-                    dt.Columns.Add(prop.Name);
-                }
-                foreach (Contact item in contact)
-                {
-                    var values = new object[Props.Length];
-                    for (int i = 0; i < Props.Length; i++)
+                    DataTable dt = new DataTable();
+                    PropertyInfo[] Props = typeof(BulkContact).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                    foreach (PropertyInfo prop in Props)
                     {
-                        //inserting property values to datatable rows
-                        values[i] = Props[i].GetValue(item, null);
+                        //Setting column names as Property names
+                        dt.Columns.Add(prop.Name);
                     }
-                    dt.Rows.Add(values);
-                }
-                var d = dt;
-                if (dt.Rows.Count > 0)
-                {
-                
-                    using (SqlConnection con = new SqlConnection(_customContext.Database.GetConnectionString()))
+                    foreach (BulkContact item in cnt)
                     {
-                        using (SqlCommand cmd = new SqlCommand("USP_InsertBulkContact"))
+                        var values = new object[Props.Length];
+                        for (int i = 0; i < Props.Length; i++)
                         {
-                            cmd.CommandType = CommandType.StoredProcedure;
-                            cmd.Connection = con;
-                            cmd.Parameters.AddWithValue("@ContactType", dt);
-                            con.Open();
-                            cmd.ExecuteNonQuery();
-                            con.Close();
+                            //inserting property values to datatable rows
+                            values[i] = Props[i].GetValue(item, null);
+                        }
+                        dt.Rows.Add(values);
+                    }
+                    var d = dt;
+                    if (dt.Rows.Count > 0)
+                    {
+
+                        using (SqlConnection con = new SqlConnection(_customContext.Database.GetConnectionString()))
+                        {
+                            using (SqlCommand cmd = new SqlCommand("USP_InsertBulkContact"))
+                            {
+                                cmd.CommandType = CommandType.StoredProcedure;
+                                cmd.Connection = con;
+                                cmd.Parameters.AddWithValue("@ContactType", dt);
+                                con.Open();
+                                cmd.ExecuteNonQuery();
+                                con.Close();
+                            }
                         }
                     }
-                }
+                    }
+                
+
                 return 1;
             }
             catch (Exception ex)
@@ -123,4 +129,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
     }
+
+   
+
 }

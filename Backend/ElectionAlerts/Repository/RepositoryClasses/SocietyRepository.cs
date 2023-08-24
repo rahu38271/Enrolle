@@ -14,8 +14,13 @@ namespace ElectionAlerts.Repository.RepositoryClasses
 {
     public class SocietyRepository : ISocietyRepository
     {
-        private CustomContext _custonContext = new CustomContext();
-
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private CustomContext _custonContext;
+        public SocietyRepository(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            _custonContext = new CustomContext(_httpContextAccessor);
+        }
         public int CreateUpdateSociety(Society society)
         {
             try

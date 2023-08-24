@@ -10,9 +10,10 @@ namespace ElectionAlerts.Repository.Interface
     public interface IVoterRepository
     {
         IEnumerable<GetVoterByPartNo> GetAllVoter(int userid,int RoleId, int PageNo, int NoofRow,string Language, string SearcText);
+        IEnumerable<GetVoterByPartNo> GetAllVoterSurvey(int userid, int RoleId, int PageNo, int NoofRow, string Language, string SearcText);
         int CreateVoter(Voter voter);
-        int InsertBulkVoter(List<Voter> voters);
-        int InsertBulkMobile(List<Mobile> mobiles);
+        int InsertBulkVoter(List<VoterBulk> voters);
+        int InsertBulkMobile(List<VoterMobileBulk> mobiles);
         int UpadateVoter(Voter voter);
         int DeleteVoterbyId(int Id);
         IEnumerable<GetVoterByPartNo> FilterVoterList(VoterTable table);

@@ -1,6 +1,7 @@
 ﻿using ElectionAlerts.Dto;
 using ElectionAlerts.Model;
 using ElectionAlerts.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,6 +13,7 @@ namespace ElectionAlerts.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class GeneralEnquiryController : ControllerBase
     {
         private readonly IGeneralEnquiryService _generalEnquiryService;

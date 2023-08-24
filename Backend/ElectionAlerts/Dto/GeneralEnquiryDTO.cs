@@ -33,7 +33,7 @@ namespace ElectionAlerts.Dto
         public string Reference { get; set; }
         public string PersonEnteringData { get; set; }
         public int? UserId { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime? CreatedDate { get; set; }
         public string ReferenceId { get; set; }
         public int? TotalCount { get; set; }
     }

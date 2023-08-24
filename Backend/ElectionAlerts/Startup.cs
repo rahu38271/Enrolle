@@ -39,7 +39,12 @@ namespace ElectionAlerts
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           // services.AddHostedService<Scheduler>();
+            services.Configure<FormOptions>(x =>
+            {
+                x.ValueLengthLimit = int.MaxValue;
+                x.MultipartBodyLengthLimit = 500000000; // In case of multipart
+            });
+            // services.AddHostedService<Scheduler>();
             //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
@@ -71,6 +76,7 @@ namespace ElectionAlerts
             }));
 
             services.AddHttpContextAccessor();
+
             services.AddScoped<IContactService, ContactService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<INotificationService, NotificationService>();
@@ -115,6 +121,7 @@ namespace ElectionAlerts
             services.AddScoped<IActivityLogRepository, ActivityLogRepository>();
             services.AddScoped<IDailyNewsRepository, DailyNewsRepository>();
             services.AddScoped<IGeneralEnquiryRepository, GeneralEnquiryRepository>();
+           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -130,15 +137,12 @@ namespace ElectionAlerts
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseCors("MyPolicy");
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-
-            //app.UseAuthorization();
-            //app.UseAuthentication();
             app.UseAuthentication();
-
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

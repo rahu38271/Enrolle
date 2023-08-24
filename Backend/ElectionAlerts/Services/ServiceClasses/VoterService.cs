@@ -79,6 +79,11 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.GetAllVoter(UserId,RoleId, PageNo,NoofRow, Language, SearcText);
         }
 
+        public IEnumerable<GetVoterByPartNo> GetAllVoterSurvey(int userid, int RoleId, int PageNo, int NoofRow, string Language, string SearcText)
+        {
+            return _voterRepository.GetAllVoterSurvey(userid, RoleId, PageNo, NoofRow, Language, SearcText);
+        }
+
         public IEnumerable<BoothName> GetBoothNamebyUserId(int userid,int roleid, int PageNo, int NoofRow)
         {
             return _voterRepository.GetBoothNamebyUserId(userid,roleid,PageNo,NoofRow);
@@ -164,12 +169,12 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.GetWhatAppContentbyUserId(UserId);
         }
 
-        public int InsertBulkMobile(List<Mobile> mobiles)
+        public int InsertBulkMobile(List<VoterMobileBulk> mobiles)
         {
             return _voterRepository.InsertBulkMobile(mobiles);
         }
 
-        public int InsertBulkVoter(List<Voter> voters)
+        public int InsertBulkVoter(List<VoterBulk> voters)
         {
             return _voterRepository.InsertBulkVoter(voters);
         }

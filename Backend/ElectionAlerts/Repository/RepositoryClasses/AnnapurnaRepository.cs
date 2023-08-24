@@ -1,6 +1,7 @@
 ﻿using ElectionAlerts.Model;
 using ElectionAlerts.Model.Data;
 using ElectionAlerts.Repository.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,8 +12,13 @@ namespace ElectionAlerts.Repository.RepositoryClasses
 {
     public class AnnapurnaRepository : IAnnapurnaRepository
     {
-        private CustomContext _custonContext = new CustomContext();
-
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private CustomContext _custonContext;
+        public AnnapurnaRepository(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            _custonContext = new CustomContext(_httpContextAccessor); 
+        }
         public int DeletebyId(int Id)
         {
            try

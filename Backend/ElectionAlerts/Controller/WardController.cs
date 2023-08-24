@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace ElectionAlerts.Controller
 {
     [Route("api/[controller]")]
-    //[Authorize]
+    [Authorize]
     [ApiController]
     public class WardController : ControllerBase
     {
