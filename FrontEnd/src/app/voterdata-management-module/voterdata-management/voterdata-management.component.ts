@@ -183,6 +183,7 @@ keyPressNumbers(event) {
    
 
    EditVoter(data:any){
+    debugger;
      this.router.navigateByUrl('/voterdata-management/edit-voterdata',{state: data})
    }
 

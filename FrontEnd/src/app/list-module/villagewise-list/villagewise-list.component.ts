@@ -24,7 +24,7 @@ export class VillagewiseListComponent implements OnInit {
   roleID:any;
   id:any;
   PageNo:any=1;
-  NoofRow:any=10;
+  NoofRow:any=25;
   totalItems:any;
   SearchText:any;
 
@@ -158,6 +158,11 @@ export class VillagewiseListComponent implements OnInit {
         this.loader.hideLoader();
         this.villageWiseVoter = data;
         this.totalItems = data[0].totalCount;
+        this.villageWiseVoter.forEach(e=>{
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+        })
         this.excel.exportAsExcelFile(this.villageWiseVoter, 'Villagewise Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
@@ -180,6 +185,12 @@ export class VillagewiseListComponent implements OnInit {
         this.loader.hideLoader();
         this.villageWiseVoter = data;
         this.totalItems = data[0].totalCount;
+        this.villageWiseVoter.forEach(e=>{
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+          delete e.id;
+        })
         this.csv.exportToCsv(this.villageWiseVoter, 'Villagewise Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }

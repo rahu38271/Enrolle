@@ -5,6 +5,7 @@ import {FormsModule } from '@angular/forms'
 import { RouterModule} from '@angular/router'
 import { VoterSummaryComponent} from './voter-summary/voter-summary.component'
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   declarations: [VoterSummaryComponent],
@@ -12,6 +13,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     CommonModule,
     IonicModule,
     FormsModule,
+    TranslateModule,
     Ng2SearchPipeModule,
     RouterModule.forChild([{path:'', component:VoterSummaryComponent}])
   ]

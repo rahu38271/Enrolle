@@ -154,6 +154,11 @@ export class AgewiseListComponent implements OnInit {
         this.loader.hideLoader();
         this.ageList = data;
         this.totalItems = data[0].totalCount;
+        this.ageList.forEach(e => {
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+        });
         this.excel.exportAsExcelFile(this.ageList, 'Agewise Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
@@ -183,6 +188,12 @@ export class AgewiseListComponent implements OnInit {
       if(data.length != 0){
         this.loader.hideLoader();
         this.ageList = data;
+        this.ageList.forEach(e => {
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+          delete e.id;
+        });
         this.totalItems = data[0].totalCount;
         this.csv.exportToCsv(this.ageList, 'Agewise Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');

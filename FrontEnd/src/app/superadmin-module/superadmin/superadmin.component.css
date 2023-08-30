@@ -188,7 +188,7 @@ td a {
  } */
 
  .PartAssigned {
-   width: 150px !important;
+   max-width: 150px !important;
  }
 
  ion-label {

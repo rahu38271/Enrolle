@@ -152,6 +152,11 @@ export class ImpVoterComponent implements OnInit {
         this.loader.hideLoader();
         this.impVoterData = data;
         this.totalItems = data[0].totalCount;
+        this.impVoterData.forEach(e => {
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+        });
         this.excel.exportAsExcelFile(this.impVoterData, 'Imp Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
@@ -174,6 +179,12 @@ export class ImpVoterComponent implements OnInit {
         this.loader.hideLoader();
         this.impVoterData = data;
         this.totalItems = data[0].totalCount;
+        this.impVoterData.forEach(e => {
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+          delete e.id;
+        });
         this.csv.exportToCsv(this.impVoterData, 'Imp Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }

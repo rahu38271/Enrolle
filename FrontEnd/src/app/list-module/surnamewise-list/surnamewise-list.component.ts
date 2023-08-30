@@ -158,6 +158,11 @@ export class SurnamewiseListComponent implements OnInit {
         this.loader.hideLoader();
         this.surnameWiseData = data;
         this.totalItems = data[0].totalCount;
+        this.surnameWiseData.forEach(e => {
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+        });
         this.excel.exportAsExcelFile(this.surnameWiseData, 'surnameWise Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
@@ -180,6 +185,12 @@ export class SurnamewiseListComponent implements OnInit {
         this.loader.hideLoader();
         this.surnameWiseData = data;
         this.totalItems = data[0].totalCount;
+        this.surnameWiseData.forEach(e => {
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+          delete e.id;
+        });
         this.csv.exportToCsv(this.surnameWiseData, 'surnameWise Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }

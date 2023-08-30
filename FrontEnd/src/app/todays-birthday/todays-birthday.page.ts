@@ -103,16 +103,21 @@ export class TodaysBirthdayPage implements OnInit {
   exportExcel(){
     this.getBirthdays.forEach(e=> {
       e.birthDate = e.birthDate.split('T')[0];
+      delete e.totalCount;
+      delete e.loginUserId
     });
-    this.excel.exportAsExcelFile(this.getBirthdays, 'contact');
+    this.excel.exportAsExcelFile(this.getBirthdays, 'birthday');
   }
 
   exportToCSV() {
     this.getBirthdays.forEach(e =>{
       e.birthDate = e.birthDate.split('T')[0];
       e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '': e.anniversary.split('T')[0];
+      delete e.totalCount;
+      delete e.loginUserId;
+      delete e.id;
     })
-    this.csv.exportToCsv(this.getBirthdays, 'contact');
+    this.csv.exportToCsv(this.getBirthdays, 'birthday');
   }
 
 

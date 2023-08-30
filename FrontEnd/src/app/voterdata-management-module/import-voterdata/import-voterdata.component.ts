@@ -29,6 +29,7 @@ export class ImportVoterdataComponent implements OnInit {
   roleId:any;
   superAdminId:any;
   name:any;
+  assemblyName:any;
 
   constructor
     (
@@ -40,6 +41,21 @@ export class ImportVoterdataComponent implements OnInit {
       private location: Location
     ) {
 
+  }
+
+  ngOnInit() {
+    this.UserId = localStorage.getItem("loginId");
+    this.AdminId = localStorage.getItem("adminId");
+    this.roleId = localStorage.getItem("userType");
+    this.superAdminId = localStorage.getItem("superAdminId");
+    this.name = localStorage.getItem("loginUser");
+    this.assemblyName = localStorage.getItem("loginAssembly");
+    if (this.roleId == 2) {
+      this.AdminId = this.UserId
+    }
+    else {
+      this.AdminId = this.superAdminId
+    }
   }
 
   onFileChange(event: any) {
@@ -58,6 +74,7 @@ export class ImportVoterdataComponent implements OnInit {
   }
 
   ReadExcelData() {
+    debugger;
     var reader = new FileReader();
     reader.readAsBinaryString(this.file);
     reader.onload = (event) => {
@@ -72,7 +89,26 @@ export class ImportVoterdataComponent implements OnInit {
       if (this.arraylist.length > 0) {
         // this.spinner.show(); 
         this.obj = (this.arraylist)[0];
-        if (Object.keys(this.obj)[0] != "PartNo" && (this.obj)[1] != "Name" && (this.obj)[2] != "Gender" && (this.obj)[3] != "Age" && (this.obj)[4] != "Village" && (this.obj)[5] != "VoterId" && (this.obj)[6] != "Address") {
+        if (Object.keys(this.obj)[0] != "AssemblyNo" && 
+        (this.obj)[1] != "Assembly" && 
+        (this.obj)[2] != "AssemblyName_MR" && 
+        (this.obj)[3] != "AssemblyName_HN" && 
+        (this.obj)[4] != "PartNo" && 
+        (this.obj)[5] != "Name" && 
+        (this.obj)[6] != "Name_MR" && 
+        (this.obj)[7] != "Name_HN"  && 
+        (this.obj)[8] != "Gender" && 
+        (this.obj)[9] != "Age" && 
+        (this.obj)[10] != "Village" &&
+        (this.obj)[11] != "Village_MR" &&
+        (this.obj)[12] != "Village_HN" &&
+        (this.obj)[13] != "VoterId" && 
+        (this.obj)[14] != "Address" && 
+        (this.obj)[15] != "Address_MR" && 
+        (this.obj)[16] != "Address_HN" && 
+        (this.obj)[17] != "Mobile" && 
+        (this.obj)[18] != "BirthDate" && 
+        (this.obj)[19] != "PinCode") {
           this.toast.presentToast("Only provided template file is allowed. Please download the provided template only!", "danger", 'alert-circle-sharp')
           this.disabled = true;
         }
@@ -88,6 +124,49 @@ export class ImportVoterdataComponent implements OnInit {
       //arraylist = arraylist.map((u: any) => ({ value: u.vin }));
       if (this.arraylist.length > 0) {
         for (var i = 0; i < this.arraylist.length; i++) {
+          if(this.arraylist[i].BirthDate != undefined){
+            var rawdob = this.arraylist[i].BirthDate;
+            var DB = new Date((rawdob - 25569) * 86400000);
+            if(DB.toString() !== 'Invalid Date'){
+              var Dob = DB.toISOString().replace(/.\d+Z$/g, "");
+            }
+            else{
+              var Dob = '1900-01-01T00:00:00'
+            }
+          }
+          else{
+            var Dob = '1900-01-01T00:00:00'
+          }
+        
+          //for birthdate if excel column is empty
+          if (this.arraylist[i].BirthDate == undefined) {
+            this.arraylist[i].BirthDate = '1900-01-01T00:00:00';
+          }
+          else {
+            this.arraylist[i].BirthDate = Dob;
+          }
+
+          // for mobile number if excel column is empty
+          if(this.arraylist[i].Mobile == undefined){
+            this.arraylist[i].Mobile = '';
+          }
+          else{
+            this.arraylist[i].Mobile = this.arraylist[i].Mobile.toString();
+            var mobLength = this.arraylist[i].Mobile.length;
+            if(mobLength !== 10){
+              this.arraylist[i].Mobile = ''
+            }
+            else{
+              this.arraylist[i].Mobile = this.arraylist[i].Mobile.toString();
+            }
+          }
+          // for pincode if excel column is empty
+          if(this.arraylist[i].PinCode == undefined){
+            this.arraylist[i].PinCode = null;
+          }
+          else{
+            this.arraylist[i].PinCode = this.arraylist[i].PinCode;
+          }
 
           // var obj = {
           //   fullName: this.arraylist[i].fullName,
@@ -118,37 +197,39 @@ export class ImportVoterdataComponent implements OnInit {
           // }
 
           var obj = {
+            AssemblyNo:this.arraylist[i].AssemblyNo,
+            Assembly:this.arraylist[i].Assembly,
+            AssemblyName_HN:this.arraylist[i].AssemblyName_HN,
+            AssemblyName_MR:this.arraylist[i].AssemblyName_MR,
             PartNo: this.arraylist[i].PartNo,
             FullName: this.arraylist[i].Name,
+            FullName_MR: this.arraylist[i].Name_MR,
+            FullName_HN: this.arraylist[i].Name_HN,
             Gender: this.arraylist[i].Gender,
             Age: this.arraylist[i].Age,
             Village: this.arraylist[i].Village,
+            Village_HN: this.arraylist[i].Village_MR,
+            Village_MR: this.arraylist[i].Village_HN,
             VotingCardNo: this.arraylist[i].VoterID.toString(),
             Address: this.arraylist[i].Address,
+            Address_HN: this.arraylist[i].Address_MR,
+            Address_MR: this.arraylist[i].Address_HN,
+            MobileNo: this.arraylist[i].Mobile,
+            BirthDate: Dob, 
+            Pincode:this.arraylist[i].PinCode
           }
           debugger;
           this.excelUploadedData.push(obj);
         }
       }
       //this.excelUploadedData = arraylist;
+      console.log(this.excelUploadedData)
     };
     reader.onerror = function (event) { console.error("File could not be read! Code "); };
   }
 
 
-  ngOnInit() {
-    this.UserId = localStorage.getItem("loginId");
-    this.AdminId = localStorage.getItem("adminId");
-    this.roleId = localStorage.getItem("userType");
-    this.superAdminId = localStorage.getItem("superAdminId");
-    this.name = localStorage.getItem("loginUser")
-    if (this.roleId == 2) {
-      this.AdminId = this.UserId
-    }
-    else {
-      this.AdminId = this.superAdminId
-    }
-  }
+  
 
   resetForm() {
     this.myForm.reset();
@@ -167,23 +248,32 @@ export class ImportVoterdataComponent implements OnInit {
       exceldata.push(
         {
           "Address": element.Address,
+          "Address_MR": element.Address_MR,
+          "Address_HN": element.Address_HN,
           "Age": element.Age,
           "FullName": element.FullName,
+          "FullName_MR": element.FullName_MR,
+          "FullName_HN": element.FullName_HN,
           "Gender": element.Gender,
           "PartNo": element.PartNo,
           "VotingCardNo": element.VotingCardNo,
           "Village": element.Village,
-          "BirthDate": "1900-01-01T00:00:00",
+          "Village_MR": element.Village_MR,
+          "Village_HN": element.Village_HN,
+          "BirthDate": element.BirthDate,
           "HouseNo": "",
 
-          "MobileNo": "",
+          "MobileNo": element.MobileNo,
           "Caste": "",
           "District": "",
-          "Assembly": "",
+          "AssemblyNo":element.AssemblyNo,
+          "Assembly": element.Assembly,
+          "AssemblyName_MR": element.AssemblyName_MR,
+          "AssemblyName_HN": element.AssemblyName_HN,
           "Taluka": "",
           "Ward": "",
           "Booth": null,
-         // "Pincode": 0,
+          "Pincode": element.Pincode,
           "Email": "",
           "FamilyHead": "",
           "IsSuspisious": "",
@@ -204,7 +294,6 @@ export class ImportVoterdataComponent implements OnInit {
     });
 
     this.voter.uploadExcel(exceldata).subscribe((data) => {
-      
       if (data) {
         this.loader.hideLoader();
         this.toast.presentToast("File uploded successfully!", "success", 'checkmark-circle-sharp');

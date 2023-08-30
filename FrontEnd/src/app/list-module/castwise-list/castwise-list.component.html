@@ -63,6 +63,7 @@
                     <tr>
                       <th>Sr.No.</th>
                       <th>Name</th>
+                      <th>Part No.</th>
                       <th>Booth Name</th>
                       <th>Age</th>
                       <th>Gender</th>
@@ -77,6 +78,7 @@
                       *ngFor="let item of VoterwithCaste | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems }">
                       <td>{{item.id}}</td>
                       <td (click)="EditVoter(item)" class="text-capitalize nameLink">{{item.fullName}}</td>
+                      <td>{{item.partNo}}</td>
                       <td>{{item.booth}}</td>
                       <td>{{item.age}}</td>
                       <td>{{item.gender}}</td>

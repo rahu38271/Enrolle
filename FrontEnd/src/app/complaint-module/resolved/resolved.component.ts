@@ -200,8 +200,10 @@ export class ResolvedComponent implements OnInit {
         this.resolvedList = data;
         this.totalItems = data[0].totalCount;
         this.resolvedList.forEach(e => {
-          e.fromDate = e.fromDate.split('T')[0];
-          e.toDate = e.toDate.split('T')[0];
+          delete e.totalCount;
+            delete e.createdDate;
+            delete e.roleId;
+            delete e.userId;
         });
         this.excel.exportAsExcelFile(this.resolvedList, 'Resolved Complaints');
         this.toast.presentToast("Downloaded successfully!", "success", 'checkmark-circle-sharp');
@@ -224,8 +226,11 @@ export class ResolvedComponent implements OnInit {
         this.resolvedList = data;
         this.totalItems = data[0].totalCount;
         this.resolvedList.forEach(e => {
-          e.fromDate = e.fromDate.split('T')[0];
-          e.toDate = e.toDate.split('T')[0];
+          delete e.totalCount;
+            delete e.createdDate;
+            delete e.roleId;
+            delete e.userId;
+            delete e.id;
         });
         this.csv.exportToCsv(this.resolvedList, 'Resolved Complaints');
         this.toast.presentToast("Downloaded successfully!", "success", 'checkmark-circle-sharp');

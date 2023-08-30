@@ -48,8 +48,11 @@
                   </div>
                 </ion-col>
                 <ion-col class="ion-text-right">
-                  <ion-button class="button-download" color="success">
+                  <ion-button class="button-download" color="success" (click)="exportExcel()">
                     <ion-icon name="document-sharp"></ion-icon>Excel
+                  </ion-button>
+                  <ion-button class="button-download" color="success" (click)="exportToCSV()" id="export">
+                    <ion-icon name="document-sharp"></ion-icon>CSV
                   </ion-button>
                 </ion-col>
               </ion-row>

@@ -153,6 +153,12 @@ export class AddresswiseListComponent implements OnInit {
         this.loader.hideLoader();
         this.addressWiseList = data;
         this.totalItems = data[0].totalCount;
+        this.addressWiseList.forEach(e => {
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+          delete e.id;
+        });
         this.excel.exportAsExcelFile(this.addressWiseList, 'Addresswise Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
@@ -175,6 +181,12 @@ export class AddresswiseListComponent implements OnInit {
         this.loader.hideLoader();
         this.addressWiseList = data;
         this.totalItems = data[0].totalCount;
+        this.addressWiseList.forEach(e => {
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+          delete e.id;
+        });
         this.csv.exportToCsv(this.addressWiseList, 'Addresswise Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }

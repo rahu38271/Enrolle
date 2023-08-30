@@ -153,6 +153,11 @@ export class DoubtfulListComponent implements OnInit {
         this.loader.hideLoader();
         this.doubtfulVoter = data;
         this.totalItems = data[0].totalCount;
+        this.doubtfulVoter.forEach(e=>{
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+        })
         this.excel.exportAsExcelFile(this.doubtfulVoter, 'Doubtful Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
@@ -175,6 +180,11 @@ export class DoubtfulListComponent implements OnInit {
         this.loader.hideLoader();
         this.doubtfulVoter = data;
         this.totalItems = data[0].totalCount;
+        this.doubtfulVoter.forEach(e=>{
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+        })
         this.csv.exportToCsv(this.doubtfulVoter, 'Doubtful Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }

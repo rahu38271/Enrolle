@@ -4,7 +4,8 @@ import * as xlsx from 'xlsx';
 import html2pdf from 'html2pdf.js'
 import { VoterService } from 'src/app/services/voter.service'
 import { Router } from '@angular/router'
-
+import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-voter-summary',
@@ -12,7 +13,8 @@ import { Router } from '@angular/router'
   styleUrls: ['./voter-summary.component.scss'],
 })
 export class VoterSummaryComponent implements OnInit {
-
+  Language:any;
+  assemblyNo:any;
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
   voterCount: any[]=[];
   userID: any;
@@ -23,7 +25,37 @@ export class VoterSummaryComponent implements OnInit {
   searchWeb:string;
   isAssembly=true;
   isVillage=true;
-  constructor(public alertController: AlertController, private voter:VoterService, private router:Router) { }
+  assemblyNameByLang:any;
+  nonEngAssembly=false;
+  engAssembly=false;
+  constructor(
+    public alertController: AlertController, 
+    private voter:VoterService, 
+    private router:Router,
+    public translate: TranslateService,
+    private translateConfigService: TranslateConfigService,
+    ) {
+    this.Language = this.translateConfigService.getCurrentLang();
+    
+    if(this.Language == 'en'){
+      this.engAssembly = true;
+    }
+    else{
+      this.nonEngAssembly = true;
+    }
+    if (this.Language == "kn") {
+      this.Language = "Kannada"
+    }
+    else if (this.Language == "mr") {
+      this.Language = "Marathi"
+    }
+    else if (this.Language == "hi") {
+      this.Language = "Hindi"
+    }
+    else {
+      this.Language = "English"
+    }
+   }
 
   ngOnInit() { 
     this.userID = localStorage.getItem("loginId");
@@ -32,18 +64,19 @@ export class VoterSummaryComponent implements OnInit {
     this.district = localStorage.getItem("loginDistrict");
     this.village = localStorage.getItem("loginVillage");
     this.voterByBooth();
-    if(this.assemblyName=="null"){
-      this.isAssembly=!this.isAssembly;
-    }
-    else{
-      this.isAssembly=this.isAssembly;
-    }
-    if(this.village=="null"){
-      this.isVillage=!this.isVillage;
-    }
-    else{
-      this.isVillage=this.isVillage;
-    }
+    this.assemblyNameLang();
+    // if(this.assemblyName=="null"){
+    //   this.isAssembly=!this.isAssembly;
+    // }
+    // else{
+    //   this.isAssembly=this.isAssembly;
+    // }
+    // if(this.village=="null"){
+    //   this.isVillage=!this.isVillage;
+    // }
+    // else{
+    //   this.isVillage=this.isVillage;
+    // }
     
   }
 
@@ -53,7 +86,14 @@ export class VoterSummaryComponent implements OnInit {
 
   voterByBooth(){
     this.voter.boothWiseVoterCount(this.userID,this.roleID).subscribe(data=>{
+      console.log(data);
       this.voterCount = data;
+    })
+  }
+
+  assemblyNameLang(){
+    this.voter.getAssemblyName(this.assemblyName).subscribe(data=>{
+      this.assemblyNameByLang = data;
     })
   }
 

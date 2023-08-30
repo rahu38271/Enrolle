@@ -153,7 +153,12 @@ export class OppositionListComponent implements OnInit {
         this.loader.hideLoader();
         this.oppositeVoter = data;
         this.totalItems = data[0].totalCount;
-        this.excel.exportAsExcelFile(this.oppositeVoter, 'Doubtful Voter');
+        this.oppositeVoter.forEach(e=>{
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+        })
+        this.excel.exportAsExcelFile(this.oppositeVoter, 'Opposition Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
       else{
@@ -175,7 +180,13 @@ export class OppositionListComponent implements OnInit {
         this.loader.hideLoader();
         this.oppositeVoter = data;
         this.totalItems = data[0].totalCount;
-        this.csv.exportToCsv(this.oppositeVoter, 'Doubtful Voter');
+        this.oppositeVoter.forEach(e=>{
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+          delete e.id;
+        })
+        this.csv.exportToCsv(this.oppositeVoter, 'Opposition Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
       else{

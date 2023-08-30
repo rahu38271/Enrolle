@@ -186,6 +186,10 @@ export class SocietyComponent implements OnInit {
         this.loader.hideLoader();
         this.getSocietyList = data;
         this.totalItems = data[0].totalcount;
+        this.getSocietyList.forEach(e=>{
+          delete e.totalcount;
+          delete e.createdDate;
+        })
         this.excel.exportAsExcelFile(this.getSocietyList, 'Society');
       }
       else{
@@ -207,6 +211,11 @@ export class SocietyComponent implements OnInit {
         this.loader.hideLoader();
         this.getSocietyList = data;
         this.totalItems = data[0].totalcount;
+        this.getSocietyList.forEach(e=>{
+          delete e.totalcount;
+          delete e.createdDate;
+          delete e.id;
+        })
         this.csv.exportToCsv(this.getSocietyList, 'Society');
       }
       else{

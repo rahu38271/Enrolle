@@ -49,8 +49,11 @@
                   </div>
                 </ion-col>
                 <ion-col class="ion-text-right">
-                  <ion-button class="button-download" color="success">
+                  <ion-button class="button-download" color="success" (click)="exportExcel()">
                     <ion-icon name="document-sharp"></ion-icon>Excel
+                  </ion-button>
+                  <ion-button class="button-download" color="success" (click)="exportToCSV()" id="export">
+                    <ion-icon name="document-sharp"></ion-icon>CSV
                   </ion-button>
                 </ion-col>
               </ion-row>
@@ -61,6 +64,7 @@
                   <tr>
                     <th>Sr.No.</th>
                     <th>Name</th>
+                    <th>Part</th>
                     <th>Booth Name</th>
                     <th>Age</th>
                     <th>Gender</th>
@@ -74,6 +78,7 @@
                   <tr *ngFor="let item of voterWithSoci| paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalCount }">
                     <td>{{item.id}}</td>
                     <td (click)="EditVoter(item)" class="text-capitalize nameLink">{{item.fullName}}</td>
+                    <td>{{item.partNo}}</td>
                     <td>{{item.booth}}</td>
                     <td>{{item.age}}</td>
                     <td>{{item.gender}}</td>

@@ -114,6 +114,7 @@ export class VoterDetailsComponent  {
   closeModal() {
     this.modalCtrl.dismiss();
   }
+  assemblyNo:any;
   UserId:any;
   content: string;
   SearchText:any;

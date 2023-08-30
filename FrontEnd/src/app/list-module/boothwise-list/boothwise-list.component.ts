@@ -153,6 +153,7 @@ export class BoothwiseListComponent implements OnInit {
         this.loader.hideLoader();
         this.partWiseVoter = data;
         this.totalItems = data[0].totalCount;
+        
         this.excel.exportAsExcelFile(this.partWiseVoter, 'Partwise Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }

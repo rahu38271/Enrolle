@@ -106,8 +106,8 @@ omit_special_char(event) {
         this.getWard();
         this.getBooth()
         this.AllCasts();
-        if(this.EditData.birthDate==null){
-          this.EditData.birthDate = ''
+        if(this.EditData.birthDate=="" || this.EditData.birthDate==null){
+          this.EditData.birthDate = "1900-01-01T00:00:00"
         }
         else{
           this.EditData.birthDate = this.EditData.birthDate.split('T')[0];
@@ -189,6 +189,15 @@ omit_special_char(event) {
     this.EditData.userId = Number(this.userId);
     this.EditData.adminId = Number(this.AdminId);
     this.EditData.pincode = Number(this.EditData.pincode);
+    if(this.EditData.pincode=="NaN"){
+      this.EditData.pincode = null
+    }
+    if(this.EditData.birthDate=='' || this.EditData.birthDate == null){
+      this.EditData.birthDate = '1900-01-01'
+    }
+    else{
+      this.EditData.birthDate = this.EditData.birthDate.split('T')[0];
+    }
     this.EditData.userName= this.name;
     this.loader.showLoading();
     this.voter.update(this.EditData).subscribe((data)=>{

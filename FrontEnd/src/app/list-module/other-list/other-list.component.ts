@@ -179,6 +179,11 @@ export class OtherListComponent implements OnInit {
         this.loader.hideLoader();
         this.otherVoter = data;
         this.totalItems = data[0].totalCount;
+        this.otherVoter.forEach(e=>{
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+        })
         this.excel.exportAsExcelFile(this.otherVoter, 'Other Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
@@ -201,6 +206,12 @@ export class OtherListComponent implements OnInit {
         this.loader.hideLoader();
         this.otherVoter = data;
         this.totalItems = data[0].totalCount;
+        this.otherVoter.forEach(e=>{
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+          delete e.id;
+        })
         this.csv.exportToCsv(this.otherVoter, 'Other Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }

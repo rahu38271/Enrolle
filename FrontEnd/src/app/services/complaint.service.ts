@@ -43,7 +43,6 @@ export class ComplaintService {
   // }
 
   addSingleComplaint(file:any, societycomplaint:any):Observable<any>{
-    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
@@ -99,7 +98,6 @@ export class ComplaintService {
   }
 
   getFile(id:any): Observable<Blob>{
-    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });

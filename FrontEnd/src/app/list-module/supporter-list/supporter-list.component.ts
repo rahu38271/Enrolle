@@ -149,11 +149,16 @@ export class SupporterListComponent implements OnInit {
     this.NoofRow=this.totalItems;
     var SearchText = "";
     this.loader.showLoading();
-    this.voter.opposition(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,SearchText).subscribe(data=>{
+    this.voter.supporter(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,SearchText).subscribe(data=>{
       if(data.length != 0){
         this.loader.hideLoader();
         this.supportVoter = data;
         this.totalItems = data[0].totalCount;
+        this.supportVoter.forEach(e => {
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+        });
         this.excel.exportAsExcelFile(this.supportVoter, 'supporter Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
@@ -171,11 +176,17 @@ export class SupporterListComponent implements OnInit {
     this.NoofRow=this.totalItems;
     var SearchText = "";
     this.loader.showLoading();
-    this.voter.opposition(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,SearchText).subscribe(data=>{
+    this.voter.supporter(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,SearchText).subscribe(data=>{
       if(data.length != 0){
         this.loader.hideLoader();
         this.supportVoter = data;
         this.totalItems = data[0].totalCount;
+        this.supportVoter.forEach(e => {
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+          delete e.id;
+        });
         this.csv.exportToCsv(this.supportVoter, 'supporter Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }

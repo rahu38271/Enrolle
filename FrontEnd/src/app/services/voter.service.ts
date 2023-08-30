@@ -50,6 +50,7 @@ export class VoterService {
   }
 
   uploadExcel(modal:any):Observable<any>{
+    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
@@ -533,5 +534,14 @@ export class VoterService {
       'Authorization': `Bearer ${this.token}`
     });
     return this.http.get<any>(this.url+'Voter/GetMobileMatch?VoterName='+Name,{ headers })
+  }
+
+  // mobile match excel
+
+  mobileMatchExcel(modal:any):Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/InsertBulkMobile', modal,{ headers })
   }
 }

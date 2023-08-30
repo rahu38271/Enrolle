@@ -143,6 +143,11 @@ export class CastwiseListComponent implements OnInit {
         this.loader.hideLoader();
         this.VoterwithCaste = data;
         this.totalItems = data[0].totalCount;
+        this.VoterwithCaste.forEach(e => {
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+        });
         this.excel.exportAsExcelFile(this.VoterwithCaste, 'Castewise Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
@@ -165,6 +170,12 @@ export class CastwiseListComponent implements OnInit {
         this.loader.hideLoader();
         this.VoterwithCaste = data;
         this.totalItems = data[0].totalCount;
+        this.VoterwithCaste.forEach(e => {
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+          delete e.id;
+        });
         this.csv.exportToCsv(this.VoterwithCaste, 'Castewise Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }

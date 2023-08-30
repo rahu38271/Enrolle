@@ -76,26 +76,21 @@ export class TodayAnniversaryPage implements OnInit {
   exportExcel() {
     this.getAnniversary.forEach(e => {
       e.anniversary = e.anniversary.split('T')[0];
+      delete e.totalCount;
+      delete e.loginUserId
     });
-    this.excel.exportAsExcelFile(this.getAnniversary, 'contact');
+    this.excel.exportAsExcelFile(this.getAnniversary, 'anniversary');
   }
 
   exportToCSV() {
     this.getAnniversary.forEach(e =>{
       e.birthDate = e.birthDate.split('T')[0];
       e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '': e.anniversary.split('T')[0];
+      delete e.totalCount;
+      delete e.loginUserId;
+      delete e.id;
     })
-    this.csv.exportToCsv(this.getAnniversary, 'contact');
-  }
-
-  async downloadExcel() {
-    const toast = await this.toastController.create({
-      message: 'Request added to export.',
-      duration: 2000,
-      position: 'top',
-      color: 'success',
-    });
-    toast.present();
+    this.csv.exportToCsv(this.getAnniversary, 'anniversary');
   }
 
   async downloadPDF() {

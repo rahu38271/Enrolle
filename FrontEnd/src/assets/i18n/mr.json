@@ -1,6 +1,5 @@
 {
     "Search": "शोधा",
-    "Advanced Search": "Advanced Search",
     "Lists": "याद्या",
     "Survey":"सर्वे",
     "Contact":"संपर्क",
@@ -12,6 +11,11 @@
     "Office":"कार्यालय",
     "Appointment":"अपॉइंटमेंट",
     "Annapurna":"अन्नपूर्णा",
+    "Complaint Book":"तक्रार पुस्तक",
+    "General Enquiry":"सामान्य चौकशी",
+    "Voter Dashboard":"मतदार डॅशबोर्ड",
+    "Match Mobile No.":"मॅच मोबाइल क्र.",
+    "Voter Search":"मतदार शोध",
     "Society":"सोसायटी",
     "Notifications":"सूचनाएं",
     "Daily Routine":"दैनंदिन कार्यक्रम",

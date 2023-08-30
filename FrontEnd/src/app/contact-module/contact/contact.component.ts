@@ -47,7 +47,6 @@ export class ContactComponent implements OnInit {
   }
 
   ngOnInit() {
-    debugger;
     if(this.SearchText == undefined){
       this.SearchText = ''
     }
@@ -190,6 +189,8 @@ export class ContactComponent implements OnInit {
         this.getContacts.forEach(e => {
           e.birthDate = e.birthDate.split('T')[0] == '1900-01-01' ? '' : e.birthDate.split('T')[0];
           e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '' : e.anniversary.split('T')[0]; 
+          delete e.totalCount;
+          delete e.loginUserId;
         });
         this.excel.exportAsExcelFile(this.getContacts, 'contact');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
@@ -216,6 +217,9 @@ export class ContactComponent implements OnInit {
         this.getContacts.forEach(e => {
           e.birthDate = e.birthDate.split('T')[0] == '1900-01-01' ? '' : e.birthDate.split('T')[0];
           e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '' : e.anniversary.split('T')[0]; 
+          delete e.totalCount;
+          delete e.loginUserId;
+          delete e.id;
         });
         this.csv.exportToCsv(this.getContacts, 'contact');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');

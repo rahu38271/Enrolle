@@ -8,16 +8,16 @@
     <ion-header class="android">
       <ion-toolbar>
         <ion-buttons slot="start">
-          <ion-back-button color="primary" defaultHref="/contact"></ion-back-button>
+          <ion-back-button color="primary" defaultHref="/mobile-match"></ion-back-button>
         </ion-buttons>
-        <ion-title> Import Contact </ion-title>
+        <ion-title> Import Data </ion-title>
       </ion-toolbar>
     </ion-header>
     <div class="main-content">
       <ion-grid>
         <ion-row>
           <ion-text class="form-header">
-            <ion-icon name="add-circle-sharp" class="pr-1"></ion-icon>Upload Contacts Data
+            <ion-icon name="add-circle-sharp" class="pr-1"></ion-icon>Upload Data
           </ion-text>
         </ion-row>
         <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
@@ -25,7 +25,7 @@
             <ion-col  size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
               <ion-label>
                 <span>
-                  * To upload Contacts data, please download template file and fill data in exact format to get correct data. 
+                  * To upload data, please download template file and fill data in exact format to get correct data. 
                 </span>
               </ion-label>
             </ion-col>
@@ -37,7 +37,7 @@
             </ion-col>
             <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" class="file">
               <ion-label> File </ion-label>
-              <ion-input type="file" multiple="false" name="file" id="file"  class="form-control" required></ion-input>
+              <ion-input type="file" multiple="false" name="file" id="file" (change)="onFileChange($event)" (ngModel)="modal.file" class="form-control" required></ion-input>
                 <!-- <div *ngIf="f.submitted && File.invalid" class="invalid-feedback">
                   <div *ngIf="File.errors.required">
                     File is required
@@ -50,7 +50,7 @@
             <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
               <div class="ion-text-center">
                 <ion-button type="reset" color="danger" size="medium" (click)="resetForm()">Clear</ion-button>
-                <ion-button type="submit" size="medium" [disabled]="disabled">Upload</ion-button>
+                <ion-button type="submit" size="medium" (click)="upload(f)" [disabled]="disabled">Upload</ion-button>
                 <ion-button routerLink="/mobile-match" color="success" type="button" size="medium">Back To List</ion-button>
               </div>
             </ion-col>

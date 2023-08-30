@@ -362,7 +362,11 @@ export class GeneralEnquiryComponent implements OnInit {
         this.loader.hideLoader();
         this.enquiryList = data;
         this.totalItems = data[0].totalCount;
-        
+        this.enquiryList.forEach(e=>{
+          delete e.totalCount;
+          delete e.createdDate;
+          delete e.userId;
+        })
         this.excel.exportAsExcelFile(this.enquiryList, 'Enquiry');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
@@ -385,7 +389,11 @@ export class GeneralEnquiryComponent implements OnInit {
         this.loader.hideLoader();
         this.searchEnqList = data;
         this.totalItems = data[0].totalCount;
-        
+        this.searchEnqList.forEach(e=>{
+          delete e.totalCount;
+          delete e.createdDate;
+          delete e.userId;
+        })
         this.excel.exportAsExcelFile(this.searchEnqList, 'Enquiry');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
@@ -408,7 +416,12 @@ export class GeneralEnquiryComponent implements OnInit {
         this.loader.hideLoader();
         this.enquiryList = data;
         this.totalItems = data[0].totalCount;
-        
+        this.enquiryList.forEach(e=>{
+          delete e.totalCount;
+          delete e.createdDate;
+          delete e.userId;
+          delete e.id;
+        })
         this.csv.exportToCsv(this.enquiryList, 'Enquiry');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
@@ -431,7 +444,12 @@ export class GeneralEnquiryComponent implements OnInit {
         this.loader.hideLoader();
         this.searchEnqList = data;
         this.totalItems = data[0].totalCount;
-        
+        this.searchEnqList.forEach(e=>{
+          delete e.totalCount;
+          delete e.createdDate;
+          delete e.userId;
+          delete e.id;
+        })
         this.csv.exportToCsv(this.searchEnqList, 'Enquiry');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
