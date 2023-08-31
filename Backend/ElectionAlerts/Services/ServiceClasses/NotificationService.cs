@@ -15,6 +15,19 @@ namespace ElectionAlerts.Services.ServiceClasses
         {
             _inotificationreposritory = notifiactionreposritory;
         }
+
+        public IEnumerable<Contact> GetNotificationbyDate(string NotifiactionType, string Date, int PageNo, int NoofRow, string SearchText)
+        {
+            try
+            {
+                return _inotificationreposritory.GetNotificationbyDate(NotifiactionType, Date,PageNo,NoofRow, SearchText);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public IEnumerable<Contact> GetTodaysNotifications(string NotifiactionType)
         {
             try
@@ -23,7 +36,7 @@ namespace ElectionAlerts.Services.ServiceClasses
             }
             catch (Exception ex)
             {
-                return null;
+                throw ex;
             }
         }
 
@@ -35,7 +48,7 @@ namespace ElectionAlerts.Services.ServiceClasses
             }
             catch(Exception ex)
             {
-                return null;
+                throw ex;
             }
         }
     }

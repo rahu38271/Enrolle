@@ -115,7 +115,7 @@ namespace ElectionAlerts.Controller
         {
             try
             {
-               // voters.ForEach(x => x.CreatedDate = DateTime.Now);
+                voters.ForEach(x => x.CreatedDate = DateTime.Now.ToString("yyyy-MM-dd"));
                 return Ok(_voterService.InsertBulkVoter(voters));
             }
             catch (Exception ex)
@@ -1063,6 +1063,21 @@ namespace ElectionAlerts.Controller
             }
         }
 
+        [HttpGet("GetVoterOldAddress")]
+
+        public IActionResult GetVoterOldAddress(int userid, int RoleId, int PageNo, int NoofRow, string Language, string SearcText)
+        {
+            try
+            {
+                return Ok(_voterService.GetVoterOldAddress(userid, RoleId, PageNo, NoofRow, Language, SearcText));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetVoterOldAddress");
+                return BadRequest(ex);
+            }
+        }
+
         [HttpGet("GetAllVoterSurvey")]
         public IActionResult GetAllVoterSurvey(int userid, int RoleId, int PageNo, int NoofRow, string Language, string SearcText)
         {
@@ -1076,6 +1091,22 @@ namespace ElectionAlerts.Controller
                 return BadRequest(ex);
             }
         }
+
+        [HttpGet("MatchMobileDetails")]
+
+        public IActionResult MatchMobileDetails(int userid, int RoleId, int PageNo, int NoofRow)
+        {
+            try
+            {
+                return Ok(_voterService.MatchMobileDetails(userid, RoleId, PageNo, NoofRow));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/MatchMobileDetails");
+                return BadRequest(ex);
+            }
+        }
+
 
         [HttpGet("GetWhatAppImagebyUserId")]
         public IActionResult GetWhatAppImagebyUserId(int UserId)

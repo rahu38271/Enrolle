@@ -164,6 +164,11 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.GetVoterInclinationUserId(inclination, userid,roleid,PageNo,NoofRow,Language,SearchText);
         }
 
+        public IEnumerable<GetVoterByPartNo> GetVoterOldAddress(int userid, int RoleId, int PageNo, int NoofRow, string Language, string SearcText)
+        {
+            return _voterRepository.GetVoterOldAddress(userid, RoleId, PageNo, NoofRow, Language, SearcText);
+        }
+
         public WhatAppContent GetWhatAppContentbyUserId(int UserId)
         {
             return _voterRepository.GetWhatAppContentbyUserId(UserId);
@@ -202,6 +207,11 @@ namespace ElectionAlerts.Services.ServiceClasses
         public int InsertUpdateWhatUpContent(WhatAppContent whatAppContent)
         {
             return _voterRepository.InsertUpdateWhatUpContent(whatAppContent);
+        }
+
+        public IEnumerable<VoterMobile> MatchMobileDetails(int userid, int RoleId, int PageNo, int NoofRow)
+        {
+            return _voterRepository.MatchMobileDetails(userid, RoleId, PageNo, NoofRow);
         }
 
         public int UpadateAltMobileVoter(int Id, string AltMobileNo)

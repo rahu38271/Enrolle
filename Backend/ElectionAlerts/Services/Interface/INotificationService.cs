@@ -10,5 +10,6 @@ namespace ElectionAlerts.Services.Interface
     {
         IEnumerable<Contact> GetTodaysNotifications(string NotifiactionType);
         string SendNotifications(Contact cnt);
+        IEnumerable<Contact> GetNotificationbyDate(string NotifiactionType, string Date, int PageNo, int NoofRow, string SearchText);
     }
 }

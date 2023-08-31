@@ -53,5 +53,19 @@ namespace ElectionAlerts.Controller
 
         }
 
+        [HttpGet("GetNotificationbyDate")]
+        public IActionResult GetNotificationbyDate(string NotifiactionType, string Date, int PageNo, int NoofRow, string SearchText)
+        {
+            try
+            {
+                return Ok(_notificationService.GetNotificationbyDate(NotifiactionType, Date,PageNo,NoofRow, SearchText));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "NotificationsController/GetNotificationbyDate");
+                return BadRequest(ex);
+            }
+        }
+
     }
 }

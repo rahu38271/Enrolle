@@ -138,8 +138,8 @@ namespace ElectionAlerts.Controller
                         BulkContact contact = new BulkContact();
                         if (worksheet.Cells[row, 1].Value != null)
                             contact.FullName = worksheet.Cells[row, 1].Value.ToString().Trim();
-                        if (worksheet.Cells[row, 2].Value != null)
-                            contact.Address = worksheet.Cells[row, 2].Value.ToString().Trim();
+                        if (worksheet.Cells[row, 7].Value != null)
+                            contact.Address = worksheet.Cells[row, 7].Value.ToString().Trim();
                         if(worksheet.Cells[row, 3].Value != null)
                         {
                             var valDate = worksheet.Cells[row, 3].Value;
@@ -170,8 +170,8 @@ namespace ElectionAlerts.Controller
                             contact.MobileNo = worksheet.Cells[row, 5].Value.ToString().Trim().CheckLenght(15); 
                         if (worksheet.Cells[row, 6].Value != null)
                             contact.AlternativeMobileNo = worksheet.Cells[row, 6].Value.ToString().Trim().CheckLenght(15);
-                        if (worksheet.Cells[row, 9].Value != null)
-                            contact.VilageName = worksheet.Cells[row, 9].Value.ToString().Trim();
+                        if (worksheet.Cells[row, 2].Value != null)
+                            contact.VilageName = worksheet.Cells[row, 2].Value.ToString().Trim();
                         contacts.Add(contact);
                     }
 
