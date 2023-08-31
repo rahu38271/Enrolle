@@ -544,4 +544,13 @@ export class VoterService {
     });
     return this.http.post<any>(this.url+'Voter/InsertBulkMobile', modal,{ headers })
   }
+
+  // mobile matched list
+
+  getMobileMatchedList(userid:any, RoleId:any, PageNo:any, NoofRow:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/MatchMobileDetails?userid='+userid+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow,{ headers })
+  }
 }

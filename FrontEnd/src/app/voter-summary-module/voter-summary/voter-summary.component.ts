@@ -63,8 +63,7 @@ export class VoterSummaryComponent implements OnInit {
     this.assemblyName = localStorage.getItem("loginAssembly");
     this.district = localStorage.getItem("loginDistrict");
     this.village = localStorage.getItem("loginVillage");
-    this.voterByBooth();
-    this.assemblyNameLang();
+   
     // if(this.assemblyName=="null"){
     //   this.isAssembly=!this.isAssembly;
     // }
@@ -78,6 +77,11 @@ export class VoterSummaryComponent implements OnInit {
     //   this.isVillage=this.isVillage;
     // }
     
+  }
+
+  ionViewWillEnter(){
+    this.voterByBooth();
+    this.assemblyNameLang();
   }
 
   partNo(partNo:any){

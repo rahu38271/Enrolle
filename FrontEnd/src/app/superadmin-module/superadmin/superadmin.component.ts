@@ -240,7 +240,14 @@ export class SuperadminComponent implements OnInit {
           text: 'Delete',
           cssClass: 'yes',
           handler: () => {
+            debugger;
             this.sadmin.deleteUser(id).subscribe(data => {
+              // if(this.roleId==1){
+              //   this.sadmin.deleteDBConfig(this.id).subscribe(data=>{
+              //     console.log(data);
+              //   })
+              // }
+              
               this.ionViewWillEnter();
               this.toast.presentToast("User deleted Succesfully!", "success", 'checkmark-circle-sharp');
             })

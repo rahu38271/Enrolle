@@ -9,9 +9,11 @@ import { ImportComponent } from './import/import.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPaginationModule} from 'ngx-pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { MatchedListComponent } from './matched-list/matched-list.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
-  declarations: [MobileMatchComponent, ImportComponent],
+  declarations: [MobileMatchComponent, ImportComponent, MatchedListComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -20,10 +22,12 @@ import { NgSelectModule } from '@ng-select/ng-select';
     Ng2SearchPipeModule,
     NgxPaginationModule,
     HttpClientModule,
+    TranslateModule,
     NgSelectModule,
     RouterModule.forChild([
       {path:'', component:MobileMatchComponent},
-      {path:'import', component:ImportComponent}
+      {path:'import', component:ImportComponent},
+      {path:'matched-List', component:MatchedListComponent}
     ])
   ]
 })

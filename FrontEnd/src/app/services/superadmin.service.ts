@@ -40,9 +40,15 @@ export class SuperadminService {
   edit(edModal:any):Observable<any>{
     return this.http.post<any>(this.url + 'Login/CreateUpdateUser', edModal);
   }
-
+  // delete user
   deleteUser(id:any):Observable<any>{
     return this.http.get<any>(this.url + 'Login/DeleteUser?Id='+id)
+  }
+
+  // delete dbconfig
+  deleteDBConfig(id:any){
+    debugger;
+    return this.http.get<any>(this.url+'Login/DeleteDBConfigure?Id='+id)
   }
 
   // old code

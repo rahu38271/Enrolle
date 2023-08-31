@@ -91,20 +91,20 @@ export class ImportVoterdataComponent implements OnInit {
         this.obj = (this.arraylist)[0];
         if (Object.keys(this.obj)[0] != "AssemblyNo" && 
         (this.obj)[1] != "Assembly" && 
-        (this.obj)[2] != "AssemblyName_MR" && 
+        (this.obj)[2] != "AssemblyName_KR" && 
         (this.obj)[3] != "AssemblyName_HN" && 
         (this.obj)[4] != "PartNo" && 
         (this.obj)[5] != "Name" && 
-        (this.obj)[6] != "Name_MR" && 
+        (this.obj)[6] != "Name_KR" && 
         (this.obj)[7] != "Name_HN"  && 
         (this.obj)[8] != "Gender" && 
         (this.obj)[9] != "Age" && 
         (this.obj)[10] != "Village" &&
-        (this.obj)[11] != "Village_MR" &&
+        (this.obj)[11] != "Village_KR" &&
         (this.obj)[12] != "Village_HN" &&
         (this.obj)[13] != "VoterId" && 
         (this.obj)[14] != "Address" && 
-        (this.obj)[15] != "Address_MR" && 
+        (this.obj)[15] != "Address_KR" && 
         (this.obj)[16] != "Address_HN" && 
         (this.obj)[17] != "Mobile" && 
         (this.obj)[18] != "BirthDate" && 
@@ -152,13 +152,13 @@ export class ImportVoterdataComponent implements OnInit {
           }
           else{
             this.arraylist[i].Mobile = this.arraylist[i].Mobile.toString();
-            var mobLength = this.arraylist[i].Mobile.length;
-            if(mobLength !== 10){
-              this.arraylist[i].Mobile = ''
-            }
-            else{
-              this.arraylist[i].Mobile = this.arraylist[i].Mobile.toString();
-            }
+            // var mobLength = this.arraylist[i].Mobile.length;
+            // if(mobLength !== 10){
+            //   this.arraylist[i].Mobile = ''
+            // }
+            // else{
+            //   this.arraylist[i].Mobile = this.arraylist[i].Mobile.toString();
+            // }
           }
           // for pincode if excel column is empty
           if(this.arraylist[i].PinCode == undefined){
@@ -200,20 +200,20 @@ export class ImportVoterdataComponent implements OnInit {
             AssemblyNo:this.arraylist[i].AssemblyNo,
             Assembly:this.arraylist[i].Assembly,
             AssemblyName_HN:this.arraylist[i].AssemblyName_HN,
-            AssemblyName_MR:this.arraylist[i].AssemblyName_MR,
+            AssemblyName_KR:this.arraylist[i].AssemblyName_MR,
             PartNo: this.arraylist[i].PartNo,
             FullName: this.arraylist[i].Name,
-            FullName_MR: this.arraylist[i].Name_MR,
+            FullName_KR: this.arraylist[i].Name_MR,
             FullName_HN: this.arraylist[i].Name_HN,
             Gender: this.arraylist[i].Gender,
             Age: this.arraylist[i].Age,
             Village: this.arraylist[i].Village,
             Village_HN: this.arraylist[i].Village_MR,
-            Village_MR: this.arraylist[i].Village_HN,
+            Village_KR: this.arraylist[i].Village_HN,
             VotingCardNo: this.arraylist[i].VoterID.toString(),
             Address: this.arraylist[i].Address,
             Address_HN: this.arraylist[i].Address_MR,
-            Address_MR: this.arraylist[i].Address_HN,
+            Address_KR: this.arraylist[i].Address_HN,
             MobileNo: this.arraylist[i].Mobile,
             BirthDate: Dob, 
             Pincode:this.arraylist[i].PinCode
@@ -228,8 +228,6 @@ export class ImportVoterdataComponent implements OnInit {
     reader.onerror = function (event) { console.error("File could not be read! Code "); };
   }
 
-
-  
 
   resetForm() {
     this.myForm.reset();
@@ -248,17 +246,17 @@ export class ImportVoterdataComponent implements OnInit {
       exceldata.push(
         {
           "Address": element.Address,
-          "Address_MR": element.Address_MR,
+          "Address_KR": element.Address_KR,
           "Address_HN": element.Address_HN,
           "Age": element.Age,
           "FullName": element.FullName,
-          "FullName_MR": element.FullName_MR,
+          "FullName_KR": element.FullName_KR,
           "FullName_HN": element.FullName_HN,
           "Gender": element.Gender,
           "PartNo": element.PartNo,
           "VotingCardNo": element.VotingCardNo,
           "Village": element.Village,
-          "Village_MR": element.Village_MR,
+          "Village_KR": element.Village_KR,
           "Village_HN": element.Village_HN,
           "BirthDate": element.BirthDate,
           "HouseNo": "",
@@ -268,7 +266,7 @@ export class ImportVoterdataComponent implements OnInit {
           "District": "",
           "AssemblyNo":element.AssemblyNo,
           "Assembly": element.Assembly,
-          "AssemblyName_MR": element.AssemblyName_MR,
+          "AssemblyName_KR": element.AssemblyName_KR,
           "AssemblyName_HN": element.AssemblyName_HN,
           "Taluka": "",
           "Ward": "",

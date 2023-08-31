@@ -89,5 +89,13 @@ export class ContactService {
     return this.http.get<any>(this.url+'Contact/DeleteContactbyId?Id='+contactId,{ headers })
   }
 
+  reportByDate(Type:any, Date:any,PageNo:any, NoofRow:any, SearchText:any){
+    debugger;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'notifications/GetNotificationbyDate?NotifiactionType='+Type+'&Date='+Date+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText,{ headers })
+  }
+
 }
 

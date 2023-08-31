@@ -366,3 +366,14 @@ ion-back-button {
     display: flex;
   }
 
+
+
+@media screen and (min-width:1680px){
+    ion-split-pane {
+        --side-max-width: 16%;
+    }
+    .ng-select.ng-select-single .ng-select-container {
+        height: 50px;
+        background-color: #fafafa;
+    }
+}
