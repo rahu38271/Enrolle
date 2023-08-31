@@ -285,7 +285,12 @@ export class AllComplaintsComponent implements OnInit {
       if (data.length != 0) {
         this.loader.hideLoader();
         this.allComplaints = data;
-
+        this.allComplaints.forEach(e => {
+          delete e.totalCount;
+          delete e.createdDate;
+          delete e.roleId;
+          delete e.userId;
+        });
         this.excel.exportAsExcelFile(this.allComplaints, 'Complaints');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
@@ -308,7 +313,13 @@ export class AllComplaintsComponent implements OnInit {
       if (data.length != 0) {
         this.loader.hideLoader();
         this.allComplaints = data;
-
+        this.allComplaints.forEach(e => {
+          delete e.totalCount;
+          delete e.createdDate;
+          delete e.roleId;
+          delete e.userId;
+          delete e.id;
+        });
         this.csv.exportToCsv(this.allComplaints, 'Complaints');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }

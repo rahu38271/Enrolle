@@ -12,9 +12,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NgxPaginationModule} from 'ngx-pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { DatewiseReportComponent } from './datewise-report/datewise-report.component';
 
 @NgModule({
-  declarations: [ContactComponent,AddContactComponent,ImportContactComponent,EditContactComponent],
+  declarations: [ContactComponent,AddContactComponent,ImportContactComponent,EditContactComponent, DatewiseReportComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -24,7 +25,13 @@ import { NgSelectModule } from '@ng-select/ng-select';
     NgxPaginationModule,
     HttpClientModule,
     NgSelectModule,
-    RouterModule.forChild([{path:'', component:ContactComponent}, { path:'add-contact', component:AddContactComponent}, {path:'import-contact', component:ImportContactComponent},{path:'edit-contact', component:EditContactComponent}])
+    RouterModule.forChild([
+      {path:'', component:ContactComponent}, 
+      { path:'add-contact', component:AddContactComponent}, 
+      {path:'import-contact', component:ImportContactComponent},
+      {path:'edit-contact', component:EditContactComponent},
+      {path:'datewise-report', component:DatewiseReportComponent},
+    ])
   ],
   exports: [ RouterModule ],
   bootstrap: [ ContactComponent ]

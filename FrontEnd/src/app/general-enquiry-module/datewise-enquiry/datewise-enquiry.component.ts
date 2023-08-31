@@ -58,6 +58,7 @@ export class DatewiseEnquiryComponent implements OnInit {
   }
 
   datewiseList(){
+    debugger;
     this.loader.showLoading();
     if(this.searchEnqModal.ToDate==undefined){
       this.searchEnqModal.ToDate = ''

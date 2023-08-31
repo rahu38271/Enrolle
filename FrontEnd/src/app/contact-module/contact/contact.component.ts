@@ -25,7 +25,7 @@ export class ContactComponent implements OnInit {
   Cid:any;
   fileName= 'Contact.xlsx';
   PageNo:any=1;
-  NoofRow:any=10; 
+  NoofRow:any=25; 
   SearchText:any;
   currentDate = new Date();
   birthDate: any;
@@ -81,7 +81,7 @@ export class ContactComponent implements OnInit {
           e.birthDate = e.birthDate.split('T')[0] == '1900-01-01' ? '' : e.birthDate.split('T')[0];
           e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '' : e.anniversary.split('T')[0]; 
         });
-        
+
       }
       else{
         //this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
@@ -189,6 +189,8 @@ export class ContactComponent implements OnInit {
         this.getContacts.forEach(e => {
           e.birthDate = e.birthDate.split('T')[0] == '1900-01-01' ? '' : e.birthDate.split('T')[0];
           e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '' : e.anniversary.split('T')[0]; 
+          delete e.totalCount;
+          delete e.loginUserId;
         });
         this.excel.exportAsExcelFile(this.getContacts, 'contact');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
@@ -215,6 +217,9 @@ export class ContactComponent implements OnInit {
         this.getContacts.forEach(e => {
           e.birthDate = e.birthDate.split('T')[0] == '1900-01-01' ? '' : e.birthDate.split('T')[0];
           e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '' : e.anniversary.split('T')[0]; 
+          delete e.totalCount;
+          delete e.loginUserId;
+          delete e.id;
         });
         this.csv.exportToCsv(this.getContacts, 'contact');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');

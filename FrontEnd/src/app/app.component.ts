@@ -10,7 +10,7 @@ import {
   ActivatedRoute
 } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { MenuController, PopoverController, AlertController } from '@ionic/angular';
+import { MenuController, PopoverController, AlertController   } from '@ionic/angular';
 import { NotificationComponent } from './notification/notification.component';
 import { ProfileComponent } from './profile/profile.component';
 import { Platform } from '@ionic/angular';
@@ -20,12 +20,12 @@ import { AndroidPermissions } from '@awesome-cordova-plugins/android-permissions
 import { LoaderService } from 'src/app/services/loader.service'
 import { AuthenticationService } from 'src/app/services/authentication.service'
 import { Location } from '@angular/common'
-
+import { TranslateService } from '@ngx-translate/core';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 //import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { TranslateService } from '@ngx-translate/core';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
-
+import { IonicToastService } from './services/ionic-toast.service';
+import { Network } from '@ionic-native/network/ngx';
 
 @Component({
   selector: 'app-root',
@@ -33,7 +33,7 @@ import { TranslateConfigService } from 'src/app/services/translate-config.servic
   styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
-
+  // menuWidth: number = 218;
   name: any;
   
   id: any;
@@ -78,7 +78,7 @@ export class AppComponent implements OnInit {
   language: any;
   state:any;
   apkName:any;
-
+ 
   getClass() {
     return "active"
   }
@@ -86,7 +86,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private menu: MenuController,
+    //private menu: MenuController,
     public popoverController: PopoverController,
     //private socialSharing: SocialSharing,
     private androidPermissions: AndroidPermissions,
@@ -98,8 +98,10 @@ export class AppComponent implements OnInit {
     private alertController: AlertController,
     private activatedRoute: ActivatedRoute,
     public menuCtrl: MenuController,
-    private translate: TranslateService,
     private cdr: ChangeDetectorRef,
+    public translate: TranslateService,
+    private toast:IonicToastService,
+    private network: Network,
     private translateConfigService: TranslateConfigService,
     private platform: Platform) {
     
@@ -141,7 +143,7 @@ export class AppComponent implements OnInit {
     this.name = localStorage.getItem("loginUser");
     this.roleId = localStorage.getItem("userType");
     this.state = localStorage.getItem("state");
-    //this.apkName = localStorage.getItem("superAdminName")
+    this.apkName = localStorage.getItem("superAdminName")
     if(this.roleId == 1){
       this.roleName = "MasterAdmin"
     }
@@ -212,18 +214,28 @@ export class AppComponent implements OnInit {
 
   }
 
+  // toggleMenuWidth() {
+  //   this.menuWidth = this.menuWidth === 218 ? 90 : 218; // Toggle between widths
+  // }
+
+
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
   }
 
-  
 
   initializeApp() {
     this.platform.ready().then(() => {
       //this.statusBar.styleDefault();
       this.splashScreen.hide();
+      this.network.onDisconnect().subscribe(() => {
+        this.toast.presentToast("No Internet Connection", "danger", 'alert-circle-sharp');
+      });
+  
+      this.network.onConnect().subscribe(() => {
+        // You could dismiss the alert here if needed
+      });
     });
-
 
     this.platform.backButton.subscribeWithPriority(10, (processNextHandler) => {
       //console.log('Back press handler!');
@@ -255,6 +267,7 @@ export class AppComponent implements OnInit {
     });
 
   }
+
 
   showExitConfirm() {
     this.alertController.create({
@@ -322,4 +335,6 @@ export class AppComponent implements OnInit {
   }
 
 }
+
+
 

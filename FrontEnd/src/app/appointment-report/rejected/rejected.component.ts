@@ -257,7 +257,12 @@ export class RejectedComponent implements OnInit {
         this.getApmList = data;
         this.totalItems = data[0].totalCount;
         this.getApmList.forEach(e => {
-          e.birthDate = e.birthDate.split('T')[0];
+          delete e.fileName;
+          delete e.createdDate;
+          delete e.userId;
+          delete e.totalCount;
+          delete e.roleId;
+    
         });
         this.toast.presentToast("File downloded successfully!", "success", 'checkmark-circle-sharp');
         this.excel.exportAsExcelFile(this.getApmList, 'rejected appointment');
@@ -283,7 +288,12 @@ export class RejectedComponent implements OnInit {
         this.getApmList = data;
         this.totalItems = data[0].totalCount;
         this.getApmList.forEach(e => {
-          e.birthDate = e.birthDate.split('T')[0];
+          delete e.fileName;
+          delete e.createdDate;
+          delete e.userId;
+          delete e.totalCount;
+          delete e.roleId;
+          delete e.id;
         });
         this.toast.presentToast("File downloded successfully!", "success", 'checkmark-circle-sharp');
         this.csv.exportToCsv(this.getApmList, 'rejected appointment');
