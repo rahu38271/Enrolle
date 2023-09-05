@@ -31,14 +31,14 @@
         <ion-row>
           <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="6" size-xs="12">
             <ion-label> House No. </ion-label>
-              <ion-input [(ngModel)]="House" name="House" maxlength="10" (keypress)="keyPressNumbers($event)" class="form-control"></ion-input>
+              <ion-input [(ngModel)]="EditData.houseNo" name="House" maxlength="10" (keypress)="keyPressNumbers($event)" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Name </ion-label>
-              <ion-input name="Name" [(ngModel)]="surveyModel.Name" #Name="ngModel" [ngClass]="{'is-invalid': f.submitted && Name.invalid}" (keypress)="onKeyPress($event)" class="text-capitalize" class="form-control" required></ion-input>
-              <div *ngIf="f.submitted && Name.invalid" class="invalid-feedback">
-                <div *ngIf="Name.errors.required">
+              <ion-input name="fullName" [(ngModel)]="EditData.fullName" #fullName="ngModel" [ngClass]="{'is-invalid': f.submitted && fullName.invalid}" (keypress)="onKeyPress($event)" class="text-capitalize" class="form-control" required></ion-input>
+              <div *ngIf="f.submitted && fullName.invalid" class="invalid-feedback">
+                <div *ngIf="fullName.errors.required">
                   Name is required
                 </div>
               </div>
@@ -46,20 +46,20 @@
 
           <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Gender </ion-label>
-            <ion-radio-group>
+            <ion-radio-group name="Gender" [(ngModel)]="EditData.gender">
               <div class="radio">
                   <ion-item lines="none">
-                    <ion-radio value="male"></ion-radio>
+                    <ion-radio value="M"></ion-radio>
                     <ion-label>Male</ion-label>
                   </ion-item>
                
                   <ion-item lines="none">
-                    <ion-radio value="female"></ion-radio>
+                    <ion-radio value="F"></ion-radio>
                     <ion-label>Female</ion-label>
                  </ion-item>
               
                   <ion-item lines="none">
-                    <ion-radio value="other"></ion-radio>
+                    <ion-radio value="O"></ion-radio>
                     <ion-label>Other</ion-label>
                  </ion-item>
                 </div>
@@ -77,12 +77,13 @@
               id="date"
               name="date"
               class="form-control"
+              [(ngModel)]="EditData.birthDate"
              ></ion-input>
              <ion-modal trigger="date" size="cover">
                <ng-template>
                  <ion-datetime
                   presentation="date"
-                  [(ngModel)]="date"
+                  [(ngModel)]="birthDate"
                   name="date"
                   (click)="CalculateAge()"
                  >
@@ -94,18 +95,18 @@
 
           <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Age </ion-label>
-              <ion-input [(ngModel)]="Age" name="Age" maxlength="3" (keypress)="keyPressNumbers($event)" readonly class="form-control">
+              <ion-input [(ngModel)]="EditData.age" name="Age" maxlength="3" (keypress)="keyPressNumbers($event)" readonly class="form-control">
               </ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Mobile No. </ion-label>
-              <ion-input [(ngModel)]="Mobile" name="Mobile" maxlength="10" (keypress)="keyPressNumbers($event)" class="form-control"></ion-input>
+              <ion-input [(ngModel)]="EditData.mobileNo" name="Mobile" maxlength="10" (keypress)="keyPressNumbers($event)" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
             <ion-label> Address   </ion-label>
-              <ion-textarea name="Address" [(ngModel)]="Address" rows="3" class="form-control"></ion-textarea>
+              <ion-textarea name="Address" [(ngModel)]="EditData.address" rows="3" class="form-control"></ion-textarea>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="6" size-xs="12">
@@ -137,95 +138,25 @@
 
           <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Occupation </ion-label>
-              <ion-input [(ngModel)]="Occupation" name="Occupation" class="form-control"></ion-input>
+              <ng-select [(ngModel)]="EditData.occupation" name="Occupation"  placeholder="Select Caste">
+                <ng-option *ngFor="let item of allProfession" [value]="item.professionName">
+                  {{ item.professionName }}
+                </ng-option>
+             </ng-select>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="6" size-xs="12">
             <ion-label>Alt. Mobile No. </ion-label>
-              <ion-input [(ngModel)]="AltMobile" name="AltMobile" maxlength="10" (keypress)="keyPressNumbers($event)" class="form-control"></ion-input>
+              <ion-input [(ngModel)]="EditData.alternateMobileNo" name="AltMobile" maxlength="10" (keypress)="keyPressNumbers($event)" class="form-control"></ion-input>
           </ion-col>
 
           <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="6" size-xs="12">
             <ion-label> Caste</ion-label>
-              <ion-select name="Caste" [(ngModel)]="Caste" placeholder="Select" interface="popover" class="form-control">
-                <ion-select-option value="Baniya"> Baniya</ion-select-option>
-                <ion-select-option value="Banjara"> Banjara</ion-select-option>
-                <ion-select-option value="Bari"> Bari</ion-select-option>
-                <ion-select-option value="Berad"> Berad</ion-select-option>
-                <ion-select-option value="Bhoi"> Bhoi</ion-select-option>
-                <ion-select-option value="Brahman"> Brahman</ion-select-option>
-                <ion-select-option value="Buddha"> Buddha</ion-select-option>
-                <ion-select-option value="Burud"> Burud</ion-select-option>
-                <ion-select-option value="Chambhar"> Chambhar</ion-select-option>
-                <ion-select-option value="Christian"> Christian</ion-select-option>
-                <ion-select-option value="Dhangar"> Dhangar</ion-select-option>
-                <ion-select-option value="Dhiwar"> Dhiwar</ion-select-option>
-                <ion-select-option value="Dhobi"> Dhobi</ion-select-option>
-                <ion-select-option value="Chambhar"> Chambhar</ion-select-option>
-                <ion-select-option value="Dombari"> Dombari</ion-select-option>
-                <ion-select-option value="Gandali"> Gandali</ion-select-option>
-                <ion-select-option value="Gavali"> Gavali</ion-select-option>
-                <ion-select-option value="Golkar"> Golkar</ion-select-option>
-                <ion-select-option value="Gond"> Gond</ion-select-option>
-                <ion-select-option value="Gondhali"> Gondhali</ion-select-option>
-                <ion-select-option value="Gosavi"> Gosavi</ion-select-option>
-                <ion-select-option value="Govind"> Govind</ion-select-option>
-                <ion-select-option value="Gowari"> Gowari</ion-select-option>
-                <ion-select-option value="Gujrati"> Gujrati</ion-select-option>
-                <ion-select-option value="Gurav"> Gurav</ion-select-option>
-                <ion-select-option value="Hanber"> Hanber</ion-select-option>
-                <ion-select-option value="Holar"> Holar</ion-select-option>
-                <ion-select-option value="Gujrati"> Gujrati</ion-select-option>
-                <ion-select-option value="Holi"> Holi</ion-select-option>
-                <ion-select-option value="Jain"> Jain</ion-select-option>
-                <ion-select-option value="Kaikadi"> Kaikadi</ion-select-option>
-                <ion-select-option value="Kalar"> Kalar</ion-select-option>
-                <ion-select-option value="Karvi"> Karvi</ion-select-option>
-                <ion-select-option value="Kohali"> Kohali</ion-select-option>
-                <ion-select-option value="Kolam"> Kolam</ion-select-option>
-                <ion-select-option value="Koli"> Koli</ion-select-option>
-                <ion-select-option value="Konkani"> Konkani</ion-select-option>
-                <ion-select-option value="Korku"> Korku</ion-select-option>
-                <ion-select-option value="Koshti"> Koshti</ion-select-option>
-                <ion-select-option value="Kunbi"> Kunbi</ion-select-option>
-                <ion-select-option value="Laman"> Laman</ion-select-option>
-                <ion-select-option value="Lingayat"> Lingayat</ion-select-option>
-                <ion-select-option value="Koshti"> Koshti</ion-select-option>
-                <ion-select-option value="Mali"> Mali</ion-select-option>
-                <ion-select-option value="Maratha"> Maratha</ion-select-option>
-                <ion-select-option value="Muslim"> Muslim</ion-select-option>
-                <ion-select-option value="Other"> Other</ion-select-option>
-                <ion-select-option value="Panchal"> Panchal</ion-select-option>
-                <ion-select-option value="Pardeshi"> Pardeshi</ion-select-option>
-                <ion-select-option value="Pardi"> Pardi</ion-select-option>
-                <ion-select-option value="Parit"> Parit</ion-select-option>
-                <ion-select-option value="Pathan"> Pathan</ion-select-option>
-                <ion-select-option value="Pawar"> Pawar</ion-select-option>
-                <ion-select-option value="Pinjara"> Pinjara</ion-select-option>
-                <ion-select-option value="Powar"> Powar</ion-select-option>
-                <ion-select-option value="Pradhan"> Pradhan</ion-select-option>
-                <ion-select-option value="Rajastani"> Rajastani</ion-select-option>
-                <ion-select-option value="Rajput"> Rajput</ion-select-option>
-                <ion-select-option value="Ramoshi"> Ramoshi</ion-select-option>
-                <ion-select-option value="Sayed"> Sayed</ion-select-option>
-                <ion-select-option value="SC"> SC</ion-select-option>
-                <ion-select-option value="Shetty"> Shetty</ion-select-option>
-                <ion-select-option value="Sikaghar"> Sikaghar</ion-select-option>
-                <ion-select-option value="Shimpi"> Shimpi</ion-select-option>
-                <ion-select-option value="Sikh"> Sikh</ion-select-option>
-                <ion-select-option value="Sindhi"> Sindhi</ion-select-option>
-                <ion-select-option value="Sonar"> Sonar</ion-select-option>
-                <ion-select-option value="ST"> ST</ion-select-option>
-                <ion-select-option value="Sutar"> Sutar</ion-select-option>
-                <ion-select-option value="Teli"> Teli</ion-select-option>
-                <ion-select-option value="Valmiki"> Valmiki</ion-select-option>
-                <ion-select-option value="Vani"> Vani</ion-select-option>
-                <ion-select-option value="Wadar"> Wadar</ion-select-option>
-                <ion-select-option value="Wadhi"> Wadhi</ion-select-option>
-                <ion-select-option value="Wami"> Wami</ion-select-option>
-                <ion-select-option value="Wanjari"> Wanjari</ion-select-option>
-                <ion-select-option value="Wathi"> Wathi</ion-select-option>
-              </ion-select>
+            <ng-select name="Caste" [(ngModel)]="EditData.caste"  placeholder="Select Caste">
+              <ng-option *ngFor="let item of AllCasts" [value]="item.casteName">
+                {{ item.casteName }}
+              </ng-option>
+           </ng-select>
           </ion-col>
 
           <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
@@ -256,16 +187,16 @@
           </ion-col>
           </ion-row>
 
-          <ion-row>
+          <!-- <ion-row>
             <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
               <div class="flex">
                 <h6>Member Details Form</h6>
                 <ion-icon name="add-circle-outline" (click)="addMember()"></ion-icon>
               </div>
             </ion-col>
-          </ion-row>
+          </ion-row> -->
             
-          <ion-row *ngIf="isShow">
+          <!-- <ion-row *ngIf="isShow">
             <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="6" size-xs="12">
               <ion-label> Name </ion-label>
                 <ion-input name="Name" class="text-capitalize form-control" required></ion-input>
@@ -308,12 +239,12 @@
                 </ion-radio-group>
             </ion-col>
             
-          </ion-row>
+          </ion-row> -->
           <ion-row>
             <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
               <div class="ion-text-center">
                 <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
-                <ion-button type="submit" size="medium" (click)="presentLoading()">Save</ion-button>
+                <ion-button type="submit" size="medium" (click)="presentLoading()" (click)="addSurvey()">Save</ion-button>
                 <ion-button routerLink="/survey" color="success" type="button" size="medium">Back To List</ion-button>
               </div>
             </ion-col>

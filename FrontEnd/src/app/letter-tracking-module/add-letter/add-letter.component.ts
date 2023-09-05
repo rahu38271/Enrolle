@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ContactService } from 'src/app/services/contact.service';
+import { PopoverController } from '@ionic/angular';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-add-letter',
@@ -13,6 +15,8 @@ export class AddLetterComponent implements OnInit {
 
   constructor(
     public contact: ContactService,
+    public popoverController: PopoverController,
+    private location:Location,
   ) { }
 
   getDistrict() {
@@ -40,6 +44,14 @@ export class AddLetterComponent implements OnInit {
 
   ngOnInit(): void {
     this.getDistrict();
+  }
+
+  async DismissClick() {
+    await this.popoverController.dismiss();
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

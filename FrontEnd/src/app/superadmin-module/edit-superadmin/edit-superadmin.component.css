@@ -1,7 +1,5 @@
 .grid-bg { width: 95%; background: #FFF;  box-shadow: 0 0 10px rgb(232 234 237 / 50%); }
 
-ion-label { color: #228bd2 !important;  }
-
 ion-select { color: #4e4e4e !important; background: #fafafa; border: solid 1px #cccccc; --placeholder-color: #939090; --placeholder-opacity: 1; }
 
 ion-input { border: solid 1px #cccccc; background: #fafafa; color: #4e4e4e !important; }

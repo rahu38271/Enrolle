@@ -1,0 +1,223 @@
+<ion-content>
+    <ion-header class="android">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button auto-hide="false"></ion-menu-button>
+        </ion-buttons>
+        <ion-title> Reports </ion-title>
+        <ion-buttons slot="primary">
+          <ion-button (click)="search()">
+            <ion-icon name="search-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <div class="main-content">
+  
+      <div class="web">
+        <ion-grid class="header">
+          <ion-row>
+            <ion-col size-xs="12" size-sm="6">
+              <div class="flex">
+                <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
+                <ion-card-header>
+                  <ion-card-title>Reports By Date, <span>Total - </span></ion-card-title>
+                  <div class="headerLine"></div>
+                </ion-card-header>
+              </div>
+            </ion-col>
+            <!-- <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+                <ion-button class="button-download" color="primary" routerLink="/appointment/add-appointment"><ion-icon name="add-circle-sharp"></ion-icon>Add Appointment</ion-button>
+                <ion-button class="button-download" fill="outline" routerLink="/appointment/today-appointment" color="primary" ><ion-icon name="refresh-circle-sharp"></ion-icon>Today's Appointments</ion-button>
+              </ion-col> -->
+          </ion-row>
+        </ion-grid>
+      </div>
+  
+  
+      <ion-grid class="topForm">
+        <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+          <ion-row>
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
+                <ion-label> Type of Letter </ion-label>
+                <!-- <ng-select name="TypeofWork" [(ngModel)]="searchEnqModal.TypeofWork" #TypeofWork="ngModel"
+                  placeholder="Select">
+                  <ng-option *ngFor="let item of workList" [value]="item.workName">
+                    {{item.workName}}
+                  </ng-option>
+                </ng-select> -->
+                <ng-select name="TypeofWork" 
+                  placeholder="Select">
+                  <ng-option> All </ng-option>
+                  <ng-option> Completed </ng-option>
+                  <ng-option> Pending </ng-option>
+                </ng-select>
+              </ion-col>
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
+              <ion-label> From Date <span>*</span> </ion-label>
+              <!-- <ion-input value="{{ FromDate | date: 'yyyy-MM-dd' }}" id="FromDate" name="FromDate"
+                [(ngModel)]="searchEnqModal.FromDate" class="form-control" required>
+              </ion-input> -->
+              <ion-input value="{{ FromDate | date: 'yyyy-MM-dd' }}" id="FromDate" name="FromDate"
+                 class="form-control" required>
+              </ion-input>
+  
+              <ion-modal trigger="FromDate" size="cover" [canDismiss]="canDismiss" [backdropDismiss]="false">
+                <ng-template>
+                  <!-- <ion-datetime presentation="date" [(ngModel)]="FromDate" name="FromDate" show-default-buttons="true">
+                    <span slot="title"> {{ year }} </span>
+                  </ion-datetime> -->
+                  <ion-datetime presentation="date"  name="FromDate" show-default-buttons="true">
+                    <span slot="title"> 2012 </span>
+                  </ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </ion-col>
+  
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
+              <ion-label> To Date </ion-label>
+              <!-- <ion-input value="{{ ToDate | date: 'yyyy-MM-dd' }}" id="ToDate" name="ToDate"
+                [(ngModel)]="searchEnqModal.ToDate" class="form-control">
+              </ion-input> -->
+              <ion-input value="{{ ToDate | date: 'yyyy-MM-dd' }}" id="ToDate" name="ToDate"
+                 class="form-control">
+              </ion-input>
+  
+              <ion-modal trigger="ToDate" size="cover" [canDismiss]="canDismiss" [backdropDismiss]="false">
+                <ng-template>
+                  <!-- <ion-datetime presentation="date" [(ngModel)]="ToDate" name="ToDate" show-default-buttons="true">
+                    <span slot="title"> {{ year }} </span>
+                  </ion-datetime> -->
+                  <ion-datetime presentation="date"  name="ToDate" show-default-buttons="true">
+                    <span slot="title"> 2012 </span>
+                  </ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </ion-col>
+  
+            
+  
+            <ion-col size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="12" class="mt-1">
+              <!-- <ion-button class="searchBtn" type="submit" [disabled]="!f.form.valid" (click)="datewiseList()">Search
+              </ion-button>
+              <ion-button type="reset" (click)="resetForm()" class="searchBtn" color="danger">Clear
+              </ion-button> -->
+              <ion-button class="searchBtn" type="submit" >Search
+            </ion-button>
+            <ion-button type="reset" class="searchBtn" color="danger">Clear
+            </ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-grid>
+  
+      <ion-card class="web">
+        <ion-card-content>
+          <div class="headSection">
+            <div class="search">
+              <ion-searchbar animated="true"></ion-searchbar>
+            </div>
+            <div class="btns">
+              <ion-button class="button-download" color="success" (click)="exportExcel()">
+                <ion-icon name="document-sharp"></ion-icon>Excel
+              </ion-button>
+              <ion-button class="button-download" color="success" (click)="exportToCSV()">
+                <ion-icon name="document-sharp"></ion-icon>CSV
+              </ion-button>
+            </div>
+          </div>
+          <div class="horizontal-scroll">
+            <table id="userAdminTable" #epltable class="table">
+                <thead>
+                  <tr>
+
+                    <th>
+                      Sr.No.
+                    </th>
+                    <th>
+                      Case No.
+                    </th>
+                    <th>
+                       Name
+                    </th>
+                    <th>
+                      Mobile
+                    </th>
+                    <th>
+                      Subject
+                    </th>
+
+                    <th>
+                      Refference
+                    </th>
+                    <th>
+                      Village
+                    </th>
+                    <th>
+                      Taluka
+                    </th>
+                    <th>
+                      District
+                    </th>
+                    <th>
+                      Date
+                    </th>
+                    <th>
+                      File
+                    </th>
+                    <th>
+                        Status
+                    </th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  
+                  <tr>
+                    <td>1</td>
+                    <td>123</td>
+                    <td>Sagar Salunkhe</td>
+                    <td>9158490455</td>
+                    <td>Meeting</td>
+                    <td>Rahul Choudhary</td>
+                    <td>Kondhwa Bk</td>
+                    <td>Pune</td>
+                    <td>Pune</td>
+                    <td>2023-04-15 08:47 AM</td>
+                    <td class="file"><ion-icon name="cloud-download-sharp"></ion-icon></td>
+                    <td>
+                        <ion-badge color="primary">Status</ion-badge>
+                    </td>
+                    <td class="action">
+                      <ion-icon  name="create-sharp" routerLink="/letter-tracking/edit-letter"></ion-icon>
+                      <ion-icon class="delete" name="trash-bin-sharp" (click)="deleteLetter()"></ion-icon> 
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>123</td>
+                    <td>Sagar Salunkhe</td>
+                    <td>9158490455</td>
+                    <td>Meeting</td>
+                    <td>Rahul Choudhary</td>
+                    <td>Kondhwa Bk</td>
+                    <td>Pune</td>
+                    <td>Pune</td>
+                    <td>2023-04-15 08:47 AM</td>
+                    <td class="file"><ion-icon name="cloud-download-sharp"></ion-icon></td>
+                    <td> 
+                        <ion-badge color="primary">Status</ion-badge>
+                    </td>
+                    <td class="action">
+                      <ion-icon  name="create-sharp" routerLink="/letter-tracking/edit-letter"></ion-icon>
+                      <ion-icon  class="delete" name="trash-bin-sharp"></ion-icon> 
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="event($event)"></pagination-controls>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </ion-content>

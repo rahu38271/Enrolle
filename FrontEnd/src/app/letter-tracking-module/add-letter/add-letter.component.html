@@ -18,9 +18,9 @@
         </ion-row>
         <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
           <ion-row>
-            <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
-                <ion-label position="floating"> Subject  <span>*</span>  </ion-label>
-                  <ion-textarea name="Subject"  class="form-control" rows="2"  ></ion-textarea>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" class="bg">
+                <ion-label > Subject  <span>*</span>  </ion-label>
+                  <ion-textarea name="Subject"  class="form-control" ></ion-textarea>
               </ion-col> 
 
             <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" >
@@ -49,17 +49,62 @@
               </ion-col>
 
               <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
-                <ion-label position="floating"> Office  </ion-label>
+                <div class="flex">
+                  <ion-label> Office <span>*</span> </ion-label>
+                  <ion-icon id="Office" name="add-outline"></ion-icon>
+                </div>
                 <ng-select name="District" placeholder="Select Office">
                     <ng-option class="select_option">- Select Office -</ng-option>
                     <ng-option class="select_option"> Office 1 </ng-option>
                     <ng-option class="select_option"> Office 2 </ng-option>
                 </ng-select>
-                
               </ion-col>
 
+              <ion-popover trigger="Office" triggerAction="click" [canDismiss]="canDismiss" 
+              [backdropDismiss]="false">
+                <ng-template>
+                    <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col size="12">
+                                    <ion-input 
+                                      maxlength="50" 
+                                      name="Office" 
+                                      placeholder="Add Office" 
+                                      class="form-control"
+                                       required
+                                       >
+                                    </ion-input>
+                                </ion-col>
+                                <ion-col size="12" class="ion-text-center">
+                                    <ion-button 
+                                      color="danger" 
+                                      size="small" 
+                                      type="reset"
+                                      (click)="DismissClick()">
+                                        Cancel
+                                    </ion-button>
+                                    <ion-button 
+                                      type="submit" 
+                                      color="success" 
+                                      size="small" 
+                                      [disabled]="!f.form.valid"
+                                      (click)="DismissClick()"
+                                      >
+                                        Submit
+                                    </ion-button>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </form>
+                </ng-template>
+            </ion-popover>
+
               <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
-                <ion-label position="floating"> Department  </ion-label>
+                <div class="flex">
+                  <ion-label> Department <span>*</span> </ion-label>
+                  <ion-icon id="Department" name="add-outline"></ion-icon>
+                </div>
                 <ng-select name="District" placeholder="Select Department">
                     <ng-option class="select_option">- Select Department -</ng-option>
                     <ng-option class="select_option"> Department 1 </ng-option>
@@ -67,6 +112,46 @@
                 </ng-select>
                 
               </ion-col>
+
+              <ion-popover trigger="Department" triggerAction="click" [canDismiss]="canDismiss" 
+              [backdropDismiss]="false">
+                <ng-template>
+                    <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+                        <ion-grid>
+                            <ion-row>
+                                <ion-col size="12">
+                                    <ion-input 
+                                      maxlength="50" 
+                                      name="Department" 
+                                      placeholder="Add Department" 
+                                      class="form-control"
+                                       required
+                                       >
+                                    </ion-input>
+                                </ion-col>
+                                <ion-col size="12" class="ion-text-center">
+                                    <ion-button 
+                                      color="danger" 
+                                      size="small" 
+                                      type="reset"
+                                      (click)="DismissClick()">
+                                        Cancel
+                                    </ion-button>
+                                    <ion-button 
+                                      type="submit" 
+                                      color="success" 
+                                      size="small" 
+                                      [disabled]="!f.form.valid"
+                                      (click)="DismissClick()"
+                                      >
+                                        Submit
+                                    </ion-button>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </form>
+                </ng-template>
+            </ion-popover>
   
               <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="calendar">
                 <ion-label> BirthDate  </ion-label>
@@ -177,10 +262,10 @@
                 </ion-modal>
               </ion-col>
 
-              <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+              <!-- <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
                 <ion-label position="floating"> Branch   </ion-label>
                   <ion-input name="Branch" class="text-capitalize form-control" ></ion-input>
-              </ion-col>
+              </ion-col> -->
 
               <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
                 <ion-label position="floating"> File </ion-label>

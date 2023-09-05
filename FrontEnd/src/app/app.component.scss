@@ -2,7 +2,7 @@ ion-item {
   position: relative !important;
   font-size: 15px;
   --min-height: 40px;
-  color: #687fcd;
+  color: #222260;
   font-weight: 500;
 }
 
@@ -60,7 +60,8 @@ h4 {
   font-size: 14px;
   border: none;
   outline: none;
-  color: #687fcd;
+  color: #222260;
+  font-weight: 600;
   padding: 6px 15px;
   background-color: inherit;
   margin: 0;
@@ -133,7 +134,7 @@ h4 {
 @media screen and (min-width: 1200px) {
   .subnav .subnavbtn {
     font-size: 15px;
-    padding: 6px 7px;
+    padding: 6px;
   }
 
 }
@@ -174,7 +175,7 @@ ion-toolbar ion-icon {
 
 .mobileMenu ion-label {
   padding: 3px 0px 0px 10px;
-  font-size: 17px !important;
+  // font-size: 17px !important;
 }
 
 
@@ -190,7 +191,7 @@ ion-toolbar ion-icon {
 
 .icofont {
   //color: #0189cb;
-  color: #6f75ef;
+  color: #222260;
   font-size: 21px;
   font-weight: 500;
 }
@@ -208,7 +209,7 @@ ion-accordion {
 
 .birthday {
   border-bottom: solid 1px #cfcfcf;
-  background: #6f75ef;
+  background: #222260;
 }
 
 .birthday ion-icon {
@@ -222,7 +223,7 @@ ion-accordion {
 }
 
 .birthday {
-  --background: #6f75ef !important;
+  --background: #222260 !important;
   height: 78px;
   padding-top: 5px;
 }

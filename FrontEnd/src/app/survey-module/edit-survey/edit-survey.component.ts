@@ -1,6 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { LoadingController } from '@ionic/angular';
 import { NgForm } from '@angular/forms';
+import { VoterService } from 'src/app/services/voter.service';
+import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
+import { LoaderService } from 'src/app/services/loader.service';
+import { IonicToastService } from 'src/app/services/ionic-toast.service';
+import { SurveyService } from 'src/app/services/survey.service';
 
 @Component({
   selector: 'app-edit-survey',
@@ -39,6 +46,10 @@ export class EditSurveyComponent implements OnInit {
   public date: Date;
   public Age: number;
   isShow: boolean;
+  AllCasts:any;
+  Language:any;
+  EditData:any={}
+  allProfession:any;
 
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -60,9 +71,47 @@ export class EditSurveyComponent implements OnInit {
     }
 }
 
-  constructor(public loadingController: LoadingController) { }
+  constructor(
+    public loadingController: LoadingController,
+    private voter:VoterService,
+    private translateConfigService: TranslateConfigService,
+    private router:Router,
+    private loader:LoaderService,
+    private toast:IonicToastService,
+    private survey:SurveyService
+    ) {
+      this.Language = this.translateConfigService.getCurrentLang();
+      if (this.Language == "kn") {
+        this.Language = "Kannada"
+      }
+      else if (this.Language == "mr") {
+        this.Language = "Marathi"
+      }
+      else if (this.Language == "hi") {
+        this.Language = "Hindi"
+      }
+      else {
+        this.Language = "English"
+      }
+     }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.castList();
+    this.professionList();
+  }
+
+  castList(){
+    this.EditData = this.router.getCurrentNavigation().extras.state;
+    this.voter.getAllCaste(this.Language).subscribe(data=>{
+      this.AllCasts = data;
+    })
+  }
+
+  professionList(){
+    this.voter.getAllProfession().subscribe(data=>{
+      this.allProfession = data;
+    })
+  }
 
   resetForm(){
     this.myForm.reset();
@@ -90,16 +139,25 @@ export class EditSurveyComponent implements OnInit {
    
  }
 
-  async presentLoading() {
-    const loading = await this.loadingController.create({
-      cssClass: 'my-custom-class',
-      message: 'Saving Details...',
-      duration: 2000
-    });
-    await loading.present();
+ addSurvey(){
+  debugger;
+  this.loader.showLoading();
+  this.EditData.id = Number(this.EditData.id);
+  this.EditData.age = Number(this.EditData.age);
+  this.survey.editSurvey(this.EditData).subscribe(data=>{
+    if(data==1){
+      this.loader.hideLoader();
+      this.EditData={};
+      this.toast.presentToast("Survey added successfully!", "success", 'checkmark-circle-sharp');
+    }
+    else{
+      this.loader.hideLoader();
+      this.toast.presentToast("Survey not added", "danger", 'alert-circle-sharp');
+    }
+  },(err)=>{
+    this.loader.hideLoader();
+  })
+}
 
-    const { role, data } = await loading.onDidDismiss();
-    console.log('Loading dismissed!');
-  }
 
 }

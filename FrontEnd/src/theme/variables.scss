@@ -76,7 +76,7 @@
   --ion-color-light-tint: #f5f6f9;
 
   //--ion-font-family: 'Nunito Sans', sans-serif;
-  --ion-font-family: 'Roboto', sans-serif;
+  --ion-font-family: 'Rubik', sans-serif !important;
 
   ion-tab-button[aria-selected=true] {
     color: #178ace;
@@ -338,7 +338,7 @@ ion-menu ion-item {
 }
 
 ion-menu ion-icon {
-  color: #435fbe !important;
+  color: #222260 !important;
   font-size: 14px !important;
   font-weight: 600;
   ;
@@ -428,7 +428,7 @@ h3 {
 }
 
 thead tr {
-  color: #1a3353;
+  color: #222260;
   background: #f5f5f5 !important;
 }
 
@@ -524,7 +524,7 @@ ion-select {
 }
 
 table {
-  color: #67748E !important;
+  color: #222260 !important;
   border-collapse: collapse;
 }
 
@@ -713,7 +713,7 @@ ion-toolbar ion-button {
 .form-control {
   display: block;
   width: 100%;
-  height: 38px !important;
+  height: 38px;
   padding: 0.47rem 0.5rem !important;
   font-size: .875rem;
   font-weight: 400;
@@ -799,14 +799,14 @@ table.dataTable thead td {
 // }
 
 .mobileMenu ion-label {
-  font-size: 14px !important;
+  font-size: 16px !important;
   font-weight: 500 !important;
-  color: #67748E !important;
+  color: #222260 !important;
 }
 
 @media screen and (max-width:576px) {
   .mobileMenu ion-label {
-    font-size: 14px !important;
+    font-size: 14px;
     font-weight: 600 !important;
     color: #252626 !important;
   }
@@ -884,15 +884,15 @@ ion-toolbar {
 }
 
 form ion-label {
-  color: #228bd2 !important;
+  color: #01041b !important;
   --font-weight: 400 !important;
   font-size: 15px;
-  line-height: 18px;
+  line-height: 25px;
 }
 
 @media screen and (max-width:576px) {
   form ion-label {
-    color: #228bd2 !important;
+    // color: #228bd2 !important;
     --font-weight: 400 !important;
     font-size: 18px;
   }
@@ -936,8 +936,8 @@ ion-select {
 }
 
 ion-card-title {
-  font-size: 18px;
-  color: #5e5b75;
+  font-size: 20px;
+  color: #222260;
   font-weight: 600;
 }
 
@@ -949,8 +949,8 @@ ion-card-title {
 .android h3 {
   color: #ff5151;
   // color: #228bd2;
-  font-size: 20px;
-  line-height: 20px;
+  font-size: 18px;
+  // line-height: 24px;
   font-weight: 600;
 }
 
@@ -1095,3 +1095,4 @@ ion-menu-button {
     color: #495057 !important;
   }
 }
+

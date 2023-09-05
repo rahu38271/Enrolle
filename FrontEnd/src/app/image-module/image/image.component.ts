@@ -16,6 +16,7 @@ export class ImageComponent implements OnInit {
   imageUrl:any;
   roleId:any;
   superId:any;
+  adminId:any;
 
   constructor(
     private router:Router,
@@ -34,11 +35,15 @@ export class ImageComponent implements OnInit {
     this.userId = Number(this.userId);
     this.roleId = localStorage.getItem('userType');
     this.superId = localStorage.getItem('superAdminId');
+    this.adminId = localStorage.getItem('adminId');
     if(this.roleId == 2){
       this.userId = this.userId
     }
-    else{
+    else if(this.roleId == 3){
       this.userId = this.superId
+    }
+    else {
+      this.userId = this.superId;
     }
     this.voter.getLandingImage(this.userId).subscribe((data: Blob) => {
       if(data.type != 'text/plain'){

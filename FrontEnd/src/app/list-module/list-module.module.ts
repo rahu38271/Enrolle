@@ -46,6 +46,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { BySocietyComponent } from './by-society/by-society.component';
 import { SocietywiseListComponent } from './societywise-list/societywise-list.component';
 
+
 @NgModule({
   declarations: [
     ListComponent,

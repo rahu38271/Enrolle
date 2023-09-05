@@ -26,3 +26,21 @@ ion-label span {  color: #F00 !important; font-weight: 500; }
   --border-radius: 8px;
   --height: auto !important;
 }
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex ion-icon {
+  cursor: pointer;
+    font-size: 16px;
+    background: #747474;
+    padding: 1px;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* .bg {
+  background: #F00;
+} */

@@ -43,7 +43,7 @@ export class AddSurveyComponent implements OnInit {
   WorkLeft = '';
   Service = '';
   AllCasts:any;
-
+  allProfession:any;
   public date: Date;
   public Age: number;
   isShow: any;
@@ -94,6 +94,7 @@ export class AddSurveyComponent implements OnInit {
 
   ngOnInit() {
     this.castList();
+    this.professionList();
   }
 
   resetForm(){
@@ -122,17 +123,6 @@ export class AddSurveyComponent implements OnInit {
       
     }
 
-  async presentLoading() {
-    const loading = await this.loadingController.create({
-      cssClass: 'my-custom-class',
-      message: 'Saving Details...',
-      duration: 2000
-    });
-    await loading.present();
-
-    const { role, data } = await loading.onDidDismiss();
-    console.log('Loading dismissed!');
-  }
 
   castList(){
     this.voter.getAllCaste(this.Language).subscribe(data=>{
@@ -140,8 +130,13 @@ export class AddSurveyComponent implements OnInit {
     })
   }
 
+  professionList(){
+    this.voter.getAllProfession().subscribe(data=>{
+      this.allProfession = data;
+    })
+  }
+
   addSurvey(){
-    debugger;
     this.loader.showLoading();
     this.surveyModel.Age = Number(this.surveyModel.Age);
     this.surveyModel.MemberAge = Number(this.surveyModel.MemberAge);

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { VoterService } from 'src/app/services/voter.service'
 import { Router } from '@angular/router'
 import { LoaderService } from 'src/app/services/loader.service'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { Location } from '@angular/common';
+
 
 @Component({
   selector: 'app-by-cast',
@@ -19,6 +20,8 @@ export class ByCastComponent implements OnInit {
   id:any;
   roleId:any;
 
+  
+
   constructor(
     private voter: VoterService, 
     private router:Router,
@@ -27,6 +30,7 @@ export class ByCastComponent implements OnInit {
     private location:Location
   ) { 
     this.Language = this.translateConfigService.getCurrentLang();
+    
   }
 
   search(){
@@ -37,6 +41,8 @@ export class ByCastComponent implements OnInit {
     this.id = localStorage.getItem("loginId");
     this.roleId = localStorage.getItem("userType");
     this.allCastes();
+    
+  
   }
 
   allCastes() {

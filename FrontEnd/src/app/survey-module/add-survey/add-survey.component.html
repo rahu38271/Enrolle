@@ -123,7 +123,11 @@
 
           <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6" size-xs="12">
             <ion-label> {{'Occupation' | translate}}  </ion-label>
-              <ion-input name="Occupation" [(ngModel)]="surveyModel.Occupation"  class="form-control"></ion-input>
+              <ng-select name="Occupation" [(ngModel)]="surveyModel.Occupation"  placeholder="Select Occupation">
+                <ng-option *ngFor="let item of allProfession" [value]="item.professionName">
+                  {{ item.professionName }}
+                </ng-option>
+             </ng-select>
           </ion-col>
 
           

@@ -2,8 +2,10 @@ import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
 import * as xlsx from 'xlsx';
 import html2pdf from 'html2pdf.js'
 import { LoaderService } from 'src/app/services/loader.service'
-import { VoterService} from 'src/app/services/voter.service'
+import { SurveyService } from 'src/app/services/survey.service';
 import { Router } from '@angular/router'
+import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { IonicToastService } from 'src/app/services/ionic-toast.service';
 
 @Component({
   selector: 'app-survey-list',
@@ -13,11 +15,16 @@ import { Router } from '@angular/router'
 export class SurveyListComponent implements OnInit {
 
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
-
+  Language:any;
   isShow = false;
-  allVoters: any;
+  surveyByVoter: any;
   searchMob: string;
-
+  userId:any;
+  RoleId:any;
+  PageNo:any=1;
+  NoofRow:any=25;
+  totalItems:any;
+  SearchText:any;
   search(){
     this.isShow = !this.isShow
   }
@@ -25,21 +32,118 @@ export class SurveyListComponent implements OnInit {
   constructor
   (
     private loader:LoaderService,
-    private voter:VoterService,
-    private router:Router
+    private survey:SurveyService,
+    private router:Router,
+    private translateConfigService: TranslateConfigService,
+    private toast:IonicToastService
   ) 
-  { }
+  { 
+    this.Language = this.translateConfigService.getCurrentLang();
+  }
 
-  voterList(){
-    this.voter.getAllVoter().subscribe(data=>{
-      console.log(data);
-      this.allVoters = data;
+  event(event:any){
+    this.PageNo = event;
+    this.surveyList(this.userId,this.RoleId,this.PageNo,this.NoofRow,this.Language,this.SearchText);
+  }
+
+
+  ngOnInit() {
+    this.userId = localStorage.getItem('loginId');
+    this.RoleId = localStorage.getItem('userType');
+    if(this.SearchText==undefined){
+      this.SearchText=''
+    }
+    else{
+      this.SearchText = this.SearchText.trim();
+    }
+    this.surveyList(this.userId,this.RoleId,this.PageNo,this.NoofRow,this.Language,this.SearchText);
+  }
+
+  
+
+  surveyList(userId:any,RoleId:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){
+    this.Language = this.translateConfigService.getCurrentLang();
+    if(this.Language == "kn"){
+      this.Language = "Kannada"
+    }
+    else if(this.Language == "mr"){
+      this.Language = "Marathi"
+    }
+    else if (this.Language == "hi") {
+      this.Language = "Hindi"
+    }
+    else{
+      this.Language = "English"
+    }
+    this.survey.getAllSurvey(userId,RoleId,PageNo,NoofRow,this.Language,this.SearchText).subscribe(data=>{
+      if(data){
+        this.surveyByVoter = data;
+        this.totalItems = data[0].totalCount;
+      }
+      else{
+
+      }
+    },(err)=>{
+
     })
   }
 
-  ngOnInit() {
-    this.voterList();
+  onSearchChange(SearchText: any): void { 
+    this.SearchText = this.SearchText.trim();
+    if (this.SearchText == '') {
+      this.SearchText = SearchText;
+      this.PageNo = 1;
+      this.NoofRow = this.totalItems;
+      this.surveyList(this.userId,this.RoleId,this.PageNo,this.NoofRow,this.Language,this.SearchText);
+    }
+    else {
+      this.SearchText = SearchText.trim();
+      this.PageNo = 1;
+      this.NoofRow = 25;
+      this.survey.getAllSurvey(this.userId,this.RoleId,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data => {
+        if (data.length != 0) {
+          //this.loader.hideLoader();
+          this.surveyByVoter = data;
+          this.totalItems = data[0].totalCount;
+          this.surveyByVoter.forEach(e => {
+            e.birthDate = e.birthDate.split('T')[0];
+          });
+        }
+        else {
+          //this.loader.hideLoader();
+          this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+        }
+      })
+    }
   }
+
+  keyPress(SearchText: any){
+    if (this.SearchText == '') {
+      this.SearchText = SearchText;
+      this.PageNo = 1;
+      this.NoofRow = this.totalItems;
+      this.surveyList(this.userId,this.RoleId,this.PageNo,this.NoofRow,this.Language,this.SearchText);
+    }
+    else {
+      this.SearchText = SearchText.trim();
+      this.PageNo = 1;
+      this.NoofRow = 25;
+      this.survey.getAllSurvey(this.userId,this.RoleId,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data => {
+        if (data) {
+          //this.loader.hideLoader();
+          this.surveyByVoter = data;
+          this.totalItems = data[0].totalCount;
+          this.surveyByVoter.forEach(e => {
+            e.birthDate = e.birthDate.split('T')[0];
+          });
+        }
+      })
+    }
+  }
+
+  // survey(data:any){
+  //     this.router.navigateByUrl('/survey/edit-survey',{state:data})
+  // }
 
   EditSurvey(data:any){
     this.router.navigateByUrl('/survey/edit-survey', {state:data});

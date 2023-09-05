@@ -3,7 +3,7 @@
 
 table { margin-top: 10px; }
 
-td ion-icon { cursor: pointer; font-size: 23px; font-weight: 600; padding-left: 2px; color: #40459f;  }
+td ion-icon { cursor: pointer; font-size: 22px; font-weight: 600; padding-left: 2px;  }
 
 table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !important; }
 
@@ -24,12 +24,7 @@ ion-modal {
   }
 
   @media screen and (max-width:576px){
-    .web {
-      display: none;
-    }
-    .android {
-      display: block;
-    }
+
     .contact {
       display: initial !important;
     }
@@ -42,20 +37,9 @@ ion-modal {
     .contact h3 {
       margin-top: 5px;
     }
-    ion-item ion-label {
-      text-align: center;
-    }
-    .android ion-item ion-label {
-      text-align: left;
-    }
-    .android ion-list {
-      margin-top: 3px;
-    }
   }
 
-.horizontal-scroll {
-  overflow: scroll;
-}
+
 
 .action ion-icon {
   font-size: 20px;
@@ -89,14 +73,7 @@ ion-modal {
 }
 
 
-@media screen and (min-width:577px){
-  .web {
-    display: block;
-  }
-  .android {
-    display: none;
-  }
-}
+
 
 .survey-list {
   cursor: pointer;
@@ -122,7 +99,7 @@ ion-list:hover .contact i {
 
 .contact h4 {
     margin-top: 10px;
-    color: #ff5a29;
+    color: #5d5b95;
     font-weight: 600;
 }
 
@@ -140,16 +117,36 @@ ion-item img {
 }
 
 .contact h3 {
-  font-weight: 700;
-    color: #212B36;
-    font-size: 18px;
+  color: #260944;
+  font-size: 16px;
+  font-weight: 600;
 }
 
-.android ion-label {
-  margin: 0px 0px !important;
-}
+.flex ion-icon {
+    font-size: 25px;
+    margin-right: 10px;
+    color: #3c7ff9;
+  }
+  
+  .flex {
+    display: flex;
+  }
+  .table td {
+    text-transform: capitalize;
+  }
 
-.details {
-  display: flex;
-  justify-content: space-between;
-}
+  .file i {
+    font-size: 26px;
+    color: #3f7ef4;
+    cursor: pointer;
+  }
+
+  @media screen and (max-width:576px){
+    .web {display: none;}
+  }
+  
+  @media screen and (min-width:577px){
+    .android { display: none;}
+  }
+
+  ion-label span {  color: #F00 !important; font-weight: 500; }

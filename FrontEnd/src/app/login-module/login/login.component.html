@@ -4,75 +4,6 @@
       <div class="col col-xl-12">
         <div class="card">
           <div class="row g-0">
-            <div class="col-md-12 col-lg-8 d-md-block" 
-              style="background-image: url('./assets/img/114.jpeg');
-              width: 100%; background-position: center; background-size: cover;
-              ">
-              <div class="infoBox">
-                <div class="row">
-                  <div class="col-lg-5">
-                    <div class="leftDiv">
-                      <ion-list>
-                        <ion-item>
-                          <ion-avatar slot="start">
-                            <img src="./assets/img/contact.png" />
-                          </ion-avatar>
-                          <ion-label>
-                            <h3>Manage your contacts</h3>
-                            <p>
-                              Keep track of your contacts.
-                            </p>
-                          </ion-label>
-                        </ion-item>
-                      </ion-list>
-                      <ion-list>
-                        <ion-item>
-                          <ion-avatar slot="start">
-                            <img src="./assets/img/appointment.png" />
-                          </ion-avatar>
-                          <ion-label>
-                            <h3>Manage your appointments</h3>
-                            <p>
-                              Keep track of your appointments.
-                            </p>
-                          </ion-label>
-                        </ion-item>
-                      </ion-list>
-                      <ion-list>
-                        <ion-item>
-                          <ion-avatar slot="start">
-                            <img src="./assets/img/alarm.png" />
-                          </ion-avatar>
-                          <ion-label>
-                            <h3> Notifications & Alerts </h3>
-                            <p>
-                              Get Personalised notifications & alerts for your contacts.
-                            </p>
-                          </ion-label>
-                        </ion-item>
-                      </ion-list>
-                    </div>
-                  </div>
-                  <div class="col-lg-7">
-                    <ion-slides pager="true" [options]="slideOpts">
-                      <ion-slide>
-                        <div class="slide">
-                          <img src="./assets/img/sms1.jpg" alt="login form" class="img-fluid" />
-                        </div>
-                      </ion-slide>
-                      <ion-slide>
-                        <div class="slide">
-                          <img src="./assets/img/sms1.jpg" alt="login form" class="img-fluid" />
-                        </div>
-                      </ion-slide>
-                    </ion-slides>
-
-                    
-                  </div>
-                </div>
-              </div>
-              <!-- <img src="assets/img/sms.jpg" alt="login form" class="img-fluid" /> -->
-            </div>
             <div class="col-md-12 col-lg-4 d-flex align-items-center">
               <div class="card-body text-black">
                 <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
@@ -89,6 +20,7 @@
                     <ion-input minlength="10" maxlength="12" (keypress)="keyPressNumbers($event)" type="text"
                       class="form-control" name="Username" [(ngModel)]="loginModal.Username" #Username="ngModel"
                       [ngClass]="{'is-invalid': f.submitted && Username.invalid}" required></ion-input>
+                      
                     <div *ngIf="f.submitted && Username.invalid" class="invalid-feedback">
                       <div *ngIf="Username.errors.required">
                         Please enter username
@@ -156,6 +88,76 @@
               </div>
               
             </div>
+            <div class="col-md-12 col-lg-8 d-md-block" 
+              style="background-image: url('./assets/img/113.jpg');
+              width: 100%; background-position: center; background-size: cover;
+              ">
+              <div class="infoBox">
+                <div class="row">
+                  <div class="col-lg-5">
+                    <div class="leftDiv">
+                      <ion-list>
+                        <ion-item>
+                          <ion-avatar slot="start">
+                            <img src="./assets/img/contact.png" />
+                          </ion-avatar>
+                          <ion-label>
+                            <h3>Manage your contacts</h3>
+                            <p>
+                              Keep track of your contacts.
+                            </p>
+                          </ion-label>
+                        </ion-item>
+                      </ion-list>
+                      <ion-list>
+                        <ion-item>
+                          <ion-avatar slot="start">
+                            <img src="./assets/img/appointment.png" />
+                          </ion-avatar>
+                          <ion-label>
+                            <h3>Manage your appointments</h3>
+                            <p>
+                              Keep track of your appointments.
+                            </p>
+                          </ion-label>
+                        </ion-item>
+                      </ion-list>
+                      <ion-list>
+                        <ion-item>
+                          <ion-avatar slot="start">
+                            <img src="./assets/img/alarm.png" />
+                          </ion-avatar>
+                          <ion-label>
+                            <h3> Notifications & Alerts </h3>
+                            <p>
+                              Get Personalised notifications & alerts for your contacts.
+                            </p>
+                          </ion-label>
+                        </ion-item>
+                      </ion-list>
+                    </div>
+                  </div>
+                  <div class="col-lg-7">
+                    <ion-slides pager="true" [options]="slideOpts">
+                      <ion-slide>
+                        <div class="slide">
+                          <img src="./assets/img/sms1.jpg" alt="login form" class="img-fluid" />
+                        </div>
+                      </ion-slide>
+                      <ion-slide>
+                        <div class="slide">
+                          <img src="./assets/img/sms1.jpg" alt="login form" class="img-fluid" />
+                        </div>
+                      </ion-slide>
+                    </ion-slides>
+
+                    
+                  </div>
+                </div>
+              </div>
+              <!-- <img src="assets/img/sms.jpg" alt="login form" class="img-fluid" /> -->
+            </div>
+            
           </div>
         </div>
       </div>

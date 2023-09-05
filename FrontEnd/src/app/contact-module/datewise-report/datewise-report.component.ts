@@ -29,7 +29,7 @@ export class DatewiseReportComponent implements OnInit {
   roleId:any;
   isShow = false;
   PageNo:any=1;
-  NoofRow:any=2;
+  NoofRow:any=25;
   maxDate:String = new Date().toISOString();
   SearchText:any;
   getReport:any;
@@ -59,6 +59,7 @@ export class DatewiseReportComponent implements OnInit {
         this.loader.hideLoader();
         this.toast.presentToast("Searched successfully!", "success", 'checkmark-circle-sharp');
         this.getReport = data;
+        this.totalItems = data[0].totalCount;
         this.getReport.forEach(e => {
           e.birthDate = e.birthDate.split('T')[0];
           e.anniversary = e.anniversary.split('T')[0];
