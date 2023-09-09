@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ElectionAlerts.Dto;
 using ElectionAlerts.Model;
 using ElectionAlerts.Repository.Interface;
 using ElectionAlerts.Services.Interface;
@@ -16,11 +17,11 @@ namespace ElectionAlerts.Services.ServiceClasses
             _inotificationreposritory = notifiactionreposritory;
         }
 
-        public IEnumerable<Contact> GetNotificationbyDate(string NotifiactionType, string Date, int PageNo, int NoofRow, string SearchText)
+        public IEnumerable<ContactwithCount> GetNotificationbyDate(string NotifiactionType, string Date, string Name, int PageNo, int NoofRow, string SearchText)
         {
             try
             {
-                return _inotificationreposritory.GetNotificationbyDate(NotifiactionType, Date,PageNo,NoofRow, SearchText);
+                return _inotificationreposritory.GetNotificationbyDate(NotifiactionType, Date, Name,PageNo, NoofRow, SearchText);
             }
             catch(Exception ex)
             {

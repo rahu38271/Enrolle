@@ -84,6 +84,7 @@ namespace ElectionAlerts.Repository
             }
             catch (Exception ex)
             {
+                throw ex;
             }
         }
 
@@ -100,6 +101,7 @@ namespace ElectionAlerts.Repository
             }
             catch (Exception ex)
             {
+                throw ex;
             }
         }
         // public void Send_Birthday_Msg(object sender, ElapsedEventArgs e)
@@ -131,23 +133,24 @@ namespace ElectionAlerts.Repository
         // }
 
         private void SentBirthdaymsg(Contact contact)
-        {
-          
+        {      
                 var Current_date = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, INDIAN_ZONE);
                 DateTime candidate1 = Convert.ToDateTime(contact.BirthDate);
                 if (candidate1.Day == Current_date.Day && candidate1.Month == Current_date.Month)
                 {
-                    WebClient web = new WebClient();
-                    string msg = "http://45.114.143.189/api/mt/SendSMS?username=prolittechnologies&password=prolit3214&senderid=Prolit&type=8&destination=" + contact.MobileNo + "&text=प्रिय " + contact.FullName + ", आपणास जन्मदिवसानिमित्त्य मनःपूर्वक हार्दिक शुभेच्छा. Prolit Technologies.&peid=1301165123633080685";
-                    Stream myStream=web.OpenRead(msg);
-                    StreamReader sr = new StreamReader(myStream);
-                    string data = sr.ReadToEnd();
-                    string[] lines = data.Split('\n');
-                    var data1 = JsonConvert.DeserializeObject<dynamic>(lines[3]);
-                    LogWrite("Send BirthDay SMS Response : "+ data1);
+                    using (WebClient web = new WebClient())
+                    {
+                        string msg = "http://45.114.143.189/api/mt/SendSMS?username=prolittechnologies&password=prolit3214&senderid=Prolit&type=8&destination=" + contact.MobileNo + "&text=प्रिय " + contact.FullName + ", आपणास जन्मदिवसानिमित्त्य मनःपूर्वक हार्दिक शुभेच्छा. Prolit Technologies.&peid=1301165123633080685";
+                        Stream myStream = web.OpenRead(msg);
+                        StreamReader sr = new StreamReader(myStream);
+                        string data = sr.ReadToEnd();
+                        string[] lines = data.Split('\n');
+                        var data1 = JsonConvert.DeserializeObject<dynamic>(lines[3]);
+                        LogWrite($"Send BirthDay SMS Message {contact.MobileNo} {data1}");
+                    }               
                 }
-            
-        }
+                
+            }
 
         private void SentAnniversarymsg(Contact contact)
         {
@@ -158,14 +161,18 @@ namespace ElectionAlerts.Repository
                 DateTime candidate1 = Convert.ToDateTime(contact.Anniversary);
                 if (candidate1.Day == Current_date.Day && candidate1.Month == Current_date.Month)
                 {
-                    WebClient web = new WebClient();
-                    string msg = "http://45.114.143.189/api/mt/SendSMS?username=prolittechnologies&password=prolit3214&senderid=Prolit&type=8&destination=" + contact.MobileNo + "&text=प्रिय " + contact.FullName + ", आपणास Anniverssary मनःपूर्वक हार्दिक शुभेच्छा. Prolit Technologies.&peid=1301165123633080685";
-                    Stream myStream=web.OpenRead(msg);
-                    StreamReader sr = new StreamReader(myStream);
-                    string data = sr.ReadToEnd();
-                    string[] lines = data.Split('\n');
-                    var data1 = JsonConvert.DeserializeObject<dynamic>(lines[3]);
-                    LogWrite("Send Aniversary SMS Response : " + data1);
+                    using (WebClient web = new WebClient())
+                    {
+                        string msg = "http://45.114.143.189/api/mt/SendSMS?username=prolittechnologies&password=prolit3214&senderid=Prolit&type=8&destination=" + contact.MobileNo + "&text=प्रिय " + contact.FullName + ", आपणास Anniverssary मनःपूर्वक हार्दिक शुभेच्छा. Prolit Technologies.&peid=1301165123633080685";
+                        Stream myStream = web.OpenRead(msg);
+                        StreamReader sr = new StreamReader(myStream);
+                        string data = sr.ReadToEnd();
+                        string[] lines = data.Split('\n');
+                        var data1 = JsonConvert.DeserializeObject<dynamic>(lines[3]);
+                        LogWrite("Send Aniversary SMS Response : " + data1);
+                    }
+
+                    
                 }
             }
             catch(Exception ex)

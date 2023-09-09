@@ -185,7 +185,15 @@ namespace ElectionAlerts.Model.Data
         public DbSet<Profession> Professions { get; set; }
         public DbSet<LandingPage> LandingPages { get; set; }
         public DbSet<WhatAppContent> whatAppContents { get; set; }
-
+        public DbSet<VoterMobileDTO> VoterMobileDTOs { get; set; }
+        public DbSet<Letter> Letters { get; set; }
+        public DbSet<LetterDTO> LetterDTOs { get; set; }
+        public DbSet<SubLetter> SubLetters { get; set; }
+        public DbSet<SubLetterDTO> SubLetterDTOs { get; set; }
+        public DbSet<Departmet> Departmets { get; set; }
+        public DbSet<Office> Offices { get; set; }
+        public DbSet<LetterDashBoard> LetterDashBoards { get; set; }
+        public DbSet<VoterDashBoard> VoterDashBoards { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Districts>().HasNoKey();
@@ -210,7 +218,10 @@ namespace ElectionAlerts.Model.Data
             modelBuilder.Entity<ComplaintCount>().HasNoKey();
             modelBuilder.Entity<ActivityLogCountDTO>().HasNoKey();
             modelBuilder.Entity<ActivityLogCount>().HasNoKey();
-          
+            modelBuilder.Entity<ActivityLogCount>().HasNoKey();
+            modelBuilder.Entity<ContactwithCount>().HasNoKey();
+            modelBuilder.Entity<LetterDashBoard>().HasNoKey();
+            modelBuilder.Entity<VoterDashBoard>().HasNoKey();
         }
     }
 }

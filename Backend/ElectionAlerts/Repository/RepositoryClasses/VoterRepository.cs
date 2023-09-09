@@ -895,6 +895,42 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 throw ex;
             }
         }
+
+        public IEnumerable<GetVoterByPartNo> GetVoterOldAddress(int userid, int RoleId, int PageNo, int NoofRow, string Language, string SearcText)
+        {
+            try
+            {
+                return _customContext.Set<GetVoterByPartNo>().FromSqlRaw("Exec USP_GetOldAddress {0},{1},{2},{3},{4},{5}", userid, RoleId, PageNo, NoofRow, Language, SearcText).ToList();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<VoterMobileDTO> MatchMobileDetails(int userid, int RoleId, int PageNo, int NoofRow)
+        {
+            try
+            {
+                return _customContext.Set<VoterMobileDTO>().FromSqlRaw("Exec USP_MatchREcordDetails {0},{1},{2},{3}", userid, RoleId, PageNo, NoofRow).ToList();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<VoterDashBoard> VoterDashBoard(int userid, int RoleId)
+        {
+            try
+            {
+                return _customContext.Set<VoterDashBoard>().FromSqlRaw("Exec Usp_GetCountofVoter {0},{1}", userid, RoleId);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
     public static class Extensions
     {

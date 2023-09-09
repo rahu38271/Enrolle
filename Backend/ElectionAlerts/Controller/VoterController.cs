@@ -1137,6 +1137,20 @@ namespace ElectionAlerts.Controller
                 return BadRequest(ex);
             }
         }
+
+        [HttpGet("GetVoterDashBoard")]
+        public IActionResult GetVoterDashBoard(int UserId,int RoleId)
+        {
+            try
+            {
+                return Ok(_voterService.VoterDashBoard(UserId, RoleId));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetVoterDashBoard");
+                return BadRequest(ex);
+            }
+        }
     }
 
     public static class Extensions

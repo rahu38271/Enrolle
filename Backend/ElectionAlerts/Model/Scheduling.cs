@@ -154,6 +154,7 @@ namespace ElectionAlerts.Model
             }
             catch (Exception ex)
             {
+                throw ex;
             }
         }
 
@@ -170,6 +171,7 @@ namespace ElectionAlerts.Model
             }
             catch (Exception ex)
             {
+                throw ex;
             }
         }
 

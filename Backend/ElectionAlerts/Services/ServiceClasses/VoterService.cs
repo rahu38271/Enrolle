@@ -209,7 +209,7 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.InsertUpdateWhatUpContent(whatAppContent);
         }
 
-        public IEnumerable<VoterMobile> MatchMobileDetails(int userid, int RoleId, int PageNo, int NoofRow)
+        public IEnumerable<VoterMobileDTO> MatchMobileDetails(int userid, int RoleId, int PageNo, int NoofRow)
         {
             return _voterRepository.MatchMobileDetails(userid, RoleId, PageNo, NoofRow);
         }
@@ -262,6 +262,11 @@ namespace ElectionAlerts.Services.ServiceClasses
         public int UpdateVoterInclination(int id, string Colour)
         {
             return _voterRepository.UpdateVoterInclination(id, Colour);
+        }
+
+        public IEnumerable<VoterDashBoard> VoterDashBoard(int userid, int RoleId)
+        {
+            return _voterRepository.VoterDashBoard(userid, RoleId);
         }
 
         public IEnumerable<GetVoterByPartNo> VoterDetailsbyColumn(string ColoumnName, string ColoumnValue,int UserId,int RoleId, int PageNo, int NoofRow, string Language, string SearchText)
