@@ -60,7 +60,6 @@
     "file-saver": "^2.0.5",
     "html2pdf.js": "^0.10.1",
     "jquery": "^3.7.0",
-    "ng-apexcharts": "^1.8.0",
     "ng-otp-input": "^1.9.2",
     "ng2-search-filter": "^0.5.1",
     "ngx-dropzone": "^3.1.0",

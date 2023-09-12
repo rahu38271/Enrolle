@@ -1,6 +1,6 @@
 ion-avatar { margin-inline-end: 8px !important; height: 20px; width: 20px; margin-top: 1px; margin-bottom: 1px; }
 
-ion-item {  --padding-start: 10px; text-align: center; }
+// ion-item {  --padding-start: 10px; text-align: center; }
 
 // ion-label { margin: 4px 0px 4px !important; }
 
@@ -107,3 +107,36 @@ ion-grid {
 // .web ion-item h3 {
 //     margin-top: 14px;
 // }
+
+ion-list { box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px; border: 1px solid #e6ebf1;  border-radius: 0.625rem; }
+
+.contact {
+    display: flex;
+    justify-content: space-between;
+}
+
+.contact i {
+  background: rgba(85,112,241,.12);
+  color: #757fef;
+    font-size: 27.5px;
+    border-radius: 0.625rem;
+    width: 45px;
+    height: 45px;
+    line-height: 32px;
+    padding: 8px;
+}
+
+ion-list:hover .contact i {
+  background-color: #757fef;
+  color: #FFF;
+}
+
+.contact h4 {
+    margin-top: 10px;
+    color: #ff5a29;
+    font-weight: 600;
+}
+
+.android ion-list {
+    text-align: center;
+}

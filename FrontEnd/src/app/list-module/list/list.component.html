@@ -33,7 +33,315 @@
     </ion-grid>
 
     <ion-grid class="web">
+      <ion-row *ngFor="let item of voterCount">
+        <ion-col size-xs="12" size-sm="12" size-md="12">
+          
+            <ion-row >
+              <ion-col size-lg="2" size-md="4" size-sm="4" size-xs="6" >
+                <ion-list class="survey-list" >
+                    <ion-item lines="none">
+                      <ion-label class="contact">
+                          
+                          <div>
+                            <h3> Total Voters </h3>
+                            <h4> {{item.totalVoter}} </h4>
+                          </div>
+                          <i class="icofont icofont-search-document"></i>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+
+              <ion-col size-lg="2" size-md="4" size-sm="4" size-xs="6" >
+                <ion-list class="survey-list" routerLink="/voterdata-management/import-voter">
+                    <ion-item lines="none">
+                      <ion-label>
+                        <div class="contact">
+                          
+                          <div>
+                            <h3> Upload Voters </h3>
+                            <h4> - </h4>
+                          </div>
+                          <i class="icofont icofont-ui-clock"></i>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+
+              <ion-col size-lg="2" size-md="4" size-sm="4" size-xs="6" >
+                <ion-list class="survey-list" routerLink="/list/modern-way">
+                    <ion-item lines="none">
+                      <ion-label>
+                        <div class="contact">
+                          <div>
+                            <h3> {{'Advance Search' | translate}} </h3>
+                            <h4> </h4>
+                          </div>
+                          <i class="icofont icofont-contact-add"></i>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+      
+              <ion-col size-lg="2" size-md="4" size-sm="4" size-xs="6" >
+                <ion-list class="survey-list" routerLink="/list/by-village">
+                  <ion-item lines="none">
+                      <ion-label>
+                        <div class="contact">
+                          <div>
+                            <h3> {{'By Village' | translate}} </h3>
+                            <h4> {{item.noOfVillage}} </h4>
+                          </div>
+                          <i class="icofont icofont-ui-check"></i>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+
+              <ion-col size-lg="2" size-md="4" size-sm="4" size-xs="6" > 
+                <ion-list class="survey-list" routerLink="/list/by-address">
+                  <ion-item lines="none" >
+                      <ion-label>
+                        <div class="contact">
+                          <div>
+                            <h3>  {{'By Address' | translate}} </h3>
+                            <h4> {{item.addressCount}} </h4>
+                          </div>
+                          <i class="icofont icofont-ui-close"></i>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+
+              <ion-col size-lg="2" size-md="4" size-sm="4" size-xs="6" > 
+                <ion-list class="survey-list" routerLink="/list/by-surname">
+                  <ion-item lines="none" >
+                      <ion-label>
+                        <div class="contact">
+                          <div>
+                            <h3>  {{'By Surname' | translate}} </h3>
+                            <h4> {{item.latNameCount}} </h4>
+                          </div>
+                          <i class="icofont icofont-ui-close"></i>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+
+              <ion-col size-lg="2" size-md="4" size-sm="4" size-xs="6" > 
+                <ion-list class="survey-list" routerLink="/list/by-cast">
+                  <ion-item lines="none" >
+                      <ion-label>
+                        <div class="contact">
+                          <div>
+                            <h3> {{'By Caste' | translate}} </h3>
+                            <h4> {{item.noOfCaste}} </h4>
+                          </div>
+                          <i class="icofont icofont-ui-close"></i>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+
+              <ion-col size-lg="2" size-md="4" size-sm="4" size-xs="6" > 
+                <ion-list class="survey-list" routerLink="/list/by-booth">
+                  <ion-item lines="none" >
+                      <ion-label>
+                        <div class="contact">
+                          <div>
+                            <h3> {{'By Part No.' | translate}} </h3>
+                            <h4> {{item.noOfPartNo}} </h4>
+                          </div>
+                          <i class="icofont icofont-ui-close"></i>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+
+              <ion-col size-lg="2" size-md="4" size-sm="4" size-xs="6" > 
+                <ion-list class="survey-list" routerLink="/list/agewise-list">
+                  <ion-item lines="none" >
+                      <ion-label>
+                        <div class="contact">
+                          <div>
+                            <h3> {{'By Age' | translate}} </h3>
+                            <h4> </h4>
+                          </div>
+                          <i class="icofont icofont-ui-close"></i>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+
+              <ion-col size-lg="2" size-md="4" size-sm="4" size-xs="6" > 
+                <ion-list class="survey-list" routerLink="/list/mobile-list">
+                  <ion-item lines="none" >
+                      <ion-label>
+                        <div class="contact">
+                          <div>
+                            <h3>{{'Mobile No. List' | translate}} </h3>
+                            <h4> {{item.mobileNoCount}} </h4>
+                          </div>
+                          <i class="icofont icofont-ui-close"></i>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+
+              <ion-col size-lg="2" size-md="4" size-sm="4" size-xs="6" > 
+                <ion-list class="survey-list" routerLink="/mobile-match/matched-List">
+                  <ion-item lines="none" >
+                      <ion-label>
+                        <div class="contact">
+                          <div>
+                            <h3> Mobile  Match</h3>
+                            <h4> {{item.mobileNoCount}} </h4>
+                          </div>
+                          <i class="icofont icofont-ui-close"></i>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+
+              <ion-col size-lg="2" size-md="4" size-sm="4" size-xs="6" > 
+                <ion-list class="survey-list">
+                  <ion-item lines="none" >
+                      <ion-label>
+                        <div class="contact">
+                          <div>
+                            <h3> Slip Report </h3>
+                            <h4> </h4>
+                          </div>
+                          <i class="icofont icofont-ui-close"></i>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+
+              <ion-col size-lg="2" size-md="4" size-sm="4" size-xs="6" > 
+                <ion-list class="survey-list" routerLink="/list/voted-list">
+                  <ion-item lines="none" >
+                      <ion-label>
+                        <div class="contact">
+                          <div>
+                            <h3> {{'Voted' | translate}} </h3>
+                            <h4> {{item.votedCount}} </h4>
+                          </div>
+                          <i class="icofont icofont-ui-close"></i>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+
+              <ion-col size-lg="2" size-md="4" size-sm="4" size-xs="6" > 
+                <ion-list class="survey-list" routerLink="/list/imp-voter">
+                  <ion-item lines="none" >
+                      <ion-label>
+                        <div class="contact">
+                          <div>
+                            <h3> {{'Imp. Voters' | translate}} </h3>
+                            <h4> {{item.starVoterCount}} </h4>
+                          </div>
+                          <i class="icofont icofont-ui-close"></i>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+
+              <ion-col size-lg="2" size-md="4" size-sm="4" size-xs="6" > 
+                <ion-list class="survey-list" routerLink="/list/by-color">
+                  <ion-item lines="none" >
+                      <ion-label>
+                        <div class="contact">
+                          <div>
+                            <h3> {{'By Color' | translate}} </h3>
+                            <h4> {{item.supporterCount}} + {{item.oppositionCount}} </h4>
+                          </div>
+                          <i class="icofont icofont-ui-close"></i>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+
+              <ion-col size-lg="2" size-md="4" size-sm="4" size-xs="6" > 
+                <ion-list class="survey-list" routerLink="/list/by-death">
+                  <ion-item lines="none" >
+                      <ion-label>
+                        <div class="contact">
+                          <div>
+                            <h3> {{'Dead' | translate}} </h3>
+                            <h4> {{item.deathCount}} </h4>
+                          </div>
+                          <i class="icofont icofont-ui-close"></i>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+
+              <ion-col size-lg="2" size-md="4" size-sm="4" size-xs="6" > 
+                <ion-list class="survey-list" routerLink="/list/by-profession">
+                  <ion-item lines="none" >
+                      <ion-label>
+                        <div class="contact">
+                          <div>
+                            <h3>  {{'By Occupation' | translate}} </h3>
+                            <h4> {{item.noOfProfessional}} </h4>
+                          </div>
+                          <i class="icofont icofont-ui-close"></i>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+
+              <ion-col size-lg="2" size-md="4" size-sm="4" size-xs="6" > 
+                <ion-list class="survey-list" routerLink="/list/by-society">
+                  <ion-item lines="none" >
+                      <ion-label>
+                        <div class="contact">
+                          <div>
+                            <h3> {{'By Society' | translate}} </h3>
+                            <h4> {{item.noOfSociety}} </h4>
+                          </div>
+                          <i class="icofont icofont-ui-close"></i>
+                        </div>
+                      </ion-label>
+                    </ion-item>
+                </ion-list>
+              </ion-col>
+
+            </ion-row>
+            
+          </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <!-- <ion-grid class="web">
       <ion-row>
+        <ion-col size-xs="12" size-sm="4" size-md="3" size-lg="2">
+          <ion-list class="advanced" >
+            <ion-item lines="none" >
+              <ion-label>
+                <h3> Total Voters</h3>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-col>
         <ion-col size-xs="12" size-sm="4" size-md="3" size-lg="2">
           <ion-list class="advanced" routerLink="/voterdata-management/import-voter">
             <ion-item lines="none" >
@@ -169,42 +477,6 @@
             </ion-item>
           </ion-list>
         </ion-col>
-        <!-- <ion-col size-xs="12" size-sm="4" size-md="3" size-lg="2">
-          <ion-list class="advanced" >
-            <ion-item lines="none">
-              <ion-label>
-                <h3>By Education</h3>
-              </ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-col> -->
-        <!-- <ion-col size-xs="12" size-sm="4" size-md="3" size-lg="2">
-          <ion-list class="advanced" >
-            <ion-item lines="none">
-              <ion-label>
-                <h3>By Zone</h3>
-              </ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-col> -->
-        <!-- <ion-col size-xs="12" size-sm="4" size-md="3" size-lg="2">
-          <ion-list class="advanced" >
-            <ion-item lines="none">
-              <ion-label>
-                <h3>By Family</h3>
-              </ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-col> -->
-        <!-- <ion-col size-xs="12" size-sm="4" size-md="3" size-lg="2">
-          <ion-list class="advanced"  >
-            <ion-item lines="none">
-              <ion-label>
-                <h3>Only Mobile No.</h3>
-              </ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-col> -->
         <ion-col size-xs="12" size-sm="4" size-md="3" size-lg="2">
           <ion-list class="advanced" routerLink="/list/by-society">
             <ion-item lines="none">
@@ -214,17 +486,8 @@
             </ion-item>
           </ion-list>
         </ion-col>
-        <!-- <ion-col size-xs="12" size-sm="4" size-md="3" size-lg="2">
-          <ion-list class="advanced" >
-            <ion-item lines="none">
-              <ion-label>
-                <h3>By Religion</h3>
-              </ion-label>
-            </ion-item>
-          </ion-list>
-        </ion-col> -->
       </ion-row>
-    </ion-grid>
+    </ion-grid> -->
 
     <ion-grid class="android lists">
       <ion-row>

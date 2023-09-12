@@ -89,7 +89,7 @@ export class AddComplaintComponent implements OnInit {
     else {
       this.toast.presentToast("File added successfully!", "success", 'checkmark-circle-sharp');
     }
-    //this.fileSize = this.fileSize + Math.round(this.fileSize/1024).toFixed(2) + " KB";
+
     if (this.fileSize < 1000000) {
       this.fileSize = Math.round(this.fileSize / 1024).toFixed(2) + " KB";
     }
@@ -101,12 +101,6 @@ export class AddComplaintComponent implements OnInit {
       this.fileType == "image/jpg" ||
       this.fileType == "image/jpeg" ||
       this.fileType == "image/png" ||
-      this.fileType == "video/mp4" ||
-      this.fileType == "video/3gp" ||
-      this.fileType == "video/mkv" ||
-      this.fileType == "video/webm" ||
-      this.fileType == "video/flv" ||
-      this.fileType == "video/mov" ||
       this.fileType == "application/pdf"
     ) {
       this.fileType = this.fileType;

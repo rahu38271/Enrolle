@@ -4,6 +4,7 @@ import { Router } from '@angular/router'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { Location } from '@angular/common';
+import { IAccTooltipRenderEventArgs, IPointEventArgs } from '@syncfusion/ej2-angular-charts';
 
 @Component({
   selector: 'app-by-address',
@@ -13,12 +14,13 @@ import { Location } from '@angular/common';
 export class ByAddressComponent implements OnInit {
   Language:any;
   isShow = false;
-  adrsData: any;
   searchMob:string;
   id:any
   roleId:any;
   cp: number = 1;
   totalItems:any;
+  adrsData:any;
+  
   
   constructor(
     private voter:VoterService, 
@@ -34,6 +36,7 @@ export class ByAddressComponent implements OnInit {
     this.id = localStorage.getItem("loginId");
     this.roleId = localStorage.getItem("userType");
     this.addressData();
+    
   }
 
   search(){

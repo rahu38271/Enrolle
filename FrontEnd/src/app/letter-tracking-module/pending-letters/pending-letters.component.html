@@ -36,90 +36,87 @@
             </ion-grid>
             <ion-card>
               <ion-card-content>
-                <div class="search">
-                  <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+                <div class="headSection">
+                  <div class="search">
+                    <ion-searchbar (keypress)="omit_special_char($event)" (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)"  animated="true"></ion-searchbar>
+                  </div>
+                  <div class="btns">
+                    <ion-button class="button-download" color="success" (click)="exportExcel()" ><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
+                    <ion-button class="button-download" color="success" (click)="exportToCSV()" ><ion-icon name="document-sharp"></ion-icon>CSV</ion-button>
+                  </div>
                 </div>
                 <div class="horizontal-scroll">
                   <table id="userAdminTable" #epltable class="table">
                     <thead>
                       <tr>
-  
-                        <th>
+                        <th rowspan="2">
                           Sr.No.
                         </th>
-                        <th>
+                        <th rowspan="2">
                           Case No.
                         </th>
-                        <th>
+                        <th rowspan="2">
                            Name
                         </th>
-                        <th>
+                        <th rowspan="2">
                           Mobile
                         </th>
-                        <th>
+                        <th rowspan="2">
                           Subject
                         </th>
-  
-                        <th>
+                        <th rowspan="2">
                           Refference
                         </th>
-                        <th>
+                        <th rowspan="2">
                           Village
                         </th>
-                        <th>
-                          Taluka
-                        </th>
-                        <th>
-                          District
-                        </th>
-                        <th>
+                        <th rowspan="2">
                           Date
                         </th>
-                        
-                        <th>
-                            Status
+                        <th colspan="5">
+                            Work Done
                         </th>
-                        
+                      </tr>
+                      <tr>
+                        <th>Completed</th>
+                        <th>Pending</th>
+                        <th>To Other Dept.</th>
+                        <th>Department Name</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
                       
-                      <tr>
-                        <td>1</td>
-                        <td>123</td>
-                        <td>Sagar Salunkhe</td>
-                        <td>9158490455</td>
-                        <td>Meeting</td>
-                        <td>Rahul Choudhary</td>
-                        <td>Kondhwa Bk</td>
-                        <td>Pune</td>
-                        <td>Pune</td>
-                        <td>2023-04-15 08:47 AM</td>
-                        
+                      <tr *ngFor="let item of lettersPending | paginate:{ itemsPerPage:NoofRow, currentPage:PageNo,totalItems:totalItems}">
+                        <td>{{item.id}}</td>
+                        <td>{{item.caseNo}}</td>
+                        <td>{{item.letter_Request_Person}}</td>
+                        <td>{{item.mobile_No}}</td>
+                        <td>{{item.subject}}</td>
+                        <td>{{item.refference_Name}}</td>
+                        <td>{{item.village}}</td>
+                        <td>{{item.letter_Release_Date}}</td>
                         <td>
-                            <ion-badge color="danger">Pending</ion-badge>
+                          <input type="checkbox" disabled>
                         </td>
-                        
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>123</td>
-                        <td>Sagar Salunkhe</td>
-                        <td>9158490455</td>
-                        <td>Meeting</td>
-                        <td>Rahul Choudhary</td>
-                        <td>Kondhwa Bk</td>
-                        <td>Pune</td>
-                        <td>Pune</td>
-                        <td>2023-04-15 08:47 AM</td>
-                        
                         <td>
-                            <ion-badge color="danger">Pending</ion-badge>
-                        </td>
-                        
+                          <input type="checkbox" [(ngModel)]="isPending" disabled>
+                       </td>
+                       <td>
+                        {{item.letter_Release_Date}}
+                       </td>
+                       <td>
+                        {{item.department}}
+                       </td>
+                       <td class="view">
+                        <ion-icon  name="eye-sharp" id="{{item.id}}" (click)="subLetter(item.id)"></ion-icon>
+                      </td>
                       </tr>
                     </tbody>
                   </table>
+                  <div *ngIf="!lettersPending || lettersPending.length === 0" class="text-center">
+                    <p>No data available</p>
+                  </div>
                   <pagination-controls (pageChange)="event($event)"></pagination-controls>
                 </div>
               </ion-card-content>

@@ -1,7 +1,5 @@
 .send-sms { width: 100%; background: #FFF !important; height: 400px; overflow: hidden;  }
 
-ion-label { color: #6688fb !important; --font-weight: 400 !important; }
-
 h2 { color: #4e7db4; padding-left: 10px; font-weight: 500; }
 
 h3 { color: #ff5151;  }
@@ -145,10 +143,10 @@ table ion-button  {
     font-size: 11px;
 }
 
-.details {
+/* .details {
   display: flex;
   justify-content: space-between;
-}
+} */
 
 ion-item-options ion-icon {
   font-size: 23px;
@@ -205,4 +203,22 @@ td a {
  ion-modal {
     --width: 500px;
     --border-radius: 8px;
+  }
+
+  /* ion-modal {
+    --width: 290px;
+    --border-radius: 8px;
+  } */
+
+
+  table td ion-button {
+    font-size: 10px !important;
+  }
+
+  table th:nth-child(8){
+    min-width: 200px;
+  }
+
+  table td:nth-child(8){
+    min-width: 200px;
   }

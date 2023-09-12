@@ -6,6 +6,8 @@ import { ProfileComponent } from '../profile/profile.component';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ActionSheetController } from '@ionic/angular';
+import { VoterService } from '../services/voter.service';
+
 
 @Component({
   selector: 'app-mobile-dashboard',
@@ -43,7 +45,7 @@ export class MobileDashboardPage implements OnInit {
   public title: string;
   public chartArea: Object;
 
-  public totalData: Object[];
+  public casteData: Object[];
   public totalDataLael: Object;
   public tooltip: Object;
   public title1: String;
@@ -75,7 +77,8 @@ export class MobileDashboardPage implements OnInit {
     public menuCtrl: MenuController,
     public popoverController: PopoverController,
     private translateConfigService: TranslateConfigService,
-    public actionSheetController: ActionSheetController
+    public actionSheetController: ActionSheetController,
+    private voter:VoterService
     ) {
       this.translateConfigService.getDefaultLanguage();
       this.language = this.translateConfigService.getCurrentLang();
@@ -89,6 +92,7 @@ export class MobileDashboardPage implements OnInit {
   }
 
    ngOnInit(): void {
+    
     this.id = localStorage.getItem("loginId");
     this.name = localStorage.getItem("loginUser");
     this.state = localStorage.getItem("state");
@@ -196,57 +200,32 @@ export class MobileDashboardPage implements OnInit {
     this.totalDataLael = { visible: true };
     this.tooltip = { enable: true };
     this.title1 = 'Total Data';
-    this.totalData = [
+    this.casteData = [
       { 'x': 'Male', y: 48, text: '48%' }, { 'x': 'Female', y: 47, text: '47%' },
       { 'x': 'Other', y: 5, text: '5%' }
     ];
     this.palette1 = ["#178ace", "#ffb8be", "#00e1a1"]
+    
 
-    this.ageDataLabel = { visible: true };
-    this.tooltip = { enable: true };
-    this.title2 = 'Agewise Data';
-    this.ageData = [
-      { 'x': '18 - 25', y: 48, text: '48%' }, { 'x': '30 - 45', y: 47, text: '47%' },
-      { 'x': '45 - 60', y: 5, text: '5%' },{ 'x': '60 +', y: 5, text: '5%' }
-    ];
-    this.palette2 = ["#178ace", "#ffb8be", "#00e1a1", "#ff6b72"]
+    // this.ageDataLabel = { visible: true };
+    // this.tooltip = { enable: true };
+    // this.title2 = 'Agewise Data';
+    // this.ageData = [
+    //   { 'x': '18 - 25', y: 48, text: '48%' }, { 'x': '30 - 45', y: 47, text: '47%' },
+    //   { 'x': '45 - 60', y: 5, text: '5%' },{ 'x': '60 +', y: 5, text: '5%' }
+    // ];
+    // this.palette2 = ["#178ace", "#ffb8be", "#00e1a1", "#ff6b72"]
 
-    this.occuDataLabel = { visible: true };
-    this.tooltip2 = { enable: true };
-    this.title3 = 'Occupationwise Data';
-    this.occuData = [
-      { 'x': 'Engineer', y: 48, text: '48%' }, { 'x': 'Doctor', y: 47, text: '47%' },
-      { 'x': 'Business', y: 5, text: '5%' },{ 'x': 'Housewife', y: 5, text: '5%' },
-      { 'x': 'Social Worker', y: 5, text: '5%' },{ 'x': 'Other', y: 5, text: '5%' }
-    ];
+    // this.occuDataLabel = { visible: true };
+    // this.tooltip2 = { enable: true };
+    // this.title3 = 'Occupationwise Data';
+    // this.occuData = [
+    //   { 'x': 'Engineer', y: 48, text: '48%' }, { 'x': 'Doctor', y: 47, text: '47%' },
+    //   { 'x': 'Business', y: 5, text: '5%' },{ 'x': 'Housewife', y: 5, text: '5%' },
+    //   { 'x': 'Social Worker', y: 5, text: '5%' },{ 'x': 'Other', y: 5, text: '5%' }
+    // ];
   }
 
-  
-  async notification(ev: any) {
-    const popover = await this.popoverController.create({
-      component: NotificationComponent,
-      cssClass: 'my-custom-class',
-      event: ev,
-      translucent: true
-    });
-    await popover.present();
-  
-    const { role } = await popover.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
-  }
-
-  async presentPopover(ev: any) {
-    const popover = await this.popoverController.create({
-      component: ProfileComponent,
-      cssClass: 'my-custom-class',
-      event: ev,
-      translucent: true
-    });
-    await popover.present();
-  
-    const { role } = await popover.onDidDismiss();
-    console.log('onDidDismiss resolved with role', role);
-  }
 
   async changeLanguage() {
     const actionSheet = await this.actionSheetController.create({

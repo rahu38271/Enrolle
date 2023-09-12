@@ -7,7 +7,7 @@
       <ion-buttons slot="end">
         <ion-menu-button auto-hide="false"></ion-menu-button>
       </ion-buttons>
-      <ion-title>  {{'By Caste' | translate}}</ion-title>
+      <ion-title> {{'By Caste' | translate}}</ion-title>
       <ion-buttons slot="primary">
         <ion-button (click)="search()">
           <ion-icon name="search-outline"></ion-icon>
@@ -16,97 +16,100 @@
     </ion-toolbar>
   </ion-header>
   <div class="main-content">
-    <!-- <ion-searchbar></ion-searchbar> -->
     <ion-grid class="web">
       <ion-row>
-        <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
-          <ion-grid class="header">
-            <ion-row>
-              <ion-col size-xs="12" size-sm="6">
-                <div class="flexArrow">
-                  <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
-                  <ion-card-header>
-                    <ion-card-title class="header1">By Caste </ion-card-title>
-                    <div class="headerLine"></div>
-                  </ion-card-header>
-                </div>
-              </ion-col>
-              <ion-col size-xs="12" size-sm="6" class="ion-text-right">
-                <!-- <ion-button class="button-download" fill="outline" color="success" >
-                  <ion-icon name="document-sharp"></ion-icon>Excel
-                </ion-button>
-                <ion-button class="button-download" fill="outline" color="danger" >
-                  <ion-icon name="cloud-download-sharp"></ion-icon>PDF
-                </ion-button>
-                 -->
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-          <ion-card>
-            <ion-card-content>
-              <div class="headSection">
-                <div class="search">
-                  <ion-searchbar [(ngModel)]="searchWeb" (ionChange)="onSearchChange($event)" animated="true"></ion-searchbar>
-                </div>
-                <!-- <ion-button class="button-download" color="success" (click)="exportExcel()">
-                  <ion-icon name="document-sharp"></ion-icon>Excel
-                </ion-button> -->
+        <ion-grid class="header">
+          <ion-row>
+            <ion-col size-xs="12" size-sm="6">
+              <div class="flexArrow">
+                <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
+                <ion-card-header>
+                  <ion-card-title class="header1">By Caste </ion-card-title>
+                  <div class="headerLine"></div>
+                </ion-card-header>
               </div>
-              <div class="horizontal-scroll">
-                <table id="villageTable" #epltable class="table">
-                  <thead>
-                    <tr>
-                      
-                      <th>
-                        Caste
-                      </th>
-                      <th>
-                        Total
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let item of castData | filter:searchWeb" (click)="caste(item.columnName)">
-                      <td>{{item.columnName}}</td>
-                      <td> {{item.count}}</td>
-                    </tr>
-                    
-                  </tbody>
-                </table>
-                <div *ngIf="!castData || castData.length === 0" class="text-center noData">
-                  <p> {{'No data available' | translate}}</p>
-                </div>
-              </div>
-              
-            </ion-card-content>
-            
-          </ion-card>
-         
-        </ion-col>
+            </ion-col>
+            <ion-col size-xs="12" size-sm="6" class="ion-text-right">
 
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-row>
+      <ion-row>
+        <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="5">
+
+          <ion-grid>
+            <ion-card>
+              <ion-card-content>
+                <div class="headSection">
+                  <div class="search">
+                    <ion-searchbar [(ngModel)]="searchWeb" (ionChange)="onSearchChange($event)"
+                      animated="true"></ion-searchbar>
+                  </div>
+
+                </div>
+                <div class="horizontal-scroll">
+                  <table id="villageTable" #epltable class="table">
+                    <thead>
+                      <tr>
+
+                        <th>
+                          Caste
+                        </th>
+                        <th>
+                          Total
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of casteData | filter:searchWeb" (click)="caste(item.columnName)">
+                        <td>{{item.columnName}}</td>
+                        <td> {{item.count}}</td>
+                      </tr>
+
+                    </tbody>
+                  </table>
+                  <div *ngIf="!casteData || casteData.length === 0" class="text-center noData">
+                    <p> {{'No data available' | translate}}</p>
+                  </div>
+                </div>
+
+              </ion-card-content>
+
+            </ion-card>
+          </ion-grid>
+
+        </ion-col>
+        <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="7">
+          <ejs-accumulationchart height='350' id="casteData" [tooltip]='tooltip' [title]='title1' >
+            <e-accumulation-series-collection>
+                <e-accumulation-series [dataSource]='casteData' xName='columnName' yName='count' [dataLabel]='totalDataLael' radius="80%" [palettes]='palette1' innerRadius='50%'></e-accumulation-series>
+            </e-accumulation-series-collection>
+          </ejs-accumulationchart>     
+        </ion-col>
       </ion-row>
     </ion-grid>
 
     <ion-grid class="android">
       <ion-searchbar [(ngModel)]="searchWeb" *ngIf="isShow"></ion-searchbar>
 
-                <ion-list *ngFor="let item of castData | filter:searchWeb" (click)="caste(item.columnName)">
-                  <ion-item lines="none">
-                    <ion-label class="ion-text-center">
-                      <h3>{{item.columnName}}</h3>
-                      <h4> Total : <span> {{item.count}} </span> </h4>
-                    </ion-label>
-                  </ion-item>
-                </ion-list>
-                <div *ngIf="!castData || castData.length === 0" class="text-center noData">
-                  <img src="assets/img/question.png" />
-                  <p> {{'No data available' | translate}}</p>
-                  <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
-                </div>
+      <ion-list *ngFor="let item of casteData | filter:searchWeb" (click)="caste(item.columnName)">
+        <ion-item lines="none">
+          <ion-label class="ion-text-center">
+            <h3>{{item.columnName}}</h3>
+            <h4> Total : <span> {{item.count}} </span> </h4>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+      <div *ngIf="!casteData || casteData.length === 0" class="text-center noData">
+        <img src="assets/img/question.png" />
+        <p> {{'No data available' | translate}}</p>
+        <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
+      </div>
     </ion-grid>
   </div>
- 
-  
+
+
 </ion-content>
 
 

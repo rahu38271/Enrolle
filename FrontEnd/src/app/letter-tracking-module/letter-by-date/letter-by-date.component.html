@@ -39,36 +39,25 @@
         <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
           <ion-row>
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
-                <ion-label> Type of Letter </ion-label>
-                <!-- <ng-select name="TypeofWork" [(ngModel)]="searchEnqModal.TypeofWork" #TypeofWork="ngModel"
+                <ion-label> Status </ion-label>
+                <ng-select name="status" [(ngModel)]="searchModal.Status"
                   placeholder="Select">
-                  <ng-option *ngFor="let item of workList" [value]="item.workName">
-                    {{item.workName}}
-                  </ng-option>
-                </ng-select> -->
-                <ng-select name="TypeofWork" 
-                  placeholder="Select">
-                  <ng-option> All </ng-option>
-                  <ng-option> Completed </ng-option>
-                  <ng-option> Pending </ng-option>
+                  <ng-option value=""> All </ng-option>
+                  <ng-option value="Completed"> Completed </ng-option>
+                  <ng-option value="Pending"> Pending </ng-option>
                 </ng-select>
               </ion-col>
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
               <ion-label> From Date <span>*</span> </ion-label>
-              <!-- <ion-input value="{{ FromDate | date: 'yyyy-MM-dd' }}" id="FromDate" name="FromDate"
-                [(ngModel)]="searchEnqModal.FromDate" class="form-control" required>
-              </ion-input> -->
-              <ion-input value="{{ FromDate | date: 'yyyy-MM-dd' }}" id="FromDate" name="FromDate"
-                 class="form-control" required>
+              <ion-input value="{{ StartDate | date: 'yyyy-MM-dd' }}" id="StartDate" name="StartDate"
+                [(ngModel)]="searchModal.StartDate" class="form-control" required>
               </ion-input>
+              
   
-              <ion-modal trigger="FromDate" size="cover" [canDismiss]="canDismiss" [backdropDismiss]="false">
+              <ion-modal trigger="StartDate" size="cover" [canDismiss]="canDismiss" [backdropDismiss]="false">
                 <ng-template>
-                  <!-- <ion-datetime presentation="date" [(ngModel)]="FromDate" name="FromDate" show-default-buttons="true">
+                  <ion-datetime presentation="date" [(ngModel)]="StartDate" name="StartDate" show-default-buttons="true">
                     <span slot="title"> {{ year }} </span>
-                  </ion-datetime> -->
-                  <ion-datetime presentation="date"  name="FromDate" show-default-buttons="true">
-                    <span slot="title"> 2012 </span>
                   </ion-datetime>
                 </ng-template>
               </ion-modal>
@@ -76,20 +65,14 @@
   
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
               <ion-label> To Date </ion-label>
-              <!-- <ion-input value="{{ ToDate | date: 'yyyy-MM-dd' }}" id="ToDate" name="ToDate"
-                [(ngModel)]="searchEnqModal.ToDate" class="form-control">
-              </ion-input> -->
-              <ion-input value="{{ ToDate | date: 'yyyy-MM-dd' }}" id="ToDate" name="ToDate"
-                 class="form-control">
+              <ion-input value="{{ EndDate | date: 'yyyy-MM-dd' }}" id="EndDate" name="EndDate"
+              [(ngModel)]="searchModal.EndDate" class="form-control">
               </ion-input>
   
-              <ion-modal trigger="ToDate" size="cover" [canDismiss]="canDismiss" [backdropDismiss]="false">
+              <ion-modal trigger="EndDate" size="cover" [canDismiss]="canDismiss" [backdropDismiss]="false">
                 <ng-template>
-                  <!-- <ion-datetime presentation="date" [(ngModel)]="ToDate" name="ToDate" show-default-buttons="true">
+                  <ion-datetime presentation="date" [(ngModel)]="EndDate" name="EndDate" show-default-buttons="true">
                     <span slot="title"> {{ year }} </span>
-                  </ion-datetime> -->
-                  <ion-datetime presentation="date"  name="ToDate" show-default-buttons="true">
-                    <span slot="title"> 2012 </span>
                   </ion-datetime>
                 </ng-template>
               </ion-modal>
@@ -98,14 +81,10 @@
             
   
             <ion-col size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="12" class="mt-1">
-              <!-- <ion-button class="searchBtn" type="submit" [disabled]="!f.form.valid" (click)="datewiseList()">Search
+              <ion-button class="searchBtn" type="submit" [disabled]="!f.form.valid" (click)="datewiseLetter()">Search
               </ion-button>
               <ion-button type="reset" (click)="resetForm()" class="searchBtn" color="danger">Clear
-              </ion-button> -->
-              <ion-button class="searchBtn" type="submit" >Search
-            </ion-button>
-            <ion-button type="reset" class="searchBtn" color="danger">Clear
-            </ion-button>
+              </ion-button>
             </ion-col>
           </ion-row>
         </form>
@@ -131,90 +110,81 @@
                 <thead>
                   <tr>
 
-                    <th>
+                    <th rowspan="2">
                       Sr.No.
                     </th>
-                    <th>
+                    <th rowspan="2">
                       Case No.
                     </th>
-                    <th>
+                    <th rowspan="2">
                        Name
                     </th>
-                    <th>
+                    <th rowspan="2">
                       Mobile
                     </th>
-                    <th>
+                    <th rowspan="2">
                       Subject
                     </th>
 
-                    <th>
+                    <th rowspan="2">
                       Refference
                     </th>
-                    <th>
+                    <th rowspan="2">
                       Village
                     </th>
-                    <th>
-                      Taluka
-                    </th>
-                    <th>
-                      District
-                    </th>
-                    <th>
+                    <th rowspan="2">
                       Date
                     </th>
-                    <th>
-                      File
-                    </th>
-                    <th>
+                    <th rowspan="2">
                         Status
                     </th>
+                    <th colspan="5">
+                      Work Done
+                     </th>
+                  </tr>
+                  <tr>
+                    <th>Completed</th>
+                    <th>Pending</th>
+                    <th>To Other Dept.</th>
+                    <th>Department Name</th>
                     <th>Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   
-                  <tr>
-                    <td>1</td>
-                    <td>123</td>
-                    <td>Sagar Salunkhe</td>
-                    <td>9158490455</td>
-                    <td>Meeting</td>
-                    <td>Rahul Choudhary</td>
-                    <td>Kondhwa Bk</td>
-                    <td>Pune</td>
-                    <td>Pune</td>
-                    <td>2023-04-15 08:47 AM</td>
-                    <td class="file"><ion-icon name="cloud-download-sharp"></ion-icon></td>
+                  <tr *ngFor="let item of letterByDate | paginate:{ itemsPerPage:NoofRow, currentPage:PageNo,totalItems:totalItems} ">
+                    <td>{{item.id}}</td>
+                    <td>{{item.caseNo}}</td>
+                    <td>{{item.letter_Request_Person}}</td>
+                    <td>{{item.mobile_No}}</td>
+                    <td>{{item.subject}}</td>
+                    <td>{{item.refference_Name}}</td>
+                    <td>{{item.village}}</td>
+                    <td>{{item.letter_Submit_Date}}</td>
                     <td>
-                        <ion-badge color="primary">Status</ion-badge>
+                      {{item.status}}
                     </td>
-                    <td class="action">
-                      <ion-icon  name="create-sharp" routerLink="/letter-tracking/edit-letter"></ion-icon>
-                      <ion-icon class="delete" name="trash-bin-sharp" (click)="deleteLetter()"></ion-icon> 
+                    <td>
+                      <input type="checkbox" disabled>
                     </td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>123</td>
-                    <td>Sagar Salunkhe</td>
-                    <td>9158490455</td>
-                    <td>Meeting</td>
-                    <td>Rahul Choudhary</td>
-                    <td>Kondhwa Bk</td>
-                    <td>Pune</td>
-                    <td>Pune</td>
-                    <td>2023-04-15 08:47 AM</td>
-                    <td class="file"><ion-icon name="cloud-download-sharp"></ion-icon></td>
-                    <td> 
-                        <ion-badge color="primary">Status</ion-badge>
-                    </td>
-                    <td class="action">
-                      <ion-icon  name="create-sharp" routerLink="/letter-tracking/edit-letter"></ion-icon>
-                      <ion-icon  class="delete" name="trash-bin-sharp"></ion-icon> 
-                    </td>
+                    <td>
+                      <input type="checkbox" disabled>
+                   </td>
+                   <td>
+                    {{item.letter_Release_Date}}
+                   </td>
+                   <td>
+                    {{item.department}}
+                   </td>
+                   <td class="view">
+                    <ion-icon  name="eye-sharp" id="{{item.id}}" (click)="subLetter(item.id)"></ion-icon>
+                  </td>
                   </tr>
                 </tbody>
               </table>
+              <div *ngIf="!letterByDate || letterByDate.length === 0" class="text-center">
+                <p>No data available</p>
+              </div>
               <pagination-controls (pageChange)="event($event)"></pagination-controls>
           </div>
         </ion-card-content>

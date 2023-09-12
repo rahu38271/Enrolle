@@ -323,7 +323,7 @@ export class VoterService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
-    return this.http.post<any>(this.url+'Voter/InsertProfession?ProfessionName='+ProfessionName,ProfessionName,{ headers })
+    return this.http.post<any>(this.url+'Voter/InsertProfession?ProfessionName='+ProfessionName,{ headers })
   }
 
   // voter by Society
@@ -552,5 +552,13 @@ export class VoterService {
       'Authorization': `Bearer ${this.token}`
     });
     return this.http.get<any>(this.url+'Voter/MatchMobileDetails?userid='+userid+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow,{ headers })
+  }
+
+  //voter search dashboard count 
+  getVoterDashboardCount(UserId:any, RoleId:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/GetVoterDashBoard?UserId='+UserId+'&RoleId='+RoleId,{ headers })
   }
 }

@@ -47,6 +47,7 @@
                   <ion-label> Type of Work </ion-label>
                   <ng-select name="TypeofWork" [(ngModel)]="searchModal.TypeofWork" (change)="trimInput()" #TypeofWork="ngModel" placeholder="Select">
                     <ng-option *ngFor="let item of workList" [value]="item.workName">
+                      <!-- <ion-icon (click)="deleteEnq(item.id)" class="delete" name="trash-bin-sharp"></ion-icon> {{item.workName}}  -->
                       {{item.workName}}
                     </ng-option>
                   </ng-select>

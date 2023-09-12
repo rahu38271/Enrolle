@@ -201,3 +201,9 @@ td a {
      font-size: 20px;
      color: #F00;
  }
+
+ .view ion-icon {
+  color: #3b81fd;
+  font-size: 20px;
+  cursor: pointer;
+ }

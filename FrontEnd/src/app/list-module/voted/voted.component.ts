@@ -3,6 +3,7 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { VoterService } from 'src/app/services/voter.service'
 import { Router } from '@angular/router'
 import { Location } from '@angular/common';
+import { IAccTooltipRenderEventArgs, IPointEventArgs } from '@syncfusion/ej2-angular-charts';
 
 @Component({
   selector: 'app-voted',
@@ -16,8 +17,16 @@ export class VotedComponent implements OnInit {
   RoleId:any;
   IsVoted:any;
   Coloumn: any;
-  voterVoted:any;
   columnName: string;
+  public voterVoted: Object[];
+  public totalDataLael: Object;
+  public tooltip: Object;
+  public title1: String;
+  public palette1: string[];
+  
+  public pointClick(args: IPointEventArgs): void {
+    document.getElementById("lbl").innerText = "X : " + args.point.x + "\nY : " + args.point.y;
+  };
 
   constructor(
     private loader:LoaderService,
@@ -34,6 +43,9 @@ export class VotedComponent implements OnInit {
     this.UserId = localStorage.getItem("loginId");
     this.RoleId = localStorage.getItem("userType")
     this.votedList();
+    this.totalDataLael = { visible: true };
+    this.tooltip = { enable: true };
+    this.title1 = 'Voted not-voted data';
   }
 
   votedList(){

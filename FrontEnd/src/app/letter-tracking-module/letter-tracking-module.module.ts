@@ -36,7 +36,7 @@ import { LetterByDateComponent } from './letter-by-date/letter-by-date.component
       {path:'all-letters', component:AllLettersComponent},
       {path:'add-letter', component:AddLetterComponent},
       {path:'edit-letter', component:EditLetterComponent},
-      {path:'sub-letter', component:SubletterComponent},
+      {path:'sub-letter/:id', component:SubletterComponent},
       {path:'completed', component:CompletedLettersComponent},
       {path:'pending', component:PendingLettersComponent},
       {path:'by-date', component:LetterByDateComponent},

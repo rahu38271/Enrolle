@@ -23,7 +23,7 @@
                     <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
                     <ion-card-header>
                       <ion-card-title>
-                        <ion-text> Letter Tracking </ion-text>
+                        <ion-text> Letter Tracking , Total - <span>{{totalItems}}</span> </ion-text>
                       </ion-card-title>
                     </ion-card-header>
                   </div>
@@ -38,8 +38,14 @@
             </ion-grid>
             <ion-card>
               <ion-card-content>
-                <div class="search">
-                  <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+                <div class="headSection">
+                  <div class="search">
+                    <ion-searchbar (keypress)="omit_special_char($event)" (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)"  animated="true"></ion-searchbar>
+                  </div>
+                  <div class="btns">
+                    <ion-button class="button-download" color="success" (click)="exportExcel()" ><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
+                    <ion-button class="button-download" color="success" (click)="exportToCSV()" ><ion-icon name="document-sharp"></ion-icon>CSV</ion-button>
+                  </div>
                 </div>
                 <div class="horizontal-scroll">
                   <table id="userAdminTable" #epltable class="table">
@@ -83,53 +89,44 @@
                         <th>
                             Status
                         </th>
+                        <th>
+                          Added By
+                        </th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      
-                      <tr>
-                        <td>1</td>
-                        <td>123</td>
-                        <td>Sagar Salunkhe</td>
-                        <td>9158490455</td>
-                        <td>Meeting</td>
-                        <td>Rahul Choudhary</td>
-                        <td>Kondhwa Bk</td>
-                        <td>Pune</td>
-                        <td>Pune</td>
-                        <td>2023-04-15 08:47 AM</td>
-                        <td class="file"><ion-icon name="cloud-download-sharp"></ion-icon></td>
+                      <tr *ngFor="let item of allLetters | paginate:{ itemsPerPage:NoofRow, currentPage:PageNo,totalItems:totalItems} ">
+                        <td>{{item.id}}</td>
+                        <td>{{item.caseNo}}</td>
+                        <td>{{item.letter_Request_Person}}</td>
+                        <td>{{item.mobile_No}}</td>
+                        <td>{{item.subject}}</td>
+                        <td>{{item.refference_Name}}</td>
+                        <td>{{item.village}}</td>
+                        <td>{{item.taluka}}</td>
+                        <td>{{item.district}}</td>
+                        <td>{{item.letter_Submit_Date}}</td>
+                        <td class="file">
+                          <ion-icon name="cloud-download-sharp" (click)="downloadFile($event)" id="{{item.id}}">
+
+                          </ion-icon></td>
                         <td>
-                            <ion-badge color="primary">Status</ion-badge>
+                            <ion-badge color="primary" id="{{item.id}}" (click)="subLetter(item.id)"  routerLink="/letter-tracking/sub-letter">Status</ion-badge>
                         </td>
+                        <td>{{item.userName}}</td>
                         <td class="action">
-                          <ion-icon  name="create-sharp" routerLink="/letter-tracking/edit-letter"></ion-icon>
-                          <ion-icon class="delete" name="trash-bin-sharp" (click)="deleteLetter()"></ion-icon> 
+                          <ion-icon  name="create-sharp" (click)="editLetter(item)"></ion-icon>
+                          <ion-icon class="delete" name="trash-bin-sharp" (click)="deleteLetter(item.id)"></ion-icon> 
                         </td>
                       </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>123</td>
-                        <td>Sagar Salunkhe</td>
-                        <td>9158490455</td>
-                        <td>Meeting</td>
-                        <td>Rahul Choudhary</td>
-                        <td>Kondhwa Bk</td>
-                        <td>Pune</td>
-                        <td>Pune</td>
-                        <td>2023-04-15 08:47 AM</td>
-                        <td class="file"><ion-icon name="cloud-download-sharp"></ion-icon></td>
-                        <td> 
-                            <ion-badge color="primary">Status</ion-badge>
-                        </td>
-                        <td class="action">
-                          <ion-icon  name="create-sharp" routerLink="/letter-tracking/edit-letter"></ion-icon>
-                          <ion-icon  class="delete" name="trash-bin-sharp"></ion-icon> 
-                        </td>
-                      </tr>
+
+                      
                     </tbody>
                   </table>
+                  <div *ngIf="!allLetters || allLetters.length === 0" class="text-center">
+                    <p>No data available</p>
+                  </div>
                   <pagination-controls (pageChange)="event($event)"></pagination-controls>
                 </div>
               </ion-card-content>

@@ -44,3 +44,7 @@ ion-label span {  color: #F00 !important; font-weight: 500; }
 /* .bg {
   background: #F00;
 } */
+
+.fileUpload span {
+  font-size: 13px !important;
+}

@@ -45,7 +45,16 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BySocietyComponent } from './by-society/by-society.component';
 import { SocietywiseListComponent } from './societywise-list/societywise-list.component';
+import { ChartModule, ChartAllModule, AccumulationChartAllModule } from '@syncfusion/ej2-angular-charts';
 
+import { AccumulationChartModule } from '@syncfusion/ej2-angular-charts';
+
+import { PieSeriesService, AccumulationTooltipService, AccumulationDataLabelService } from '@syncfusion/ej2-angular-charts';
+import {
+  LineSeriesService,RangeColumnSeriesService, DataLabelService, StackingColumnSeriesService, CategoryService,
+  StepAreaSeriesService, SplineSeriesService, ScrollBarService, ChartAnnotationService, LegendService, TooltipService, StripLineService,
+  SelectionService, ScatterSeriesService, ZoomService, ColumnSeriesService, AreaSeriesService, RangeAreaSeriesService
+} from '@syncfusion/ej2-angular-charts';
 
 @NgModule({
   declarations: [
@@ -95,6 +104,8 @@ import { SocietywiseListComponent } from './societywise-list/societywise-list.co
     Ng2SearchPipeModule,
     NgxPaginationModule,
     NgSelectModule,
+    ChartModule,
+    ChartAllModule, AccumulationChartAllModule, AccumulationChartModule, 
     RouterModule.forChild([
       {path:'', component:ListComponent}, 
       {path:'by-village', component:ByVillageComponent},
@@ -163,6 +174,7 @@ import { SocietywiseListComponent } from './societywise-list/societywise-list.co
       {path:'by-society', component:BySocietyComponent},
       {path:'societywise-list', component:SocietywiseListComponent}
    ])
-  ]
+  ],
+
 })
 export class ListModuleModule { }
