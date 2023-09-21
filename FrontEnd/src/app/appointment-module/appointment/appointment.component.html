@@ -15,20 +15,20 @@
     </ion-toolbar>
   </ion-header>
   <div class="main-content">
-    
+  
     <div class="web">
       <ion-grid class="header">
         <ion-row>
-          <ion-col size-xs="12" size-sm="6">
-            <ion-card-header>
-              <ion-card-title>Appointments <span></span></ion-card-title>
-              <div class="headerLine"></div>
-            </ion-card-header>
-          </ion-col>
-          <!-- <ion-col size-xs="12" size-sm="6" class="ion-text-right">
-            <ion-button class="button-download" color="primary" routerLink="/appointment/add-appointment"><ion-icon name="add-circle-sharp"></ion-icon>Add Appointment</ion-button>
-            <ion-button class="button-download" fill="outline" routerLink="/appointment/today-appointment" color="primary" ><ion-icon name="refresh-circle-sharp"></ion-icon>Today's Appointments</ion-button>
-          </ion-col> -->
+          <ion-col size-xs="12" size-sm="6" class="webBack">
+            <div class="flex">
+                <ion-card-header>
+                    <ion-card-title>
+                      Appointments
+                    </ion-card-title>
+                    <div class="headerLine"></div>
+                  </ion-card-header>
+            </div>
+        </ion-col>
         </ion-row>
       </ion-grid>
     </div>
@@ -42,11 +42,12 @@
                 <ion-list class="survey-list" routerLink="/appointment/all-appointments">
                     <ion-item lines="none">
                       <ion-label class="contact">
-                          <i class="icofont icofont-search-document"></i>
+                          
                           <div>
                             <h3> All Appointments </h3>
                             <h4> {{item.totalAppointment}} </h4>
                           </div>
+                          <i class="icofont icofont-search-document"></i>
                       </ion-label>
                     </ion-item>
                 </ion-list>
@@ -57,11 +58,12 @@
                     <ion-item lines="none">
                       <ion-label>
                         <div class="contact">
-                          <i class="icofont icofont-ui-clock"></i>
+                          
                           <div>
                             <h3>  Add Appointment </h3>
                             <h4> - </h4>
                           </div>
+                          <i class="icofont icofont-ui-clock"></i>
                         </div>
                       </ion-label>
                     </ion-item>
@@ -74,11 +76,12 @@
                       <ion-label>
                         <!-- <img src="assets/img/contact-book.png" alt="" class="brightness"> -->
                         <div class="contact">
-                          <i class="icofont icofont-contact-add"></i>
+                          
                           <div>
                             <h3> Today's  </h3>
                             <h4> {{item.todayAppointment}} </h4>
                           </div>
+                          <i class="icofont icofont-contact-add"></i>
                         </div>
                       </ion-label>
                     </ion-item>
@@ -91,11 +94,12 @@
                       <ion-label>
                         <div class="contact">
                           <!-- <img src="assets/img/cake.png" alt=""> -->
-                          <i class="icofont icofont-ui-check"></i>
+                          
                           <div>
                             <h3>  Approved </h3>
                             <h4> {{item.approved}} </h4>
                           </div>
+                          <i class="icofont icofont-ui-check"></i>
                         </div>
                       </ion-label>
                     </ion-item>
@@ -107,11 +111,12 @@
                       <ion-label>
                         <!-- <img src="assets/img/anniversary.png" alt=""> -->
                         <div class="contact">
-                          <i class="icofont icofont-ui-close"></i>
+                          
                           <div>
                             <h3> Rejected </h3>
                             <h4> {{item.rejected}} </h4>
                           </div>
+                          <i class="icofont icofont-ui-close"></i>
                         </div>
                       </ion-label>
                     </ion-item>
@@ -124,11 +129,12 @@
                       <ion-label>
                         <!-- <img src="assets/img/anniversary.png" alt=""> -->
                         <div class="contact">
-                          <i class="icofont icofont-calendar"></i>
+                          
                           <div>
-                            <h3>  Appointment Report </h3>
+                            <h3> Report by Date </h3>
                             <h4> - </h4>
                           </div>
+                          <i class="icofont icofont-calendar"></i>
                         </div>
                       </ion-label>
                     </ion-item>
@@ -141,11 +147,12 @@
                       <ion-label>
                         <!-- <img src="assets/img/anniversary.png" alt=""> -->
                         <div class="contact">
-                          <i class="icofont icofont-ui-user-group"></i>
+                          
                           <div>
                             <h3>  Adminwise </h3>
                             <h4> - </h4>
                           </div>
+                          <i class="icofont icofont-ui-user-group"></i>
                         </div>
                       </ion-label>
                     </ion-item>

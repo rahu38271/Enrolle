@@ -63,7 +63,6 @@ export class LetterByDateComponent implements OnInit {
   }
 
   datewiseLetter(){
-    debugger;
     this.loader.showLoading();
     if(this.searchModal.EndDate==undefined){
       this.searchModal.EndDate = ''

@@ -13,13 +13,7 @@ h4 { color: #7a7a7a; }
     --padding-bottom: 4px !important;
 }
 
-.flex ion-icon {
-  font-size: 25px;
-  margin-right: 10px;
-  color: #3c7ff9;
-}
-
-ion-card-title { font-weight: 600; color: #1a3353; }
+ion-card-title { font-weight: 600;  }
 
 .header { border-bottom: solid 1px #dee2e6; width: 100% !important; }
 

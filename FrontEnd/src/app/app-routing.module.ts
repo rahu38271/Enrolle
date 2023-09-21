@@ -343,6 +343,10 @@ const routes: Routes = [
     path: 'image',
     loadChildren: () => import('./image-module/image-module.module').then( m => m.ImageModuleModule)
   },
+  {
+    path: 'voter-dashboard',
+    loadChildren: () => import('./voter-dashboard-module/voter-dashboard-module.module').then( m => m.VoterDashboardModuleModule)
+  },
 ];
 
 @NgModule({

@@ -134,9 +134,12 @@
         <div  class="subnav" *ngIf="isVoterList">
           <button class="subnavbtn"><img src="assets/img/shopping-list.png" alt=""><br> {{'Election' | translate}}  </button>
           <div class="subnav-content">
-            <ion-item lines="full" class="sub-menu" routerLink="/dashboard">
+            <!-- <ion-item lines="full" class="sub-menu" routerLink="/dashboard">
                {{'Voter Dashboard' | translate}}
-            </ion-item>
+            </ion-item> -->
+            <ion-item lines="full" class="sub-menu" routerLink="/voter-dashboard">
+              {{'Voter Dashboard' | translate}}
+           </ion-item>
 
             <ion-item lines="full" class="sub-menu" routerLink="/voter-summary">
                {{'Voter List' | translate}}

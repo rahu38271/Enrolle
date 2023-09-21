@@ -3,63 +3,72 @@
     <div class="main-content">
       <ion-grid>
         <ion-row>
-          <ion-col size-lg="6" size-md="6" size-sm="6" size-xs="12">
-            <div class="title">
-              <h2><ion-icon name="home-sharp"></ion-icon>  Occupation Summary</h2>
-            </div>
-          </ion-col>
-          <ion-col size-lg="6" size-md="6" size-sm="6" size-xs="12">
-            <table class="bg-white">
-              <thead>
-                <tr>
-                  <th>Occupation </th>
-                  <th>Count</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Unassigned(99%)</td>
-                  <td>25891</td>
-                </tr>
-                <tr>
-                  <td>Business(0%)	</td>
-                  <td>1</td>
-                </tr>
-                <tr>
-                  <td>Engineer(0%)	</td>
-                  <td>1</td>
-                </tr>
-                <tr>
-                  <td>Housewife(0%)	</td>
-                  <td>1</td>
-                </tr>
-                <tr>
-                  <td>Other(0%)</td>
-                  <td>1</td>
-                </tr>
-                <tr>
-                  <td>Social Worker(0%)</td>
-                  <td>1</td>
-                </tr>
+          <ion-grid class="header">
+            <ion-row>
+              <ion-col size-xs="12" size-sm="6">
                 
-              </tbody>
-            </table>
-          </ion-col>
+                <div class="flexArrow">
+                  <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
+                  <ion-card-header>
+                    <ion-card-title class="header1"> {{'Occupation' | translate}}  </ion-card-title>
+                    <div class="headerLine"></div>
+                  </ion-card-header>
+                </div>
+              </ion-col>
+              <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+                
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-row>
         <ion-row>
           <ion-col size-lg="6" size-md="6" size-sm="6" size-xs="12">
-            <ejs-chart id="chart1" [primaryXAxis]='primaryXAxis' [dataSource]='chartData' (pointRender)='pointRender($event)'>
-              <e-series-collection>
-                  <e-series type='Column' xName='occupation' yName='count' name='Occupation Summary'></e-series>
-              </e-series-collection>
-          </ejs-chart>
+            <ion-card>
+              <ion-card-content>
+                <div class="headSection">
+                  <div class="search">
+                    <ion-searchbar [(ngModel)]="searchMob" (ionChange)="trimInput($event)" animated="true"></ion-searchbar>
+                  </div>
+                  
+                </div>
+                <div class="horizontal-scroll">
+                  <table id="villageTable" #epltable class="table">
+                    <thead>
+                      <tr>
+                        <th>
+                          Occupation
+                        </th>
+                        <th>
+                          Total
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of occuList | filter:searchMob" (click)="occupation(item.columnName)">
+                        <td >
+                          {{item.columnName}}
+                        </td>
+                        <td>{{item.count}}</td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                </div>
+                <div *ngIf="!occuList || occuList.length === 0" class="text-center noData">
+                  <p> {{'No data available' | translate}}</p>
+                </div>
+              </ion-card-content>
+  
+            </ion-card>
           </ion-col>
           <ion-col size-lg="6" size-md="6" size-sm="6" size-xs="12">
-            <ejs-accumulationchart id="chart-container" [tooltip]='tooltip' [title]='title' [legendSettings]='legendSettings'>
-              <e-accumulation-series-collection>
-                  <e-accumulation-series [dataSource]='piedata' xName='x' yName='y' [dataLabel]='datalabel' radius="70%"></e-accumulation-series>
-              </e-accumulation-series-collection>
-            </ejs-accumulationchart>
+            <ion-card>
+              <ejs-accumulationchart height='350' id="occuList" [tooltip]='tooltip' [title]='title1' >
+                <e-accumulation-series-collection>
+                    <e-accumulation-series [dataSource]='occuList' xName='columnName' yName='count' [dataLabel]='totalDataLael' radius="80%" [palettes]='palette1' innerRadius='50%'></e-accumulation-series>
+                </e-accumulation-series-collection>
+              </ejs-accumulationchart> 
+            </ion-card>
           </ion-col>
         </ion-row>
         <ion-row class="empty"></ion-row>

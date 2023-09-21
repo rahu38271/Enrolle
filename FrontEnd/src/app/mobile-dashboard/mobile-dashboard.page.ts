@@ -56,23 +56,6 @@ export class MobileDashboardPage implements OnInit {
     document.getElementById("lbl").innerText = "X : " + args.point.x + "\nY : " + args.point.y;
   };
 
-  public ageData: Object[];
-  public ageDataLael: Object;
-  public tooltip1: Object;
-  public title2: String;
-  public palette2: string[];
-  public pointClick1(args: IPointEventArgs): void {
-    document.getElementById("lbl").innerText = "X : " + args.point.x + "\nY : " + args.point.y;
-  };
-
-  public occuData: Object[];
-  public occuDataLabel: Object;
-  public tooltip2: Object;
-  public title3: String;
-  public pointClick2(args: IPointEventArgs): void {
-    document.getElementById("lbl").innerText = "X : " + args.point.x + "\nY : " + args.point.y;
-  };
-
   constructor(
     public menuCtrl: MenuController,
     public popoverController: PopoverController,
@@ -197,33 +180,6 @@ export class MobileDashboardPage implements OnInit {
       { x: "Dec", y: 145 }
     ];
 
-    this.totalDataLael = { visible: true };
-    this.tooltip = { enable: true };
-    this.title1 = 'Total Data';
-    this.casteData = [
-      { 'x': 'Male', y: 48, text: '48%' }, { 'x': 'Female', y: 47, text: '47%' },
-      { 'x': 'Other', y: 5, text: '5%' }
-    ];
-    this.palette1 = ["#178ace", "#ffb8be", "#00e1a1"]
-    
-
-    // this.ageDataLabel = { visible: true };
-    // this.tooltip = { enable: true };
-    // this.title2 = 'Agewise Data';
-    // this.ageData = [
-    //   { 'x': '18 - 25', y: 48, text: '48%' }, { 'x': '30 - 45', y: 47, text: '47%' },
-    //   { 'x': '45 - 60', y: 5, text: '5%' },{ 'x': '60 +', y: 5, text: '5%' }
-    // ];
-    // this.palette2 = ["#178ace", "#ffb8be", "#00e1a1", "#ff6b72"]
-
-    // this.occuDataLabel = { visible: true };
-    // this.tooltip2 = { enable: true };
-    // this.title3 = 'Occupationwise Data';
-    // this.occuData = [
-    //   { 'x': 'Engineer', y: 48, text: '48%' }, { 'x': 'Doctor', y: 47, text: '47%' },
-    //   { 'x': 'Business', y: 5, text: '5%' },{ 'x': 'Housewife', y: 5, text: '5%' },
-    //   { 'x': 'Social Worker', y: 5, text: '5%' },{ 'x': 'Other', y: 5, text: '5%' }
-    // ];
   }
 
 

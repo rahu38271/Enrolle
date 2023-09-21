@@ -49,7 +49,8 @@ const routes: Routes = [
         children:[
           {
             path:'',
-            loadChildren: ()=> import ('../voter-report/voter-report.module').then(m => m.VoterReportPageModule)
+            // loadChildren: ()=> import ('../voter-report/voter-report.module').then(m => m.VoterReportPageModule)
+            loadChildren: ()=> import ('../list-module/list-module.module').then(m => m.ListModuleModule)
           }
         ]
       },

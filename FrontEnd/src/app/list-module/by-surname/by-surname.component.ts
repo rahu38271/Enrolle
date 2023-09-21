@@ -5,6 +5,7 @@ import { LoaderService } from 'src/app/services/loader.service'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { Location } from '@angular/common';
 
+
 @Component({
   selector: 'app-by-surname',
   templateUrl: './by-surname.component.html',
@@ -21,6 +22,7 @@ export class BySurnameComponent implements OnInit {
   NoofRow:any=25;
   totalItems:any;
   SearchText:any;
+
 
   constructor(
     private voter:VoterService, 
@@ -43,6 +45,7 @@ export class BySurnameComponent implements OnInit {
   ngOnInit() {
     this.userId = localStorage.getItem("loginId");
     this.roleID = localStorage.getItem('userType');
+    
     if(this.SearchText==undefined){
       this.SearchText = ''
     }

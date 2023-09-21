@@ -31,7 +31,7 @@ ion-item:hover {
 }
 
 h4 {
-  color: #FFF;
+  color: #fff;
   padding-top: 5px;
   font-weight: 600;
 }
@@ -60,7 +60,7 @@ h4 {
   font-size: 14px;
   border: none;
   outline: none;
-  color: #222260;
+  color: #3b5e74;
   font-weight: 600;
   padding: 6px 15px;
   background-color: inherit;
@@ -209,7 +209,8 @@ ion-accordion {
 
 .birthday {
   border-bottom: solid 1px #cfcfcf;
-  background: #222260;
+  //background: #222260;
+  background: #76e8f4;
 }
 
 .birthday ion-icon {
@@ -223,7 +224,8 @@ ion-accordion {
 }
 
 .birthday {
-  --background: #222260 !important;
+  //--background: #222260 !important;
+  --background: #76e8f4 !important;
   height: 78px;
   padding-top: 5px;
 }
@@ -235,7 +237,7 @@ ion-accordion {
 
 .birthday h3 {
   font-size: 14px;
-  color: #FFF;
+  color: #fff;
   margin-top: 5px;
   font-weight: 600;
 }

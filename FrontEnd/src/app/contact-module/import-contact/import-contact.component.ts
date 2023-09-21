@@ -187,6 +187,9 @@ export class ImportContactComponent implements OnInit {
        
         }
       }
+      else{
+        alert("Invalid Data");
+      }
       //this.excelUploadedData = arraylist;
     };
     reader.onerror = function (event) { console.error("File could not be read! Code "); };

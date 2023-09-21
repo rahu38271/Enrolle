@@ -17,9 +17,9 @@
       <div class="web">
         <ion-grid class="header">
           <ion-row>
-            <ion-col size-xs="12" size-sm="6">
+            <ion-col size-xs="12" size-sm="6" class="webBack">
               <div class="flex">
-                <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
+                <ion-icon (click)="goBack()" name="arrow-back-sharp"></ion-icon>
                 <ion-card-header>
                   <ion-card-title>Reports By Date, <span>Total - </span></ion-card-title>
                   <div class="headerLine"></div>
@@ -98,10 +98,10 @@
             </div>
             <div class="btns">
               <ion-button class="button-download" color="success" (click)="exportExcel()">
-                <ion-icon name="document-sharp"></ion-icon>Excel
+                Excel <ion-icon name="document-sharp"></ion-icon>
               </ion-button>
               <ion-button class="button-download" color="success" (click)="exportToCSV()">
-                <ion-icon name="document-sharp"></ion-icon>CSV
+                CSV <ion-icon name="document-sharp"></ion-icon>
               </ion-button>
             </div>
           </div>

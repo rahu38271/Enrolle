@@ -13,13 +13,14 @@ import {PieSeriesService,ExportService, AccumulationTooltipService, Accumulation
     SelectionService, ScatterSeriesService, ZoomService, AreaSeriesService, RangeAreaSeriesService
  } from '@syncfusion/ej2-angular-charts';
  
-
+ import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    TranslateModule,
     InclinationReportPageRoutingModule,
     ChartModule,
     AccumulationChartModule,

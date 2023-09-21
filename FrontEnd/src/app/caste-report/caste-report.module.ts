@@ -2,8 +2,10 @@ import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
+import { TranslateModule } from '@ngx-translate/core';
 import { CasteReportPageRoutingModule } from './caste-report-routing.module';
 import { CasteReportPage } from './caste-report.page';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ChartModule,AccumulationChartModule   } from '@syncfusion/ej2-angular-charts';
 import {PieSeriesService,AccumulationLegendService , AccumulationTooltipService, AccumulationDataLabelService, CategoryService, DateTimeService, ScrollBarService, ColumnSeriesService, LineSeriesService, 
     ChartAnnotationService, RangeColumnSeriesService, StackingColumnSeriesService,LegendService, TooltipService, DataLabelService,
@@ -16,6 +18,8 @@ import {PieSeriesService,AccumulationLegendService , AccumulationTooltipService,
     CommonModule,
     FormsModule,
     IonicModule,
+    TranslateModule,
+    Ng2SearchPipeModule,
     CasteReportPageRoutingModule,
     ChartModule,
     AccumulationChartModule,

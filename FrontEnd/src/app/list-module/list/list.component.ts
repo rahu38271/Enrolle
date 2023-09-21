@@ -16,6 +16,7 @@ export class ListComponent implements OnInit {
   supporter:any
   doubtful:any;
   opposite:any;
+  totalCount:any;
 
   constructor(
     private location: Location,
@@ -39,6 +40,7 @@ export class ListComponent implements OnInit {
         this.supporter = data[0].supporterCount;
         this.opposite = data[0].oppositionCount;
         this.doubtful = data[0].doubtfulCount;
+        this.totalCount = this.supporter + this.opposite  + this.doubtful;
       }
       else{
 

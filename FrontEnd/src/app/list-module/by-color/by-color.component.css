@@ -4,8 +4,6 @@ h2 { color: #4e7db4; padding-left: 10px; font-weight: 500; }
 
 h4 { color: #7a7a7a; }
 
-
-
 table { margin-top: 10px; }
 
 td ion-icon { cursor: pointer; font-size: 12px; font-weight: 600;  }
@@ -108,4 +106,8 @@ table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !impo
   ion-list {
     padding-bottom: 0px !important;
     margin-top: 2px;
+  }
+
+  .android table {
+    background: #FFF;
   }

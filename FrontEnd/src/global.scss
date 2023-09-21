@@ -379,7 +379,8 @@ ion-back-button {
 }
 
 .main-content {
-    background: url('./assets/img/background.png') !important;
+    //background: url('./assets/img/background.png') !important;
+    background-color: #f2f7fa;
     background-size: cover;
     background-attachment: fixed;
     min-height: 100%;

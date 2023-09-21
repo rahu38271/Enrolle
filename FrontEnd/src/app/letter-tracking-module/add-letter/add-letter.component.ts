@@ -141,7 +141,6 @@ export class AddLetterComponent implements OnInit {
   }
 
   addLetter(){
-    debugger;
     this.letter.UserId = Number(this.UserId);
     this.letter.UserName = this.name;
     this.letter.Status = "Pending"
@@ -183,7 +182,6 @@ export class AddLetterComponent implements OnInit {
   }
 
   adddeptName(){
-    debugger;
     this.letterService.addDept(this.deptModal).subscribe(data=>{
       if(data){
         this.deptModal={};
