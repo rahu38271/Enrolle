@@ -12,7 +12,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./deadvoter.component.css']
 })
 export class DeadvoterComponent implements OnInit {
-
+  id:any;
   isShow = false;
   Language:any;
   SearchText:any;
@@ -62,8 +62,9 @@ export class DeadvoterComponent implements OnInit {
   //  }
 
     // data with id
-  voterDetails(id: number) {
-    this.router.navigate(['/voterdata-management/voter-details', id])
+  voterDetails(data) {
+    this.id = data.id;
+    this.router.navigate(['/voterdata-management/voter-details', this.id])
   }
 
    deadVoterList(userId:any,roleId:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){

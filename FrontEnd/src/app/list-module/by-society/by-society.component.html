@@ -19,39 +19,39 @@
       <!-- <ion-searchbar></ion-searchbar> -->
       <ion-grid class="web">
         <ion-row>
-          <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
-            <ion-grid class="header">
-              <ion-row>
-                <ion-col size-xs="12" size-sm="6" class="webBack">
-                  
-                  <div class="flexArrow">
-                    <ion-icon (click)="goBack()" name="arrow-back-sharp"></ion-icon>
-                    <ion-card-header>
-                      <ion-card-title class="header1"> {{'Society' | translate}}  </ion-card-title>
-                      <div class="headerLine"></div>
-                    </ion-card-header>
-                  </div>
-                </ion-col>
-                <ion-col size-xs="12" size-sm="6" class="ion-text-right">
-                  <!-- <ion-button class="button-download" fill="outline" color="success" >
-                    <ion-icon name="document-sharp"></ion-icon>Excel
-                  </ion-button>
-                  <ion-button class="button-download" fill="outline" color="danger" >
-                    <ion-icon name="cloud-download-sharp"></ion-icon>PDF
-                  </ion-button>
-                   -->
-                </ion-col>
-              </ion-row>
-            </ion-grid>
+          <ion-grid class="header">
+            <ion-row>
+              <ion-col size-xs="12" size-sm="6" class="webBack">
+                
+                <div class="flexArrow">
+                  <ion-icon (click)="goBack()" name="arrow-back-sharp"></ion-icon>
+                  <ion-card-header>
+                    <ion-card-title class="header1"> {{'Society' | translate}}  </ion-card-title>
+                    <div class="headerLine"></div>
+                  </ion-card-header>
+                </div>
+              </ion-col>
+              <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+                <!-- <ion-button class="button-download" fill="outline" color="success" >
+                  <ion-icon name="document-sharp"></ion-icon>Excel
+                </ion-button>
+                <ion-button class="button-download" fill="outline" color="danger" >
+                  <ion-icon name="cloud-download-sharp"></ion-icon>PDF
+                </ion-button>
+                 -->
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-row>
+        <ion-row>
+          <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="6">
             <ion-card>
               <ion-card-content>
                 <div class="headSection">
                   <div class="search">
                     <ion-searchbar [(ngModel)]="searchMob" (ionChange)="trimInput($event)" animated="true"></ion-searchbar>
                   </div>
-                  <ion-button class="button-download" color="success" (click)="exportExcel()">
-                    <ion-icon name="document-sharp"></ion-icon>Excel
-                  </ion-button>
+                  
                 </div>
                 <div class="horizontal-scroll">
                   <table id="villageTable" #epltable class="table">
@@ -83,7 +83,15 @@
   
             </ion-card>
           </ion-col>
-  
+          <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="6">
+            <ion-card>
+              <ejs-accumulationchart height='350' id="sociList" [tooltip]='tooltip' [title]='title1' >
+                <e-accumulation-series-collection>
+                    <e-accumulation-series [dataSource]='sociList' xName='columnName' yName='count' [dataLabel]='totalDataLael' radius="80%" [palettes]='palette1' innerRadius='50%'></e-accumulation-series>
+                </e-accumulation-series-collection>
+              </ejs-accumulationchart>  
+            </ion-card>
+          </ion-col>
         </ion-row>
       </ion-grid>
   

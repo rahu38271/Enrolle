@@ -4,7 +4,7 @@ import { PinComponent } from './pin/pin.component';
 import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { NgOtpInputModule } from  'ng-otp-input';
+//import { NgOtpInputModule } from  'ng-otp-input';
 
 
 @NgModule({
@@ -15,7 +15,7 @@ import { NgOtpInputModule } from  'ng-otp-input';
     CommonModule,
     IonicModule,
     FormsModule,
-    NgOtpInputModule,
+    //NgOtpInputModule,
     RouterModule.forChild([{path:'', component: PinComponent}])
   ]
 })

@@ -14,7 +14,7 @@ import { CsvService } from 'src/app/services/csv.service';
   styleUrls: ['./professionwise-list.component.css']
 })
 export class ProfessionwiseListComponent implements OnInit {
-
+  id:any;
   isShow = false;
   Language:any;
   UserId:any;
@@ -89,8 +89,9 @@ export class ProfessionwiseListComponent implements OnInit {
   //  }
 
       // data with id
-  voterDetails(id: number) {
-    this.router.navigate(['/voterdata-management/voter-details', id])
+  voterDetails(data) {
+    this.id = data.id;
+    this.router.navigate(['/voterdata-management/voter-details', this.id])
   }
   
 

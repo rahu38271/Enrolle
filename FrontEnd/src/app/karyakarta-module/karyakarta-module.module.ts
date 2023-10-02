@@ -7,8 +7,6 @@ import { FormsModule } from '@angular/forms'
 import { AddKaryakartaComponent } from './add-karyakarta/add-karyakarta.component'
 import { EditKaryakartaComponent } from './edit-karyakarta/edit-karyakarta.component'
 import {ImportKaryakartaComponent } from './import-karyakarta/import-karyakarta.component'
-
-import { NgxDropzoneModule } from 'ngx-dropzone';
 import { ReactiveFormsModule } from '@angular/forms'
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {NgxPaginationModule} from 'ngx-pagination';
@@ -20,7 +18,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
     IonicModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxDropzoneModule,
     Ng2SearchPipeModule,
     NgxPaginationModule,
     RouterModule.forChild([{path:'', component:KaryakartaComponent}, {path:'add-karyakarta', component:AddKaryakartaComponent},{path:'edit-karyakarta', component:EditKaryakartaComponent},{path:'import-karyakarta', component:ImportKaryakartaComponent}])

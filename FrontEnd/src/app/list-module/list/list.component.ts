@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { VoterService } from 'src/app/services/voter.service';
-
+import { LoaderService } from 'src/app/services/loader.service';
 
 @Component({
   selector: 'app-list',
@@ -20,7 +20,8 @@ export class ListComponent implements OnInit {
 
   constructor(
     private location: Location,
-    private voter:VoterService
+    private voter:VoterService,
+    private loader:LoaderService
   ) { }
 
   ngOnInit() {
@@ -33,9 +34,10 @@ export class ListComponent implements OnInit {
   }
 
   dashboardCount(){
+    this.loader.showLoading();
     this.voter.getVoterDashboardCount(this.UserId,this.RoleId).subscribe(data=>{
       if(data){
-        console.log(data);
+        this.loader.hideLoader();
         this.voterCount = data;
         this.supporter = data[0].supporterCount;
         this.opposite = data[0].oppositionCount;
@@ -43,8 +45,10 @@ export class ListComponent implements OnInit {
         this.totalCount = this.supporter + this.opposite  + this.doubtful;
       }
       else{
-
+        this.loader.hideLoader();
       }
+    },(err)=>{
+      this.loader.hideLoader();
     })
   }
 

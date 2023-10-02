@@ -320,6 +320,7 @@ export class VoterService {
   // add profession
 
   addProf(ProfessionName:any){
+    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
@@ -559,6 +560,14 @@ export class VoterService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
-    return this.http.get<any>(this.url+'Voter/GetVoterDashBoard?UserId='+UserId+'&RoleId='+RoleId,{ headers })
+    return this.http.get<any>(this.url+'Voter/VoterDashBoardwithMatchMobCount?UserId='+UserId+'&RoleId='+RoleId,{ headers })
+  }
+
+  // get voter by id
+  getVoterById(vid:any, Language:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/GetVoterbyId?id='+vid+'&Language='+Language,{ headers })
   }
 }

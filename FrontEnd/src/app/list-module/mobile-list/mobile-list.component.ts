@@ -14,6 +14,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./mobile-list.component.css']
 })
 export class MobileListComponent implements OnInit {
+  id:any;
   Language: any;
   isShow = false;
   voterMobile: any;
@@ -47,8 +48,9 @@ export class MobileListComponent implements OnInit {
   //  }
 
    // data with id
-  voterDetails(id: number) {
-    this.router.navigate(['/voterdata-management/voter-details', id])
+  voterDetails(data) {
+    this.id = data.id;
+    this.router.navigate(['/voterdata-management/voter-details', this.id])
   }
 
   ngOnInit(): void {

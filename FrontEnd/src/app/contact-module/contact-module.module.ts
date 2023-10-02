@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { ContactComponent } from './contact/contact.component';
 import { AddContactComponent } from './add-contact/add-contact.component';
 import { ImportContactComponent } from './import-contact/import-contact.component';
-import { NgxDropzoneModule } from 'ngx-dropzone';
 import { EditContactComponent } from './edit-contact/edit-contact.component';
 import { HttpClientModule } from '@angular/common/http';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
@@ -20,7 +19,6 @@ import { DatewiseReportComponent } from './datewise-report/datewise-report.compo
     CommonModule,
     IonicModule,
     FormsModule,
-    NgxDropzoneModule,
     Ng2SearchPipeModule,
     NgxPaginationModule,
     HttpClientModule,

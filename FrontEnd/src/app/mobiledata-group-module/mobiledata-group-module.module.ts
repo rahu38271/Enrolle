@@ -6,7 +6,6 @@ import { RouterModule } from '@angular/router';
 import { MobiledataGroupComponent } from './mobiledata-group/mobiledata-group.component'
 import { AddMobiledataGroupComponent } from './add-mobiledata-group/add-mobiledata-group.component'
 import { UploadMobiledataGroupComponent } from './upload-mobiledata-group/upload-mobiledata-group.component'
-import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
   declarations: [MobiledataGroupComponent,AddMobiledataGroupComponent,UploadMobiledataGroupComponent],
@@ -14,7 +13,6 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     CommonModule,
     FormsModule,
     IonicModule,
-    NgxDropzoneModule,
     RouterModule.forChild([{path:'', component:MobiledataGroupComponent},{path:'add-mobiledata-group', component:AddMobiledataGroupComponent},{path:'upload-mobiledata-group', component:UploadMobiledataGroupComponent}])
   ]
 })

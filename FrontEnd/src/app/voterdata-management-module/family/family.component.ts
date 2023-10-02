@@ -65,8 +65,9 @@ export class FamilyComponent {
     }
     this.voter.getByRelation(this.id, userId,roleID,PageNo,NoofRow,this.Language).subscribe(data=>{
       if(data){
+        console.log(data);
         this.familyData= data;
-        this.totalItems = data[0].totalCount
+        //this.totalItems = data[0].totalCount
       }else{
 
       }

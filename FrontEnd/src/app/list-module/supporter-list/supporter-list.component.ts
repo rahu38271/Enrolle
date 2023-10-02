@@ -14,13 +14,14 @@ import { Location } from '@angular/common';
   styleUrls: ['./supporter-list.component.css']
 })
 export class SupporterListComponent implements OnInit {
+  id:any;
   Language: any;
   userId:any;
   roleID:any;
   supportVoter: any;
   isShow = false;
   PageNo:any=1;
-  NoofRow:any=10;
+  NoofRow:any=25;
   searchMob:string;
   totalItems:any;
   SearchText:any;
@@ -61,8 +62,9 @@ export class SupporterListComponent implements OnInit {
   //  }
 
     // data with id
-  voterDetails(id: number) {
-    this.router.navigate(['/voterdata-management/voter-details', id])
+  voterDetails(data) {
+    this.id = data.id;
+    this.router.navigate(['/voterdata-management/voter-details', this.id])
   }
 
   supporterList(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){

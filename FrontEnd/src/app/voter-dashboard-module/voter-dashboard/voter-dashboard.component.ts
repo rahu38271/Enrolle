@@ -26,6 +26,11 @@ export class VoterDashboardComponent implements OnInit {
   colorList:any;
   userId:any;
   roleID:any;
+  voterWithSoci:any;
+  society:any;
+  PageNo:any;
+  NoofRow:any;
+  SearchText:any;
 
   // by village graph
 
@@ -74,7 +79,12 @@ export class VoterDashboardComponent implements OnInit {
   public colorTitle: String;
   public colorPalette: string[];
   
- 
+  // by society data
+
+  public sociList: Object[];
+  public sociDataLael: Object;
+  public sociTooltip: Object;
+  public sociTitle: String;
 
   constructor(
     private location: Location,
@@ -88,6 +98,7 @@ export class VoterDashboardComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    debugger;
     this.id = localStorage.getItem("loginId");
     this.roleId = localStorage.getItem("userType");
     this.UserId = localStorage.getItem("loginId");
@@ -128,6 +139,12 @@ export class VoterDashboardComponent implements OnInit {
     // by color graph
 
     this.colorWiseVoterList();
+
+    // by society graph
+    this.societyList();
+    this.sociDataLael = { visible: true };
+    this.sociTooltip = { enable: true };
+    this.sociTitle = 'Societywise Data';
     
   }
 
@@ -265,6 +282,38 @@ export class VoterDashboardComponent implements OnInit {
        { 'x': 'Doubtful', y: this.doubtfulVoter }, { 'x': 'Other', y: this.otherVoter }
     ];
     
+    })
+  }
+
+  societyList(){
+    this.Language = this.translateConfigService.getCurrentLang();
+    if(this.Language == "kn"){
+      this.Language = "Kannada"
+    }
+    else if(this.Language == "mr"){
+      this.Language = "Marathi"
+    }
+    else if (this.Language == "hi") {
+      this.Language = "Hindi"
+    }
+    else{
+      this.Language = "English"
+    }
+    this.voter.occupaionData({
+      TableName: "Tbl_Voter",
+      ColumnName: "Society",
+      UserId : Number(this.id),
+      roleID: Number(this.roleId),
+      Language: this.Language
+    }).subscribe(data => {
+      if(data != 0){
+        this.sociList = data;
+      }
+      else{
+
+      }
+    },(err)=>{
+
     })
   }
 

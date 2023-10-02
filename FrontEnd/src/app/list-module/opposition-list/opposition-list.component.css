@@ -8,8 +8,6 @@ ion-item { --background: #fff; height: 40px; ; }
 
 h2 { color: #2c2a2b; font-weight: 600; }
 
-h3 { color: #ff5151; font-weight: 600; font-size: 15px; }
-
 h4 {  margin-bottom: 0px !important; font-size: 14px;  color: #2c2a2b;  }
 
 .header {width: 100%; }

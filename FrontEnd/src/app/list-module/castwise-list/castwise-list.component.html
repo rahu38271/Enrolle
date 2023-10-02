@@ -100,7 +100,7 @@
     <ion-grid class="android userList">
       <ion-searchbar (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true" *ngIf="isShow"></ion-searchbar>
       <ion-list  *ngFor="let item of VoterwithCaste | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems }"
-      (click)="voterDetails(item.id)">
+      (click)="voterDetails(item)">
         <ion-item lines="none"
          >
          <div class="voterSec">

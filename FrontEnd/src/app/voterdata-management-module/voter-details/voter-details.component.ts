@@ -1,19 +1,14 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { PDFGenerator } from '@ionic-native/pdf-generator/ngx';
-import { SocialSharing } from '@ionic-native/social-sharing/ngx';
-import { IonModal,NavController } from '@ionic/angular';
-import { OverlayEventDetail } from '@ionic/core/components';
-import { PopoverController } from '@ionic/angular';
-import { VoterService } from 'src/app/services/voter.service'
-import { ActivatedRoute,Router, NavigationEnd } from '@angular/router'
-import { LoaderService } from 'src/app/services/loader.service'
-import { IonicToastService } from 'src/app/services/ionic-toast.service'
-import { ModalController } from '@ionic/angular';
-import { Location } from '@angular/common';
+import { Component, OnInit,ViewChild,ElementRef } from '@angular/core';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
-import { SettingService } from 'src/app/services/setting.service';
 import { TranslateService } from '@ngx-translate/core';
-import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
+import { VoterService } from 'src/app/services/voter.service';
+import { ActivatedRoute,Router, NavigationEnd } from '@angular/router';
+import { LoaderService } from 'src/app/services/loader.service';
+import { IonicToastService } from 'src/app/services/ionic-toast.service';
+import { SocialSharing } from '@ionic-native/social-sharing/ngx';
+import { ModalController } from '@ionic/angular';
+import { IonModal,NavController,PopoverController } from '@ionic/angular';
+import { OverlayEventDetail } from '@ionic/core/components';
 
 @Component({
   selector: 'app-voter-details',
@@ -21,8 +16,53 @@ import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
   styleUrls: ['./voter-details.component.scss'],
 })
 export class VoterDetailsComponent  {
-  Language: any;
-  VoterListByUser: any;
+  columnName:any;
+  partNo:any;
+  Language:any;
+  Vid:any;
+  voterInfoData:any;
+  starUpdare: any = {};
+  voteStatusUpdate: any = {}
+  colorUpdate: any = {};
+  mobUpdate: any = {};
+  altmobUpdate: any = {};
+  deadAlive: any = {};
+  BirthdateUpdate:any={};
+  societyUpdate:any={}
+  CasteUpdate: any = {};
+  professionUpdate: any = {}
+  ProfessionName:any;
+  professionModal:any={};
+  houseUpdate:any={};
+  adrsUpdate: any = {}
+  showStar: boolean;
+  showVote: boolean;
+  id:any;
+  imgurl:any;
+  bgColor = '#FFF';
+  casteList: any;
+  professionList:any;
+  engAssembly=false;
+  nonEngAssembly=false;
+  isAssembly=true;
+  assemblyName: any;
+  assemblyNameByLang:any;
+  setMobile:any;
+  setAltMob:any;
+  setDOB:any;
+  setSociety:any;
+  setHouseNo:any;
+  setAddress:any;
+  setStar:any;
+  setVote:any;
+  setColor:any;
+  setAlive:any;
+  setProf:any;
+  setCaste:any;
+  closeModal() {
+    this.modalCtrl.dismiss();
+  }
+  year=new Date().getFullYear();
   maxDate:String = new Date().toISOString();
   @ViewChild(IonModal) modal: IonModal;
   @ViewChild('myDiv') myDiv: ElementRef;
@@ -34,26 +74,18 @@ export class VoterDetailsComponent  {
   @ViewChild('tr6') tr6: ElementRef;
   @ViewChild('tr7') tr7: ElementRef;
   @ViewChild('p') p: ElementRef;
-  //@ViewChild('myImg') myImg: ElementRef;
-  year=new Date().getFullYear();
-  text: string = ''
-  // imgurl: string = 'https://cdn.pixabay.com/photo/2019/12/26/05/10/pink-4719682_960_720.jpg'
-  //imgurl: string = 'https://tinysms.in/bjp.png'
-  ImagePath = ''
-  
-  id: any;
-  RoleId: any;
-  colorUpdate: any = {};
-  Mobile:any;
-  YesNo: any;
-  pageNo: any = 1;
-  NoofRow: any;
-  partNo: any;
-  ProfessionName:any;
-  professionModal:any={};
 
-  @ViewChild('slipDesign') slipDesign: ElementRef;
-  
+  keyPressNumbers(event) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   onWillDismiss(event: Event) {
     const ev = event as CustomEvent<OverlayEventDetail<string>>;
     if (ev.detail.role === 'confirm') {
@@ -74,81 +106,19 @@ export class VoterDetailsComponent  {
     }
   }
 
-  //isStar: any;
-  Voter: any = {}
-  Vid: any;
-  roleID: any;
-  mobUpdate: any = {
-
-  }
-  adrsUpdate: any = {}
-  altmobUpdate: any = {};
-  starUpdare: any = {};
-  deadAlive: any = {};
-  voteStatusUpdate: any = {}
-  professionUpdate: any = {}
-  BirthdateUpdate: any = {}
-  CasteUpdate: any = {}
-  societyUpdate:any={};
-  houseUpdate:any={};
-  showStar: boolean;
-  showVote: boolean;
-  casteList: any;
-  interval:any;
-  partNumber:any;
-  columnName:any;
-  bgColor = '#FFF';
-  assemblyName: any;
-  isAssembly=true;
-  isVillage=true;
-  village:any;
-  professionList:any;
-  userId:any;
-  imgurl:any;
-  imgText:any;
-  whatsText:any;
-  msgText:any;
-  assemblyNameByLang:any;
-  nonEngAssembly=false;
-  engAssembly=false;
-  closeModal() {
-    this.modalCtrl.dismiss();
-  }
-  assemblyNo:any;
-  UserId:any;
-  content: string;
-  SearchText:any;
-  keyPressNumbers(event) {
-    var charCode = (event.which) ? event.which : event.keyCode;
-    // Only Numbers 0-9
-    if ((charCode < 48 || charCode > 57)) {
-      event.preventDefault();
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-
-  constructor
-    (
-      private pdfGenerator: PDFGenerator,
-      private socialSharing: SocialSharing,
-      public popoverController: PopoverController,
-      private voter: VoterService,
-      private route: ActivatedRoute,
-      private loader: LoaderService,
-      private router: Router,
-      private toast: IonicToastService,
-      public modalCtrl: ModalController,
-      private location: Location,
-      private setting:SettingService,
-      private translateConfigService: TranslateConfigService,
-      private bluetoothSerial: BluetoothSerial,
-      public translate: TranslateService,
+  constructor(
+    private translateConfigService: TranslateConfigService,
+    public translate: TranslateService,
+    private voter:VoterService,
+    private route: ActivatedRoute,
+    private router:Router,
+    private loader:LoaderService,
+    private toast:IonicToastService,
+    private socialSharing: SocialSharing,
+    public popoverController: PopoverController,
+    public modalCtrl: ModalController,
   ) {
     this.Language = this.translateConfigService.getCurrentLang();
-    
     if(this.Language == 'en'){
       this.engAssembly = true;
     }
@@ -167,258 +137,131 @@ export class VoterDetailsComponent  {
     else {
       this.Language = "English"
     }
-    if(this.SearchText == undefined){
-      this.SearchText = ''
-    }
-    else{
-      this.SearchText = this.SearchText
-    }
+   }
+
+  ngOnInit(): void {
+    this.Vid = this.route.snapshot.paramMap.get('id');
+    this.assemblyName = localStorage.getItem("loginAssembly");
     
   }
 
-  
-
-  ngOnInit() {
-    // data with state
-    //this.Voter = this.router.getCurrentNavigation().extras.state;
-    //data with id
-    this.UserId = localStorage.getItem('loginId');
-    this.RoleId = localStorage.getItem('userType');
-    this.NoofRow =  this.route.snapshot.paramMap.get('id');
-    this.loader.showLoading();
-    this.voter.getVoterByUser(this.id=this.UserId,this.RoleId,this.pageNo,this.NoofRow,this.Language,this.SearchText).subscribe((data) =>{
-      this.loader.hideLoader();
-      const Vid = this.NoofRow;
-      [this.Voter] = data.filter((Voter) => Voter.id == Vid);
-      this.VoterListByUser = this.Voter;
-      if(this.VoterListByUser.birthDate == null || this.VoterListByUser.birthDate == undefined){
-        this.VoterListByUser.birthDate = ''
-      }
-      else{
-        this.VoterListByUser.birthDate = this.VoterListByUser.birthDate.split('T')[0];
-      }
-      
-      this.mobUpdate.Mobile = this.VoterListByUser.mobileNo;
-      this.altmobUpdate.AlternateMobileNo = this.VoterListByUser.alternateMobileNo;
-      this.BirthdateUpdate.ColoumnValue = this.VoterListByUser.birthDate;
-      this.CasteUpdate.ColoumnValue = this.VoterListByUser.caste;
-      this.professionUpdate.ColoumnValue = this.VoterListByUser.occupation;
-      this.adrsUpdate.Address = this.VoterListByUser.address;
-      this.societyUpdate.ColoumnValue = this.VoterListByUser.society;
-      this.houseUpdate.ColoumnValue = this.VoterListByUser.houseNo;
-      this.deadAlive.YesNo = this.VoterListByUser.isAlive;
-      //to get color checked if voter is supporter, opposite, doubtful or other
-      if (this.VoterListByUser.votingInclination == "Supporter") {
-        this.bgColor = '#0bbb5f'
-      }
-      else if (this.VoterListByUser.votingInclination == "Opposition") {
-        this.bgColor = '#F00'
-      }
-      else if (this.VoterListByUser.votingInclination == "Doubtful") {
-        this.bgColor = '#ffd34f'
-      }
-      else if (this.VoterListByUser.votingInclination == "Other") {
-        this.bgColor = '#fff'
-      }
-       // is Star status 
-      if (this.VoterListByUser.starVoter == null || this.VoterListByUser.starVoter == "N") {
-        this.showStar = !this.showStar
-      }
-      else {
-        this.showStar = this.showStar
-      }
-      // is voted status 
-      if (this.VoterListByUser.isVoted == null || this.VoterListByUser.isVoted == "N") {
-        this.showVote = !this.showVote
-      }
-      else {
-        this.showVote = this.showVote
-      }
-      if (this.VoterListByUser.isAlive == "Y") {
-        this.VoterListByUser.isAlive = 1
-      }
-      else if (this.VoterListByUser.isAlive == "N") {
-        this.VoterListByUser.isAlive = 0
-      }
-      else if (this.VoterListByUser.isAlive == null) {
-        this.VoterListByUser.isAlive = ''
-      }
-    },(err)=>{
-      this.loader.hideLoader();
-    })
-  }
-
-ngAfterViewInit(){
-  this.assemblyName = localStorage.getItem("loginAssembly");
-    this.assemblyNameLang();
-    this.village = localStorage.getItem("loginVillage");
-    this.userId = localStorage.getItem("loginId");
-    this.userId = Number(this.userId);
-    this.voterDetails();
+  ionViewWillEnter(){
+    this.voterInfo();
     this.AllCasts();
     this.allProfession();
+    this.assemblyNameLang();
     if(this.assemblyName=="null"){
       this.isAssembly=!this.isAssembly;
     }
     else{
       this.isAssembly=this.isAssembly;
     }
-    if(this.village=="null"){
-      this.isVillage=!this.isVillage;
-    }
-    else{
-      this.isVillage=this.isVillage;
-    }
     
-    this.setting.getWhatsappImage(this.userId).subscribe(data=>{
+  }
+
+  voterInfo(){
+    this.loader.showLoading();
+    this.voter.getVoterById(this.Vid,this.Language).subscribe(data=>{
       if(data){
-        this.saveFile(data);
-        this.fetchImage(data);
-        this.imgurl = true;
-      }
-    })
-    this.setting.getWhatsappText(this.userId).subscribe(data=>{
-      if(data){
-        this.whatsText = data;
-        this.msgText = data[0].messageContent;
+        this.loader.hideLoader();
+        console.log(data);
+        this.voterInfoData = data;
+        this.setAddress = data[0].address;
+        this.setMobile = data[0].mobileNo;
+        this.setAltMob = data[0].alternateMobileNo;
+        this.setDOB = data[0].birthDate.split('T')[0];
+        this.setSociety = data[0].society;
+        this.setHouseNo = data[0].houseNo;
+        this.setStar = data[0].starVoter;
+        this.setVote = data[0].isVoted;
+        this.setColor = data[0].votingInclination;
+        this.setAlive = data[0].isAlive;
+        this.setProf = data[0].occupation;
+        this.setCaste = data[0].caste;
+        if(this.setStar=="N" || this.setStar==null){
+          this.showStar = this.showStar
+        }
+        else{
+          this.showStar = !this.showStar
+        }
+        if(this.setVote=="N" || this.setVote==null){
+          this.showVote = this.showVote
+        }
+        else{
+          this.showVote = !this.showVote
+        }
+        if (this.setColor == "Supporter") {
+          this.bgColor = '#0bbb5f'
+        }
+        else if (this.setColor == "Opposition") {
+          this.bgColor = '#F00'
+        }
+        else if (this.setColor == "Doubtful") {
+          this.bgColor = '#ffd34f'
+        }
+        else if (this.setColor == "Other") {
+          this.bgColor = '#fff'
+        }
+        if (this.setAlive == "Y") {
+          this.deadAlive.YesNo = 1
+        }
+        else if (this.setAlive == "N") {
+          this.deadAlive.YesNo = 0
+        }
+        else if (this.setAlive == null) {
+          this.deadAlive.YesNo = ''
+        }
+        this.adrsUpdate.Address = this.setAddress;
+        this.mobUpdate.Mobile = this.setMobile;
+        this.altmobUpdate.AlternateMobileNo = this.setAltMob;
+        this.BirthdateUpdate.ColoumnValue = this.setDOB;
+        this.societyUpdate.ColoumnValue = this.setSociety;
+        this.houseUpdate.ColoumnValue = this.setHouseNo;
+        this.professionUpdate.ColoumnValue = this.setProf;
+        this.professionModal.ProfessionName = this.setProf;
+        this.CasteUpdate.ColoumnValue = this.setCaste;
+        this.voterInfoData.forEach(e => {
+          e.birthDate = e.birthDate.split('T')[0];
+        });
+        
       }
       else{
-
+        this.loader.hideLoader();
       }
     },(err)=>{
-
+      this.loader.hideLoader();
     })
-}
-
   
-
-  ionViewWillEnter(){
-    
   }
 
-   async printToBluetoothPrinter() {
-    try {
-      const isEnabled = await this.bluetoothSerial.isEnabled();
-      if (isEnabled) {
-        const devices = await this.bluetoothSerial.list();
-        if (devices.length > 0) {
-          const printer = devices[0];
-          await this.bluetoothSerial.connect(printer.address);
-          await this.bluetoothSerial.write('Hello from Ionic app!\n');
-          await this.bluetoothSerial.disconnect();
-        } else {
-          console.log('No paired Bluetooth printers found.');
-        }
-      } else {
-        console.log('Bluetooth is not enabled.');
+  // add address
+
+  saveAddress() {
+    this.id = this.Vid;
+    this.adrsUpdate.Id = Number(this.id);
+    this.voter.updateAdrs(this.adrsUpdate.Id, this.adrsUpdate.Address).subscribe(data => {
+      if (data) {
+        this.voterInfo();
+        this.closeModal();
+        this.toast.presentToast("Address updated successfully!", "success", 'checkmark-circle-sharp');
       }
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  }
-
-  saveFile(imageData: Blob) {
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(imageData);
-    
-  }
-
-  // to download image from get api
-  fetchImage(image:Blob){
-    const reader = new FileReader();
-    reader.onload = ()=>{
-      this.imgurl = reader.result as string;
-    };
-    reader.readAsDataURL(image);
-  }
-
-  assemblyNameLang(){
-    this.voter.getAssemblyName(this.assemblyName).subscribe(data=>{
-      this.assemblyNameByLang = data;
+      else {
+        this.toast.presentToast("Address not updated", "danger", 'alert-circle-sharp');
+      }
+    }, (_err) => {
+      this.toast.presentToast("Address not updated", "danger", 'alert-circle-sharp');
     })
   }
-
-
-  voterDetails() {
-    //this.loader.showLoading();
-
-    this.VoterListByUser = this.Voter;
-
-    // to get star checked if voter is star voter or not 
-
-    // if (this.VoterListByUser.starVoter == null || this.VoterListByUser.starVoter == "N") {
-    //   this.showStar = !this.showStar
-    // }
-    // else {
-    //   this.showStar = this.showStar
-    // }
-
-    //to get if voter is voted or not
-
-    // if (this.VoterListByUser.isVoted == null || this.VoterListByUser.isVoted == "N") {
-    //   this.showVote = !this.showVote
-    // }
-    // else {
-    //   this.showVote = this.showVote
-    // }
-
-    //to get radio button checked if voter is alive or dead
-
-    // if (this.VoterListByUser.isAlive == "Y") {
-    //   this.VoterListByUser.isAlive = 1
-    // }
-    // else if (this.VoterListByUser.isAlive == "N") {
-    //   this.VoterListByUser.isAlive = 0
-    // }
-    // else if (this.VoterListByUser.isAlive == null) {
-    //   this.VoterListByUser.isAlive = ''
-    // }
-
-    //to get color checked if voter is supporter, opposite, doubtful or other
-    // if (this.VoterListByUser.votingInclination == "Supporter") {
-    //   this.bgColor = '#0bbb5f'
-    // }
-    // else if (this.VoterListByUser.votingInclination == "Opposition") {
-    //   this.bgColor = '#F00'
-    // }
-    // else if (this.VoterListByUser.votingInclination == "Doubtful") {
-    //   this.bgColor = '#ffd34f'
-    // }
-    // else if (this.VoterListByUser.votingInclination == "Other") {
-    //   this.bgColor = '#fff'
-    // }
-    
-    //this.partNumber =this.partNo
-
-  }
-
-  family(id: any) {
-    this.router.navigate(['/voterdata-management/family', { Id: id }])
-  }
-
-  sameAddressVoter(id: any) {
-    this.router.navigate(['/voterdata-management/family', { Id: id }])
-  }
-
-  sameBoothVoter(columnName:any) {
-    this.columnName ==this.partNo;
-    this.router.navigate(['/list/boothwise-list', {partNumber :columnName}])
-  }
-
-  // partNo(columnName:any){
-  //   this.router.navigate(['/list/boothwise-list',  {partNumber :columnName} ])
-  //  }
 
   // edit mobile number
 
   saveMobile() {
-    this.id = this.Voter.id;
+    this.id = this.Vid;
     this.mobUpdate.Id = Number(this.id);
     this.voter.updateMob(this.mobUpdate.Id, this.mobUpdate.Mobile).subscribe(data => {
       if (data) {
-        this.voterDetails();
+        this.voterInfo();
         this.closeModal();
-        this.ngOnInit();
         this.toast.presentToast("Mobile No. updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
@@ -432,13 +275,12 @@ ngAfterViewInit(){
   // edit alt. mob.
 
   saveAltMobile() {
-    this.id = this.Voter.id;
+    this.id = this.Vid;
     this.altmobUpdate.Id = Number(this.id);
     this.voter.updateAltMob(this.altmobUpdate.Id, this.altmobUpdate.AlternateMobileNo).subscribe(data => {
       if (data) {
-        this.voterDetails();
+        this.voterInfo();
         this.closeModal();
-        this.ngOnInit();
         this.toast.presentToast("Mobile No. updated successfully!", "success", 'checkmark-circle-sharp');
         
       }
@@ -450,37 +292,36 @@ ngAfterViewInit(){
     })
   }
 
-  // edit voter address
+  // add Birthdate
 
-  saveAddress() {
-    this.id = this.Voter.id;
-    this.adrsUpdate.Id = Number(this.id);
-    this.voter.updateAdrs(this.adrsUpdate.Id, this.adrsUpdate.Address).subscribe(data => {
+  saveBirthdate() {
+    this.id = this.Vid;
+    this.BirthdateUpdate.Id = Number(this.id);
+    this.BirthdateUpdate.ColoumnName = "Birthdate"
+    this.voter.updateDoB(this.BirthdateUpdate.Id, this.BirthdateUpdate.ColoumnName, this.BirthdateUpdate.ColoumnValue).subscribe(data => {
       if (data) {
-        this.voterDetails();
+        this.voterInfo();
         this.closeModal();
-        this.ngOnInit();
-        this.toast.presentToast("Address updated successfully!", "success", 'checkmark-circle-sharp');
+        this.toast.presentToast("Birthdate updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
-        this.toast.presentToast("Address not updated", "danger", 'alert-circle-sharp');
+
       }
-    }, (_err) => {
-      this.toast.presentToast("Address not updated", "danger", 'alert-circle-sharp');
+    }, (err) => {
+
     })
   }
 
   // add profession
 
   saveProfession() {
-    this.id = this.Voter.id;
+    this.id = this.Vid;
     this.professionUpdate.Id = Number(this.id);
     this.professionUpdate.ColoumnName = "Occupation"
     this.voter.updateProfession(this.professionUpdate.Id, this.professionUpdate.ColoumnName, this.professionUpdate.ColoumnValue).subscribe(data => {
       if (data) {
-        this.voterDetails();
+        this.voterInfo();
         this.closeModal();
-        this.ngOnInit();
         this.toast.presentToast("profession updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
@@ -492,72 +333,24 @@ ngAfterViewInit(){
   }
 
   addProfession(){
+    debugger;
     this.voter.addProf(this.professionModal.ProfessionName).subscribe(data=>{
-      if(data){
-        this.voterDetails();
+      this.allProfession();
         this.closeModal();
         this.toast.presentToast("profession added successfully!", "success", 'checkmark-circle-sharp');
-      }
-      else{
-
-      }
-    })
-  }
-
-  // add Birthdate
-
-  saveBirthdate() {
-    this.id = this.Voter.id;
-    this.BirthdateUpdate.Id = Number(this.id);
-    this.BirthdateUpdate.ColoumnName = "Birthdate"
-    this.voter.updateDoB(this.BirthdateUpdate.Id, this.BirthdateUpdate.ColoumnName, this.BirthdateUpdate.ColoumnValue).subscribe(data => {
-      if (data) {
-        this.voterDetails();
-        this.closeModal();
-        this.ngOnInit();
-        this.toast.presentToast("Birthdate updated successfully!", "success", 'checkmark-circle-sharp');
-      }
-      else {
-
-      }
-    }, (err) => {
-
-    })
-  }
-
-  // add Caste
-
-  saveCaste() {
-    this.id = this.Voter.id;
-    this.CasteUpdate.Id = Number(this.id);
-    this.CasteUpdate.ColoumnName = "Caste"
-    this.CasteUpdate.ColoumnValue = this.CasteUpdate.ColoumnValue;
-    this.voter.updateCaste(this.CasteUpdate.Id, this.CasteUpdate.ColoumnName, this.CasteUpdate.ColoumnValue).subscribe(data => {
-      if (data) {
-        this.voterDetails();
-        this.closeModal();
-        this.ngOnInit();
-        this.toast.presentToast("Caste updated successfully!", "success", 'checkmark-circle-sharp');
-      }
-      else {
-
-      }
-    }, (err) => {
-
     })
   }
 
    // add society
 
    saveSociety() {
-    this.id = this.Voter.id;
+    this.id = this.Vid;
     this.societyUpdate.Id = Number(this.id);
     this.societyUpdate.ColoumnName = "Society"
     this.voter.updateSociety(this.societyUpdate.Id, this.societyUpdate.ColoumnName, this.societyUpdate.ColoumnValue).subscribe(data => {
       if (data) {
-        this.voterDetails();
+        this.voterInfo();
         this.closeModal();
-        this.ngOnInit();
         this.toast.presentToast("society updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
@@ -571,14 +364,13 @@ ngAfterViewInit(){
   // add houseNo
 
   saveHouseNo() {
-    this.id = this.Voter.id;
+    this.id = this.Vid;
     this.houseUpdate.Id = Number(this.id);
     this.houseUpdate.ColoumnName = "HouseNo"
     this.voter.updateHouse(this.houseUpdate.Id, this.houseUpdate.ColoumnName, this.houseUpdate.ColoumnValue).subscribe(data => {
       if (data) {
-        this.voterDetails();
+        this.voterInfo();
         this.closeModal();
-        this.ngOnInit();
         this.toast.presentToast("HouseNo updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
@@ -586,169 +378,6 @@ ngAfterViewInit(){
       }
     }, (err) => {
 
-    })
-  }
-
-  // voter select color for supporter
-
-  supporter() {
-    this.bgColor = '#0bbb5f'
-    this.id = this.Voter.id;
-    this.colorUpdate.id = Number(this.id);
-    this.colorUpdate.colour = 'Supporter'
-    this.voter.updateColor(this.colorUpdate.id, this.colorUpdate.colour).subscribe(data => {
-      if (data) {
-        this.voterDetails();
-      }
-    })
-  }
-
-  // voter select color for opposition
-
-  opposition() {
-    this.bgColor = '#F00'
-    this.id = this.Voter.id;
-    this.colorUpdate.id = Number(this.id);
-    this.colorUpdate.colour = 'Opposition'
-    this.voter.updateColor(this.colorUpdate.id, this.colorUpdate.colour).subscribe(data => {
-      if (data) {
-        this.voterDetails();
-      }
-    })
-  }
-
-  doubtful() {
-    this.bgColor = '#ffd34f'
-    this.id = this.Voter.id;
-    this.colorUpdate.id = Number(this.id);
-    this.colorUpdate.colour = 'Doubtful'
-    this.voter.updateColor(this.colorUpdate.id, this.colorUpdate.colour).subscribe(data => {
-      if (data) {
-        this.voterDetails();
-      }
-    })
-  }
-
-  other() {
-    this.bgColor = '#fff'
-    this.id = this.Voter.id;
-    this.colorUpdate.id = Number(this.id);
-    this.colorUpdate.colour = 'Other'
-    this.voter.updateColor(this.colorUpdate.id, this.colorUpdate.colour).subscribe(data => {
-      if (data) {
-        this.voterDetails();
-      }
-    })
-  }
-
-  // update star voter
-
-  // toggleStar() {
-  //   this.showStar = !this.showStar;
-  //   this.id = this.Voter.id;
-  //   this.starUpdare.id = Number(this.id);
-  //   this.starUpdare.YesNo = 'Y';
-  //   this.voter.updateStar(this.starUpdare.id, this.starUpdare.YesNo).subscribe(data => {
-  //     if (data) {
-  //       this.voterDetails();
-  //       this.toast.presentToast("Starred successfully!", "success", 'checkmark-circle-sharp');
-  //     }
-  //     else {
-  //       this.toast.presentToast("Starred not updated", "danger", 'alert-circle-sharp');
-  //     }
-  //   }, (_err) => {
-  //     this.toast.presentToast("Starred not updated", "danger", 'alert-circle-sharp');
-  //   })
-  // }
-
-  toggleStar() {
-    this.id = this.Voter.id;
-    this.starUpdare.id = Number(this.id);
-    this.showStar = !this.showStar;
-    if (!this.showStar) {
-      this.showStar == !this.showStar;
-      this.starUpdare.YesNo = 'Y';
-      this.voter.updateStar(this.starUpdare.id, this.starUpdare.YesNo).subscribe(data => {
-        if (data) {
-          this.voterDetails();
-          this.toast.presentToast("Starred successfully!", "success", 'checkmark-circle-sharp');
-        }
-        else {
-          this.toast.presentToast("Starred not updated", "danger", 'alert-circle-sharp');
-        }
-      }, (_err) => {
-        this.toast.presentToast("Starred not updated", "danger", 'alert-circle-sharp');
-      })
-    }
-    if (this.showStar) {
-      this.showStar == this.showStar
-      this.starUpdare.YesNo = 'N';
-      this.voter.updateStar(this.starUpdare.id, this.starUpdare.YesNo).subscribe(data => {
-        if (data) {
-          this.voterDetails();
-          this.toast.presentToast("Starred removed successfully!", "success", 'checkmark-circle-sharp');
-        }
-        else {
-          this.toast.presentToast("Starred not updated", "danger", 'alert-circle-sharp');
-        }
-      }, (_err) => {
-        this.toast.presentToast("Starred not updated", "danger", 'alert-circle-sharp');
-      })
-    }
-  }
-
-  // update isvoted status
-
-  toggleVote() {
-    this.id = this.Voter.id;
-    this.voteStatusUpdate.id = Number(this.id);
-    this.showVote = !this.showVote;
-    if (!this.showVote) {
-      this.voteStatusUpdate.YesNo = 'Y';
-      this.voter.updateVotedStatus(this.voteStatusUpdate.id, this.voteStatusUpdate.YesNo).subscribe(data => {
-        if (data) {
-          this.voterDetails();
-          this.toast.presentToast("Vote status updated successfully!", "success", 'checkmark-circle-sharp');
-        }
-        else {
-          this.toast.presentToast("Vote status not updated", "danger", 'alert-circle-sharp');
-        }
-      }, (_err) => {
-
-      })
-    }
-    if (this.showVote) {
-      this.voteStatusUpdate.YesNo = 'N';
-      this.voter.updateVotedStatus(this.voteStatusUpdate.id, this.voteStatusUpdate.YesNo).subscribe(data => {
-        if (data) {
-          this.voterDetails();
-          this.toast.presentToast("Vote status updated successfully!", "success", 'checkmark-circle-sharp');
-        }
-        else {
-          this.toast.presentToast("Vote status not updated", "danger", 'alert-circle-sharp');
-        }
-      }, (_err) => {
-
-      })
-    }
-  }
-
-  //update dead or alive voter
-  aliveDead() {
-    this.id = this.Voter.id;
-    this.deadAlive.Id = Number(this.id);
-    this.voter.updateAliveDead(this.deadAlive.Id, this.deadAlive.YesNo).subscribe(data => {
-      if (data) {
-        this.voterDetails();
-        this.closeModal();
-        this.ngOnInit();
-        this.toast.presentToast("Voter updated successfully!", "success", 'checkmark-circle-sharp');
-      }
-      else {
-        this.toast.presentToast("Voter not updated", "danger", 'alert-circle-sharp');
-      }
-    }, (_err) => {
-      this.toast.presentToast("Mobile No. not updated", "danger", 'alert-circle-sharp');
     })
   }
 
@@ -771,7 +400,7 @@ ngAfterViewInit(){
   }
 
   AllCasts1(ColoumnValue){
-    this.id = this.Voter.id;
+    this.id = this.Vid;
     this.CasteUpdate.Id = Number(this.id);
     this.CasteUpdate.ColoumnName = "Caste"
     if(this.CasteUpdate.ColoumnValue == null){
@@ -782,9 +411,30 @@ ngAfterViewInit(){
     }
     this.voter.updateCaste(this.CasteUpdate.Id, this.CasteUpdate.ColoumnName, this.CasteUpdate.ColoumnValue).subscribe(data => {
       if (data) {
-        this.voterDetails();
+        this.voterInfo();
         this.closeModal();
-        this.ngOnInit();
+        this.toast.presentToast("Caste updated successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else {
+
+      }
+    }, (err) => {
+
+    })
+  }
+
+  // add Caste
+
+  saveCaste() {
+    this.id = this.Vid;
+    this.CasteUpdate.Id = Number(this.id);
+    this.CasteUpdate.ColoumnName = "Caste"
+    this.CasteUpdate.ColoumnValue = this.CasteUpdate.ColoumnValue;
+    this.voter.updateCaste(this.CasteUpdate.Id, this.CasteUpdate.ColoumnName, this.CasteUpdate.ColoumnValue).subscribe(data => {
+      if (data) {
+        this.voterInfo();
+        this.closeModal();
+        this.ionViewWillEnter();
         this.toast.presentToast("Caste updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
@@ -804,7 +454,7 @@ ngAfterViewInit(){
   }
 
   allProfession1(ColoumnValue){
-    this.id = this.Voter.id;
+    this.id = this.Vid;
     this.professionUpdate.Id = Number(this.id);
     this.professionUpdate.ColoumnName = "Occupation"
     if(this.professionUpdate.ColoumnValue == null){
@@ -813,11 +463,11 @@ ngAfterViewInit(){
     else{
       this.professionUpdate.ColoumnValue = this.professionUpdate.ColoumnValue;
     }
-    this.voter.updateCaste(this.professionUpdate.Id, this.professionUpdate.ColoumnName, this.professionUpdate.ColoumnValue).subscribe(data => {
+    this.voter.updateProfession(this.professionUpdate.Id, this.professionUpdate.ColoumnName, this.professionUpdate.ColoumnValue).subscribe(data => {
       if (data) {
-        this.voterDetails();
+        this.voterInfo();
         this.closeModal();
-        this.ngOnInit();
+        this.ionViewWillEnter();
         this.toast.presentToast("Profession updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
@@ -828,114 +478,104 @@ ngAfterViewInit(){
     })
   }
 
-  // voterDetails() {
-  //   this.loader.showLoading();
-  //   this.VoterListByUser = this.Voter;
-  //   console.log(this.Voter)
-  //      to get star checked if voter is star voter or not 
-  //     if(this.VoterListByUser.starVoter == null || this.VoterListByUser.starVoter == "N"){
-  //       this.showStar =  !this.showStar
-  //     }
-  //     else{
-  //       this.showStar =  this.showStar
-  //     }
-  //   this.id = localStorage.getItem("loginId");
-  //   this.RoleId = localStorage.getItem("userType");
-  //   this.voter.getVoterByUser(this.id, this.RoleId, this.pageNo,this.NoofRow).subscribe((data) => {
-  //     this.loader.hideLoader();
-  //     debugger;
-  //     const Vid = this.route.snapshot.paramMap.get('id');
-  //     console.log(data.filter((Voter) => Voter.id == Vid))
-  //     this.Voter = data.filter((Voter) => Voter.id == Vid);
-
-
-
-  //     to get if voter is voted or not
-  //     if(this.VoterListByUser.isVoted == null || this.VoterListByUser.isVoted == "N"){
-  //       this.showVote =  !this.showVote
-  //     }
-  //     else{
-  //       this.showVote =  this.showVote
-  //     }
-  //     to get color checked if voter is supporter, opposite, doubtful or other
-  //     if (this.VoterListByUser.votingInclination == "Supporter") {
-  //        this.bgColor = '#0bbb5f'
-  //     }
-  //     else if (this.VoterListByUser.votingInclination == "Opposition") {
-  //       this.bgColor = '#F00'
-  //     }
-  //     else if (this.VoterListByUser.votingInclination == "Doubtful") {
-  //       this.bgColor = '#ffd34f'
-  //     }
-  //     else if (this.VoterListByUser.votingInclination == "Other") {
-  //       this.bgColor = '#fff'
-  //     }
-  //   },(err)=>{
-  //     this.loader.hideLoader();
-  //   })
-  // }
-
-  // sameBoothVoter(id: any) {
-  //   debugger;
-  //   this.VoterListByUser.partNo = this.partNo;
-  //   this.router.navigate(['/list/boothwise-list', { Id: id }])
-  // }
-
-  goback() {
-    this.location.back();
+  //update dead or alive voter
+  aliveDead() {
+    this.id = this.Vid;
+    this.deadAlive.Id = Number(this.id);
+    this.voter.updateAliveDead(this.deadAlive.Id, this.deadAlive.YesNo).subscribe(data => {
+      if (data) {
+        this.voterInfo();
+        this.closeModal();
+        this.ionViewWillEnter();
+        this.toast.presentToast("Voter updated successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else {
+        this.toast.presentToast("Voter not updated", "danger", 'alert-circle-sharp');
+      }
+    }, (_err) => {
+      this.toast.presentToast("Mobile No. not updated", "danger", 'alert-circle-sharp');
+    })
   }
 
-  onSubmit() {
+  // update star voter
 
+  toggleStar() {
+    this.id = this.Vid;
+    this.starUpdare.id = Number(this.id);
+    this.showStar = !this.showStar;
+    if (this.showStar) {
+      this.showStar == !this.showStar;
+      this.starUpdare.YesNo = 'Y';
+      this.voter.updateStar(this.starUpdare.id, this.starUpdare.YesNo).subscribe(data => {
+        if (data) {
+          this.voterInfo();
+          this.ionViewWillEnter();
+          this.toast.presentToast("Starred successfully!", "success", 'checkmark-circle-sharp');
+        }
+        else {
+          this.toast.presentToast("Starred not updated", "danger", 'alert-circle-sharp');
+        }
+      }, (_err) => {
+        this.toast.presentToast("Starred not updated", "danger", 'alert-circle-sharp');
+      })
+    }
+    if (!this.showStar) {
+      this.showStar == this.showStar
+      this.starUpdare.YesNo = 'N';
+      this.voter.updateStar(this.starUpdare.id, this.starUpdare.YesNo).subscribe(data => {
+        if (data) {
+          this.voterInfo();
+          this.ionViewWillEnter();
+          this.toast.presentToast("Starred removed successfully!", "success", 'checkmark-circle-sharp');
+        }
+        else {
+          this.toast.presentToast("Starred not updated", "danger", 'alert-circle-sharp');
+        }
+      }, (_err) => {
+        this.toast.presentToast("Starred not updated", "danger", 'alert-circle-sharp');
+      })
+    }
   }
 
-  printSlip() {
-    this.content = document.getElementById('slipDesign').innerHTML;
-    let options = {
-      documentSize: 'a7',
-      type: 'share',
-      //landscape: 'portrait', 86mm x 54mm
-      fileName: 'voter slip.pdf'
-    };
-    this.pdfGenerator.fromData(this.content, options)
-      .then((base64) => {
-        console.log('OK', base64);
-      }).catch((error) => {
-        console.log('error', error);
-      });
+  // update vote status
 
+  toggleVote() {
+    this.id = this.Vid;
+    this.voteStatusUpdate.id = Number(this.id);
+    this.showVote = !this.showVote;
+    if (this.showVote) {
+      this.voteStatusUpdate.YesNo = 'Y';
+      this.voter.updateVotedStatus(this.voteStatusUpdate.id, this.voteStatusUpdate.YesNo).subscribe(data => {
+        if (data) {
+          this.voterInfo();
+          this.ionViewWillEnter();
+          this.toast.presentToast("Vote status updated successfully!", "success", 'checkmark-circle-sharp');
+        }
+        else {
+          this.toast.presentToast("Vote status not updated", "danger", 'alert-circle-sharp');
+        }
+      }, (_err) => {
+
+      })
+    }
+    if (!this.showVote) {
+      this.voteStatusUpdate.YesNo = 'N';
+      this.voter.updateVotedStatus(this.voteStatusUpdate.id, this.voteStatusUpdate.YesNo).subscribe(data => {
+        if (data) {
+          this.voterInfo();
+          this.ionViewWillEnter();
+          this.toast.presentToast("Vote status updated successfully!", "success", 'checkmark-circle-sharp');
+        }
+        else {
+          this.toast.presentToast("Vote status not updated", "danger", 'alert-circle-sharp');
+        }
+      }, (_err) => {
+
+      })
+    }
   }
 
-  
-
-  // share() {
-  //   var options = {
-  //     message: 'Share',
-  //     url: 'https://ionicframework.com/docs/native/social-sharing',
-  //   };
-  //   this.socialSharing.shareWithOptions(options);
-  // }
-
-  //   ShareWhatsapp() {
-  //     this.socialSharing.shareViaWhatsApp(this.ImagePath);
-  //     console.log(this.ImagePath)
-  //   }
-  // }
-
-  ShareWhatsapp() {
-    this.socialSharing.shareViaWhatsApp
-      (
-        this.myDiv.nativeElement.innerText
-        + '\n' + this.tr1.nativeElement.innerText
-        + '\n' + this.tr2.nativeElement.innerText
-        + '\n' + this.tr3.nativeElement.innerText
-        + '\n' + this.tr4.nativeElement.innerText
-        + '\n' + this.tr5.nativeElement.innerText
-        + '\n' + this.tr6.nativeElement.innerText
-        + '\n' + this.tr7.nativeElement.innerText
-      );
-    //console.log(this.tr1.nativeElement.innerText);
-  }
+  // share whatsapp slip
 
   ShareWhatsapp1() {
     //const Mobile = this.VoterListByUser.mobileNo;
@@ -955,13 +595,72 @@ ngAfterViewInit(){
       )
   }
 
+  // voter select color for supporter
 
-  // ShareWhatsapp2() {
-  //   debugger;
-  //   this.socialSharing.shareViaWhatsApp(
-  //     this.tr8.nativeElement.innerText
-  //     )
-  // }
+  supporter() {
+    this.bgColor = '#0bbb5f'
+    this.id = this.Vid;
+    this.colorUpdate.id = Number(this.id);
+    this.colorUpdate.colour = 'Supporter'
+    this.voter.updateColor(this.colorUpdate.id, this.colorUpdate.colour).subscribe(data => {
+      if (data) {
+        this.voterInfo();
+      }
+    })
+  }
+
+  // voter select color for opposition
+
+  opposition() {
+    this.bgColor = '#F00'
+    this.id = this.Vid;
+    this.colorUpdate.id = Number(this.id);
+    this.colorUpdate.colour = 'Opposition'
+    this.voter.updateColor(this.colorUpdate.id, this.colorUpdate.colour).subscribe(data => {
+      if (data) {
+        this.voterInfo();
+      }
+    })
+  }
+
+  doubtful() {
+    this.bgColor = '#ffd34f'
+    this.id = this.Vid;
+    this.colorUpdate.id = Number(this.id);
+    this.colorUpdate.colour = 'Doubtful'
+    this.voter.updateColor(this.colorUpdate.id, this.colorUpdate.colour).subscribe(data => {
+      if (data) {
+        this.voterInfo();
+      }
+    })
+  }
+
+  other() {
+    this.bgColor = '#fff'
+    this.id = this.Vid;
+    this.colorUpdate.id = Number(this.id);
+    this.colorUpdate.colour = 'Other'
+    this.voter.updateColor(this.colorUpdate.id, this.colorUpdate.colour).subscribe(data => {
+      if (data) {
+        this.voterInfo();
+      }
+    })
+  }
+
+  assemblyNameLang(){
+    this.voter.getAssemblyName(this.assemblyName).subscribe(data=>{
+      this.assemblyNameByLang = data;
+    })
+  }
+
+  sameBoothVoter(columnName:any) {
+    this.columnName ==this.partNo;
+    this.router.navigate(['/list/boothwise-list', {partNumber :columnName}])
+  }
+
+  sameAddressVoter(id: any) {
+    this.router.navigate(['/voterdata-management/family', { Id: id }])
+  }
 
 }
 

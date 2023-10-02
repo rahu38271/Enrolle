@@ -33,7 +33,7 @@
           </ion-grid>
         </ion-row>
         <ion-row>
-          <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="5">
+          <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="6">
             
             <ion-card>
               <ion-card-content>
@@ -125,9 +125,9 @@
   
             </ion-card>
           </ion-col>
-          <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="7">
+          <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="6">
             <ion-card>
-              <ejs-accumulationchart id="chart-container" [tooltip]='tooltip' [title]='title' [legendSettings]='legendSettings'>
+              <ejs-accumulationchart id="chart-container" height='250' [tooltip]='tooltip' [title]='title' [legendSettings]='legendSettings'>
                 <e-accumulation-series-collection>
                     <e-accumulation-series [dataSource]='colorList' xName='x' yName='y' [dataLabel]='datalabel' [palettes]='palette1' radius="80%" innerRadius='60%'></e-accumulation-series>
                 </e-accumulation-series-collection>

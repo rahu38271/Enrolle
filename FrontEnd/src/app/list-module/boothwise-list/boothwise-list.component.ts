@@ -14,6 +14,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./boothwise-list.component.scss'],
 })
 export class BoothwiseListComponent implements OnInit {
+  id:any;
   Language:any;
   isShow = false;
   partNumber: any;
@@ -99,8 +100,9 @@ export class BoothwiseListComponent implements OnInit {
   //  }
 
        // data with id
-  voterDetails(id: number) {
-    this.router.navigate(['/voterdata-management/voter-details', id])
+  voterDetails(data) {
+    this.id = data.id;
+    this.router.navigate(['/voterdata-management/voter-details', this.id])
   }
 
   onSearchChange(SearchText: any) {

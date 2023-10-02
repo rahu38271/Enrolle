@@ -7,8 +7,6 @@ import { OtherDirectoryComponent } from './other-directory/other-directory.compo
 import { AddOtherDirectoryComponent } from './add-other-directory/add-other-directory.component'
 import { EditOtherDirectoryComponent } from './edit-other-directory/edit-other-directory.component'
 import { ImportOtherDirectoryComponent } from './import-other-directory/import-other-directory.component'
-
-import { NgxDropzoneModule } from 'ngx-dropzone';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {NgxPaginationModule} from 'ngx-pagination';
 
@@ -18,7 +16,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
     CommonModule,
     FormsModule,
     IonicModule,
-    NgxDropzoneModule,
     Ng2SearchPipeModule,
     NgxPaginationModule,
     RouterModule.forChild([{path:'', component:OtherDirectoryComponent},{path:'add-other-directory', component:AddOtherDirectoryComponent},{path:'edit-other-directory', component:EditOtherDirectoryComponent},{path:'import-other-directory', component:ImportOtherDirectoryComponent}])

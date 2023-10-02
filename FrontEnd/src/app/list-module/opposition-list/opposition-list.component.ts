@@ -14,6 +14,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./opposition-list.component.css']
 })
 export class OppositionListComponent implements OnInit {
+  id:any;
   Language: any;
   userId: any;
   roleID:any;
@@ -56,8 +57,9 @@ export class OppositionListComponent implements OnInit {
   //  }
 
     // data with id
-  voterDetails(id: number) {
-    this.router.navigate(['/voterdata-management/voter-details', id])
+  voterDetails(data) {
+    this.id = data.id;
+    this.router.navigate(['/voterdata-management/voter-details', this.id])
   }
 
    event(event:any){

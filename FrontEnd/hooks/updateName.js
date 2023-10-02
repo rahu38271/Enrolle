@@ -5,7 +5,7 @@ const et = require('elementtree');
 const http = require('http');
 
 
-const appName = 'Pollmaster' // Replace this with the dynamic app name you want
+const appName = 'Matadarmaza' // Replace this with the dynamic app name you want
 
 const configPath = path.join(__dirname, '..', 'config.xml');
 

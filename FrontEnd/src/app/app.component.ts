@@ -25,7 +25,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 //import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { IonicToastService } from './services/ionic-toast.service';
-import { Network } from '@ionic-native/network/ngx';
+//import { UpdateService } from './services/update.service';
 
 @Component({
   selector: 'app-root',
@@ -101,8 +101,8 @@ export class AppComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
     private toast:IonicToastService,
-    private network: Network,
     private translateConfigService: TranslateConfigService,
+    //private update:UpdateService,
     private platform: Platform) {
     
     this.translateConfigService.getDefaultLanguage();
@@ -110,13 +110,7 @@ export class AppComponent implements OnInit {
     this.initializeApp();
   
     platform.ready().then(() => {
-
-      androidPermissions.requestPermissions(
-        [
-          this.androidPermissions.PERMISSION.CAMERA,
-          this.androidPermissions.PERMISSION.READ_SMS
-        ]
-      );
+      //this.update.checkForUpdates();
 
     });
 
@@ -228,14 +222,8 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       //this.statusBar.styleDefault();
       this.splashScreen.hide();
-      this.network.onDisconnect().subscribe(() => {
-        this.toast.presentToast("No Internet Connection", "danger", 'alert-circle-sharp');
-      });
-  
-      this.network.onConnect().subscribe(() => {
-        // You could dismiss the alert here if needed
-      });
     });
+    
 
     this.platform.backButton.subscribeWithPriority(10, (processNextHandler) => {
       //console.log('Back press handler!');
@@ -246,6 +234,7 @@ export class AppComponent implements OnInit {
         this.showExitConfirm();
         processNextHandler();
       } else {
+        
 
         // Navigate to back page
         //console.log('Navigate to back page');

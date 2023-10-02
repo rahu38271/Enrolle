@@ -14,6 +14,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./doubtful-list.component.css']
 })
 export class DoubtfulListComponent implements OnInit {
+  id:any;
   Language:any;
   userId: any;
   roleID:any;
@@ -56,8 +57,9 @@ export class DoubtfulListComponent implements OnInit {
   //  }
 
     // data with id
-  voterDetails(id: number) {
-    this.router.navigate(['/voterdata-management/voter-details', id])
+  voterDetails(data) {
+    this.id = data.id;
+    this.router.navigate(['/voterdata-management/voter-details', this.id])
   }
 
    event(event:any){

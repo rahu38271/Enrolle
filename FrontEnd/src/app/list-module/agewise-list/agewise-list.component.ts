@@ -19,7 +19,7 @@ import { Location } from '@angular/common';
 export class AgewiseListComponent implements OnInit {
 
   isShow = false;
-
+  id:any;
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
   Language: any;
   myForm1;
@@ -96,8 +96,9 @@ export class AgewiseListComponent implements OnInit {
   //  }
 
   // data with id
-  voterDetails(id: number) {
-    this.router.navigate(['/voterdata-management/voter-details', id])
+  voterDetails(data) {
+    this.id = data.id;
+    this.router.navigate(['/voterdata-management/voter-details', this.id])
   }
 
    agewiseSearch(userId:any,roleID:any,PageNo:any,NofRow:any,Language:any) {

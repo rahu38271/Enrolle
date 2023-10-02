@@ -73,9 +73,12 @@ export class VillagewiseListComponent implements OnInit {
   //  }
 
   // data with id
-  voterDetails(id: number) {
-    this.router.navigate(['/voterdata-management/voter-details', id])
+  voterDetails(data) {
+    this.id = data.id;
+    this.router.navigate(['/voterdata-management/voter-details', this.id])
   }
+
+
 
    EditVoter(data:any){
     this.router.navigateByUrl('/voterdata-management/edit-voterdata',{state: data})

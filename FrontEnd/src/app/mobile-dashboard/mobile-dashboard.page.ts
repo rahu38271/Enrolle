@@ -4,7 +4,7 @@ import { MenuController,PopoverController } from '@ionic/angular'
 import { NotificationComponent } from '../notification/notification.component';
 import { ProfileComponent } from '../profile/profile.component'; 
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
-import { TranslateService } from '@ngx-translate/core';
+//import { TranslateService } from '@ngx-translate/core';
 import { ActionSheetController } from '@ionic/angular';
 import { VoterService } from '../services/voter.service';
 
@@ -73,6 +73,33 @@ export class MobileDashboardPage implements OnInit {
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
   }
+
+   async notification(ev: any) {
+    const popover = await this.popoverController.create({
+      component: NotificationComponent,
+      cssClass: 'my-custom-class',
+      event: ev,
+      translucent: true
+    });
+    await popover.present();
+  
+    const { role } = await popover.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+
+  async presentPopover(ev: any) {
+    const popover = await this.popoverController.create({
+      component: ProfileComponent,
+      cssClass: 'my-custom-class',
+      event: ev,
+      translucent: true
+    });
+    await popover.present();
+  
+    const { role } = await popover.onDidDismiss();
+    console.log('onDidDismiss resolved with role', role);
+  }
+
 
    ngOnInit(): void {
     

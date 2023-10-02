@@ -9,7 +9,6 @@ import { EditEventComponent } from './edit-event/edit-event.component';
 import { EventDetailsComponent } from './event-details/event-details.component';
 import { AddPdfSettingComponent } from './add-pdf-setting/add-pdf-setting.component';
 import { EditPdfSettingComponent } from './edit-pdf-setting/edit-pdf-setting.component';
-import { NgxDropzoneModule } from 'ngx-dropzone';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import {NgxPaginationModule} from 'ngx-pagination';
 
@@ -21,7 +20,6 @@ import {NgxPaginationModule} from 'ngx-pagination';
     FormsModule,
     Ng2SearchPipeModule,
     NgxPaginationModule,
-    NgxDropzoneModule,
     RouterModule.forChild([{path:'', component: EventComponent}, {path:'add-event', component: AddEventComponent}, {path:'edit-event', component: EditEventComponent}, {path:'event-details', component: EventDetailsComponent},{path:'add-pdf-setting', component: AddPdfSettingComponent}, {path:'edit-pdf-setting', component: EditPdfSettingComponent} ])
   ]
 })

@@ -4,6 +4,7 @@ import { Router } from '@angular/router'
 import { LoaderService } from 'src/app/services/loader.service'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { Location } from '@angular/common';
+import { IAccTooltipRenderEventArgs, IPointEventArgs } from '@syncfusion/ej2-angular-charts';
 
 @Component({
   selector: 'app-by-society',
@@ -17,7 +18,16 @@ export class BySocietyComponent implements OnInit {
   searchMob:string;
   id:any;
   roleId:any;
-  sociList:any;
+
+  public sociList: Object[];
+  public totalDataLael: Object;
+  public tooltip: Object;
+  public title1: String;
+  public palette1: string[];
+  
+  public pointClick(args: IPointEventArgs): void {
+    document.getElementById("lbl").innerText = "X : " + args.point.x + "\nY : " + args.point.y;
+  };
 
   constructor(
     private voter: VoterService, 
@@ -37,6 +47,10 @@ export class BySocietyComponent implements OnInit {
     this.id = localStorage.getItem("loginId");
     this.roleId = localStorage.getItem("userType");
     this.allSociData();
+    this.totalDataLael = { visible: true };
+    this.tooltip = { enable: true };
+    this.title1 = 'Societywise Data';
+    // this.palette1 = ["#178ace", "#ffb8be", "#00e1a1"]
   }
 
   society(columnName:any){

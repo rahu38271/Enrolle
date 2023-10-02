@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { LetterheadComponent } from './letterhead/letterhead.component';
-import { NgxDropzoneModule } from 'ngx-dropzone';
 import { EditLetterheadComponent } from './edit-letterhead/edit-letterhead.component';
 
 @NgModule({
@@ -13,7 +12,6 @@ import { EditLetterheadComponent } from './edit-letterhead/edit-letterhead.compo
     CommonModule,
     IonicModule,
     FormsModule,
-    NgxDropzoneModule,
     RouterModule.forChild([{path:'', component: LetterheadComponent}, {path:'edit-letterhead', component: EditLetterheadComponent}])
 
   ]

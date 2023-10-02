@@ -76,6 +76,15 @@
                   </ejs-accumulationchart>    
             </ion-card>
           </ion-col>
+          <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="4">
+            <ion-card>
+              <ejs-accumulationchart height='250' id="sociList" [tooltip]='sociTooltip' [title]='sociTitle' >
+                <e-accumulation-series-collection>
+                    <e-accumulation-series [dataSource]='sociList' xName='columnName' yName='count' [dataLabel]='sociDataLael' radius="80%" innerRadius='50%'></e-accumulation-series>
+                </e-accumulation-series-collection>
+              </ejs-accumulationchart>  
+            </ion-card>
+          </ion-col>
         </ion-row>
       </ion-grid>
   

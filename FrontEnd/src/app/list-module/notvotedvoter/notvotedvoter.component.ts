@@ -12,6 +12,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./notvotedvoter.component.css']
 })
 export class NotvotedvoterComponent implements OnInit {
+  id:any;
   isShow = false;
   Language:any;
   SearchText:any;
@@ -62,8 +63,9 @@ export class NotvotedvoterComponent implements OnInit {
   //  }
 
       // data with id
-  voterDetails(id: number) {
-    this.router.navigate(['/voterdata-management/voter-details', id])
+  voterDetails(data) {
+    this.id = data.id;
+    this.router.navigate(['/voterdata-management/voter-details', this.id])
   }
 
    notVotedList(userId:any,roleId:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){

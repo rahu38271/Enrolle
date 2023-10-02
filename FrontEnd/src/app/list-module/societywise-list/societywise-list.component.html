@@ -108,7 +108,7 @@
         </div>  -->
         <ion-searchbar *ngIf="isShow" (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value);trimInput($events)"></ion-searchbar>
         <!-- data with state -->
-        <ion-list *ngFor="let item of voterWithSoci | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems }" (click)="voterDetails(item.id)">
+        <ion-list *ngFor="let item of voterWithSoci | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems }" (click)="voterDetails(item)">
           <!-- data with id -->
           <!-- <ion-list *ngFor="let item of voterWithProf | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalCount } " (click)="voterDetails(item.id)"> -->
           <ion-item lines="none">

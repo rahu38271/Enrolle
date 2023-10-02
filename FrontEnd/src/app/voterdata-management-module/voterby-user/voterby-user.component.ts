@@ -30,7 +30,9 @@ export class VoterbyUserComponent {
   searchTerm:string;
   SearchText:any;
   birthDate:any;
-
+  vid:any;
+  Lid:any;
+  item:any;
   search() {
     this.isShow = !this.isShow
   }
@@ -54,26 +56,26 @@ export class VoterbyUserComponent {
 
   ngOnInit() {
     this.Language = this.translateConfigService.getCurrentLang();
-    this.id = localStorage.getItem("loginId");
+    this.Lid = localStorage.getItem("loginId");
     this.RoleId = localStorage.getItem("userType");
     
   }
 
   ionViewWillEnter(){
-    this.voterList(this.id, this.RoleId, this.PageNo, this.NoofRow,this.Language,this.SearchText);
+    this.voterList(this.Lid, this.RoleId, this.PageNo, this.NoofRow,this.Language,this.SearchText);
     this.totalVoterCount();
     this.AllCasts();
   }
 
   totalVoterCount() {
-    this.voter.getVoterCountByUser(this.id, this.RoleId).subscribe(data => {
+    this.voter.getVoterCountByUser(this.Lid, this.RoleId).subscribe(data => {
       this.totalCountByUser = data
     })
   }
 
 
   
-  voterList(id: any, RoleId: any, PageNo: any, NoofRow: any, Language:any,SearchText:any) {
+  voterList(Lid: any, RoleId: any, PageNo: any, NoofRow: any, Language:any,SearchText:any) {
     //this.loader.showLoading();
     this.Language = this.translateConfigService.getCurrentLang();
     if (this.Language == "kn") {
@@ -94,7 +96,7 @@ export class VoterbyUserComponent {
     else{
       this.SearchText = this.SearchText.trim();
     }
-    this.voter.getVoterByUser(id, RoleId, PageNo, NoofRow, this.Language, this.SearchText).subscribe(data => {
+    this.voter.getVoterByUser(Lid, RoleId, PageNo, NoofRow, this.Language, this.SearchText).subscribe(data => {
       if (data.length != 0) {
         //this.loader.hideLoader();
         this.voterListByUser = data;
@@ -117,7 +119,7 @@ export class VoterbyUserComponent {
 
   event(event: any) {
     this.PageNo = event;
-    this.voterList(this.id, this.RoleId, event, this.NoofRow,this.Language,this.SearchText)
+    this.voterList(this.Lid, this.RoleId, event, this.NoofRow,this.Language,this.SearchText)
   }
 
 
@@ -127,13 +129,13 @@ export class VoterbyUserComponent {
       this.SearchText = SearchText;
       this.PageNo = 1;
       this.NoofRow = this.totalCount;
-      this.voterList(this.id, this.RoleId, this.PageNo, this.NoofRow, this.Language, this.SearchText)
+      this.voterList(this.Lid, this.RoleId, this.PageNo, this.NoofRow, this.Language, this.SearchText)
     }
     else {
       this.SearchText = SearchText.trim();
       this.PageNo = 1;
       this.NoofRow = 25;
-      this.voter.getVoterByUser(this.id, this.RoleId, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+      this.voter.getVoterByUser(this.Lid, this.RoleId, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
         if (data.length != 0) {
           //this.loader.hideLoader();
           this.voterListByUser = data;
@@ -155,13 +157,13 @@ export class VoterbyUserComponent {
       this.SearchText = SearchText;
       this.PageNo = 1;
       this.NoofRow = this.totalCount;
-      this.voterList(this.id, this.RoleId, this.PageNo, this.NoofRow, this.Language, this.SearchText)
+      this.voterList(this.Lid, this.RoleId, this.PageNo, this.NoofRow, this.Language, this.SearchText)
     }
     else {
       this.SearchText = SearchText.trim();
       this.PageNo = 1;
       this.NoofRow = 25;
-      this.voter.getVoterByUser(this.id, this.RoleId, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+      this.voter.getVoterByUser(this.Lid, this.RoleId, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
         if (data) {
           //this.loader.hideLoader();
           this.voterListByUser = data;
@@ -180,9 +182,22 @@ export class VoterbyUserComponent {
   // }
 
   // data with id
-  voterDetails(id: number) {
-    this.router.navigate(['/voterdata-management/voter-details', id])
+  // voterDetails(id: number) {
+  //   this.router.navigate(['/voterdata-management/voter-details', id])
+  // }
+
+  voterDetails(data){
+    this.id = data.id;
+    this.router.navigate(['/voterdata-management/voter-details', this.id])
+    
   }
+
+  // voterInfo(data){
+  //   this.id = data.id;
+  //   this.router.navigate(['/voterdata-management/voter-info', this.id])
+  // }
+
+
 
   AllCasts(){
     if (this.Language == "kn") {

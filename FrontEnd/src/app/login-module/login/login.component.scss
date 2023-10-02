@@ -105,7 +105,8 @@ ion-content {
     }
     form {
         width: 90%;
-        margin: 5px auto;
+    margin: 0px auto;
+    padding: 50px 0px 30px 0px;
     }
 
     ::placeholder {
@@ -253,7 +254,7 @@ ion-slide img {
 
  .infoBox {
     width: 75%;
-margin: 95px auto;
+margin: 65px auto;
 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 

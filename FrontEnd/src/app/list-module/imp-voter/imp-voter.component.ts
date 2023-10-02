@@ -14,6 +14,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./imp-voter.component.css']
 })
 export class ImpVoterComponent implements OnInit {
+  id:any;
   Language: any;
   isShow = false;
   impVoterData: any;
@@ -64,8 +65,9 @@ export class ImpVoterComponent implements OnInit {
   // }
 
   // data with id
-  voterDetails(id: number) {
-    this.router.navigate(['/voterdata-management/voter-details', id])
+  voterDetails(data) {
+    this.id = data.id;
+    this.router.navigate(['/voterdata-management/voter-details', this.id])
   }
 
   impVoterList(userId: any, roleID: any, PageNo: any, NoofRow: any, Language: any, SearchText: any) {

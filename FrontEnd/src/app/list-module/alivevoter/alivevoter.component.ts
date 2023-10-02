@@ -12,7 +12,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./alivevoter.component.css']
 })
 export class AlivevoterComponent implements OnInit {
-
+  id:any;
   isShow = false;
   Language:any;
   SearchText:any;
@@ -63,8 +63,9 @@ export class AlivevoterComponent implements OnInit {
   //  }
 
   // data with id
-  voterDetails(id: number) {
-    this.router.navigate(['/voterdata-management/voter-details', id])
+  voterDetails(data) {
+    this.id = data.id;
+    this.router.navigate(['/voterdata-management/voter-details', this.id])
   }
 
    aliveVoter(userId:any,roleId:any,PageNo:any,NoofRow:any,Language:any,SearchText:any){

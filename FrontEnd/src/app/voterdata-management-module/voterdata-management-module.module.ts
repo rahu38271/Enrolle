@@ -20,9 +20,11 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { HttpClientModule } from '@angular/common/http';
 import { TranslateModule } from '@ngx-translate/core';
+import { VoterInfoComponent } from './voter-info/voter-info.component';
+
 
 @NgModule({
-  declarations: [VoterdataManagementComponent,EditVoterdataComponent,AddVoterComponent,ImportVoterdataComponent,VoterDetailsComponent, FamilyComponent, VoterbyUserComponent],
+  declarations: [VoterdataManagementComponent,EditVoterdataComponent,AddVoterComponent,ImportVoterdataComponent,VoterDetailsComponent, FamilyComponent, VoterbyUserComponent, VoterInfoComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -41,7 +43,9 @@ import { TranslateModule } from '@ngx-translate/core';
         {path:'add-voter', component:AddVoterComponent},
         {path:'import-voter', component:ImportVoterdataComponent},
         //{path:'voter-details', component:VoterDetailsComponent},  
-        {path:'voter-details/:id', component:VoterDetailsComponent},  
+        {path:'voter-details/:id', component:VoterDetailsComponent}, 
+        {path:'voter-info/:id', component:VoterInfoComponent},  
+        
         {path:'family', component:FamilyComponent}, 
         {path:'voterby-user', component:VoterbyUserComponent} ])
   ],
