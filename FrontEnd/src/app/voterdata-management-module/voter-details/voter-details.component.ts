@@ -9,6 +9,7 @@ import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { ModalController } from '@ionic/angular';
 import { IonModal,NavController,PopoverController } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
+import { SMS } from '@ionic-native/sms/ngx';
 
 @Component({
   selector: 'app-voter-details',
@@ -59,6 +60,7 @@ export class VoterDetailsComponent  {
   setAlive:any;
   setProf:any;
   setCaste:any;
+  ColoumnValue: any;
   closeModal() {
     this.modalCtrl.dismiss();
   }
@@ -117,6 +119,7 @@ export class VoterDetailsComponent  {
     private socialSharing: SocialSharing,
     public popoverController: PopoverController,
     public modalCtrl: ModalController,
+    private sms: SMS
   ) {
     this.Language = this.translateConfigService.getCurrentLang();
     if(this.Language == 'en'){
@@ -164,7 +167,6 @@ export class VoterDetailsComponent  {
     this.voter.getVoterById(this.Vid,this.Language).subscribe(data=>{
       if(data){
         this.loader.hideLoader();
-        console.log(data);
         this.voterInfoData = data;
         this.setAddress = data[0].address;
         this.setMobile = data[0].mobileNo;
@@ -203,13 +205,16 @@ export class VoterDetailsComponent  {
           this.bgColor = '#fff'
         }
         if (this.setAlive == "Y") {
-          this.deadAlive.YesNo = 1
+          this.voterInfoData.isAlive = "Y"
+          this.deadAlive.YesNo = "Y"
         }
         else if (this.setAlive == "N") {
-          this.deadAlive.YesNo = 0
+          this.voterInfoData.isAlive = "N"
+          this.deadAlive.YesNo = "N"
         }
         else if (this.setAlive == null) {
-          this.deadAlive.YesNo = ''
+          this.voterInfoData.isAlive = ''
+          this.deadAlive.YesNo = ""
         }
         this.adrsUpdate.Address = this.setAddress;
         this.mobUpdate.Mobile = this.setMobile;
@@ -230,6 +235,7 @@ export class VoterDetailsComponent  {
       }
     },(err)=>{
       this.loader.hideLoader();
+      
     })
   
   }
@@ -335,9 +341,11 @@ export class VoterDetailsComponent  {
   addProfession(){
     debugger;
     this.voter.addProf(this.professionModal.ProfessionName).subscribe(data=>{
-      this.allProfession();
+      if(data){
+        this.professionModal = {};
         this.closeModal();
         this.toast.presentToast("profession added successfully!", "success", 'checkmark-circle-sharp');
+      }
     })
   }
 
@@ -399,6 +407,7 @@ export class VoterDetailsComponent  {
     })
   }
 
+  // change caste from select dropdown
   AllCasts1(ColoumnValue){
     this.id = this.Vid;
     this.CasteUpdate.Id = Number(this.id);
@@ -413,7 +422,7 @@ export class VoterDetailsComponent  {
       if (data) {
         this.voterInfo();
         this.closeModal();
-        this.toast.presentToast("Caste updated successfully!", "success", 'checkmark-circle-sharp');
+        this.toast.presentToast("Caste11 updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
 
@@ -423,26 +432,27 @@ export class VoterDetailsComponent  {
     })
   }
 
-  // add Caste
+  // add Caste 
 
-  saveCaste() {
-    this.id = this.Vid;
-    this.CasteUpdate.Id = Number(this.id);
-    this.CasteUpdate.ColoumnName = "Caste"
-    this.CasteUpdate.ColoumnValue = this.CasteUpdate.ColoumnValue;
-    this.voter.updateCaste(this.CasteUpdate.Id, this.CasteUpdate.ColoumnName, this.CasteUpdate.ColoumnValue).subscribe(data => {
-      if (data) {
-        this.voterInfo();
-        this.closeModal();
-        this.ionViewWillEnter();
-        this.toast.presentToast("Caste updated successfully!", "success", 'checkmark-circle-sharp');
-      }
-      else {
+  addCaste() {
+    // debugger;
+    // this.id = this.Vid;
+    // this.CasteUpdate.Id = Number(this.id);
+    // this.CasteUpdate.ColoumnName = "Caste"
+    // this.CasteUpdate.ColoumnValue = this.CasteUpdate.ColoumnValue;
+    // this.voter.updateCaste(this.CasteUpdate.Id, this.CasteUpdate.ColoumnName, this.CasteUpdate.ColoumnValue).subscribe(data => {
+    //   if (data) {
+    //     this.voterInfo();
+    //     this.closeModal();
+    //     this.ionViewWillEnter();
+    //     this.toast.presentToast("Caste2 updated successfully!", "success", 'checkmark-circle-sharp');
+    //   }
+    //   else {
 
-      }
-    }, (err) => {
+    //   }
+    // }, (err) => {
 
-    })
+    // })
   }
 
   allProfession(){
@@ -595,6 +605,32 @@ export class VoterDetailsComponent  {
       )
   }
 
+  // shate text sms
+
+  sendSMS(){
+    const phoneNumber = this.setMobile // Replace with the recipient's phone number
+    //const message = 'Hello, this is a test SMS!'; // Replace with your message
+    const message = 
+    this.myDiv.nativeElement.innerText
+    + '\n' + this.tr1.nativeElement.innerText
+    + '\n' + this.tr2.nativeElement.innerText
+    + '\n' + this.tr3.nativeElement.innerText
+    + '\n' + this.tr4.nativeElement.innerText
+    + '\n' + this.tr5.nativeElement.innerText
+    + '\n' + this.tr6.nativeElement.innerText
+    + '\n' + this.tr7.nativeElement.innerText
+    + '\n' + '----------------------------------------------------'
+    + '\n' + this.p.nativeElement.innerText
+    this.sms.send(phoneNumber, message)
+      .then(() => {
+        
+        console.log('SMS sent successfully');
+      })
+      .catch((error) => {
+        console.error('Error sending SMS:', error);
+      });
+  }
+
   // voter select color for supporter
 
   supporter() {
@@ -660,6 +696,10 @@ export class VoterDetailsComponent  {
 
   sameAddressVoter(id: any) {
     this.router.navigate(['/voterdata-management/family', { Id: id }])
+  }
+
+  EditSurvey(data:any){
+    this.router.navigateByUrl('/survey/edit-survey', {state:data});
   }
 
 }

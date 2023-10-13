@@ -80,12 +80,14 @@
           </ion-grid>
 
         </ion-col>
-        <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="7">
-          <ejs-accumulationchart height='350' id="casteData" [tooltip]='tooltip' [title]='title1' >
-            <e-accumulation-series-collection>
-                <e-accumulation-series [dataSource]='casteData' xName='columnName' yName='count' [dataLabel]='totalDataLael' radius="80%" [palettes]='palette1' innerRadius='50%'></e-accumulation-series>
-            </e-accumulation-series-collection>
-          </ejs-accumulationchart>     
+        <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="7" class="graph">
+          <ion-card>
+            <ejs-accumulationchart height='350' id="casteData" [tooltip]='tooltip' [title]='title1' [border]="borderSettings">
+              <e-accumulation-series-collection>
+                  <e-accumulation-series [dataSource]='casteData' xName='columnName' yName='count' [dataLabel]='totalDataLael' radius="80%" [palettes]='palette1' innerRadius='50%'></e-accumulation-series>
+              </e-accumulation-series-collection>
+            </ejs-accumulationchart>   
+          </ion-card>  
         </ion-col>
       </ion-row>
     </ion-grid>

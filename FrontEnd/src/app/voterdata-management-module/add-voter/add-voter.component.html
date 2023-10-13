@@ -33,8 +33,8 @@
           </ion-col>
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
-            <ion-label> Part No. </ion-label>
-            <ion-input maxlength="4" (keypress)="keyPressNumbers($event)" name="partNo" [(ngModel)]="addVoterModal.PartNo" class="form-control"></ion-input>
+            <ion-label> Part No. <span>*</span></ion-label>
+            <ion-input  maxlength="4" (keypress)="keyPressNumbers($event)" name="partNo" [(ngModel)]="addVoterModal.PartNo" class="form-control" required></ion-input>
               <!-- <ion-select type="number" name="partNo" [(ngModel)]="addVoterModal.PartNo" placeholder="Select" interface="popover" class="form-control">
                 <ion-select-option class="select_option" value="Part No. 1"> Part No. 1</ion-select-option>
                 <ion-select-option class="select_option" value="Part No. 2">Part No. 2</ion-select-option>
@@ -104,7 +104,7 @@
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Voter ID. <span>*</span></ion-label>
-              <ion-input (keypress)="omit_special_char($event)" maxlength="10" minlength="10" [(ngModel)]="addVoterModal.VotingCardNo" name="votingCard" class="form-control text-uppercase"></ion-input>
+              <ion-input (keypress)="omit_special_char($event)" maxlength="10" minlength="10" [(ngModel)]="addVoterModal.VotingCardNo" name="votingCard" class="form-control text-uppercase" required></ion-input>
           </ion-col>
 
 
@@ -254,34 +254,23 @@
 
           
 
-          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+          <!-- <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Ward </ion-label>
-              <!-- <ion-select
-                idlDefault 
-                name="Ward" 
-                [(ngModel)]="addVoterModal.Ward" 
-                placeholder="Select"  
-                class="form-control"
-              >
-                <ion-select-option class="select_option" *ngFor="let item of wardList" [value]="item.wardName"> 
-                  {{item.wardName}}
-                </ion-select-option>
-              </ion-select> -->
               <ng-select name="Ward" [(ngModel)]="addVoterModal.Ward" #Ward="ngModel" placeholder="Select Ward">
                 <ng-option *ngFor="let item of wardList" [value]="item.wardName">
                   {{item.wardName}}
                 </ng-option>
              </ng-select>
-          </ion-col>
+          </ion-col> -->
 
-          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+          <!-- <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Booth </ion-label>
               <ng-select name="Booth" [(ngModel)]="addVoterModal.Booth" #Booth="ngModel" placeholder="Select Booth">
                 <ng-option *ngFor="let item of boothList" [value]="item.boothName">
                   {{item.boothName}}
                 </ng-option>
              </ng-select>
-          </ion-col>
+          </ion-col> -->
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Village </ion-label>

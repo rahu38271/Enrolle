@@ -16,7 +16,6 @@ import { LoaderService } from 'src/app/services/loader.service';
   styleUrls: ['./all-complaints.component.css']
 })
 export class AllComplaintsComponent implements OnInit {
-
   isShow = false;
   allComplaints: any;
   fromDate = '';
@@ -73,6 +72,8 @@ export class AllComplaintsComponent implements OnInit {
     
   }
 
+  
+
   ionViewWillEnter() {
     this.complaintList(this.PageNo, this.NoofRow, this.SearchText);
   }
@@ -125,6 +126,7 @@ export class AllComplaintsComponent implements OnInit {
   }
 
   downloadFile(event: any) {
+    debugger;
     this.Id = Number(event.target.id);
     this.loader.showLoading();
     this.complaint.getFile(this.Id).subscribe((data: Blob) => {

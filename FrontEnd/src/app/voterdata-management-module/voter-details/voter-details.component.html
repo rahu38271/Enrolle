@@ -54,7 +54,7 @@
         </ion-col>
 
         <ion-col>
-          <img src="./assets/img/clipboard.png" routerLink="/survey" alt="">
+          <img src="./assets/img/clipboard.png" (click)="EditSurvey(item)" alt="">
         </ion-col>
 
         <ion-col id="click-trigger">
@@ -427,9 +427,9 @@
               <ion-radio-group name="isAlive" [(ngModel)]="item.isAlive">
                 <div class="radioBtn">
                   <ion-icon name="add-circle-outline" id="deadAlive"></ion-icon>
-                  <ion-radio [value]="0" disabled></ion-radio>
+                  <ion-radio value="N" disabled></ion-radio>
                   <ion-label>{{'No' | translate}}</ion-label>
-                  <ion-radio [value]="1" disabled></ion-radio>
+                  <ion-radio value="Y" disabled></ion-radio>
                   <ion-label>{{'Yes' | translate}}</ion-label>
                 </div>
               </ion-radio-group>
@@ -618,7 +618,7 @@
                     <ion-button color="danger" size="medium" (click)="closeModal()">
                       {{'Cancel' | translate}}
                     </ion-button>
-                    <ion-button type="submit" color="success" size="medium" (click)="saveCaste()" [disabled]="!f.form.valid">
+                    <ion-button type="submit" color="success" size="medium" (click)="addCaste()" [disabled]="!f.form.valid">
                       {{'Submit' | translate}}
                     </ion-button>
                     
@@ -944,7 +944,7 @@
           <ion-button size="block"> {{'Print' | translate}}</ion-button>
         </ion-col>
         <ion-col size-xs="3">
-          <ion-button size="block">Text SMS</ion-button>
+          <ion-button size="block" (click)="sendSMS()">Text SMS</ion-button>
         </ion-col>
       </ion-row>
       <!-- <ion-row>

@@ -13,7 +13,8 @@ import { Router,ActivatedRoute } from '@angular/router';
 export class EditLetterComponent implements OnInit {
 
   @ViewChild('file', { static: false }) fileInput: ElementRef; //declaration
-
+  progress = 0;
+  uploading=false;
   districtList: any;
   talukaList: any;
   letter:any={};
@@ -24,7 +25,9 @@ export class EditLetterComponent implements OnInit {
   fileSize:any;
   fileType:any;
   fileName:any;
-
+  selectedFile: any;
+  year:number=new Date().getFullYear();
+  maxDate:String=new Date().toISOString();
   constructor(
     public contact: ContactService,
     private loader:LoaderService,
@@ -101,27 +104,15 @@ export class EditLetterComponent implements OnInit {
   }
 
   onFileSelected(event:any){
-    const file:File = event.target.files[0];
+    const file: File = event.target.files[0];
     this.file = file;
     this.fileSize = file.size;
     this.fileType = file.type;
-    this.fileName = file.name;
+     
     if (this.fileSize >= 10000000) {
       this.toast.presentToast("Maximum file size is 10 MB", "danger", 'checkmark-circle-sharp');
-      //this.disabled = true;
     }
-    else {
-      this.toast.presentToast("File added successfully!", "success", 'checkmark-circle-sharp');
-    }
-    //this.fileSize = this.fileSize + Math.round(this.fileSize/1024).toFixed(2) + " KB";
-    if (this.fileSize < 1000000) {
-      this.fileSize = Math.round(this.fileSize / 1024).toFixed(2) + " KB";
-    }
-    else {
-      this.fileSize = (this.fileSize / 1048576).toFixed(2) + " MB";
-      console.log(this.fileSize)
-    }
-    if (
+    else if(
       this.fileType == "image/jpg" ||
       this.fileType == "image/jpeg" ||
       this.fileType == "image/png" ||
@@ -131,20 +122,44 @@ export class EditLetterComponent implements OnInit {
       this.fileType == "video/webm" ||
       this.fileType == "video/flv" ||
       this.fileType == "video/mov" ||
-      this.fileType == "application/pdf"
-    ) {
-      this.fileType = this.fileType;
-      this.fileSize = this.fileSize;
+      this.fileType == "application/pdf" &&
+      this.fileSize < 10000000
+    ){
+      this.uploading=true;
+    //Simulate file upload progress (for demonstration purposes)
+    const interval = setInterval(() => {
+      this.progress += 10;
+      if (this.progress >= 100) {
+        clearInterval(interval);
+        this.progress = 100;
+        this.uploading=false;
+        this.toast.presentToast("File added successfully!", "success", 'checkmark-circle-sharp');
+      }
+    }, 100);
+    }
+   
+    else {
+      this.toast.presentToast("This file format is not allowed.", "danger", 'alert-circle-sharp');
+    }
+    if (this.fileSize < 1000000) {
+      this.fileSize = Math.round(this.fileSize / 1024).toFixed(2) + " KB";
     }
     else {
-      //this.disabled = true;
-      this.toast.presentToast("This file format is not allowed.", "danger", 'alert-circle-sharp');
+      this.fileSize = (this.fileSize / 1048576).toFixed(2) + " MB";
+      console.log(this.fileSize)
     }
   }
 
   updateLetter(){
+    debugger;
     this.letter.id = this.letter.id
     this.letter = JSON.stringify(this.letter);
+    if (this.file == undefined) {
+      this.file = ''
+    }
+    else {
+      this.file = this.file;
+    }
     this.loader.showLoading();
     this.letterService.addSingleLetter(this.letter,this.file).subscribe(data=>{
       if(data){

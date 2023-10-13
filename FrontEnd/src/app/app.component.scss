@@ -152,7 +152,7 @@ h4 {
   .web {
     display: none !important;
   }
-
+  
 
 }
 
@@ -160,6 +160,7 @@ h4 {
   .android {
     display: none !important;
   }
+ 
 }
 
 ion-toolbar ion-icon {
@@ -262,78 +263,79 @@ ion-menu-toggle ion-list {
 
 @media screen and (min-width: 992px) and (max-width: 1000px) {
   ion-header {
-    padding-left: 22%;
+    padding-left: 20%;
   }
 }
 
 @media screen and (min-width: 1001px) and (max-width: 1030px) {
   ion-header {
-    padding-left: 22%;
+    padding-left: 20%;
   }
 }
 
 @media screen and (min-width: 1031px) and (max-width: 1060px) {
   ion-header {
-    padding-left: 21%;
+    padding-left: 19%;
   }
 }
 
 @media screen and (min-width: 1061px) and (max-width: 1090px) {
   ion-header {
-    padding-left: 20%;
+    padding-left: 19%;
   }
 }
 
 @media screen and (min-width: 1091px) and (max-width: 1120px) {
   ion-header {
-    padding-left: 20%;
+    padding-left: 18%;
   }
 }
 
 @media screen and (min-width: 1121px) and (max-width: 1150px) {
   ion-header {
-    padding-left: 19%;
+    padding-left: 18%;
   }
 }
 
 @media screen and (min-width: 1151px) and (max-width: 1180px) {
   ion-header {
-    padding-left: 19%;
+    padding-left: 17%;
   }
 }
 
 @media screen and (min-width: 1181px) and (max-width: 1210px) {
   ion-header {
-    padding-left: 18%;
+    padding-left: 17%;
   }
 }
 
 @media screen and (min-width: 1211px) and (max-width: 1240px) {
   ion-header {
-    padding-left: 18%;
+    padding-left: 17%;
   }
 }
 
 @media screen and (min-width: 1241px) and (max-width: 1270px) {
   ion-header {
-    padding-left: 17%;
+    padding-left: 16%;
   }
 }
 
 @media screen and (min-width: 1271px) and (max-width: 1300px) {
   ion-header {
-    padding-left: 17%;
+    padding-left: 16%;
   }
 }
 
 @media screen and (min-width: 1300px) {
   ion-header {
-    padding-left: 16%;
+    padding-left: 15%;
   }
 }
 
 ion-menu-toggle ion-list {
   padding-top: 0px !important;
+  padding-bottom: 0px !important;
 }
 
 ion-list ion-item ion-avatar {
@@ -351,7 +353,7 @@ ion-list ion-item ion-avatar {
 
   ion-menu-toggle ion-list {
     padding-top: 0px !important;
-    height: -webkit-fill-available;
+    //height: -webkit-fill-available;
   }
 
   .mobileView {
@@ -432,4 +434,25 @@ ion-list ion-item ion-avatar {
     font-size: 26px;
     font-weight: 500;
   }
+}
+
+.nameRole {
+  position: fixed;
+  z-index: 13;
+  width: 200px;
+}
+
+
+@media screen and (max-width:300px){
+  .actualMenu {
+    z-index: 12;
+    width: 200px !important;
+  }
+}
+
+.actualMenu {
+  z-index: 12;
+  width: 200px !important;
+  position: absolute;
+    top: 80px;
 }

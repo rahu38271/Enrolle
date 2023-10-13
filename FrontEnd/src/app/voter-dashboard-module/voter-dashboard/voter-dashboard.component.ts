@@ -98,7 +98,6 @@ export class VoterDashboardComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    debugger;
     this.id = localStorage.getItem("loginId");
     this.roleId = localStorage.getItem("userType");
     this.UserId = localStorage.getItem("loginId");

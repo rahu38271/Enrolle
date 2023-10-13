@@ -3,10 +3,11 @@ import { LoadingController } from '@ionic/angular';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { ContactService } from 'src/app/services/contact.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, } from '@angular/common/http';
 import * as  XLSX from 'xlsx';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-import-contact',
@@ -14,20 +15,25 @@ import { Router } from '@angular/router';
   styleUrls: ['./import-contact.component.scss'],
 })
 export class ImportContactComponent implements OnInit {
-
-
+  uploadProgress: number = 0;
   file: any;
   excel = [];
-
   obj: any = {};
   arraylist: any;
   excelUploadedData: any = [];
   modal: any;
   f;
-  disabled:boolean= true;
+  disabled: boolean = true;
   myForm: any;
 
-  constructor(private router:Router, public loadingController: LoadingController, private toast: IonicToastService, private loader: LoaderService, private contact: ContactService, private http: HttpClient) { }
+  constructor(
+    private router: Router,
+    public loadingController: LoadingController,
+    private toast: IonicToastService,
+    private loader: LoaderService,
+    private contact: ContactService,
+    private http: HttpClient
+  ) { }
 
   ngOnInit() {
 
@@ -62,7 +68,7 @@ export class ImportContactComponent implements OnInit {
       var worksheet = workbook.Sheets[first_sheet_name];
       //console.log(XLSX.utils.sheet_to_json(worksheet, { raw: true }));
       this.arraylist = XLSX.utils.sheet_to_json(worksheet, { raw: true });
-      
+
       if (this.arraylist.length > 0) {
         // this.spinner.show(); 
         this.obj = (this.arraylist)[0];
@@ -76,9 +82,9 @@ export class ImportContactComponent implements OnInit {
       }
       else {
         this.toast.presentToast("List is Empty!", "danger", 'alert-circle-sharp')
-        this.disabled = true; 
+        this.disabled = true;
       }
-      
+
       //arraylist = arraylist.map((u: any) => ({ value: u.vin }));
       if (this.arraylist.length > 0) {
         for (var i = 0; i < this.arraylist.length; i++) {
@@ -93,31 +99,30 @@ export class ImportContactComponent implements OnInit {
           //   var Dob = '1900-01-01T00:00:00'
           // }
 
-          if(this.arraylist[i].DateofBirth != undefined){
+          if (this.arraylist[i].DateofBirth != undefined) {
             var rawdob = this.arraylist[i].DateofBirth;
             var DB = new Date((rawdob - 25569) * 86400000);
-            if(DB.toString() !== 'Invalid Date'){
+            if (DB.toString() !== 'Invalid Date') {
               var Dob = DB.toISOString().replace(/.\d+Z$/g, "");
             }
-            else{
+            else {
               var Dob = '1900-01-01T00:00:00'
             }
           }
-          else{
+          else {
             var Dob = '1900-01-01T00:00:00'
           }
 
-          if(this.arraylist[i].AnniversaryDate!=undefined)
-          {
-           var rawanniversay_date = this.arraylist[i].AnniversaryDate;
-           var AD = new Date((rawanniversay_date - 25569) * 86400000);
-           if(AD.toString() !== 'Invalid Date'){
-            var Anniversaydate = AD.toISOString().replace(/.\d+Z$/g, "");
-           }
-           else{
-            var Anniversaydate = '1900-01-01T00:00:00'
-           }
-           
+          if (this.arraylist[i].AnniversaryDate != undefined) {
+            var rawanniversay_date = this.arraylist[i].AnniversaryDate;
+            var AD = new Date((rawanniversay_date - 25569) * 86400000);
+            if (AD.toString() !== 'Invalid Date') {
+              var Anniversaydate = AD.toISOString().replace(/.\d+Z$/g, "");
+            }
+            else {
+              var Anniversaydate = '1900-01-01T00:00:00'
+            }
+
           }
 
           //for birthdate if excel column is empty
@@ -128,47 +133,47 @@ export class ImportContactComponent implements OnInit {
             this.arraylist[i].DateofBirth = Dob;
           }
 
-          if(this.arraylist[i].AnniversaryDate == undefined ){
+          if (this.arraylist[i].AnniversaryDate == undefined) {
             this.arraylist[i].AnniversaryDate = '1900-01-01T00:00:00';
           }
-          else{
+          else {
             this.arraylist[i].AnniversaryDate = Anniversaydate;
           }
 
           // for mobile number if excel column is empty
-          if(this.arraylist[i].Mobile == undefined){
+          if (this.arraylist[i].Mobile == undefined) {
             this.arraylist[i].Mobile = '';
           }
-          else{
+          else {
             this.arraylist[i].Mobile = this.arraylist[i].Mobile.toString();
             var mobLength = this.arraylist[i].Mobile.length;
-            if(mobLength !== 10){
+            if (mobLength !== 10) {
               this.arraylist[i].Mobile = ''
             }
-            else{
+            else {
               this.arraylist[i].Mobile = this.arraylist[i].Mobile.toString();
             }
           }
 
           // for alternate mobile number if excel column is empty
-          if(this.arraylist[i].AlternateMobile == undefined){
+          if (this.arraylist[i].AlternateMobile == undefined) {
             this.arraylist[i].AlternateMobile = '';
           }
-          else{
+          else {
             this.arraylist[i].AlternateMobile = this.arraylist[i].AlternateMobile.toString();
             var mobLength = this.arraylist[i].AlternateMobile.length;
-            if(mobLength !== 10){
+            if (mobLength !== 10) {
               this.arraylist[i].AlternateMobile = ''
             }
-            else{
+            else {
               this.arraylist[i].AlternateMobile = this.arraylist[i].AlternateMobile.toString();
             }
           }
 
-          
-         
 
-         debugger;
+
+
+          debugger;
           var obj = {
             VilageName: this.arraylist[i].VillageName,
             FullName: this.arraylist[i].Name,
@@ -184,10 +189,9 @@ export class ImportContactComponent implements OnInit {
           debugger;
           console.log(this.excelUploadedData);
           this.excelUploadedData.push(obj);
-       
         }
       }
-      else{
+      else {
         alert("Invalid Data");
       }
       //this.excelUploadedData = arraylist;

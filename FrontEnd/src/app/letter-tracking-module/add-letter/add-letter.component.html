@@ -297,12 +297,15 @@
                 <ion-input name="Branch" class="text-capitalize form-control" ></ion-input>
             </ion-col> -->
 
-            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="fileUpload">
+            <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" class="fileUpload">
               <div class="flex">
                 <ion-label> File <span>*</span> <span>( image, video, pdf )</span> </ion-label>
                 <ion-label> Size - <span> {{fileSize}} </span> </ion-label>
               </div>
                 <input type="file" name="file" (change)="onFileSelected($event)" class="form-control">
+                <div class="progress-container" *ngIf="uploading">
+                  <div class="progress-bar" [style.width.%]="progress">{{ progress }}%</div>
+                </div>
             </ion-col>
 
           <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">

@@ -28,8 +28,8 @@
                 </ng-select>
           </ion-col>
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
-            <ion-label> Part No. </ion-label>
-            <ion-input maxlength="4" (keypress)="keyPressNumbers($event)" name="partNo" [(ngModel)]="EditData.partNo" class="form-control"></ion-input>
+            <ion-label> Part No. <span>*</span></ion-label>
+            <ion-input maxlength="4" (keypress)="keyPressNumbers($event)" name="partNo" [(ngModel)]="EditData.partNo" class="form-control" required></ion-input>
           </ion-col>
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label>Voter Sr. No. </ion-label>
@@ -236,24 +236,23 @@
           </ion-col>
 
 
-          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+          <!-- <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Ward </ion-label>
-              
               <ng-select name="Ward" [(ngModel)]="EditData.ward"  #ward="ngModel" placeholder="Select Ward">
                 <ng-option *ngFor="let item of wardList" [value]="item.wardName">
                   {{item.wardName}}
                 </ng-option>
              </ng-select>
-          </ion-col>
+          </ion-col> -->
 
-          <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+          <!-- <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Booth </ion-label>
               <ng-select name="Booth" [(ngModel)]="EditData.booth"  #booth="ngModel" placeholder="Select Booth">
                 <ng-option *ngFor="let item of boothList" [value]="item.boothName">
                   {{item.boothName}}
                 </ng-option>
              </ng-select>
-          </ion-col>
+          </ion-col> -->
 
           <ion-col size-xl="3" size-lg="6" size-md="6" size-sm="12" size-xs="12">
             <ion-label> Village </ion-label>

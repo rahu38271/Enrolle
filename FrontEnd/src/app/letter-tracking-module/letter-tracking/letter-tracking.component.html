@@ -33,19 +33,19 @@
       </ion-grid>
     </div>
 
-    <ion-grid *ngFor="let item of allCount">
+    <ion-grid>
       <ion-row>
-        <ion-col size-xs="12" size-sm="12" size-md="12">
+        <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="6">
           
             <ion-row >
-              <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6" >
+              <ion-col size-lg="6" size-md="6" size-sm="6" size-xs="6" >
                 <ion-list class="survey-list" routerLink="/letter-tracking/all-letters">
                     <ion-item lines="none">
                       <ion-label class="contact">
                           
                           <div>
                             <h3> All Letters </h3>
-                            <h4> {{item.totalCount}} </h4>
+                            <h4> {{totalLetters}} </h4>
                           </div>
                           <i class="icofont icofont-search-document"></i>
                       </ion-label>
@@ -53,7 +53,7 @@
                 </ion-list>
               </ion-col>
 
-              <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6" >
+              <ion-col size-lg="6" size-md="6" size-sm="6" size-xs="6" >
                 <ion-list class="survey-list" routerLink="/letter-tracking/add-letter">
                     <ion-item lines="none">
                       <ion-label>
@@ -63,30 +63,30 @@
                             <h3>  Add Letter </h3>
                             <h4> - </h4>
                           </div>
-                          <i class="icofont icofont-ui-clock"></i>
+                          <i class="icofont icofont-ui-add"></i>
                         </div>
                       </ion-label>
                     </ion-item>
                 </ion-list>
               </ion-col>
 
-              <!-- <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6" >
-                <ion-list class="survey-list" routerLink="/appointment/today-appointment">
+              <ion-col size-lg="6" size-md="6" size-sm="6" size-xs="6" >
+                <ion-list class="survey-list">
                     <ion-item lines="none">
                       <ion-label>
                         <div class="contact">
-                          <i class="icofont icofont-contact-add"></i>
                           <div>
                             <h3> Today's Letters </h3>
-                            <h4> {{item.todayCount}} </h4>
+                            <h4> {{todayLetters}} </h4>
                           </div>
+                          <i class="icofont icofont-ui-clock"></i>
                         </div>
                       </ion-label>
                     </ion-item>
                 </ion-list>
-              </ion-col> -->
+              </ion-col>
       
-              <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6" >
+              <ion-col size-lg="6" size-md="6" size-sm="6" size-xs="6" >
                 <ion-list class="survey-list" routerLink="/letter-tracking/completed">
                   <ion-item lines="none">
                       <ion-label>
@@ -95,7 +95,7 @@
                           
                           <div>
                             <h3>  Completed </h3>
-                            <h4> {{item.completed}} </h4>
+                            <h4> {{compLetters}} </h4>
                           </div>
                           <i class="icofont icofont-ui-check"></i>
                         </div>
@@ -103,7 +103,7 @@
                     </ion-item>
                 </ion-list>
               </ion-col>
-              <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6" > 
+              <ion-col size-lg="6" size-md="6" size-sm="6" size-xs="6" > 
                 <ion-list class="survey-list" routerLink="/letter-tracking/pending">
                   <ion-item lines="none" >
                       <ion-label>
@@ -111,7 +111,7 @@
                         <div class="contact">
                           <div>
                             <h3> Pending </h3>
-                            <h4> {{item.pending}} </h4>
+                            <h4> {{pendLetters}} </h4>
                           </div>
                           <i class="icofont icofont-ui-close"></i>
                         </div>
@@ -120,7 +120,7 @@
                 </ion-list>
               </ion-col>
 
-              <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6">
+              <ion-col size-lg="6" size-md="6" size-sm="6" size-xs="6">
                 <ion-list class="survey-list" routerLink="/letter-tracking/by-date">
                   <ion-item lines="none">
                       <ion-label>
@@ -138,6 +138,15 @@
                 </ion-list>
               </ion-col>
             </ion-row>
+        </ion-col>
+        <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="6" class="graph">
+          <ion-card>
+            <ejs-accumulationchart height="280px" id="chart-container" [tooltip]='tooltip' [title]='title' [legendSettings]='legendSettings'>
+              <e-accumulation-series-collection>
+                  <e-accumulation-series [dataSource]='allCount' xName='x' yName='y' [dataLabel]='datalabel' [palettes]='palette1' radius="80%" innerRadius='60%'></e-accumulation-series>
+              </e-accumulation-series-collection>
+            </ejs-accumulationchart>
+          </ion-card>
         </ion-col>
       </ion-row>
     </ion-grid>

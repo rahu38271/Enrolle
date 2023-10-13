@@ -97,8 +97,8 @@ omit_special_char(event) {
         }
         this.getDistrict();
         this.getAssembly();
-        this.getWard();
-        this.getBooth();
+        //this.getWard();
+        //this.getBooth();
         this.AllCasts();
       }
 
@@ -127,21 +127,21 @@ omit_special_char(event) {
     })
   }
 
-  getWard(){
-    this.ward.getWardData().subscribe(data=>{
-      if(data.length > 0){
-        this.wardList = data;
-      }
-    })
-  }
+  // getWard(){
+  //   this.ward.getWardData().subscribe(data=>{
+  //     if(data.length > 0){
+  //       this.wardList = data;
+  //     }
+  //   })
+  // }
 
-  getBooth(){
-    this.booth.getBoothData().subscribe(data=>{
-      if(data.length > 0){
-        this.boothList = data;
-      }
-    })
-  }
+  // getBooth(){
+  //   this.booth.getBoothData().subscribe(data=>{
+  //     if(data.length > 0){
+  //       this.boothList = data;
+  //     }
+  //   })
+  // }
 
   
 

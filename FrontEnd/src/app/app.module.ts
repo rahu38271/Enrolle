@@ -19,12 +19,13 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { BluetoothSerial } from '@ionic-native/bluetooth-serial/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { HttpClientModule,HttpClient } from '@angular/common/http';
+import { HttpClientModule,HttpClient,HTTP_INTERCEPTORS  } from '@angular/common/http';
+import { ErrorInterceptorInterceptor } from './interceptor/error-interceptor.interceptor';
 import { TranslateModule, TranslateLoader,TranslateService  } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Camera } from '@ionic-native/camera/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
-
+import { SMS } from '@ionic-native/sms/ngx';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -53,7 +54,10 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
   ],
-  providers: [PDFGenerator,SocialSharing,AppVersion,AndroidPermissions,BluetoothSerial,SplashScreen,Camera, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [PDFGenerator,SMS,SocialSharing,AppVersion,AndroidPermissions,BluetoothSerial,SplashScreen,Camera, 
+    // { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: HTTP_INTERCEPTORS, useClass:  ErrorInterceptorInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

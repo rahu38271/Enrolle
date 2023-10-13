@@ -102,7 +102,11 @@
                   <ion-label> File <span>( image, video, pdf )</span> </ion-label>
                   <ion-label> Size - <span> {{fileSize}} </span> </ion-label>
                 </div>
-                <input type="file" name="file" (change)="onFileSelected($event)"  class="form-control">
+                <input type="file" name="file" (change)="onFileSelected($event)"  class="form-control" >
+                <div class="progress-container" *ngIf="uploading">
+                  <div class="progress-bar" [style.width.%]="progress">{{ progress }}%</div>
+                </div>
+                
               </ion-col>
 
               <!-- <img [src]="clickedImage" /> -->

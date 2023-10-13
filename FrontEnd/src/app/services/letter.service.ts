@@ -68,6 +68,7 @@ export class LetterService {
 
   // add letter
   addSingleLetter(letter:any,file:any){
+    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });

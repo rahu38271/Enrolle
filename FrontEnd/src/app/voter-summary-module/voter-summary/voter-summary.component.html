@@ -52,11 +52,11 @@
             <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
           </div>
           <div>
-            <ion-button class="button-download" color="success" >
-              <ion-icon name="document-sharp"></ion-icon>Excel
+            <ion-button (click)="exportExcel()" class="button-download" color="success" >
+             Excel  <ion-icon name="document-sharp"></ion-icon>
             </ion-button>
-            <ion-button class="button-download" color="success" >
-              <ion-icon name="document-sharp"></ion-icon>CSV
+            <ion-button (click)="exportToCSV()" class="button-download" color="success" >
+             CSV  <ion-icon name="document-sharp"></ion-icon>
             </ion-button>
           </div>
         </div>

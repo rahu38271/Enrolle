@@ -154,6 +154,7 @@ export class VoterService {
   }
 
   updateCaste(id:any, ColoumnName:any, ColoumnValue:any){
+    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
@@ -224,7 +225,7 @@ export class VoterService {
     return this.http.post<any>(this.url+'Voter/FilterColoumnCount',castModal,{ headers })
   }
 
-   // caste and count
+   // society and count
 
    SociData(sociModal:any){
     const headers = new HttpHeaders({
@@ -548,10 +549,11 @@ export class VoterService {
 
   // mobile matched list
 
-  getMobileMatchedList(userid:any, RoleId:any, PageNo:any, NoofRow:any){
+  getMobileMatchedList(userid:any,RoleId:any,PageNo:any,NoofRow:any){
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
+    //return this.http.get<any>(this.url+'Voter/MatchMobileDetails?userid='+userid+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow,{ headers })
     return this.http.get<any>(this.url+'Voter/MatchMobileDetails?userid='+userid+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow,{ headers })
   }
 

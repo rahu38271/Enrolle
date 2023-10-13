@@ -10,7 +10,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit-daily-news.component.scss'],
 })
 export class EditDailyNewsComponent implements OnInit {
-
+  progress = 0;
+  uploading=false;
   dailynews:any={ }
   file:any;
   @ViewChild('file', { static : false}) fileInput : ElementRef; //declaration
@@ -113,22 +114,12 @@ export class EditDailyNewsComponent implements OnInit {
     this.file = file;
     this.fileSize = file.size;
     this.fileType = file.type;
+     
     if (this.fileSize >= 10000000) {
       this.toast.presentToast("Maximum file size is 10 MB", "danger", 'checkmark-circle-sharp');
       this.disabled = true;
     }
-    else {
-      this.toast.presentToast("File added successfully!", "success", 'checkmark-circle-sharp');
-    }
-    //this.fileSize = this.fileSize + Math.round(this.fileSize/1024).toFixed(2) + " KB";
-    if (this.fileSize < 1000000) {
-      this.fileSize = Math.round(this.fileSize / 1024).toFixed(2) + " KB";
-    }
-    else {
-      this.fileSize = (this.fileSize / 1048576).toFixed(2) + " MB";
-      console.log(this.fileSize)
-    }
-    if (
+    else if(
       this.fileType == "image/jpg" ||
       this.fileType == "image/jpeg" ||
       this.fileType == "image/png" ||
@@ -138,14 +129,32 @@ export class EditDailyNewsComponent implements OnInit {
       this.fileType == "video/webm" ||
       this.fileType == "video/flv" ||
       this.fileType == "video/mov" ||
-      this.fileType == "application/pdf"
-    ) {
-      this.fileType = this.fileType;
-      this.fileSize = this.fileSize;
+      this.fileType == "application/pdf" &&
+      this.fileSize < 10000000
+    ){
+      this.uploading=true;
+    //Simulate file upload progress (for demonstration purposes)
+    const interval = setInterval(() => {
+      this.progress += 10;
+      if (this.progress >= 100) {
+        clearInterval(interval);
+        this.progress = 100;
+        this.uploading=false;
+        this.toast.presentToast("File added successfully!", "success", 'checkmark-circle-sharp');
+      }
+    }, 100);
     }
+   
     else {
       this.disabled = true;
       this.toast.presentToast("This file format is not allowed.", "danger", 'alert-circle-sharp');
+    }
+    if (this.fileSize < 1000000) {
+      this.fileSize = Math.round(this.fileSize / 1024).toFixed(2) + " KB";
+    }
+    else {
+      this.fileSize = (this.fileSize / 1048576).toFixed(2) + " MB";
+      console.log(this.fileSize)
     }
   }
 

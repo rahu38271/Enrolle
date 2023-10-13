@@ -74,33 +74,44 @@ export class TodayAnniversaryPage implements OnInit {
   }
 
   exportExcel() {
-    this.getAnniversary.forEach(e => {
-      e.anniversary = e.anniversary.split('T')[0];
-      delete e.totalCount;
-      delete e.loginUserId
-    });
-    this.excel.exportAsExcelFile(this.getAnniversary, 'anniversary');
+    this.getAnniversary.length=this.getAnniversary.length;
+    this.loader.showLoading();
+    if(this.getAnniversary.length!=0){
+      this.loader.hideLoader();
+      this.getAnniversary.forEach(e => {
+        e.anniversary = e.anniversary.split('T')[0];
+        delete e.totalCount;
+        delete e.loginUserId;
+      });
+      this.excel.exportAsExcelFile(this.getAnniversary, 'anniversary');
+      this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+    }
+    else{
+      this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+    }
   }
 
   exportToCSV() {
-    this.getAnniversary.forEach(e =>{
-      e.birthDate = e.birthDate.split('T')[0];
-      e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '': e.anniversary.split('T')[0];
-      delete e.totalCount;
-      delete e.loginUserId;
-      delete e.id;
-    })
-    this.csv.exportToCsv(this.getAnniversary, 'anniversary');
-  }
-
-  async downloadPDF() {
-    const toast = await this.toastController.create({
-      message: 'Request added to download doc.',
-      duration: 2000,
-      position: 'top',
-      color: 'primary',
-    });
-    toast.present();
+    this.getAnniversary.length=this.getAnniversary.length;
+    this.loader.showLoading();
+    if(this.getAnniversary.length!=0){
+      this.loader.hideLoader();
+      this.getAnniversary.forEach(e =>{
+        e.birthDate = e.birthDate.split('T')[0];
+        e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '': e.anniversary.split('T')[0];
+        delete e.totalCount;
+        delete e.loginUserId;
+        delete e.id;
+      })
+      this.csv.exportToCsv(this.getAnniversary, 'anniversary');
+      this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+    }
+    else{
+      this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+    }
+    
   }
 
   pdf() {

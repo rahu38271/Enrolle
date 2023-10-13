@@ -7,7 +7,8 @@ import {
   NavigationEnd,
   NavigationCancel,
   NavigationError,
-  ActivatedRoute
+  ActivatedRoute,
+  NavigationExtras
 } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { MenuController, PopoverController, AlertController   } from '@ionic/angular';
@@ -25,6 +26,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 //import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { IonicToastService } from './services/ionic-toast.service';
+import { LoginComponent } from './login-module/login/login.component';
 //import { UpdateService } from './services/update.service';
 
 @Component({
@@ -290,9 +292,12 @@ export class AppComponent implements OnInit {
   // }
 
   logOut() {
+    // const extras: NavigationExtras = { replaceUrl:true};
+    // this.router.navigate(['/'],extras);
     localStorage.removeItem("loginUser");
     localStorage.removeItem("loginId");
     localStorage.removeItem("userType");
+    localStorage.removeItem("token");
     localStorage.clear();
     this.router.navigate(['/']);
   }

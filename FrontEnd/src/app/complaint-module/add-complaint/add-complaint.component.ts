@@ -14,7 +14,8 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
   styleUrls: ['./add-complaint.component.css']
 })
 export class AddComplaintComponent implements OnInit {
-
+  progress = 0;
+  uploading=false;
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
@@ -76,39 +77,52 @@ export class AddComplaintComponent implements OnInit {
 
 
   onFileSelected(event: any) {
-    debugger;
     const file: File = event.target.files[0];
     this.file = file;
     this.fileSize = file.size;
     this.fileType = file.type;
     this.fileName = file.name;
+     
     if (this.fileSize >= 10000000) {
       this.toast.presentToast("Maximum file size is 10 MB", "danger", 'checkmark-circle-sharp');
       this.disabled = true;
     }
-    else {
-      this.toast.presentToast("File added successfully!", "success", 'checkmark-circle-sharp');
+    else if(
+      this.fileType == "image/jpg" ||
+      this.fileType == "image/jpeg" ||
+      this.fileType == "image/png" ||
+      this.fileType == "video/mp4" ||
+      this.fileType == "video/3gp" ||
+      this.fileType == "video/mkv" ||
+      this.fileType == "video/webm" ||
+      this.fileType == "video/flv" ||
+      this.fileType == "video/mov" ||
+      this.fileType == "application/pdf" &&
+      this.fileSize < 10000000
+    ){
+      this.uploading=true;
+    //Simulate file upload progress (for demonstration purposes)
+    const interval = setInterval(() => {
+      this.progress += 10;
+      if (this.progress >= 100) {
+        clearInterval(interval);
+        this.progress = 100;
+        this.uploading=false;
+        this.toast.presentToast("File added successfully!", "success", 'checkmark-circle-sharp');
+      }
+    }, 100);
     }
-
+   
+    else {
+      this.disabled = true;
+      this.toast.presentToast("This file format is not allowed.", "danger", 'alert-circle-sharp');
+    }
     if (this.fileSize < 1000000) {
       this.fileSize = Math.round(this.fileSize / 1024).toFixed(2) + " KB";
     }
     else {
       this.fileSize = (this.fileSize / 1048576).toFixed(2) + " MB";
       console.log(this.fileSize)
-    }
-    if (
-      this.fileType == "image/jpg" ||
-      this.fileType == "image/jpeg" ||
-      this.fileType == "image/png" ||
-      this.fileType == "application/pdf"
-    ) {
-      this.fileType = this.fileType;
-      this.fileSize = this.fileSize;
-    }
-    else {
-      this.disabled = true;
-      this.toast.presentToast("This file format is not allowed.", "danger", 'alert-circle-sharp');
     }
     
   }
@@ -119,6 +133,7 @@ export class AddComplaintComponent implements OnInit {
     this.societycomplaint.UserId = Number(this.UserId);
     this.societycomplaint.RoleId = Number(this.roleID);
     this.societycomplaint.UserName = this.name;
+    this.file = this.file;
     this.societycomplaint = JSON.stringify(this.societycomplaint);
     if (this.file == undefined) {
       this.file = ''

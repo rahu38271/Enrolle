@@ -51,6 +51,7 @@ export class ByCastComponent implements OnInit {
     this.totalDataLael = { visible: true };
     this.tooltip = { enable: true };
     this.title1 = 'Castewise Data';
+    
     // this.palette1 = ["#178ace", "#ffb8be", "#00e1a1"]
 
   }

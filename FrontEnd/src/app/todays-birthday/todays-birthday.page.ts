@@ -41,7 +41,7 @@ export class TodaysBirthdayPage implements OnInit {
   searchMob: string;
   searchWeb: string;
   cp: number = 1;
-  
+  dataLength:any;
   slider_state:string = "slide_out";
   toggleSlider(): void{
     // do something to change the animation_state variable
@@ -85,7 +85,7 @@ export class TodaysBirthdayPage implements OnInit {
     this.loader.showLoading();
     this.birthday.getBirthdays().subscribe(data=>{
       this.loader.hideLoader();
-      if(data != 0){
+      if(data!=0){
         this.getBirthdays = data;
         this.getBirthdays.forEach(e => {
           e.birthDate = e.birthDate.split('T')[0];
@@ -95,40 +95,50 @@ export class TodaysBirthdayPage implements OnInit {
           this.loader.hideLoader();
           this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
         }
+        this.dataLength=this.dataLength;
       },(err)=>{
         this.loader.hideLoader();
       })
   }
 
   exportExcel(){
-    this.getBirthdays.forEach(e=> {
-      e.birthDate = e.birthDate.split('T')[0];
-      delete e.totalCount;
-      delete e.loginUserId
-    });
-    this.excel.exportAsExcelFile(this.getBirthdays, 'birthday');
+    this.getBirthdays.length=this.getBirthdays.length;
+    this.loader.showLoading();
+    if(this.getBirthdays.length!=0){
+      this.loader.hideLoader();
+      this.getBirthdays.forEach(e=> {
+        e.birthDate = e.birthDate.split('T')[0];
+        delete e.totalCount;
+        delete e.loginUserId
+      });
+      this.excel.exportAsExcelFile(this.getBirthdays, 'birthday');
+      this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+    }
+    else{
+      this.loader.hideLoader();
+      this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+    }
   }
 
   exportToCSV() {
-    this.getBirthdays.forEach(e =>{
-      e.birthDate = e.birthDate.split('T')[0];
-      e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '': e.anniversary.split('T')[0];
-      delete e.totalCount;
-      delete e.loginUserId;
-      delete e.id;
-    })
-    this.csv.exportToCsv(this.getBirthdays, 'birthday');
-  }
-
-
-  async downloadExcel() {
-    const toast = await this.toastController.create({
-      message: 'Request added to export.',
-      duration: 2000,
-      position: 'top',
-      color: 'success',
-    });
-    toast.present();
+    this.getBirthdays.length=this.getBirthdays.length;
+    this.loader.showLoading();
+      if(this.getBirthdays.length!=0){
+        this.loader.hideLoader();
+        this.getBirthdays.forEach(e=>{
+          e.birthDate = e.birthDate.split('T')[0];
+          e.anniversary = e.anniversary.split('T')[0];
+          delete e.totalCount;
+          delete e.loginUserId;
+          delete e.id;
+        })
+        this.csv.exportToCsv(this.getBirthdays, 'birthday');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-sharp');
+      } 
   }
 
 

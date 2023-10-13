@@ -6,6 +6,8 @@ import { VoterService } from 'src/app/services/voter.service'
 import { Router } from '@angular/router'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ExcelService } from 'src/app/services/excel.service';
+import { CsvService } from 'src/app/services/csv.service';
 
 @Component({
   selector: 'app-voter-summary',
@@ -33,6 +35,8 @@ export class VoterSummaryComponent implements OnInit {
     private voter:VoterService, 
     private router:Router,
     public translate: TranslateService,
+    private excel: ExcelService,
+    private csv:CsvService,
     private translateConfigService: TranslateConfigService,
     ) {
     this.Language = this.translateConfigService.getCurrentLang();
@@ -101,12 +105,12 @@ export class VoterSummaryComponent implements OnInit {
     })
   }
 
-  exportexcel() {
-    const ws: xlsx.WorkSheet =
-      xlsx.utils.table_to_sheet(this.epltable.nativeElement);
-    const wb: xlsx.WorkBook = xlsx.utils.book_new();
-    xlsx.utils.book_append_sheet(wb, ws, 'Sheet1');
-    xlsx.writeFile(wb, 'epltable.xlsx');
+  exportExcel() {
+    this.excel.exportAsExcelFile(this.voterCount, 'voter summary');
+  }
+
+  exportToCSV() {
+    this.csv.exportToCsv(this.voterCount, 'voter summary');
   }
 
   pdf() {

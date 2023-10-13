@@ -43,6 +43,7 @@ export class ComplaintService {
   // }
 
   addSingleComplaint(file:any, societycomplaint:any):Observable<any>{
+    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
@@ -51,12 +52,7 @@ export class ComplaintService {
     // code to make file optional while adding complaint
     const blob = new Blob([file], {type:file.type})
     formData.append('file',blob,file.name);
-    
     formData.append('societycomplaint',societycomplaint);
-     
-    //formData.append('societycomplaint',JSON.stringify(societycomplaint));
-    //formData.append('dataoje',data);
-    //formData.append("file",fileupload);
     return this.http.post<any>(this.url+'Society/InsertUpdateSocietyComplaint', formData,{ headers })
   }
 
@@ -98,12 +94,10 @@ export class ComplaintService {
   }
 
   getFile(id:any): Observable<Blob>{
+    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
     return this.http.get(this.url+'Society/DownLoadFile?Id='+id,{responseType: "blob", reportProgress: true, headers})
   }
-
-  
-
 }

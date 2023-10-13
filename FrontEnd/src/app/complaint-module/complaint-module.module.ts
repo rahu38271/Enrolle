@@ -14,6 +14,13 @@ import { AllComplaintsComponent } from './all-complaints/all-complaints.componen
 import { TodaysComplaintComponent } from './todays-complaint/todays-complaint.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 
+import { ChartModule,AccumulationChartModule   } from '@syncfusion/ej2-angular-charts';
+import {PieSeriesService,ExportService, AccumulationTooltipService, AccumulationDataLabelService, CategoryService, DateTimeService, ScrollBarService, ColumnSeriesService, LineSeriesService, 
+    ChartAnnotationService, RangeColumnSeriesService, StackingColumnSeriesService,LegendService, TooltipService, DataLabelService,
+    StepAreaSeriesService, SplineSeriesService, StripLineService,AccumulationLegendService,
+    SelectionService, ScatterSeriesService, ZoomService, AreaSeriesService, RangeAreaSeriesService
+ } from '@syncfusion/ej2-angular-charts';
+
 @NgModule({
   declarations: [
     ComplaintComponent,
@@ -31,6 +38,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     Ng2SearchPipeModule,
     NgxPaginationModule,
     NgSelectModule,
+    ChartModule,
+    AccumulationChartModule,
     RouterModule.forChild([
       {path:'', component:ComplaintComponent},
       {path:'all-complaints', component:AllComplaintsComponent},
@@ -40,6 +49,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
       {path:'pending-complaint', component:PendingComponent},
       {path:'todays-complaint', component:TodaysComplaintComponent}
     ])
-  ]
+  ],
+  providers: [LineSeriesService,ExportService,StackingColumnSeriesService, DateTimeService, ColumnSeriesService, DataLabelService, ZoomService, StackingColumnSeriesService, CategoryService,
+    StepAreaSeriesService, SplineSeriesService, ChartAnnotationService, LegendService, TooltipService, StripLineService,
+    PieSeriesService, AccumulationTooltipService, ScrollBarService, AccumulationLegendService,  AccumulationDataLabelService, SelectionService, ScatterSeriesService, AreaSeriesService, RangeAreaSeriesService ]
 })
 export class ComplaintModuleModule { }

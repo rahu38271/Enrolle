@@ -4,6 +4,7 @@ import { ExcelService } from 'src/app/services/excel.service'
 import { CsvService } from 'src/app/services/csv.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-matched-list',
@@ -13,7 +14,7 @@ import { IonicToastService } from 'src/app/services/ionic-toast.service';
 export class MatchedListComponent implements OnInit {
 
   PageNo:any=1;
-  NoofRow:any=25;
+  NoofRow:any=10;
   userId:any;
   RoleId:any;
   matchedList:any;
@@ -24,7 +25,8 @@ export class MatchedListComponent implements OnInit {
     private excel:ExcelService,
     private csv:CsvService,
     private loader:LoaderService,
-    private toast:IonicToastService
+    private toast:IonicToastService,
+    private location:Location
   ) { }
 
   ngOnInit(): void {
@@ -33,9 +35,15 @@ export class MatchedListComponent implements OnInit {
     this.mobileMatchedList(this.userId,this.RoleId,this.PageNo,this.NoofRow);
   }
 
+  event(event:any){
+    this.PageNo = event;
+    this.mobileMatchedList(this.userId,this.RoleId,this.PageNo,this.NoofRow);
+  }  
+
   mobileMatchedList(userId:any,RoleId:any,PageNo:any,NoofRow:any){
     this.voter.getMobileMatchedList(userId,RoleId,PageNo,NoofRow).subscribe(data=>{
       if(data){
+        console.log(data);
         this.matchedList=data;
         this.totalItems = data[0].totalCount;
       }
@@ -98,6 +106,10 @@ export class MatchedListComponent implements OnInit {
     },(err)=>{
       this.loader.hideLoader();
     })
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

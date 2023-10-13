@@ -93,7 +93,7 @@ ion-accordion ion-item ion-icon {
 }
 
 ion-split-pane {
-    --side-min-width: 218px;
+    --side-min-width: 200px;
     --side-max-width: 14%;
 }
 
@@ -384,4 +384,10 @@ ion-back-button {
     background-size: cover;
     background-attachment: fixed;
     min-height: 100%;
+  }
+
+  .graph ion-card {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      border: 1px solid #e6ebf1;
+      border-radius: 0.625rem;
   }

@@ -93,6 +93,9 @@
                 (change)="onFileSelected($event)" 
                 class="form-control"
                 >
+                <div class="progress-container" *ngIf="uploading">
+                  <div class="progress-bar" [style.width.%]="progress">{{ progress }}%</div>
+                </div>
           </ion-col>
           
           

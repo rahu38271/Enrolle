@@ -32,11 +32,11 @@
           <ion-col class="ion-text-right">
             <ion-button class="button-download" color="primary"
               routerLink="/voterdata-management/add-voter">
-              <ion-icon name="add-circle-sharp"></ion-icon>Voter
+              Voter <ion-icon name="add-circle-sharp"></ion-icon>
             </ion-button>
             <ion-button class="button-download" routerLink="/voterdata-management/import-voter" fill="outline"
               color="primary">
-              <ion-icon name="document-sharp"></ion-icon>Import
+              Import <ion-icon name="document-sharp"></ion-icon>
             </ion-button>
           </ion-col>
   
@@ -49,19 +49,19 @@
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> Sur Name </ion-label>
               <ion-input maxlength="30" name="Lastname" [(ngModel)]="searchModal.LastName" (change)="trimInput()" (keypress)="onKeyPress($event)"
-                class="form-control"></ion-input>
+                class="form-control text-capitalize"></ion-input>
             </ion-col>
   
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> First Name </ion-label>
               <ion-input maxlength="30" name="Firstname" [(ngModel)]="searchModal.FirstName" (change)="trimInput()" (keypress)="onKeyPress($event)"
-                class="form-control"></ion-input>
+                class="form-control text-capitalize"></ion-input>
             </ion-col>
   
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> Middle Name </ion-label>
               <ion-input maxlength="30" name="FHname" [(ngModel)]="searchModal.MiddleName" (change)="trimInput()" (keypress)="onKeyPress($event)"
-                class="form-control"></ion-input>
+                class="form-control text-capitalize"></ion-input>
             </ion-col>
   
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
@@ -290,13 +290,12 @@
                 <ion-text>Total Count : {{totalItems}}  </ion-text>
               </ion-col>
               <ion-col size-lg="8" size-md="7" size-sm="7" class="ion-text-right">
-                <!-- <ion-button class="button-download" color="success" (click)="exportExcel()">
-                  <ion-icon name="document-sharp"></ion-icon>Excel
+                <ion-button class="button-download" color="success" (click)="exportExcel()">
+                  Excel <ion-icon name="document-sharp"></ion-icon>
                 </ion-button>
-                <ion-button class="button-download" color="success">
-                  <ion-icon name="document-sharp"></ion-icon>CSV
-                </ion-button> -->
-
+                <ion-button class="button-download" color="success" (click)="exportToCSV()" id="export">
+                  CSV <ion-icon name="document-sharp"></ion-icon>
+                </ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -370,12 +369,12 @@
                 </div>
               </ion-col>
               <ion-col class="ion-text-right">
-                <!-- <ion-button class="button-download" color="success" (click)="exportExcel()">
+                <ion-button class="button-download" color="success" (click)="searchedExcel()">
                   <ion-icon name="document-sharp"></ion-icon>Excel
                 </ion-button>
-                <ion-button class="button-download" color="success">
+                <ion-button class="button-download" color="success" (click)="searchedCSV()">
                   <ion-icon name="document-sharp"></ion-icon>CSV
-                </ion-button> -->
+                </ion-button>
                
               </ion-col>
             </ion-row>

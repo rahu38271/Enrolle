@@ -1,11 +1,11 @@
-import { Component, OnInit, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { SuperadminService } from 'src/app/services/superadmin.service'
 import { LoaderService } from 'src/app/services/loader.service'
 import { Router, ActivatedRoute,NavigationEnd } from '@angular/router'
 import { Location } from '@angular/common';
 import { IonicToastService } from 'src/app/services/ionic-toast.service'
-import { filter } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-superadmin',
@@ -13,6 +13,7 @@ import { filter } from 'rxjs/operators';
   styleUrls: ['./superadmin.component.css']
 })
 export class SuperadminComponent implements OnInit {
+
   isDB = false;
   Template = '';
   Content = '';
@@ -35,7 +36,7 @@ export class SuperadminComponent implements OnInit {
   search() {
     this.isShow = !this.isShow
   }
-  
+
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
 
   constructor
@@ -46,8 +47,7 @@ export class SuperadminComponent implements OnInit {
       private router: Router,
       private location: Location,
       private toast: IonicToastService,
-      private route: ActivatedRoute,
-      private cdRef: ChangeDetectorRef
+      private route: ActivatedRoute
     ) {
       
   }
@@ -55,6 +55,7 @@ export class SuperadminComponent implements OnInit {
   ngOnInit() {
     
   }
+
 
   ionViewWillEnter(){
     this.superId = localStorage.getItem("loginId");
@@ -77,6 +78,7 @@ export class SuperadminComponent implements OnInit {
     if (this.roleId == 1) {
       this.sadmin.getAllAdmin().subscribe(data => {
         if (data != 0) {
+          this.getAdminList = [];
           var list = data.forEach(e => {
             if (e.roleId == 1) {
               e = { ...e, roleName: "MasterAdmin" };
@@ -112,10 +114,10 @@ export class SuperadminComponent implements OnInit {
       this.sadmin.GetAdminbySuperAdminId(this.superId).subscribe(AdminbyS => {
         if (AdminbyS != 0) {
           this.loader.hideLoader();
+          this.getAdminList = [];
           var list = AdminbyS.forEach(e => {
             this.sadmin.GetpartByUserid(e.id).subscribe(data => {
               e.Partnoassigned = data.partNo;
-              
             })
             if (e.roleId == 1) {
               e = { ...e, roleName: "MasterAdmin" };
@@ -150,7 +152,7 @@ export class SuperadminComponent implements OnInit {
     if (this.roleId == 3) {
       this.sadmin.GetVolunterbyAdminId(this.adminid).subscribe(data => {
         if (data != 0) {
-          
+          this.getAdminList = [];
           var list = data.forEach(e => {
             this.sadmin.GetpartByUserid(e.id).subscribe(data => {
               
@@ -189,6 +191,7 @@ export class SuperadminComponent implements OnInit {
     if(this.roleId == 5){
       this.sadmin.getMemberBySociety(this.id).subscribe(memberByso=>{
         if(memberByso.length != 0){
+          this.getAdminList = [];
           var list = memberByso.forEach(e => {
             if (e.roleId == 6) {
               e = { ...e, roleName: "Member" };

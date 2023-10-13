@@ -37,13 +37,15 @@
           </ion-col>
           <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" class="file">
             <ion-label> File </ion-label>
-            <ion-input type="file" multiple="false" name="file" id="file" (change)="onFileChange($event)" (ngModel)="modal.file" class="form-control" required></ion-input>
+            <ion-input type="file" multiple="false" name="file" id="file" (change)="onFileChange($event)" (ngModel)="modal.file" class="form-control" #fileInput required></ion-input>
               <!-- <div *ngIf="f.submitted && File.invalid" class="invalid-feedback">
                 <div *ngIf="File.errors.required">
                   File is required
                 </div>
               </div> -->
-              
+              <div class="progress">
+                <div class="progress-bar" [style.width]="uploadProgress + '%'">{{ uploadProgress }}%</div>
+              </div>
           </ion-col>
  
          

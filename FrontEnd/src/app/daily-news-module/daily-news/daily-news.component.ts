@@ -17,6 +17,7 @@ export class DailyNewsComponent implements OnInit {
 
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
   newsList:any;
+  Link:any;
   f;
   UserId:any;
   RoleId:any;
@@ -27,7 +28,6 @@ export class DailyNewsComponent implements OnInit {
   id:any;
   Id:any;
   newsLink:any;
-  isLink=false;
 
   year : number = new Date().getFullYear();
 
@@ -66,8 +66,11 @@ export class DailyNewsComponent implements OnInit {
   allNewsList(UserId:any,RoleId:any,PageNo:any,NoofRow:any,SearchText:any){
     this.news.getAllNews(UserId,RoleId,PageNo,NoofRow,SearchText).subscribe(data=>{
       if(data.length != 0){
+        console.log(data);
         this.newsList=data;
         this.totalItems=data[0].totalCount;
+        this.Link = data[0].newsLink;
+        
         this.newsList.forEach(e => {
           e.date = e.date.split('T')[0];
         });

@@ -45,9 +45,9 @@
               <ion-searchbar (keypress)="omit_special_char($event)" (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
             </div>
             <div class="btns">
-              <ion-button class="button-download" color="danger" (click)="exportPDF()" ><ion-icon name="document-sharp"></ion-icon>PDF</ion-button>
-              <ion-button class="button-download" color="success" (click)="exportExcel()" ><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
-              <ion-button class="button-download" color="success" (click)="exportToCSV()" ><ion-icon name="document-sharp"></ion-icon>CSV</ion-button>
+              <ion-button class="button-download" color="danger" (click)="exportPDF()" >PDF <ion-icon name="document-sharp"></ion-icon></ion-button>
+              <ion-button class="button-download" color="success" (click)="exportExcel()" >Excel <ion-icon name="document-sharp"></ion-icon></ion-button>
+              <ion-button class="button-download" color="success" (click)="exportToCSV()" >CSV <ion-icon name="document-sharp"></ion-icon></ion-button>
             </div>
           </div>
           <div class="horizontal-scroll">

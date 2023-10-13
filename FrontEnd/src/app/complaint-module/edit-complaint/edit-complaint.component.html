@@ -105,6 +105,9 @@
                 </div>
                 <!-- <input type="file" #file name="file" [(ngModel)]="societycomplaint.fileName" (change)="onFileSelected($event.target.files)"  class="form-control" value="this.societycomplaint.fileName" > -->
                 <input type="file" #file name="file" [(ngModel)]="societycomplaint.fileName" (change)="onFileSelected($event)"  class="form-control" value="this.societycomplaint.fileName" >
+                <div class="progress-container" *ngIf="uploading">
+                  <div class="progress-bar" [style.width.%]="progress">{{ progress }}%</div>
+                </div>
               </ion-col>
 
               

@@ -347,6 +347,10 @@ const routes: Routes = [
     path: 'voter-dashboard',
     loadChildren: () => import('./voter-dashboard-module/voter-dashboard-module.module').then( m => m.VoterDashboardModuleModule)
   },
+  {
+    path: 'errors',
+    loadChildren: () => import('./errors-module/errors-module.module').then( m => m.ErrorsModuleModule)
+  },
 ];
 
 @NgModule({

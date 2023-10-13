@@ -140,7 +140,6 @@ export class EditSurveyComponent implements OnInit {
  }
 
  addSurvey(){
-  debugger;
   this.loader.showLoading();
   this.EditData.id = Number(this.EditData.id);
   this.EditData.age = Number(this.EditData.age);
@@ -148,6 +147,7 @@ export class EditSurveyComponent implements OnInit {
     if(data==1){
       this.loader.hideLoader();
       this.EditData={};
+      this.router.navigate(['/survey']);
       this.toast.presentToast("Survey added successfully!", "success", 'checkmark-circle-sharp');
     }
     else{

@@ -243,7 +243,7 @@
 @media screen and (max-width:992px) {
   .main-content {
     position: absolute;
-    top: 132px;
+    top: 155px;
     width: 100%;
   }
 }
@@ -316,6 +316,12 @@
 @media screen and (min-width:992px) {
   ion-menu {
     width: 20%;
+  }
+}
+
+@media screen and (max-width:991px){
+  ion-menu {
+    width: 200px !important;
   }
 }
 
@@ -859,15 +865,21 @@ ion-toolbar {
   --background: #6f75ef;
 }
 
+@media screen and (min-width:768px){
+  ion-toolbar {
+    --background: none !important;
+}
+}
+
 
 .active {
   --ion-background-color: #fafafb !important;
 }
 
 @media screen and (max-width:576px) {
-  ion-content {
-    --background: #a4a4ef !important;
-  }
+  // ion-content {
+  //   --background: #a4a4ef !important;
+  // }
 
   ion-modal ion-content {
     --background: #fff !important;
@@ -1117,4 +1129,19 @@ ion-menu-button {
   background-color: #fff;
   border: solid 1px #fff4f3; 
   padding: 4px;
+}
+
+// progress bar
+
+.progress {
+  margin-top: 10px;
+}
+
+.progress-container {
+  margin-top: 10px;
+}
+
+.progress-bar {
+  height: 15px;
+  font-size: 12px;
 }

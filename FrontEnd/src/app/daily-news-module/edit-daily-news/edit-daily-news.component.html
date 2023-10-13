@@ -93,6 +93,9 @@
               <ion-label> Size - <span> {{fileSize}} </span> </ion-label>
             </div>
               <input type="file" #file name="file" [(ngModel)]="dailynews.file" (change)="onFileSelected($event)"  class="form-control" value="this.dailynews.fileName">
+              <div class="progress-container" *ngIf="uploading">
+                <div class="progress-bar" [style.width.%]="progress">{{ progress }}%</div>
+              </div>
           </ion-col>
           
           

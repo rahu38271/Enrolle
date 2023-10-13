@@ -14,6 +14,13 @@ import { PendingLettersComponent } from './pending-letters/pending-letters.compo
 import {NgxPaginationModule} from 'ngx-pagination';
 import { LetterByDateComponent } from './letter-by-date/letter-by-date.component';
 
+import { ChartModule,AccumulationChartModule   } from '@syncfusion/ej2-angular-charts';
+import {PieSeriesService,ExportService, AccumulationTooltipService, AccumulationDataLabelService, CategoryService, DateTimeService, ScrollBarService, ColumnSeriesService, LineSeriesService, 
+    ChartAnnotationService, RangeColumnSeriesService, StackingColumnSeriesService,LegendService, TooltipService, DataLabelService,
+    StepAreaSeriesService, SplineSeriesService, StripLineService,AccumulationLegendService,
+    SelectionService, ScatterSeriesService, ZoomService, AreaSeriesService, RangeAreaSeriesService
+ } from '@syncfusion/ej2-angular-charts';
+
 @NgModule({
   declarations: [
     LetterTrackingComponent,
@@ -31,6 +38,8 @@ import { LetterByDateComponent } from './letter-by-date/letter-by-date.component
     FormsModule,
     NgxPaginationModule,
     NgSelectModule,
+    ChartModule,
+    AccumulationChartModule,
     RouterModule.forChild([
       {path:'', component:LetterTrackingComponent},
       {path:'all-letters', component:AllLettersComponent},
@@ -41,6 +50,9 @@ import { LetterByDateComponent } from './letter-by-date/letter-by-date.component
       {path:'pending', component:PendingLettersComponent},
       {path:'by-date', component:LetterByDateComponent},
     ])
-  ]
+  ],
+  providers: [LineSeriesService,ExportService,StackingColumnSeriesService, DateTimeService, ColumnSeriesService, DataLabelService, ZoomService, StackingColumnSeriesService, CategoryService,
+    StepAreaSeriesService, SplineSeriesService, ChartAnnotationService, LegendService, TooltipService, StripLineService,
+    PieSeriesService, AccumulationTooltipService, ScrollBarService, AccumulationLegendService,  AccumulationDataLabelService, SelectionService, ScatterSeriesService, AreaSeriesService, RangeAreaSeriesService ]
 })
 export class LetterTrackingModuleModule { }

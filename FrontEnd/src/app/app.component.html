@@ -487,7 +487,7 @@
       <ion-menu side="start" content-id="main-content" >
         <ion-content class="mobileMenu" >
           <ion-menu-toggle autoHide="false">
-            <ion-list>
+            <ion-list class="nameRole">
               <ion-item lines="full" class="birthday user-info">
                 <ion-avatar slot="start">
                   <img src="./assets/img/user.jpg" alt="">
@@ -497,7 +497,8 @@
                   <h4 class="text-capitalize">{{roleName}}</h4>
                 </ion-label>
               </ion-item>
-
+            </ion-list>
+            <ion-list class="actualMenu">
               <ion-item *ngIf="isDashboard" routerDirection="root" [routerLink]="['/home/mobile-dashboard']" routerLinkActive="active">
                 <i class="icofont icofont-home"></i>
                 <ion-label>  {{'Dashboard' | translate}}</ion-label>

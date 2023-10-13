@@ -199,6 +199,7 @@ export class EditSuperadminComponent implements OnInit {
           this.loader.hideLoader();
           this.toast.presentToast("User updated successfully!", "success", 'checkmark-circle-sharp');
           this.router.navigate(['/superadmin']);
+          
         }
         else{
           this.loader.hideLoader();
@@ -206,7 +207,6 @@ export class EditSuperadminComponent implements OnInit {
         }
     }, (err)=>{
       this.loader.hideLoader();
-      console.error(err);
       if(err.status === 400){
         this.toast.presentToast("Username or Password already exists", "danger", 'alert-circle-sharp');
         this.router.navigate(['/superadmin']);

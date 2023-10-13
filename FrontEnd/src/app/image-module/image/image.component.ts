@@ -39,12 +39,10 @@ export class ImageComponent implements OnInit {
     if(this.roleId == 2){
       this.userId = this.userId
     }
-    else if(this.roleId == 3){
+    else if(this.roleId == 3 || this.roleId == 4 || this.roleId == 5 || this.roleId == 6){
       this.userId = this.superId
     }
-    else {
-      this.userId = this.superId;
-    }
+    
     this.voter.getLandingImage(this.userId).subscribe((data: Blob) => {
       if(data.type != 'text/plain'){
         this.saveFile(data);
