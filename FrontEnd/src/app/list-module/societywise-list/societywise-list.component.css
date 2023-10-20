@@ -20,8 +20,6 @@ td ion-icon { cursor: pointer; font-size: 20px; font-weight: 600;  }
 
 table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !important; }
 
-table td:last-child { padding: 0.25rem 0.1rem !important; width: 42px !important; }
-
 .file { font-size: 20px !important; color: #228bd2 !important; font-weight: 600;}
 
 #table19 th span { color: #ffcd82 !important;}

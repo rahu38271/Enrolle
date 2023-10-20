@@ -152,7 +152,7 @@ export class VoterDetailsComponent  {
     this.voterInfo();
     this.AllCasts();
     this.allProfession();
-    this.assemblyNameLang();
+    //this.assemblyNameLang();
     if(this.assemblyName=="null"){
       this.isAssembly=!this.isAssembly;
     }
@@ -683,11 +683,11 @@ export class VoterDetailsComponent  {
     })
   }
 
-  assemblyNameLang(){
-    this.voter.getAssemblyName(this.assemblyName).subscribe(data=>{
-      this.assemblyNameByLang = data;
-    })
-  }
+  // assemblyNameLang(){
+  //   this.voter.getAssemblyName(this.assemblyName).subscribe(data=>{
+  //     this.assemblyNameByLang = data;
+  //   })
+  // }
 
   sameBoothVoter(columnName:any) {
     this.columnName ==this.partNo;

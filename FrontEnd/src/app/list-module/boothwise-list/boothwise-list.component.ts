@@ -155,7 +155,9 @@ export class BoothwiseListComponent implements OnInit {
         this.loader.hideLoader();
         this.partWiseVoter = data;
         this.totalItems = data[0].totalCount;
-        
+        this.partWiseVoter.forEach(e => {
+          delete e.totalCount;
+        });
         this.excel.exportAsExcelFile(this.partWiseVoter, 'Partwise Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
@@ -178,6 +180,10 @@ export class BoothwiseListComponent implements OnInit {
         this.loader.hideLoader();
         this.partWiseVoter = data;
         this.totalItems = data[0].totalCount;
+        this.partWiseVoter.forEach(e => {
+          delete e.id;
+          delete e.totalCount;
+        });
         this.csv.exportToCsv(this.partWiseVoter, 'Partwise Voter');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }

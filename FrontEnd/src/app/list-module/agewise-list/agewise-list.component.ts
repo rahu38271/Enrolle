@@ -102,6 +102,7 @@ export class AgewiseListComponent implements OnInit {
   }
 
    agewiseSearch(userId:any,roleID:any,PageNo:any,NofRow:any,Language:any) {
+    this.loader.showLoading();
      this.isShow = true;
      //this.Language = this.translateConfigService.getCurrentLang();
     this.ageModal.Language = this.Language
@@ -115,7 +116,7 @@ export class AgewiseListComponent implements OnInit {
       this.ageModal.NoofRow = this.NoofRow,
       this.ageModal.Language
       ).subscribe(data => {
-      this.loader.showLoading();
+      
       if (data.length != 0) {
         this.loader.hideLoader();
         this.ageList = data;

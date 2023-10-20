@@ -37,6 +37,7 @@ export class LoginComponent implements OnInit {
 
   @ViewChild('f', {static: false}) f: NgForm;
   roleName: any;
+  roleId:any;
 
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -91,10 +92,16 @@ export class LoginComponent implements OnInit {
       if (typeof data ==="object") {
         this.loginResModal = data;
         var jtoken=data.token;
-        localStorage.setItem('token' ,data.token);
+        
         localStorage.setItem("loginUser", data.user[0].name);
         localStorage.setItem("loginId", data.user[0].id);
         localStorage.setItem("userType", data.user[0].roleId);
+        if(this.roleId==1){
+          localStorage.setItem('token' , '');
+        }else{
+          localStorage.setItem('token' ,data.token);
+        }
+        //localStorage.setItem('token' ,data.token);
         localStorage.setItem("adminId", data.user[0].adminId);
         localStorage.setItem("superAdminId", data.user[0].superAdminId)
         localStorage.setItem("loginAssembly", data.user[0].assemblyName);

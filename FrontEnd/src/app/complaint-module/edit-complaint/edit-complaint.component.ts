@@ -12,7 +12,7 @@ import { IonModal } from '@ionic/angular';
 })
 export class EditComplaintComponent implements OnInit {
   progress = 0;
-  uploading=false;
+  uploading = false;
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
@@ -51,7 +51,8 @@ export class EditComplaintComponent implements OnInit {
   id: any;
   link: any;
   fileName: any;
-  selectedFile: any;
+  selectedFile: File | null;
+  fileInfo:any;
 
   constructor(
     private complaint: ComplaintService,
@@ -61,35 +62,26 @@ export class EditComplaintComponent implements OnInit {
   ) {
     debugger;
     this.societycomplaint = this.router.getCurrentNavigation().extras.state
-    this.societycomplaint.fileName = this.societycomplaint.fileName;
-    // if(this.societycomplaint.fileName == 'blob'){
-    //   this.societycomplaint.fileName = '';
-    // }
-    // else{
-    //   this.societycomplaint.fileName = this.societycomplaint.fileName;
-    // }
-
+    //this.societycomplaint.fileName = this.societycomplaint.fileName;
     fetch(this.societycomplaint.fileName, { mode: 'no-cors' })
       .then(res => res.blob())
       .then(blob => {
         const data = new ClipboardEvent('').clipboardData || new DataTransfer();
         data.items.add(new File([blob], this.societycomplaint.fileName));
         this.fileInput.nativeElement.files = data.files;
-        this.fileInput.nativeElement.value = data.files[0];
+        // this.fileInput.nativeElement.value = data.files[0];
       });
     this.complaint.getFile(this.societycomplaint.id).subscribe((data: Blob) => {
       this.societycomplaint.file = data;
-      this.societycomplaint.fileName = this.societycomplaint.fileName;
-      const file: File = this.societycomplaint.file;
-      this.file = file;
-      this.fileSize = file.size;
-      this.fileType = file.type;
-      if (this.fileSize < 1000000) {
-        this.fileSize = Math.round(this.fileSize / 1024).toFixed(2) + " KB";
-      }
-      else {
-        this.fileSize = (this.fileSize / 1048576).toFixed(2) + " MB";
-      }
+      
+      // this.societycomplaint.fileName = this.societycomplaint.fileName;
+      // const file: File = this.societycomplaint.file;
+      //const file: File = this.fileInput.nativeElement.files;
+      // this.file = file;
+      // this.fileSize = file.size;
+      // this.fileType = file.type;
+      
+      this.editFile(event);
     })
   }
 
@@ -99,8 +91,7 @@ export class EditComplaintComponent implements OnInit {
     this.UserId = localStorage.getItem("loginId");
     this.roleID = localStorage.getItem("userType");
     this.name = localStorage.getItem("loginUser");
-
-
+    
   }
 
   saveFile(imageData: Blob) {
@@ -120,6 +111,33 @@ export class EditComplaintComponent implements OnInit {
     reader.readAsDataURL(image);
   }
 
+  editFile(event: Event) {
+    debugger;
+    this.fileInfo = event;
+    //this.fileName = this.societycomplaint.fileName;
+    this.fileSize = this.fileInfo.target.response.size;
+    if (this.fileSize < 1000000) {
+      this.fileSize = Math.round(this.fileSize / 1024).toFixed(2) + " KB";
+    }
+    else {
+      this.fileSize = (this.fileSize / 1048576).toFixed(2) + " MB";
+    }
+    this.fileType = this.fileInfo.target.response.type;
+    // const selectedFile: File = this.fileInput.nativeElement.files[0];
+    this.fileInput.nativeElement.files[0].size == this.fileInfo.target.response.size;
+    this.fileInput.nativeElement.files[0].type == this.fileInfo.target.response.type;
+    if(this.fileInput.nativeElement.files[0].size){
+      this.fileSize = this.fileSize;
+    }
+    if(this.fileInput.nativeElement.files[0].type){
+      this.fileType = this.fileType;
+    }
+    //this.file = this.file;
+   
+    const file: File = this.fileInput.nativeElement.files;
+    this.file = file;
+  }
+
   onFileSelected(event) {
     debugger;
     const file: File = event.target.files[0];
@@ -127,12 +145,12 @@ export class EditComplaintComponent implements OnInit {
     this.fileSize = file.size;
     this.fileType = file.type;
     this.fileName = file.name;
-     
+
     if (this.fileSize >= 10000000) {
       this.toast.presentToast("Maximum file size is 10 MB", "danger", 'checkmark-circle-sharp');
       this.disabled = true;
     }
-    else if(
+    else if (
       this.fileType == "image/jpg" ||
       this.fileType == "image/jpeg" ||
       this.fileType == "image/png" ||
@@ -144,20 +162,20 @@ export class EditComplaintComponent implements OnInit {
       this.fileType == "video/mov" ||
       this.fileType == "application/pdf" &&
       this.fileSize < 10000000
-    ){
-      this.uploading=true;
-    //Simulate file upload progress (for demonstration purposes)
-    const interval = setInterval(() => {
-      this.progress += 10;
-      if (this.progress >= 100) {
-        clearInterval(interval);
-        this.progress = 100;
-        this.uploading=false;
-        this.toast.presentToast("File added successfully!", "success", 'checkmark-circle-sharp');
-      }
-    }, 100);
+    ) {
+      this.uploading = true;
+      //Simulate file upload progress (for demonstration purposes)
+      const interval = setInterval(() => {
+        this.progress += 10;
+        if (this.progress >= 100) {
+          clearInterval(interval);
+          this.progress = 100;
+          this.uploading = false;
+          this.toast.presentToast("File added successfully!", "success", 'checkmark-circle-sharp');
+        }
+      }, 100);
     }
-   
+
     else {
       this.disabled = true;
       this.toast.presentToast("This file format is not allowed.", "danger", 'alert-circle-sharp');
@@ -167,12 +185,11 @@ export class EditComplaintComponent implements OnInit {
     }
     else {
       this.fileSize = (this.fileSize / 1048576).toFixed(2) + " MB";
-      console.log(this.fileSize)
     }
   }
 
   updateComplaint() {
-    debugger
+    debugger;
     this.societycomplaint.userId = Number(this.UserId);
     //this.societycomplaint.roleID = Number(this.roleID);
     this.societycomplaint.userName = this.name;

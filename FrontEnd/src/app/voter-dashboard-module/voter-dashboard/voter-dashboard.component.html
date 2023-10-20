@@ -38,6 +38,9 @@
                     <e-accumulation-series [dataSource]='vilModal' xName='columnName' yName='count' [dataLabel]='totalDataLael' radius="80%" innerRadius='50%' [palettes]='palette1'></e-accumulation-series>
                 </e-accumulation-series-collection>
               </ejs-accumulationchart> 
+              <div *ngIf="!vilModal || vilModal === 0" class="ion-text-center">
+                <p>No data available</p>
+              </div>
             </ion-card>
           </ion-col>
           <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="4" class="graph">
@@ -46,7 +49,10 @@
                     <e-accumulation-series-collection>
                         <e-accumulation-series [dataSource]='casteData' xName='columnName' yName='count' [dataLabel]='casteDataLael' radius="80%" innerRadius='50%'></e-accumulation-series>
                     </e-accumulation-series-collection>
-                  </ejs-accumulationchart>   
+                  </ejs-accumulationchart> 
+                  <div *ngIf="!casteData || casteData === 0" class="ion-text-center">
+                    <p>No data available</p>
+                  </div>  
             </ion-card>
           </ion-col>
           <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="4" class="graph">
@@ -55,7 +61,10 @@
                     <e-accumulation-series-collection>
                         <e-accumulation-series [dataSource]='occuList' xName='columnName' yName='count' [dataLabel]='occuDataLael' radius="80%" innerRadius='50%'></e-accumulation-series>
                     </e-accumulation-series-collection>
-                  </ejs-accumulationchart>   
+                  </ejs-accumulationchart> 
+                  <div *ngIf="!occuList || occuList === 0" class="ion-text-center">
+                    <p>No data available</p>
+                  </div>    
             </ion-card>
           </ion-col>
           <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="4" class="graph">
@@ -64,7 +73,10 @@
                     <e-accumulation-series-collection>
                         <e-accumulation-series [dataSource]='voterVoted' xName='columnName' yName='columnValue' [dataLabel]='voteDataLael' radius="80%" innerRadius='50%'></e-accumulation-series>
                     </e-accumulation-series-collection>
-                  </ejs-accumulationchart>     
+                  </ejs-accumulationchart> 
+                  <div *ngIf="!voterVoted || voterVoted === 0" class="ion-text-center">
+                    <p>No data available</p>
+                  </div>      
             </ion-card>
           </ion-col>
           <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="4" class="graph">
@@ -73,7 +85,10 @@
                     <e-accumulation-series-collection>
                         <e-accumulation-series [dataSource]='colorList' xName='x' yName='y' [dataLabel]='colorDatalabel' [palettes]='colorPalette' radius="80%" innerRadius='50%' ></e-accumulation-series>
                     </e-accumulation-series-collection>
-                  </ejs-accumulationchart>    
+                  </ejs-accumulationchart>   
+                  <div *ngIf="!colorList || colorList === 0" class="ion-text-center">
+                    <p>No data available</p>
+                  </div>       
             </ion-card>
           </ion-col>
           <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="4" class="graph">
@@ -82,7 +97,10 @@
                 <e-accumulation-series-collection>
                     <e-accumulation-series [dataSource]='sociList' xName='columnName' yName='count' [dataLabel]='sociDataLael' radius="80%" innerRadius='50%'></e-accumulation-series>
                 </e-accumulation-series-collection>
-              </ejs-accumulationchart>  
+              </ejs-accumulationchart> 
+              <div *ngIf="!sociList || sociList === 0" class="ion-text-center">
+                <p>No data available</p>
+              </div>   
             </ion-card>
           </ion-col>
         </ion-row>

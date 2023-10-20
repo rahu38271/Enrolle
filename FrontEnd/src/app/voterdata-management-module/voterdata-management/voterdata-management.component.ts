@@ -58,6 +58,7 @@ export class VoterdataManagementComponent {
     Language: ''
   };
   partNo: any;
+  booth:any;
   PageNo: number = 1;
   NoofRow: number = 25;
   //allVoters: number = 0;
@@ -120,6 +121,7 @@ export class VoterdataManagementComponent {
 
   ionViewWillEnter() {
     this.partNo = this.route.snapshot.paramMap.get('partNo');
+    this.booth = this.route.snapshot.paramMap.get('booth');
     this.userId = this.route.snapshot.paramMap.get('id');
     this.roleID = localStorage.getItem("userType");
     this.UserId = localStorage.getItem('loginId');

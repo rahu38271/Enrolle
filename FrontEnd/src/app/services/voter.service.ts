@@ -340,6 +340,7 @@ export class VoterService {
   // advance search voter
 
   advanceSearch(searchModal:any){
+    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });

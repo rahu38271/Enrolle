@@ -5,6 +5,9 @@ import { Router } from '@angular/router';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import {Route, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { CsvService } from 'src/app/services/csv.service';
+import { ExcelService } from 'src/app/services/excel.service';
+import { IonicToastService } from 'src/app/services/ionic-toast.service';
 
 @Component({
   selector: 'app-notvotedvoter',
@@ -18,6 +21,7 @@ export class NotvotedvoterComponent implements OnInit {
   SearchText:any;
   userId:any;
   roleID:any;
+  roleId:any;
   isVoted:any;
   PageNo:any=1;
   NoofRow:any=25;
@@ -34,7 +38,10 @@ export class NotvotedvoterComponent implements OnInit {
     private router:Router,
     private route:ActivatedRoute,
     private translateConfigService:TranslateConfigService,
-    private location:Location
+    private location:Location,
+    private csv:CsvService,
+    private excel:ExcelService,
+    private toast:IonicToastService
   ) {
     this.Language = this.translateConfigService.getCurrentLang();
    }
@@ -139,6 +146,57 @@ export class NotvotedvoterComponent implements OnInit {
         }
       })
     }
+  }
+
+  exportExcel():void {
+    this.PageNo=1;
+    this.roleId = this.roleID;
+    this.NoofRow=this.totalItems;
+    var SearchText = "";
+    this.loader.showLoading();
+    this.voter.getvoterNotVoted(this.userId,this.roleId,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.notvotedvoterList = data;
+        this.notvotedvoterList.forEach(e => {
+          delete e.totalCount;
+        });
+        this.excel.exportAsExcelFile(this.notvotedvoterList, 'voted Voter');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
+  }
+
+  exportToCSV() {
+    this.PageNo=1;
+    this.roleId = this.roleID;
+    this.NoofRow=this.totalItems;
+    var SearchText = "";
+    this.loader.showLoading();
+    this.voter.getvoterNotVoted(this.userId,this.roleId,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.notvotedvoterList = data;
+        this.notvotedvoterList.forEach(e => {
+          delete e.id;
+          delete e.totalCount;
+        });
+        this.csv.exportToCsv(this.notvotedvoterList, 'voted Voter');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
   }
 
   EditVoter(data:any){

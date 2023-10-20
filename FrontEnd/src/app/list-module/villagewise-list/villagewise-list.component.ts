@@ -166,7 +166,8 @@ export class VillagewiseListComponent implements OnInit {
           delete e.isVoted;
           delete e.isAlive;
         })
-        this.excel.exportAsExcelFile(this.villageWiseVoter, 'Villagewise Voter');
+        // this.excel.exportAsExcelFile(this.villageWiseVoter, this.villageName 'Villagewise Voter');
+        this.excel.exportAsExcelFile(this.villageWiseVoter, this.villageName);
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
       else{
@@ -194,7 +195,7 @@ export class VillagewiseListComponent implements OnInit {
           delete e.isAlive;
           delete e.id;
         })
-        this.csv.exportToCsv(this.villageWiseVoter, 'Villagewise Voter');
+        this.csv.exportToCsv(this.villageWiseVoter, this.villageName);
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
       else{

@@ -27,7 +27,12 @@
     </ion-grid>
     <ion-card>
       <ion-card-content>
-        <div class="title" *ngIf="engAssembly">
+        <div class="title">
+          <h3 class="ion-text-center">
+            {{'Assembly' | translate}} : {{assemblyName}}
+          </h3>
+        </div>
+        <!-- <div class="title" *ngIf="engAssembly">
           <h3 class="ion-text-center">
             {{'Assembly' | translate}} : {{assemblyName}}
           </h3>
@@ -36,7 +41,7 @@
           <h3 class="ion-text-center" *ngFor="let item of assemblyNameByLang">
             {{'Assembly' | translate}} : {{item.assemblyNo}} {{item.assembly}} 
           </h3>
-        </div>
+        </div> -->
         <!-- <div class="title">
           <h3 class="ion-text-center">
             District : {{district}}
@@ -52,11 +57,11 @@
             <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
           </div>
           <div>
-            <ion-button (click)="exportExcel()" class="button-download" color="success" >
-             Excel  <ion-icon name="document-sharp"></ion-icon>
+            <ion-button (click)="exportExcel()" class="button-download" color="tertiary" >
+             Excel  
             </ion-button>
-            <ion-button (click)="exportToCSV()" class="button-download" color="success" >
-             CSV  <ion-icon name="document-sharp"></ion-icon>
+            <ion-button (click)="exportToCSV()" class="button-download" color="tertiary" >
+             CSV  
             </ion-button>
           </div>
         </div>

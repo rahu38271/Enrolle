@@ -7,6 +7,7 @@ import { IonicToastService } from 'src/app/services/ionic-toast.service'
 import { Router } from '@angular/router'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { ExcelService } from 'src/app/services/excel.service'
+import { CsvService } from 'src/app/services/csv.service';
 import { Location } from '@angular/common';
 
 @Component({
@@ -38,8 +39,8 @@ export class ModernWayComponent implements OnInit {
     Occupation:'',
     Education:'',
     UserId:'',
-    PageNo:1,
-    NoofRow:25,
+    PageNo:'',
+    NoofRow:'',
     Language:''
   };
   searchList: any;
@@ -86,6 +87,7 @@ omit_special_char(event) {
       private toast:IonicToastService,
       private router:Router,
       private excel:ExcelService,
+      private csv:CsvService,
       private location:Location,
       private translateConfigService: TranslateConfigService,
     ) {
@@ -298,12 +300,49 @@ omit_special_char(event) {
   exportExcel():void {
     this.PageNo=1;
     this.NoofRow=this.totalItems;
+    this.searchModal.NoofRow=this.totalItems;
     this.loader.showLoading();
     this.voter.advanceSearch(this.searchModal).subscribe(data=>{
       if(data.length != 0){
         this.loader.hideLoader();
         this.searchList = data;
-        this.excel.exportAsExcelFile(this.searchList, 'Voter');
+        // this.totalItems = data[0].totalCount;
+        this.searchList.forEach(e => {
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+          delete e.id;
+        });
+        this.excel.exportAsExcelFile(this.searchList, 'Advance Search');
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
+  }
+
+  exportToCSV() {
+    this.PageNo=1;
+    this.NoofRow=this.totalItems;
+    this.searchModal.NoofRow=this.totalItems;
+    var SearchText = "";
+    this.loader.showLoading();
+    this.voter.advanceSearch(this.searchModal).subscribe(data=>{
+      if(data.length != 0){
+        this.loader.hideLoader();
+        this.searchList = data;
+        // this.totalItems = data[0].totalCount;
+        this.searchList.forEach(e => {
+          delete e.totalCount;
+          delete e.isVoted;
+          delete e.isAlive;
+          delete e.id;
+        });
+        this.csv.exportToCsv(this.searchList, 'Advance Search');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
       else{

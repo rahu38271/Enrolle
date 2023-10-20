@@ -167,10 +167,6 @@ td a {
   text-decoration: underline;
 }
 
-.action {
-  display: flex;
-    justify-content: space-around;
-}
 
 .table th:nth-child(2){
   max-width: 150px !important;

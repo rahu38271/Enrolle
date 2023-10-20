@@ -108,23 +108,27 @@
     </ion-popover>
 
     <ion-grid>
-      <ion-row class="header mt-2 mb-2" *ngIf="engAssembly">
+      <ion-row class="header mt-2 mb-2">
         <ion-col class="ion-text-center">
           <ion-label *ngIf="isAssembly">
               {{'Assembly' | translate}} : {{assemblyName}}
           </ion-label>
-          <!-- <ion-label *ngIf="isVillage">
-            {{'Village' | translate}} : {{village}}
-          </ion-label> -->
         </ion-col>
       </ion-row>
-      <ion-row class="header mt-2 mb-2" *ngIf="nonEngAssembly">
+      <!-- <ion-row class="header mt-2 mb-2" *ngIf="engAssembly">
+        <ion-col class="ion-text-center">
+          <ion-label *ngIf="isAssembly">
+              {{'Assembly' | translate}} : {{assemblyName}}
+          </ion-label>
+        </ion-col>
+      </ion-row> -->
+      <!-- <ion-row class="header mt-2 mb-2" *ngIf="nonEngAssembly">
         <ion-col class="ion-text-center">
           <ion-label *ngFor="let item of assemblyNameByLang">
               {{'Assembly' | translate}} : {{item.assemblyNo}} {{item.assembly}} 
           </ion-label>
         </ion-col>
-      </ion-row>
+      </ion-row> -->
       <ion-row>
         <ion-col class="title rightText" size-xs="4">
           <ion-label class="dash"> - </ion-label>

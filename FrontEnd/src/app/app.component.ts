@@ -26,7 +26,6 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 //import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { IonicToastService } from './services/ionic-toast.service';
-import { LoginComponent } from './login-module/login/login.component';
 //import { UpdateService } from './services/update.service';
 
 @Component({

@@ -227,6 +227,7 @@ export class AllComplaintsComponent implements OnInit {
 
 
   changeStatus(event) {
+    debugger;
     this.Id = event.target.id
     this.complaintStatusModal.Id = Number(this.Id);
     this.complaintStatusModal.Status = this.complaintStatusModal.Status;

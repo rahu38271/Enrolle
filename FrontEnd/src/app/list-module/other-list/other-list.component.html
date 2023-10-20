@@ -48,11 +48,11 @@
                     <ion-searchbar (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
                   </div>
                   <div class="btns">
-                    <ion-button class="button-download" color="success" (click)="exportExcel()">
-                      <ion-icon name="document-sharp"></ion-icon>Excel
+                    <ion-button class="button-download" color="tertiary" (click)="exportExcel()">
+                      Excel 
                     </ion-button>
-                    <ion-button class="button-download" color="success" (click)="exportToCSV()" id="export">
-                      <ion-icon name="document-sharp"></ion-icon>CSV
+                    <ion-button class="button-download" color="tertiary" (click)="exportToCSV()" id="export">
+                      CSV 
                     </ion-button>
                   </div>
                 </div>
