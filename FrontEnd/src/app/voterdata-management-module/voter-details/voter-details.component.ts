@@ -34,6 +34,8 @@ export class VoterDetailsComponent  {
   professionUpdate: any = {}
   ProfessionName:any;
   professionModal:any={};
+  profModal:any={}
+  casteModal:any={}
   houseUpdate:any={};
   adrsUpdate: any = {}
   showStar: boolean;
@@ -152,7 +154,7 @@ export class VoterDetailsComponent  {
     this.voterInfo();
     this.AllCasts();
     this.allProfession();
-    //this.assemblyNameLang();
+    this.assemblyNameLang();
     if(this.assemblyName=="null"){
       this.isAssembly=!this.isAssembly;
     }
@@ -223,8 +225,9 @@ export class VoterDetailsComponent  {
         this.societyUpdate.ColoumnValue = this.setSociety;
         this.houseUpdate.ColoumnValue = this.setHouseNo;
         this.professionUpdate.ColoumnValue = this.setProf;
-        this.professionModal.ProfessionName = this.setProf;
+        this.profModal.ProfessionName = this.setProf;
         this.CasteUpdate.ColoumnValue = this.setCaste;
+        this.casteModal.CasteName = this.setCaste;
         this.voterInfoData.forEach(e => {
           e.birthDate = e.birthDate.split('T')[0];
         });
@@ -318,34 +321,20 @@ export class VoterDetailsComponent  {
     })
   }
 
-  // add profession
-
-  saveProfession() {
-    this.id = this.Vid;
-    this.professionUpdate.Id = Number(this.id);
-    this.professionUpdate.ColoumnName = "Occupation"
-    this.voter.updateProfession(this.professionUpdate.Id, this.professionUpdate.ColoumnName, this.professionUpdate.ColoumnValue).subscribe(data => {
-      if (data) {
-        this.voterInfo();
-        this.closeModal();
-        this.toast.presentToast("profession updated successfully!", "success", 'checkmark-circle-sharp');
-      }
-      else {
-
-      }
-    }, (err) => {
-
-    })
-  }
 
   addProfession(){
-    debugger;
-    this.voter.addProf(this.professionModal.ProfessionName).subscribe(data=>{
+    this.voter.addProf(this.profModal).subscribe(data=>{
       if(data){
-        this.professionModal = {};
+        this.professionList = data;
         this.closeModal();
-        this.toast.presentToast("profession added successfully!", "success", 'checkmark-circle-sharp');
+        this.ionViewWillEnter();
+        this.toast.presentToast("Profession added successfully!", "success", 'checkmark-circle-sharp');
       }
+      else{
+
+      }
+    },(err)=>{
+
     })
   }
 
@@ -422,7 +411,7 @@ export class VoterDetailsComponent  {
       if (data) {
         this.voterInfo();
         this.closeModal();
-        this.toast.presentToast("Caste11 updated successfully!", "success", 'checkmark-circle-sharp');
+        this.toast.presentToast("Caste updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
 
@@ -435,24 +424,19 @@ export class VoterDetailsComponent  {
   // add Caste 
 
   addCaste() {
-    // debugger;
-    // this.id = this.Vid;
-    // this.CasteUpdate.Id = Number(this.id);
-    // this.CasteUpdate.ColoumnName = "Caste"
-    // this.CasteUpdate.ColoumnValue = this.CasteUpdate.ColoumnValue;
-    // this.voter.updateCaste(this.CasteUpdate.Id, this.CasteUpdate.ColoumnName, this.CasteUpdate.ColoumnValue).subscribe(data => {
-    //   if (data) {
-    //     this.voterInfo();
-    //     this.closeModal();
-    //     this.ionViewWillEnter();
-    //     this.toast.presentToast("Caste2 updated successfully!", "success", 'checkmark-circle-sharp');
-    //   }
-    //   else {
+    this.voter.addSingleCaste(this.casteModal).subscribe(data=>{
+      if(data){
+        this.casteList=data;
+        this.closeModal();
+        this.ionViewWillEnter();
+        this.toast.presentToast("Caste added successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
 
-    //   }
-    // }, (err) => {
+      }
+    },(err)=>{
 
-    // })
+    })
   }
 
   allProfession(){
@@ -683,11 +667,11 @@ export class VoterDetailsComponent  {
     })
   }
 
-  // assemblyNameLang(){
-  //   this.voter.getAssemblyName(this.assemblyName).subscribe(data=>{
-  //     this.assemblyNameByLang = data;
-  //   })
-  // }
+  assemblyNameLang(){
+    this.voter.getAssemblyName(this.assemblyName).subscribe(data=>{
+      this.assemblyNameByLang = data;
+    })
+  }
 
   sameBoothVoter(columnName:any) {
     this.columnName ==this.partNo;

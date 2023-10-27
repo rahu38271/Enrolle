@@ -104,13 +104,13 @@ export class MobileDashboardPage implements OnInit {
   // public Search: string;
   // public Lists: string;
   // public Survey: string;
-  // public birthData: Object[];
-  // public anniData: Object[];
-  // public primaryXAxis: Object;
-  // public primaryYAxis: Object;
-  // public palette: string[];
-  // public title: string;
-  // public chartArea: Object;
+  public birthData: Object[];
+  public anniData: Object[];
+  public primaryXAxisP: Object;
+  public primaryYAxisP: Object;
+  public paletteP: string[];
+  public titleP: string;
+  public chartAreaP: Object;
 
   // public casteData: Object[];
   // public totalDataLael: Object;
@@ -191,60 +191,52 @@ export class MobileDashboardPage implements OnInit {
     this.isLogReport = isMasterAdmin || isSuperAdmin || isAdmin;
     
 
-    // this.primaryXAxis = {
-    //   majorGridLines: { width: 0 },
-    //   minorGridLines: { width: 0 },
-    //   majorTickLines: { width: 0 },
-    //   minorTickLines: { width: 0 },
-    //   interval: 1,
-    //   lineStyle: { width: 0 },
-    //   valueType: "Category",
-    //   title: 'Months'
-    // };
-    // this.primaryYAxis = {
-    //   title: "Count",
-    //   lineStyle: { width: 0 },
-    //   majorTickLines: { width: 0 },
-    //   minorTickLines: { width: 0 },
-    //   labelFormat: "{value}"
-    // };
+    this.primaryXAxisP = {
+      majorGridLines: { width: 0 },
+      minorGridLines: { width: 0 },
+      majorTickLines: { width: 0 },
+      minorTickLines: { width: 0 },
+      interval: 1,
+      lineStyle: { width: 0 },
+      valueType: "Category",
+      title: 'Week'
+    };
+    this.primaryYAxisP = {
+      title: "Count",
+      lineStyle: { width: 0 },
+      majorTickLines: { width: 0 },
+      minorTickLines: { width: 0 },
+      labelFormat: "{value}"
+    };
 
-    // this.palette = ["#0067b5", "#00e29c"];
-    // this.title = 'Monthwise Count of Birthday and Anniversary';
-    // this.chartArea = {
-    //   border: {
-    //     width: 0
-    //   }
-    // };
+    this.paletteP = ["#0067b5", "#00e29c"];
+    this.titleP = 'Weekly Count of Birthday and Anniversary';
+    this.chartAreaP = {
+      border: {
+        width: 0
+      }
+    };
 
-    // this.birthData = [
-    //   { x: "Jan", y: 111.1 },
-    //   { x: "Feb", y: 127.3 },
-    //   { x: "Mar", y: 143.4 },
-    //   { x: "Apr", y: 159.9 },
-    //   { x: "May", y: 159.9 },
-    //   { x: "Jun", y: 149 },
-    //   { x: "Jul", y: 144 },
-    //   { x: "Aug", y: 142 },
-    //   { x: "Sep", y: 145 },
-    //   { x: "Oct", y: 144 },
-    //   { x: "Nov", y: 144 },
-    //   { x: "Dec", y: 148 }
-    // ];
-    // this.anniData = [
-    //   { x: "Jan", y: 76.9 },
-    //   { x: "Feb", y: 99.5 },
-    //   { x: "Mar", y: 121.7 },
-    //   { x: "Apr", y: 142.5 },
-    //   { x: "May", y: 152.9 },
-    //   { x: "Jun", y: 149.9 },
-    //   { x: "Jul", y: 146 },
-    //   { x: "Aug", y: 144 },
-    //   { x: "Sep", y: 147 },
-    //   { x: "Oct", y: 148 },
-    //   { x: "Nov", y: 159 },
-    //   { x: "Dec", y: 145 }
-    // ];
+    this.birthData = [
+      { x: "Mon", y: 111},
+      { x: "Tue", y: 127},
+      { x: "Mar", y: 143},
+      { x: "Wed", y: 159},
+      { x: "Thu", y: 159},
+      { x: "Fri", y: 149 },
+      { x: "Sat", y: 144 },
+      { x: "Sun", y: 142 }
+    ];
+    this.anniData = [
+      { x: "Mon", y: 111},
+      { x: "Tue", y: 127},
+      { x: "Mar", y: 143},
+      { x: "Wed", y: 159},
+      { x: "Thu", y: 159 },
+      { x: "Fri", y: 149 },
+      { x: "Sat", y: 144 },
+      { x: "Sun", y: 142 }
+    ];
 
   }
 

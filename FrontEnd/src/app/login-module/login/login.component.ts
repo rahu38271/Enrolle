@@ -131,7 +131,13 @@ export class LoginComponent implements OnInit {
           this.toast.presentToast("Logged In Succesfully", "success", 'checkmark-circle-sharp');
           this.loader.hideLoader();
           //this.router.navigate(['/home/mobile-dashboard']);
-          this.router.navigate(['/image']);
+          if(data.user[0].roleId==1){
+            this.router.navigate(['/home/mobile-dashboard']);
+          }
+          else{
+            this.router.navigate(['/image']);
+          }
+          //this.router.navigate(['/image']);
       }
     },
     (err)=>{

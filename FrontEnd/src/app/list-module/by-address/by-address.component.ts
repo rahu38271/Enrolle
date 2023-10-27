@@ -35,8 +35,12 @@ export class ByAddressComponent implements OnInit {
   ngOnInit() {
     this.id = localStorage.getItem("loginId");
     this.roleId = localStorage.getItem("userType");
-    this.addressData();
     
+    
+  }
+
+  ionViewWillEnter(){
+    this.addressData();
   }
 
   search(){

@@ -1,12 +1,10 @@
-
-
 <ion-content>
   <ion-header class="android">
     <ion-toolbar>
       <ion-buttons slot="start">
         <ion-back-button color="primary" defaultHref="/home/mobile-dashboard"></ion-back-button>
       </ion-buttons>
-      <ion-title> Booth List ( {{voterCount.length}} )  </ion-title>
+      <ion-title> Booth List ( {{voterCount.length}} ) </ion-title>
       <ion-buttons slot="primary">
         <ion-button (click)="search()">
           <ion-icon name="search-outline"></ion-icon>
@@ -19,7 +17,7 @@
       <ion-row>
         <ion-col>
           <ion-card-header>
-            <ion-card-title>Booth List,  Total - {{voterCount.length}}  </ion-card-title>
+            <ion-card-title>Booth List, Total - {{voterCount.length}} </ion-card-title>
             <div class="headerLine"></div>
           </ion-card-header>
         </ion-col>
@@ -27,22 +25,22 @@
     </ion-grid>
     <ion-card>
       <ion-card-content>
-        <div class="title">
+        <!-- <div class="title">
           <h3 class="ion-text-center">
             {{'Assembly' | translate}} : {{assemblyName}}
-          </h3>
-        </div>
-        <!-- <div class="title" *ngIf="engAssembly">
-          <h3 class="ion-text-center">
-            {{'Assembly' | translate}} : {{assemblyName}}
-          </h3>
-        </div>
-        <div class="title" *ngIf="nonEngAssembly">
-          <h3 class="ion-text-center" *ngFor="let item of assemblyNameByLang">
-            {{'Assembly' | translate}} : {{item.assemblyNo}} {{item.assembly}} 
           </h3>
         </div> -->
-        <!-- <div class="title">
+          <div class="title" *ngIf="engAssembly">
+            <h3 class="ion-text-center">
+              {{'Assembly' | translate}} : {{assemblyName}}
+            </h3>
+          </div>
+          <div class="title" *ngIf="nonEngAssembly">
+            <h3 class="ion-text-center" *ngFor="let item of assemblyNameByLang">
+              {{'Assembly' | translate}} : {{item.assemblyNo}} {{item.assembly}}
+            </h3>
+          </div>
+          <!-- <div class="title">
           <h3 class="ion-text-center">
             District : {{district}}
           </h3>
@@ -52,80 +50,79 @@
             Village : {{village}}
           </h3>
         </div> -->
-        <div class="headSection">
-          <div class="search">
-            <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+          <div class="headSection">
+            <div class="search">
+              <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+            </div>
+            <div>
+              <ion-button (click)="exportExcel()" class="button-download" color="tertiary">
+                Excel
+              </ion-button>
+              <ion-button (click)="exportToCSV()" class="button-download" color="tertiary">
+                CSV
+              </ion-button>
+            </div>
           </div>
-          <div>
-            <ion-button (click)="exportExcel()" class="button-download" color="tertiary" >
-             Excel  
-            </ion-button>
-            <ion-button (click)="exportToCSV()" class="button-download" color="tertiary" >
-             CSV  
-            </ion-button>
-          </div>
-        </div>
-        <div class="horizontal-scroll">
-          
-        <table id="table19" #epltable>
-          <thead>
-            <tr>
-              <th >
-                Part No.		
-              </th>
-              <th>
-                Booth Name	
-              </th>
-              <th>
-                Voter Data <br> <span></span>	
-              </th>
-              <th>
-                Male <br> <span>	</span>			
-              </th>
-              <th>
-                Female <br>	 <span>	</span>	
-              </th>
-              <th>
-                Matched data <br>	<span></span>	
-              </th>
-              <th>
-                Mobile No. Count <br> <span>	</span>		
-              </th>
-              <th>
-                Survey Done <br> <span></span>
-              </th>
-              
-              <!-- <th id="element-to-hide" data-html2canvas-ignore="true">
+          <div class="horizontal-scroll">
+
+            <table id="table19" #epltable>
+              <thead>
+                <tr>
+                  <th>
+                    Part No.
+                  </th>
+                  <th>
+                    Booth Name
+                  </th>
+                  <th>
+                    Voter Data <br> <span></span>
+                  </th>
+                  <th>
+                    Male <br> <span> </span>
+                  </th>
+                  <th>
+                    Female <br> <span> </span>
+                  </th>
+                  <th>
+                    Matched data <br> <span></span>
+                  </th>
+                  <th>
+                    Mobile No. Count <br> <span> </span>
+                  </th>
+                  <th>
+                    Survey Done <br> <span></span>
+                  </th>
+
+                  <!-- <th id="element-to-hide" data-html2canvas-ignore="true">
                 View All
               </th> -->
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let item of voterCount | filter:searchWeb">
-              <td class="partNo" (click)="partNo(item.partNo)"> Part No. -  {{item.partNo}}	</td>
-              <td class="booth">
-               
-              </td>
-              <td>{{item.voterCount}}</td>
-              <td>{{item.maleVoter}}</td>
-              <td>{{item.femaleVoter}}</td>
-              <td> {{item.matching_count}}	</td>
-              <td>{{item.mobileNoCount}}</td>
-              <td>{{item.surveyDone}}</td>
-              <!-- <td id="element-to-hide" data-html2canvas-ignore="true" class="text-center">
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of voterCount | filter:searchWeb">
+                  <td class="partNo" (click)="partNo(item.partNo)"> Part No. - {{item.partNo}} </td>
+                  <td class="booth">
+
+                  </td>
+                  <td>{{item.voterCount}}</td>
+                  <td>{{item.maleVoter}}</td>
+                  <td>{{item.femaleVoter}}</td>
+                  <td> {{item.matching_count}} </td>
+                  <td>{{item.mobileNoCount}}</td>
+                  <td>{{item.surveyDone}}</td>
+                  <!-- <td id="element-to-hide" data-html2canvas-ignore="true" class="text-center">
                 <ion-icon name="eye-sharp" (click)="partNo(item.partNo)"></ion-icon>
               </td> -->
-            </tr>
-          </tbody>
-        </table>
-        <div *ngIf="!voterCount || voterCount.length === 0" class="noData text-center">
-          <p>
-            No data available
-          </p>
-        </div>
-        </div>
+                </tr>
+              </tbody>
+            </table>
+            <div *ngIf="!voterCount || voterCount.length === 0" class="noData text-center">
+              <p>
+                No data available
+              </p>
+            </div>
+          </div>
       </ion-card-content>
     </ion-card>
   </div>
 </ion-content>
-						

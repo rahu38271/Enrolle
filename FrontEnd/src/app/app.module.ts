@@ -55,7 +55,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     }),
   ],
   providers: [PDFGenerator,SMS,SocialSharing,AppVersion,AndroidPermissions,BluetoothSerial,SplashScreen,Camera, 
-    // { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    //{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
     { provide: HTTP_INTERCEPTORS, useClass:  ErrorInterceptorInterceptor, multi: true}
   ],
   bootstrap: [AppComponent],

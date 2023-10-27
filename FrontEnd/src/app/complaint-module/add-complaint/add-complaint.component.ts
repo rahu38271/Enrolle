@@ -16,6 +16,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
 export class AddComplaintComponent implements OnInit {
   progress = 0;
   uploading=false;
+  currentDatetime: string;
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
@@ -66,7 +67,10 @@ export class AddComplaintComponent implements OnInit {
     private router: Router,
     private location: Location,
     private camera: Camera
-  ) { }
+  ) {
+    const currentDate = new Date();
+    this.currentDatetime = currentDate.toISOString();
+   }
 
   ngOnInit(): void {
     this.UserId = localStorage.getItem("loginId");
@@ -81,7 +85,7 @@ export class AddComplaintComponent implements OnInit {
     this.file = file;
     this.fileSize = file.size;
     this.fileType = file.type;
-    this.fileName = file.name;
+    this.fileName = file.name +'-'+ this.currentDatetime;
      
     if (this.fileSize >= 10000000) {
       this.toast.presentToast("Maximum file size is 10 MB", "danger", 'checkmark-circle-sharp');

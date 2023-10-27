@@ -1,4 +1,4 @@
-import {Component, OnInit,ChangeDetectorRef  } from '@angular/core';
+import {Component, OnInit,ChangeDetectorRef,ViewChild  } from '@angular/core';
 import {
   Router,
   // import as RouterEvent to avoid confusion with the DOM Event
@@ -34,7 +34,7 @@ import { IonicToastService } from './services/ionic-toast.service';
   styleUrls: ['app.component.scss']
 })
 export class AppComponent implements OnInit {
-  // menuWidth: number = 218;
+  //menuWidth: number = 218;
   name: any;
   
   id: any;
@@ -79,6 +79,7 @@ export class AppComponent implements OnInit {
   language: any;
   state:any;
   apkName:any;
+  
  
   getClass() {
     return "active"
@@ -300,6 +301,7 @@ export class AppComponent implements OnInit {
     localStorage.clear();
     this.router.navigate(['/']);
   }
+
 
   async notification(ev: any) {
     const popover = await this.popoverController.create({

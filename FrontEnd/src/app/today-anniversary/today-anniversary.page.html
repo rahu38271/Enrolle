@@ -66,6 +66,9 @@
                         Name
                       </th>
                       <th>
+                        Part No.
+                      </th>
+                      <th>
                         Village
                       </th>
                       <th>
@@ -112,6 +115,7 @@
                       *ngFor="let item of getAnniversary | filter:searchWeb | paginate: { itemsPerPage: 25, currentPage: cp  }; let i=index">
                       <td> {{ (cp - 1) * 10 + i + 1 }} </td>
                       <td class="text-capitalize"> {{ item.fullName }} </td>
+                      <td>{{item.partNo}}</td>
                       <td class="text-capitalize"> {{ item.vilageName }} </td>
                       <td> {{ item.anniversary }} </td>
                       <td> {{ item.mobileNo }} </td>

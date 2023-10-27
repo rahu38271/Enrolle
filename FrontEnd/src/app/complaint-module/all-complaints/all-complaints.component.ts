@@ -88,6 +88,7 @@ export class AllComplaintsComponent implements OnInit {
       if (data.length != 0) {
         this.allComplaints = data;
         this.totalItems = data[0].totalCount;
+        
         this.allComplaints.forEach(e => {
           if(e.fromDate==null){
             e.fromDate=""
@@ -116,6 +117,7 @@ export class AllComplaintsComponent implements OnInit {
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(imageData);
     link.download = '';
+    //link.download = this.fileName;
     link.click();
   }
 
@@ -132,9 +134,11 @@ export class AllComplaintsComponent implements OnInit {
     this.complaint.getFile(this.Id).subscribe((data: Blob) => {
       if (data.size!=0) {
         this.loader.hideLoader();
-        this.saveFile(data);
-        //this.imageUrl = URL.createObjectURL(data);
+        this.allComplaints.forEach(e => {
+          e.fileName = e.fileName;
+        });
         this.fetchImage(data);
+        this.saveFile(data);
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
@@ -227,7 +231,6 @@ export class AllComplaintsComponent implements OnInit {
 
 
   changeStatus(event) {
-    debugger;
     this.Id = event.target.id
     this.complaintStatusModal.Id = Number(this.Id);
     this.complaintStatusModal.Status = this.complaintStatusModal.Status;

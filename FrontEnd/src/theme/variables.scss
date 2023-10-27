@@ -243,7 +243,7 @@
 @media screen and (max-width:992px) {
   .main-content {
     position: absolute;
-    top: 155px;
+    top: 148px;
     width: 100%;
   }
 }
@@ -283,7 +283,7 @@
 
   .main-content {
     position: absolute !important;
-    top: 134px !important;
+    top: 148px !important;
     width: 100%;
   }
 }
@@ -292,19 +292,20 @@
 
   .main-content {
     position: absolute !important;
-    top: 134px !important;
+    top: 146px !important;
     width: 100%;
   }
 }
 
-@media (min-width: 1160px) {
+@media (min-width: 1178px) {
 
   .main-content {
     position: absolute !important;
-    top: 76px !important;
+    top: 75px !important;
     width: 100%;
   }
 }
+
 
 // @media screen and (min-width:577px) and (max-width:970px) {
 //   .main-content {
@@ -312,6 +313,14 @@
 //     top: 138px !important;
 //   }
 //  } 
+
+@media screen and (min-width:1200px) and (max-width:1240px){
+  .main-content {
+    position: absolute !important;
+    top: 150px !important;
+    width: 100%;
+  }
+}
 
 @media screen and (min-width:992px) {
   ion-menu {

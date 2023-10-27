@@ -60,6 +60,7 @@ export class ContactService {
    }
 
   addSingleContact(contactModal:any):Observable<any>{
+    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });

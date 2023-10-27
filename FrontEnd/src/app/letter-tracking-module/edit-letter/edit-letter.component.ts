@@ -4,6 +4,7 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { LetterService } from 'src/app/services/letter.service';
 import { Router,ActivatedRoute } from '@angular/router';
+import { FileData } from 'src/app/file-data';
 
 @Component({
   selector: 'app-edit-letter',
@@ -21,11 +22,17 @@ export class EditLetterComponent implements OnInit {
   district:any;
   allOffice:any;
   allDept:any;
-  file:any;
   fileSize:any;
   fileType:any;
-  fileName:any;
   selectedFile: any;
+  files: FileList;
+  fileData: DataTransfer;
+  fType: any;
+  fSize: any;
+  fileName: any;
+  file: FileData;
+  fileList: any;
+  fileInfo: FileData;
   year:number=new Date().getFullYear();
   maxDate:String=new Date().toISOString();
   constructor(
@@ -36,6 +43,7 @@ export class EditLetterComponent implements OnInit {
     private router:Router,
     private route:ActivatedRoute
   ) {
+    this.letter =  this.router.getCurrentNavigation().extras.state;
     this.letter.fileName = this.letter.fileName;
     fetch(this.letter.fileName, { mode: 'no-cors' })
     .then(res => res.blob())
@@ -47,16 +55,8 @@ export class EditLetterComponent implements OnInit {
     });
     this.letterService.downloadLetter(this.letter.id).subscribe((data: Blob)=>{
       this.letter.file = data;
-      const file: File = this.letter.file;
-      this.file = file;
-      this.fileSize = file.size;
-      this.fileType = file.type;
-      if (this.fileSize < 1000000) {
-        this.fileSize = Math.round(this.fileSize / 1024).toFixed(2) + " KB";
-      }
-      else {
-        this.fileSize = (this.fileSize / 1048576).toFixed(2) + " MB";
-      }
+      this.fileName = this.letter.fileName;
+      this.editFile(event)
     })
    }
 
@@ -68,7 +68,7 @@ export class EditLetterComponent implements OnInit {
   }
 
   getDistrict() {
-    this.letter =  this.router.getCurrentNavigation().extras.state;
+    
     this.contact.getDistrictData().subscribe((data) => {
       if (data.length > 0) {
         //console.log(data);
@@ -101,6 +101,34 @@ export class EditLetterComponent implements OnInit {
     this.letterService.getAllDept().subscribe(data=>{
       this.allDept = data;
     })
+  }
+
+  editFile(event:any){
+    this.fType = event.target.response.type;
+    this.fSize = event.target.response.size;
+    this.fileInfo = new FileData(this.fileName, this.fType, this.fSize);
+    this.convertAndLogFileList();
+  }
+
+  createFileList(fileName: string, fType: string, fSize: number): FileList {
+    this.fSize=this.fSize;
+    const fileInput = document.createElement('input');
+    const file = new File([new Blob()], fileName, { type: fType, lastModified: Date.now() });
+    if (this.fSize < 1000000) {
+      this.fSize = Math.round(this.fSize / 1024).toFixed(2) + " KB";
+    }
+    else {
+      this.fSize = (this.fSize / 1048576).toFixed(2) + " MB";
+    }
+    this.file=file;
+    return fileInput.files;
+  }
+
+  convertAndLogFileList(): void {
+    const fileName = this.fileName;
+    const fType = this.fType;
+    const fSize = this.fSize; // file size in bytes
+    const fileList = this.createFileList(fileName, fType, fSize);
   }
 
   onFileSelected(event:any){
@@ -155,7 +183,7 @@ export class EditLetterComponent implements OnInit {
     this.letter.id = this.letter.id
     this.letter = JSON.stringify(this.letter);
     if (this.file == undefined) {
-      this.file = ''
+      this.file = null
     }
     else {
       this.file = this.file;

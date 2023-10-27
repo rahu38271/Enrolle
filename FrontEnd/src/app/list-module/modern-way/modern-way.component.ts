@@ -50,6 +50,7 @@ export class ModernWayComponent implements OnInit {
   NoofRow:any=25;
   totalItems:any;
   casteList: any;
+  imageUrl: string;
 
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
@@ -135,6 +136,7 @@ omit_special_char(event) {
   }
 
   voterListBySearch(){
+    debugger;
     this.isShow = true
     this.Language = this.translateConfigService.getCurrentLang();
     if (this.Language == "kn") {
@@ -297,62 +299,101 @@ omit_special_char(event) {
     this.searchModal.Religion = this.searchModal.Religion.trim();
   }
 
-  exportExcel():void {
+  saveCSVFile(imageData: Blob) {
+    const blob = new Blob([imageData], { type: 'text/csv' });
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    // link.download = '';
+    link.download = 'advanceSearch.csv';
+    link.click();
+  }
+
+  saveExcelFile(imageData: Blob) {
+    const blob = new Blob([imageData], { type: 'text/xls' });
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    // link.download = '';
+    link.download = 'advanceSearch.xls';
+    link.click();
+  }
+
+  // to download image from get api
+  fetchImage(image:Blob){
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      this.imageUrl = reader.result as string;
+    };
+    reader.readAsDataURL(image);
+  }
+
+  exportExcel(){
     this.PageNo=1;
     this.NoofRow=this.totalItems;
     this.searchModal.NoofRow=this.totalItems;
+    this.searchModal = this.searchModal;
     this.loader.showLoading();
-    this.voter.advanceSearch(this.searchModal).subscribe(data=>{
-      if(data.length != 0){
+    this.voter.getAdvancedSearchFile(this.searchModal).subscribe((data:Blob)=>{
+      if(data.size!=0){
         this.loader.hideLoader();
-        this.searchList = data;
-        // this.totalItems = data[0].totalCount;
-        this.searchList.forEach(e => {
-          delete e.totalCount;
-          delete e.isVoted;
-          delete e.isAlive;
-          delete e.id;
-        });
-        this.excel.exportAsExcelFile(this.searchList, 'Advance Search');
-        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+        this.saveExcelFile(data);
+        this.fetchImage(data);
       }
       else{
         this.loader.hideLoader();
-        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
       }
     },(err)=>{
       this.loader.hideLoader();
     })
   }
 
-  exportToCSV() {
+  exportToCSV(){
     this.PageNo=1;
     this.NoofRow=this.totalItems;
     this.searchModal.NoofRow=this.totalItems;
-    var SearchText = "";
+    this.searchModal = this.searchModal;
     this.loader.showLoading();
-    this.voter.advanceSearch(this.searchModal).subscribe(data=>{
-      if(data.length != 0){
+    this.voter.getAdvancedSearchFile(this.searchModal).subscribe((data:Blob)=>{
+      if(data.size!=0){
         this.loader.hideLoader();
-        this.searchList = data;
-        // this.totalItems = data[0].totalCount;
-        this.searchList.forEach(e => {
-          delete e.totalCount;
-          delete e.isVoted;
-          delete e.isAlive;
-          delete e.id;
-        });
-        this.csv.exportToCsv(this.searchList, 'Advance Search');
-        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+        this.saveCSVFile(data);
+        this.fetchImage(data);
       }
       else{
         this.loader.hideLoader();
-        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
       }
     },(err)=>{
       this.loader.hideLoader();
     })
   }
+
+  // exportExcel():void {
+  //   this.PageNo=1;
+  //   this.NoofRow=this.totalItems;
+  //   this.searchModal.NoofRow=this.totalItems;
+  //   this.loader.showLoading();
+  //   this.voter.advanceSearch(this.searchModal).subscribe(data=>{
+  //     if(data.length != 0){
+  //       this.loader.hideLoader();
+  //       this.searchList = data;
+  //       this.searchList.forEach(e => {
+  //         delete e.totalCount;
+  //         delete e.isVoted;
+  //         delete e.isAlive;
+  //         delete e.id;
+  //       });
+  //       this.excel.exportAsExcelFile(this.searchList, 'Advance Search');
+  //       this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+  //     }
+  //     else{
+  //       this.loader.hideLoader();
+  //       this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+  //     }
+  //   },(err)=>{
+  //     this.loader.hideLoader();
+  //   })
+  // }
+
+
 
   pdf() {
     var element = document.getElementById('table10');

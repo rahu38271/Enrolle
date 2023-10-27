@@ -3,6 +3,7 @@ import { NewsService } from 'src/app/services/news.service';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { Router } from '@angular/router';
+import { FileData } from 'src/app/file-data';
 
 @Component({
   selector: 'app-edit-daily-news',
@@ -13,11 +14,16 @@ export class EditDailyNewsComponent implements OnInit {
   progress = 0;
   uploading=false;
   dailynews:any={ }
-  file:any;
   @ViewChild('file', { static : false}) fileInput : ElementRef; //declaration
 
   year : number = new Date().getFullYear();
-
+  fileData: DataTransfer;
+  fType: any;
+  fSize: any;
+  fileName: any;
+  file: FileData;
+  fileList: any;
+  fileInfo: FileData;
   keyPressNumbers(event) {
     var charCode = (event.which) ? event.which : event.keyCode;
     // Only Numbers 0-9
@@ -55,6 +61,7 @@ export class EditDailyNewsComponent implements OnInit {
   fileType:any;
   disabled: boolean = true;
   selectedFile:any;
+  files: FileList;
 
   constructor(
     private news:NewsService,
@@ -62,8 +69,8 @@ export class EditDailyNewsComponent implements OnInit {
     private loader:LoaderService,
     private router:Router
   ) { 
-    this.dailynews.fileName = this.dailynews.fileName;
     this.dailynews = this.router.getCurrentNavigation().extras.state;
+    this.dailynews.fileName = this.dailynews.fileName;
     fetch(this.dailynews.fileName, { mode: 'no-cors'})
       .then(res => res.blob())
       .then(blob => {
@@ -75,21 +82,42 @@ export class EditDailyNewsComponent implements OnInit {
 
     this.news.getFile(this.dailynews.id).subscribe((data : Blob) => {
       this.dailynews.file=data;
-      this.fileSize = data.size;
-      this.selectedFile = data;
-      this.selectedFile = this.selectedFile;
-      this.fileSize = this.selectedFile.size;
-      this.fileType = this.selectedFile.type;
-      this.dailynews.fileName = this.dailynews.fileName
-      if(data.size != 0){
-        if(this.fileSize < 1000000){
-          this.fileSize = Math.round(this.fileSize/1024).toFixed(2) + " KB";
-        }
-        else{
-          this.fileSize = (this.fileSize / 1048576).toFixed(2) + " MB";
-        }
-      }
+      this.fileName = this.dailynews.fileName;
+      this.editFile(event)
     })
+  }
+
+  ngOnInit() {
+    this.UserId = localStorage.getItem("loginId");
+    this.adminId = localStorage.getItem("adminId");
+  }
+
+  editFile(event:any){
+    this.fType = event.target.response.type;
+    this.fSize = event.target.response.size;
+    this.fileInfo = new FileData(this.fileName, this.fType, this.fSize);
+    this.convertAndLogFileList();
+  }
+
+  createFileList(fileName: string, fType: string, fSize: number): FileList {
+    this.fSize=this.fSize;
+    const fileInput = document.createElement('input');
+    const file = new File([new Blob()], fileName, { type: fType, lastModified: Date.now() });
+    if (this.fSize < 1000000) {
+      this.fSize = Math.round(this.fSize / 1024).toFixed(2) + " KB";
+    }
+    else {
+      this.fSize = (this.fSize / 1048576).toFixed(2) + " MB";
+    }
+    this.file=file;
+    return fileInput.files;
+  }
+
+  convertAndLogFileList(): void {
+    const fileName = this.fileName;
+    const fType = this.fType;
+    const fSize = this.fSize; // file size in bytes
+    const fileList = this.createFileList(fileName, fType, fSize);
   }
 
   saveFile(imageData: Blob) {
@@ -100,10 +128,7 @@ export class EditDailyNewsComponent implements OnInit {
     link.click();
   }
 
-  ngOnInit() {
-    this.UserId = localStorage.getItem("loginId");
-    this.adminId = localStorage.getItem("adminId");
-  }
+  
 
   resetForm(){
     this.myForm.reset();
@@ -163,13 +188,12 @@ export class EditDailyNewsComponent implements OnInit {
   }
 
   save(){
-    debugger;
     this.loader.showLoading();
     this.dailynews.userid=Number(this.UserId);
     this.dailynews.adminId = Number(this.UserId);
     this.dailynews=JSON.stringify(this.dailynews);
     if(this.file==undefined){
-      this.file = ''
+      this.file = null
     }
     else{
       this.file = this.file;

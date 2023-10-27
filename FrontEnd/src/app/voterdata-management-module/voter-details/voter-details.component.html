@@ -108,27 +108,21 @@
     </ion-popover>
 
     <ion-grid>
-      <ion-row class="header mt-2 mb-2">
+     
+      <ion-row class="header mt-2 mb-2" *ngIf="engAssembly">
         <ion-col class="ion-text-center">
           <ion-label *ngIf="isAssembly">
               {{'Assembly' | translate}} : {{assemblyName}}
           </ion-label>
         </ion-col>
-      </ion-row>
-      <!-- <ion-row class="header mt-2 mb-2" *ngIf="engAssembly">
-        <ion-col class="ion-text-center">
-          <ion-label *ngIf="isAssembly">
-              {{'Assembly' | translate}} : {{assemblyName}}
-          </ion-label>
-        </ion-col>
-      </ion-row> -->
-      <!-- <ion-row class="header mt-2 mb-2" *ngIf="nonEngAssembly">
+      </ion-row> 
+      <ion-row class="header mt-2 mb-2" *ngIf="nonEngAssembly">
         <ion-col class="ion-text-center">
           <ion-label *ngFor="let item of assemblyNameByLang">
               {{'Assembly' | translate}} : {{item.assemblyNo}} {{item.assembly}} 
           </ion-label>
         </ion-col>
-      </ion-row> -->
+      </ion-row>
       <ion-row>
         <ion-col class="title rightText" size-xs="4">
           <ion-label class="dash"> - </ion-label>
@@ -600,7 +594,7 @@
                     <ion-input 
                       name="Caste"
                       placeholder="Add Caste" 
-                      [(ngModel)]="CasteUpdate.ColoumnValue" 
+                      [(ngModel)]="casteModal.CasteName" 
                       class="form-control"
                       ></ion-input>
                       <!-- <ng-select  
@@ -646,6 +640,12 @@
         </ion-col>
         <ion-col size-xs="4">
           <div class="newFlex text-right">
+              <!-- <ng-select name="profession" placeholder="Select" [(ngModel)]="professionUpdate.ColoumnValue"
+              (change)="allProfession1(professionUpdate.ColoumnValue)">
+                <ng-option *ngFor="let item of professionList" [value]="item.professionName">
+                  {{item.professionName}}
+                </ng-option>
+              </ng-select> -->
               <ng-select name="profession" placeholder="Select" [(ngModel)]="professionUpdate.ColoumnValue"
               (change)="allProfession1(professionUpdate.ColoumnValue)">
                 <ng-option *ngFor="let item of professionList" [value]="item.professionName">
@@ -656,18 +656,6 @@
         </ion-col>
       </ion-row>
 
-      <!-- <ion-row>
-        <ion-col class="title" size-xs="4">
-          <ion-label class="dash"> - </ion-label>
-          <ion-label> Society </ion-label>
-        </ion-col>
-        <ion-col size-xs="8">
-          <div class="newFlex">
-            <ion-icon name="add-circle-outline" id="profession"></ion-icon>
-            <ion-label class="text-capitalize">  </ion-label>
-          </div>
-        </ion-col>
-      </ion-row> -->
 
       <ion-modal #modal trigger="profession" [canDismiss]="canDismiss"  [backdropDismiss]="false">
           <ng-template>
@@ -680,7 +668,7 @@
                     </ion-col>
                     <ion-col size="12">
                       <ion-list>
-                        <ion-input maxlength="30" (keypress)="onKeyPress($event)" name="profession" [(ngModel)]="professionModal.ProfessionName" required class="form-control text-capitalize">
+                        <ion-input maxlength="30" (keypress)="onKeyPress($event)" name="profession" [(ngModel)]="profModal.ProfessionName" required class="form-control text-capitalize">
                         </ion-input>
                       </ion-list>
                     </ion-col>

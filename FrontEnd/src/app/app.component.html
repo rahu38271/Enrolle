@@ -4,7 +4,7 @@
     <div class="navbar">
       <div class="leftnav">
         <!-- <div class="subnav">
-          <ion-button (click)="toggleMenuWidth()">
+          <ion-button (click)="toggleMenu()">
             Menu
           </ion-button>
         </div> -->
@@ -484,8 +484,8 @@
 
     <!-- [style.width.px]="menuWidth" -->
     <ion-split-pane content-id="main-content">
-      <ion-menu side="start" content-id="main-content" >
-        <ion-content class="mobileMenu" >
+      <ion-menu side="start" contentId="main-content">
+        <ion-content class="mobileMenu">
           <ion-menu-toggle autoHide="false">
             <ion-list class="nameRole">
               <ion-item lines="full" class="birthday user-info">
@@ -716,10 +716,10 @@
                       <ion-label> Adminwise Report</ion-label>
                     </ion-item>
 
-                    <ion-item color="light" lines="none" [routerLink]="['/reports/datewise']" routerDirection="root">
+                    <!-- <ion-item color="light" lines="none" [routerLink]="['/reports/datewise']" routerDirection="root">
                       <i class="icofont icofont-ui-text-chat"></i>
                       <ion-label> Datewise Report</ion-label>
-                    </ion-item>
+                    </ion-item> -->
 
                   </div>
                 </ion-accordion>

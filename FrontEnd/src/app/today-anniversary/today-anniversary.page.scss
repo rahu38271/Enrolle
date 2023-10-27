@@ -164,9 +164,9 @@ table td:nth-child(2), th:nth-child(2) {
   width: 20%;
 }
 
-table td:nth-child(3), th:nth-child(3) {
-  width: 14%;
-}
+// table td:nth-child(3), th:nth-child(3) {
+//   width: 14%;
+// }
 
 table td:nth-child(4), th:nth-child(4) {
   width: 14%;
@@ -181,6 +181,10 @@ table td:nth-child(6), th:nth-child(6) {
 }
 
 table td:nth-child(7), th:nth-child(7) {
+  width: 14%;
+}
+
+table td:nth-child(8), th:nth-child(8) {
   width: 24%;
 }
 

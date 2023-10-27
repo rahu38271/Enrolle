@@ -104,13 +104,14 @@
                   <ion-label> Size - <span> {{fileSize}} </span> </ion-label>
                 </div>
                 <!-- <input type="file" #file name="file" [(ngModel)]="societycomplaint.fileName" (change)="onFileSelected($event.target.files)"  class="form-control" value="this.societycomplaint.fileName" > -->
-                <input type="file" #file name="file" [(ngModel)]="societycomplaint.fileName" (change)="onFileSelected($event)"  class="form-control" value="this.fileName">
+                <input type="file" #file name="file" [(ngModel)]="societycomplaint.fileName" (change)="onFileSelected($event)"  class="form-control" value="this.societycomplaint.fileName" >
                 <div class="progress-container" *ngIf="uploading">
                   <div class="progress-bar" [style.width.%]="progress">{{ progress }}%</div>
                 </div>
               </ion-col>
 
               
+
             <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
               <div class="ion-text-center">
                 <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>

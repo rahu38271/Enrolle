@@ -85,7 +85,7 @@ export class VoterSummaryComponent implements OnInit {
 
   ionViewWillEnter(){
     this.voterByBooth();
-    //this.assemblyNameLang();
+    this.assemblyNameLang();
   }
 
   partNo(partNo:any){
@@ -98,11 +98,11 @@ export class VoterSummaryComponent implements OnInit {
     })
   }
 
-  // assemblyNameLang(){
-  //   this.voter.getAssemblyName(this.assemblyName).subscribe(data=>{
-  //     this.assemblyNameByLang = data;
-  //   })
-  // }
+  assemblyNameLang(){
+    this.voter.getAssemblyName(this.assemblyName).subscribe(data=>{
+      this.assemblyNameByLang = data;
+    })
+  }
 
   exportExcel() {
     this.excel.exportAsExcelFile(this.voterCount, 'voter summary');

@@ -102,6 +102,7 @@ export class AddContactComponent implements OnInit {
   }
 
   addContact() {
+    debugger;
     var date = this.contactModal.Anniversary;
     
     if(this.contactModal.BirthDate == undefined){

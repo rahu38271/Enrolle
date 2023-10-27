@@ -82,7 +82,6 @@ export class LetterService {
 
   // download letter
   downloadLetter(id:any): Observable<Blob>{
-    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });

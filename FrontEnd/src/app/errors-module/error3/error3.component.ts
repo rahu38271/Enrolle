@@ -10,7 +10,11 @@ export class Error3Component implements OnInit {
 
   constructor(
     private router:Router
-  ) { }
+  ) {
+    // setTimeout(()=>{
+    //   this.router.navigate(['/'])
+    // },3000)
+   }
 
   ngOnInit(): void {
   }

@@ -7,7 +7,7 @@
       <ion-buttons slot="end">
         <ion-menu-button auto-hide="false"></ion-menu-button>
       </ion-buttons>
-      <ion-title> {{villageName}}, Total - {{totalItems}}  </ion-title>
+      <ion-title> {{villageName}}, {{'Total'  | translate}} - {{totalItems}}  </ion-title>
       <ion-title>   </ion-title>
       <ion-buttons slot="primary">
         <ion-button (click)="search()">
@@ -28,7 +28,7 @@
                 <div class="flexArrow">
                   <ion-icon (click)="goBack()" name="arrow-back-sharp"></ion-icon>
                   <ion-card-header>
-                    <ion-card-title class="header1">{{villageName}}, Total - <span>  {{totalItems}} </span> </ion-card-title>
+                    <ion-card-title class="header1">{{villageName}}, {{'Total'  | translate}} - <span>  {{totalItems}} </span> </ion-card-title>
                   <div class="headerLine"></div>
                 </ion-card-header>
                 </div>

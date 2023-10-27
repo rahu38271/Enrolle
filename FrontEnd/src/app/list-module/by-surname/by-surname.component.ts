@@ -52,6 +52,10 @@ export class BySurnameComponent implements OnInit {
     else{
       this.SearchText = this.SearchText
     }
+    
+  }
+
+  ionViewWillEnter(){
     this.allLastName(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
   }
 

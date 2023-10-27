@@ -153,12 +153,21 @@ export class VoterService {
     return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue, id,{ headers })
   }
 
+  // update caste
+
   updateCaste(id:any, ColoumnName:any, ColoumnValue:any){
-    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
     return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue, id,{ headers })
+  }
+
+  // add caste
+  addSingleCaste(casteModal:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/InsertCaste',casteModal,{ headers })
   }
 
   // get Cast 
@@ -320,12 +329,19 @@ export class VoterService {
 
   // add profession
 
-  addProf(ProfessionName:any){
+  // addProf(ProfessionName:any){
+  //   const headers = new HttpHeaders({
+  //     'Authorization': `Bearer ${this.token}`
+  //   });
+  //   return this.http.post<any>(this.url+'Voter/InsertProfession?ProfessionName='+ProfessionName,{ headers })
+  // }
+
+  addProf(profModal: any) {
     debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
-    return this.http.post<any>(this.url+'Voter/InsertProfession?ProfessionName='+ProfessionName,{ headers })
+    return this.http.post<any>(this.url + 'Voter/InsertProfession', profModal, { headers })
   }
 
   // voter by Society
@@ -345,6 +361,14 @@ export class VoterService {
       'Authorization': `Bearer ${this.token}`
     });
     return this.http.post<any>(this.url+'Voter/AdvancedSearchVoter', searchModal,{ headers })
+  }
+
+  // advanced search file download
+  getAdvancedSearchFile(searchModal:any):Observable<any>{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post(this.url+'Voter/AdvancedSearchVoterFile',searchModal,{ headers,responseType:"text", reportProgress:true })
   }
 
   updateSociety(id:any, ColoumnName:any, ColoumnValue:any){
@@ -573,4 +597,6 @@ export class VoterService {
     });
     return this.http.get<any>(this.url+'Voter/GetVoterbyId?id='+vid+'&Language='+Language,{ headers })
   }
+
+  
 }
