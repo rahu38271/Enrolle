@@ -125,7 +125,7 @@ export class DatewiseReportComponent implements OnInit {
           delete e.loginUserId;
           delete e.id;
         });
-        this.csv.exportToCsv(this.getReport, 'contact');
+        this.csv.exportToCsv(this.getReport, 'Report');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
       else{

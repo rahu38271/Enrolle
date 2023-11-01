@@ -94,6 +94,7 @@ export class VoterSummaryComponent implements OnInit {
 
   voterByBooth(){
     this.voter.boothWiseVoterCount(this.userID,this.roleID).subscribe(data=>{
+      console.log(data);
       this.voterCount = data;
     })
   }

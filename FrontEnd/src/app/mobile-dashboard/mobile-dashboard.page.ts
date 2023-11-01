@@ -10,6 +10,7 @@ import { VoterService } from '../services/voter.service';
 import { ComplaintService } from 'src/app/services/complaint.service'
 import { LetterService } from 'src/app/services/letter.service';
 import { AppointmentService } from 'src/app/services/appointment.service'
+import { DashboardService } from '../services/dashboard.service';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class MobileDashboardPage implements OnInit {
   isMarathi:any;
   superAdminName:any;
   isImage=true;
+  mainCounts:any;
 
   // complaint graph
   public primaryXAxis: Object;
@@ -131,7 +133,8 @@ export class MobileDashboardPage implements OnInit {
     private voter:VoterService,
     private complaint: ComplaintService,
     private letterService: LetterService,
-    private appointment:AppointmentService
+    private appointment:AppointmentService,
+    private dashboard:DashboardService
     ) {
       this.translateConfigService.getDefaultLanguage();
       this.language = this.translateConfigService.getCurrentLang();
@@ -245,6 +248,7 @@ export class MobileDashboardPage implements OnInit {
     this.apmCountData();
     this.allComplaintCount();
     this.allLetterCount();
+    this.countOfDashboard();
   }
 
   apmCountData(){
@@ -336,10 +340,6 @@ export class MobileDashboardPage implements OnInit {
     console.log('onDidDismiss resolved with role', role);
   }
 
-
-   
-
-
   async changeLanguage() {
     const actionSheet = await this.actionSheetController.create({
       header: 'Languages',
@@ -384,6 +384,19 @@ export class MobileDashboardPage implements OnInit {
 
     const { role, data } = await actionSheet.onDidDismiss();
     console.log('onDidDismiss resolved with role and data', role, data);
+  }
+
+  countOfDashboard(){
+    this.dashboard.getMainDashoardCount().subscribe(data=>{
+      if(data){
+        console.log(data);
+        this.mainCounts = data;
+      }else{
+
+      }
+    },(err)=>{
+
+    })
   }
 
   // async changeLanguage() {

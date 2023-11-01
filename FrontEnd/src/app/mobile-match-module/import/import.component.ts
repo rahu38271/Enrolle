@@ -25,6 +25,8 @@ export class ImportComponent implements OnInit {
   f;
   disabled:boolean= true;
   myForm: any;
+  UserId: any;
+  RoleId: any;
 
 
   constructor(
@@ -40,6 +42,8 @@ export class ImportComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.UserId = localStorage.getItem("loginId");
+    this.RoleId = localStorage.getItem("userType")
   }
 
   onFileChange(event: any) {
@@ -201,7 +205,7 @@ export class ImportComponent implements OnInit {
       if (data) {
         this.loader.hideLoader();
         this.toast.presentToast("File uploded successfully!", "success", 'checkmark-circle-sharp');
-        this.router.navigate(['/mobile-match']);
+        // this.router.navigate(['/mobile-match']);
         f.resetForm();
       }
       else {
@@ -217,6 +221,22 @@ export class ImportComponent implements OnInit {
     )
   }
 
- 
+  updateVoter(){
+    debugger;
+    this.loader.showLoading();
+    return this.voter.uploadMatchedMobDoB(this.UserId,this.RoleId).subscribe(data=>{
+      if(data){
+        this.loader.hideLoader();
+        console.log(data);
+        this.toast.presentToast("Voter data updated successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("Voter data not uploded", "danger", 'alert-circle-sharp');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
+  }
 
 }

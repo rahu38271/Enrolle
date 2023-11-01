@@ -1,12 +1,14 @@
 ion-grid { width: 98%; margin: 0 auto; margin-top: 5px; background: #FFF;  box-shadow: 0 0 10px rgb(232 234 237 / 50%); }
 
 @media screen and (min-width:768px) {
-    ion-grid { width: 75%; }
+    ion-grid { width: 70%; }
 }
+
 
 ion-radio-group ion-item { --background: none !important; border: none !important; }
 
 h2 { color: #435fbe; padding-left: 10px; font-weight: 500; padding-top: 10px; }
+
 
 .pl-10 { padding-left: 130px; }
 
@@ -18,8 +20,21 @@ ion-label span {  color: #F00 !important; font-weight: 500; }
     justify-content: space-between !important;
 }
 
-.labels ion-label {
-    cursor: pointer;
-}
-
 form ion-icon { position: absolute; top: 35px; right: 10px; font-size: 20px; z-index: 11 }
+
+.radioBtn {
+    display: flex;
+  justify-content: space-between;
+  }
+  
+  .radioBtn ion-label {
+    padding-left: 8px;
+  }
+  
+  ion-radio {
+    background: #FFF;
+  }
+
+  .text-style {
+      white-space: pre-wrap;
+  }

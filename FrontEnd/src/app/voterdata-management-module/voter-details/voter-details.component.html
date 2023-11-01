@@ -40,7 +40,7 @@
             <ion-label>Whatsapp</ion-label>
           </a>
         </ion-col> -->
-        <ion-col >
+        <ion-col (click)="slipPrint()">
           <img src="./assets/img/printer.png" alt="">
         </ion-col>
 
@@ -278,6 +278,16 @@
         </ion-col>
         <ion-col size-xs="8">
           <ion-label> {{item.partNo}} </ion-label>
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col class="title" size-xs="4">
+          <ion-label class="dash"> - </ion-label>
+          <ion-label> {{'Booth' | translate}}</ion-label>
+        </ion-col>
+        <ion-col size-xs="8">
+          <ion-label> {{item.boothName}} </ion-label>
         </ion-col>
       </ion-row>
 
@@ -959,7 +969,7 @@
       </ion-row>
       <ion-row class="ion-text-center">
         <ion-col>
-          <ion-button size="block" (click)="sameBoothVoter(item.partNo)">Voter on Same Booth</ion-button>
+          <ion-button size="block" (click)="sameBoothVoter(item.partNo)">{{'Voter on Same Booth' | translate}}</ion-button>
         </ion-col>
       </ion-row>
       <ion-row class="ion-text-center">
@@ -1018,7 +1028,11 @@
               <th> : </th>
               <td> {{item.village}} </td>
             </tr>
-            
+            <tr #tr8>
+              <th>{{'Booth' | translate}} </th>
+              <th> : </th>
+              <td> {{item.boothName}} </td>
+            </tr>
           </table>
         </div>
       </div>

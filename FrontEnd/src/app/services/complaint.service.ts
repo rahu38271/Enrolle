@@ -94,7 +94,6 @@ export class ComplaintService {
   }
 
   getFile(id:any): Observable<Blob>{
-    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });

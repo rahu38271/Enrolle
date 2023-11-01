@@ -30,6 +30,7 @@ export class ContactComponent implements OnInit {
   currentDate = new Date();
   birthDate: any;
   totalItems:any;
+  imageUrl: string;
   
   constructor
   (
@@ -47,6 +48,7 @@ export class ContactComponent implements OnInit {
   }
 
   ngOnInit() {
+    debugger;
     if(this.SearchText == undefined){
       this.SearchText = ''
     }
@@ -73,12 +75,20 @@ export class ContactComponent implements OnInit {
   }  
 
   contactList(PageNo:any,NoofRow:any,SearchText:any){
+    debugger;
     this.contact.getContacts(PageNo,NoofRow,SearchText).subscribe(data=>{
       if(data.length != 0){
+        console.log(data);
         this.getContacts = data;
         this.totalItems = data[0].totalCount;
+        
         this.getContacts.forEach(e => {
-          e.birthDate = e.birthDate.split('T')[0] == '1900-01-01' ? '' : e.birthDate.split('T')[0];
+          if(e.birthDate==null){
+            e.birthDate=""
+          }else{
+            e.birthDate = e.birthDate.split('T')[0];
+          }
+          e.birthDate = e.birthDate.split('T')[0] == '1900-01-01' ? '' : e.birthDate.split('T')[0]; 
           e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '' : e.anniversary.split('T')[0]; 
         });
 
@@ -204,54 +214,77 @@ export class ContactComponent implements OnInit {
     })
   }
 
-  exportToCSV() {
-    this.PageNo=1;
-    this.NoofRow=this.totalItems;
-    var SearchText = "";
+  // exportToCSV() {
+  //   this.PageNo=1;
+  //   this.NoofRow=this.totalItems;
+  //   var SearchText = "";
+  //   this.loader.showLoading();
+  //   this.contact.getContacts(this.PageNo,this.NoofRow,SearchText).subscribe(data=>{
+  //     if(data.length != 0){
+  //       this.loader.hideLoader();
+  //       this.getContacts = data;
+  //       this.totalItems = data[0].totalCount;
+  //       this.getContacts.forEach(e => {
+  //         e.birthDate = e.birthDate.split('T')[0] == '1900-01-01' ? '' : e.birthDate.split('T')[0];
+  //         e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '' : e.anniversary.split('T')[0]; 
+  //         delete e.totalCount;
+  //         delete e.loginUserId;
+  //         delete e.id;
+  //       });
+  //       this.csv.exportToCsv(this.getContacts, 'contact');
+  //       this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+  //     }
+  //     else{
+  //       this.loader.hideLoader();
+  //       this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+  //     }
+  //   },(err)=>{
+  //     this.loader.hideLoader();
+  //   })
+  // }
+
+
+  exportToCSV(){
     this.loader.showLoading();
-    this.contact.getContacts(this.PageNo,this.NoofRow,SearchText).subscribe(data=>{
-      if(data.length != 0){
+    this.contact.getContactsFile().subscribe((data:Blob)=>{
+      if(data){
         this.loader.hideLoader();
-        this.getContacts = data;
-        this.totalItems = data[0].totalCount;
         this.getContacts.forEach(e => {
-          e.birthDate = e.birthDate.split('T')[0] == '1900-01-01' ? '' : e.birthDate.split('T')[0];
-          e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '' : e.anniversary.split('T')[0]; 
-          delete e.totalCount;
-          delete e.loginUserId;
-          delete e.id;
+          if(e.birthDate=="1900-01-01"){
+            e.birthDate = null
+          }else{
+            e.birthDate = e.birthDate
+          } 
         });
-        this.csv.exportToCsv(this.getContacts, 'contact');
+        this.saveFile(data);
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
       else{
         this.loader.hideLoader();
-        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
       }
     },(err)=>{
       this.loader.hideLoader();
     })
   }
 
-  // async downloadExcel() {
-  //   const toast = await this.toastController.create({
-  //     message: 'Request added to export.',
-  //     duration: 2000,
-  //     position: 'top',
-  //     color: 'success',
-  //   });
-  //   toast.present();
-  // }
+  saveFile(imageData: Blob) {
+    const blob = new Blob([imageData], { type: 'text/csv' });
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    // link.download = '';
+    link.download = 'contacts.csv';
+    link.click();
+  }
 
-  // async downloadPDF() {
-  //   const toast = await this.toastController.create({
-  //     message: 'Request added to download doc.',
-  //     duration: 2000,
-  //     position: 'top',
-  //     color: 'primary',
-  //   });
-  //   toast.present();
-  // }
+   // to download image from get api
+   fetchImage(image:Blob){
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      this.imageUrl = reader.result as string;
+    };
+    reader.readAsDataURL(image);
+  }
+
 
 }
 

@@ -55,6 +55,8 @@ import {
   StepAreaSeriesService, SplineSeriesService, ScrollBarService, ChartAnnotationService, LegendService, TooltipService, StripLineService,
   SelectionService, ScatterSeriesService, ZoomService, ColumnSeriesService, AreaSeriesService, RangeAreaSeriesService
 } from '@syncfusion/ej2-angular-charts';
+import { BySlipComponent } from './by-slip/by-slip.component';
+import { SlipprintedComponent } from './slipprinted/slipprinted.component';
 
 @NgModule({
   declarations: [
@@ -94,7 +96,7 @@ import {
     VotedvoterComponent, 
     NotvotedvoterComponent, 
     AlivevoterComponent, 
-    DeadvoterComponent, BySocietyComponent, SocietywiseListComponent,
+    DeadvoterComponent, BySocietyComponent, SocietywiseListComponent, BySlipComponent, SlipprintedComponent,
   ],
   imports: [
     CommonModule,
@@ -172,7 +174,9 @@ import {
       {path:'voted-voter', component:VotedvoterComponent},
       {path:'notVoted-voter', component:NotvotedvoterComponent},
       {path:'by-society', component:BySocietyComponent},
-      {path:'societywise-list', component:SocietywiseListComponent}
+      {path:'societywise-list', component:SocietywiseListComponent},
+      {path:'by-slip', component:BySlipComponent},
+      {path:'slipprinted', component:SlipprintedComponent},
    ])
   ],
 

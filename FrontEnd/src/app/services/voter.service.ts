@@ -492,6 +492,24 @@ export class VoterService {
     return this.http.get<any>(this.url+'Voter/GetColoumncount?UserId='+UserId+'&RoleId='+RoleId+'&Coloumn='+Coloumn,{ headers })
   }
 
+  // is slip printed or not count
+
+  getIsPrinted(UserId:any,RoleId:any,Coloumn:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/GetColoumncount?UserId='+UserId+'&RoleId='+RoleId+'&Coloumn='+Coloumn,{ headers })
+  }
+
+  // printed slip list
+
+  getSlipData(ColoumnName:any, ColoumnValue:any, UserId:any, RoleId:any, PageNo:any, NoofRow:any, Language:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/VoterDetailsbyColumn?ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue+'&UserId='+UserId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language,{ headers })
+  }
+
   //delete voter
   deleteVoter(voterId:any){
     const headers = new HttpHeaders({
@@ -598,5 +616,38 @@ export class VoterService {
     return this.http.get<any>(this.url+'Voter/GetVoterbyId?id='+vid+'&Language='+Language,{ headers })
   }
 
+  // add voter to print slip list
+  addToPrintSlip(id:any, ColoumnName:any, ColoumnValue:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Voter/UpdateColoumnTBLVoter?Id='+id+'&ColoumnName='+ColoumnName+'&ColoumnValue='+ColoumnValue,id,{ headers })
+  }
+
+  // insert mobile to contacts
+  voterWithMobiletoContacts(){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/InsertMatchedMobileinContact',{ headers })
+  }
+
+  // matched Mobile File
+
+  getMatchedMobFile(userid:any, RoleId:any):Observable<Blob>{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get(this.url+'Voter/MatchMobileFile?userid='+userid+'&RoleId='+RoleId,{responseType: "blob", reportProgress: true,headers})
+  }
+
+  // update mobile and DoB in voter from bulk matching excel
+  uploadMatchedMobDoB(UserId:any, RoleId:any){
+    debugger;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/UpdateBirthDateandMobileinVoter?UserId='+UserId+'&RoleId='+RoleId,{ headers })
+  }
   
 }

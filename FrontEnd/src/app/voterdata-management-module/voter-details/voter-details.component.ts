@@ -38,6 +38,7 @@ export class VoterDetailsComponent  {
   casteModal:any={}
   houseUpdate:any={};
   adrsUpdate: any = {}
+  slipModal:any={}
   showStar: boolean;
   showVote: boolean;
   id:any;
@@ -77,6 +78,7 @@ export class VoterDetailsComponent  {
   @ViewChild('tr5') tr5: ElementRef;
   @ViewChild('tr6') tr6: ElementRef;
   @ViewChild('tr7') tr7: ElementRef;
+  @ViewChild('tr8') tr8: ElementRef;
   @ViewChild('p') p: ElementRef;
 
   keyPressNumbers(event) {
@@ -165,10 +167,8 @@ export class VoterDetailsComponent  {
   }
 
   voterInfo(){
-    this.loader.showLoading();
     this.voter.getVoterById(this.Vid,this.Language).subscribe(data=>{
       if(data){
-        this.loader.hideLoader();
         this.voterInfoData = data;
         this.setAddress = data[0].address;
         this.setMobile = data[0].mobileNo;
@@ -234,10 +234,10 @@ export class VoterDetailsComponent  {
         
       }
       else{
-        this.loader.hideLoader();
+
       }
     },(err)=>{
-      this.loader.hideLoader();
+      
       
     })
   
@@ -258,7 +258,7 @@ export class VoterDetailsComponent  {
         this.toast.presentToast("Address not updated", "danger", 'alert-circle-sharp');
       }
     }, (_err) => {
-      this.toast.presentToast("Address not updated", "danger", 'alert-circle-sharp');
+      
     })
   }
 
@@ -277,7 +277,8 @@ export class VoterDetailsComponent  {
         this.toast.presentToast("Mobile No. not updated", "danger", 'alert-circle-sharp');
       }
     }, (_err) => {
-      this.toast.presentToast("Mobile No. not updated", "danger", 'alert-circle-sharp');
+     
+      
     })
   }
 
@@ -297,7 +298,7 @@ export class VoterDetailsComponent  {
         this.toast.presentToast("Mobile No. not updated", "danger", 'alert-circle-sharp');
       }
     }, (_err) => {
-      this.toast.presentToast("Mobile No. not updated", "danger", 'alert-circle-sharp');
+      
     })
   }
 
@@ -314,7 +315,6 @@ export class VoterDetailsComponent  {
         this.toast.presentToast("Birthdate updated successfully!", "success", 'checkmark-circle-sharp');
       }
       else {
-
       }
     }, (err) => {
 
@@ -582,6 +582,7 @@ export class VoterDetailsComponent  {
       + '\n' + this.tr5.nativeElement.innerText
       + '\n' + this.tr6.nativeElement.innerText
       + '\n' + this.tr7.nativeElement.innerText
+      + '\n' + this.tr8.nativeElement.innerText
       + '\n' + '----------------------------------------------------'
       + '\n' + this.p.nativeElement.innerText,
       this.imgurl
@@ -684,6 +685,21 @@ export class VoterDetailsComponent  {
 
   EditSurvey(data:any){
     this.router.navigateByUrl('/survey/edit-survey', {state:data});
+  }
+
+  slipPrint(){
+    this.slipModal.id = Number(this.Vid);
+    this.slipModal.ColoumnName = "PrintSlip"
+    this.slipModal.ColoumnValue = "Y"
+    this.voter.addToPrintSlip(this.slipModal.id,this.slipModal.ColoumnName,this.slipModal.ColoumnValue).subscribe(data=>{
+      if(data){
+        console.log(data)
+      }else{
+
+      }
+    },(err)=>{
+
+    })
   }
 
 }

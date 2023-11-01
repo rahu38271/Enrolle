@@ -75,4 +75,13 @@ export class SettingService {
     return this.http.get(this.url+'Voter/GetWhatAppContentbyUserId?UserId='+userId,{ headers })
   }
 
+  // birthday,anniversary sms setting
+  addBdayAnniSetting(smsSetting:any){
+    debugger;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'SmsSetting/InsertUpdateSmsSetting',smsSetting,{ headers })
+  }
+
 }

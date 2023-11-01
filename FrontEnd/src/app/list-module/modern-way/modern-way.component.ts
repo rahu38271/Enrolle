@@ -309,7 +309,8 @@ omit_special_char(event) {
   }
 
   saveExcelFile(imageData: Blob) {
-    const blob = new Blob([imageData], { type: 'text/xls' });
+    debugger;
+    const blob = new Blob([imageData], { type: 'application/octet-stream' });
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
     // link.download = '';
@@ -327,6 +328,7 @@ omit_special_char(event) {
   }
 
   exportExcel(){
+    debugger;
     this.PageNo=1;
     this.NoofRow=this.totalItems;
     this.searchModal.NoofRow=this.totalItems;

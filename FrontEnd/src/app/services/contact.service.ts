@@ -30,6 +30,14 @@ export class ContactService {
     return this.http.get<any>(this.url+'Contact?PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText,{ headers })
   }
 
+  // get contacts file
+  getContactsFile():Observable<Blob>{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get(this.url+'Contact/GetContactFile',{responseType: "blob", reportProgress: true, headers})
+  }
+
   // old district api 
   // getDistrictData():Observable<any>{
   //   return this.http.get<any>(this.url+'setting/GetAllDistricts')
@@ -60,7 +68,6 @@ export class ContactService {
    }
 
   addSingleContact(contactModal:any):Observable<any>{
-    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
@@ -68,7 +75,6 @@ export class ContactService {
   }
 
   UploadExcel(modal:any) {
-    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });

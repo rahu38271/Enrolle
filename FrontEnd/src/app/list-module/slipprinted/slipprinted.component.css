@@ -38,13 +38,12 @@ ion-list ion-item { height: auto; border: none; }
 
 ion-list-header {  font-size: 15px; color: #3e4684; padding-inline-start:10px;  }
 
-/* min-height: 28px; */
+/* // min-height: 28px; */
 
 .android { display: none; }
 
 @media screen and (max-width:576px){
     .main-content ion-card { display: none; }
-    .firstLine h3 { width: 300px; }
     .header1 {
         color: #f03d9e !important;
          width: 86% !important; 
@@ -65,13 +64,11 @@ ion-list-header {  font-size: 15px; color: #3e4684; padding-inline-start:10px;  
         width: 10% !important;
       }
 
-      .android { display: block; }
-
-      .android ion-list {
-        box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
-        border: 1px solid #e6ebf1;
+      ion-list {
         border-radius: 0.625rem;
       }
+
+      .android { display: block; }
 }
 
 .header2 {
@@ -82,19 +79,19 @@ ion-list-header {  font-size: 15px; color: #3e4684; padding-inline-start:10px;  
 
 .topForm { background: #ffffff;  }
 
+ion-card { width: 97%; margin: 0 auto; }
+
 th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:last-of-type {
     padding-right: 0px !important;
 }
 
 .firstLine { display: flex; justify-content: space-between; }
 
-.userList p span { color: #228bd2; }
-
 .details {
     display: flex;
     justify-content: space-between;
   }
-  
+
 
   .header2 {
     width: 40%;
@@ -108,77 +105,42 @@ th.mat-header-cell:last-of-type, td.mat-cell:last-of-type, td.mat-footer-cell:la
     font-size: 20px;
   }
 
-
-
-ion-searchbar {
-  padding-top: 0px; 
-    padding-bottom: 5px;
-}
-
-@media screen and (max-width: 576px){
-.web {
-    display: none;
-  }
-}
-
-.radioBtn {
-  display: flex;
-justify-content: space-between;
-}
-
-form ion-input {
-  background: #fff !important;
-}
-
-.radioBtn ion-label {
-  padding-left: 8px;
-}
-
-ion-radio {
-  background: #FFF;
-}
+  @media screen and (max-width: 575px){
+    .web {
+        display: none;
+      }
+    }
 
 ion-label {
-  margin: 2px 0px !important;
+  margin: 0px 0px;
 }
 
 ion-list {
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
-.noData {
-  padding: 20%;
-}
-
- .noData img {
-  width: 125px !important;
- }
-
- .table tr th:nth-child(11){
+.table tr th:nth-child(10){
   width: 200px !important;
 }
 
-.table tr td:nth-child(11){
+.table tr td:nth-child(10){
   max-width: 200px !important;
 }
 
 
 .table tr th:nth-child(2){
-  width: 150px !important;
+  max-width: 150px !important;
 }
 
 .table tr td:nth-child(2){
-  width: 150px !important;
+  max-width: 150px !important;
 }
 
-.table tr th:nth-child(4){
-  width: 200px !important;
+.table tr th:nth-child(3){
+  max-width: 200px !important;
 }
 
-.table tr td:nth-child(4){
-  width: 200px !important;
+.table tr td:nth-child(3){
+  max-width: 200px !important;
 }
 
-.flex {
-  display: flex;
-}

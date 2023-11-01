@@ -240,7 +240,7 @@
 
       <ion-row>
         <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="3">
-          <ion-list>
+          <ion-list *ngFor="let item of mainCounts">
             <ion-list-header> Data Count </ion-list-header>
             
             <ion-item class="totalData totalContacts" lines="none">
@@ -252,7 +252,7 @@
               </ion-label>
               
               <div slot="end">
-                <h6>21111</h6>
+                <h6>{{item.totalContact}}</h6>
               </div>
             </ion-item>
 
@@ -265,7 +265,7 @@
               </ion-label>
               
               <div slot="end">
-                <h6>100</h6>
+                <h6>{{item.todayBirthDay}}</h6>
               </div>
             </ion-item>
 
@@ -278,7 +278,7 @@
               </ion-label>
               
               <div slot="end">
-                <h6>100</h6>
+                <h6>{{item.todayAnniversary}}</h6>
               </div>
             </ion-item>
 
@@ -291,7 +291,7 @@
               </ion-label>
               
               <div slot="end">
-                <h6>100</h6>
+                <h6>{{item.totalAppointment}}</h6>
               </div>
             </ion-item>
 
@@ -304,7 +304,7 @@
               </ion-label>
               
               <div slot="end">
-                <h6>100</h6>
+                <h6>{{item.todayAppointment}}</h6>
               </div>
             </ion-item>
 
@@ -317,7 +317,7 @@
               </ion-label>
               
               <div slot="end">
-                <h6>100</h6>
+                <h6>{{item.totalComplaint}}</h6>
               </div>
             </ion-item>
 
@@ -330,7 +330,7 @@
               </ion-label>
               
               <div slot="end">
-                <h6>100</h6>
+                <h6>{{item.todayComplaint}}</h6>
               </div>
             </ion-item>
 
@@ -343,7 +343,7 @@
               </ion-label>
               
               <div slot="end">
-                <h6>100</h6>
+                <h6>{{item.totalLetter}}</h6>
               </div>
             </ion-item>
 
@@ -356,7 +356,7 @@
               </ion-label>
               
               <div slot="end">
-                <h6>10</h6>
+                <h6>{{item.todayLetter}}</h6>
               </div>
             </ion-item>
   

@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { SettingService } from 'src/app/services/setting.service';
+import { LoaderService } from 'src/app/services/loader.service'
+import { IonicToastService } from 'src/app/services/ionic-toast.service'
 
 @Component({
   selector: 'app-sms-setting',
@@ -6,11 +9,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sms-setting.component.scss'],
 })
 export class SmsSettingComponent implements OnInit {
-
-  public templates: any [] = [{
-    id : 1,
-    Template:'',
-  }] 
+  smsSetting:any={}
 
   onKeyPress(event) {
     if ((event.keyCode >= 65 && event.keyCode <= 90) || (event.keyCode >= 97 && event.keyCode <= 122) || event.keyCode == 32 || event.keyCode == 46) {
@@ -32,34 +31,30 @@ keyPressNumbers(event) {
   }
 }
 
-ismyTextFieldType: boolean;
-  togglemyPasswordFieldType() {
-    this.ismyTextFieldType = !this.ismyTextFieldType;
-  }
-
-  smsModel: any = { };
-  
-  constructor() { }
+  constructor(
+    private setting:SettingService,
+    private loader:LoaderService,
+    private toast:IonicToastService
+  ) { }
 
   ngOnInit() {}
 
-  addTemplate(){
-    this.templates.push({
-      id : this.templates.length + 1,
-      Template : '' ,
+  addSMSSetting(){
+    this.loader.showLoading();
+    this.smsSetting.Type = Number(this.smsSetting.Type);
+    this.setting.addBdayAnniSetting(this.smsSetting).subscribe(data=>{
+      if(data){
+        this.loader.hideLoader();
+        this.smsSetting={}
+        this.toast.presentToast("Setting added successfully!", "success", 'checkmark-circle-sharp');
+      }else{
+        this.loader.hideLoader();
+        this.toast.presentToast("Setting not added", "danger", 'alert-circle-sharp');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+      this.toast.presentToast("Setting not added", "danger", 'alert-circle-sharp');
     })
-  }
-
-  removeTemplate(i : number){
-    this.templates.splice(i,1);
-  }
-
-  onSubmit(){
-    if(this.smsModel.invalid){
-      return
-    }else{
-      alert('success');
-    }
   }
 
 }
