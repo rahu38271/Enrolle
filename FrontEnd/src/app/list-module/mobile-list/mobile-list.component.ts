@@ -62,7 +62,11 @@ export class MobileListComponent implements OnInit {
     else{
       this.SearchText = this.SearchText
     }
-    this.mobileList(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
+    
+    }
+
+    ionViewWillEnter(){
+      this.mobileList(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
     }
 
     event(event:any){
@@ -105,13 +109,13 @@ export class MobileListComponent implements OnInit {
       this.PageNo = 1;
       this.NoofRow = this.totalItems;
       this.SearchText = SearchText;
-      this.mobileList(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+      this.mobileList(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, SearchText);
     }
     else {
       this.PageNo = 1;
       this.NoofRow = 25;
       this.SearchText = SearchText.trim();
-      this.voter.voterWithMobile(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+      this.voter.voterWithMobile(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, SearchText).subscribe(data => {
         if (data.length != 0) {
           //this.loader.hideLoader();
           this.voterMobile = data;
@@ -125,25 +129,7 @@ export class MobileListComponent implements OnInit {
     }
   }
 
-  keyPress(SearchText:any){
-    if (this.SearchText == '') {
-      this.PageNo = 1;
-      this.NoofRow = this.totalItems;
-      this.SearchText = SearchText;
-      this.mobileList(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
-    }
-    else {
-      this.PageNo = 1;
-      this.NoofRow = 25;
-      this.SearchText = SearchText.trim();
-      this.voter.voterWithMobile(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
-        if (data) {
-          this.voterMobile = data;
-          this.totalItems = data[0].totalCount
-        }
-      })
-    }
-  }
+  
 
   exportExcel():void {
     this.PageNo=1;

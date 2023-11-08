@@ -37,7 +37,7 @@
             <ion-card-content>
               <div class="headSection">
                 <div class="search">
-                  <ion-searchbar (keyup)="keyPress($event.target.value)" (change)="onSearchText($event.target.value)" animated="true"></ion-searchbar>
+                  <ion-searchbar (ionChange)="onSearchText($event.target.value)" animated="true"></ion-searchbar>
                 </div>
                 <div class="btns">
                   <ion-button class="button-download" color="tertiary" (click)="exportExcel()">
@@ -93,7 +93,7 @@
       <ion-item>
         {{addressName}}, {{'Total' | translate}} - {{totalItems}}
       </ion-item>
-      <ion-searchbar (keyup)="keyPress($event.target.value)" (change)="onSearchText($event.target.value)" animated="true" *ngIf="isShow"></ion-searchbar>
+      <ion-searchbar (ionChange)="onSearchText($event.target.value)" animated="true" *ngIf="isShow"></ion-searchbar>
       
       <ion-list *ngFor="let item of addressWiseList | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems }" (click)="voterDetails(item)">
         <ion-item lines="none" >

@@ -55,8 +55,12 @@ export class BoothwiseListComponent implements OnInit {
     else{
       this.SearchText = this.SearchText
     }
-    this.partNoWiseVoter(this.userId, this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
     
+    
+  }
+
+  ionViewWillEnter(){
+    this.partNoWiseVoter(this.userId, this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
   }
 
    event(event:any){
@@ -110,13 +114,13 @@ export class BoothwiseListComponent implements OnInit {
       this.PageNo = 1;
       this.NoofRow = this.totalItems;
       this.SearchText = SearchText;
-      this.partNoWiseVoter(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+      this.partNoWiseVoter(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, SearchText);
     }
     else {
       this.PageNo = 1;
       this.NoofRow = 25;
       this.SearchText = SearchText.trim();
-      this.voter.voterByPart(this.partNumber, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+      this.voter.voterByPart(this.partNumber, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, SearchText).subscribe(data => {
         if (data) {
           this.partWiseVoter = data;
           this.totalItems = data[0].totalCount
@@ -130,13 +134,13 @@ export class BoothwiseListComponent implements OnInit {
       this.PageNo = 1;
       this.NoofRow = this.totalItems;
       this.SearchText = SearchText;
-      this.partNoWiseVoter(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+      this.partNoWiseVoter(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, SearchText);
     }
     else {
       this.PageNo = 1;
       this.NoofRow = 25;
       this.SearchText = SearchText.trim();
-      this.voter.voterByPart(this.partNumber, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+      this.voter.voterByPart(this.partNumber, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, SearchText).subscribe(data => {
         if (data) {
           this.partWiseVoter = data;
           this.totalItems = data[0].totalCount

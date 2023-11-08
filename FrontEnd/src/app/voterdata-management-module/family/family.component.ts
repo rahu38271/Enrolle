@@ -3,54 +3,61 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LoaderService} from 'src/app/services/loader.service'
 import { VoterService} from 'src/app/services/voter.service'
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-family',
   templateUrl: './family.component.html',
-  styleUrls: ['./family.component.css']
+  styleUrls: ['./family.component.css'] 
 })
 export class FamilyComponent {
   id: any;
   familyData: any;
-  userId: any;
+  UserId: any;
   roleID:any;
   searchWeb:string;
   PageNo:any=1;
   NoofRow:any=10;
   Language:any;
   totalItems:any;
-  address:any;
   
   constructor(
     private loader:LoaderService, 
     private voter:VoterService,
     private route:ActivatedRoute, 
     private router:Router,
+    private location:Location,
     private translateConfigService: TranslateConfigService,
      ) { 
       this.Language = this.translateConfigService.getCurrentLang();
   }
 
-  voterDetails(item:any){
-    this.router.navigate(['voterdata-management/voter-details'], { state: item })
-   }
+  // voterDetails(item:any){
+  //   this.router.navigate(['voterdata-management/voter-details'], { state: item })
+  //  }
 
-  
+  voterDetails(data){
+    this.id = data.id;
+    this.router.navigate(['/voterdata-management/voter-details', this.id])
+  }
 
   ngOnInit(): void {
-    this.userId = localStorage.getItem("loginId");
+    this.UserId = localStorage.getItem("loginId");
     this.roleID = localStorage.getItem("userType");
     this.id = this.route.snapshot.paramMap.get('Id');
-    this.address = this.route.snapshot.paramMap.get('Address')
-    this.familyWiseVoterData(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language);
+    
+  }
+
+  ionViewWillEnter(){
+    this.familyWiseVoterData(this.id,this.UserId,this.roleID,this.PageNo,this.NoofRow,this.Language);
   }
 
   event(event:any){
     this.PageNo = event;
-    this.familyWiseVoterData(this.id,this.roleID,event,this.NoofRow,this.Language)
+    this.familyWiseVoterData(this.id,this.UserId,this.roleID,event,this.NoofRow,this.Language)
   }
 
-  familyWiseVoterData(userId:any,roleID:any,PageNo:any,NoofRow:any,Language:any){
+  familyWiseVoterData(id:any,UserId:any,roleID:any,PageNo:any,NoofRow:any,Language:any){
     if(this.Language == "kn"){
       this.Language = "Kannada"
     }
@@ -63,15 +70,18 @@ export class FamilyComponent {
     else{
       this.Language = "English"
     }
-    this.voter.getByRelation(this.id, userId,roleID,PageNo,NoofRow,this.Language).subscribe(data=>{
+    this.voter.getVoterByFamily(id, UserId,roleID,PageNo,NoofRow,this.Language).subscribe(data=>{
       if(data){
-        console.log(data);
         this.familyData= data;
-        //this.totalItems = data[0].totalCount
+        this.totalItems = data[0].totalCount;
       }else{
 
       }
     })
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

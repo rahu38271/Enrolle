@@ -13,6 +13,7 @@ import { AccountComponent } from './account/account.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AssignDataComponent } from './assign-data/assign-data.component';
 import { DbComponent } from './db/db.component';
+import { DbListComponent } from './db-list/db-list.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { DbComponent } from './db/db.component';
     EditSuperadminComponent,
     AccountComponent,
     AssignDataComponent,
-    DbComponent
+    DbComponent,
+    DbListComponent
   ],
   imports: [
     CommonModule,
@@ -37,7 +39,8 @@ import { DbComponent } from './db/db.component';
       {path:'edit-superadmin', component:EditSuperadminComponent}, 
       {path:'account/:id', component:AccountComponent},
       {path:'assign-data/:id/:partNoAssigned/:role',component:AssignDataComponent},
-      {path:'db/:id', component:DbComponent}
+      {path:'db/:id', component:DbComponent},
+      {path:'db-list', component:DbListComponent}
     ])
   ]
 })

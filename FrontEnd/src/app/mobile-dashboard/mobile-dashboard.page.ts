@@ -29,6 +29,7 @@ export class MobileDashboardPage implements OnInit {
   isSurvey:any;
   isGraph:any;
   isLogReport:any;
+  isLetter:any;
   id:any;
   name: any;
   roleName: string;
@@ -38,6 +39,7 @@ export class MobileDashboardPage implements OnInit {
   superAdminName:any;
   isImage=true;
   mainCounts:any;
+  isVoterList:any;
 
   // complaint graph
   public primaryXAxis: Object;
@@ -177,23 +179,7 @@ export class MobileDashboardPage implements OnInit {
     }
     
 
-    var roleId = localStorage.getItem("userType");
-    //this.roleType = roleName
-    var isMasterAdmin = roleId == "1"
-    var isSuperAdmin = roleId == "2"
-    var isAdmin = roleId == "3";
-    var isVolunteer = roleId == "4"
     
-    this.isSearch = isVolunteer;
-    this.isList =  isSuperAdmin || isAdmin || isVolunteer;
-    this.isContact =isMasterAdmin || isSuperAdmin || isAdmin;
-    this.isBirthDay = isMasterAdmin || isSuperAdmin || isAdmin;
-    this.isAnniversary = isMasterAdmin || isSuperAdmin || isAdmin;
-    this.isSurvey = isMasterAdmin || isSuperAdmin || isAdmin || isVolunteer;
-    this.isGraph = isMasterAdmin || isSuperAdmin || isAdmin;
-    this.isLogReport = isMasterAdmin || isSuperAdmin || isAdmin;
-    
-
     this.primaryXAxisP = {
       majorGridLines: { width: 0 },
       minorGridLines: { width: 0 },
@@ -244,6 +230,26 @@ export class MobileDashboardPage implements OnInit {
   }
 
   ionViewWillEnter() {
+
+    var roleId = localStorage.getItem("userType");
+    //this.roleType = roleName
+    var isMasterAdmin = roleId == "1"
+    var isSuperAdmin = roleId == "2"
+    var isAdmin = roleId == "3";
+    var isVolunteer = roleId == "4"
+   
+    this.isSearch = isVolunteer;
+    this.isList =  isSuperAdmin || isAdmin || isVolunteer;
+    this.isContact =isMasterAdmin || isSuperAdmin || isAdmin;
+    this.isBirthDay = isMasterAdmin || isSuperAdmin || isAdmin;
+    this.isAnniversary = isMasterAdmin || isSuperAdmin || isAdmin;
+    this.isSurvey = isMasterAdmin || isSuperAdmin || isAdmin || isVolunteer;
+    this.isGraph = isMasterAdmin || isSuperAdmin || isAdmin;
+    this.isLogReport = isMasterAdmin || isSuperAdmin || isAdmin;
+    this.isLetter = isMasterAdmin || isSuperAdmin || isAdmin;
+    this.isVoterList = isSuperAdmin || isAdmin;
+
+
     this.menuCtrl.enable(true);
     this.apmCountData();
     this.allComplaintCount();

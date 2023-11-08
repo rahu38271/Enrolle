@@ -379,7 +379,7 @@
                     {{'Cancel' | translate}}
                   </ion-button>
                   <ion-button type="submit" color="success" size="medium" (click)="saveMobile()"
-                    [disabled]="!f.form.valid">
+                    >
                     {{'Submit' | translate}}
                   </ion-button>
                   
@@ -411,7 +411,7 @@
                   <ion-button color="danger" size="medium" (click)="closeModal()" >
                     {{'Cancel' | translate}}
                   </ion-button>
-                  <ion-button type="submit" color="success" size="medium" (click)="saveAltMobile()" [disabled]="!f.form.valid">
+                  <ion-button type="submit" color="success" size="medium" (click)="saveAltMobile()">
                     {{'Submit' | translate}}
                   </ion-button>
                   
@@ -763,10 +763,9 @@
                     <ion-button color="danger" size="medium" (click)="closeModal()">
                       {{'Cancel' | translate}}
                     </ion-button>
-                    <ion-button type="submit" color="success" size="medium" (click)="saveSociety()"  [disabled]="!f.form.valid">
+                    <ion-button type="submit" color="success" size="medium" (click)="saveSociety()">
                       {{'Submit' | translate}}
                     </ion-button>
-                    
                   </ion-col>
                 </ion-row>
               </ion-grid>
@@ -808,7 +807,7 @@
                       <ion-button color="danger" size="medium" (click)="closeModal()">
                         {{'Cancel' | translate}}
                       </ion-button>
-                      <ion-button type="submit" color="success" size="medium" (click)="saveHouseNo()" [disabled]="!f.form.valid">
+                      <ion-button type="submit" color="success" size="medium" (click)="saveHouseNo()">
                         {{'Submit' | translate}}
                       </ion-button>
                       
@@ -929,7 +928,7 @@
     <ion-grid>
       <ion-row>
         <ion-col size-xs="6">
-          <ion-button size="block" > {{'Family' | translate}}</ion-button>
+          <ion-button size="block" (click)="voterByFamily(item.id)" > {{'Family' | translate}}</ion-button>
         </ion-col>
         <ion-col size-xs="3">
           <ion-button size="block" > {{'Print' | translate}}</ion-button>
@@ -962,7 +961,7 @@
       </ion-row> -->
       <ion-row class="ion-text-center">
         <ion-col>
-          <ion-button size="block" (click)="sameAddressVoter(item.id)">
+          <ion-button size="block" (click)="sameAddressVoter(item.address)">
             {{'Voter on Same Address' | translate}}
           </ion-button>
         </ion-col>

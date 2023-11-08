@@ -306,7 +306,7 @@
               <thead>
                 <tr>
                   <th>Sr.No.</th>
-                  <th>Name</th>
+                  <th>Name </th>
                   <!-- <th>Booth No.</th> -->
                   <th>Booth Name</th>
                   <th>Age</th>
@@ -321,7 +321,12 @@
               <tbody>
                 <tr *ngFor="let item of voterByPart | paginate: { itemsPerPage:NoofRow, currentPage: PageNo,totalItems:totalItems }; let i=index">
                   <td>{{item.id}}</td>
-                  <td class="text-capitalize editVoter nameLink" (click)="EditVoter(item)">{{item.fullName}}</td>
+                  <td class="text-capitalize editVoter nameLink">
+                    <a (click)="EditVoter(item)">
+                      {{item.fullName}}
+                    </a>
+                    <ion-icon (click)="voterByFamily(item.id)" name="people-sharp"></ion-icon>
+                  </td>
                   <td>{{item.booth}}</td>
                   <td>{{item.age}}</td>
                   <td>{{item.gender}}</td>
@@ -369,11 +374,11 @@
                 </div>
               </ion-col>
               <ion-col class="ion-text-right">
-                <ion-button class="button-download" color="success" (click)="searchedExcel()">
-                  <ion-icon name="document-sharp"></ion-icon>Excel
+                <ion-button class="button-download" color="tertiary" (click)="searchedExcel()">
+                  Excel
                 </ion-button>
-                <ion-button class="button-download" color="success" (click)="searchedCSV()">
-                  <ion-icon name="document-sharp"></ion-icon>CSV
+                <ion-button class="button-download" color="tertiary" (click)="searchedCSV()">
+                  CSV
                 </ion-button>
                
               </ion-col>
@@ -401,7 +406,10 @@
               <tbody>
                 <tr *ngFor="let item of searchedVoterByPart | paginate: { itemsPerPage:NoofRow, currentPage: PageNo,totalItems:totalItems }; let i=index">
                   <td>{{item.id}}</td>
-                  <td class="text-capitalize editVoter" (click)="EditVoter(item)">{{item.fullName}}</td>
+                  <td class="text-capitalize editVoter nameLink" >
+                     <a (click)="EditVoter(item)"> {{item.fullName}} </a>
+                    <ion-icon (click)="voterByFamily(item.id)" name="people-sharp"></ion-icon>
+                  </td>
                   <td>{{item.booth}}</td>
                   <td>{{item.age}}</td>
                   <td>{{item.gender}}</td>
@@ -417,7 +425,7 @@
               </tbody>
             </table>
             <ion-list>
-              <pagination-controls (pageChange)="event1($event)"></pagination-controls>
+              <pagination-controls (pageChange)="event1($event1)"></pagination-controls>
             </ion-list>
             <div *ngIf="!voterByPart || voterByPart.length === 0" class="ion-text-center">
               <p>

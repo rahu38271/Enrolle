@@ -20,7 +20,7 @@ export class Error3Component implements OnInit {
   }
 
   goHome(){
-    this.router.navigate(['/home/mobile-dashboard'])
+    this.router.navigate(['/'])
   }
 
 }

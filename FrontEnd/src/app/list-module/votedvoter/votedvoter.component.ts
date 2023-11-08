@@ -56,6 +56,10 @@ export class VotedvoterComponent implements OnInit {
     else{
       this.SearchText = this.SearchText
     }
+    
+  }
+
+  ionViewWillEnter(){
     this.votedList(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText)
   }
 
@@ -107,36 +111,13 @@ export class VotedvoterComponent implements OnInit {
       this.PageNo = 1;
       this.SearchText = SearchText
       this.NoofRow = this.totalItems;
-      this.votedList(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText)
+      this.votedList(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,SearchText)
     }
     else {
       this.PageNo = 1;
       this.SearchText = SearchText
       this.NoofRow = 25;
-      this.voter.getvoterVoted(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
-        if(data.length != 0){
-          this.votedvoterList=data;
-          this.totalItems=data[0].totalCount;
-        }
-        else{
-  
-        }
-      })
-    }
-  }
-
-  keyPress(SearchText:any){
-    if (this.SearchText == '') {
-      this.PageNo = 1;
-      this.SearchText = SearchText
-      this.NoofRow = this.totalItems;
-      this.votedList(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText)
-    }
-    else {
-      this.PageNo = 1;
-      this.SearchText = SearchText
-      this.NoofRow = 25;
-      this.voter.getvoterVoted(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
+      this.voter.getvoterVoted(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,SearchText).subscribe(data=>{
         if(data.length != 0){
           this.votedvoterList=data;
           this.totalItems=data[0].totalCount;

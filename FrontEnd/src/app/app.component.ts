@@ -1,4 +1,4 @@
-import {Component, OnInit,ChangeDetectorRef,ViewChild  } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import {
   Router,
   // import as RouterEvent to avoid confusion with the DOM Event
@@ -11,7 +11,7 @@ import {
   NavigationExtras
 } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { MenuController, PopoverController, AlertController   } from '@ionic/angular';
+import { MenuController, PopoverController, AlertController } from '@ionic/angular';
 import { NotificationComponent } from './notification/notification.component';
 import { ProfileComponent } from './profile/profile.component';
 import { Platform } from '@ionic/angular';
@@ -27,6 +27,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { TranslateConfigService } from 'src/app/services/translate-config.service';
 import { IonicToastService } from './services/ionic-toast.service';
 //import { UpdateService } from './services/update.service';
+import { VersionService } from './services/version.service';
 
 @Component({
   selector: 'app-root',
@@ -36,22 +37,22 @@ import { IonicToastService } from './services/ionic-toast.service';
 export class AppComponent implements OnInit {
   //menuWidth: number = 218;
   name: any;
-  
+  versionInfo: any;
   id: any;
-  showHead:boolean=false;
+  showHead: boolean = false;
   AdminMenu: any;
   UserMenu: any;
   user: any;
   roleType: string;
   contact: string;
-  roleId:any;
+  roleId: any;
   roleName: string;
   isDashboard: any;
   isContact: any;
   isBirthday: any;
   isAnniversary: any;
   isDailyRoutine: any;
-  isDailyNews:any;
+  isDailyNews: any;
   isMedia: any;
   isOther: any;
   isSetting: any;
@@ -60,27 +61,30 @@ export class AppComponent implements OnInit {
   isLists: any;
   isSearch: any;
   isVoterList: any;
-  isAppointment:any;
-  isAnnapurna:any;
-  isNewVoter:any;
-  isSociety:any;
-  isOffice:any;
-  isNotifications:any;
-  isSuperAdmin:any;
-  isconfigureDB:any;
-  isLetterTracking:any;
-  isAppoReport:any;
-  isEnquiry:any;
-  isReports:any;
-  isComBook:any;
-  isRequest:any;
-  isTab:any;
-  role:any;
+  isAppointment: any;
+  isAnnapurna: any;
+  isNewVoter: any;
+  isSociety: any;
+  isOffice: any;
+  isNotifications: any;
+  isSuperAdmin: any;
+  isconfigureDB: any;
+  isLetterTracking: any;
+  isAppoReport: any;
+  isEnquiry: any;
+  isReports: any;
+  isComBook: any;
+  isRequest: any;
+  isTab: any;
+  role: any;
   language: any;
-  state:any;
-  apkName:any;
-  
- 
+  state: any;
+  apkName: any;
+  oldversion: any;
+  newVersion: any;
+  installedversion: any;
+
+
   getClass() {
     return "active"
   }
@@ -102,17 +106,19 @@ export class AppComponent implements OnInit {
     public menuCtrl: MenuController,
     private cdr: ChangeDetectorRef,
     public translate: TranslateService,
-    private toast:IonicToastService,
+    private toast: IonicToastService,
     private translateConfigService: TranslateConfigService,
     //private update:UpdateService,
+    private versionService: VersionService,
     private platform: Platform) {
-    
+
     this.translateConfigService.getDefaultLanguage();
     this.language = this.translateConfigService.getCurrentLang();
     this.initializeApp();
-  
+
     platform.ready().then(() => {
-      //this.update.checkForUpdates();
+      // this.update.checkForUpdates();
+      this.checkForUpdates();
 
     });
 
@@ -136,69 +142,69 @@ export class AppComponent implements OnInit {
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
       this.id = localStorage.getItem("loginId");
-    this.name = localStorage.getItem("loginUser");
-    this.roleId = localStorage.getItem("userType");
-    this.state = localStorage.getItem("state");
-    this.apkName = localStorage.getItem("superAdminName")
-    if(this.roleId == 1){
-      this.roleName = "MasterAdmin"
-    }
-    if(this.roleId == 2){
-      this.roleName = "SuperAdmin"
-    }
-    if(this.roleId == 3){
-      this.roleName = "Admin"
-    }
-    if(this.roleId == 4){
-      this.roleName = "Volunteer"
-    }
-    if(this.roleId == 5){
-      this.roleName = "Society"
-    }
-    if(this.roleId == 6){
-      this.roleName = "Member"
-    }
+      this.name = localStorage.getItem("loginUser");
+      this.roleId = localStorage.getItem("userType");
+      this.state = localStorage.getItem("state");
+      this.apkName = localStorage.getItem("superAdminName")
+      if (this.roleId == 1) {
+        this.roleName = "MasterAdmin"
+      }
+      if (this.roleId == 2) {
+        this.roleName = "SuperAdmin"
+      }
+      if (this.roleId == 3) {
+        this.roleName = "Admin"
+      }
+      if (this.roleId == 4) {
+        this.roleName = "Volunteer"
+      }
+      if (this.roleId == 5) {
+        this.roleName = "Society"
+      }
+      if (this.roleId == 6) {
+        this.roleName = "Member"
+      }
 
-    var roleId = localStorage.getItem("userType");
-    //this.roleType = roleName
-    var isMasterAdmin = roleId == "1"
-    var isSuperAdmin = roleId == "2"
-    var isAdmin = roleId == "3";
-    var isVolunteer = roleId == "4"
-    var isSociety = roleId == "5"
-    var isMember = roleId == "6"
-    this.cdr.detectChanges();
+      var roleId = localStorage.getItem("userType");
+      //this.roleType = roleName
+      var isMasterAdmin = roleId == "1"
+      var isSuperAdmin = roleId == "2"
+      var isAdmin = roleId == "3";
+      var isVolunteer = roleId == "4"
+      var isSociety = roleId == "5"
+      var isMember = roleId == "6"
+      this.cdr.detectChanges();
 
-    this.isDashboard = isMasterAdmin|| isSuperAdmin || isAdmin || isVolunteer;
-    this.isSuperAdmin = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isContact = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isBirthday = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isAnniversary = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isMedia = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isOther = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isSetting = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isSurvey = isVolunteer;
-    this.isSearch = isVolunteer;
-    this.isLists = isVolunteer;
-    this.isUser = isMasterAdmin|| isSuperAdmin || isAdmin || isSociety;
-    this.isAppointment = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isAnnapurna = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isNewVoter = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isDailyRoutine = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isDailyNews = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isVoterList = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isRequest = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isSociety = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isOffice = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isNotifications = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isLetterTracking = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isAppoReport =  isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isEnquiry = isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isReports =  isMasterAdmin|| isSuperAdmin || isAdmin;
-    this.isComBook = isMasterAdmin|| isSuperAdmin || isAdmin || isSociety || isMember;
+      this.isDashboard = isMasterAdmin || isSuperAdmin || isAdmin || isVolunteer;
+      this.isSuperAdmin = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isContact = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isBirthday = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isAnniversary = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isMedia = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isOther = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isSetting = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isSurvey = isVolunteer;
+      this.isSearch = isVolunteer;
+      this.isLists = isVolunteer;
+      this.isUser = isMasterAdmin || isSuperAdmin || isAdmin || isSociety;
+      this.isAppointment = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isAnnapurna = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isNewVoter = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isDailyRoutine = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isDailyNews = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isVoterList = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isRequest = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isSociety = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isOffice = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isNotifications = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isLetterTracking = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isAppoReport = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isEnquiry = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isReports = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isComBook = isMasterAdmin || isSuperAdmin || isAdmin || isSociety || isMember;
     })
-    
-    
+
+
     // keeps user logged in for android app so that user doesnt have to login every time app opens
     // but dont use this code for web view bcoz when i refresh from any page in the app, it redirects me to dashboard page
     // if (localStorage.getItem('loginId') != undefined || null) {
@@ -225,7 +231,7 @@ export class AppComponent implements OnInit {
       //this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-    
+
 
     this.platform.backButton.subscribeWithPriority(10, (processNextHandler) => {
       //console.log('Back press handler!');
@@ -236,7 +242,7 @@ export class AppComponent implements OnInit {
         this.showExitConfirm();
         processNextHandler();
       } else {
-        
+
 
         // Navigate to back page
         //console.log('Navigate to back page');
@@ -328,6 +334,73 @@ export class AppComponent implements OnInit {
     const { role } = await popover.onDidDismiss();
     console.log('onDidDismiss resolved with role', role);
   }
+
+  checkForUpdates() {
+    this.versionService.getandroidVersion().subscribe(data => {
+      if (data) {
+        console.log(data)
+        this.versionInfo = data;
+        var info = {
+          newVersion: data[0].newVersion,
+          oldversion: data[0].installedversion,
+          msg: {
+            title: 'App update',
+            msg: 'Update Matadarmaza',
+            btn: 'Update'
+          }
+        }
+        // const splitVersion: number = +this.oldversion.split('.').join('');
+        // const serverVersion: number = +info.newVersion.split('.').join('');
+        const newVersion = data[0].newVersion;
+        this.newVersion=newVersion;
+        const installedversion = data[0].installedversion;
+        this.installedversion = installedversion;
+        if (this.platform.is('android')) {
+          if (newVersion > installedversion) {
+            this.presentalrt(info.msg.title, info.msg.msg, info.msg.btn);
+          }
+        } else {
+
+        }
+      }
+    
+  })
+
+}
+
+async presentalrt(header,message,buttonText ='', allowClose = false)
+   {
+     const buttons = []
+     if(buttonText != '')
+     {
+      buttons.push({text: buttonText,handler:()=>{
+        this.openAppStoreEntry()
+      }})
+     }
+     if(allowClose)
+     {
+       buttons.push({text:'Close',role:'Cancel'})
+     }
+      const alert = await this.alertController.create({
+        header,
+        message,
+        buttons,backdropDismiss:allowClose
+      })
+      await alert.present();
+   }
+
+   openAppStoreEntry()
+   {
+     if(this.platform.is('android'))
+     {
+       window.open("https://play.google.com/store/apps/details?id=io.ionic.pollmaster","_system")//Lyteboxprod
+     }
+     else
+     {
+       //window.open("https://apps.apple.com/in/app/LyteboxLive/id1576298090", "_system");
+     }
+ 
+   }
 
 }
 

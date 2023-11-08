@@ -664,10 +664,9 @@ ion-fab {
 
 
 
-ion-list ion-label {
-  white-space: break-spaces !important;
-  // margin: 6px 0px 6px !important;
-}
+// ion-list ion-label {
+//   white-space: break-spaces !important;
+// }
 
 ion-item {
   --border-color: var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, #f0f6ff)));

@@ -136,7 +136,6 @@ omit_special_char(event) {
   }
 
   voterListBySearch(){
-    debugger;
     this.isShow = true
     this.Language = this.translateConfigService.getCurrentLang();
     if (this.Language == "kn") {

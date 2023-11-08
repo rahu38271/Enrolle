@@ -48,7 +48,7 @@
               <ion-card-content>
                 <div class="headSection">
                   <div class="search">
-                    <ion-searchbar maxlength="50" (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)"></ion-searchbar>
+                    <ion-searchbar maxlength="50" (ionChange)="onSearchChange($event.target.value)"></ion-searchbar>
                   </div>
                   <div class="btns">
                     <ion-button class="button-download" color="tertiary" (click)="exportExcel()">
@@ -104,7 +104,7 @@
         </ion-row>
       </ion-grid>
       <ion-grid class="android userList">
-        <ion-searchbar (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true" *ngIf="isShow"></ion-searchbar>
+        <ion-searchbar (ionChange)="onSearchChange($event.target.value)" animated="true" *ngIf="isShow"></ion-searchbar>
         <ion-list (click)="voterDetails(item)" *ngFor="let item of voterMobile | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems }">
           <ion-item lines="none">
             <div class="voterSec">

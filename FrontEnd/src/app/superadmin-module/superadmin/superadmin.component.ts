@@ -32,7 +32,7 @@ export class SuperadminComponent implements OnInit {
   superadminId: any;
   id: any;
   roleName: string;
-
+  dbList=false;
   search() {
     this.isShow = !this.isShow
   }
@@ -56,6 +56,10 @@ export class SuperadminComponent implements OnInit {
     
   }
 
+  dbLink(){
+    this.router.navigate(['/superadmin/db-list']);
+  }
+
 
   ionViewWillEnter(){
     this.superId = localStorage.getItem("loginId");
@@ -66,9 +70,11 @@ export class SuperadminComponent implements OnInit {
 
     if (this.roleId == 1) {
       this.isDB = !this.isDB;
+      this.dbList = !this.dbList;
     }
     else {
       this.isDB = this.isDB;
+      this.dbList = this.dbList;
     }
     this.getAllAdminList();
   }

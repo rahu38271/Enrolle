@@ -134,9 +134,9 @@ export class VoterdataManagementComponent {
     this.boothWiseVoterListData(event, this.NoofRow, this.Language)
   }
 
-  event1(event: any) {
-    this.PageNo = event;
-    this.searchData();
+  event1(event1: any) {
+    this.PageNo = event1;
+    this.boothWiseVoterListData(event1, this.NoofRow, this.Language)
   }
 
   boothWiseVoterListData(PageNo: any, NoofRow: any, Language: any) {
@@ -184,7 +184,6 @@ export class VoterdataManagementComponent {
 
 
   EditVoter(data: any) {
-    debugger;
     this.router.navigateByUrl('/voterdata-management/edit-voterdata', { state: data })
   }
 
@@ -196,7 +195,8 @@ export class VoterdataManagementComponent {
     this.isSearched = true;
     this.isList = false;
     this.searchModal.Language = this.Language;
-    this.NoofRow = this.totalItems;
+    //this.NoofRow = this.totalItems;
+    this.NoofRow = 25;
     this.PageNo = 1;
     if (this.searchModal.LastName == '') {
       this.searchModal.LastName = null
@@ -472,6 +472,10 @@ export class VoterdataManagementComponent {
     this.voter.getAllCaste(this.Language).subscribe(data => {
       this.casteList = data;
     })
+  }
+
+  voterByFamily(id:any){
+    this.router.navigate(['/voterdata-management/family', { Id: id }])
   }
 
 }

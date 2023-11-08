@@ -188,9 +188,12 @@ omit_special_char(event) {
     
     this.EditData.userId = Number(this.userId);
     this.EditData.adminId = Number(this.AdminId);
-    this.EditData.pincode = Number(this.EditData.pincode);
-    if(this.EditData.pincode=="NaN"){
+    this.EditData.pincode = this.EditData.pincode;
+    //this.EditData.pincode = Number(this.EditData.pincode);
+    if(this.EditData.pincode==undefined){
       this.EditData.pincode = null
+    }else{
+      this.EditData.pincode = Number(this.EditData.pincode);
     }
     if(this.EditData.birthDate=='' || this.EditData.birthDate == null){
       this.EditData.birthDate = '1900-01-01'
@@ -201,14 +204,29 @@ omit_special_char(event) {
     this.EditData.userName= this.name;
     this.loader.showLoading();
     this.voter.update(this.EditData).subscribe((data)=>{
-      this.EditData = {};
+      if(data){
+        this.EditData = {};
         this.loader.hideLoader();
+        this.voter.voterWithMobiletoContacts().subscribe(data=>{
+          if(data){
+            console.log(data);
+          }else{
+            
+          }
+        },(err)=>{
+          
+        })
+        
         this.toast.presentToast("Voter updated successfully!", "success", 'checkmark-circle-sharp');
         //this.router.navigate(['/voter-summary'])
         this.router.navigate(['/voter-summary'])
+      }else{
+        this.loader.hideLoader();
+        this.toast.presentToast("Voter not updated!", "danger", 'checkmark-circle-sharp');
+      }
         
     },(err)=>{
-      this.toast.presentToast("Voter not updated!", "danger", 'checkmark-circle-sharp');
+      
       this.loader.hideLoader();
     })
   }

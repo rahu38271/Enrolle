@@ -348,6 +348,10 @@ const routes: Routes = [
     loadChildren: () => import('./voter-dashboard-module/voter-dashboard-module.module').then( m => m.VoterDashboardModuleModule)
   },
   {
+    path: 'privacy-policy',
+    loadChildren: () => import('./privacy-module/privacy-module.module').then( m => m.PrivacyModuleModule)
+  },
+  {
     path: 'errors',
     loadChildren: () => import('./errors-module/errors-module.module').then( m => m.ErrorsModuleModule)
   },

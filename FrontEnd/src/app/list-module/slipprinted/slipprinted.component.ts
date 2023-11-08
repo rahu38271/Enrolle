@@ -11,7 +11,7 @@ import { Location } from '@angular/common';
 })
 export class SlipprintedComponent implements OnInit {
 
-
+  SearchText:any;
   UserId:any;
   RoleId:any;
   PageNo:any=1;
@@ -21,6 +21,7 @@ export class SlipprintedComponent implements OnInit {
   ColoumnName: any;
   slipList:any;
   totalItems:any;
+  isShow = false;
 
   constructor(
     private loader:LoaderService,
@@ -60,7 +61,6 @@ export class SlipprintedComponent implements OnInit {
     else{
       this.Language = "English"
     }
-    this.loader.showLoading();
     this.voter.getSlipData(
       this.ColoumnName="PrintSlip",
       this.ColoumnValue="Y",
@@ -72,15 +72,51 @@ export class SlipprintedComponent implements OnInit {
       
     ).subscribe(data=>{
       if(data){
-        this.loader.hideLoader();
         this.slipList = data;
         this.totalItems = data[0].totalCount
       }else{
-        this.loader.hideLoader();
       }
     },(err)=>{
-      this.loader.hideLoader();
+
     })
+  }
+
+  onSearchChange(SearchText: any) {
+    if (this.SearchText == '') {
+      this.PageNo = 1;
+      this.NoofRow = this.totalItems;
+      this.SearchText = SearchText;
+      this.printSlipList();
+    }
+    else {
+      this.PageNo = 1;
+      this.NoofRow = 2;
+      this.SearchText = SearchText;
+      this.voter.getSlipData(
+        this.ColoumnName="PrintSlip",
+        this.ColoumnValue="Y",
+        this.UserId,
+        this.RoleId,
+        this.PageNo,
+        this.NoofRow,
+        this.Language
+        
+      ).subscribe(data=>{
+        if(data){
+          this.loader.hideLoader();
+          this.slipList = data;
+          this.totalItems = data[0].totalCount
+        }else{
+          this.loader.hideLoader();
+        }
+      },(err)=>{
+        this.loader.hideLoader();
+      })
+    }
+  }
+
+  search(){
+    this.isShow = !this.isShow
   }
 
   goBack(){

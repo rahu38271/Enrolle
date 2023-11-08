@@ -67,6 +67,10 @@ export class SurnamewiseListComponent implements OnInit {
     else {
       this.SearchText = this.SearchText
     }
+    
+  }
+
+  ionViewWillEnter(){
     this.lastNameWiseVoterData(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language,this.SearchText);
   }
 
@@ -114,13 +118,13 @@ export class SurnamewiseListComponent implements OnInit {
       this.PageNo = 1;
       this.NoofRow = this.totalItems;
       this.SearchText = SearchText;
-      this.lastNameWiseVoterData(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
+      this.lastNameWiseVoterData(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, SearchText);
     }
     else {
       this.PageNo = 1;
       this.NoofRow = 25;
       this.SearchText = SearchText.trim();
-      this.voter.voterByLastName(this.lastName, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+      this.voter.voterByLastName(this.lastName, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, SearchText).subscribe(data => {
         if (data) {
           this.surnameWiseData = data;
           this.totalItems = data[0].totalCount
@@ -129,25 +133,6 @@ export class SurnamewiseListComponent implements OnInit {
     }
   }
 
-   keyPress(SearchText:any){
-    if (this.SearchText == '') {
-      this.PageNo = 1;
-      this.NoofRow = this.totalItems;
-      this.SearchText = SearchText;
-      this.lastNameWiseVoterData(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
-    }
-    else {
-      this.PageNo = 1;
-      this.NoofRow = 25;
-      this.SearchText = SearchText.trim();
-      this.voter.voterByLastName(this.lastName, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
-        if (data) {
-          this.surnameWiseData = data;
-          this.totalItems = data[0].totalCount
-        }
-      });
-    }
-  }
 
   exportExcel():void {
     this.PageNo=1;

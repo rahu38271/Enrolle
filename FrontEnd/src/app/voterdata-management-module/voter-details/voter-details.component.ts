@@ -19,6 +19,7 @@ import { SMS } from '@ionic-native/sms/ngx';
 export class VoterDetailsComponent  {
   columnName:any;
   partNo:any;
+  address:any;
   Language:any;
   Vid:any;
   voterInfoData:any;
@@ -679,7 +680,12 @@ export class VoterDetailsComponent  {
     this.router.navigate(['/list/boothwise-list', {partNumber :columnName}])
   }
 
-  sameAddressVoter(id: any) {
+  sameAddressVoter(columnName:any) {
+    this.columnName ==this.address;
+    this.router.navigate(['/list/addresswise-list', {addressName: columnName} ])
+  }
+
+  voterByFamily(id:any){
     this.router.navigate(['/voterdata-management/family', { Id: id }])
   }
 

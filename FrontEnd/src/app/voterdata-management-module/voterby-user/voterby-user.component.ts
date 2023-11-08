@@ -124,25 +124,24 @@ export class VoterbyUserComponent {
 
 
   onSearchChange(SearchText: any): void { 
-    this.SearchText = this.SearchText.trim();
     if (this.SearchText == '') {
       this.SearchText = SearchText;
       this.PageNo = 1;
       this.NoofRow = this.totalCount;
-      this.voterList(this.Lid, this.RoleId, this.PageNo, this.NoofRow, this.Language, this.SearchText)
+      this.voterList(this.Lid, this.RoleId, this.PageNo, this.NoofRow, this.Language, SearchText)
     }
     else {
       this.SearchText = SearchText.trim();
       this.PageNo = 1;
       this.NoofRow = 25;
-      this.voter.getVoterByUser(this.Lid, this.RoleId, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+      this.voter.getVoterByUser(this.Lid, this.RoleId, this.PageNo, this.NoofRow, this.Language, SearchText).subscribe(data => {
         if (data.length != 0) {
           //this.loader.hideLoader();
           this.voterListByUser = data;
           this.totalCount = data[0].totalCount;
-          this.voterListByUser.forEach(e => {
-            e.birthDate = e.birthDate.split('T')[0];
-          });
+          // this.voterListByUser.forEach(e => {
+          //   e.birthDate = e.birthDate.split('T')[0];
+          // });
         }
         else {
           //this.loader.hideLoader();
@@ -157,20 +156,20 @@ export class VoterbyUserComponent {
       this.SearchText = SearchText;
       this.PageNo = 1;
       this.NoofRow = this.totalCount;
-      this.voterList(this.Lid, this.RoleId, this.PageNo, this.NoofRow, this.Language, this.SearchText)
+      this.voterList(this.Lid, this.RoleId, this.PageNo, this.NoofRow, this.Language, SearchText)
     }
     else {
       this.SearchText = SearchText.trim();
       this.PageNo = 1;
       this.NoofRow = 25;
-      this.voter.getVoterByUser(this.Lid, this.RoleId, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
+      this.voter.getVoterByUser(this.Lid, this.RoleId, this.PageNo, this.NoofRow, this.Language, SearchText).subscribe(data => {
         if (data) {
           //this.loader.hideLoader();
           this.voterListByUser = data;
           this.totalCount = data[0].totalCount;
-          this.voterListByUser.forEach(e => {
-            e.birthDate = e.birthDate.split('T')[0];
-          });
+          // this.voterListByUser.forEach(e => {
+          //   e.birthDate = e.birthDate.split('T')[0];
+          // });
         }
       })
     }

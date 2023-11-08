@@ -65,7 +65,7 @@
                 </ion-list>
               </ion-col> -->
 
-              <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="6">
+              <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="6" *ngIf="isVoterList">
                 <ion-list class="survey-list" routerLink="/voter-summary">
                     <ion-item lines="none">
                       <ion-label>
@@ -125,7 +125,7 @@
                 </ion-list>
               </ion-col>
 
-              <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="6"> 
+              <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="6" *ngIf="isLetter"> 
                 <ion-list class="survey-list" routerLink="/letter-tracking">
                   <ion-item lines="none" >
                       <ion-label>
@@ -188,15 +188,15 @@
         </ion-col>
 
 
-        <ion-col size-xs="12" size-sm="12" size-md="8" size-lg="8" >
+        <ion-col size-xs="12" size-sm="12" size-md="8" size-lg="8" *ngIf="isGraph">
             <ion-grid>
               <ion-row>
                 <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
                   <ion-list class="graphDiv">
-                    <ejs-chart height='300' id="chart" [width]="width" [primaryXAxis]='primaryXAxisP' [primaryYAxis]='primaryYAxisP' [palettes]='paletteP' [title]='titleP'  [chartArea]='chartAreaP' >
+                    <ejs-chart height='350' id="chart" [width]="width" [primaryXAxis]='primaryXAxisP' [primaryYAxis]='primaryYAxisP' [palettes]='paletteP' [title]='titleP'  [chartArea]='chartAreaP' >
                       <e-series-collection>
-                          <e-series groupName="A" [dataSource]='birthData' type='Column' columnWidth='0.5' xName='x' yName='y' name='Birthday' > </e-series>
-                          <e-series groupName="B" [dataSource]='anniData' type='Column' columnWidth='0.5' xName='x' yName='y' name='Anniversary'> </e-series>
+                          <e-series groupName="A" [dataSource]='birthData' type='Column' columnWidth='0.2' xName='x' yName='y' name='Birthday' > </e-series>
+                          <e-series groupName="B" [dataSource]='anniData' type='Column' columnWidth='0.2' xName='x' yName='y' name='Anniversary'> </e-series>
                         </e-series-collection>
                     </ejs-chart>
                   </ion-list>
@@ -238,10 +238,10 @@
         
       </ion-row>
 
-      <ion-row>
+      <ion-row *ngIf="isGraph">
         <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="3">
           <ion-list *ngFor="let item of mainCounts">
-            <ion-list-header> Data Count </ion-list-header>
+            <ion-list-header> Total Data Count </ion-list-header>
             
             <ion-item class="totalData totalContacts" lines="none">
               <ion-avatar slot="start">
@@ -255,6 +255,81 @@
                 <h6>{{item.totalContact}}</h6>
               </div>
             </ion-item>
+
+            <ion-item class="totalData totalAppom" lines="none">
+              <ion-avatar slot="start">
+                <i class="icofont icofont-search-document"></i>
+              </ion-avatar>
+              <ion-label>
+                <h3>Total Appointments</h3>
+              </ion-label>
+              
+              <div slot="end">
+                <h6>{{item.totalAppointment}}</h6>
+              </div>
+            </ion-item>
+
+           
+
+            <ion-item class="totalData totalComp" lines="none">
+              <ion-avatar slot="start">
+                <i class="icofont icofont-search-document"></i>
+              </ion-avatar>
+              <ion-label>
+                <h3>Total Complaints</h3>
+              </ion-label>
+              
+              <div slot="end">
+                <h6>{{item.totalComplaint}}</h6>
+              </div>
+            </ion-item>
+
+            <ion-item class="totalData totalanni" lines="none">
+              <ion-avatar slot="start">
+                <i class="icofont icofont-search-document"></i>
+              </ion-avatar>
+              <ion-label>
+                <h3>Total Letters</h3>
+              </ion-label>
+              
+              <div slot="end">
+                <h6>{{item.totalLetter}}</h6>
+              </div>
+            </ion-item>
+  
+          </ion-list>
+        </ion-col>
+
+        <ion-col size-xs="12" size-sm="12" size-md="8" size-lg="9">
+          <ion-row>
+            <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="6" class="charts"> 
+              <ion-card>
+                <ejs-accumulationchart height="270px" id="chart-container2" [tooltip]='tooltipApm' [title]='titleApm' [legendSettings]='legendSettingsApm'>
+                  <e-accumulation-series-collection>
+                      <e-accumulation-series [dataSource]='apmCount' xName='x' yName='y' [dataLabel]='datalabelApm' [palettes]='palette1Apm' radius="80%" innerRadius='60%'></e-accumulation-series>
+                  </e-accumulation-series-collection>
+                </ejs-accumulationchart>
+              </ion-card>
+            </ion-col>
+
+            <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="6"> 
+              <ion-card>
+                <ejs-accumulationchart height="270px" id="chart-container" [tooltip]='tooltip' [title]='title' [legendSettings]='legendSettings'>
+                  <e-accumulation-series-collection>
+                      <e-accumulation-series [dataSource]='complaintCount' xName='x' yName='y' [dataLabel]='datalabel' [palettes]='palette1' radius="80%" innerRadius='60%'></e-accumulation-series>
+                  </e-accumulation-series-collection>
+                </ejs-accumulationchart>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+
+      </ion-row>
+
+      <ion-row *ngIf="isGraph">
+        <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="3">
+          <ion-list *ngFor="let item of mainCounts">
+            <ion-list-header> Today Data Count </ion-list-header>
 
             <ion-item class="totalData totalbday" lines="none">
               <ion-avatar slot="start">
@@ -282,18 +357,7 @@
               </div>
             </ion-item>
 
-            <ion-item class="totalData totalAppom" lines="none">
-              <ion-avatar slot="start">
-                <i class="icofont icofont-search-document"></i>
-              </ion-avatar>
-              <ion-label>
-                <h3>Total Appointments</h3>
-              </ion-label>
-              
-              <div slot="end">
-                <h6>{{item.totalAppointment}}</h6>
-              </div>
-            </ion-item>
+            
 
             <ion-item class="totalData todayappom" lines="none">
               <ion-avatar slot="start">
@@ -308,19 +372,6 @@
               </div>
             </ion-item>
 
-            <ion-item class="totalData totalComp" lines="none">
-              <ion-avatar slot="start">
-                <i class="icofont icofont-search-document"></i>
-              </ion-avatar>
-              <ion-label>
-                <h3>Total Complaints</h3>
-              </ion-label>
-              
-              <div slot="end">
-                <h6>{{item.totalComplaint}}</h6>
-              </div>
-            </ion-item>
-
             <ion-item class="totalData totalbday" lines="none">
               <ion-avatar slot="start">
                 <i class="icofont icofont-search-document"></i>
@@ -331,19 +382,6 @@
               
               <div slot="end">
                 <h6>{{item.todayComplaint}}</h6>
-              </div>
-            </ion-item>
-
-            <ion-item class="totalData totalanni" lines="none">
-              <ion-avatar slot="start">
-                <i class="icofont icofont-search-document"></i>
-              </ion-avatar>
-              <ion-label>
-                <h3>Total Letters</h3>
-              </ion-label>
-              
-              <div slot="end">
-                <h6>{{item.totalLetter}}</h6>
               </div>
             </ion-item>
 
@@ -363,41 +401,19 @@
           </ion-list>
         </ion-col>
 
-        <ion-col size-xs="12" size-sm="12" size-md="8" size-lg="9">
+        <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="9" *ngIf="isGraph"> 
           <ion-row>
-            <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4" class="charts"> 
+            <ion-col>
               <ion-card>
-                <ejs-accumulationchart height="250px" id="chart-container2" [tooltip]='tooltipApm' [title]='titleApm' [legendSettings]='legendSettingsApm'>
-                  <e-accumulation-series-collection>
-                      <e-accumulation-series [dataSource]='apmCount' xName='x' yName='y' [dataLabel]='datalabelApm' [palettes]='palette1Apm' radius="80%" innerRadius='60%'></e-accumulation-series>
-                  </e-accumulation-series-collection>
-                </ejs-accumulationchart>
-              </ion-card>
-            </ion-col>
-
-            <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4"> 
-              <ion-card>
-                <ejs-accumulationchart height="250px" id="chart-container" [tooltip]='tooltip' [title]='title' [legendSettings]='legendSettings'>
-                  <e-accumulation-series-collection>
-                      <e-accumulation-series [dataSource]='complaintCount' xName='x' yName='y' [dataLabel]='datalabel' [palettes]='palette1' radius="80%" innerRadius='60%'></e-accumulation-series>
-                  </e-accumulation-series-collection>
-                </ejs-accumulationchart>
-              </ion-card>
-            </ion-col>
-
-            <ion-col size-xs="12" size-sm="6" size-md="6" size-lg="4"> 
-              <ion-card>
-                <ejs-accumulationchart height="250px" id="chart-container1" [tooltip]='tooltipL' [title]='titleL' [legendSettings]='legendSettingsL'>
+                <ejs-accumulationchart height="325px" id="chart-container1" [tooltip]='tooltipL' [title]='titleL' [legendSettings]='legendSettingsL'>
                   <e-accumulation-series-collection>
                       <e-accumulation-series [dataSource]='allCount' xName='x' yName='y' [dataLabel]='datalabelL' [palettes]='palette1L' radius="80%" innerRadius='60%'></e-accumulation-series>
                   </e-accumulation-series-collection>
                 </ejs-accumulationchart>
               </ion-card>
             </ion-col>
-
           </ion-row>
         </ion-col>
-
       </ion-row>
 
       <!-- <ion-row>

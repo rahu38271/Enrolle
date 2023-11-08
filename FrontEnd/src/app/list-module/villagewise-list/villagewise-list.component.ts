@@ -59,6 +59,10 @@ export class VillagewiseListComponent implements OnInit {
     else{
       this.SearchText = this.SearchText
     }
+    
+  }
+
+  ionViewWillEnter(){
     this.villageWiseVoterList(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText);
   }
 
@@ -121,7 +125,7 @@ export class VillagewiseListComponent implements OnInit {
     else {
       this.PageNo = 1;
       this.SearchText = SearchText.trim();
-      this.NoofRow = 10;
+      this.NoofRow = 23;
       this.voter.voterByVillage(this.villageName, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
         if (data.length != 0) {
           this.villageWiseVoter = data;
@@ -131,25 +135,7 @@ export class VillagewiseListComponent implements OnInit {
     }
   }
 
-  keyPress(SearchText:any){
-    if (this.SearchText == '') {
-      this.PageNo = 1;
-      this.SearchText = SearchText
-      this.NoofRow = this.totalItems;
-      this.villageWiseVoterList(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
-    }
-    else {
-      this.PageNo = 1;
-      this.SearchText = SearchText.trim();
-      this.NoofRow = 10;
-      this.voter.voterByVillage(this.villageName, this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
-        if (data.length != 0) {
-          this.villageWiseVoter = data;
-          this.totalItems = data[0].totalCount
-        }
-      })
-    }
-  }
+
 
   exportExcel():void {
     this.PageNo=1;

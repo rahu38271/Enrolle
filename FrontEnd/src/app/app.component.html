@@ -756,6 +756,10 @@
                       <i class="icofont icofont-send-mail"></i>
                       <ion-label> {{'Email Setting' | translate}}</ion-label>
                     </ion-item>
+                    <ion-item color="light" [routerLink]="['/setting/apk-version']" routerDirection="root" > 
+                      <i class="icofont icofont-send-mail"></i>
+                      <ion-label> App version </ion-label>
+                    </ion-item>
                   </div>
                 </ion-accordion>
               </ion-accordion-group>
@@ -774,6 +778,11 @@
                 <i class="icofont icofont-share"></i>
                 <ion-label>Share App </ion-label>
               </ion-item> -->
+
+              <ion-item  [routerLink]="['/privacy-policy']" routerDirection="root" [routerLinkActive]="'active'" >
+                <i class="icofont icofont-calendar"></i>
+                <ion-label> Privacy Policy </ion-label>
+              </ion-item>
 
               <ion-item (click)="logOut()">
                 <i class="icofont icofont-power"></i>

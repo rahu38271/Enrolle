@@ -56,6 +56,10 @@ export class NotvotedvoterComponent implements OnInit {
     else{
       this.SearchText = this.SearchText
     }
+    
+  }
+
+  ionViewWillEnter(){
     this.notVotedList(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText)
   }
 
@@ -89,7 +93,7 @@ export class NotvotedvoterComponent implements OnInit {
     else{
       this.Language = "English"
     }
-    this.voter.getvoterNotVoted(userId,roleId,PageNo,NoofRow,this.Language,this.SearchText).subscribe(data=>{
+    this.voter.getvoterNotVoted(userId,roleId,PageNo,NoofRow,this.Language,SearchText).subscribe(data=>{
       if(data.length != 0){
         this.notvotedvoterList=data;
         this.totalItems=data[0].totalCount;
@@ -105,15 +109,15 @@ export class NotvotedvoterComponent implements OnInit {
   onSearchChange(SearchText: any) {
     if (this.SearchText == '') {
       this.PageNo = 1;
-      this.SearchText = SearchText
       this.NoofRow = this.totalItems;
-      this.notVotedList(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText)
+      this.SearchText = SearchText
+      this.notVotedList(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,SearchText)
     }
     else {
       this.PageNo = 1;
-      this.SearchText = SearchText.trim();
       this.NoofRow = 25;
-      this.voter.getvoterNotVoted(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
+      this.SearchText = SearchText.trim();
+      this.voter.getvoterNotVoted(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,SearchText).subscribe(data=>{
         if(data.length != 0){
           this.notvotedvoterList=data;
           this.totalItems=data[0].totalCount;
@@ -125,28 +129,7 @@ export class NotvotedvoterComponent implements OnInit {
     }
   }
 
-  keyPress(SearchText:any){
-    if (this.SearchText == '') {
-      this.PageNo = 1;
-      this.SearchText = SearchText
-      this.NoofRow = this.totalItems;
-      this.notVotedList(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText)
-    }
-    else {
-      this.PageNo = 1;
-      this.SearchText = SearchText.trim();
-      this.NoofRow = 25;
-      this.voter.getvoterNotVoted(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
-        if(data.length != 0){
-          this.notvotedvoterList=data;
-          this.totalItems=data[0].totalCount;
-        }
-        else{
-  
-        }
-      })
-    }
-  }
+
 
   exportExcel():void {
     this.PageNo=1;

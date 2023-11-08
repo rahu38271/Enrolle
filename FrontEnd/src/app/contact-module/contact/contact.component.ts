@@ -48,7 +48,6 @@ export class ContactComponent implements OnInit {
   }
 
   ngOnInit() {
-    debugger;
     if(this.SearchText == undefined){
       this.SearchText = ''
     }
@@ -75,7 +74,6 @@ export class ContactComponent implements OnInit {
   }  
 
   contactList(PageNo:any,NoofRow:any,SearchText:any){
-    debugger;
     this.contact.getContacts(PageNo,NoofRow,SearchText).subscribe(data=>{
       if(data.length != 0){
         console.log(data);

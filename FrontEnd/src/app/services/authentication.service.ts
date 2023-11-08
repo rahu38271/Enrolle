@@ -33,6 +33,17 @@ export class AuthenticationService {
     return this.http.post<any>(this.url+'Login/InsertUpdateDBConfigure', DBConfigModal)
   }
 
+  //get Db Configure
+  getDBConfigure(){
+    return this.http.get<any>(this.url+'Login/GetAllConfigureDB')
+  }
+
+  //give sms permissioins
+  smsPermit(Id:any, Type:any){
+    debugger;
+    return this.http.get<any>(this.url+'Login/UpdateMessageSent?Id='+Id+'&Type='+Type)
+  }
+
   sendOtp(Contact:any){
     return this.http.get(this.url+'Auth/Otp?Contact='+Contact);
   }

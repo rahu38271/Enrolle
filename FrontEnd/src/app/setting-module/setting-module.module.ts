@@ -11,10 +11,11 @@ import { SmsSettingComponent } from './sms-setting/sms-setting.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { WhatsappContentComponent } from './whatsapp-content/whatsapp-content.component';
+import { ApkVersionComponent } from './apk-version/apk-version.component';
 
 
 @NgModule({
-  declarations: [SettingComponent,SmsSettingComponent,WhatsappSettingComponent,VoiceSettingComponent,EmailSettingComponent, LandingPageComponent, WhatsappContentComponent],
+  declarations: [SettingComponent,SmsSettingComponent,WhatsappSettingComponent,VoiceSettingComponent,EmailSettingComponent, LandingPageComponent, WhatsappContentComponent, ApkVersionComponent],
   imports: [
     CommonModule,
     IonicModule,
@@ -28,6 +29,7 @@ import { WhatsappContentComponent } from './whatsapp-content/whatsapp-content.co
          {path:'email-setting', component: EmailSettingComponent},
          {path:'landing-image', component: LandingPageComponent},
       {path:'whatsapp-content', component: WhatsappContentComponent},
+      {path:'apk-version', component: ApkVersionComponent},
         ])
   ]
 })

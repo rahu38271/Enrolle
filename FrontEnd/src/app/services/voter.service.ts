@@ -58,6 +58,7 @@ export class VoterService {
   }
 
   update(editVoter:any){
+    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
@@ -648,6 +649,14 @@ export class VoterService {
       'Authorization': `Bearer ${this.token}`
     });
     return this.http.get<any>(this.url+'Voter/UpdateBirthDateandMobileinVoter?UserId='+UserId+'&RoleId='+RoleId,{ headers })
+  }
+
+  // voter by family
+  getVoterByFamily(Id:any, UserId:any, RoleId:any, PageNo:any, NoofRow:any, Language:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Voter/GetVoterbyRelation?Id='+Id+'&UserId='+UserId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language,{ headers })
   }
   
 }

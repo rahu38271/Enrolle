@@ -1,0 +1,193 @@
+.error { color: #eb445a; font-weight: 600; }
+
+html,
+body {
+  height: 100%;
+  background-color: #152733;
+  overflow: hidden;
+}
+
+.form-holder {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+}
+
+.form-holder .form-content {
+  position: relative;
+  text-align: center;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  align-items: center;
+  padding: 60px;
+}
+
+.form-content .form-items {
+  border: 3px solid #fff;
+  padding: 40px;
+  display: inline-block;
+  width: 100%;
+  min-width: 540px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  text-align: left;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+ion-textarea { padding: 0px 10px !important; --placeholder-color: #000;
+    --placeholder-opacity: 1;}
+
+ion-input { padding: 0px 10px !important; --placeholder-color: #000;
+    --placeholder-opacity: 1; }
+
+ion-datetime { padding: 8px 10px !important; --placeholder-color: #000;
+    --placeholder-opacity: 1; }
+
+.form-content h3 {
+  color: #fff;
+  text-align: left;
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.form-content h3.form-title {
+  margin-bottom: 30px;
+}
+
+.form-content p {
+  color: #fff;
+  text-align: left;
+  font-size: 17px;
+  font-weight: 300;
+  line-height: 20px;
+  margin-bottom: 30px;
+}
+
+.form-content label,
+.was-validated .form-check-input:invalid ~ .form-check-label,
+.was-validated .form-check-input:valid ~ .form-check-label {
+  color: #fff;
+}
+
+ion-datetime {
+    width: 100% !important;
+}
+
+
+.row {
+  margin-left: 40px;
+  padding-bottom: 5px;
+  width: 250px !important;
+}
+
+.brder {
+  border: 1px solid #a1a4a7 !important;
+  margin-top: 8px;
+}
+
+ion-select {
+  width: 100% !important;
+  padding: 8px 10px !important; --placeholder-color: #000;
+    --placeholder-opacity: 1;
+}
+
+
+
+.form-control-sm {
+  height: calc(2rem + 2px);
+  padding: .25rem .5rem;
+  font-size: .875rem;
+  line-height: 1.4;
+  border-radius: .2rem;
+  border: 1px solid #ced4da;
+}
+
+.form-control-textarea {
+  height: calc(4rem + 2px);
+  padding: .25rem .5rem;
+  font-size: .875rem;
+  line-height: 1.4;
+  border-radius: .2rem;
+  border: 1px solid #ced4da;
+}
+
+.list ion-icon {
+    font-size: 18px;
+    padding: 9px;
+    font-weight: 500;
+    border-radius: 50%;
+    color: #17a2b8;
+  }
+
+
+ion-list span { color: #17a2b8; font-weight: 500; }
+
+ion-grid ion-icon { padding: 0px !important;}
+
+ion-item-options { height: 50px;}
+
+ion-button ion-icon { color: #FFF; font-size: 17px; }
+
+ion-card ion-col { padding: 2px !important; border: solid 1px #ced9f5; }
+
+ion-card ion-icon { font-size: 20px; color: #17a2b8; padding-top: 3px !important;}
+
+ion-col h2 { font-size: 14px !important; padding-top: 4px; }
+
+ion-col h2 strong { color: #17a2b8; }
+
+ion-list {
+  padding: 8px 2px;
+  box-shadow: none;
+  border: solid 2px #bfd2f3;
+  margin-top: 4px;
+}
+
+
+.name,.role { font-size: 15px;
+  color: #17a2b8;
+  font-weight: 600; }
+
+  .login-top { height: 32px; width: 100%; background: #17a2b8; position: relative;  }
+
+  .login-top ion-label { color: #FFF; font-size: 18px; position: absolute; top: 10px; left: 50px; font-weight: 500;}
+  
+  ion-list-header { font-size: 14px; color: #17a2b8;}
+
+  ion-searchbar { background: #17a2b8; border: none !important; box-shadow: none !important; }
+
+  .header { position: sticky; top: 0; z-index: 9999; }
+
+  .ios .header ion-searchbar { color: #FFF !important;}
+
+  ion-row { margin: 5px !important;}
+
+  @media screen and (min-width: 992px) {
+    .container { width: 98%; margin: 0 auto; padding: 20px; box-shadow: 0 0 1px rgb(0 0 0 / 13%), 0 1px 3px rgb(0 0 0 / 20%); }
+  }
+  .container-top { background: #cbf7ff; padding: 10px !important;}
+  .container {background: #FFF;}
+
+  h6 { margin: 7px 0px !important; color: #17a2b8; font-weight: bold; }
+
+  p { text-align: justify; font-size: 14px !important; color: #6c757d !important;  margin: 5px 0px !important; }
+
+  ol li { font-size: 14px !important; color: #6c757d !important; }
+
+  span { color: #17a2b8; font-weight: 600; font-size: 14px !important;}
+
+  .flex {
+    display: flex;
+}

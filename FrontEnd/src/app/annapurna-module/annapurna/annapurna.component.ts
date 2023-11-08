@@ -156,6 +156,7 @@ export class AnnapurnaComponent implements OnInit {
   }
 
   addFamily(){
+    debugger;
     this.FamilyModal.ANPId = this.anpId;
     this.FamilyModal.ANPId = Number(this.FamilyModal.ANPId)
     this.annapurna.addAnnapurnaFamily(this.FamilyModal).subscribe(data=>{
