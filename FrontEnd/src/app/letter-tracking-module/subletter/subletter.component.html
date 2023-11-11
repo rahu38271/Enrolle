@@ -2,7 +2,7 @@
     <ion-header class="android">
         <ion-toolbar>
             <ion-buttons slot="start">
-                <ion-back-button defaultHref="/home/mobile-dashboard"></ion-back-button>
+                <ion-back-button defaultHref="/letter-tracking/all-letters"></ion-back-button>
             </ion-buttons>
             <ion-title> Subletter </ion-title>
             <ion-buttons slot="primary">
@@ -18,10 +18,9 @@
                 <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
                     <ion-grid class="header">
                         <ion-row>
-                            <ion-col size-xs="12" size-sm="6">
+                            <ion-col size-xs="12" size-sm="6" class="webBack">
                                 <div class="flex">
-
-                                    <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
+                                    <ion-icon (click)="goBack()" name="arrow-back-sharp"></ion-icon>
                                     <ion-card-header>
                                         <ion-card-title>
                                             <ion-text> Subletter </ion-text>
@@ -90,10 +89,11 @@
                                         <tr *ngFor="let item of addedSubletter">
                                             <td>{{item.id}}</td>
                                             <td>
-                                                <input type="checkbox" (click)="checked($event)">
+                                                <!-- <input type="checkbox" (click)="checked($event)"> -->
+                                                <input type="checkbox" name="status" [(ngModel)]="isCompleted" readonly>
                                             </td>
                                             <td>
-                                                <input type="checkbox"  readonly>
+                                                <input type="checkbox" name="status" [(ngModel)]="isPending" readonly >
                                             </td>
                                             <td>
                                                 {{item.letter_Realese_Date}}
@@ -147,7 +147,7 @@
                 <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
                   <ion-row>
                     <ion-col size-xl="4" size-lg="4" size-md="4" size-sm="12" size-xs="12">
-                        <ion-label>Status</ion-label>
+                        <ion-label>Status <span>*</span> </ion-label>
                     </ion-col>
                     
                     <ion-col size-xl="8" size-lg="8" size-md="8" size-sm="12" size-xs="12">
@@ -170,7 +170,7 @@
                     <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
                         <ion-label> Letter Release Date <span>*</span> </ion-label>
                         <ion-input value="{{ Letter_Release_Date | date: 'yyyy-MM-dd' }}" id="Letter_Release_Date" class="form-control"
-                            name="Letter_Release_Date" [(ngModel)]="subletter.Letter_Realese_Date"></ion-input>
+                            name="Letter_Release_Date" [(ngModel)]="subletter.Letter_Realese_Date" required></ion-input>
                             <ion-modal trigger="Letter_Release_Date" size="cover">
                                 <ng-template>
                                   <ion-datetime
@@ -190,7 +190,7 @@
                         <div class="flex">
                             <ion-label> Office <span>*</span> </ion-label>
                           </div>
-                      <ng-select name="Office_Name" placeholder="Select Office" [(ngModel)]="subletter.Office_Name">
+                      <ng-select name="Office_Name" placeholder="Select Office" [(ngModel)]="subletter.Office_Name" required>
                         <ng-option class="select_option" *ngFor="let item of allOffice" [value]="item.office_Name"> 
                           {{item.office_Name}}
                         </ng-option>
@@ -212,7 +212,7 @@
       
                     <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
                       <ion-label>Remark </ion-label>
-                      <ion-textarea name="Remark" [(ngModel)]="subletter.Remark" class="form-control" maxlength="160" required rows="2"></ion-textarea>
+                      <ion-textarea name="Remark" [(ngModel)]="subletter.Remark" class="form-control" maxlength="160" rows="2"></ion-textarea>
                     </ion-col>
 
                     <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
@@ -220,13 +220,13 @@
                             <ion-label> File <span>*</span> <span>( image, video, pdf )</span> </ion-label>
                             <ion-label> Size - <span> {{fileSize}} </span> </ion-label>
                           </div>
-                        <input type="file" name="file" (change)="onFileSelected($event)" class="form-control" >
+                        <input type="file" name="file" (change)="onFileSelected($event)" class="form-control" required>
                       </ion-col>
       
                     <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
                       <div class="ion-text-center">
                         <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
-                        <ion-button type="submit" size="medium" (click)="subLetter()">Save</ion-button>
+                        <ion-button type="submit" size="medium" (click)="subLetter()" [disabled]="!f.form.valid">Save</ion-button>
                       </div>
                     </ion-col>
                         

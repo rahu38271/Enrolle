@@ -41,7 +41,7 @@
 
 
 
-      <ion-card class="web">
+      <ion-card class="web" *ngIf="isAll">
         <ion-card-content>
           <div class="headSection">
             <div class="search">
@@ -107,6 +107,67 @@
               <p> No data available </p>
           </div>
             <pagination-controls (pageChange)="event($event)"></pagination-controls>
+
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="web" *ngIf="isUserWise">
+        <ion-card-content>
+          <div class="headSection">
+            <div class="search">
+              <ion-searchbar (keypress)="omit_special_char($event)" (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)"  animated="true"></ion-searchbar>
+            </div>
+            <div class="btns">
+              <!-- <ion-button class="button-download" color="danger" (click)="exportPDF()" >
+                PDF <ion-icon name="document-sharp"></ion-icon>
+              </ion-button> -->
+              <ion-button class="button-download" color="tertiary" (click)="exportExcel()" >
+                Excel 
+              </ion-button>
+              <ion-button class="button-download" color="tertiary" (click)="exportToCSV()" >
+                CSV 
+              </ion-button>
+            </div>
+          </div>
+          <div>
+            <table class="table"  #epltable>
+              <thead>
+                  <tr>
+                      <th>Sr.No.</th>
+                      <th>Subject</th>
+                      <th>From Date</th>
+                      <th>To Date</th>
+                      <th>Details</th>
+                      <th>Remark</th>
+                      <th>File</th>
+                      <th>Added By</th>
+                      <th>Action</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let item of userWiseComlaints | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems }; let i = index">
+                      <td>{{item.id}}</td>
+                      <td>{{item.subject}}</td>
+                      <td>{{item.fromDate}}</td>
+                      <td>{{item.toDate}}</td>
+                      <td>{{item.details}}</td>
+                      <td>{{item.remark}}</td>
+                      <td class="file">
+                        <i *ngIf="!isShowFile" (click)="downloadFile($event)" id={{item.id}} class="icofont icofont-cloud-download"></i>
+                      </td>
+                      <td>{{item.userName}} </td>
+                      <td class="action">
+                        <ion-icon name="create-sharp" (click)="editCmplaint(item)"></ion-icon>
+                      </td>
+                      
+                  </tr>
+              </tbody>
+            </table>
+            <div *ngIf="!userWiseComlaints || userWiseComlaints.length === 0" class="noData ion-text-center">
+              <p> No data available </p>
+          </div>
+            <pagination-controls (pageChange)="event1($event1)"></pagination-controls>
 
           </div>
         </ion-card-content>

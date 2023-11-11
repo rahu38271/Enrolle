@@ -26,6 +26,15 @@ export class ComplaintService {
     return this.http.get<any>(this.url+'Society/GetSocietyComplaints?PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText,{ headers })
   }
 
+  // get All Complaints by userId
+
+  getComplaintsByUserId(UserId:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Society/GetSocietyComplaintbyUserId?UserId='+UserId,{ headers })
+  }
+
   // get todays complaints
   getTodayComplaint(PageNo:any,NoofRow:any,SearchText:any):Observable<any>{
     const headers = new HttpHeaders({
@@ -94,6 +103,7 @@ export class ComplaintService {
   }
 
   getFile(id:any): Observable<Blob>{
+    debugger; 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });

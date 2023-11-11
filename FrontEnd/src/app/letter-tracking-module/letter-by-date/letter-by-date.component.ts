@@ -5,6 +5,7 @@ import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { Location } from '@angular/common';
 import { ExcelService } from 'src/app/services/excel.service'
 import { CsvService } from 'src/app/services/csv.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-letter-by-date',
@@ -23,9 +24,10 @@ export class LetterByDateComponent implements OnInit {
   totalItems:any;
   EndDate:any;
   StartDate:any;
-  isPending:boolean=false;
-  isCompleted:boolean=false;
+  isPending=false;
+  isCompleted=false;
   value:any;
+  status:any;
 
   searchModal:any={
     UserId:'',
@@ -43,6 +45,7 @@ export class LetterByDateComponent implements OnInit {
     private location:Location,
     private excel: ExcelService,
     private csv: CsvService,
+    private router:Router,
   ) { }
 
   ngOnInit(): void {
@@ -54,7 +57,7 @@ export class LetterByDateComponent implements OnInit {
     else{
       this.SearchText = this.SearchText;
     }
-    
+    this.status = ""
   }
 
   event(event:any){
@@ -88,14 +91,15 @@ export class LetterByDateComponent implements OnInit {
         this.totalItems = data[0].totalCount;
         this.letterByDate.forEach(e => {
           e.status = e.status;
-          // if(e.status=="Pending"){
-          //   this.isPending=true;
-          //   this.isCompleted=false;
-          // }
-          // else if(e.status=="Completed"){
-          //   this.isPending=false;
-          //   this.isCompleted=true;
-          // }
+          if(e.status=="Completed"){
+            this.isPending=false;
+            this.isCompleted=true;
+          }else if(e.status=="Pending"){
+            this.isCompleted=false;
+            this.isPending=true;
+          }
+          e.letter_Submit_Date = e.letter_Submit_Date.split('T')[0];
+          e.letter_Release_Date = e.letter_Release_Date.split('T')[0]; 
         });
         
         this.toast.presentToast("Searched successfully!", "success", 'checkmark-circle-sharp');
@@ -187,6 +191,10 @@ export class LetterByDateComponent implements OnInit {
     }, (err) => {
       this.loader.hideLoader();
     })
+  }
+
+  subLetter(id:any){
+    this.router.navigate(['letter-tracking/sub-letter', id])
   }
 
 }

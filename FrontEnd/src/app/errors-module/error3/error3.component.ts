@@ -8,15 +8,25 @@ import { Router } from '@angular/router';
 })
 export class Error3Component implements OnInit {
 
+  UserId:any;
+  roleId:any;
+
   constructor(
     private router:Router
   ) {
-    // setTimeout(()=>{
-    //   this.router.navigate(['/'])
-    // },3000)
+    
    }
 
   ngOnInit(): void {
+    this.UserId = localStorage.getItem('loginId');
+    this.roleId = localStorage.getItem('userType');
+    if(this.roleId==1){
+
+    }else{
+      setTimeout(()=>{
+        this.router.navigate(['/'])
+      },1000)
+    }
   }
 
   goHome(){

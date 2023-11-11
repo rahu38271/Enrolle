@@ -77,12 +77,10 @@ export class SubletterComponent implements OnInit {
           e.letter_Submit_Date = e.letter_Submit_Date.split('T')[0];
           e.status = e.status;
           if(e.status !== "Completed"){
-            this.isCompleted1 = false;
             this.isPending1 =true;
           }
           else{
             this.isCompleted1 = true;
-            this.isPending1 = false;
           }
         });
       }
@@ -100,18 +98,17 @@ export class SubletterComponent implements OnInit {
       if(data){
         this.addedSubletter = data;
         this.addedSubletter.forEach(e => {
-          e.letter_Realese_Date = e.letter_Realese_Date.split('T')[0];
           e.status = e.status;
-          // if(e.status !== "Completed"){
-          //   this.isCompleted = false;
-          //   this.isPending =true;
-          // }
-          // else{
-          //   this.isCompleted = true;
-          //   this.isPending = false;
-          // }
+          if(e.status !== "Completed"){
+            this.isCompleted = false;
+            this.isPending =true;
+          }
+          else{
+            this.isCompleted = true;
+            this.isPending = false;
+          }
+          e.letter_Realese_Date = e.letter_Realese_Date.split('T')[0];
         });
-        
       }
       else{
 
@@ -145,6 +142,7 @@ export class SubletterComponent implements OnInit {
 
   // download subletter
   downloadFile(event:any){
+    debugger;
     this.loader.showLoading();
     this.id = Number(event.target.id);
     this.letterService.downloadSubLetter(this.id).subscribe((data: Blob)=>{
@@ -261,7 +259,6 @@ export class SubletterComponent implements OnInit {
         this.toast.presentToast("SubLetter not saved", "danger", 'alert-circle-sharp');
       }
     },(err)=>{
-      this.closeFamily();
       this.loader.hideLoader();
     })
   }
@@ -269,7 +266,6 @@ export class SubletterComponent implements OnInit {
 
   // delete subletter
   async letterDelete(id:any) {
-    debugger;
     const alert = await this.alertController.create({
       header: 'Delete Subletter',
       cssClass: 'alertHeader',
@@ -306,13 +302,11 @@ export class SubletterComponent implements OnInit {
 
   EditSubltr(data:any){
     this.isModalEdit = true;
-    console.log(data);
   }
 
-  checked(event){
-    debugger;
-    this.value = event.target.value;
-  }
+  // checked(event){
+  //   this.value = event.target.value;
+  // }
 
   closeFamily(){
     this.isModalOpen = false;

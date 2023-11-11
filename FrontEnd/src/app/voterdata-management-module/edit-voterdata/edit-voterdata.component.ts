@@ -116,6 +116,7 @@ omit_special_char(event) {
 
   getDistrict(){
     this.EditData = this.router.getCurrentNavigation().extras.state;
+    
     this.contact.getDistrictData().subscribe((data)=>{
       if(data.length > 0){
         this.districtList = data;
@@ -180,7 +181,6 @@ omit_special_char(event) {
   }
 
   save(){
-    debugger;
     this.EditData.age=Number(this.EditData.age);
     if(this.EditData.age == 0){
       this.EditData.age=null;

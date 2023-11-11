@@ -135,7 +135,7 @@ export class LoginComponent implements OnInit {
             this.router.navigate(['/home/mobile-dashboard']);
           }
           else if(data.user[0].roleId==5 || data.user[0].roleId==6){
-            this.router.navigate(['/complaint-book']);
+            this.router.navigate(['/complaint-book/all-complaints']);
           }
           else{
             this.router.navigate(['/image']);

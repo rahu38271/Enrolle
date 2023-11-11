@@ -150,13 +150,7 @@ table td:nth-child(1),:nth-child(4), :nth-child(5), :nth-child(6), :nth-child(7)
   font-size: 13px !important;
 }
 
-table td:nth-child(4), :nth-child(5){
-  width: 85px;
-}
 
-table th:nth-child(4), :nth-child(5){
-  width: 85px;
-}
 
 .android p {
   text-align: center;
@@ -187,13 +181,7 @@ table th:nth-child(4), :nth-child(5){
   cursor: pointer;
 }
 
-.table th:nth-child(3){
-  width: 130px;
-}
 
-.table td:nth-child(3){
-  width: 130px;
-}
 
 .table th:nth-child(8){
   width: 130px;
@@ -205,4 +193,20 @@ table th:nth-child(4), :nth-child(5){
 
 .ng-select {
   background: #FFF !important;
+}
+
+.table thead tr th:nth-child(2) {
+  max-width:150px;
+}
+
+.table tbody tr td:nth-child(2) {
+  max-width:150px;
+}
+
+.table thead tr th:nth-child(3) {
+  max-width:150px;
+}
+
+.table tbody tr td:nth-child(3) {
+  max-width:150px;
 }

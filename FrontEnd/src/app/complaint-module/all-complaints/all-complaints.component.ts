@@ -17,6 +17,8 @@ import { LoaderService } from 'src/app/services/loader.service';
 })
 export class AllComplaintsComponent implements OnInit {
   isShow = false;
+  isAll = false;
+  isUserWise = false;
   allComplaints: any;
   fromDate = '';
   toDate = '';
@@ -24,7 +26,7 @@ export class AllComplaintsComponent implements OnInit {
   Id: any;
   complaintStatusModal: any = {}
   PageNo: any = 1
-  NoofRow: any = 10;
+  NoofRow: any = 25;
   SearchText: any;
   totalItems: any;
   Status: any;
@@ -35,7 +37,9 @@ export class AllComplaintsComponent implements OnInit {
   id:any;
   imageUrl:string='';
   showImage:any;
-  
+  UserId:any;
+  roleId:any;
+  userWiseComlaints:any;
 
   // imageUrl:string='https://tinysms.in/bjp.png';
   
@@ -57,6 +61,8 @@ export class AllComplaintsComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.UserId = localStorage.getItem("loginId");
+    this.roleId = localStorage.getItem("userType")
     if (this.SearchText == undefined) {
       this.SearchText = ''
     }
@@ -75,7 +81,11 @@ export class AllComplaintsComponent implements OnInit {
   
 
   ionViewWillEnter() {
-    this.complaintList(this.PageNo, this.NoofRow, this.SearchText);
+    if(this.roleId==5 || this.roleId==6){
+      this.complaintByUser();
+    }else{
+      this.complaintList(this.PageNo, this.NoofRow, this.SearchText);
+    }
   }
 
   event(event: any) {
@@ -83,10 +93,16 @@ export class AllComplaintsComponent implements OnInit {
     this.complaintList(event, this.NoofRow, this.SearchText);
   }
 
+  event1(event1: any) {
+    this.PageNo = event1;
+    this.complaintByUser();
+  }
+
   complaintList(PageNo: any, NoofRow: any, SearchText: any) {
     this.complaint.getAllComplaints(PageNo, NoofRow, SearchText).subscribe(data => {
       if (data.length != 0) {
         this.allComplaints = data;
+        this.isAll = true;
         this.totalItems = data[0].totalCount;
         
         this.allComplaints.forEach(e => {
@@ -103,12 +119,40 @@ export class AllComplaintsComponent implements OnInit {
             e.toDate = e.toDate.split('T')[0];
           }
         });
-        
+        this.fileName = data[this.id].fileName;
       }
       else {
 
       }
     }, (err) => {
+
+    })
+  }
+
+  complaintByUser(){
+    this.complaint.getComplaintsByUserId(this.UserId).subscribe(data=>{
+      if(data.length!=0){
+        this.isUserWise = true;
+        this.userWiseComlaints = data;
+        this.totalItems = data[0].totalCount;
+        this.userWiseComlaints.forEach(e => {
+          if(e.fromDate==null){
+            e.fromDate=""
+          }
+          else{
+            e.fromDate = e.fromDate.split('T')[0];
+          }
+          if(e.toDate==null){
+            e.toDate=""
+          }
+          else{
+            e.toDate = e.toDate.split('T')[0];
+          }
+        });
+      }else{
+
+      }
+    },(err)=>{
 
     })
   }
@@ -128,15 +172,11 @@ export class AllComplaintsComponent implements OnInit {
   }
 
   downloadFile(event: any) {
-    debugger;
     this.Id = Number(event.target.id);
     this.loader.showLoading();
     this.complaint.getFile(this.Id).subscribe((data: Blob) => {
       if (data.size!=0) {
         this.loader.hideLoader();
-        this.allComplaints.forEach(e => {
-          e.fileName = e.fileName;
-        });
         this.fetchImage(data);
         this.saveFile(data);
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');

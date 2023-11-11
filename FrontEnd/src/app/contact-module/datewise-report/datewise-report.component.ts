@@ -61,8 +61,8 @@ export class DatewiseReportComponent implements OnInit {
         this.getReport = data;
         this.totalItems = data[0].totalCount;
         this.getReport.forEach(e => {
-          e.birthDate = e.birthDate.split('T')[0];
-          e.anniversary = e.anniversary.split('T')[0];
+          e.birthDate = e.birthDate.split('T')[0] == '1900-01-01' ? '' : e.birthDate.split('T')[0]; 
+          e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '' : e.anniversary.split('T')[0]; 
         });
       }
       else{
@@ -135,6 +135,10 @@ export class DatewiseReportComponent implements OnInit {
     },(err)=>{
       this.loader.hideLoader();
     })
+  }
+
+  trimInput() {
+    this.searchModal.SearchText = this.searchModal.SearchText.trim();
   }
 
 }

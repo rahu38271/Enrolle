@@ -21,7 +21,7 @@
                         <div class="flex">
                             <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
                             <ion-card-header>
-                                <ion-card-title>Reports, <span>Total - </span></ion-card-title>
+                                <ion-card-title>Reports, <span>Total - {{totalItems}} </span></ion-card-title>
                                 <div class="headerLine"></div>
                             </ion-card-header>
                         </div>
@@ -66,7 +66,7 @@
 
                     <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="6" size-xs="12">
                         <ion-label> Name </ion-label>
-                        <ion-input name="SearchText" [(ngModel)]="searchModal.SearchText" class="form-control">
+                        <ion-input (change)="trimInput()" name="SearchText" [(ngModel)]="searchModal.SearchText" class="form-control">
                         </ion-input>
                     </ion-col>
 

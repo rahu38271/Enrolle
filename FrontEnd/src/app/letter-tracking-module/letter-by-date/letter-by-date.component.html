@@ -165,10 +165,10 @@
                       {{item.status}}
                     </td>
                     <td>
-                      <input type="checkbox" disabled>
+                      <input type="checkbox" name="status" [(ngModel)]="isCompleted" disabled>
                     </td>
                     <td>
-                      <input type="checkbox" disabled>
+                      <input type="checkbox" name="status" [(ngModel)]="isPending" disabled>
                    </td>
                    <td>
                     {{item.letter_Release_Date}}

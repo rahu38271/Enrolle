@@ -68,7 +68,6 @@ export class LetterService {
 
   // add letter
   addSingleLetter(letter:any,file:any){
-    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
@@ -150,7 +149,6 @@ export class LetterService {
 
   // letter by date
   getLetterByDate(UserId:any, RoleId:any, PageNo:any, NoofRow:any, Status:any, StartDate:any, EndDate:any, SearchText:any){
-    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });

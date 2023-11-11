@@ -40,7 +40,7 @@
                 name="Letter_Request_Person" 
                 [(ngModel)]="letter.Letter_Request_Person" 
                 class="text-capitalize form-control" 
-                maxlength="30"
+                maxlength="50"
                 required
                 ></ion-input>
           </ion-col>
@@ -90,6 +90,7 @@
                                     placeholder="Add Office" 
                                     class="form-control"
                                     [(ngModel)]="officeModal.Office_Name"
+                                    required
                                      >
                                   </ion-input>
                               </ion-col>
@@ -143,6 +144,7 @@
                                     placeholder="Add Department" 
                                     class="form-control"
                                      [(ngModel)]="deptModal.Department_Name"
+                                     required
                                      >
                                   </ion-input>
                               </ion-col>
@@ -312,7 +314,7 @@
             <div class="ion-text-center">
               <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
               <ion-button  type="submit" size="medium"  (click)="addLetter()">Add Letter</ion-button>
-              <ion-button routerLink="/letter-tracking" color="success" type="button" size="medium">Back To List</ion-button>
+              <ion-button routerLink="/letter-tracking/all-letters" color="success" type="button" size="medium">Back To List</ion-button>
             </div>
           </ion-col>
           

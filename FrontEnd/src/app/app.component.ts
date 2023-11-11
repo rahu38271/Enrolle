@@ -74,6 +74,7 @@ export class AppComponent implements OnInit {
   isEnquiry: any;
   isReports: any;
   isComBook: any;
+  isComBookByUser:any;
   isRequest: any;
   isTab: any;
   role: any;
@@ -115,7 +116,35 @@ export class AppComponent implements OnInit {
     this.translateConfigService.getDefaultLanguage();
     this.language = this.translateConfigService.getCurrentLang();
     this.initializeApp();
+    this.platform.backButton.subscribeWithPriority(10, (processNextHandler) => {
+      //console.log('Back press handler!');
+      if (this._location.isCurrentPathEqualTo('/home/mobile-dashboard')) {
 
+        // Show Exit Alert!
+        //console.log('Show Exit Alert!');
+        this.showExitConfirm();
+        processNextHandler();
+      } else {
+
+
+        // Navigate to back page
+        //console.log('Navigate to back page');
+        this._location.back();
+
+      }
+
+    });
+
+    this.platform.backButton.subscribeWithPriority(5, () => {
+      //console.log('Handler called to force close!');
+      this.alertController.getTop().then(r => {
+        if (r) {
+          navigator['app'].exitApp();
+        }
+      }).catch(e => {
+        //console.log(e);
+      })
+    });
     platform.ready().then(() => {
       // this.update.checkForUpdates();
       this.checkForUpdates();
@@ -201,7 +230,8 @@ export class AppComponent implements OnInit {
       this.isAppoReport = isMasterAdmin || isSuperAdmin || isAdmin;
       this.isEnquiry = isMasterAdmin || isSuperAdmin || isAdmin;
       this.isReports = isMasterAdmin || isSuperAdmin || isAdmin;
-      this.isComBook = isMasterAdmin || isSuperAdmin || isAdmin || isSociety || isMember;
+      this.isComBook = isMasterAdmin || isSuperAdmin || isAdmin;
+      this.isComBookByUser = isSociety || isMember;
     })
 
 
@@ -231,44 +261,12 @@ export class AppComponent implements OnInit {
       //this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
-
-
-    this.platform.backButton.subscribeWithPriority(10, (processNextHandler) => {
-      //console.log('Back press handler!');
-      if (this._location.isCurrentPathEqualTo('/home')) {
-
-        // Show Exit Alert!
-        //console.log('Show Exit Alert!');
-        this.showExitConfirm();
-        processNextHandler();
-      } else {
-
-
-        // Navigate to back page
-        //console.log('Navigate to back page');
-        this._location.back();
-
-      }
-
-    });
-
-    this.platform.backButton.subscribeWithPriority(5, () => {
-      //console.log('Handler called to force close!');
-      this.alertController.getTop().then(r => {
-        if (r) {
-          navigator['app'].exitApp();
-        }
-      }).catch(e => {
-        //console.log(e);
-      })
-    });
-
   }
 
 
   showExitConfirm() {
     this.alertController.create({
-      header: 'Exit Enrolle',
+      header: 'Exit Matadarmaza',
       message: 'Do you want to close the app?',
       backdropDismiss: false,
       buttons: [{

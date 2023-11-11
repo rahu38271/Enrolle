@@ -653,6 +653,11 @@
                 <ion-label> {{'Complaint Book' | translate}} </ion-label>
               </ion-item>
 
+              <ion-item *ngIf="isComBookByUser" [routerLink]="['/complaint-book/all-complaints']" routerDirection="root" [routerLinkActive]="'active'" >
+                <i class="icofont icofont-calendar"></i>
+                <ion-label> {{'Complaint Book' | translate}} </ion-label>
+              </ion-item>
+
               
               <!-- <ion-accordion-group class="mobView">
                 <ion-accordion value="List" >
