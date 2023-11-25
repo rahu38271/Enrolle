@@ -309,6 +309,15 @@ export class GeneralEnquiryComponent implements OnInit {
     })
   }
 
+  trimInput(){
+    this.searchModal.TypeofWork = this.searchModal.TypeofWork.trim();
+    this.searchModal.FullName = this.searchModal.FullName.trim();
+    this.searchModal.MobileNo = this.searchModal.MobileNo.trim();
+    this.searchModal.Society_BuildingName = this.searchModal.Society_BuildingName.trim();
+    this.searchModal.AaddharCardNumber = this.searchModal.AaddharCardNumber.trim();
+    this.searchModal.Reference = this.searchModal.Reference.trim();
+    this.searchModal.PersonEnteringData = this.searchModal.PersonEnteringData.trim();
+  }
 
   async deleteEnq(id:any) {
     const alert = await this.alertController.create({
@@ -353,7 +362,11 @@ export class GeneralEnquiryComponent implements OnInit {
         this.loader.hideLoader();
         this.enquiryList = data;
         this.totalItems = data[0].totalCount;
-        
+        this.enquiryList.forEach(e=>{
+          delete e.totalCount;
+          delete e.createdDate;
+          delete e.userId;
+        })
         this.excel.exportAsExcelFile(this.enquiryList, 'Enquiry');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
@@ -376,7 +389,11 @@ export class GeneralEnquiryComponent implements OnInit {
         this.loader.hideLoader();
         this.searchEnqList = data;
         this.totalItems = data[0].totalCount;
-        
+        this.searchEnqList.forEach(e=>{
+          delete e.totalCount;
+          delete e.createdDate;
+          delete e.userId;
+        })
         this.excel.exportAsExcelFile(this.searchEnqList, 'Enquiry');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
@@ -399,7 +416,12 @@ export class GeneralEnquiryComponent implements OnInit {
         this.loader.hideLoader();
         this.enquiryList = data;
         this.totalItems = data[0].totalCount;
-        
+        this.enquiryList.forEach(e=>{
+          delete e.totalCount;
+          delete e.createdDate;
+          delete e.userId;
+          delete e.id;
+        })
         this.csv.exportToCsv(this.enquiryList, 'Enquiry');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }
@@ -422,7 +444,12 @@ export class GeneralEnquiryComponent implements OnInit {
         this.loader.hideLoader();
         this.searchEnqList = data;
         this.totalItems = data[0].totalCount;
-        
+        this.searchEnqList.forEach(e=>{
+          delete e.totalCount;
+          delete e.createdDate;
+          delete e.userId;
+          delete e.id;
+        })
         this.csv.exportToCsv(this.searchEnqList, 'Enquiry');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
       }

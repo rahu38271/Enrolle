@@ -269,12 +269,16 @@ export class AllAppointmentsComponent implements OnInit {
     this.appointment.getAppointments(this.UserId, this.roleID, this.PageNo, this.NoofRow,SearchText).subscribe((data: any) => {
       if (data.length != 0) {
         this.loader.hideLoader();
-        // this.getApmList = data.filter(this.isBigEnough);
         this.getApmList = data;
-        this.totalItems = data[0].totalCount
         this.getApmList.forEach(e => {
-          e.birthDate = e.birthDate.split('T')[0];
+          // e.birthDate = e.birthDate.split('T')[0];
+          delete e.fileName;
+          delete e.createdDate;
+          delete e.userId;
+          delete e.totalCount;
+          delete e.roleId;
         });
+        
         this.excel.exportAsExcelFile( this.getApmList, 'appointment');
         this.toast.presentToast("File downloded successfully!", "success", 'checkmark-circle-sharp');
       }
@@ -298,7 +302,12 @@ export class AllAppointmentsComponent implements OnInit {
         this.loader.hideLoader();
         this.getApmList = data;
         this.getApmList.forEach(e => {
-          e.birthDate = e.birthDate.split('T')[0];
+          delete e.fileName;
+          delete e.createdDate;
+          delete e.userId;
+          delete e.totalCount;
+          delete e.roleId;
+          delete e.id;
         });
         this.csv.exportToCsv(this.getApmList, 'appointment');
         this.toast.presentToast("File downloded successfully!", "success", 'checkmark-circle-sharp');

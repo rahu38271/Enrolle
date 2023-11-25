@@ -23,6 +23,7 @@ import { HttpClientModule,HttpClient } from '@angular/common/http';
 import { TranslateModule, TranslateLoader,TranslateService  } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Camera } from '@ionic-native/camera/ngx';
+import { Network } from '@ionic-native/network/ngx';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -51,7 +52,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
   ],
-  providers: [PDFGenerator,SocialSharing,AndroidPermissions,BluetoothSerial,SplashScreen,Camera, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [PDFGenerator,SocialSharing,AndroidPermissions,BluetoothSerial,SplashScreen,Camera,Network, { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

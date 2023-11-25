@@ -3,7 +3,11 @@
   <ion-header *ngIf="showHead" class="web">
     <div class="navbar">
       <div class="leftnav">
-        
+        <!-- <div class="subnav">
+          <ion-button (click)="toggleMenuWidth()">
+            Menu
+          </ion-button>
+        </div> -->
         <div *ngIf="isDashboard" class="subnav" routerLink="/home">
           <button class="subnavbtn"> <img src="assets/img/home.png" alt=""> <br>{{'Dashboard' | translate}} </button>
         </div>
@@ -128,22 +132,22 @@
         </div> -->
 
         <div  class="subnav" *ngIf="isVoterList">
-          <button class="subnavbtn"><img src="assets/img/shopping-list.png" alt=""><br> {{'Voter List' | translate}}  </button>
+          <button class="subnavbtn"><img src="assets/img/shopping-list.png" alt=""><br> {{'Election' | translate}}  </button>
           <div class="subnav-content">
             <ion-item lines="full" class="sub-menu" routerLink="/dashboard">
-              Voter Dashboard
+               {{'Voter Dashboard' | translate}}
             </ion-item>
 
             <ion-item lines="full" class="sub-menu" routerLink="/voter-summary">
-              Voter List
-            </ion-item>
-      
-            <ion-item lines="full" class="sub-menu" routerLink="/mobile-match">
-              Match Mobile No.
+               {{'Voter List' | translate}}
             </ion-item>
       
             <ion-item lines="full" class="sub-menu" routerLink="/list">
-              Voter Search
+               {{'Voter Search' | translate}}
+            </ion-item>
+
+            <ion-item lines="full" class="sub-menu" routerLink="/mobile-match">
+               {{'Match Mobile No.' | translate}}
             </ion-item>
       
             <ion-item lines="full" class="sub-menu"  routerLink="/booth-coordinator">
@@ -151,7 +155,7 @@
             </ion-item>
             
             <ion-item lines="none" class="sub-menu" routerLink="/survey">
-              Survey
+               {{'Survey' | translate}}
             </ion-item>
             
           </div>
@@ -164,7 +168,7 @@
         </div>
 
         <div *ngIf="isComBook" class="subnav" routerLink="/complaint-book" >
-          <button class="subnavbtn"><img src="assets/img/list1.png" alt=""><br>Complaint Book </button>
+          <button class="subnavbtn"><img src="assets/img/list1.png" alt=""><br> {{'Complaint Book' | translate}} </button>
         </div>
 
 
@@ -475,9 +479,10 @@
       <ion-label>Log Out</ion-label>
     </ion-item> -->
 
+    <!-- [style.width.px]="menuWidth" -->
     <ion-split-pane content-id="main-content">
-      <ion-menu side="start" content-id="main-content" auto-hide="false">
-        <ion-content class="mobileMenu">
+      <ion-menu side="start" content-id="main-content" >
+        <ion-content class="mobileMenu" >
           <ion-menu-toggle autoHide="false">
             <ion-list>
               <ion-item lines="full" class="birthday user-info">
@@ -580,7 +585,7 @@
 
               <ion-item [routerLink]="['/general-enquiry']" routerDirection="root" [routerLinkActive]="'active'" *ngIf="isEnquiry">
                 <i class="icofont icofont-calendar"></i>
-                <ion-label> General Enquiry </ion-label>
+                <ion-label>  {{'General Enquiry' | translate}}</ion-label>
               </ion-item>
 
               <!-- <ion-accordion-group *ngIf="isAppoReport">
@@ -641,7 +646,7 @@
 
               <ion-item *ngIf="isComBook" [routerLink]="['/complaint-book']" routerDirection="root" [routerLinkActive]="'active'" >
                 <i class="icofont icofont-calendar"></i>
-                <ion-label> Complaint Book </ion-label>
+                <ion-label> {{'Complaint Book' | translate}} </ion-label>
               </ion-item>
 
               

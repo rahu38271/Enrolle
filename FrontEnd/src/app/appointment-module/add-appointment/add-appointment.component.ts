@@ -155,7 +155,17 @@ export class AddAppointmentComponent implements OnInit {
     
   }
 
- 
+  trimInput(){
+    this.appointments.FirstName = this.appointments.FirstName.trim();
+    this.appointments.MiddleName = this.appointments.MiddleName.trim();
+    this.appointments.LastName = this.appointments.LastName.trim();
+    this.appointments.HouseNo = this.appointments.HouseNo.trim();
+    this.appointments.Soc_BldgName = this.appointments.Soc_BldgName.trim();
+    this.appointments.WardNo = this.appointments.WardNo.trim();
+    this.appointments.PinCode = this.appointments.PinCode.trim();
+    this.appointments.City_Village = this.appointments.City_Village.trim();
+    this.appointments.Remark = this.appointments.Remark.trim();
+  }
 
   onSubmit(f: NgForm) {
     if (this.appointments.invalid) {

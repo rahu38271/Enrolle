@@ -222,6 +222,12 @@ export class PendingComponent implements OnInit {
 
   exportExcel(): void {
     if (this.pendingList.length != 0) {
+      this.pendingList.forEach(e => {
+        delete e.totalCount;
+        delete e.createdDate;
+        delete e.roleId;
+        delete e.userId;
+      });
       this.excel.exportAsExcelFile(this.pendingList, 'Pending Complaints');
       this.toast.presentToast("Downloaded successfully!", "success", 'checkmark-circle-sharp');
     }
@@ -234,6 +240,13 @@ export class PendingComponent implements OnInit {
 
   exportToCSV() {
     if (this.pendingList.length != 0) {
+      this.pendingList.forEach(e => {
+        delete e.totalCount;
+        delete e.createdDate;
+        delete e.roleId;
+        delete e.userId;
+        delete e.id;
+      });
       this.csv.exportToCsv(this.pendingList, 'Pending Complaints');
       this.toast.presentToast("Downloaded successfully!", "success", 'checkmark-circle-sharp');
     }

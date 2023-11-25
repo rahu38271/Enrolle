@@ -84,7 +84,6 @@ export class TodaysComplaintComponent implements OnInit {
 
 
   editCmplaint(data: any) {
-    debugger;
     this.router.navigateByUrl('/complaint-book/edit-complaint', { state: data })
   }
 
@@ -215,8 +214,10 @@ export class TodaysComplaintComponent implements OnInit {
         this.loader.hideLoader();
         this.todayComplaints = data;
         this.todayComplaints.forEach(e => {
-          e.fromDate = e.fromDate.split('T')[0];
-          e.toDate = e.toDate.split('T')[0];
+          delete e.totalCount;
+            delete e.createdDate;
+            delete e.roleId;
+            delete e.userId;
         });
         this.excel.exportAsExcelFile(this.todayComplaints, 'Complaints');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
@@ -240,8 +241,11 @@ export class TodaysComplaintComponent implements OnInit {
         this.loader.hideLoader();
         this.todayComplaints = data;
         this.todayComplaints.forEach(e => {
-          e.fromDate = e.fromDate.split('T')[0];
-          e.toDate = e.toDate.split('T')[0];
+          delete e.totalCount;
+            delete e.createdDate;
+            delete e.roleId;
+            delete e.userId;
+            delete e.id;
         });
         this.csv.exportToCsv(this.todayComplaints, 'Complaints');
         this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');

@@ -45,7 +45,7 @@
 
                 <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
                   <ion-label> Type of Work </ion-label>
-                  <ng-select name="TypeofWork" [(ngModel)]="searchModal.TypeofWork" #TypeofWork="ngModel" placeholder="Select">
+                  <ng-select name="TypeofWork" [(ngModel)]="searchModal.TypeofWork" (change)="trimInput()" #TypeofWork="ngModel" placeholder="Select">
                     <ng-option *ngFor="let item of workList" [value]="item.workName">
                       {{item.workName}}
                     </ng-option>
@@ -54,20 +54,20 @@
 
                 <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
                   <ion-label> Name </ion-label>
-                  <ion-input maxlength="50" name="FullName" (keypress)="onKeyPress($event)" (input)="onKeyPress($event)"
-                    [(ngModel)]="searchModal.FullName" class="form-control" required></ion-input>
+                  <ion-input maxlength="50" name="FullName" (keypress)="onKeyPress($event)"  (input)="onKeyPress($event)"
+                    [(ngModel)]="searchModal.FullName" (change)="trimInput()" class="form-control" required></ion-input>
                 </ion-col>
 
                 <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
                   <ion-label> Mobile </ion-label>
                   <ion-input minlength="10" maxlength="12" name="MobileNo" [(ngModel)]="searchModal.MobileNo"
-                  (keypress)="keyPressNumbers($event)" 
+                  (keypress)="keyPressNumbers($event)"  (change)="trimInput()"
                     class="form-control"></ion-input>
                 </ion-col>
 
                 <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
                   <ion-label> Society </ion-label>
-                  <ion-input maxlength="50" [(ngModel)]="searchModal.Society_BuildingName" name="Society_BuildingName"
+                  <ion-input maxlength="50" [(ngModel)]="searchModal.Society_BuildingName" (change)="trimInput()" name="Society_BuildingName"
                   (keypress)="omit_special_char($event)"
                     class="form-control"></ion-input>
                 </ion-col>
@@ -84,7 +84,7 @@
                 <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
                   <ion-label>Aadhar Card No. </ion-label>
                   <ion-input name="AaddharCardNumber" maxlength="12" minlength="12"
-                  (keypress)="keyPressNumbers($event)" 
+                  (keypress)="keyPressNumbers($event)" (change)="trimInput()"
                     [(ngModel)]="searchModal.AaddharCardNumber" class="form-control" placeholder="12 digit no."></ion-input>
                 </ion-col>
 
@@ -93,7 +93,7 @@
                 <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
                   <ion-label> Reference Name </ion-label>
                   <ion-input maxlength="50" name="Reference" (keypress)="onKeyPress($event)"
-                    [(ngModel)]="searchModal.Reference" class="form-control"></ion-input>
+                    [(ngModel)]="searchModal.Reference" (change)="trimInput()" class="form-control"></ion-input>
                 </ion-col>
 
                 <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
@@ -117,7 +117,7 @@
                 <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
                   <ion-label> Person Entering Data </ion-label>
                   <ion-input name="PersonEnteringData" class="form-control" maxlength="50" (keypress)="onKeyPress($event)"
-                    [(ngModel)]="searchModal.PersonEnteringData"></ion-input>
+                    [(ngModel)]="searchModal.PersonEnteringData" (change)="trimInput()"></ion-input>
                 </ion-col>
 
                 <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
