@@ -72,7 +72,6 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetLetterById")]
-
         public IActionResult GetLetterbyId(int Id)
         {
             try

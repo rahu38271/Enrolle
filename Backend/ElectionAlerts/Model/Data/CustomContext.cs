@@ -35,7 +35,7 @@ namespace ElectionAlerts.Model.Data
             if (!optionsBuilder.IsConfigured)
             {
                  // MasterDBconstr = "Server=184.168.194.78;Database=EnrolleMasterQA;User Id=EnrolleMasterQA; Password=EnrolleMasterQA@123;pooling=false;";
-                  MasterDBconstr = "Server=45.249.108.42;Database=EnrolleMasterQA;User Id=EnrolleMasterQA; Password=EnrolleMasterQA@123;pooling=false;";
+                  MasterDBconstr = "Server=45.249.108.42;Database=EnrolleMasterQA;User Id=EnrolleMasterQA; Password=EnrolleMasterQA@123;pooling=true;";
 
                 optionsBuilder.UseSqlServer(MasterDBconstr, x => x.EnableRetryOnFailure());
             }
@@ -194,6 +194,10 @@ namespace ElectionAlerts.Model.Data
         public DbSet<Office> Offices { get; set; }
         public DbSet<LetterDashBoard> LetterDashBoards { get; set; }
         public DbSet<VoterDashBoard> VoterDashBoards { get; set; }
+        public DbSet<VoterDashBoardwithMobCount> MyProperty { get; set; }
+        public DbSet<MainDashBoard> MainDashBoards { get; set; }
+        public DbSet<SmsSetting> SmsSettings { get; set; }
+        public DbSet<Versions> Versions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Districts>().HasNoKey();
@@ -222,6 +226,8 @@ namespace ElectionAlerts.Model.Data
             modelBuilder.Entity<ContactwithCount>().HasNoKey();
             modelBuilder.Entity<LetterDashBoard>().HasNoKey();
             modelBuilder.Entity<VoterDashBoard>().HasNoKey();
+            modelBuilder.Entity<VoterDashBoardwithMobCount>().HasNoKey();
+            modelBuilder.Entity<MainDashBoard>().HasNoKey();
         }
     }
 }

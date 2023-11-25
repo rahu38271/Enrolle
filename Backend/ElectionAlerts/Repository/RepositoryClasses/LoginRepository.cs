@@ -229,6 +229,17 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 throw ex;
             }
         }
-            
+
+        public int UpdateMessageSent(int Id,string Type)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("Exec Usp_UpdateMessageSent {0},{1}", Id,Type);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

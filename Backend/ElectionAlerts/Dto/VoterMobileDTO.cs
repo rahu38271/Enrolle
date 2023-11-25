@@ -24,11 +24,11 @@ namespace ElectionAlerts.Dto
         public string IsVoted { get; set; }
         public string AlternateMobileNo { get; set; }
         public string VotingInclination { get; set; }
-        public int AssemblyNo { get; set; }
+        public int? AssemblyNo { get; set; }
         public DateTime? BirthDate { get; set; }
         public string Occupation { get; set; }
         public string Email { get; set; }
-        public int TotalCount { get; set; }
+        public int? TotalCount { get; set; }
 
     }
 }

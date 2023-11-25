@@ -39,5 +39,10 @@ namespace ElectionAlerts.Services.ServiceClasses
         {
             return _icontactreposritory.DeleteContactbyId(Id);
         }
+
+        public IEnumerable<Contact> GetContacts()
+        {
+            return _icontactreposritory.GetContacts();
+        }
     }
 }

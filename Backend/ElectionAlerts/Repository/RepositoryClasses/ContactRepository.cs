@@ -24,25 +24,13 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             _httpContextAccessor = httpContextAccessor;
             _customContext = new CustomContext(_httpContextAccessor);
         }
-        public IEnumerable<ContactwithCount> GetContacts(int PageNo, int NoofRow, string SearchText)
-        {
-            try
-            {
-                return _customContext.Set<ContactwithCount>().FromSqlRaw("EXEC USP_GetContacts_Pagination {0},{1},{2}",PageNo,NoofRow,SearchText).ToList();
-            }
-            catch (Exception ex)
-            {
 
-                throw ex;
-            }
-           
-        }
         public int InsertSingleContact(Contact cnt)
         {
             try
             {
-                return _customContext.Database.ExecuteSqlRaw("EXEC Usp_InsertSingleContact {0},{1},{2},{3},{4},{5},{6},{7},{8},{9}", cnt.FullName, cnt.VilageName, cnt.BirthDate, cnt.Anniversary,
-               cnt.MobileNo, cnt.AlternativeMobileNo, cnt.Address, cnt.Taluka, cnt.District,cnt.LoginUserId);
+                return _customContext.Database.ExecuteSqlRaw("EXEC Usp_InsertSingleContact {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11}", cnt.FullName, cnt.VilageName, cnt.BirthDate, cnt.Anniversary,
+               cnt.MobileNo, cnt.AlternativeMobileNo, cnt.Address, cnt.Taluka, cnt.District,cnt.LoginUserId,cnt.PartNo,cnt.OtherDate);
             }
             catch (Exception ex)
             {
@@ -107,8 +95,8 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _customContext.Database.ExecuteSqlRaw("EXEC Usp_UpdateSingleContact {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}", cnt.Id, cnt.FullName, cnt.VilageName, cnt.BirthDate, cnt.Anniversary,
-                cnt.MobileNo, cnt.AlternativeMobileNo, cnt.Address, cnt.Taluka, cnt.District,cnt.LoginUserId);
+                return _customContext.Database.ExecuteSqlRaw("EXEC Usp_UpdateSingleContact {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}", cnt.Id, cnt.FullName, cnt.VilageName, cnt.BirthDate, cnt.Anniversary,
+                cnt.MobileNo, cnt.AlternativeMobileNo, cnt.Address, cnt.Taluka, cnt.District,cnt.LoginUserId,cnt.PartNo,cnt.OtherDate);
             }
             catch (Exception ex)
             {
@@ -125,6 +113,33 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
             catch(Exception ex)
             {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<ContactwithCount> GetContacts(int PageNo, int NoofRow, string SearchText)
+        {
+            try
+            {
+                return _customContext.Set<ContactwithCount>().FromSqlRaw("EXEC USP_GetContacts_Pagination {0},{1},{2}", PageNo, NoofRow, SearchText);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+
+        }
+
+        public IEnumerable<Contact> GetContacts()
+        {
+            try
+            {
+                return _customContext.Set<Contact>().FromSqlRaw("USP_GetContacts");
+            }
+            catch (Exception ex)
+            {
+
                 throw ex;
             }
         }

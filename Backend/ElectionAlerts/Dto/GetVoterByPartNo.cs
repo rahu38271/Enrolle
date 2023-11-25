@@ -31,6 +31,9 @@ namespace ElectionAlerts.Dto
         public DateTime? BirthDate { get; set; }
         public string Occupation { get; set; }
         public string Email { get; set; }
+        public string BoothName { get; set; }
+        public string PrintSlip { get; set; }
         public int? TotalCount { get; set; }
+
     }
 }

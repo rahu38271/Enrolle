@@ -1,10 +1,13 @@
-﻿using ElectionAlerts.Dto;
+﻿using CsvHelper;
+using CsvHelper.Configuration;
+using ElectionAlerts.Dto;
 using ElectionAlerts.Model;
 using ElectionAlerts.Model.Data;
 using ElectionAlerts.Services.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.StaticFiles;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -47,7 +50,46 @@ namespace ElectionAlerts.Controller
             }
           
         }
-       
+
+        [HttpGet("GetContactFile")]
+        public IActionResult GetContactFile(int PageNo, int NoofRow, string SearchText)
+        {
+            try
+            {
+                var filepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ContactList.csv");
+                var result = _contactService.GetContacts();
+                if (result != null && result.Count() != 0)
+                {
+                    using (var writer = new StreamWriter(filepath))
+                    using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+                    {
+                        csv.WriteRecords(result);
+                    }
+                    if (System.IO.File.Exists(filepath))
+                    {
+                        string Filepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "ContactList.csv");
+                        var provider = new FileExtensionContentTypeProvider();
+                        if (!provider.TryGetContentType(Filepath, out var contentType))
+                        {
+                            contentType = "application/octet-stream";
+                        }
+
+                        var bytes = System.IO.File.ReadAllBytes(Filepath);
+                        System.IO.File.Delete(Filepath);
+                        return File(bytes, contentType, Path.GetFileName(Filepath));
+                    }
+                }
+                return Ok("Error");
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "ContactController/GetContact");
+                return BadRequest(ex);
+
+            }
+
+        }
+
         [HttpPost("InsertSingleContact")]
         public IActionResult InsertSingleContact(Contact contact)
         {
@@ -78,7 +120,7 @@ namespace ElectionAlerts.Controller
 
         [HttpPost("UpdateSingleContact")]
         public IActionResult UpdateSingleContact(Contact contact)
-        {
+           {
             try
             {
                 return Ok(_contactService.UpdateSingleContact(contact));
@@ -105,7 +147,6 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpPost("ImportExcelContact")]
-
         public IActionResult ImportExcelContact(IFormFile file)
         {
             string[] dateformat = { "dd-MM-yyyy", "yyyy-MM-dd HH:mm:ss", "MM/dd/yyyy hh:mm tt", "dd-MMM-yyyy h:mm tt", "yyyy-MM-ddTHH:mm:ssZ", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm: ss", "dd-MM-yyyy HH:mm", "yyyy/MM/dd", "dddd, MMMM d, yyyy", "MM-dd-yy", "yyyy-MM-ddTHH:mm:ssZ", "dd MMMM yyyy", "MMM dd, yyyy", "MM/yyyy" };
@@ -167,7 +208,11 @@ namespace ElectionAlerts.Controller
                             }
                         }
                         if (worksheet.Cells[row, 5].Value != null)
-                            contact.MobileNo = worksheet.Cells[row, 5].Value.ToString().Trim().CheckLenght(15); 
+                        {
+                            string number = worksheet.Cells[row, 5].Value.ToString().Trim().CheckLenght(15);
+                            contact.MobileNo = number.convert_to_number();
+                        }
+                             
                         if (worksheet.Cells[row, 6].Value != null)
                             contact.AlternativeMobileNo = worksheet.Cells[row, 6].Value.ToString().Trim().CheckLenght(15);
                         if (worksheet.Cells[row, 2].Value != null)

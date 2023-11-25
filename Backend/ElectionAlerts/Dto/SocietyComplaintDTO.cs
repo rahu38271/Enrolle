@@ -17,7 +17,9 @@ namespace ElectionAlerts.Dto
         public int? UserId { get; set; }
         public int? RoleId { get; set; }
         public string UserName { get; set; }
+        public int? AdminId { get; set; }
         public DateTime CreatedDate { get; set; }
+        public string Status { get; set; }
         public int TotalCount { get; set; }
 
     }

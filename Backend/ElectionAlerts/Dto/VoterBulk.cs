@@ -63,5 +63,10 @@ namespace ElectionAlerts.Dto
         public string CreatedDate { get; set; }
         public int AdminId { get; set; }
         public string UserName { get; set; }
+        public string BoothName { get; set; }
+        public string BoothName_HN { get; set; }
+        public string BoothName_RG { get; set; }
+        public string PrintSlip { get; set; }
+
     }
 }

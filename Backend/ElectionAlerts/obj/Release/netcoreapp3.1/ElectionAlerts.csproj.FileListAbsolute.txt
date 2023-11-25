@@ -301,3 +301,4 @@ E:\GitClonned\Backend\ElectionAlerts\obj\Release\netcoreapp3.1\ElectionAlerts.dl
 E:\GitClonned\Backend\ElectionAlerts\obj\Release\netcoreapp3.1\ElectionAlerts.pdb
 E:\GitClonned\Backend\ElectionAlerts\obj\Release\netcoreapp3.1\ElectionAlerts.genruntimeconfig.cache
 E:\GitClonned\Backend\ElectionAlerts\bin\Release\netcoreapp3.1\web.config
+E:\GitClonned\Backend\ElectionAlerts\bin\Release\netcoreapp3.1\CsvHelper.dll

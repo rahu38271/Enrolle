@@ -12,14 +12,17 @@ namespace ElectionAlerts.Services.Interface
         int CreateUpdateSociety(Society society);
         IEnumerable<SocietyDTO> GetAllSociety(int PageNo, int NoofRow, string SearchText);
         int DeleteSocietybuId(int Id);
-        int InsertUpdateSocietyComplaint(SocietyModel societyModel);
-        IEnumerable<SocietyComplaintDTO> GetSocietyComplaints(int PageNo, int NoofRow, string SearchText);
-        SocietyComplaint GetSocietyComplaintbyUserId(int UserId);
+        int InsertUpdateSocietyComplaint(SocietyComplaint societyModel);
+        IEnumerable<SocietyComplaintDTO> GetSocietyComplaints(int UserId,int RoleId,int PageNo, int NoofRow, string SearchText);
+        IEnumerable<SocietyComplaintDTO> GetSocietyComplaintbyUserId(int UserId);
         SocietyComplaint GetSocietyComplaintbyId(int Id);
         int UpdateComplaintStatus(int Id, string Status);
-        IEnumerable<SocietyComplaintDTO> GetComplaintsbyStatus(string Status,int PageNo, int NoofRow, string SearchText);
-        IEnumerable<SocietyComplaintDTO> GetTodayComplaint(int PageNo, int NoofRow, string SearchText);
+        IEnumerable<SocietyComplaintDTO> GetComplaintsbyStatus(int UserId, int RoleId, string Status,int PageNo, int NoofRow, string SearchText);
+        IEnumerable<SocietyComplaintDTO> GetTodayComplaint(int UserId, int RoleId, int PageNo, int NoofRow, string SearchText);
         IEnumerable<ComplaintCount> GetComplaintCount();
+        IEnumerable<ComplaintCount> GetComplaintCountbyUserId(int UserId, int RoleId);
         int DeleteSocietyComplaintbyId(int Id);
+        IEnumerable<SocietyComplaintDTO> GetSocietyComplaintbyDate(int UserId, int RoleId, string Subject, string FromDate, string ToDate, string UserName);
+        IEnumerable<SocietyComplaintDTO> GetSocietyComplaintFromDate(int UserId, int RoleId, string FromDate, string ToDate, string Status);
     }
 }

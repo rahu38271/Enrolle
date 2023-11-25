@@ -121,7 +121,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _customContext.Set<LetterDTO>().FromSqlRaw("Exec GetLetterbySatus {0},{1},{2},{3}", UserId, RoleId, PageNo, NoofRow);
+                return _customContext.Set<LetterDTO>().FromSqlRaw("Exec USP_GetLetterbySatus {0},{1},{2},{3}", UserId, RoleId, PageNo, NoofRow);
             }
             catch(Exception ex)
             {

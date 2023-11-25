@@ -113,7 +113,6 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetActivityLogbyUserId")]
-
         public IActionResult GetActivityLogbyUserId(int UserId, int PageNo, int NoofRow, string FromDate, string ToDate)
         {
             try

@@ -22,7 +22,7 @@ namespace ElectionAlerts.Model
         private static TimeZoneInfo INDIAN_ZONE = TimeZoneInfo.FindSystemTimeZoneById("India Standard Time");
         public Task Execute(IJobExecutionContext context)
         {
-            //var task = Task.Run(() => logfile(DateTime.Now)); ;
+            var task = Task.Run(() => logfile(DateTime.Now)); ;
             return null;
         }
         public void logfile(DateTime time)
@@ -33,18 +33,28 @@ namespace ElectionAlerts.Model
             var condb = from cn in connpara where cn.MessageSent=="Y" select cn;
             foreach (var con in condb)
             {
-                var constr = $"Server={con.IPAddress};Database= {con.DBName};User Id={ con.UserName};Password={con.Password};pooling=false;";
-                var birthday = GetBirthDay(constr);
-
-                //var Name = new List<Contact> { new Contact { FullName = "Abhay Ashok Bhalerao",BirthDate=Convert.ToDateTime("14-08-2023"), MobileNo = "7020212230" } };
-                foreach (var contact in birthday)
+                //if (con.UserName != "ElectionAlerts2")
+                //    continue;
+                try
                 {
-                    SentBirthdaymsg(contact); 
+                    var constr = $"Server={con.IPAddress};Database= {con.DBName};User Id={ con.UserName};Password={con.Password};pooling=false;";
+                    var birthday = GetBirthDay(constr);
+                    var smssetting = GetSmSSetting(constr, "Birthday");
+                    //var Name = new List<Contact> { new Contact { FullName = "Abhay Ashok Bhalerao",BirthDate=Convert.ToDateTime("14-08-2023"), MobileNo = "7020212230" } };
+                    foreach (var contact in birthday)
+                    {
+                        SentBirthdaymsg(contact, smssetting);
+                    }
+                    var anniversary = GetAnniversary(constr);
+                    var smssetting2 = GetSmSSetting(constr, "Anniversary");
+                    foreach (var contact in anniversary)
+                    {
+                        SentAnniversarymsg(contact, smssetting2);
+                    }
                 }
-                var anniversary = GetAnniversary(constr);
-                foreach (var contact in anniversary)
+                catch(Exception ex)
                 {
-                    SentAnniversarymsg(contact);
+                    LogWrite("Error while Sending SMS "+ ex);
                 }
             }
             
@@ -52,7 +62,7 @@ namespace ElectionAlerts.Model
             LogWrite("Scheduller Completed Executing the Job : " + DateTime.Now.ToString());
         }
 
-        private void SentBirthdaymsg(Contact contact)
+        private void SentBirthdaymsg(Contact contact,SmsSetting sms)
         {
             try
             {
@@ -62,13 +72,13 @@ namespace ElectionAlerts.Model
                 {
                     using (WebClient web = new WebClient())
                     {
-                        string msg = "http://45.114.143.189/api/mt/SendSMS?username=prolittechnologies&password=prolit3214&senderid=Prolit&type=8&destination=" + contact.MobileNo + "&text=प्रिय " + contact.FullName + ", आपणास जन्मदिवसानिमित्त्य मनःपूर्वक हार्दिक शुभेच्छा. Prolit Technologies.&peid=1301165123633080685";
+                        string msg = $"{sms.Url}username={sms.UserName}&password={sms.Password}&senderid={sms.SenderId}&type={sms.Type}&destination={contact.MobileNo}&text={sms.Text.Replace("{#var#}", contact.FullName)}.&peid={sms.PeId}";
                         Stream myStream = web.OpenRead(msg);
                         StreamReader sr = new StreamReader(myStream);
                         string data = sr.ReadToEnd();
-                        string[] lines = data.Split('\n');
-                        var data1 = JsonConvert.DeserializeObject<dynamic>(lines[0]);
-                        LogWrite($"Send BirthDay SMS Message : {contact.MobileNo} {data1}");
+                        string[] lines = data.Split(',');
+                        //var data1 = JsonConvert.DeserializeObject<dynamic>(lines[1]);
+                        LogWrite($"Send BirthDay SMS Message : {contact.MobileNo} {lines[1]}");
                     }
                 }
 
@@ -95,7 +105,7 @@ namespace ElectionAlerts.Model
 
         }
 
-        private void SentAnniversarymsg(Contact contact)
+        private void SentAnniversarymsg(Contact contact, SmsSetting sms)
         {
             try
             {
@@ -105,13 +115,13 @@ namespace ElectionAlerts.Model
                 {
                     using (WebClient web = new WebClient())
                     {
-                        string msg = $"http://45.114.143.189/api/mt/SendSMS?username=prolittechnologies&password=prolit3214&senderid=Prolit&type=8&destination={contact.MobileNo}&text=प्रिय {contact.FullName}, आपणास लग्नाच्या वाढदिवसाच्या हार्दिक शुभेच्छा. Prolit Technologies. &peid=1301165123633080685";
+                        string msg = $"{sms.Url}username={sms.UserName}&password={sms.Password}&senderid={sms.SenderId}&type={sms.Type}&destination={contact.MobileNo}&text={sms.Text.Replace("{#var#}", contact.FullName)}. &peid={sms.PeId}";
                         Stream myStream = web.OpenRead(msg);
                         StreamReader sr = new StreamReader(myStream);
                         string data = sr.ReadToEnd();
-                        string[] lines = data.Split('\n');
-                        var data1 = JsonConvert.DeserializeObject<dynamic>(lines[0]);
-                        LogWrite($"Send Aniversary SMS Message {contact.MobileNo} {data1}");
+                        string[] lines = data.Split(',');
+                       // var data1 = JsonConvert.DeserializeObject<dynamic>(lines[0]);
+                        LogWrite($"Send Aniversary SMS Message {contact.MobileNo} {lines[1]}");
                     }
                    
                     //using (WebClient web = new WebClient())
@@ -243,6 +253,40 @@ namespace ElectionAlerts.Model
             }
         }
 
+        public SmsSetting GetSmSSetting(string conn,string Mtype)
+        {
+            try
+            {
+                SmsSetting sms = null;
+                using (SqlConnection con=new SqlConnection(conn))
+                {
+                    using(SqlCommand com=new SqlCommand("USP_GetSmsSettingbyId"))
+                    {
+                        com.CommandType = CommandType.StoredProcedure;
+                        com.Connection = con;
+                        com.Parameters.AddWithValue("@MType", Mtype);
+                        con.Open();
+                        var reader = com.ExecuteReader();
+                        while(reader.Read())
+                        {
+                            sms =new SmsSetting();                          
+                            sms.Url =(reader[1] == DBNull.Value)? " ": reader[1].ToString();
+                            sms.UserName = (reader[2] == DBNull.Value)? " ": reader[2].ToString();
+                            sms.Password = (reader[3] == DBNull.Value)? " ": reader[3].ToString();
+                            sms.SenderId = (reader[4] == DBNull.Value)? " ": reader[4].ToString();
+                            sms.Type = (reader[5] == DBNull.Value) ? 0 :Convert.ToInt32(reader[5]);
+                            sms.Text = (reader[6] == DBNull.Value) ? " " : reader[6].ToString();
+                            sms.PeId = (reader[7] == DBNull.Value) ? " " : reader[7].ToString();   
+                        }
+                    }
+                }
+                return sms;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public List<Contact> GetAnniversary(string conn)
         {
             List<Contact> contacts = new List<Contact>();
@@ -281,13 +325,12 @@ namespace ElectionAlerts.Model
     {
         // private static  string ScheduleCronExpression = "0 0 18 * * ?";
         //private static string ScheduleCronExpression = "0 0 1 * * ?";
-        private static string ScheduleCronExpression = "0 20 12 ? * * *";//"0 0 12 ? * * *";//30 2 * * * 
+        private static string ScheduleCronExpression = "0 18 11 ? * * *";//"0 0 12 ? * * *";//30 2 * * * 
         // private static string ScheduleCronExpression = "0 0,00 0,19 ? * * *";
         public static async System.Threading.Tasks.Task StartAsync()
         {
             try
-            {
-               
+            {               
                 var scheduler = await StdSchedulerFactory.GetDefaultScheduler();
                 if (!scheduler.IsStarted)
                 {

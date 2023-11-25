@@ -78,7 +78,7 @@ namespace ElectionAlerts.Controller
         {
             try
             {
-                SocietyModel societyComplaint = JsonConvert.DeserializeObject<SocietyModel>(societycomplaint);
+                SocietyComplaint societyComplaint = JsonConvert.DeserializeObject<SocietyComplaint>(societycomplaint);
               
                 if (file != null)
                     societyComplaint.FileName = file.FileName;
@@ -106,11 +106,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetSocietyComplaints")]
-        public IActionResult GetSocietyComplaints(int PageNo, int NoofRow, string SearchText)
+        public IActionResult GetSocietyComplaints(int UserId, int RoleId, int PageNo, int NoofRow, string SearchText)
         {
             try
             {
-                return Ok(_societyService.GetSocietyComplaints(PageNo,NoofRow,SearchText));
+                return Ok(_societyService.GetSocietyComplaints(UserId, RoleId, PageNo, NoofRow, SearchText));
             }
             catch (Exception ex)
             {
@@ -119,19 +119,19 @@ namespace ElectionAlerts.Controller
             }
         }
 
-        [HttpGet("GetSocietyComplaintbyUserId")]
-        public IActionResult GetSocietyComplaintbyUserId(int UserId)
-        {
-            try
-            {
-                return Ok(_societyService.GetSocietyComplaintbyUserId(UserId));
-            }
-            catch (Exception ex)
-            {
-                _exceptionLogService.ErrorLog(ex, "Exception", "SocietyController/GetSocietyComplaintbyUserId");
-                return BadRequest(ex);
-            }
-        }
+        //[HttpGet("GetSocietyComplaintbyUserId")]
+        //public IActionResult GetSocietyComplaintbyUserId(int UserId)
+        //{
+        //    try
+        //    {
+        //        return Ok(_societyService.GetSocietyComplaintbyUserId(UserId));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _exceptionLogService.ErrorLog(ex, "Exception", "SocietyController/GetSocietyComplaintbyUserId");
+        //        return BadRequest(ex);
+        //    }
+        //}
 
         [HttpPost("UpdateComplaintStatus")]
         public IActionResult UpdateComplaintStatus(int Id,string Status)
@@ -148,11 +148,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetComplaintsbyStatus")]
-        public IActionResult GetComplaintsbyStatus(string Status, int PageNo, int NoofRow, string SearchText)
+        public IActionResult GetComplaintsbyStatus(int UserId, int RoleId, string Status, int PageNo, int NoofRow, string SearchText)
         {
             try
             {
-                return Ok(_societyService.GetComplaintsbyStatus(Status,PageNo,NoofRow,SearchText));
+                return Ok(_societyService.GetComplaintsbyStatus( UserId, RoleId,Status,PageNo,NoofRow,SearchText));
             }
             catch(Exception ex)
             {
@@ -162,11 +162,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetTodayComplaint")]
-        public IActionResult GetTodayComplaint(int PageNo, int NoofRow, string SearchText)
+        public IActionResult GetTodayComplaint(int UserId, int RoleId, int PageNo, int NoofRow, string SearchText)
         {
             try
             {
-                return Ok(_societyService.GetTodayComplaint(PageNo,NoofRow,SearchText));
+                return Ok(_societyService.GetTodayComplaint( UserId, RoleId,PageNo,NoofRow,SearchText));
             }
             catch(Exception ex)
             {
@@ -185,6 +185,21 @@ namespace ElectionAlerts.Controller
             catch(Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "SocietyController/GetComplaintCount");
+                return BadRequest(ex);
+            }
+        }
+
+
+        [HttpGet("GetComplaintCountbyUserId")]
+        public IActionResult GetComplaintCountbyUserId(int UserId, int RoleId)
+        {
+            try
+            {
+                return Ok(_societyService.GetComplaintCountbyUserId(UserId, RoleId));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "SocietyController/GetComplaintCountbyUserId");
                 return BadRequest(ex);
             }
         }
@@ -253,6 +268,34 @@ namespace ElectionAlerts.Controller
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "SocietyController/DownoadFile");
                 return BadRequest(ex.Message);
+            }          
+        }
+
+        [HttpGet("GetSocietyComplaintbyDate")]
+        public IActionResult GetSocietyComplaintbyDate(int UserId, int RoleId, string Subject, string FromDate, string ToDate, string UserName)
+        {
+            try
+            {
+                return Ok(_societyService.GetSocietyComplaintbyDate( UserId, RoleId,Subject, FromDate, ToDate, UserName));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "SocietyController/GetSocietyComplaintbyDate");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetSocietyComplaintFromDate")]
+        public IActionResult GetSocietyComplaintFromDate(int UserId, int RoleId, string FromDate, string ToDate, string Status)
+        {
+            try
+            {
+                return Ok(_societyService.GetSocietyComplaintFromDate(UserId, RoleId,FromDate, ToDate, Status));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "SocietyController/GetSocietyComplaintFromDate");
+                return BadRequest(ex);
             }
         }
     }

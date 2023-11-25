@@ -23,6 +23,5 @@ namespace ElectionAlerts.Model
         public int? DeathCount { get; set; }
         public int? NoOfProfessional { get; set; }
         public int? NoOfSociety { get; set; }
-
     }
 }

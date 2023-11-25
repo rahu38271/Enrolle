@@ -61,7 +61,7 @@ namespace ElectionAlerts.Controller
             }
             catch(Exception ex)
             {
-                _exceptionLogService.ErrorLog(ex, "Exception", "NewVoterController/GetAllNewVoter");
+                _exceptionLogService.ErrorLog(ex, "Exception", "NewVoterController/GetAllOfficeWork");
                 return BadRequest(ex);
             }
         }

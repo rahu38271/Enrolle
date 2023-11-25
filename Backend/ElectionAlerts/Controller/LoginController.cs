@@ -155,6 +155,21 @@ namespace ElectionAlerts.Controller
                 return BadRequest(ex);
             }
         }
+
+        [HttpGet("UpdateMessageSent")]
+        public IActionResult UpdateMessageSent(int Id,string Type)
+        {
+            try
+            {
+                return Ok(_loginService.UpdateMessageSent(Id,Type));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/UpdateMessageSent");
+                return BadRequest(ex);
+            }
+        }
+
         [HttpPost("CreateUpdateUser")]
         public IActionResult CreateUser(AdminUser user)
         {

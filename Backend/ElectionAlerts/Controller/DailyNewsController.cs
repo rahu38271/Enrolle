@@ -117,7 +117,6 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("DeleteDailyNews")]
-
         public IActionResult DeleteDailyNews(int Id)
         {
             try
