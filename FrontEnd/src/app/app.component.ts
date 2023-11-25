@@ -147,14 +147,16 @@ export class AppComponent implements OnInit {
     });
     platform.ready().then(() => {
       // this.update.checkForUpdates();
+      if(this.platform.is('android')){
       this.checkForUpdates();
+      }
 
     });
 
     // on route change to '/login', set the variable showHead to false
     router.events.forEach((event) => {
       if (event instanceof NavigationStart) {
-        if (event['url'] == '/' || event['url'] == '/otp') {
+        if (event['url'] == '/' || event['url'] == '/otp' || event['url'] == '/login' || event['url'] == '/privacy-policy') {
           this.showHead = false;
         } else {
           // console.log("NU")
@@ -230,19 +232,23 @@ export class AppComponent implements OnInit {
       this.isAppoReport = isMasterAdmin || isSuperAdmin || isAdmin;
       this.isEnquiry = isMasterAdmin || isSuperAdmin || isAdmin;
       this.isReports = isMasterAdmin || isSuperAdmin || isAdmin;
-      this.isComBook = isMasterAdmin || isSuperAdmin || isAdmin;
-      this.isComBookByUser = isSociety || isMember;
+      this.isComBook = isMasterAdmin || isSuperAdmin || isAdmin || isSociety;
+      this.isComBookByUser = isMember;
     })
 
 
-    // keeps user logged in for android app so that user doesnt have to login every time app opens
+    
+
+    if (this.platform.is('android')) {
+      // keeps user logged in for android app so that user doesnt have to login every time app opens
     // but dont use this code for web view bcoz when i refresh from any page in the app, it redirects me to dashboard page
-    // if (localStorage.getItem('loginId') != undefined || null) {
-    //   this.router.navigate(['/image']);
-    // }
-    // else {
-    //  this.router.navigate(['/']);
-    // }
+    if (localStorage.getItem('loginId') != undefined || null) {
+      this.router.navigate(['/image']);
+    }
+    else {
+     this.router.navigate(['/login']);
+    }
+    }
 
   }
 
@@ -303,7 +309,7 @@ export class AppComponent implements OnInit {
     localStorage.removeItem("userType");
     localStorage.removeItem("token");
     localStorage.clear();
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
   }
 
 
@@ -347,8 +353,7 @@ export class AppComponent implements OnInit {
             btn: 'Update'
           }
         }
-        // const splitVersion: number = +this.oldversion.split('.').join('');
-        // const serverVersion: number = +info.newVersion.split('.').join('');
+       
         const newVersion = data[0].newVersion;
         this.newVersion=newVersion;
         const installedversion = data[0].installedversion;

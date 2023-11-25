@@ -3,6 +3,8 @@ import { NewsService } from 'src/app/services/news.service';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-add-daily-news',
@@ -14,7 +16,7 @@ export class AddDailyNewsComponent implements OnInit {
   uploading=false;
   dailynews:any={ }
   file:any;
-
+  currentDatetime: string;
  year : number = new Date().getFullYear();
 
  keyPressNumbers(event) {
@@ -58,8 +60,12 @@ onKeyPress(event) {
     private news:NewsService,
     private toast:IonicToastService,
     private loader:LoaderService,
-    private router:Router
-  ) { }
+    private router:Router,
+    public datepipe: DatePipe
+  ) {
+    let currentDateTime =this.datepipe.transform((new Date), 'MM/dd/yyyy h:mm:ss');
+    this.currentDatetime = currentDateTime;
+   }
 
   ngOnInit() {
     this.UserId = localStorage.getItem("loginId");
@@ -79,7 +85,7 @@ onKeyPress(event) {
     this.file = file;
     this.fileSize = file.size;
     this.fileType = file.type;
-    this.fileName = file.name;
+    this.fileName = file.name +'-'+ this.currentDatetime;;
      
     if (this.fileSize >= 10000000) {
       this.toast.presentToast("Maximum file size is 10 MB", "danger", 'checkmark-circle-sharp');

@@ -50,6 +50,7 @@ export class ModernWayComponent implements OnInit {
   NoofRow:any=25;
   totalItems:any;
   casteList: any;
+  professionList:any;
   imageUrl: string;
 
   keyPressNumbers(event) {
@@ -115,6 +116,7 @@ omit_special_char(event) {
 
   ionViewWillEnter(){
     this.AllCasts();
+    this.allProfession();
   }
 
   //  voterDetails(item:any){
@@ -308,7 +310,6 @@ omit_special_char(event) {
   }
 
   saveExcelFile(imageData: Blob) {
-    debugger;
     const blob = new Blob([imageData], { type: 'application/octet-stream' });
     const link = document.createElement('a');
     link.href = window.URL.createObjectURL(blob);
@@ -327,7 +328,6 @@ omit_special_char(event) {
   }
 
   exportExcel(){
-    debugger;
     this.PageNo=1;
     this.NoofRow=this.totalItems;
     this.searchModal.NoofRow=this.totalItems;
@@ -416,6 +416,14 @@ omit_special_char(event) {
   AllCasts(){
     this.voter.getAllCaste(this.Language).subscribe(data=>{
       this.casteList=data;
+    })
+  }
+
+  allProfession(){
+    this.voter.getAllProfession().subscribe(data=>{
+      this.professionList = data;
+    },(err)=>{
+
     })
   }
 

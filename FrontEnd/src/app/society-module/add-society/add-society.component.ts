@@ -120,6 +120,7 @@ export class AddSocietyComponent implements OnInit {
   }
 
   addSociety() {
+    debugger;
     this.loader.showLoading();
     if(this.roleId == 2){
       this.societyModal.AdminId = Number(this.loginId)

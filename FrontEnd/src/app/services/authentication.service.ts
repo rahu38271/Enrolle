@@ -40,7 +40,6 @@ export class AuthenticationService {
 
   //give sms permissioins
   smsPermit(Id:any, Type:any){
-    debugger;
     return this.http.get<any>(this.url+'Login/UpdateMessageSent?Id='+Id+'&Type='+Type)
   }
 

@@ -44,7 +44,7 @@
               <ion-row>
                 <ion-col>
                   <div class="search">
-                    <ion-searchbar [(ngModel)]="searchWeb" (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value);trimInput($events)" animated="true"></ion-searchbar>
+                    <ion-searchbar [(ngModel)]="searchWeb" (ionChange)="onSearchChange($event.target.value);trimInput($events)" animated="true"></ion-searchbar>
                   </div>
                 </ion-col>
                 <ion-col class="ion-text-right">
@@ -105,7 +105,7 @@
         <!-- <div class="mike">
           <ion-icon (click)="toggleMike()" [name]="isMike ?'mic-off-sharp' : 'mic-sharp' " name="mic-sharp"></ion-icon>
         </div>  -->
-        <ion-searchbar *ngIf="isShow" (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value);trimInput($events)"></ion-searchbar>
+        <ion-searchbar *ngIf="isShow" (ionChange)="onSearchChange($event.target.value);trimInput($events)"></ion-searchbar>
         <!-- data with state -->
         <ion-list *ngFor="let item of voterWithProf | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems }" (click)="voterDetails(item)">
           <!-- data with id -->

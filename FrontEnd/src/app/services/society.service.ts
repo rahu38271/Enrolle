@@ -27,6 +27,7 @@ export class SocietyService {
 
   // Add society
   addSingleSociety(societyModal:any){
+    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });

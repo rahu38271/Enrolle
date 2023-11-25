@@ -21,7 +21,7 @@ export class VoterdataManagementComponent {
   Language: any;
   myForm1: any;
   searchWeb: string;
-
+  searchedItems:any;
   isShow = true;
   searchedData: any;
   ColumnValue: any;
@@ -61,6 +61,8 @@ export class VoterdataManagementComponent {
   booth:any;
   PageNo: number = 1;
   NoofRow: number = 25;
+  PageNo1: number = 1;
+  NoofRow1: number = 25;
   //allVoters: number = 0;
   totalItems: any;
   SearchText: any;
@@ -134,9 +136,10 @@ export class VoterdataManagementComponent {
     this.boothWiseVoterListData(event, this.NoofRow, this.Language)
   }
 
-  event1(event1: any) {
-    this.PageNo = event1;
-    this.boothWiseVoterListData(event1, this.NoofRow, this.Language)
+  event1(event: any) {
+    debugger;
+    this.PageNo = event;
+    this.searchData();
   }
 
   boothWiseVoterListData(PageNo: any, NoofRow: any, Language: any) {
@@ -196,8 +199,8 @@ export class VoterdataManagementComponent {
     this.isList = false;
     this.searchModal.Language = this.Language;
     //this.NoofRow = this.totalItems;
-    this.NoofRow = 25;
-    this.PageNo = 1;
+    //this.NoofRow = 25;
+    //this.PageNo = 1;
     if (this.searchModal.LastName == '') {
       this.searchModal.LastName = null
     }
@@ -311,7 +314,7 @@ export class VoterdataManagementComponent {
       if (data.length != 0) {
         this.loader.hideLoader();
         this.searchedVoterByPart = data;
-        this.totalItems = data[0].totalCount
+        this.searchedItems = data[0].totalCount
       }
       else {
         this.loader.hideLoader();

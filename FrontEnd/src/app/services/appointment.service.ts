@@ -21,7 +21,6 @@ export class AppointmentService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
-    // return this.http.get<any>(this.url+'Appointment/GetAllAppointment?UserId='+UserId+'&RoleId='+roleID);
     return this.http.get<any>(this.url+'Appointment/GetAllAppointment?UserId='+UserId+'&RoleId='+roleID+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText,{ headers } )
   }
 

@@ -199,7 +199,6 @@ export class ImportComponent implements OnInit {
   }
 
   upload(f: NgForm) {
-    debugger;
     this.loader.showLoading();
     this.voter.mobileMatchExcel(this.excelUploadedData).subscribe((data) => {
       if (data) {

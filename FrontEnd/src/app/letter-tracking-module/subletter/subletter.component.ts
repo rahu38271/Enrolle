@@ -142,7 +142,6 @@ export class SubletterComponent implements OnInit {
 
   // download subletter
   downloadFile(event:any){
-    debugger;
     this.loader.showLoading();
     this.id = Number(event.target.id);
     this.letterService.downloadSubLetter(this.id).subscribe((data: Blob)=>{
@@ -239,7 +238,6 @@ export class SubletterComponent implements OnInit {
   }
 
   EditsubLetter(){
-    debugger;
     this.subletter.UserId = Number(this.UserId);
     this.subletter.UserName = this.name;
     this.subletter.LetterID = Number(this.id);

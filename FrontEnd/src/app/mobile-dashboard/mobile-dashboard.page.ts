@@ -40,6 +40,7 @@ export class MobileDashboardPage implements OnInit {
   isImage=true;
   mainCounts:any;
   isVoterList:any;
+  isCom = false;
 
   // complaint graph
   public primaryXAxis: Object;
@@ -279,7 +280,9 @@ export class MobileDashboardPage implements OnInit {
   }
 
   allComplaintCount() {
-    this.complaint.getComplaintCount().subscribe(data => {
+    this.UserId = this.id;
+    this.RoleId = this.roleId;
+    this.complaint.getComplaintCount(this.UserId,this.RoleId).subscribe(data => {
       this.complaintCount = data;
       this.totalComplaints = data[0].totalCount;
       this.todaysComplaints = data[0].todayCount;

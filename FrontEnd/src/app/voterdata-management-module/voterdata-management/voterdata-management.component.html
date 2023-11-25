@@ -19,9 +19,9 @@
       <ion-grid class="header">
         <ion-row>
           <ion-col>
-            <ion-card-header>
+            <ion-card-header class="webBack">
               <div class="flex">
-                <ion-icon (click)="goBack()" name="arrow-back-circle-sharp"></ion-icon>
+                <ion-icon (click)="goBack()" name="arrow-back-sharp"></ion-icon>
                 <div>
                   <ion-card-title>Voter Data Management</ion-card-title>
                   <div class="headerLine"></div>
@@ -127,11 +127,6 @@
                 class="form-control" maxlength="6"></ion-input>
             </ion-col>
 
-            <!-- <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
-              <ion-label> Caste </ion-label>
-              <ion-input maxlength="30" (keypress)="onKeyPress($event)" name="Cast" [(ngModel)]="searchModal.Cast"  class="form-control"  ></ion-input>
-            </ion-col> -->
-
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> Caste </ion-label>
               <ng-select name="Caste" placeholder="Select Cast" [(ngModel)]="searchModal.Caste">
@@ -167,9 +162,33 @@
             </ion-col>
 
             <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Colour </ion-label>
+              <ng-select name="votinginclination" placeholder="Select Colour" [(ngModel)]="searchModal.votinginclination">
+                <ng-option value="Supporter">Supporter</ng-option>
+                <ng-option value="Opposition">Opposition</ng-option>
+                <ng-option value="Doubtful">Doubtful</ng-option>
+                <ng-option value="Other">Other</ng-option>
+              </ng-select>
+            </ion-col>
+  
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Voted </ion-label>
+              <ng-select name="isvoted" placeholder="Select" [(ngModel)]="searchModal.isvoted">
+                <ng-option value="Y">Yes</ng-option>
+              </ng-select>
+            </ion-col>
+  
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+              <ion-label> Printed </ion-label>
+              <ng-select name="printslip" placeholder="Select" [(ngModel)]="searchModal.printslip">
+                <ng-option value="Y">Yes</ng-option>
+              </ng-select>
+            </ion-col>
+
+            <!-- <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
               <ion-label> Religion </ion-label>
               <ion-input maxlength="30" name="Religion" (keypress)="onKeyPress($event)" [(ngModel)]="searchModal.Religion" (change)="trimInput()" class="form-control" ></ion-input>
-            </ion-col>
+            </ion-col> -->
   
             
             <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
@@ -362,7 +381,7 @@
               </ion-col>
               <ion-col size-lg="2">
                 <!-- <ion-text>Total Count : {{voterByPart.length}} </ion-text> -->
-                <ion-text>Total Count : {{totalItems}}  </ion-text>
+                <ion-text>Total Count : {{searchedItems}}  </ion-text>
               </ion-col>
             </ion-row>
           </ion-grid>
@@ -404,7 +423,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let item of searchedVoterByPart | paginate: { itemsPerPage:NoofRow, currentPage: PageNo,totalItems:totalItems }; let i=index">
+                <tr *ngFor="let item of searchedVoterByPart | paginate: { itemsPerPage:NoofRow, currentPage: PageNo,totalItems:searchedItems }; let i=index">
                   <td>{{item.id}}</td>
                   <td class="text-capitalize editVoter nameLink" >
                      <a (click)="EditVoter(item)"> {{item.fullName}} </a>
@@ -425,9 +444,9 @@
               </tbody>
             </table>
             <ion-list>
-              <pagination-controls (pageChange)="event1($event1)"></pagination-controls>
+              <pagination-controls (pageChange)="event1($event)"></pagination-controls>
             </ion-list>
-            <div *ngIf="!voterByPart || voterByPart.length === 0" class="ion-text-center">
+            <div *ngIf="!searchedVoterByPart || searchedVoterByPart.length === 0" class="ion-text-center">
               <p>
                 No data available
               </p>

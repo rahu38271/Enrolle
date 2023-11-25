@@ -49,7 +49,14 @@ export class ImageComponent implements OnInit {
         this.fetchImage(data);
         setTimeout(() => {
           this.imageUrl=true;
-          this.router.navigate(['/home/mobile-dashboard'])
+          if(this.roleId==2 || this.roleId==3 || this.roleId==4){
+            this.router.navigate(['/home/mobile-dashboard'])
+          }else if(this.roleId==5){
+            this.router.navigate(['/complaint-book']);
+          }else if(this.roleId==6){
+            this.router.navigate(['/complaint-book/all-complaints']);
+          }
+          
         }, 2000);
         this.isStatic=false;
         

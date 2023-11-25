@@ -50,7 +50,6 @@ export class VoterService {
   }
 
   uploadExcel(modal:any):Observable<any>{
-    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
@@ -338,7 +337,6 @@ export class VoterService {
   // }
 
   addProf(profModal: any) {
-    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
@@ -357,7 +355,6 @@ export class VoterService {
   // advance search voter
 
   advanceSearch(searchModal:any){
-    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
@@ -652,11 +649,17 @@ export class VoterService {
   }
 
   // voter by family
-  getVoterByFamily(Id:any, UserId:any, RoleId:any, PageNo:any, NoofRow:any, Language:any){
+  // getVoterByFamily(Id:any, UserId:any, RoleId:any, PageNo:any, NoofRow:any, Language:any){
+  //   const headers = new HttpHeaders({
+  //     'Authorization': `Bearer ${this.token}`
+  //   });
+  //   return this.http.get<any>(this.url+'Voter/GetVoterbyRelation?Id='+Id+'&UserId='+UserId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language,{ headers })
+  // }
+  getVoterByFamily(Id:any, PageNo:any, NoofRow:any, Language:any){
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
-    return this.http.get<any>(this.url+'Voter/GetVoterbyRelation?Id='+Id+'&UserId='+UserId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language,{ headers })
+    return this.http.get<any>(this.url+'Voter/GetVoterRelative?Id='+Id+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language,{ headers })
   }
   
 }

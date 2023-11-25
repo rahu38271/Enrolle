@@ -181,6 +181,7 @@ omit_special_char(event) {
   }
 
   save(){
+    debugger;
     this.EditData.age=Number(this.EditData.age);
     if(this.EditData.age == 0){
       this.EditData.age=null;
@@ -200,6 +201,9 @@ omit_special_char(event) {
     }
     else{
       this.EditData.birthDate = this.EditData.birthDate.split('T')[0];
+    }
+    if(this.EditData.pincode==0){
+      this.EditData.pincode= null;
     }
     this.EditData.userName= this.name;
     this.loader.showLoading();

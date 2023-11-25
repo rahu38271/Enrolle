@@ -19,11 +19,11 @@ export class ComplaintService {
 
   // get All Complaints
 
-  getAllComplaints(PageNo:any,NoofRow:any,SearchText:any):Observable<any>{
+  getAllComplaints(UserId:any,RoleId:any,PageNo:any,NoofRow:any,SearchText:any):Observable<any>{
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
-    return this.http.get<any>(this.url+'Society/GetSocietyComplaints?PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText,{ headers })
+    return this.http.get<any>(this.url+'Society/GetSocietyComplaints?UserId='+UserId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText,{ headers })
   }
 
   // get All Complaints by userId
@@ -36,11 +36,11 @@ export class ComplaintService {
   }
 
   // get todays complaints
-  getTodayComplaint(PageNo:any,NoofRow:any,SearchText:any):Observable<any>{
+  getTodayComplaint(UserId:any,RoleId:any,PageNo:any,NoofRow:any,SearchText:any):Observable<any>{
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
-    return this.http.get<any>(this.url+'Society/GetTodayComplaint?PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText,{ headers })
+    return this.http.get<any>(this.url+'Society/GetTodayComplaint?UserId='+UserId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText,{ headers })
   }
 
   // add and edit complaint
@@ -67,21 +67,20 @@ export class ComplaintService {
 
   // complaints dashboard count
 
-  getComplaintCount():Observable<any>{
+  getComplaintCount(UserId:any,RoleId:any):Observable<any>{
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
-    return this.http.get<any>(this.url+'Society/GetComplaintCount',{ headers })
+    return this.http.get<any>(this.url+'Society/GetComplaintCountbyUserId?UserId='+UserId+'&RoleId='+RoleId,{ headers })
   }
 
   // complaint report by status
 
-  getComplaintByStatus(Status:any,PageNo:any,NoofRow:any,SearchText:any){
+  getComplaintByStatus(UserId:any,RoleId:any,Status:any,PageNo:any,NoofRow:any,SearchText:any){
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
-    // return this.http.get<any>(this.url+'Society/GetComplaintsbyStatus?Status='+Status)
-    return this.http.get<any>(this.url+'Society/GetComplaintsbyStatus?Status='+Status+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText,{ headers })
+    return this.http.get<any>(this.url+'Society/GetComplaintsbyStatus?UserId='+UserId+'&RoleId='+RoleId+'&Status='+Status+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&SearchText='+SearchText,{ headers })
   }
 
   // update complaint status
@@ -103,10 +102,18 @@ export class ComplaintService {
   }
 
   getFile(id:any): Observable<Blob>{
-    debugger; 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
     return this.http.get(this.url+'Society/DownLoadFile?Id='+id,{responseType: "blob", reportProgress: true, headers})
+  }
+
+  // datewise report
+  reportByDate(UserId:any,RoleId:any,FromDate:any,ToDate:any,Status:any){
+    debugger;
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Society/GetSocietyComplaintFromDate?UserId='+UserId+'&RoleId='+RoleId+'&FromDate='+FromDate+'&ToDate='+ToDate+'&Status='+Status,{ headers })
   }
 }

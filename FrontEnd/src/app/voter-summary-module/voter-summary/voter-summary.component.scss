@@ -57,3 +57,11 @@ table td ion-icon {
         font-weight: 600;
         cursor: pointer;
     }
+
+.table tr th:nth-child(2){
+    max-width: 300px;
+}
+
+.table tr td:nth-child(2){
+    max-width: 300px;
+}

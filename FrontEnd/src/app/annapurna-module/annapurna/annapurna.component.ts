@@ -102,8 +102,8 @@ export class AnnapurnaComponent implements OnInit {
       debugger;
       this.remFamModal = this.checkedFamily;
       this.annapurna.removeFamily(this.remFamModal).subscribe(data=>{
-        if(data==1){
-          this.remFamModal={};
+        if(data){
+          //this.remFamModal={};
           this.familyModalList = false;
           this.annapurnaList();
           this.toast.presentToast("Created new family successfully!", "success", 'checkmark-circle-sharp');

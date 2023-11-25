@@ -208,7 +208,6 @@ export class ImportContactComponent implements OnInit {
   }
 
   upload(f: NgForm) {
-    debugger;
     this.loader.showLoading();
     this.contact.UploadExcel(this.excelUploadedData).subscribe((data) => {
       if (data) {

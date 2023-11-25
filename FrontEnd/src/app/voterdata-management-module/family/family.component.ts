@@ -49,15 +49,15 @@ export class FamilyComponent {
   }
 
   ionViewWillEnter(){
-    this.familyWiseVoterData(this.id,this.UserId,this.roleID,this.PageNo,this.NoofRow,this.Language);
+    this.familyWiseVoterData(this.id,this.PageNo,this.NoofRow,this.Language);
   }
 
   event(event:any){
     this.PageNo = event;
-    this.familyWiseVoterData(this.id,this.UserId,this.roleID,event,this.NoofRow,this.Language)
+    this.familyWiseVoterData(this.id,event,this.NoofRow,this.Language)
   }
 
-  familyWiseVoterData(id:any,UserId:any,roleID:any,PageNo:any,NoofRow:any,Language:any){
+  familyWiseVoterData(id:any,PageNo:any,NoofRow:any,Language:any){
     if(this.Language == "kn"){
       this.Language = "Kannada"
     }
@@ -70,7 +70,7 @@ export class FamilyComponent {
     else{
       this.Language = "English"
     }
-    this.voter.getVoterByFamily(id, UserId,roleID,PageNo,NoofRow,this.Language).subscribe(data=>{
+    this.voter.getVoterByFamily(id,PageNo,NoofRow,this.Language).subscribe(data=>{
       if(data){
         this.familyData= data;
         this.totalItems = data[0].totalCount;

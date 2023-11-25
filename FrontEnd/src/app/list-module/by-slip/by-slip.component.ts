@@ -78,7 +78,6 @@ export class BySlipComponent implements OnInit {
   }
 
   slip(columnName:any){
-    debugger;
     if(columnName=="Y"){
       this.router.navigate(['/list/slipprinted',  {slip :columnName} ])
     }

@@ -58,6 +58,7 @@ export class AnnapurnaService {
 
   //remove family 
   removeFamily(remFamModal:any){
+    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });

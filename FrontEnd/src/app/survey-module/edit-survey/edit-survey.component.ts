@@ -102,6 +102,7 @@ export class EditSurveyComponent implements OnInit {
 
   castList(){
     this.EditData = this.router.getCurrentNavigation().extras.state;
+    this.EditData.birthDate = this.EditData.birthDate.split('T')[0];
     this.voter.getAllCaste(this.Language).subscribe(data=>{
       this.AllCasts = data;
     })

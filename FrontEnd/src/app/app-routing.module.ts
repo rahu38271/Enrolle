@@ -12,8 +12,12 @@ const routes: Routes = [
     loadChildren: () => import('./date/date.module').then( m => m.DatePageModule),
   },
   {
-    path: '',
+    path: 'login',
     loadChildren: () => import('./login-module/login-module.module').then( m => m.LoginModuleModule)
+  },
+  {
+    path: '',
+    loadChildren: () => import('./website-module/website-module.module').then( m => m.WebsiteModuleModule)
   },
   {
     path: 'adminLogin',
@@ -90,7 +94,7 @@ const routes: Routes = [
  
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'website',
     pathMatch: 'full'
   },
   {

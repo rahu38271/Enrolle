@@ -6,6 +6,8 @@ import { LetterService } from 'src/app/services/letter.service';
 import { LoaderService } from 'src/app/services/loader.service';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-add-letter',
@@ -15,6 +17,7 @@ import { Router } from '@angular/router';
 export class AddLetterComponent implements OnInit {
   progress = 0;
   uploading=false;
+  currentDatetime: string;
   UserId:any;
   districtList: any;
   talukaList: any;
@@ -43,8 +46,12 @@ export class AddLetterComponent implements OnInit {
     private letterService:LetterService,
     private loader:LoaderService,
     private toast:IonicToastService,
-    private router:Router
-  ) { }
+    private router:Router,
+    public datepipe: DatePipe
+  ) { 
+    let currentDateTime =this.datepipe.transform((new Date), 'MM/dd/yyyy h:mm:ss');
+    this.currentDatetime = currentDateTime;
+  }
 
   getDistrict() {
     this.contact.getDistrictData().subscribe((data) => {
@@ -105,7 +112,7 @@ export class AddLetterComponent implements OnInit {
     this.file = file;
     this.fileSize = file.size;
     this.fileType = file.type;
-    this.fileName = file.name;
+    this.fileName = file.name +'-'+ this.currentDatetime;;
      
     if (this.fileSize >= 10000000) {
       this.toast.presentToast("Maximum file size is 10 MB", "danger", 'checkmark-circle-sharp');

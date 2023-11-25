@@ -143,31 +143,7 @@ export class OtherListComponent implements OnInit {
     }
   }
 
-  keyPress(SearchText:any){
-    if (this.SearchText == '') {
-      this.PageNo = 1;
-      this.NoofRow = this.totalItems;
-      this.SearchText = SearchText;
-      this.otherList(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
-    }
-    else {
-      this.PageNo = 1;
-      this.NoofRow = 25;
-      this.SearchText = SearchText.trim();
-      this.voter.other(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
-        if (data.length != 0) {
-          //this.loader.hideLoader();
-          this.otherVoter = data;
-          this.totalItems = data[0].totalCount
-        }
-        else {
-          //this.loader.hideLoader();
-          this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
-        }
 
-      })
-    }
-  }
 
   exportExcel():void {
     this.PageNo=1;

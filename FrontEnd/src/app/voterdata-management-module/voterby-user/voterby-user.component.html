@@ -81,9 +81,9 @@
     <!-- routerLink="/voterdata-management/voter-details" -->
 
     <ion-grid class="android userList">
-      <div class="mike">
+      <!-- <div class="mike">
         <ion-icon (click)="toggleMike()" [name]="isMike ?'mic-off-sharp' : 'mic-sharp' " name="mic-sharp"></ion-icon>
-      </div>
+      </div> -->
       <!-- <ion-searchbar *ngIf="isShow" (keyup)="keyPress($event.target.value)"
         (change)="onSearchChange($event.target.value);trimInput($events)"></ion-searchbar> -->
         <ion-searchbar (ionChange)="onSearchChange($event.target.value)" animated="true" *ngIf="isShow"></ion-searchbar>

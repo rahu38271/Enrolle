@@ -103,7 +103,8 @@ export class LoginComponent implements OnInit {
         }
         //localStorage.setItem('token' ,data.token);
         localStorage.setItem("adminId", data.user[0].adminId);
-        localStorage.setItem("superAdminId", data.user[0].superAdminId)
+        localStorage.setItem("superAdminId", data.user[0].superAdminId);
+        localStorage.setItem("adminId", data.user[0].adminId)
         localStorage.setItem("loginAssembly", data.user[0].assemblyName);
         localStorage.setItem("loginDistrict", data.user[0].district);
         localStorage.setItem("loginVillage", data.user[0].village);
@@ -134,8 +135,17 @@ export class LoginComponent implements OnInit {
           if(data.user[0].roleId==1){
             this.router.navigate(['/home/mobile-dashboard']);
           }
-          else if(data.user[0].roleId==5 || data.user[0].roleId==6){
-            this.router.navigate(['/complaint-book/all-complaints']);
+          else if(data.user[0].roleId==2 || data.user[0].roleId==3 || data.user[0].roleId==4){
+            //this.router.navigate(['/complaint-book']);
+            this.router.navigate(['/image']);
+          }
+          else if(data.user[0].roleId==5){
+            //this.router.navigate(['/complaint-book']);
+            this.router.navigate(['/image']);
+          }
+          else if(data.user[0].roleId==6){
+            //this.router.navigate(['/complaint-book/all-complaints']);
+            this.router.navigate(['/image']);
           }
           else{
             this.router.navigate(['/image']);

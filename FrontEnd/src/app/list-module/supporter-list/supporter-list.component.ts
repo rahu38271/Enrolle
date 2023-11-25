@@ -125,26 +125,7 @@ export class SupporterListComponent implements OnInit {
     }
   }
 
-  keyPress(SearchText:any){
-    if (this.SearchText == '') {
-      this.PageNo = 1;
-      this.NoofRow = this.totalItems;
-      this.SearchText = SearchText;
-      this.supporterList(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
-    }
-    else {
-      this.PageNo = 1;
-      this.NoofRow = 10;
-      this.SearchText = SearchText;
-      this.voter.supporter(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
-        if (data.length != 0) {
-          //this.loader.hideLoader();
-          this.supportVoter = data;
-          this.totalItems = data[0].totalCount
-        }
-      })
-    }
-  }
+
 
   exportExcel():void {
     this.PageNo=1;

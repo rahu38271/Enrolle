@@ -42,7 +42,7 @@
         <ion-card-content>
           <div class="headSection">
             <div class="search">
-              <ion-searchbar (keypress)="omit_special_char($event)" (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
+              <ion-searchbar (ionChange)="onSearchChange($event.target.value)" animated="true"></ion-searchbar>
             </div>
             <div class="btns">
               <!-- <ion-button class="button-download" color="danger" (click)="exportPDF()" >PDF <ion-icon name="document-sharp"></ion-icon></ion-button> -->

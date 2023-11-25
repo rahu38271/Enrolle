@@ -14,12 +14,14 @@ import { AllComplaintsComponent } from './all-complaints/all-complaints.componen
 import { TodaysComplaintComponent } from './todays-complaint/todays-complaint.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 
+
 import { ChartModule,AccumulationChartModule   } from '@syncfusion/ej2-angular-charts';
 import {PieSeriesService,ExportService, AccumulationTooltipService, AccumulationDataLabelService, CategoryService, DateTimeService, ScrollBarService, ColumnSeriesService, LineSeriesService, 
     ChartAnnotationService, RangeColumnSeriesService, StackingColumnSeriesService,LegendService, TooltipService, DataLabelService,
     StepAreaSeriesService, SplineSeriesService, StripLineService,AccumulationLegendService,
     SelectionService, ScatterSeriesService, ZoomService, AreaSeriesService, RangeAreaSeriesService
  } from '@syncfusion/ej2-angular-charts';
+import { ReportComponent } from './report/report.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import {PieSeriesService,ExportService, AccumulationTooltipService, Accumulation
     ResolvedComponent,
     PendingComponent,
     AllComplaintsComponent,
-    TodaysComplaintComponent
+    TodaysComplaintComponent,
+    ReportComponent
   ],
   imports: [
     CommonModule,
@@ -47,7 +50,8 @@ import {PieSeriesService,ExportService, AccumulationTooltipService, Accumulation
       {path:'edit-complaint', component:EditComplaintComponent},
       {path:'resolved-complaint', component:ResolvedComponent},
       {path:'pending-complaint', component:PendingComponent},
-      {path:'todays-complaint', component:TodaysComplaintComponent}
+      {path:'todays-complaint', component:TodaysComplaintComponent},
+      {path:'report', component:ReportComponent}
     ])
   ],
   providers: [LineSeriesService,ExportService,StackingColumnSeriesService, DateTimeService, ColumnSeriesService, DataLabelService, ZoomService, StackingColumnSeriesService, CategoryService,

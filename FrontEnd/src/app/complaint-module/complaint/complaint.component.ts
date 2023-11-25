@@ -26,13 +26,16 @@ export class ComplaintComponent implements OnInit {
   todaysComplaints: any;
   resolvedComplaints: any;
   pendingComplaints: any;
+  UserId:any;
+  RoleId:any;
 
   constructor(
     private complaint: ComplaintService,
   ) { }
 
   ngOnInit(): void {
-    
+    this.UserId = Number(localStorage.getItem("loginId"));
+    this.RoleId = Number(localStorage.getItem("userType"))
   }
 
   ionViewWillEnter() {
@@ -42,7 +45,7 @@ export class ComplaintComponent implements OnInit {
 
 
   allComplaintCount() {
-    this.complaint.getComplaintCount().subscribe(data => {
+    this.complaint.getComplaintCount(this.UserId,this.RoleId).subscribe(data => {
       this.complaintCount = data;
       this.totalComplaints = data[0].totalCount;
       this.todaysComplaints = data[0].todayCount;

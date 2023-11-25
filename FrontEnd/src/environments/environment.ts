@@ -7,7 +7,7 @@ export const environment = {
   //apiUrl: 'https://eaapi.test.obicas.in/api/' //QA api url
   //apiUrl:'http://45.249.108.42:8013/api/' // live api url new (letter module added)
   apiUrl:'https://api.matadarmaza.com/api/' // live api url new (ssl added)
-  //apiUrl:'http://45.249.108.42:8015/api/' // live api url old
+  //apiUrl:'http://45.249.108.42:8055/api/' // live api url old
 };
 
 /*

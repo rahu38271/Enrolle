@@ -24,13 +24,13 @@ export class Error3Component implements OnInit {
 
     }else{
       setTimeout(()=>{
-        this.router.navigate(['/'])
+        this.router.navigate(['/login'])
       },1000)
     }
   }
 
   goHome(){
-    this.router.navigate(['/'])
+    this.router.navigate(['/login'])
   }
 
 }

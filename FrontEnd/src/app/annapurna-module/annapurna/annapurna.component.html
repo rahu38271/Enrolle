@@ -25,7 +25,7 @@
               </ion-card-header>
             </ion-col>
             <ion-col size-xs="12" size-sm="6" class="ion-text-right">
-              <ion-button class="button-download" color="primary" routerLink="/annapurna/add-annapurna"><ion-icon name="add-circle-sharp"></ion-icon>Add Annapurna</ion-button>
+              <ion-button class="button-download" color="primary" routerLink="/annapurna/add-annapurna"> Annapurna <ion-icon name="add-sharp"></ion-icon></ion-button>
               <!-- <ion-button class="button-download" fill="outline" color="primary" ><ion-icon name="refresh-circle-sharp"></ion-icon>Refresh</ion-button> -->
             </ion-col>
           </ion-row>
@@ -64,8 +64,8 @@
               <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
             </div>
             <div class="btns">
-              <ion-button class="button-download" color="success" (click)="exportExcel()" ><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
-              <ion-button class="button-download" color="success" (click)="exportToCSV()" ><ion-icon name="document-sharp"></ion-icon>CSV</ion-button>
+              <ion-button class="button-download" color="tertiary" (click)="exportExcel()" > Excel </ion-button>
+              <ion-button class="button-download" color="tertiary" (click)="exportToCSV()" > CSV </ion-button>
             </div>
           </div>
           <div class="horizontal-scroll">
@@ -142,8 +142,8 @@
         <ion-header>
           <ion-toolbar>
             <ion-title>Add Family</ion-title>
-            <ion-buttons slot="end">
-              <ion-button (click)="closeFamily()">
+            <ion-buttons color="danger" slot="end">
+              <ion-button  (click)="closeFamily()">
                 <ion-icon name="close-sharp"></ion-icon>
               </ion-button>
             </ion-buttons>

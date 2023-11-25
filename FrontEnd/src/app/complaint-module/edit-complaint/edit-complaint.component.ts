@@ -61,6 +61,7 @@ export class EditComplaintComponent implements OnInit {
   fileName: any;
   selectedFile: any;
   files: FileList;
+  adminId:any;
 
   constructor(
     private complaint: ComplaintService,
@@ -88,7 +89,6 @@ export class EditComplaintComponent implements OnInit {
   }
 
   editFile(event:any){
-    debugger;
     this.fType = event.target.response.type;
     this.fSize = event.target.response.size;
     this.fileInfo = new FileData(this.fileName, this.fType, this.fSize);
@@ -120,7 +120,7 @@ export class EditComplaintComponent implements OnInit {
     this.UserId = localStorage.getItem("loginId");
     this.roleID = localStorage.getItem("userType");
     this.name = localStorage.getItem("loginUser")
-
+    this.adminId = localStorage.getItem("adminId");
   }
 
   saveFile(imageData: Blob) {
@@ -141,7 +141,6 @@ export class EditComplaintComponent implements OnInit {
   }
 
   onFileSelected(event) {
-    debugger;
     const file: File = event.target.files[0];
     this.file = file;
     this.fileSize = file.size;
@@ -194,6 +193,13 @@ export class EditComplaintComponent implements OnInit {
     this.societycomplaint.userId = Number(this.UserId);
     //this.societycomplaint.roleID = Number(this.roleID);
     this.societycomplaint.userName = this.name;
+    this.societycomplaint.status = null;
+    if(this.roleID==2 || this.roleID==3 || this.roleID==5){
+      this.societycomplaint.AdminId = Number(this.UserId);
+    }
+    if(this.roleID==6){
+      this.societycomplaint.AdminId = Number(this.adminId);
+    }
     this.file = this.file;
     if (this.file == undefined) {
       this.file = null

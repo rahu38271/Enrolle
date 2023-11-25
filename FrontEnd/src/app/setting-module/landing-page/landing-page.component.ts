@@ -102,8 +102,8 @@ export class LandingPageComponent implements OnInit {
     //this.file=this.file;
     this.LandingPageImage.UserId = Number(this.userId);
     this.LandingPageImage.ImageName = this.file.name;
-    this.LandingPageImage.ImagePath = 'http://45.249.108.42:8013/api/Image/LandingPage';
-    //this.LandingPageImage.ImagePath = 'https://eaapi.test.obicas.in/api/Image/LandingPage';
+    //this.LandingPageImage.ImagePath = 'http://45.249.108.42:8013/api/Image/LandingPage';
+    this.LandingPageImage.ImagePath = 'https://api.matadarmaza.com/api/Image/LandingPage';
     this.LandingPageImage=JSON.stringify(this.LandingPageImage);
     this.setting.addLandingImage(this.LandingPageImage,this.file).subscribe((data)=>{
       if(data==1){

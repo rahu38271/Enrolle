@@ -91,9 +91,9 @@ export class AllAppointmentsComponent implements OnInit {
     this.appoinmentList(this.UserId, this.roleID, event, this.NoofRow, this.SearchText);
   }
 
-  // isBigEnough(element, index, array) {
-  //   return (element.status == "" || element.status == null);
-  // }
+  isBigEnough(element, index, array) {
+    return (element.status == "" || element.status == null);
+  }
 
   showColumn() {
     this.isColumn = !this.isColumn
@@ -108,7 +108,7 @@ export class AllAppointmentsComponent implements OnInit {
   appoinmentList(UserId: any, roleID: any, PageNo: any, NoofRow: any, SearchText: any) {
     this.appointment.getAppointments(UserId, roleID, PageNo, NoofRow, this.SearchText).subscribe((data: any) => {
       if (data.length != 0) {
-        // this.getApmList = data.filter(this.isBigEnough);
+      //this.getApmList = data.filter(this.isBigEnough);
         this.getApmList = data;
         this.totalItems = data[0].totalCount
         this.getApmList.forEach(e => {

@@ -27,6 +27,8 @@ export class ResolvedComponent implements OnInit {
   SearchText: any;
   Status: any;
   totalItems: any;
+  UserId:any;
+  RoleId:any;
 
   omit_special_char(event) {
     var k;
@@ -50,6 +52,8 @@ export class ResolvedComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.UserId = localStorage.getItem("loginId");
+    this.RoleId = localStorage.getItem("userType");
     if (this.SearchText==undefined) {
       this.SearchText = ''
     } else {
@@ -59,16 +63,16 @@ export class ResolvedComponent implements OnInit {
   }
 
   ionViewWillEnter() {
-    this.allResolvedComplaints(this.Status, this.PageNo, this.NoofRow, this.SearchText);
+    this.allResolvedComplaints(this.UserId,this.RoleId,this.Status, this.PageNo, this.NoofRow,this.SearchText);
   }
 
   event(event: any) {
     this.PageNo = event;
-    this.allResolvedComplaints(this.Status, event, this.NoofRow, this.SearchText);
+    this.allResolvedComplaints(this.UserId,this.RoleId,this.Status, event, this.NoofRow,this.SearchText);
   }
 
-  allResolvedComplaints(Status: any, PageNo: any, NoofRow: any, SearchText: any) {
-    this.complaint.getComplaintByStatus(Status, PageNo, NoofRow, SearchText).subscribe(data => {
+  allResolvedComplaints(UserId:any,RoleId:any,Status: any, PageNo: any, NoofRow: any,SearchText:any) {
+    this.complaint.getComplaintByStatus(UserId,RoleId,Status, PageNo, NoofRow,SearchText).subscribe(data => {
       if (data.length != 0) {
         this.resolvedList = data;
         this.totalItems = data[0].totalCount;
@@ -140,13 +144,13 @@ export class ResolvedComponent implements OnInit {
       this.PageNo = 1;
       this.NoofRow = this.totalItems;
       this.SearchText = SearchText;
-      this.allResolvedComplaints(this.Status, this.PageNo, this.NoofRow, this.SearchText);
+      this.allResolvedComplaints(this.UserId,this.RoleId,this.Status, this.PageNo, this.NoofRow,SearchText);
     }
     else {
       this.PageNo = 1;
       this.NoofRow = 10;
       this.SearchText = SearchText;
-      this.complaint.getComplaintByStatus(this.Status, this.PageNo, this.NoofRow, SearchText).subscribe(data => {
+      this.complaint.getComplaintByStatus(this.UserId,this.RoleId,this.Status, this.PageNo, this.NoofRow,SearchText).subscribe(data => {
         if (data) {
           this.resolvedList = data;
           this.totalItems = data[0].totalCount;
@@ -160,30 +164,6 @@ export class ResolvedComponent implements OnInit {
     }
   }
 
-  keyPress(SearchText: any) {
-    if (this.SearchText=='') {
-      this.PageNo = 1;
-      this.NoofRow = this.totalItems;
-      this.SearchText = SearchText;
-      this.allResolvedComplaints(this.Status, this.PageNo, this.NoofRow, this.SearchText);
-    }
-    else {
-      this.PageNo = 1;
-      this.NoofRow = 10;
-      this.SearchText = SearchText;
-      this.complaint.getComplaintByStatus(this.Status, this.PageNo, this.NoofRow, SearchText).subscribe(data => {
-        if (data) {
-          this.resolvedList = data;
-          this.totalItems = data[0].totalCount;
-          this.resolvedList.forEach(e => {
-            e.fromDate = e.fromDate.split('T')[0];
-            e.toDate = e.toDate.split('T')[0];
-          });
-
-        }
-      })
-    }
-  }
 
   goBack() {
     this.location.back();
@@ -193,8 +173,8 @@ export class ResolvedComponent implements OnInit {
     this.loader.showLoading();
     this.PageNo=1;
     this.NoofRow=this.totalItems;
-    var SearchText = "";
-    this.complaint.getComplaintByStatus(this.Status, this.PageNo, this.NoofRow, SearchText).subscribe(data => {
+    this.SearchText = this.SearchText;
+    this.complaint.getComplaintByStatus(this.UserId,this.RoleId,this.Status, this.PageNo, this.NoofRow,this.SearchText).subscribe(data => {
       if (data.length != 0) {
         this.loader.hideLoader();
         this.resolvedList = data;
@@ -220,7 +200,7 @@ export class ResolvedComponent implements OnInit {
     this.PageNo=1;
     this.NoofRow=this.totalItems;
     var SearchText = "";
-    this.complaint.getComplaintByStatus(this.Status, this.PageNo, this.NoofRow, SearchText).subscribe(data => {
+    this.complaint.getComplaintByStatus(this.UserId,this.RoleId,this.Status, this.PageNo, this.NoofRow,this.SearchText).subscribe(data => {
       if (data.length != 0) {
         this.loader.hideLoader();
         this.resolvedList = data;

@@ -191,3 +191,9 @@ ion-list {
   .flex {
     display: flex;
 }
+
+.main-content {
+  position: absolute !important;
+  top: 0px !important;
+  width: 100%;
+}

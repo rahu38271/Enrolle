@@ -126,10 +126,19 @@
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+            <ion-label> {{'Profession' | translate}} </ion-label>
+            <ng-select name="Profession" placeholder="Select Profession" [(ngModel)]="searchModal.Occupation">
+              <ng-option *ngFor="let item of professionList" [value]="item.professionName">
+                {{item.professionName}}
+              </ng-option>
+            </ng-select>
+          </ion-col>
+
+          <!-- <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
             <ion-label> Occupation / Profession</ion-label>
             <ion-input (keypress)="onKeyPress($event)" maxlength="30" name="Profession"
               [(ngModel)]="searchModal.Occupation" (change)="trimInput()" class="form-control"></ion-input>
-          </ion-col>
+          </ion-col> -->
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
             <ion-label> Education </ion-label>
@@ -154,10 +163,34 @@
           </ion-col>
 
           <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+            <ion-label> Colour </ion-label>
+            <ng-select name="votinginclination" placeholder="Select Colour" [(ngModel)]="searchModal.votinginclination">
+              <ng-option value="Supporter">Supporter</ng-option>
+              <ng-option value="Opposition">Opposition</ng-option>
+              <ng-option value="Doubtful">Doubtful</ng-option>
+              <ng-option value="Other">Other</ng-option>
+            </ng-select>
+          </ion-col>
+
+          <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+            <ion-label> Voted </ion-label>
+            <ng-select name="isvoted" placeholder="Select" [(ngModel)]="searchModal.isvoted">
+              <ng-option value="Y">Yes</ng-option>
+            </ng-select>
+          </ion-col>
+
+          <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
+            <ion-label> Printed </ion-label>
+            <ng-select name="printslip" placeholder="Select" [(ngModel)]="searchModal.printslip">
+              <ng-option value="Y">Yes</ng-option>
+            </ng-select>
+          </ion-col>
+
+          <!-- <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="4" size-xs="12">
             <ion-label> Religion </ion-label>
             <ion-input (keypress)="onKeyPress($event)" maxlength="30" name="Religion" [(ngModel)]="searchModal.Religion"
               (change)="trimInput()" class="form-control"></ion-input>
-          </ion-col>
+          </ion-col> -->
 
           <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
             <div class="text-center">

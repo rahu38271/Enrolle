@@ -27,6 +27,8 @@ export class TodaysComplaintComponent implements OnInit {
   SearchText:any;
   totalItems:any;
   isShow = false;
+  UserId:any;
+  RoleId:any;
 
   constructor(
     private complaint:ComplaintService,
@@ -40,6 +42,8 @@ export class TodaysComplaintComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.UserId = localStorage.getItem('loginId');
+    this.RoleId = localStorage.getItem('userType');
     if(this.SearchText == undefined){
       this.SearchText = ''
     }
@@ -53,18 +57,18 @@ export class TodaysComplaintComponent implements OnInit {
   }
 
   ionViewWillEnter(){
-    this.complaintList(this.PageNo,this.NoofRow,this.SearchText);
+    this.complaintList(this.UserId,this.RoleId, this.PageNo,this.NoofRow,this.SearchText);
   }
 
 
 
   event(event:any){
     this.PageNo=event;
-    this.complaintList(event,this.NoofRow,this.SearchText);
+    this.complaintList(this.UserId,this.RoleId,event,this.NoofRow,this.SearchText);
   }
 
-  complaintList(PageNo:any,NoofRow:any,SearchText:any){
-    this.complaint.getTodayComplaint(PageNo,NoofRow,SearchText).subscribe(data=>{
+  complaintList(UserId:any,RoleId:any,PageNo:any,NoofRow:any,SearchText:any){
+    this.complaint.getTodayComplaint(UserId,RoleId,PageNo,NoofRow,SearchText).subscribe(data=>{
       if(data.length != 0){
         this.todayComplaints = data;
         this.totalItems = data[0].totalCount;
@@ -124,13 +128,13 @@ export class TodaysComplaintComponent implements OnInit {
       this.PageNo = 1;
       this.NoofRow = this.totalItems;
       this.SearchText = SearchText;
-      this.complaintList(this.PageNo, this.NoofRow, this.SearchText);
+      this.complaintList(this.UserId,this.RoleId, this.PageNo, this.NoofRow, this.SearchText);
     }
     else {
       this.PageNo = 1;
       this.NoofRow = 10;
       this.SearchText = SearchText;
-      this.complaint.getTodayComplaint(this.PageNo,this.NoofRow,SearchText).subscribe(data=>{
+      this.complaint.getTodayComplaint(this.UserId,this.RoleId,this.PageNo,this.NoofRow,SearchText).subscribe(data=>{
         if(data.length != 0){
           this.todayComplaints = data;
           this.totalItems = data[0].totalCount;
@@ -147,33 +151,7 @@ export class TodaysComplaintComponent implements OnInit {
     }
   }
 
-  keyPress(SearchText:any){
-    if (this.SearchText == '') {
-      this.PageNo = 1;
-      this.NoofRow = this.totalItems;
-      this.SearchText = SearchText;
-      this.complaintList(this.PageNo, this.NoofRow, this.SearchText);
-    }
-    else {
-      this.PageNo = 1;
-      this.NoofRow = 10;
-      this.SearchText = SearchText;
-      this.complaint.getTodayComplaint(this.PageNo,this.NoofRow,SearchText).subscribe(data=>{
-        if(data.length != 0){
-          this.todayComplaints = data;
-          this.totalItems = data[0].totalCount;
-          this.todayComplaints.forEach(e => {
-            e.fromDate = e.fromDate.split('T')[0];
-            e.toDate = e.toDate.split('T')[0];
-          });
-          
-        }
-        else{
-  
-        }
-      })
-    }
-  }
+
 
   async deleteCom(id:any) {
     const alert = await this.alertController.create({
@@ -209,7 +187,7 @@ export class TodaysComplaintComponent implements OnInit {
     this.NoofRow = this.totalItems;
     var SearchText = "";
     this.loader.showLoading();
-    this.complaint.getAllComplaints(this.PageNo, this.NoofRow, SearchText).subscribe(data => {
+    this.complaint.getAllComplaints(this.PageNo,this.RoleId,this.PageNo, this.NoofRow, SearchText).subscribe(data => {
       if (data.length != 0) {
         this.loader.hideLoader();
         this.todayComplaints = data;
@@ -236,7 +214,7 @@ export class TodaysComplaintComponent implements OnInit {
     this.NoofRow = this.totalItems;
     var SearchText = "";
     this.loader.showLoading();
-    this.complaint.getAllComplaints(this.PageNo, this.NoofRow, SearchText).subscribe(data => {
+    this.complaint.getAllComplaints(this.PageNo,this.RoleId,this.PageNo, this.NoofRow, SearchText).subscribe(data => {
       if (data.length != 0) {
         this.loader.hideLoader();
         this.todayComplaints = data;

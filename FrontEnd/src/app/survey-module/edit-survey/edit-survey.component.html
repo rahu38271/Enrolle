@@ -73,18 +73,19 @@
           <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="6" size-xs="12">
             <ion-label>  DOB </ion-label>
              <ion-input
-              value="{{ date | date : 'dd/MM/yyyy'}}"
-              id="date"
-              name="date"
+              value="{{ birthDate | date : 'yyyy-MM-dd'}}"
+              id="birthDate"
+              name="birthDate"
               class="form-control"
               [(ngModel)]="EditData.birthDate"
              ></ion-input>
-             <ion-modal trigger="date" size="cover">
+             <ion-modal trigger="birthDate" size="cover">
                <ng-template>
                  <ion-datetime
                   presentation="date"
                   [(ngModel)]="birthDate"
-                  name="date"
+                  name="birthDate"
+                  show-default-buttons="true"
                   (click)="CalculateAge()"
                  >
                  <div slot="title">{{ year }}</div>

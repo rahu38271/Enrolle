@@ -47,7 +47,6 @@ export class SuperadminService {
 
   // delete dbconfig
   deleteDBConfig(id:any){
-    debugger;
     return this.http.get<any>(this.url+'Login/DeleteDBConfigure?Id='+id)
   }
 

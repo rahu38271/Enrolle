@@ -38,7 +38,7 @@ export class AllComplaintsComponent implements OnInit {
   imageUrl:string='';
   showImage:any;
   UserId:any;
-  roleId:any;
+  RoleId:any;
   userWiseComlaints:any;
 
   // imageUrl:string='https://tinysms.in/bjp.png';
@@ -61,16 +61,21 @@ export class AllComplaintsComponent implements OnInit {
    }
 
   ngOnInit(): void {
-    this.UserId = localStorage.getItem("loginId");
-    this.roleId = localStorage.getItem("userType")
+    this.UserId = Number(localStorage.getItem("loginId"));
+    this.RoleId = localStorage.getItem("userType");
+    if(this.RoleId!=6){
+      this.isShow = true;
+    }else{
+      this.isShow = false;
+    }
     if (this.SearchText == undefined) {
       this.SearchText = ''
     }
     else {
       this.SearchText = this.SearchText
     }
-    if (this.Status == '' || this.Status == null) {
-      this.Status = ''
+    if (this.Status == null) {
+      this.Status = null
     }
     else {
       this.Status = this.Status
@@ -81,25 +86,21 @@ export class AllComplaintsComponent implements OnInit {
   
 
   ionViewWillEnter() {
-    if(this.roleId==5 || this.roleId==6){
-      this.complaintByUser();
-    }else{
-      this.complaintList(this.PageNo, this.NoofRow, this.SearchText);
-    }
+    this.complaintList(this.UserId,this.RoleId, this.PageNo, this.NoofRow,this.SearchText);
   }
 
   event(event: any) {
     this.PageNo = event;
-    this.complaintList(event, this.NoofRow, this.SearchText);
+    this.complaintList(this.UserId, this.RoleId, event, this.NoofRow,this.SearchText);
   }
 
-  event1(event1: any) {
-    this.PageNo = event1;
-    this.complaintByUser();
-  }
+  // event1(event1: any) {
+  //   this.PageNo = event1;
+  //   this.complaintByUser();
+  // }
 
-  complaintList(PageNo: any, NoofRow: any, SearchText: any) {
-    this.complaint.getAllComplaints(PageNo, NoofRow, SearchText).subscribe(data => {
+  complaintList(UserId:any,RoleId:any, PageNo: any, NoofRow: any,SearchText:any,) {
+    this.complaint.getAllComplaints(UserId,RoleId, PageNo, NoofRow,SearchText).subscribe(data => {
       if (data.length != 0) {
         this.allComplaints = data;
         this.isAll = true;
@@ -119,7 +120,7 @@ export class AllComplaintsComponent implements OnInit {
             e.toDate = e.toDate.split('T')[0];
           }
         });
-        this.fileName = data[this.id].fileName;
+        //this.fileName = data[this.id].fileName;
       }
       else {
 
@@ -129,33 +130,33 @@ export class AllComplaintsComponent implements OnInit {
     })
   }
 
-  complaintByUser(){
-    this.complaint.getComplaintsByUserId(this.UserId).subscribe(data=>{
-      if(data.length!=0){
-        this.isUserWise = true;
-        this.userWiseComlaints = data;
-        this.totalItems = data[0].totalCount;
-        this.userWiseComlaints.forEach(e => {
-          if(e.fromDate==null){
-            e.fromDate=""
-          }
-          else{
-            e.fromDate = e.fromDate.split('T')[0];
-          }
-          if(e.toDate==null){
-            e.toDate=""
-          }
-          else{
-            e.toDate = e.toDate.split('T')[0];
-          }
-        });
-      }else{
+  // complaintByUser(){
+  //   this.complaint.getComplaintsByUserId(this.UserId).subscribe(data=>{
+  //     if(data.length!=0){
+  //       this.isUserWise = true;
+  //       this.userWiseComlaints = data;
+  //       this.totalItems = data[0].totalCount;
+  //       this.userWiseComlaints.forEach(e => {
+  //         if(e.fromDate==null){
+  //           e.fromDate=""
+  //         }
+  //         else{
+  //           e.fromDate = e.fromDate.split('T')[0];
+  //         }
+  //         if(e.toDate==null){
+  //           e.toDate=""
+  //         }
+  //         else{
+  //           e.toDate = e.toDate.split('T')[0];
+  //         }
+  //       });
+  //     }else{
 
-      }
-    },(err)=>{
+  //     }
+  //   },(err)=>{
 
-    })
-  }
+  //   })
+  // }
 
   saveFile(imageData: Blob) {
     const link = document.createElement('a');
@@ -205,13 +206,13 @@ export class AllComplaintsComponent implements OnInit {
       this.PageNo = 1;
       this.NoofRow = this.totalItems;
       this.SearchText = SearchText;
-      this.complaintList(this.PageNo, this.NoofRow, this.SearchText);
+      this.complaintList(this.UserId,this.RoleId,this.PageNo,this.NoofRow,SearchText);
     }
     else {
       this.PageNo = 1;
-      this.NoofRow = 10;
+      this.NoofRow = 25;
       this.SearchText = SearchText;
-      this.complaint.getAllComplaints(this.PageNo, this.NoofRow, SearchText).subscribe(data => {
+      this.complaint.getAllComplaints(this.UserId,this.RoleId, this.PageNo, this.NoofRow,SearchText).subscribe(data => {
         if (data.length != 0) {
           this.allComplaints = data;
           this.totalItems = data[0].totalCount
@@ -219,37 +220,6 @@ export class AllComplaintsComponent implements OnInit {
             e.fromDate = e.fromDate.split('T')[0];
             e.toDate = e.toDate.split('T')[0];
           });
-
-        }
-        else {
-
-        }
-      }, (err) => {
-
-      })
-    }
-  }
-
-  keyPress(SearchText: any) {
-    if (this.SearchText == '') {
-      this.PageNo = 1;
-      this.NoofRow = this.totalItems;
-      this.SearchText = SearchText;
-      this.complaintList(this.PageNo, this.NoofRow, this.SearchText);
-    }
-    else {
-      this.PageNo = 1;
-      this.NoofRow = 10;
-      this.SearchText = SearchText;
-      this.complaint.getAllComplaints(this.PageNo, this.NoofRow, SearchText).subscribe(data => {
-        if (data.length != 0) {
-          this.allComplaints = data;
-          this.totalItems = data[0].totalCount
-          this.allComplaints.forEach(e => {
-            e.fromDate = e.fromDate.split('T')[0];
-            e.toDate = e.toDate.split('T')[0];
-          });
-
         }
         else {
 
@@ -327,7 +297,7 @@ export class AllComplaintsComponent implements OnInit {
     this.NoofRow = this.totalItems;
     var SearchText = "";
     this.loader.showLoading();
-    this.complaint.getAllComplaints(this.PageNo, this.NoofRow, SearchText).subscribe(data => {
+    this.complaint.getAllComplaints(this.UserId,this.RoleId, this.PageNo, this.NoofRow,this.SearchText).subscribe(data => {
       if (data.length != 0) {
         this.loader.hideLoader();
         this.allComplaints = data;
@@ -355,7 +325,7 @@ export class AllComplaintsComponent implements OnInit {
     this.NoofRow = this.totalItems;
     var SearchText = "";
     this.loader.showLoading();
-    this.complaint.getAllComplaints(this.PageNo, this.NoofRow, SearchText).subscribe(data => {
+    this.complaint.getAllComplaints(this.UserId,this.RoleId, this.PageNo, this.NoofRow,this.SearchText).subscribe(data => {
       if (data.length != 0) {
         this.loader.hideLoader();
         this.allComplaints = data;

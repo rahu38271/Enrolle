@@ -151,29 +151,29 @@ export class VoterbyUserComponent {
     }
   }
 
-  keyPress(SearchText: any){
-    if (this.SearchText == '') {
-      this.SearchText = SearchText;
-      this.PageNo = 1;
-      this.NoofRow = this.totalCount;
-      this.voterList(this.Lid, this.RoleId, this.PageNo, this.NoofRow, this.Language, SearchText)
-    }
-    else {
-      this.SearchText = SearchText.trim();
-      this.PageNo = 1;
-      this.NoofRow = 25;
-      this.voter.getVoterByUser(this.Lid, this.RoleId, this.PageNo, this.NoofRow, this.Language, SearchText).subscribe(data => {
-        if (data) {
-          //this.loader.hideLoader();
-          this.voterListByUser = data;
-          this.totalCount = data[0].totalCount;
-          // this.voterListByUser.forEach(e => {
-          //   e.birthDate = e.birthDate.split('T')[0];
-          // });
-        }
-      })
-    }
-  }
+  // keyPress(SearchText: any){
+  //   if (this.SearchText == '') {
+  //     this.SearchText = SearchText;
+  //     this.PageNo = 1;
+  //     this.NoofRow = this.totalCount;
+  //     this.voterList(this.Lid, this.RoleId, this.PageNo, this.NoofRow, this.Language, SearchText)
+  //   }
+  //   else {
+  //     this.SearchText = SearchText.trim();
+  //     this.PageNo = 1;
+  //     this.NoofRow = 25;
+  //     this.voter.getVoterByUser(this.Lid, this.RoleId, this.PageNo, this.NoofRow, this.Language, SearchText).subscribe(data => {
+  //       if (data) {
+  //         //this.loader.hideLoader();
+  //         this.voterListByUser = data;
+  //         this.totalCount = data[0].totalCount;
+  //         // this.voterListByUser.forEach(e => {
+  //         //   e.birthDate = e.birthDate.split('T')[0];
+  //         // });
+  //       }
+  //     })
+  //   }
+  // }
 
   // data with state
   // voterDetails(item: any) {
@@ -188,7 +188,6 @@ export class VoterbyUserComponent {
   voterDetails(data){
     this.id = data.id;
     this.router.navigate(['/voterdata-management/voter-details', this.id])
-    
   }
 
   // voterInfo(data){

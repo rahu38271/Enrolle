@@ -77,7 +77,6 @@ export class SettingService {
 
   // birthday,anniversary sms setting
   addBdayAnniSetting(smsSetting:any){
-    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });

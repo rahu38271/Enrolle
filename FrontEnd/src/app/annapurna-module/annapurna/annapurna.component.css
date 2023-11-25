@@ -82,3 +82,10 @@ table tr:nth-child(odd) {background: #FFF}
   width: 200px;
 }
 
+ion-title {
+  color: #3b5e74;
+}
+
+ion-buttons ion-button  {
+  background-color: #ff4646;
+}

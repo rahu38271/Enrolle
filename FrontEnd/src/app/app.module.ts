@@ -26,6 +26,7 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { Camera } from '@ionic-native/camera/ngx';
 import { AppVersion } from '@ionic-native/app-version/ngx';
 import { SMS } from '@ionic-native/sms/ngx';
+import { DatePipe } from '@angular/common';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -54,7 +55,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
   ],
-  providers: [PDFGenerator,SMS,SocialSharing,AppVersion,AndroidPermissions,BluetoothSerial,SplashScreen,Camera, 
+  providers: [DatePipe,PDFGenerator,SMS,SocialSharing,AppVersion,AndroidPermissions,BluetoothSerial,SplashScreen,Camera, 
     //{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
     { provide: HTTP_INTERCEPTORS, useClass:  ErrorInterceptorInterceptor, multi: true}
   ],

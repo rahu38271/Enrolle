@@ -125,28 +125,7 @@ export class AlivevoterComponent implements OnInit {
     }
   }
 
-  keyPress(SearchText:any){
-    if (this.SearchText == '') {
-      this.PageNo = 1;
-      this.SearchText = SearchText
-      this.NoofRow = this.totalItems;
-      this.aliveVoter(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText)
-    }
-    else {
-      this.PageNo = 1;
-      this.SearchText = SearchText.trim();
-      this.NoofRow = 25;
-      this.voter.getAliveVoter(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
-        if(data.length != 0){
-          this.aliveVoterList=data;
-          this.totalItems=data[0].totalCount;
-        }
-        else{
-  
-        }
-      })
-    }
-  }
+
 
   exportExcel():void {
     this.PageNo=1;

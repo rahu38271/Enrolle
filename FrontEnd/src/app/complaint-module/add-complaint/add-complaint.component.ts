@@ -6,6 +6,8 @@ import { Router } from '@angular/router'
 import { Location } from '@angular/common';
 import { IonModal } from '@ionic/angular';
 import { Camera, CameraOptions } from '@ionic-native/camera/ngx';
+import { DatePipe } from '@angular/common';
+
 
 
 @Component({
@@ -39,6 +41,7 @@ export class AddComplaintComponent implements OnInit {
 
   @ViewChild(IonModal) modal: IonModal;
   superAdminId: any;
+  adminId:any;
   societycomplaint: any = {}
   addSingleComplaint: any = {}
   UserId: any;
@@ -66,10 +69,11 @@ export class AddComplaintComponent implements OnInit {
     private toast: IonicToastService,
     private router: Router,
     private location: Location,
-    private camera: Camera
+    private camera: Camera,
+    public datepipe: DatePipe
   ) {
-    const currentDate = new Date();
-    this.currentDatetime = currentDate.toISOString();
+    let currentDateTime =this.datepipe.transform((new Date), 'MM/dd/yyyy h:mm:ss');
+    this.currentDatetime = currentDateTime;
    }
 
   ngOnInit(): void {
@@ -77,6 +81,7 @@ export class AddComplaintComponent implements OnInit {
     this.roleID = localStorage.getItem("userType");
     this.name = localStorage.getItem("loginUser");
     this.superAdminId = localStorage.getItem("superAdminId");
+    this.adminId = localStorage.getItem("adminId");
   }
 
 
@@ -137,6 +142,14 @@ export class AddComplaintComponent implements OnInit {
     this.societycomplaint.UserId = Number(this.UserId);
     this.societycomplaint.RoleId = Number(this.roleID);
     this.societycomplaint.UserName = this.name;
+    this.societycomplaint.Status = null;
+    if(this.roleID==2 || this.roleID==3 || this.roleID==5){
+      this.societycomplaint.AdminId = this.UserId;
+    }
+    if(this.roleID==6){
+      this.societycomplaint.AdminId = this.adminId;
+    }
+    this.societycomplaint.AdminId = Number(this.societycomplaint.AdminId);
     this.file = this.file;
     this.societycomplaint = JSON.stringify(this.societycomplaint);
     if (this.file == undefined) {
@@ -148,7 +161,6 @@ export class AddComplaintComponent implements OnInit {
     this.loader.showLoading();
 
     this.complaint.addSingleComplaint(this.file, this.societycomplaint).subscribe((data) => {
-      
       if (data == 1) {
         this.loader.hideLoader();
         this.toast.presentToast("Complaint added successfully!", "success", 'checkmark-circle-sharp');

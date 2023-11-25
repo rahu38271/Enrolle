@@ -125,26 +125,6 @@ export class DoubtfulListComponent implements OnInit {
     }
   }
 
-  keyPress(SearchText:any){
-    if (this.SearchText == '') {
-      this.PageNo = 1;
-      this.NoofRow = this.totalItems;
-      this.SearchText = SearchText;
-      this.doubtfulList(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText);
-    }
-    else {
-      this.PageNo = 1;
-      this.NoofRow = 25;
-      this.SearchText = SearchText.trim();
-      this.voter.doubtful(this.userId, this.roleID, this.PageNo, this.NoofRow, this.Language, this.SearchText).subscribe(data => {
-        if (data) {
-          this.doubtfulVoter = data;
-          this.totalItems = data[0].totalCount;
-        }
-      })
-    }
-  }
-
   exportExcel():void {
     this.PageNo=1;
     this.NoofRow=this.totalItems;
