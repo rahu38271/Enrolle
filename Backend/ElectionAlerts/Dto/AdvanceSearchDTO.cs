@@ -23,6 +23,9 @@ namespace ElectionAlerts.Dto
         public string Caste { get; set; }
         public string Religion { get; set; }
         public string Society { get; set; }
+        public string VotingInclination { get; set; }
+        public string IsVoted { get; set; }
+        public string PrintSlip { get; set; }
         public int UserId { get; set; }
         public int RoleId { get; set; }
         public int PageNo { get; set; }

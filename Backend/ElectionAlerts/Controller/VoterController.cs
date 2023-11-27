@@ -1,4 +1,6 @@
-﻿using ElectionAlerts.Dto;
+﻿using CsvHelper;
+using CsvHelper.Configuration;
+using ElectionAlerts.Dto;
 using ElectionAlerts.Model;
 using ElectionAlerts.Services.Interface;
 using Microsoft.AspNetCore.Authorization;
@@ -10,15 +12,18 @@ using Newtonsoft.Json;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ElectionAlerts.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class VoterController : ControllerBase
     {
         private readonly IVoterService _voterService;
@@ -31,8 +36,8 @@ namespace ElectionAlerts.Controller
             _exceptionLogService = exceptionLogService;
             _hostingEnvironment = hostingEnvironment;
         }
-        
-        [HttpPost("FilterVoterbyCondition")]           
+
+        [HttpPost("FilterVoterbyCondition")]
         public IActionResult FilterVoterbyCondition(VoterTable table)
         {
             try
@@ -45,12 +50,7 @@ namespace ElectionAlerts.Controller
                 return BadRequest(ex);
             }
         }
-       
-        /// <summary>
-        /// Abhay 
-        /// </summary>
-        /// <param name="table"></param>
-        /// <returns>search </returns>
+
         [HttpPost("FilterVoterList")]
         public IActionResult FilterVoterList(VoterTable table)
         {
@@ -64,7 +64,6 @@ namespace ElectionAlerts.Controller
                 return BadRequest(ex);
             }
         }
-
 
         [HttpPost("InsertVoter")]
         public IActionResult InsertVoter(Voter voter)
@@ -81,11 +80,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetAllVoter")]
-        public IActionResult GetAllVoter(int UserId,int RoleId, int PageNo, int NoofRow,string Language,string SearchText)
+        public IActionResult GetAllVoter(int UserId, int RoleId, int PageNo, int NoofRow, string Language, string SearchText)
         {
             try
             {
-                return Ok(_voterService.GetAllVoter(UserId, RoleId,PageNo,NoofRow, Language, SearchText));
+                return Ok(_voterService.GetAllVoter(UserId, RoleId, PageNo, NoofRow, Language, SearchText));
             }
             catch (Exception ex)
             {
@@ -109,11 +108,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpPost("InsertBulkVoter")]
-        public IActionResult InsertBulkVoter(List<Voter> voters)
+        public IActionResult InsertBulkVoter(List<VoterBulk> voters)
         {
             try
             {
-               // voters.ForEach(x => x.CreatedDate = DateTime.Now);
+                voters.ForEach(x => x.CreatedDate = DateTime.Now.ToString("yyyy-MM-dd"));
                 return Ok(_voterService.InsertBulkVoter(voters));
             }
             catch (Exception ex)
@@ -123,12 +122,27 @@ namespace ElectionAlerts.Controller
             }
         }
 
+
+        [HttpPost("InsertBulkMobile")]
+        public IActionResult InsertBulkMobile(List<VoterMobileBulk> voterMobileBulks)
+        {
+            try
+            {
+                return Ok(_voterService.InsertBulkMobile(voterMobileBulks));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/InsertBulkMobile");
+                return BadRequest(ex);
+            }
+        }
+       
         [HttpGet("GetVoterbyId")]
         public IActionResult GetVoterbyId(int id, string Language)
         {
             try
             {
-                return Ok(_voterService.GetVoterDetailbyId(id,Language));
+                return Ok(_voterService.GetVoterDetailbyId(id, Language));
             }
             catch (Exception ex)
             {
@@ -138,11 +152,11 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetVoterbyRelation")]
-        public IActionResult GetVoterbyRelation(int Id, int UserId,int RoleId,int PageNo,int NoofRow, string Language)
+        public IActionResult GetVoterbyRelation(int Id, int UserId, int RoleId, int PageNo, int NoofRow, string Language)
         {
             try
             {
-                return Ok(_voterService.GetVoterbyRelation(Id, UserId, RoleId,PageNo,NoofRow,Language));
+                return Ok(_voterService.GetVoterbyRelation(Id, UserId, RoleId, PageNo, NoofRow, Language));
             }
             catch (Exception ex)
             {
@@ -151,261 +165,261 @@ namespace ElectionAlerts.Controller
             }
         }
 
+
         [HttpPost("InserMobileExcel")]
+        [RequestFormLimits(MultipartBodyLengthLimit = 500000000)]
         public IActionResult InserMobileExcel(IFormFile file)
         {
-            List<Mobile> mobiles = new List<Mobile>();
+            List<VoterMobileBulk> voterMobiles = new List<VoterMobileBulk>();
+            string[] dateformat = { "dd-MM-yyyy", "yyyy-MM-dd HH:mm:ss", "MM/dd/yyyy hh:mm tt", "dd-MMM-yyyy h:mm tt", "yyyy-MM-ddTHH:mm:ssZ", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm: ss", "dd-MM-yyyy HH:mm", "yyyy/MM/dd", "dddd, MMMM d, yyyy", "MM-dd-yy", "yyyy-MM-ddTHH:mm:ssZ", "dd MMMM yyyy", "MMM dd, yyyy", "MM/yyyy" };
+            if (file == null || file.Length <= 0)
+            {
+                return BadRequest("formfile is empty");
+            }
+
+            if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
+            {
+                return BadRequest("Not Support file extension");
+            }
             try
             {
-                if (file == null || file.Length <= 0)
-                {
-                    return BadRequest("formfile is empty");
-                }
+                var filepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Upload", file.FileName);
 
-                if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
+                if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Upload")))
+                    Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Upload"));
+
+                using (FileStream fs = new FileStream(filepath, FileMode.Create))
                 {
-                    return BadRequest("Not Support file extension");
+                    file.CopyTo(fs);
                 }
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                //using (var package = new ExcelPackage(stream))
-                using (var package = new ExcelPackage(new FileInfo(file.FileName)))
+                using (var package = new ExcelPackage(new FileInfo(filepath)))
                 {
+                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
                     ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
                     var rowCount = worksheet.Dimension.Rows;
 
                     for (int row = 2; row <= rowCount; row++)
                     {
-                        Mobile mobileData = new Mobile();
+                        VoterMobileBulk voterMobile = new VoterMobileBulk();
                         if (worksheet.Cells[row, 1].Value != null)
-                            mobileData.MobileNo = worksheet.Cells[row, 1].Value.ToString().Trim();
+                            voterMobile.FullName = worksheet.Cells[row, 1].Value.ToString().Trim();
                         if (worksheet.Cells[row, 2].Value != null)
-                            mobileData.CName = worksheet.Cells[row, 2].Value.ToString().Trim();
+                            voterMobile.MobileNo = worksheet.Cells[row, 2].Value.ToString().CheckLenght(15);
+                        if (worksheet.Cells[row, 3].Value != null)
+                        {
+                            var valDate = worksheet.Cells[row, 3].Value.ToString().Split(' ');
+                            const DateTimeStyles style = DateTimeStyles.RoundtripKind;
+                            DateTime dt;
+                            var result = DateTime.TryParseExact(valDate[0].ToString(), dateformat, CultureInfo.InvariantCulture, style, out dt);
+                            if (result)
+                            {
+                                voterMobile.BirthDate = dt.ToString("yyyy-MM-dd");
+                            }
+                        }
                         if (worksheet.Cells[row, 5].Value != null)
-                            mobileData.Address = worksheet.Cells[row, 5].Value.ToString().Trim();
-                        if (worksheet.Cells[row, 4].Value != null)
-                            mobileData.MName = worksheet.Cells[row, 4].Value.ToString().Trim();
-
-                        mobileData.CreatedDate = DateTime.Now;
-                        mobiles.Add(mobileData);
+                            voterMobile.LocalAddress = worksheet.Cells[row, 5].Value.ToString().Trim();
+                        if (worksheet.Cells[row, 6].Value != null)
+                            voterMobile.PermanentAddress = worksheet.Cells[row, 6].Value.ToString().Trim();
+                        if (worksheet.Cells[row, 7].Value != null)
+                            voterMobile.AltMobileNo = worksheet.Cells[row, 7].Value.ToString().CheckLenght(15);
+                        if (worksheet.Cells[row, 8].Value != null)
+                            voterMobile.Email = worksheet.Cells[row, 8].Value.ToString().Trim().CheckLenght(100);
+                        if (worksheet.Cells[row, 11].Value != null)
+                        {
+                            var valDate = worksheet.Cells[row, 11].Value.ToString().Split(' ');
+                            const DateTimeStyles style = DateTimeStyles.RoundtripKind;
+                            DateTime dt;
+                            var result = DateTime.TryParseExact(valDate[0].ToString(), dateformat, CultureInfo.InvariantCulture, style, out dt);
+                            if (result)
+                            {
+                                voterMobile.BirthDate = dt.ToString("yyyy-MM-dd");
+                            }
+                        }
+                        voterMobile.CreatedDate = DateTime.Now.ToString("yyyy-MM-dd");
+                        voterMobiles.Add(voterMobile);
                     }
-
-                    return Ok(_voterService.InsertBulkMobile(mobiles));
                 }
+                if (System.IO.File.Exists(filepath))
+                {
+                    System.IO.File.Delete(filepath);
+                }
+                return Ok(_voterService.InsertBulkMobile(voterMobiles));
             }
             catch (Exception ex)
             {
-               _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/InserMobileExcel");
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/InserMobileExcel");
                 return BadRequest(ex);
             }
         }
 
         [HttpPost("InserVoterExcel")]
-        public  IActionResult InserVoterExcel(IFormFile file)
+        [RequestFormLimits(MultipartBodyLengthLimit = 500000000)]
+        public IActionResult InserVoterExcel(IFormFile file)
         {
-            List<Voter> voters = new List<Voter>();
+            List<VoterBulk> voters = new List<VoterBulk>();
+            string[] dateformat = { "yyyy-MM-dd HH:mm:ss", "MM/dd/yyyy hh:mm tt", "dd-MMM-yyyy h:mm tt", "yyyy-MM-ddTHH:mm:ssZ", "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm: ss", "dd-MM-yyyy HH:mm", "yyyy/MM/dd", "dddd, MMMM d, yyyy", "MM-dd-yy", "yyyy-MM-ddTHH:mm:ssZ", "dd MMMM yyyy", "MMM dd, yyyy", "MM/yyyy" };
+            if (file == null || file.Length <= 0)
+            {
+                return BadRequest("formfile is empty");
+            }
+
+            if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
+            {
+                return BadRequest("Not Support file extension");
+            }
+
+            var filepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Upload", file.FileName);
+
+            if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Upload")))
+                Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Upload"));
+
+
+            using (FileStream fs = new FileStream(filepath, FileMode.Create))
+            {
+                file.CopyTo(fs);
+            }
+
             try
             {
-               
-                if (file == null || file.Length <= 0)
-                {
-                    return BadRequest("formfile is empty");
-                }
-
-                if (!Path.GetExtension(file.FileName).Equals(".xlsx", StringComparison.OrdinalIgnoreCase))
-                {
-                    return BadRequest("Not Support file extension");
-                }
-                string fullpath = Directory.GetCurrentDirectory();
-                string webRootPath = _hostingEnvironment.WebRootPath;
-
-                string folderName = "Upload";
-                string fileName = file.FileName;
-                string newPath = Path.Combine(webRootPath, folderName);
-                if (!Directory.Exists(newPath))
-                    Directory.CreateDirectory(newPath);
-                using (var stream = new FileStream(Path.Combine(newPath, fileName), FileMode.Create))
-                {
-                    file.CopyTo(stream);
-                }
-
-                var filename = Path.Combine(newPath, fileName);
-               
-                if (file.FileName.Contains("Kannada"))
-                {
-                    using (var package = new ExcelPackage(new FileInfo(filename)))
-                    {
-                        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                        ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
-                        var rowCount = worksheet.Dimension.Rows;
-
-                        for (int row = 2; row <= rowCount; row++)
-                        {
-                            Voter voter1 = new Voter();
-                            if (worksheet.Cells[row, 1].Value != null)
-                                voter1.AssemblyNo = int.Parse(worksheet.Cells[row, 1].Value.ToString().Trim());
-                            if (worksheet.Cells[row, 2].Value != null)
-                                voter1.PartNo = int.Parse(worksheet.Cells[row, 2].Value.ToString().Trim());
-                            if (worksheet.Cells[row, 4].Value != null)
-                                voter1.SrNo = int.Parse(worksheet.Cells[row, 4].Value.ToString().Trim());
-
-                            if ((worksheet.Cells[row, 8].Value != null) && (worksheet.Cells[row, 13].Value != null))
-                                voter1.FullName = worksheet.Cells[row, 8].Value.ToString().Trim() + " " + worksheet.Cells[row, 13].Value.ToString().Trim();
-
-                            if ((worksheet.Cells[row, 8].Value != null) && (worksheet.Cells[row, 13].Value == null))
-                                voter1.FullName = worksheet.Cells[row, 8].Value.ToString().Trim();
-
-                            if ((worksheet.Cells[row, 8].Value == null) && (worksheet.Cells[row, 13].Value != null))
-                                voter1.FullName = worksheet.Cells[row, 13].Value.ToString().Trim();
-
-                            if (worksheet.Cells[row, 17].Value != null)
-                                voter1.Gender = worksheet.Cells[row, 17].Value.ToString().Trim();
-                            if (worksheet.Cells[row, 18].Value != null)
-                                voter1.Age = int.Parse(worksheet.Cells[row, 18].Value.ToString().Trim());
-                            if (worksheet.Cells[row, 27].Value != null)
-                                voter1.Village = worksheet.Cells[row, 27].Value.ToString().Trim();
-                            if (worksheet.Cells[row, 7].Value != null)
-                                voter1.VotingCardNo = worksheet.Cells[row, 7].Value.ToString().Trim();
-
-                            if (worksheet.Cells[row, 20].Value != null)
-                                voter1.MobileNo = worksheet.Cells[row, 20].Value.ToString().Trim();
-
-                            if ((worksheet.Cells[row, 10].Value != null) && (worksheet.Cells[row, 15].Value != null))
-                                voter1.FullName_KR = worksheet.Cells[row, 10].Value.ToString().Trim() + " " + worksheet.Cells[row, 15].Value.ToString().Trim();
-
-                            if ((worksheet.Cells[row, 10].Value != null) && (worksheet.Cells[row, 15].Value == null))
-                                voter1.FullName_KR = worksheet.Cells[row, 10].Value.ToString().Trim();
-
-                            if ((worksheet.Cells[row, 10].Value == null) && (worksheet.Cells[row, 15].Value != null))
-                                voter1.FullName_KR = worksheet.Cells[row, 15].Value.ToString().Trim();
-
-                            if (worksheet.Cells[row, 21].Value != null)
-                                voter1.Assembly = worksheet.Cells[row, 21].Value.ToString().Trim();
-
-                            if (worksheet.Cells[row, 22].Value != null)
-                                voter1.AssemblyName_KR = worksheet.Cells[row, 22].Value.ToString().Trim();
-
-                            if (worksheet.Cells[row, 28].Value != null)
-                                voter1.Village_KR = worksheet.Cells[row, 28].Value.ToString().Trim();
-
-
-                            if ((worksheet.Cells[row, 35].Value != null) && (worksheet.Cells[row, 36].Value != null))
-                                voter1.FullName_HN = worksheet.Cells[row,35].Value.ToString().Trim() + " " + worksheet.Cells[row, 36].Value.ToString().Trim();
-
-                            if ((worksheet.Cells[row, 35].Value != null) && (worksheet.Cells[row, 36].Value == null))
-                                voter1.FullName_HN = worksheet.Cells[row, 35].Value.ToString().Trim();
-
-                            if ((worksheet.Cells[row, 35].Value == null) && (worksheet.Cells[row, 36].Value != null))
-                                voter1.FullName_HN = worksheet.Cells[row, 36].Value.ToString().Trim();
-
-                            if (worksheet.Cells[row, 37].Value != null)
-                                voter1.Village_HN = worksheet.Cells[row, 37].Value.ToString().Trim();
-                            voter1.AssemblyName_HN = "मुदबिद्री";
-                            voter1.CreatedDate = DateTime.Now;
-
-                            voters.Add(voter1);
-                        }
-                    }
-                }
-                if (file.FileName.Contains("Marathi"))
+                using (var package = new ExcelPackage(new FileInfo(filepath)))
                 {
                     ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                    using (var package = new ExcelPackage(new FileInfo(filename)))
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
+                    var rowCount = worksheet.Dimension.Rows;
+
+                    for (int row = 2; row <= rowCount; row++)
                     {
-                        ExcelWorksheet worksheet = package.Workbook.Worksheets[0];
-                        var rowCount = worksheet.Dimension.Rows;
+                        VoterBulk voter1 = new VoterBulk();
+                        if (worksheet.Cells[row, 1].Value != null)
+                            voter1.AssemblyNo = int.Parse(worksheet.Cells[row, 1].Value.ToString().Trim());
+                        if (worksheet.Cells[row, 2].Value != null)
+                            voter1.PartNo = int.Parse(worksheet.Cells[row, 2].Value.ToString().Trim());
+                        //if (worksheet.Cells[row, 4].Value != null)
+                        //    voter1.SrNo = int.Parse(worksheet.Cells[row, 4].Value.ToString().Trim());
 
-                        for (int row = 2; row <= rowCount; row++)
+                        if ((worksheet.Cells[row, 6].Value != null) && (worksheet.Cells[row, 7].Value != null))
+                            voter1.FullName = worksheet.Cells[row, 6].Value.ToString().Trim() + " " + worksheet.Cells[row, 7].Value.ToString().Trim();
+
+                        if ((worksheet.Cells[row, 6].Value != null) && (worksheet.Cells[row, 7].Value == null))
+                            voter1.FullName = worksheet.Cells[row, 6].Value.ToString().Trim();
+
+                        if ((worksheet.Cells[row, 6].Value == null) && (worksheet.Cells[row, 7].Value != null))
+                            voter1.FullName = worksheet.Cells[row, 7].Value.ToString().Trim();
+
+                        if (worksheet.Cells[row, 11].Value != null)
+                            voter1.Gender = worksheet.Cells[row, 11].Value.ToString().Trim();
+
+                        if (worksheet.Cells[row, 12].Value != null)
+                            voter1.Age = int.Parse(worksheet.Cells[row, 12].Value.ToString().Trim());
+
+                        if (worksheet.Cells[row, 13].Value != null)
+                            voter1.Address = worksheet.Cells[row, 13].Value.ToString().Trim();
+
+                        if (worksheet.Cells[row, 20].Value != null)
                         {
-                            Voter voter1 = new Voter();
-                            if (worksheet.Cells[row, 1].Value != null)
-                                voter1.AssemblyNo = int.Parse(worksheet.Cells[row, 1].Value.ToString().Trim());
-                            if (worksheet.Cells[row, 2].Value != null)
-                                voter1.PartNo = int.Parse(worksheet.Cells[row, 2].Value.ToString().Trim());
+                            var valDate = worksheet.Cells[row, 20].Value.ToString().Split(' ');
 
-                            if ((worksheet.Cells[row, 9].Value != null) && (worksheet.Cells[row, 10].Value != null))
-                                voter1.FullName = worksheet.Cells[row, 9].Value.ToString().Trim() + " " + worksheet.Cells[row, 10].Value.ToString().Trim();
-
-                            if ((worksheet.Cells[row, 9].Value != null) && (worksheet.Cells[row, 10].Value == null))
-                                voter1.FullName = worksheet.Cells[row, 9].Value.ToString().Trim();
-
-                            if ((worksheet.Cells[row, 9].Value == null) && (worksheet.Cells[row, 10].Value != null))
-                                voter1.FullName = worksheet.Cells[row, 10].Value.ToString().Trim();
-
-                            //if (worksheet.Cells[row, 7].Value != null)
-                            //{
-                            //    if (worksheet.Cells[row, 7].Value.ToString().Trim() == "पुरुष")
-                            //        voter1.Gender ="M" ;
-                            //    else
-                            //        voter1.Gender = "F";
-                            //}
-                            if (worksheet.Cells[row, 13].Value != null)
-                                voter1.Gender = worksheet.Cells[row, 13].Value.ToString().Trim();
-
-                            if (worksheet.Cells[row, 19].Value != null)
-                                voter1.Age = int.Parse(worksheet.Cells[row, 19].Value.ToString().Trim());
-                            //if (worksheet.Cells[row, 27].Value != null)
-                            //    voter1.Village = worksheet.Cells[row, 27].Value.ToString().Trim();
-                            if (worksheet.Cells[row,20].Value != null)
-                                voter1.VotingCardNo = worksheet.Cells[row, 20].Value.ToString().Trim();
-                            if (worksheet.Cells[row, 5].Value != null)
-                                voter1.Address = worksheet.Cells[row, 5].Value.ToString().Trim();
-                            if (worksheet.Cells[row, 7].Value != null)
-                                voter1.Address_KR = worksheet.Cells[row, 7].Value.ToString().Trim();
-                            //if (worksheet.Cells[row, 10].Value != null)
-                            //    voter1.Address_HN = worksheet.Cells[row, 10].Value.ToString().Trim();
-                            //if (worksheet.Cells[row, 22].Value != null)
-                            //    voter1.MobileNo = worksheet.Cells[row, 22].Value.ToString().Trim();
-
-                            if ((worksheet.Cells[row, 11].Value != null) && (worksheet.Cells[row, 12].Value != null))
-                                voter1.FullName_KR = worksheet.Cells[row, 11].Value.ToString().Trim() + " " + worksheet.Cells[row, 12].Value.ToString().Trim();
-
-                            if ((worksheet.Cells[row, 11].Value != null) && (worksheet.Cells[row, 12].Value == null))
-                                voter1.FullName_KR = worksheet.Cells[row, 11].Value.ToString().Trim();
-
-                            if ((worksheet.Cells[row, 11].Value == null) && (worksheet.Cells[row, 12].Value != null))
-                                voter1.FullName_KR = worksheet.Cells[row, 12].Value.ToString().Trim();
-
-
-                            if ((worksheet.Cells[row, 24].Value != null) && (worksheet.Cells[row, 25].Value != null))
-                                voter1.FullName_HN = worksheet.Cells[row, 24].Value.ToString().Trim() + " " + worksheet.Cells[row, 25].Value.ToString().Trim();
-
-                            if ((worksheet.Cells[row, 24].Value != null) && (worksheet.Cells[row, 25].Value == null))
-                                voter1.FullName_HN = worksheet.Cells[row, 24].Value.ToString().Trim();
-
-                            if ((worksheet.Cells[row, 24].Value == null) && (worksheet.Cells[row, 25].Value != null))
-                                voter1.FullName_HN = worksheet.Cells[row, 25].Value.ToString().Trim();
-
-                            //if (worksheet.Cells[row, 21].Value != null)
-                            voter1.Assembly = "Kothrud";
-
-                            //  if (worksheet.Cells[row, 22].Value != null)
-                               voter1.AssemblyName_KR = "कोथरूड";
-                              voter1.AssemblyName_HN= "कोथरूड";
-
-                            //if (worksheet.Cells[row, 28].Value != null)
-                            //    voter1.Village_KR = worksheet.Cells[row, 28].Value.ToString().Trim();
-                            voter1.UserId = 95;
-                            voter1.CreatedDate = DateTime.Now;
-
-                            voters.Add(voter1);
+                            const DateTimeStyles style = DateTimeStyles.RoundtripKind;
+                            DateTime dt;
+                            var result = DateTime.TryParseExact(valDate[0].ToString(), dateformat, CultureInfo.InvariantCulture, style, out dt);
+                            if (result)
+                            {
+                                voter1.BirthDate = dt.ToString("yyyy-MM-dd");
+                            }
                         }
-                    }
-                }
+                        if (worksheet.Cells[row, 25].Value != null)
+                            voter1.Village = worksheet.Cells[row, 25].Value.ToString().Trim();
 
-                if (System.IO.File.Exists(filename))
-                {
-                    System.IO.File.Delete(filename);
+                        if (worksheet.Cells[row, 5].Value != null)
+                            voter1.VotingCardNo = worksheet.Cells[row, 5].Value.ToString().Trim();
+
+                        if (worksheet.Cells[row, 19].Value != null)
+                        {
+                            string number = worksheet.Cells[row, 19].Value.ToString().CheckLenght(15);
+                            if(number!=null)
+                            voter1.MobileNo = number.convert_to_number();
+                        }
+
+                        if ((worksheet.Cells[row, 15].Value != null) && (worksheet.Cells[row, 16].Value != null))
+                            voter1.FullName_KR = worksheet.Cells[row, 15].Value.ToString().Trim() + " " + worksheet.Cells[row, 16].Value.ToString().Trim();
+
+                        if ((worksheet.Cells[row, 15].Value != null) && (worksheet.Cells[row, 16].Value == null))
+                            voter1.FullName_KR = worksheet.Cells[row, 15].Value.ToString().Trim();
+
+                        if ((worksheet.Cells[row, 15].Value == null) && (worksheet.Cells[row, 16].Value != null))
+                            voter1.FullName_KR = worksheet.Cells[row, 16].Value.ToString().Trim();
+
+                        if (worksheet.Cells[row, 23].Value != null)
+                            voter1.Assembly = worksheet.Cells[row, 23].Value.ToString().Trim();
+
+                        if (worksheet.Cells[row, 24].Value != null)
+                            voter1.AssemblyName_KR = worksheet.Cells[row, 24].Value.ToString().Trim();
+
+                        if (worksheet.Cells[row, 26].Value != null)
+                            voter1.Village_KR = worksheet.Cells[row, 26].Value.ToString().Trim();
+
+
+                        if ((worksheet.Cells[row, 15].Value != null) && (worksheet.Cells[row, 16].Value != null))
+                            voter1.FullName_HN = worksheet.Cells[row, 15].Value.ToString().Trim() + " " + worksheet.Cells[row, 16].Value.ToString().Trim();
+
+                        if ((worksheet.Cells[row, 15].Value != null) && (worksheet.Cells[row, 16].Value == null))
+                            voter1.FullName_HN = worksheet.Cells[row, 15].Value.ToString().Trim();
+
+                        if ((worksheet.Cells[row, 15].Value == null) && (worksheet.Cells[row, 16].Value != null))
+                            voter1.FullName_HN = worksheet.Cells[row, 16].Value.ToString().Trim();
+
+                        if (worksheet.Cells[row, 26].Value != null)
+                            voter1.Village_HN = worksheet.Cells[row, 26].Value.ToString().Trim();
+
+
+                        if (worksheet.Cells[row, 24].Value != null)
+                            voter1.AssemblyName_HN = worksheet.Cells[row, 24].Value.ToString().Trim();
+
+                        if (worksheet.Cells[row, 33].Value != null)
+                            voter1.BoothName = worksheet.Cells[row, 33].Value.ToString().Trim();
+
+                        if (worksheet.Cells[row, 34].Value != null)
+                            voter1.BoothName_RG = worksheet.Cells[row, 34].Value.ToString().Trim();
+
+                        if (worksheet.Cells[row, 35].Value != null)
+                            voter1.BoothName_HN = worksheet.Cells[row, 35].Value.ToString().Trim();
+
+
+
+                        if ((worksheet.Cells[row, 9].Value != null) && (worksheet.Cells[row, 10].Value != null))
+                            voter1.FamilyMember = worksheet.Cells[row, 9].Value.ToString().Trim() + " " + worksheet.Cells[row, 10].Value.ToString().Trim();
+
+                        if ((worksheet.Cells[row, 9].Value != null) && (worksheet.Cells[row, 10].Value == null))
+                            voter1.FamilyMember = worksheet.Cells[row, 9].Value.ToString().Trim();
+
+                        if ((worksheet.Cells[row, 9].Value == null) && (worksheet.Cells[row, 10].Value != null))
+                            voter1.FamilyMember = worksheet.Cells[row, 10].Value.ToString().Trim();
+
+                        if (worksheet.Cells[row, 8].Value != null)
+                            voter1.FamilyHead = worksheet.Cells[row, 8].Value.ToString().Trim();
+
+                        voter1.CreatedDate = DateTime.Now.ToString("yyyy-MM-dd");
+
+                        voters.Add(voter1);
+                    }
+
+                    if (System.IO.File.Exists(filepath))
+                    {
+                        System.IO.File.Delete(filepath);
+                    }
+
+                    return Ok(_voterService.InsertBulkVoter(voters));
                 }
-                return Ok(_voterService.InsertBulkVoter(voters));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 //Console.WriteLine(voters.Count);
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/InserVoterExcel");
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
 
         }
+
 
         [HttpGet("GetVoterbyRole")]
         public IActionResult GetVoterbyRole(VoterSuperDto superDto)
@@ -414,7 +428,7 @@ namespace ElectionAlerts.Controller
             {
                 return Ok(_voterService.GetVoterbyRole(superDto));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetVoterbyRole");
                 return BadRequest(ex);
@@ -422,41 +436,41 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpPost("UpdateMobileVoter")]
-        public  IActionResult UpdateMobileVoter(int Id,string Mobile)
+        public IActionResult UpdateMobileVoter(int Id, string Mobile)
         {
             try
             {
                 return Ok(_voterService.UpadateMobileVoter(Id, Mobile));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/UpdateMobileVoter");
                 return BadRequest(ex);
             }
         }
-
+        
         [HttpPost("UpdateAltMobileVoter")]
-
-        public IActionResult UpdateAltMobileVoter(int Id,string AlternateMobileNo)
+        public IActionResult UpdateAltMobileVoter(int Id, string AlternateMobileNo)
         {
             try
             {
                 return Ok(_voterService.UpadateAltMobileVoter(Id, AlternateMobileNo));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/UpdateAltMobileVoter");
                 return BadRequest(ex);
             }
         }
+
         [HttpPost("UpdateAddressVoter")]
-        public IActionResult UpdateAddressVoter(int Id,string Address)
+        public IActionResult UpdateAddressVoter(int Id, string Address)
         {
             try
             {
                 return Ok(_voterService.UpdateAddressVoter(Id, Address));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/UpdateAddressVoter");
                 return BadRequest(ex);
@@ -470,7 +484,7 @@ namespace ElectionAlerts.Controller
             {
                 return Ok(_voterService.FilterColoumnCount(table));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/FilterColoumnCount");
                 return BadRequest(ex);
@@ -478,13 +492,13 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetVoterCountbyLastName")]
-        public IActionResult GetVoterCountbyLastName(int userid,int roleid,int pageno, int noofrow, string Language,string SearchText)
+        public IActionResult GetVoterCountbyLastName(int userid, int roleid, int pageno, int noofrow, string Language, string SearchText)
         {
             try
             {
-                return Ok(_voterService.GetVoterCountbyLastName(userid,roleid, pageno, noofrow,Language, SearchText));
+                return Ok(_voterService.GetVoterCountbyLastName(userid, roleid, pageno, noofrow, Language, SearchText));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetVoterCountbyLastName");
                 return BadRequest(ex);
@@ -520,11 +534,11 @@ namespace ElectionAlerts.Controller
         //}
 
         [HttpPost("UpdateStarVoter")]
-        public IActionResult UpdateStarVoter(int Id,string YesNo)
+        public IActionResult UpdateStarVoter(int Id, string YesNo)
         {
             try
             {
-                return Ok(_voterService.UpdateStarVoter(Id,YesNo));
+                return Ok(_voterService.UpdateStarVoter(Id, YesNo));
             }
             catch (Exception ex)
             {
@@ -534,16 +548,16 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpPost("UpdateVoterInclination")]
-        public IActionResult UpdateVoterInclination(int Id,string Colour)
+        public IActionResult UpdateVoterInclination(int Id, string Colour)
         {
             try
             {
                 return Ok(_voterService.UpdateVoterInclination(Id, Colour));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/UpdateVoterInclination");
-                return BadRequest(ex); 
+                return BadRequest(ex);
             }
         }
 
@@ -554,7 +568,7 @@ namespace ElectionAlerts.Controller
             {
                 return Ok(_voterService.GetMemberDetailsbyVId(VoterId));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetMemberDetail");
                 return BadRequest(ex);
@@ -562,13 +576,13 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("VoterDetailsbyLastName")]
-        public IActionResult VoterDetailsbyLastName(string Name,int UserId,int RoleId, int PageNo, int NoofRow, string Language, string SearchText)
+        public IActionResult VoterDetailsbyLastName(string Name, int UserId, int RoleId, int PageNo, int NoofRow, string Language, string SearchText)
         {
             try
             {
-                return Ok(_voterService.VoterDetailsbyLastName(Name, UserId, RoleId,PageNo,NoofRow,Language,SearchText));
+                return Ok(_voterService.VoterDetailsbyLastName(Name, UserId, RoleId, PageNo, NoofRow, Language, SearchText));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/VoterDetailsbyLastName");
                 return BadRequest(ex);
@@ -576,13 +590,13 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("VoterDetailsbyColumn")]
-        public IActionResult VoterDetailsbyColumn(string ColoumnName, string ColoumnValue,int UserId,int RoleId, int PageNo, int NoofRow, string Language, string SearchText)
+        public IActionResult VoterDetailsbyColumn(string ColoumnName, string ColoumnValue, int UserId, int RoleId, int PageNo, int NoofRow, string Language, string SearchText)
         {
             try
             {
-                return Ok(_voterService.VoterDetailsbyColumn(ColoumnName, ColoumnValue, UserId, RoleId,PageNo,NoofRow,Language,SearchText));
+                return Ok(_voterService.VoterDetailsbyColumn(ColoumnName, ColoumnValue, UserId, RoleId, PageNo, NoofRow, Language, SearchText));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/VoterDetailsbyColumn");
                 return BadRequest(ex.Message);
@@ -607,13 +621,13 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetVoterbyUserId")]
-        public IActionResult GetVoterbyUserId(int userid,int roleid, int pageno, int noofrow, string Language)
+        public IActionResult GetVoterbyUserId(int userid, int roleid, int pageno, int noofrow, string Language)
         {
             try
             {
-                return Ok(_voterService.GetVoterByUserId(userid, roleid,pageno,noofrow,Language));
+                return Ok(_voterService.GetVoterByUserId(userid, roleid, pageno, noofrow, Language));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetVoterbyUserId");
                 return BadRequest(ex);
@@ -621,13 +635,13 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetVoterBetweenAge")]
-        public IActionResult GetVoterBetweenAge(int age1,int age2,string gender,int UserId,int RoleId, int PageNo, int NoofRow, string Language, string SearchText)
+        public IActionResult GetVoterBetweenAge(int age1, int age2, string gender, int UserId, int RoleId, int PageNo, int NoofRow, string Language, string SearchText)
         {
             try
             {
-                return Ok(_voterService.GetVoterAgeBetween(age1, age2, gender, UserId, RoleId,PageNo,NoofRow,Language,SearchText));
+                return Ok(_voterService.GetVoterAgeBetween(age1, age2, gender, UserId, RoleId, PageNo, NoofRow, Language, SearchText));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetVoterBetweenAge");
                 return BadRequest(ex);
@@ -639,7 +653,7 @@ namespace ElectionAlerts.Controller
         {
             try
             {
-                return Ok(_voterService.GetTotalVoterCount(userid,roleid));
+                return Ok(_voterService.GetTotalVoterCount(userid, roleid));
             }
             catch (Exception ex)
             {
@@ -649,13 +663,13 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("VoterwithMobileNo")]
-        public IActionResult VoterwithMobileNo(int UserId,int RoleId, int PageNo, int NoofRow, string Language,string SearchText)
+        public IActionResult VoterwithMobileNo(int UserId, int RoleId, int PageNo, int NoofRow, string Language, string SearchText)
         {
             try
             {
-                return Ok(_voterService.VoterwithMobileNo(UserId,RoleId,PageNo,NoofRow,Language,SearchText));
+                return Ok(_voterService.VoterwithMobileNo(UserId, RoleId, PageNo, NoofRow, Language, SearchText));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/VoterwithMobileNo");
                 return BadRequest(ex);
@@ -677,7 +691,7 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("VoterCountbyBooth")]
-        public IActionResult VoterCountbyBooth(int userid,int roleid)
+        public IActionResult VoterCountbyBooth(int userid, int roleid)
         {
             try
             {
@@ -697,7 +711,7 @@ namespace ElectionAlerts.Controller
             {
                 return Ok(_voterService.InsertSurveyDetails(voterSurvey));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/VoterSurvey");
                 return BadRequest(ex);
@@ -705,13 +719,13 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetVoterInclination")]
-        public IActionResult GetVoterInclination(int UserId,int RoleId)
+        public IActionResult GetVoterInclination(int UserId, int RoleId)
         {
             try
             {
                 return Ok(_voterService.VoterInclination(UserId, RoleId));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetVoterInclination");
                 return BadRequest(ex);
@@ -732,19 +746,57 @@ namespace ElectionAlerts.Controller
             }
         }
 
-            [HttpGet("GetVoterInclinationUserId")]
-            public IActionResult GetVoterInclinationUserId(string Inclination,int UserId,int RoleId, int PageNo, int NoofRow, string Language, string SearchText)
+        [HttpPost("AdvancedSearchVoterFile")]
+        public IActionResult AdvancedSearchVoterFile(AdvanceSearchDTO searchDTO)
+        {
+            try
             {
-                try
+                var filepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "AdvancedSearch.csv");
+                var result = _voterService.AdvancedSearch(searchDTO).ToList();
+                if (result != null && result.Count()!=0)
                 {
-                    return Ok(_voterService.GetVoterInclinationUserId(Inclination, UserId, RoleId,PageNo,NoofRow,Language,SearchText));
+                    using (var writer = new StreamWriter(filepath))
+                    using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+                    {
+                        csv.WriteRecords(result);
+                    }
+
+                    if (System.IO.File.Exists(filepath))
+                    {
+                        string Filepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "AdvancedSearch.csv");
+                        var provider = new FileExtensionContentTypeProvider();
+                        if (!provider.TryGetContentType(Filepath, out var contentType))
+                        {
+                            contentType = "application/octet-stream";
+                        }
+
+                        var bytes = System.IO.File.ReadAllBytes(Filepath);
+                        System.IO.File.Delete(Filepath);
+                        return File(bytes, contentType, Path.GetFileName(Filepath));
+                    }
                 }
-                catch (Exception ex)
-                {
+                return Ok("Error");                
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "SubLetterController/DownoadFile");
+                return BadRequest(ex.Message);
+            }
+        }
+    
+        [HttpGet("GetVoterInclinationUserId")]
+        public IActionResult GetVoterInclinationUserId(string Inclination,int UserId,int RoleId, int PageNo, int NoofRow, string Language, string SearchText)
+        {
+             try
+             {
+                    return Ok(_voterService.GetVoterInclinationUserId(Inclination, UserId, RoleId,PageNo,NoofRow,Language,SearchText));
+             }
+             catch (Exception ex)
+              {
                     _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetVoterInclinationUserId");
                     return BadRequest(ex);
-                }
-            }
+              }
+        }
 
         [HttpGet("GetStarVoterbyUserId")]
         public IActionResult GetStarVoterbyUserId(int userid, int roleid, int PageNo, int NoofRow, string Language, string SearchText)
@@ -761,7 +813,6 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetBoothNamebyUserId")]
-
         public IActionResult GetBoothNamebyUserId(int userid,int roleid,int PageNo, int NoofRow)
         {
             try
@@ -918,9 +969,22 @@ namespace ElectionAlerts.Controller
             }
         }
 
-        [HttpPost("InsertProfession")]
+        [HttpPost("InsertCaste")]
+        public IActionResult InsertCaste(CastebyLanguage Caste)
+        {
+            try
+            {
+                return Ok(_voterService.InsertCast(Caste));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/InsertCaste");
+                return BadRequest(ex);
+            }
+        }
 
-        public IActionResult InsertProfession(string ProfessionName)
+        [HttpPost("InsertProfession")]
+        public IActionResult InsertProfession(Profession ProfessionName)
         {
             try
             {
@@ -958,14 +1022,19 @@ namespace ElectionAlerts.Controller
                     if (!string.IsNullOrEmpty(result.ImagePath))
                     {
                         string Filepath = Path.Combine(Directory.GetCurrentDirectory(), "Image", "LandingPage",result.ImageName);
-                        var provider = new FileExtensionContentTypeProvider();
-                        if (!provider.TryGetContentType(Filepath, out var contentType))
+                        if (System.IO.File.Exists(Filepath))
                         {
-                            contentType = "application/octet-stream";
-                        }
+                            var provider = new FileExtensionContentTypeProvider();
+                            if (!provider.TryGetContentType(Filepath, out var contentType))
+                            {
+                                contentType = "application/octet-stream";
+                            }
 
-                        var bytes = System.IO.File.ReadAllBytes(Filepath);
-                        return File(bytes, contentType, Path.GetFileName(Filepath));
+                            var bytes = System.IO.File.ReadAllBytes(Filepath);
+                            return File(bytes, contentType, Path.GetFileName(Filepath));
+                        }
+                        else
+                            return Ok("File Not Present");
                     }
                 }
                 return Ok("File Not Present");
@@ -1055,6 +1124,98 @@ namespace ElectionAlerts.Controller
             }
         }
 
+        [HttpGet("GetMobileMatch")]
+        public IActionResult GetMobileMatch(string VoterName)
+        {
+            try
+            {
+                return Ok(_voterService.GetMobileMatch(VoterName));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetWhatAppContentbyUserId");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetVoterOldAddress")]
+        public IActionResult GetVoterOldAddress(int userid, int RoleId, int PageNo, int NoofRow, string Language, string SearcText)
+        {
+            try
+            {
+                return Ok(_voterService.GetVoterOldAddress(userid, RoleId, PageNo, NoofRow, Language, SearcText));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetVoterOldAddress");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetAllVoterSurvey")]
+        public IActionResult GetAllVoterSurvey(int userid, int RoleId, int PageNo, int NoofRow, string Language, string SearcText)
+        {
+            try
+            {
+                return Ok(_voterService.GetAllVoterSurvey(userid, RoleId,PageNo, NoofRow, Language, SearcText));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetAllVoterSurvey");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("MatchMobileDetails")]
+        public IActionResult MatchMobileDetails(int userid, int RoleId, int PageNo, int NoofRow)
+        {
+            try
+            {
+                return Ok(_voterService.MatchMobileDetails(userid, RoleId, PageNo, NoofRow));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/MatchMobileDetails");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("MatchMobileFile")]
+        public IActionResult MatchMobileFile(int userid, int RoleId, int PageNo, int NoofRow)
+        {
+            try
+            {
+                var filepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "MobileMatchFile.csv");
+                var result = _voterService.MobileMatchFile(userid, RoleId);
+                if (result != null && result.Count() != 0)
+                {
+                    using (var writer = new StreamWriter(filepath))
+                    using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+                    {
+                        csv.WriteRecords(result);
+                    }
+                    if (System.IO.File.Exists(filepath))
+                    {
+                       
+                        var provider = new FileExtensionContentTypeProvider();
+                        if (!provider.TryGetContentType(filepath, out var contentType))
+                        {
+                            contentType = "application/octet-stream";
+                        }
+                        var bytes = System.IO.File.ReadAllBytes(filepath);
+                        System.IO.File.Delete(filepath);
+                        return File(bytes, contentType, Path.GetFileName(filepath));
+                    }
+                }
+             return Ok("Error");
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/MatchMobileFile");
+                return BadRequest(ex);
+            }
+        }
+
         [HttpGet("GetWhatAppImagebyUserId")]
         public IActionResult GetWhatAppImagebyUserId(int UserId)
         {
@@ -1084,5 +1245,184 @@ namespace ElectionAlerts.Controller
                 return BadRequest(ex);
             }
         }
+
+        [HttpGet("GetVoterDashBoard")]
+        public IActionResult GetVoterDashBoard(int UserId,int RoleId)
+        {
+            try
+            {
+                return Ok(_voterService.VoterDashBoard(UserId, RoleId));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetVoterDashBoard");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("VoterDashBoardwithMatchMobCount")]
+        public IActionResult VoterDashBoardwithMatchMobCount(int UserId, int RoleId)
+        {
+            try
+            {
+                return Ok(_voterService.VoterDashBoardwithMatchMobCount(UserId, RoleId));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/VoterDashBoardwithMatchMobCount");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("InsertMatchedMobileinContact")]
+        public IActionResult InsertMatchedMobileinContact()
+        {
+            try
+            {
+                return Ok(_voterService.InsertMatchedMobileinContact());
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/InsertMatchedMobileinContact");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetVoterwithMobileNoFile")]
+        public IActionResult GetVoterwithMobileNoFile(int userid, int RoleId)
+        {
+            try
+            {
+                var filepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "VoterwithMobileList.csv");
+                var result = _voterService.GetVoterwithMobileNoFile(userid, RoleId);
+                if (result != null && result.Count() != 0)
+                {
+                    using (var writer = new StreamWriter(filepath))
+                    using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+                    {
+                        csv.WriteRecords(result);
+                    }
+                    if (System.IO.File.Exists(filepath))
+                    {                  
+                        var provider = new FileExtensionContentTypeProvider();
+                        if (!provider.TryGetContentType(filepath, out var contentType))
+                        {
+                            contentType = "application/octet-stream";
+                        }
+
+                        var bytes = System.IO.File.ReadAllBytes(filepath);
+                        System.IO.File.Delete(filepath);
+                        return File(bytes, contentType, Path.GetFileName(filepath));
+                    }
+                }
+            return Ok();
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetVoterwithMobileNoFile");
+                return BadRequest(ex);
+            }
+
     }
- }
+
+        [HttpGet("GetMainDashBoards")]
+        public IActionResult GetMainDashBoards()
+        {
+            try
+            {
+                return Ok(_voterService.GetMainDashBoards());
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetMainDashBoards");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("UpdateBirthDateandMobileinVoter")]
+        public IActionResult UpdateBirthDateandMobileinVoter(int UserId,int RoleId)
+        {
+            try
+            {
+                return Ok(_voterService.UpdateBirthDateandMobileinVoter(UserId, RoleId));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/UpdateBirthDateandMobileinVoter");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("VoterwithMobileNobyPartNo")]
+        public IActionResult VoterwithMobileNobyPartNo(int UserId, int RoleId, int PageNo, int NoofRow, string Language, string SearchText,int PartNo)
+        {
+            try
+            {
+                IEnumerable<GetVoterByPartNo> getVoters = null;
+                var result= _voterService.VoterwithMobileNo(UserId, RoleId, PageNo, NoofRow, Language, SearchText);
+                if(result!=null)
+                {
+                    getVoters = result.Where(x => x.PartNo==PartNo).Select(x=>x);
+                }
+                return Ok(getVoters);
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/VoterwithMobileNo");
+                return BadRequest(ex);
+            }
+        }
+
+
+        [HttpGet("GetVoterRelative")]
+        public IActionResult GetVoterRelative(int Id, int PageNo, int NoofRow, string Language)
+        {
+            try
+            {
+                return Ok(_voterService.GetVoterRelative(Id, PageNo, NoofRow, Language));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/GetVoterRelative");
+                return BadRequest(ex);
+            }
+        }
+    }
+
+    public static class Extensions
+    {     
+        public static string CheckLenght(this String str, int num)
+        {
+            if (!String.IsNullOrEmpty(str))
+            {
+                if (str.Length < num)
+                {
+                    return str;
+                }
+                else
+                    return null;
+            }
+            else
+                return str;
+        }
+
+        public static string convert_to_number(this String No)
+        {
+            string mobileno = "";
+            //remove special characters  
+            foreach (char ch in No)
+            {
+                if (ch != ' ' && ch != '+' && ch != '-')
+                {
+                    mobileno = mobileno + ch.ToString();
+                }
+            }
+            //convert to 10 digit  
+            if (mobileno.Length > 10)
+            {
+                mobileno = mobileno.Substring(mobileno.Length - 10, 10);
+            }
+            return (mobileno);
+        }
+    }
+}

@@ -1,5 +1,6 @@
 ﻿using ElectionAlerts.Model;
 using ElectionAlerts.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,7 @@ namespace ElectionAlerts.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AnnapurnaController : ControllerBase
     {
         private readonly IAnnapurnaService _annapurnaService;

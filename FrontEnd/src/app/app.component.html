@@ -133,6 +133,7 @@
 
         <div  class="subnav" *ngIf="isVoterList">
           <button class="subnavbtn"><img src="assets/img/shopping-list.png" alt=""><br> {{'Election' | translate}}  </button>
+          <button class="subnavbtn"><img src="assets/img/shopping-list.png" alt=""><br> {{'Election' | translate}}  </button>
           <div class="subnav-content">
             <!-- <ion-item lines="full" class="sub-menu" routerLink="/dashboard">
                {{'Voter Dashboard' | translate}}
@@ -143,9 +144,15 @@
 
             <ion-item lines="full" class="sub-menu" routerLink="/voter-summary">
                {{'Voter List' | translate}}
+               {{'Voter List' | translate}}
             </ion-item>
       
             <ion-item lines="full" class="sub-menu" routerLink="/list">
+               {{'Voter Search' | translate}}
+            </ion-item>
+
+            <ion-item lines="full" class="sub-menu" routerLink="/mobile-match">
+               {{'Match Mobile No.' | translate}}
                {{'Voter Search' | translate}}
             </ion-item>
 
@@ -159,6 +166,7 @@
             
             <ion-item lines="none" class="sub-menu" routerLink="/survey">
                {{'Survey' | translate}}
+               {{'Survey' | translate}}
             </ion-item>
             
           </div>
@@ -171,6 +179,7 @@
         </div>
 
         <div *ngIf="isComBook" class="subnav" routerLink="/complaint-book" >
+          <button class="subnavbtn"><img src="assets/img/list1.png" alt=""><br> {{'Complaint Book' | translate}} </button>
           <button class="subnavbtn"><img src="assets/img/list1.png" alt=""><br> {{'Complaint Book' | translate}} </button>
         </div>
 
@@ -482,6 +491,7 @@
       <ion-label>Log Out</ion-label>
     </ion-item> -->
 
+    <!-- [style.width.px]="menuWidth" -->
     <!-- [style.width.px]="menuWidth" -->
     <ion-split-pane content-id="main-content">
       <ion-menu side="start" contentId="main-content">

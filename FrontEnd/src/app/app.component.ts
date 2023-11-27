@@ -11,7 +11,7 @@ import {
   NavigationExtras
 } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { MenuController, PopoverController, AlertController } from '@ionic/angular';
+import { MenuController, PopoverController, AlertController   } from '@ionic/angular';
 import { NotificationComponent } from './notification/notification.component';
 import { ProfileComponent } from './profile/profile.component';
 import { Platform } from '@ionic/angular';
@@ -21,6 +21,7 @@ import { AndroidPermissions } from '@awesome-cordova-plugins/android-permissions
 import { LoaderService } from 'src/app/services/loader.service'
 import { AuthenticationService } from 'src/app/services/authentication.service'
 import { Location } from '@angular/common'
+import { TranslateService } from '@ngx-translate/core';
 import { TranslateService } from '@ngx-translate/core';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 //import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -93,6 +94,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
+    //private menu: MenuController,
     //private menu: MenuController,
     public popoverController: PopoverController,
     //private socialSharing: SocialSharing,
@@ -257,9 +259,15 @@ export class AppComponent implements OnInit {
   // }
 
 
+  // toggleMenuWidth() {
+  //   this.menuWidth = this.menuWidth === 218 ? 90 : 218; // Toggle between widths
+  // }
+
+
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
   }
+
 
 
   initializeApp() {

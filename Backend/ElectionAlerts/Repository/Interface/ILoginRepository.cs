@@ -13,6 +13,8 @@ namespace ElectionAlerts.Repository.Interface
         IEnumerable<ConfigureDB> GetConfigureDB();
         int InsertConfigureDBbyUser(ConfigureDB configureDB);
         int DeleteConfigureDBbyUser(int Id);
+
+        int UpdateMessageSent(int Id,string Type);
         int InsertUser(AdminUser user);
         int DeleteUser(int Id);
         int ChangeUserPassword(int id, string password);

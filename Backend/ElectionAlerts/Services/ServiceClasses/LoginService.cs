@@ -100,5 +100,10 @@ namespace ElectionAlerts.Services.ServiceClasses
         {
             return _loginRepository.GetAllSocietyMember(userid);
         }
+
+        public int UpdateMessageSent(int Id,string Type)
+        {
+            return _loginRepository.UpdateMessageSent(Id,Type);
+        }
     }
 }

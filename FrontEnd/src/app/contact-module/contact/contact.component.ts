@@ -26,6 +26,7 @@ export class ContactComponent implements OnInit {
   fileName= 'Contact.xlsx';
   PageNo:any=1;
   NoofRow:any=25; 
+  NoofRow:any=25; 
   SearchText:any;
   currentDate = new Date();
   birthDate: any;
@@ -89,6 +90,7 @@ export class ContactComponent implements OnInit {
           e.birthDate = e.birthDate.split('T')[0] == '1900-01-01' ? '' : e.birthDate.split('T')[0]; 
           e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '' : e.anniversary.split('T')[0]; 
         });
+
 
       }
       else{
@@ -197,6 +199,8 @@ export class ContactComponent implements OnInit {
         this.getContacts.forEach(e => {
           e.birthDate = e.birthDate.split('T')[0] == '1900-01-01' ? '' : e.birthDate.split('T')[0];
           e.anniversary = e.anniversary.split('T')[0] == '1900-01-01' ? '' : e.anniversary.split('T')[0]; 
+          delete e.totalCount;
+          delete e.loginUserId;
           delete e.totalCount;
           delete e.loginUserId;
         });

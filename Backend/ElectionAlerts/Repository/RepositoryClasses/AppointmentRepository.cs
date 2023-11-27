@@ -18,8 +18,13 @@ namespace ElectionAlerts.Repository.RepositoryClasses
 {
     public class AppointmentRepository : IAppointmentRepository
     {
-        private CustomContext _customContext=new CustomContext();
-
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private CustomContext _customContext;
+        public AppointmentRepository(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            _customContext = new CustomContext(_httpContextAccessor);
+        }
         public int DeleteAppointmentbyId(int Id)
         {
             try

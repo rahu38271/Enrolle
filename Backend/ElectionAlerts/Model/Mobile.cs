@@ -8,10 +8,14 @@ namespace ElectionAlerts.Model
     public class Mobile
     {
         public int Id { get; set; }
-        public string CName { get; set; }
-        public string MName { get; set; }
+        public string FullName { get; set; }
+        public string BirthDate { get; set; }
         public string MobileNo { get; set; }
-        public string Address { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public string LocalAddress { get; set; }
+        public string PermanentAddress { get; set; }
+        public string AltMobileNo { get; set; }
+        public string Email { get; set; }
+        public string DateofJoining { get; set; }
+        public string CreatedDate { get; set; }
     }
 }

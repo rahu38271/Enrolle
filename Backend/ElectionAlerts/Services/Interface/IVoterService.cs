@@ -10,14 +10,15 @@ namespace ElectionAlerts.Services.Interface
     public interface IVoterService
     {
         IEnumerable<GetVoterByPartNo> GetAllVoter(int UserId, int RoleId, int PageNo, int NoofRow,string Language, string SearcText);
+        IEnumerable<GetVoterByPartNo> GetAllVoterSurvey(int userid, int RoleId, int PageNo, int NoofRow, string Language, string SearcText);
         int CreateVoter(Voter voter);
         int UpadateVoter(Voter voter);
-        int InsertBulkVoter(List<Voter> voters);
-        int InsertBulkMobile(List<Mobile> mobiles);
+        int InsertBulkVoter(List<VoterBulk> voters);
+        int InsertBulkMobile(List<VoterMobileBulk> mobiles);
         int DeleteVoterbyId(int Id);
         IEnumerable<GetVoterByPartNo> FilterVoterbyCondition(VoterTable table);
         IEnumerable<GetVoterByPartNo> FilterVoterList(VoterTable table);
-        GetVoterByPartNo GetVoterDetailbyId(int Id, string Language);
+        IEnumerable<GetVoterByPartNo> GetVoterDetailbyId(int Id, string Language);
         IEnumerable<GetVoterByPartNo> GetVoterbyRelation(int Id,int UserId,int RoleId, int PageNo, int NoofRow,string Language);
         IEnumerable<Table> FilterColoumnCount(VoterTable table);
         IEnumerable<LastNameCount> GetVoterCountbyLastName(int userid, int RoleId,int PageNo, int NoofRow, string Language, string SearchText);
@@ -53,11 +54,23 @@ namespace ElectionAlerts.Services.Interface
         IEnumerable<CastebyLanguage> GetAllCaste(string Language);
         IEnumerable<VoterMobileNo> GetAllMobile();
         IEnumerable<Profession> GetAllProfession();
-        int InsertProfession(string ProfessionName);
+        int InsertProfession(Profession ProfessionName);
         int InsertLandingPage(string ImageName, string ImagePath, int UserId);
         LandingPage GetAllLandingPage(int UserId);
         int InsertUpdateWhatUpContent(WhatAppContent whatAppContent);
         WhatAppContent GetWhatAppContentbyUserId(int UserId);
+        IEnumerable<VoterMobile> GetMobileMatch(string VoterName);
+        IEnumerable<GetVoterByPartNo> GetVoterOldAddress(int userid, int RoleId, int PageNo, int NoofRow, string Language, string SearcText);
+        IEnumerable<VoterMobileDTO> MatchMobileDetails(int userid, int RoleId, int PageNo, int NoofRow);
+        IEnumerable<VoterDashBoard> VoterDashBoard(int userid, int RoleId);
+        IEnumerable<VoterDashBoardwithMobCount> VoterDashBoardwithMatchMobCount(int userid, int RoleId);
+        int InsertCast(CastebyLanguage Caste);
+        int InsertMatchedMobileinContact();
+        IEnumerable<GetVoterByPartNo> GetVoterwithMobileNoFile(int userid, int RoleId);
+        IEnumerable<MainDashBoard> GetMainDashBoards();
+        IEnumerable<VoterMobileDTO> MobileMatchFile(int userid, int RoleId);
+        int UpdateBirthDateandMobileinVoter(int userid, int RoleId);
+        IEnumerable<GetVoterByPartNo> GetVoterRelative(int Id, int PageNo, int NoofRow, string Language);
     }
 
 }

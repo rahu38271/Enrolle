@@ -25,7 +25,7 @@ namespace ElectionAlerts.Services.ServiceClasses
         {
             return _icontactreposritory.InsertSingleContact(contact);
         }
-        public int InsertBulkContact(List<Contact> contact)
+        public int InsertBulkContact(List<BulkContact> contact)
         {
             return _icontactreposritory.InsertBulkContact(contact);
         }
@@ -38,6 +38,11 @@ namespace ElectionAlerts.Services.ServiceClasses
         public int DeleteContactbyId(int Id)
         {
             return _icontactreposritory.DeleteContactbyId(Id);
+        }
+
+        public IEnumerable<Contact> GetContacts()
+        {
+            return _icontactreposritory.GetContacts();
         }
     }
 }

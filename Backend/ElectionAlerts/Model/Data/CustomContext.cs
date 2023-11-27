@@ -35,7 +35,7 @@ namespace ElectionAlerts.Model.Data
             if (!optionsBuilder.IsConfigured)
             {
                  // MasterDBconstr = "Server=184.168.194.78;Database=EnrolleMasterQA;User Id=EnrolleMasterQA; Password=EnrolleMasterQA@123;pooling=false;";
-                  MasterDBconstr = "Server=45.249.108.42;Database=EnrolleMasterQA;User Id=EnrolleMasterQA; Password=EnrolleMasterQA@123;pooling=false;";
+                  MasterDBconstr = "Server=45.249.108.42;Database=EnrolleMasterQA;User Id=EnrolleMasterQA; Password=EnrolleMasterQA@123;pooling=true;";
 
                 optionsBuilder.UseSqlServer(MasterDBconstr, x => x.EnableRetryOnFailure());
             }
@@ -99,17 +99,30 @@ namespace ElectionAlerts.Model.Data
         }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-
-         
-            string ElectionAlertconstr;
+            string constr=null;
+            var identity = _httpContextAccessor.HttpContext.User.Identity as ClaimsIdentity;
+            if (identity.Claims.Count() > 0)
+            {
+                IEnumerable<Claim> claims = identity.Claims;
+                foreach (var c in claims)
+                {
+                    if (c.Type.Contains("name"))
+                        constr = c.Value;
+                }
+            }
 
             if (!optionsBuilder.IsConfigured)
             {
-              
-                ElectionAlertconstr = Startup.ElectionAlertConStr;
-                optionsBuilder.UseSqlServer(ElectionAlertconstr, x => x.EnableRetryOnFailure());
+                var username = _httpContextAccessor.HttpContext.User.Identity.Name;
+                //var storedData = _httpContextAccessor.HttpContext.Session.GetString(username);
+                // ElectionAlertconstr = Startup.ElectionAlertConStr;
+                //ElectionAlertconstr = storedData;
+                // optionsBuilder.UseSqlServer(ElectionAlertconstr, x => x.EnableRetryOnFailure());
+                optionsBuilder.UseSqlServer(constr, x => x.EnableRetryOnFailure());
             }
         }
+        public DbSet<VoterAddress> VoterAddresses { get; set; }
+        public DbSet<VoterMobile> VoterMobiles { get; set; }
         public DbSet<Village> Villages { get; set; }
         public DbSet<Contact> Contact { get; set; }
         public DbSet<User> UsersDetails { get; set; }
@@ -172,7 +185,19 @@ namespace ElectionAlerts.Model.Data
         public DbSet<Profession> Professions { get; set; }
         public DbSet<LandingPage> LandingPages { get; set; }
         public DbSet<WhatAppContent> whatAppContents { get; set; }
-
+        public DbSet<VoterMobileDTO> VoterMobileDTOs { get; set; }
+        public DbSet<Letter> Letters { get; set; }
+        public DbSet<LetterDTO> LetterDTOs { get; set; }
+        public DbSet<SubLetter> SubLetters { get; set; }
+        public DbSet<SubLetterDTO> SubLetterDTOs { get; set; }
+        public DbSet<Departmet> Departmets { get; set; }
+        public DbSet<Office> Offices { get; set; }
+        public DbSet<LetterDashBoard> LetterDashBoards { get; set; }
+        public DbSet<VoterDashBoard> VoterDashBoards { get; set; }
+        public DbSet<VoterDashBoardwithMobCount> MyProperty { get; set; }
+        public DbSet<MainDashBoard> MainDashBoards { get; set; }
+        public DbSet<SmsSetting> SmsSettings { get; set; }
+        public DbSet<Versions> Versions { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Districts>().HasNoKey();
@@ -197,7 +222,12 @@ namespace ElectionAlerts.Model.Data
             modelBuilder.Entity<ComplaintCount>().HasNoKey();
             modelBuilder.Entity<ActivityLogCountDTO>().HasNoKey();
             modelBuilder.Entity<ActivityLogCount>().HasNoKey();
-          
+            modelBuilder.Entity<ActivityLogCount>().HasNoKey();
+            modelBuilder.Entity<ContactwithCount>().HasNoKey();
+            modelBuilder.Entity<LetterDashBoard>().HasNoKey();
+            modelBuilder.Entity<VoterDashBoard>().HasNoKey();
+            modelBuilder.Entity<VoterDashBoardwithMobCount>().HasNoKey();
+            modelBuilder.Entity<MainDashBoard>().HasNoKey();
         }
     }
 }
