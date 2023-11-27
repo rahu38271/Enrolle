@@ -200,7 +200,7 @@ namespace ElectionAlerts.Controller
             catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "SocietyController/GetComplaintCountbyUserId");
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 

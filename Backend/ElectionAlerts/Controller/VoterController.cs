@@ -415,7 +415,7 @@ namespace ElectionAlerts.Controller
             {
                 //Console.WriteLine(voters.Count);
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/InserVoterExcel");
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
 
         }
