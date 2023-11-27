@@ -56,6 +56,7 @@ export class SuperadminComponent implements OnInit {
     
   }
 
+
   dbLink(){
     this.router.navigate(['/superadmin/db-list']);
   }

@@ -2,7 +2,7 @@
   <ion-header class="android">
     <ion-toolbar>
       <ion-buttons slot="start">
-        <ion-back-button defaultHref="/home/mobile-dashboard"></ion-back-button>
+        <ion-icon (click)="goBack()" name="arrow-back-sharp"></ion-icon>
       </ion-buttons>
       <ion-title> Users, {{getAdminList.length}} </ion-title>
       <ion-buttons slot="primary">

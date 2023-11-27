@@ -641,7 +641,6 @@ export class VoterService {
 
   // update mobile and DoB in voter from bulk matching excel
   uploadMatchedMobDoB(UserId:any, RoleId:any){
-    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });

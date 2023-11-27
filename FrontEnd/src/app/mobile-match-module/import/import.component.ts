@@ -221,7 +221,6 @@ export class ImportComponent implements OnInit {
   }
 
   updateVoter(){
-    debugger;
     this.loader.showLoading();
     return this.voter.uploadMatchedMobDoB(this.UserId,this.RoleId).subscribe(data=>{
       if(data){

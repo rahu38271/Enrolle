@@ -7,10 +7,10 @@
             <ion-col>
                 <ion-toolbar>
                     <ion-segment value="all">
-                      <ion-segment-button class="websiteView" value="about">About Us</ion-segment-button>
-                      <ion-segment-button class="mobileView" value="services">services</ion-segment-button>
+                      <ion-segment-button class="websiteView" value="about" (click)="scrollTo('aboutUs')">About Us</ion-segment-button>
+                      <ion-segment-button class="mobileView" value="services" (click)="scrollTo('services')">services</ion-segment-button>
                       <ion-segment-button class="websiteView"  value="privacy" routerLink="/privacy-policy">Privacy Policy</ion-segment-button>
-                      <ion-segment-button class="websiteView"  value="contacts">Contact Us</ion-segment-button>
+                      <ion-segment-button class="websiteView"  value="contacts" (click)="scrollTo('contactUs')">Contact Us</ion-segment-button>
                       <ion-segment-button class="mobileView" value="login" routerLink="/login">
                         <ion-button color="primary">Login</ion-button>
                       </ion-segment-button>
@@ -19,7 +19,7 @@
             </ion-col>
         </ion-row>
     </ion-grid>
-    <ion-grid>
+    <ion-grid id="aboutUs">
         <ion-row>
             <ion-col>
                 <img src="/assets/img/111.jpeg" alt="">
@@ -34,7 +34,7 @@
             </ion-col>
         </ion-row>
     </ion-grid>
-    <ion-grid>
+    <ion-grid id="services">
         <ion-row class="title">
             <ion-text>Services</ion-text>
         </ion-row>
@@ -79,5 +79,15 @@
                   </ion-card>
             </ion-col>
         </ion-row>
+    </ion-grid>
+    <ion-grid id="contactUs">
+      <ion-row>
+        <h2> Contact Us </h2>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+
+        </ion-col>
+      </ion-row>
     </ion-grid>
 </ion-content>

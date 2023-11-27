@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { Component, OnInit,ViewChild } from '@angular/core';
+import { IonContent, MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-website',
@@ -7,13 +7,17 @@ import { MenuController } from '@ionic/angular';
   styleUrls: ['./website.component.css']
 })
 export class WebsiteComponent implements OnInit {
-
+  @ViewChild(IonContent ) content: IonContent ;
+  scrollTo(_id: string) {
+    let y = document.getElementById(_id).offsetTop;
+    this.content.scrollToPoint(0, y);
+  }
   constructor(
     public menuCtrl: MenuController,
   ) { }
 
   ngOnInit(): void {
-    debugger;
+
   }
 
   ionViewWillEnter() {
