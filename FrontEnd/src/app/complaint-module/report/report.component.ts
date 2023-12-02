@@ -4,6 +4,7 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { ExcelService } from 'src/app/services/excel.service';
 import { CsvService } from 'src/app/services/csv.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-report',
@@ -24,6 +25,7 @@ export class ReportComponent implements OnInit {
     private toast:IonicToastService,
     private excel:ExcelService,
     private csv:CsvService,
+    private location:Location
   ) { }
 
   ngOnInit(): void {
@@ -37,7 +39,6 @@ export class ReportComponent implements OnInit {
   }
 
   reportList(){
-    debugger
     this.loader.showLoading();
     this.searchModal.UserId = Number(this.UserId);
     this.searchModal.RoleId = Number(this.RoleId);
@@ -59,6 +60,10 @@ export class ReportComponent implements OnInit {
     },(err)=>{
       this.loader.hideLoader();
     })
+  }
+
+  goBack(){
+    this.location.back();
   }
 
   exportExcel(){

@@ -57,7 +57,7 @@ export class ImageComponent implements OnInit {
             this.router.navigate(['/complaint-book/all-complaints']);
           }
           
-        }, 2000);
+        }, 1000);
         this.isStatic=false;
         
       }
@@ -65,8 +65,14 @@ export class ImageComponent implements OnInit {
         this.isStatic=true;
         setTimeout(() => {
           this.isStatic=true;
-          this.router.navigate(['/home/mobile-dashboard'])
-        }, 2000);
+          if(this.roleId==2 || this.roleId==3 || this.roleId==4){
+            this.router.navigate(['/home/mobile-dashboard'])
+          }else if(this.roleId==5){
+            this.router.navigate(['/complaint-book']);
+          }else if(this.roleId==6){
+            this.router.navigate(['/complaint-book/all-complaints']);
+          }
+        }, 1000);
       }
       
     },(err)=>{

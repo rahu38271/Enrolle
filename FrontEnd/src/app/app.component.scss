@@ -111,8 +111,8 @@ h4 {
 }
 
 .subnavbtn img {
-  width: 25px;
-  margin-bottom: 10px;
+  width: 35px;
+  margin-bottom: -2px;
 }
 
 @media screen and (max-width: 768px) {
@@ -175,7 +175,7 @@ ion-toolbar ion-icon {
 }
 
 .mobileMenu ion-label {
-  padding: 3px 0px 0px 10px;
+  padding: 3px 0px 0px 2px;
   // font-size: 17px !important;
 }
 
@@ -463,3 +463,6 @@ ion-list ion-item ion-avatar {
 //   transition: max-height 0.3s ease;
 // }
 
+.dashboard .icon-images {
+  width: 34px;
+}

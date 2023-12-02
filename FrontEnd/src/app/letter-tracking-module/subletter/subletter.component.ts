@@ -14,6 +14,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SubletterComponent implements OnInit {
   id:any;
+  letter_Outward_No:any;
   isModalOpen = false;
   isModalEdit = false;
   allSubLetters:any;
@@ -30,7 +31,7 @@ export class SubletterComponent implements OnInit {
   name:any;
   RoleId:any;
   PageNo:any=1;
-  NoofRow:any=25;
+  NoofRow:any=10;
   allSubLtr:any;
   imageUrl:any;
   addedSubletter:any;
@@ -39,6 +40,8 @@ export class SubletterComponent implements OnInit {
   isCompleted1 = false;
   isPending1 = false;
   status: string;
+  Letter_No: any;
+  LetterID: any;
 
   constructor(
     public modalCtrl: ModalController,
@@ -51,6 +54,7 @@ export class SubletterComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    //this.letter_Outward_No = this.route.snapshot.paramMap.get('letter_Outward_No');
     this.id = this.route.snapshot.paramMap.get('id');
     this.UserId = localStorage.getItem('loginId');
     this.name = localStorage.getItem('loginUser');
@@ -67,21 +71,21 @@ export class SubletterComponent implements OnInit {
     
   }
 
-  // Letter by id
+  // Letter by id. subletter taken from main letter
   subLetterList(){
     this.id = this.id;
-    this.letterService.getAllSubLetter(this.id).subscribe(data=>{
+    this.letterService.getLetter(this.id).subscribe(data=>{
       if(data){
         this.allSubLetters = data;
         this.allSubLetters.forEach(e => {
           e.letter_Submit_Date = e.letter_Submit_Date.split('T')[0];
-          e.status = e.status;
-          if(e.status !== "Completed"){
-            this.isPending1 =true;
-          }
-          else{
-            this.isCompleted1 = true;
-          }
+          // e.status = e.status;
+          // if(e.status !== "Completed"){
+          //   this.isPending1 =true;
+          // }
+          // else{
+          //   this.isCompleted1 = true;
+          // }
         });
       }
       else{
@@ -96,6 +100,7 @@ export class SubletterComponent implements OnInit {
   listSubLtrs(){
     this.letterService.getSubletterList(this.id).subscribe(data=>{
       if(data){
+        console.log(data);
         this.addedSubletter = data;
         this.addedSubletter.forEach(e => {
           e.status = e.status;
@@ -145,6 +150,26 @@ export class SubletterComponent implements OnInit {
     this.loader.showLoading();
     this.id = Number(event.target.id);
     this.letterService.downloadSubLetter(this.id).subscribe((data: Blob)=>{
+      if(data.size!= 0){
+        this.loader.hideLoader();
+        this.saveFile(data);
+        this.fetchImage(data);
+        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+      }
+      else{
+        this.loader.hideLoader();
+        this.toast.presentToast("No File!", "danger", 'alert-circle-sharp');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
+  }
+
+  // download letter
+  downloadLetterFile(){
+    this.loader.showLoading();
+    this.id = Number(this.id);
+    this.letterService.downloadLetter(this.id).subscribe((data: Blob)=>{
       if(data.size!= 0){
         this.loader.hideLoader();
         this.saveFile(data);
@@ -211,11 +236,18 @@ export class SubletterComponent implements OnInit {
     }
   }
 
+  openSubLetter(letter_Outward_No:any){
+    console.log(letter_Outward_No);
+    letter_Outward_No = letter_Outward_No;
+    this.isModalOpen = true;
+  }
+
   // add subletter
   subLetter(){
-    //this.subletter.UserId = Number(this.UserId);
+    //this.subletter.id = Number(this.letter_Outward_No);
+    this.subletter.UserId = Number(this.UserId);
     this.subletter.UserName = this.name;
-    this.subletter.LetterID = Number(this.id);
+    this.subletter.LetterID = this.allSubLetters[0].letter_Outward_No;
     this.subletter = JSON.stringify(this.subletter);
     this.loader.showLoading();
     this.letterService.addSubLetter(this.subletter, this.file).subscribe(data=>{
@@ -294,9 +326,7 @@ export class SubletterComponent implements OnInit {
     await alert.present();
   }
 
-  family(){
-    this.isModalOpen = true;
-  }
+
 
   EditSubltr(data:any){
     this.isModalEdit = true;

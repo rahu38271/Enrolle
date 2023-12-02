@@ -105,6 +105,7 @@ export class LoginComponent implements OnInit {
           localStorage.setItem('token' ,data.token);
         }
         //localStorage.setItem('token' ,data.token);
+        //localStorage.setItem("expiryTime",(Date.now() + data.expiryTime * 1000).toString())
         localStorage.setItem("adminId", data.user[0].adminId);
         localStorage.setItem("superAdminId", data.user[0].superAdminId);
         localStorage.setItem("adminId", data.user[0].adminId)

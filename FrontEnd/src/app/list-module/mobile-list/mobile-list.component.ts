@@ -24,7 +24,9 @@ export class MobileListComponent implements OnInit {
   NoofRow:any=25;
   totalItems:any;
   SearchText:any;
-   
+  imageUrl:any;
+  UserId: any;
+  RoleId: any;
   search(){
     this.isShow = !this.isShow
   }
@@ -131,44 +133,84 @@ export class MobileListComponent implements OnInit {
 
   
 
-  exportExcel():void {
-    this.PageNo=1;
-    this.NoofRow=this.totalItems;
-    var SearchText = "";
-    this.loader.showLoading();
-    this.voter.voterWithMobile(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
-      if(data.length != 0){
-        this.loader.hideLoader();
-        this.voterMobile = data;
-        this.totalItems = data[0].totalCount;
-        this.excel.exportAsExcelFile(this.voterMobile, 'Mobilelist Voter');
-        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
-      }
-      else{
-        this.loader.hideLoader();
-        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
-      }
-    },(err)=>{
-      this.loader.hideLoader();
-    })
+  // exportExcel():void {
+  //   this.PageNo=1;
+  //   this.NoofRow=this.totalItems;
+  //   var SearchText = "";
+  //   this.loader.showLoading();
+  //   this.voter.voterWithMobile(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
+  //     if(data.length != 0){
+  //       this.loader.hideLoader();
+  //       this.voterMobile = data;
+  //       this.totalItems = data[0].totalCount;
+  //       this.excel.exportAsExcelFile(this.voterMobile, 'Mobilelist Voter');
+  //       this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+  //     }
+  //     else{
+  //       this.loader.hideLoader();
+  //       this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+  //     }
+  //   },(err)=>{
+  //     this.loader.hideLoader();
+  //   })
+  // }
+
+  // exportToCSV() {
+  //   this.PageNo=1;
+  //   this.NoofRow=this.totalItems;
+  //   var SearchText = "";
+  //   this.loader.showLoading();
+  //   this.voter.voterWithMobile(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
+  //     if(data.length != 0){
+  //       this.loader.hideLoader();
+  //       this.voterMobile = data;
+  //       this.totalItems = data[0].totalCount;
+  //       this.csv.exportToCsv(this.voterMobile, 'Mobilelist Voter');
+  //       this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+  //     }
+  //     else{
+  //       this.loader.hideLoader();
+  //       this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
+  //     }
+  //   },(err)=>{
+  //     this.loader.hideLoader();
+  //   })
+  // }
+
+  saveCSVFile(imageData: Blob) {
+    const blob = new Blob([imageData], { type: 'text/csv' });
+    const link = document.createElement('a');
+    link.href = window.URL.createObjectURL(blob);
+    // link.download = '';
+    link.download = 'voter-mobile.csv';
+    link.click();
   }
 
-  exportToCSV() {
+
+  // to download image from get api
+  fetchImage(image:Blob){
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      this.imageUrl = reader.result as string;
+    };
+    reader.readAsDataURL(image);
+  }
+
+  exportToCSV(){
     this.PageNo=1;
     this.NoofRow=this.totalItems;
-    var SearchText = "";
+    this.UserId = this.userId;
+    this.RoleId = this.roleID;
+    this.SearchText = this.SearchText;
     this.loader.showLoading();
-    this.voter.voterWithMobile(this.userId,this.roleID,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe(data=>{
-      if(data.length != 0){
+    this.voter.voterMobileFile(this.UserId,this.RoleId,this.PageNo,this.NoofRow,this.Language,this.SearchText).subscribe((data:Blob)=>{
+      if(data.size!=0){
         this.loader.hideLoader();
-        this.voterMobile = data;
-        this.totalItems = data[0].totalCount;
-        this.csv.exportToCsv(this.voterMobile, 'Mobilelist Voter');
-        this.toast.presentToast("File downloaded successfully!", "success", 'checkmark-circle-sharp');
+        this.saveCSVFile(data);
+        this.fetchImage(data);
       }
       else{
         this.loader.hideLoader();
-        this.toast.presentToast("No data available", "danger", 'alert-circle-outline');
       }
     },(err)=>{
       this.loader.hideLoader();

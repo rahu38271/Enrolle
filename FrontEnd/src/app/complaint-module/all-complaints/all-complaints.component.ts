@@ -8,7 +8,7 @@ import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { AlertController } from '@ionic/angular';
 import { Location } from '@angular/common';
 import { LoaderService } from 'src/app/services/loader.service';
-
+import { MenuController } from '@ionic/angular'
 
 @Component({
   selector: 'app-all-complaints',
@@ -55,7 +55,8 @@ export class AllComplaintsComponent implements OnInit {
     private toast: IonicToastService,
     public alertController: AlertController,
     private location: Location,
-    private loader: LoaderService
+    private loader: LoaderService,
+    public menuCtrl: MenuController
   ) {
     
    }
@@ -86,6 +87,7 @@ export class AllComplaintsComponent implements OnInit {
   
 
   ionViewWillEnter() {
+    this.menuCtrl.enable(true);
     this.complaintList(this.UserId,this.RoleId, this.PageNo, this.NoofRow,this.SearchText);
   }
 

@@ -97,7 +97,6 @@ export class ContactService {
   }
 
   reportByDate(Type:any, Date:any,PageNo:any, NoofRow:any, SearchText:any){
-    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });

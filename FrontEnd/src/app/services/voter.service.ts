@@ -660,5 +660,13 @@ export class VoterService {
     });
     return this.http.get<any>(this.url+'Voter/GetVoterRelative?Id='+Id+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language,{ headers })
   }
+
+  // voter with mobile file
+  voterMobileFile(UserId:any,RoleId:any,PageNo:any,NoofRow:any,Language:any,SearchText:any):Observable<Blob>{
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get(this.url+'Voter/VoterwithMobileNoFile?UserId='+UserId+'&RoleId='+RoleId+'&PageNo='+PageNo+'&NoofRow='+NoofRow+'&Language='+Language+'&SearchText='+SearchText,{ responseType: "blob", reportProgress: true,headers })
+  }
   
 }

@@ -81,6 +81,7 @@ export class LetterService {
 
   // download letter
   downloadLetter(id:any): Observable<Blob>{
+    debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
@@ -96,7 +97,7 @@ export class LetterService {
   }
 
   // subletter list by id
-  getAllSubLetter(id:any){
+  getLetter(id:any){
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });

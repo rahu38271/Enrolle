@@ -225,7 +225,7 @@
 
           <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
             <ion-label position="floating"> Address   </ion-label>
-              <ion-textarea name="Address" maxlength="160" [(ngModel)]="contactModal.Address" #Address="ngModel" [ngClass]="{'is-invalid': f.submitted && Address.invalid}" class="form-control" ></ion-textarea>
+              <ion-textarea name="Address" maxlength="200" [(ngModel)]="contactModal.Address" #Address="ngModel" [ngClass]="{'is-invalid': f.submitted && Address.invalid}" class="form-control" ></ion-textarea>
               <div *ngIf="f.submitted && Address.invalid" class="invalid-feedback">
                 <div *ngIf="Address.errors.required">
                   Please enter address

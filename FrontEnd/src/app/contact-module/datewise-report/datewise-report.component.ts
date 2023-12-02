@@ -5,6 +5,7 @@ import { LoaderService } from 'src/app/services/loader.service';
 import { IonicToastService } from 'src/app/services/ionic-toast.service';
 import { ExcelService } from 'src/app/services/excel.service'
 import { CsvService } from 'src/app/services/csv.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-datewise-report',
@@ -39,7 +40,8 @@ export class DatewiseReportComponent implements OnInit {
     private loader:LoaderService,
     private toast:IonicToastService,
     private excel:ExcelService,
-    private csv:CsvService
+    private csv:CsvService,
+    private location:Location
   ) { }
 
   ngOnInit(): void {
@@ -139,6 +141,10 @@ export class DatewiseReportComponent implements OnInit {
 
   trimInput() {
     this.searchModal.SearchText = this.searchModal.SearchText.trim();
+  }
+
+  goBack(){
+    this.location.back();
   }
 
 }

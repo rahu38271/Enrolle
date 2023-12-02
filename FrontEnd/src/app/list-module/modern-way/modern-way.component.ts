@@ -414,6 +414,7 @@ omit_special_char(event) {
   }
 
   AllCasts(){
+    this.Language = "English"
     this.voter.getAllCaste(this.Language).subscribe(data=>{
       this.casteList=data;
     })

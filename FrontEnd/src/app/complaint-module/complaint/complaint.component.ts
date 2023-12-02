@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ComplaintService } from 'src/app/services/complaint.service'
 import { IPointRenderEventArgs } from '@syncfusion/ej2-angular-charts';
+import { MenuController } from '@ionic/angular'
 
 @Component({
   selector: 'app-complaint',
@@ -31,6 +32,7 @@ export class ComplaintComponent implements OnInit {
 
   constructor(
     private complaint: ComplaintService,
+    public menuCtrl: MenuController,
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +41,7 @@ export class ComplaintComponent implements OnInit {
   }
 
   ionViewWillEnter() {
+    this.menuCtrl.enable(true);
     this.allComplaintCount();
   }
 

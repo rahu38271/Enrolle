@@ -85,7 +85,6 @@ export class DailyNewsComponent implements OnInit {
   }
 
   editNews(data:any){
-    debugger;
     this.router.navigateByUrl('/daily-news/edit-daily-news', { state: data })
   }
 

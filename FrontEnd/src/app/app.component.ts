@@ -84,7 +84,7 @@ export class AppComponent implements OnInit {
   oldversion: any;
   newVersion: any;
   installedversion: any;
-
+  //expiryTime:any;
 
   getClass() {
     return "active"
@@ -146,10 +146,10 @@ export class AppComponent implements OnInit {
       })
     });
     platform.ready().then(() => {
-      // this.update.checkForUpdates();
-      if(this.platform.is('android')){
-      this.checkForUpdates();
-      }
+      //this.checkForUpdates();
+      // if(this.platform.is('android')){
+      // this.checkForUpdates();
+      // }
 
     });
 
@@ -176,7 +176,8 @@ export class AppComponent implements OnInit {
       this.name = localStorage.getItem("loginUser");
       this.roleId = localStorage.getItem("userType");
       this.state = localStorage.getItem("state");
-      this.apkName = localStorage.getItem("superAdminName")
+      this.apkName = localStorage.getItem("superAdminName");
+      //this.expiryTime = localStorage.getItem("expiryTime");
       if (this.roleId == 1) {
         this.roleName = "MasterAdmin"
       }
@@ -205,7 +206,8 @@ export class AppComponent implements OnInit {
       var isSociety = roleId == "5"
       var isMember = roleId == "6"
       this.cdr.detectChanges();
-
+      //this.isTokenExpired();
+      //this.checkForUpdates();
       this.isDashboard = isMasterAdmin || isSuperAdmin || isAdmin || isVolunteer;
       this.isSuperAdmin = isMasterAdmin || isSuperAdmin || isAdmin;
       this.isContact = isMasterAdmin || isSuperAdmin || isAdmin;
@@ -235,12 +237,7 @@ export class AppComponent implements OnInit {
       this.isComBook = isMasterAdmin || isSuperAdmin || isAdmin || isSociety;
       this.isComBookByUser = isMember;
     })
-
-
-    
-
-    if (this.platform.is('android')) {
-      // keeps user logged in for android app so that user doesnt have to login every time app opens
+    // keeps user logged in for android app so that user doesnt have to login every time app opens
     // but dont use this code for web view bcoz when i refresh from any page in the app, it redirects me to dashboard page
     if (localStorage.getItem('loginId') != undefined || null) {
       this.router.navigate(['/image']);
@@ -248,7 +245,7 @@ export class AppComponent implements OnInit {
     else {
      this.router.navigate(['/login']);
     }
-    }
+    
 
   }
 
@@ -266,6 +263,9 @@ export class AppComponent implements OnInit {
     this.platform.ready().then(() => {
       //this.statusBar.styleDefault();
       this.splashScreen.hide();
+      if(this.platform.is("android")){
+        this.checkForUpdates();
+      }
     });
   }
 
@@ -340,35 +340,39 @@ export class AppComponent implements OnInit {
   }
 
   checkForUpdates() {
-    this.versionService.getandroidVersion().subscribe(data => {
-      if (data) {
-        console.log(data)
-        this.versionInfo = data;
-        var info = {
-          newVersion: data[0].newVersion,
-          oldversion: data[0].installedversion,
-          msg: {
-            title: 'App update',
-            msg: 'Update Matadarmaza',
-            btn: 'Update'
+    if(this.platform.is('android')){
+      this.versionService.getandroidVersion().subscribe(data => {
+        if (data) {
+          this.versionInfo = data;
+          var info = {
+            newVersion: data[0].newVersion,
+            oldversion: data[0].installedversion,
+            msg: {
+              title: 'App update',
+              msg: 'Update Matadarmaza',
+              btn: 'Update'
+            }
           }
-        }
-       
-        const newVersion = data[0].newVersion;
-        this.newVersion=newVersion;
-        const installedversion = data[0].installedversion;
-        this.installedversion = installedversion;
-        if (this.platform.is('android')) {
-          if (newVersion > installedversion) {
-            this.presentalrt(info.msg.title, info.msg.msg, info.msg.btn);
+         
+          const newVersion = data[0].newVersion;
+          this.newVersion=newVersion;
+          const installedversion = data[0].installedversion;
+          this.installedversion = installedversion;
+          if (this.platform.is('android')) {
+            if (newVersion > installedversion) {
+              this.presentalrt(info.msg.title, info.msg.msg, info.msg.btn);
+            }else{
+              return this.alertController.dismiss();
+            }
           }
-        } else {
-
+          // if (this.platform.is('android') && newVersion > installedversion) {
+          //   this.presentalrt(info.msg.title, info.msg.msg, info.msg.btn);
+          // }else{
+          //   this.hideAlert();
+          // }
         }
-      }
-    
-  })
-
+    })
+    }
 }
 
 async presentalrt(header,message,buttonText ='', allowClose = false)
@@ -392,11 +396,15 @@ async presentalrt(header,message,buttonText ='', allowClose = false)
       await alert.present();
    }
 
+
+
+ 
+
    openAppStoreEntry()
    {
      if(this.platform.is('android'))
      {
-       window.open("https://play.google.com/store/apps/details?id=io.ionic.pollmaster","_system")//Lyteboxprod
+       window.open("https://play.google.com/store/apps/details?id=io.ionic.pollmaster","_system")// matadarmaza prod
      }
      else
      {
@@ -404,6 +412,21 @@ async presentalrt(header,message,buttonText ='', allowClose = false)
      }
  
    }
+
+  // isTokenExpired() {
+  //   const expiryTime = localStorage.getItem('expiryTime');
+  //   this.expiryTime = expiryTime;
+  //   if (!expiryTime) {
+  //     return true;
+  //   }
+  //   return Date.now() > parseInt(expiryTime, 10);
+  // }
+
+  // handleTokenExpiry(){
+  //   if(this.isTokenExpired()){
+  //     this.router.navigate(['/login']);
+  //   }
+  // }
 
 }
 

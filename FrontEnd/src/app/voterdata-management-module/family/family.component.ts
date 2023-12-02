@@ -58,6 +58,7 @@ export class FamilyComponent {
   }
 
   familyWiseVoterData(id:any,PageNo:any,NoofRow:any,Language:any){
+    this.Language = this.translateConfigService.getCurrentLang();
     if(this.Language == "kn"){
       this.Language = "Kannada"
     }

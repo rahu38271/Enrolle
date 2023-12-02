@@ -48,7 +48,7 @@
                                             <th rowspan="1" colspan="1">Pending</th>
                                             <th rowspan="1" colspan="1">To other departments</th>
                                             <th rowspan="1" colspan="1">Department Name</th>
-                                            <th rowspan="1" colspan="1">Case No.</th>
+                                            <th rowspan="1" colspan="1">Letter No.</th>
                                             <th rowspan="1" colspan="1">Office Name</th>
                                             <th rowspan="1" colspan="1">Remark</th>
                                             <th rowspan="1" colspan="1">File</th>
@@ -69,8 +69,9 @@
                                             <td>
                                                 {{item.department}}                                           
                                             </td>
+                                            
                                             <td>
-                                                {{item.caseNo}}                                          
+                                              {{item.letter_No}}
                                             </td>
                                             <td>
                                                 {{item.office}}                                            
@@ -78,12 +79,12 @@
                                             <td>
                                             </td>
                                             <td class="file">
-                                                <ion-icon name="cloud-download-sharp" (click)="downloadFile($event)" id="{{item.id}}">
+                                                <ion-icon name="cloud-download-sharp" (click)="downloadLetterFile(this.id)" >
 
                                                 </ion-icon>
                                             </td>
                                             <td class="action">
-                                                <ion-icon (click)="family()" name="add-circle-sharp"></ion-icon>
+                                                <ion-icon id="{{item.letter_Outward_No}}" (click)="openSubLetter(item.letter_Outward_No)" name="add-circle-sharp"></ion-icon>
                                             </td>
                                         </tr>
                                         <tr *ngFor="let item of addedSubletter">
@@ -116,8 +117,8 @@
                                                 </ion-icon>
                                             </td>
                                             <td class="action">
-                                                <ion-icon (click)="family()" name="add-circle-sharp"></ion-icon>
-                                                <ion-icon (click)="EditSubltr(item)" name="create-sharp"></ion-icon>
+                                                <ion-icon id="{{item.letter_Outward_No}}" (click)="openSubLetter(item.letter_Outward_No)" name="add-circle-sharp"></ion-icon>
+                                                <!-- <ion-icon (click)="EditSubltr(item)" name="create-sharp"></ion-icon> -->
                                                 <ion-icon class="delete" name="trash-bin-sharp" (click)="letterDelete(item.id)"></ion-icon>
                                             </td>
                                         </tr>
@@ -162,10 +163,10 @@
                             </ion-radio-group>
                           </div>
                     </ion-col>
-                    <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
+                    <!-- <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
                       <ion-label> Case No. <span>*</span> </ion-label>
                       <ion-input name="Letter_No" [(ngModel)]="subletter.Letter_No" class="form-control" maxlength="10" required></ion-input>
-                    </ion-col>
+                    </ion-col> -->
 
                     <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
                         <ion-label> Letter Release Date <span>*</span> </ion-label>
