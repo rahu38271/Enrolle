@@ -198,6 +198,10 @@ namespace ElectionAlerts.Model.Data
         public DbSet<MainDashBoard> MainDashBoards { get; set; }
         public DbSet<SmsSetting> SmsSettings { get; set; }
         public DbSet<Versions> Versions { get; set; }
+        public DbSet<LastSevenDayCount> LastSevenDayCounts { get; set; }
+        public DbSet<AnnapurnaBeneficiary> AnnapurnaBeneficiaries { get; set; }
+        public DbSet<AnnapurnaDTO> AnnapurnaDTOs { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Districts>().HasNoKey();
@@ -228,6 +232,7 @@ namespace ElectionAlerts.Model.Data
             modelBuilder.Entity<VoterDashBoard>().HasNoKey();
             modelBuilder.Entity<VoterDashBoardwithMobCount>().HasNoKey();
             modelBuilder.Entity<MainDashBoard>().HasNoKey();
+            modelBuilder.Entity<LastSevenDayCount>().HasNoKey();
         }
     }
 }

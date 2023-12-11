@@ -241,5 +241,17 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 throw ex;
             }
         }
+
+        public int EnableDisableUser(int Id, string IsActive)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("Exec USP_EnableDisableUser {0},{1}", Id, IsActive);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

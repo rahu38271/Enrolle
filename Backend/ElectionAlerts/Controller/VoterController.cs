@@ -122,7 +122,6 @@ namespace ElectionAlerts.Controller
             }
         }
 
-
         [HttpPost("InsertBulkMobile")]
         public IActionResult InsertBulkMobile(List<VoterMobileBulk> voterMobileBulks)
         {
@@ -420,7 +419,6 @@ namespace ElectionAlerts.Controller
 
         }
 
-
         [HttpGet("GetVoterbyRole")]
         public IActionResult GetVoterbyRole(VoterSuperDto superDto)
         {
@@ -487,7 +485,7 @@ namespace ElectionAlerts.Controller
             catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/FilterColoumnCount");
-                return BadRequest(ex);
+                return BadRequest(ex.Message);
             }
         }
 
@@ -672,6 +670,43 @@ namespace ElectionAlerts.Controller
             catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/VoterwithMobileNo");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("VoterwithMobileNoFile")]
+        public IActionResult VoterwithMobileNoFile(int UserId, int RoleId, int PageNo, int NoofRow, string Language)
+        {
+            try
+            {
+                var filepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "VoterwithMobileNo.csv");
+                var result = _voterService.VoterwithMobileNo(UserId, RoleId, PageNo, NoofRow, Language, null);
+                if (result != null && result.Count() != 0)
+                {
+                    using (var writer = new StreamWriter(filepath))
+                    using (var csv = new CsvWriter(writer, new CsvConfiguration(CultureInfo.InvariantCulture)))
+                    {
+                        csv.WriteRecords(result);
+                    }
+                    if (System.IO.File.Exists(filepath))
+                    {
+                        string Filepath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "VoterwithMobileNo.csv");
+                        var provider = new FileExtensionContentTypeProvider();
+                        if (!provider.TryGetContentType(Filepath, out var contentType))
+                        {
+                            contentType = "application/octet-stream";
+                        }
+
+                        var bytes = System.IO.File.ReadAllBytes(Filepath);
+                        System.IO.File.Delete(Filepath);
+                        return File(bytes, contentType, Path.GetFileName(Filepath));
+                    }
+                }
+                return Ok("Error");
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "VoterController/VoterwithMobileNoFile");
                 return BadRequest(ex);
             }
         }

@@ -27,6 +27,7 @@ namespace ElectionAlerts.Repository.Interface
         List<Taluka> GetAllTaluka(int DId);
         IEnumerable<Assembly> GetAssembly();
         IEnumerable<AdminUser> GetAllSocietyMember(int userid);
+        int EnableDisableUser(int Id, string IsActive);
 
     }
 }

@@ -1,4 +1,5 @@
-﻿using ElectionAlerts.Model;
+﻿using ElectionAlerts.Dto;
+using ElectionAlerts.Model;
 using ElectionAlerts.Repository.Interface;
 using ElectionAlerts.Services.Interface;
 using System;
@@ -32,6 +33,26 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _annapurnaRepository.GetAllAnnapurna();    
         }
 
+        public IEnumerable<AnnapurnaDTO> GetAllAnnapurnawithPage(int PageNo, int NoofRow)
+        {
+            return _annapurnaRepository.GetAllAnnapurnawithPage(PageNo, NoofRow);
+        }
+
+        public IEnumerable<AnnapurnaBeneficiary> GetAnnapurnaBeneficiariesFromTo(string Name, string FromDate, string ToDate)
+        {
+            return _annapurnaRepository.GetAnnapurnaBeneficiariesFromTo(Name, FromDate, ToDate);
+        }
+
+        public IEnumerable<Annapurna> GetAnnapurnabyId(int Id)
+        {
+            return _annapurnaRepository.GetAnnapurnabyId(Id);
+        }
+
+        public IEnumerable<Annapurna> GetAnnapurnaFromTo(string Name, string FromDate, string ToDate)
+        {
+            return _annapurnaRepository.GetAnnapurnaFromTo(Name, FromDate, ToDate);
+        }
+
         public IEnumerable<Family> GetFamilybyId(int ANPID)
         {
             return _annapurnaRepository.GetFamilybyId(ANPID);
@@ -40,6 +61,11 @@ namespace ElectionAlerts.Services.ServiceClasses
         public int InsertUpdate(Annapurna annnapurna)
         {
             return _annapurnaRepository.InsertUpdate(annnapurna);
+        }
+
+        public int InsertUpdateAnnapurnaBeneficiary(AnnapurnaBeneficiary annapurna)
+        {
+            return _annapurnaRepository.InsertUpdateAnnapurnaBeneficiary(annapurna);
         }
 
         public int InsertUpdateFamily(Family family)

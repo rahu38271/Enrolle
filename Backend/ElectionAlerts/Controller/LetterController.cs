@@ -20,11 +20,13 @@ namespace ElectionAlerts.Controller
     {
         private readonly ILetterService _letterService;
         private readonly IExceptionLogService _exceptionLogService;
+        private readonly ISubLetterService _subLetterService;
 
-        public LetterController(ILetterService letterService, IExceptionLogService exceptionLogService)
+        public LetterController(ILetterService letterService, IExceptionLogService exceptionLogService, ISubLetterService subLetterService)
         {
             _letterService = letterService;
             _exceptionLogService = exceptionLogService;
+            _subLetterService = subLetterService;
         }
 
         [HttpPost("CreateUpdateLetter")]
@@ -90,6 +92,16 @@ namespace ElectionAlerts.Controller
         {
             try
             {
+                var subletter = _subLetterService.GetSubLetterbyId(Id);
+                foreach(var sub in subletter)
+                {
+                    if (!String.IsNullOrEmpty(sub.FileName))
+                    {
+                        var filepath = Path.Combine(Directory.GetCurrentDirectory(), "Image", "SubLetterImage", sub.FileName);
+                        if (System.IO.File.Exists(filepath))
+                            System.IO.File.Delete(filepath);
+                    }
+                }
                 var letter = _letterService.GetLetterById(Id);
                 if(letter!=null)
                 {

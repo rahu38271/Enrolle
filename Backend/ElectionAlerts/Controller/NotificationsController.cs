@@ -67,5 +67,19 @@ namespace ElectionAlerts.Controller
             }
         }
 
+        [HttpGet("LastSevenDayCountsbyEvent")]
+        public IActionResult LastSevenDayCountsbyEvent(string Type)
+        {
+            try
+            {
+                return Ok(_notificationService.LastSevenDayCountsbyEvent(Type));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "NotificationsController/LastSevenDayCountsbyEvent");
+                return BadRequest(ex);
+            }
+        }
+
     }
 }

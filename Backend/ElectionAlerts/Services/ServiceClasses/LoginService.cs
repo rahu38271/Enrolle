@@ -105,5 +105,10 @@ namespace ElectionAlerts.Services.ServiceClasses
         {
             return _loginRepository.UpdateMessageSent(Id,Type);
         }
+
+        public int EnableDisableUser(int Id, string IsActive)
+        {
+            return _loginRepository.EnableDisableUser(Id, IsActive);
+        }
     }
 }

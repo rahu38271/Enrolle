@@ -19,6 +19,6 @@ namespace ElectionAlerts.Dto
         public string District { get; set; }
         public int? LoginUserId { get; set; }
         public int? PartNo { get; set; }
-        public DateTime OtherDate { get; set; }
+        //public DateTime OtherDate { get; set; }
     }
 }

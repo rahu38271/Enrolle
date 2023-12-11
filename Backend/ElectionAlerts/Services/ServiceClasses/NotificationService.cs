@@ -41,6 +41,18 @@ namespace ElectionAlerts.Services.ServiceClasses
             }
         }
 
+        public IEnumerable<LastSevenDayCount> LastSevenDayCountsbyEvent(string Type)
+        {
+            try
+            {
+                return _inotificationreposritory.LastSevenDayCountsbyEvent(Type);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public string SendNotifications(Contact cnt)
         {
             try
