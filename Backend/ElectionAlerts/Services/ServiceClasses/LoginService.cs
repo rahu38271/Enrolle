@@ -110,5 +110,10 @@ namespace ElectionAlerts.Services.ServiceClasses
         {
             return _loginRepository.EnableDisableUser(Id, IsActive);
         }
+
+        public string GetOtp(string contact)
+        {
+            return _loginRepository.GetOtp(contact);
+        }
     }
 }

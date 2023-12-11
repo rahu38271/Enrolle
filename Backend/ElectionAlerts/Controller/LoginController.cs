@@ -424,6 +424,19 @@ namespace ElectionAlerts.Controller
             }
         }
 
+        [HttpGet("Otp")]
+        public IActionResult Getotp(string Contact)
+        {
+            try
+            {
+                return Ok(_loginService.GetOtp(Contact));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "AuthenticationController/Otp");
+                return BadRequest(ex);
+            }
+        }
     }
 
 }
