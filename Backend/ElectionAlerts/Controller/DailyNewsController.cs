@@ -121,6 +121,17 @@ namespace ElectionAlerts.Controller
         {
             try
             {
+                var result = _dataNewsService.GetDailyNewsbyId(Id);
+                if (result != null)
+                {
+                    if (!string.IsNullOrEmpty(result.FileName))
+                    {
+                        var path = Path.Combine(Directory.GetCurrentDirectory(), "Image", "DailyNews", result.FileName);
+                        if (System.IO.File.Exists(path))
+                            System.IO.File.Delete(path);
+                    }
+                }
+
                 return Ok(_dataNewsService.DeleteDailyNews(Id));
             }
             catch(Exception ex)

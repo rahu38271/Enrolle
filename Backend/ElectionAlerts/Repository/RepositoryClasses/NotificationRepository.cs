@@ -48,6 +48,18 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             
         }
 
+        public IEnumerable<LastSevenDayCount> LastSevenDayCountsbyEvent(string Type)
+        {
+            try
+            {
+                return _customContext.Set<LastSevenDayCount>().FromSqlRaw("EXEC Usp_LastSevenDayEventCount {0}", Type);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public string SendNotifications(Contact cnt)
         {
             try

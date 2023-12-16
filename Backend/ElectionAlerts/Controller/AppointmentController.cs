@@ -35,9 +35,21 @@ namespace ElectionAlerts.Controller
             try
             {
                 Appointment appointment = JsonConvert.DeserializeObject<Appointment>(appointments);
-                
-                if(file!=null)
+
+                if (file != null)
+                {
                     appointment.FileName = file.FileName;
+                    if(appointment.Id>0)
+                    {
+                        var update = _appointmentService.GetAppointmentbyId(appointment.Id);
+                        if (update.FileName != appointment.FileName)
+                        {
+                            var path = Path.Combine(Directory.GetCurrentDirectory(), "Image", "AppointmentImage", update.FileName);
+                            if (System.IO.File.Exists(path))
+                                System.IO.File.Delete(path);
+                        }
+                    }
+                }
 
                 var result = _appointmentService.InsertUpdateAppintment(appointment);
                

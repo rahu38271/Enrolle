@@ -12,5 +12,6 @@ namespace ElectionAlerts.Repository.Interface
         IEnumerable<Contact> GetTodaysNotifications(string NotifiactionType);
         string SendNotifications(Contact cnt);
         IEnumerable<ContactwithCount> GetNotificationbyDate(string NotifiactionType, string Date, string Name,int PageNo, int NoofRow, string SearchText);
+        IEnumerable<LastSevenDayCount> LastSevenDayCountsbyEvent(string Type);
     }
 }

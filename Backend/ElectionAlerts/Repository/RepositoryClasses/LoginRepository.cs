@@ -5,7 +5,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace ElectionAlerts.Repository.RepositoryClasses
@@ -238,6 +240,80 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
             catch(Exception ex)
             {
+                throw ex;
+            }
+        }
+
+        public int EnableDisableUser(int Id, string IsActive)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("Exec USP_EnableDisableUser {0},{1}", Id, IsActive);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public string GetOtp(string contact)
+        {
+            try
+            {
+                string otp = GenerateOtp();
+                string msg = "Dear User , Your one time password is " + otp + ". Kindly do not share with any one. Prolit Technologies ";
+                WebClient web = new WebClient();
+                //string url = "http://45.114.143.189/api/mt/SendSMS?username=prolittechnologies&password=prolit3214&senderid=Prolit&type=0&destination=" + contact + "&text=" + msg + "&peid=%201301165123633080685";
+                string url = "http://45.114.143.189/api/mt/SendSMS?username=prolittechnologies&password=Prolit@12&senderid=Prolit&type=0&destination=9579743709&text=Your One Time Password for login is " + otp + ". Put this OTP and press submit. Prolit Technology &peid=1301165123633080685";
+                Stream stream = web.OpenRead(url);
+                StreamReader reader = new StreamReader(stream);
+                return otp;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public string GenerateOtp()
+        {
+            try
+            {
+
+                string[] saAllowedCharacters = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "0" };
+                string sOTP = string.Empty;
+
+                string sTempChars = string.Empty;
+
+                Random rand = new Random();
+
+                for (int i = 0; i < 6; i++)
+
+                {
+
+                    int p = rand.Next(0, saAllowedCharacters.Length);
+
+                    sTempChars = saAllowedCharacters[rand.Next(0, saAllowedCharacters.Length)];
+
+                    sOTP += sTempChars;
+
+                }
+                return sOTP;
+                //using (var client = new HttpClient())
+                //{
+                //    client.BaseAddress = new Uri("http://45.114.143.189/api/mt/");
+                //    var responce = client.GetAsync("SendSMS?username=thakur&password=thakur123&senderid=Thakur&type=8&destination=" + MobileNo + "&text=Dear User, Kindly use this OTP " + sOTP + " to login. Office of Adv.Yashomati Thakur &peid=1301159187210511020").Result;
+                //if (responce.IsSuccessStatusCode)                                                               
+                //{
+                //	return RedirectToAction("SubmitPatientDetails");
+                //}
+                //return RedirectToAction("SubmitPatientDetails");
+                //}
+                //return Request.CreateResponse(HttpStatusCode.OK, sOTP);
+            }
+            catch (Exception ex)
+            {
+
                 throw ex;
             }
         }

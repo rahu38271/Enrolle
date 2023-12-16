@@ -28,7 +28,7 @@ namespace ElectionAlerts.Controller
         private readonly IExceptionLogService _exceptionLogService;
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LoginController(ILoginService loginService,IConfiguration config, IExceptionLogService exceptionLogService, IHttpContextAccessor httpContextAccessor)
+        public LoginController(ILoginService loginService, IConfiguration config, IExceptionLogService exceptionLogService, IHttpContextAccessor httpContextAccessor)
         {
             _loginService = loginService;
             _config = config;
@@ -48,6 +48,10 @@ namespace ElectionAlerts.Controller
                 var user = _loginService.LoginUser(Username, Password);
                 if (user != null)
                 {
+                    if (user.IsActive == "N")
+                    {
+                        return Ok("User is Disabled");
+                    }
                     adminUsers.Add(user);
                     msg = "User Logined";
                     if (user.RoleId > 1)
@@ -68,10 +72,10 @@ namespace ElectionAlerts.Controller
                         {
                             string cnstr = "Server=" + configDB.IPAddress + ";Database=" + configDB.DBName + ";User Id=" + configDB.UserName + ";Password =" + configDB.Password + ";pooling=false;";
                             Startup.ElectionAlertConStr = cnstr;
-                            
+
                             token = GenerateJSONWebToken(cnstr);
                             //string UserId = null;
-                           
+
                             //HttpContext.Session.SetString(UserId, cnstr);
                         }
                         else
@@ -86,7 +90,7 @@ namespace ElectionAlerts.Controller
                         var UserDetails = (from u in userdet join s in SuperAdmin on u.SuperAdminId equals s.Id select new { Id = u.Id, Name = u.Name, Contact = u.Contact, UserName = u.UserName, Password = u.Password, Email = u.Email, State = s.State, District = s.District, Taluka = s.Taluka, AssemblyName = s.AssemblyName, Village = s.Village, RoleId = u.RoleId, CreatedDate = u.CreatedDate, IsActive = u.IsActive, AdminId = u.AdminId, SuperAdminId = u.SuperAdminId, SuperAdminName = s.Name }).ToList();
                         return Ok(new { token = token, ExpiryTime = 1800, User = UserDetails });
                     }
-                    return Ok(new { token = token, ExpiryTime = 1800, User = adminUsers });
+                    return Ok(new { token = token, ExpiryTime = 120, User = adminUsers });
                 }
                 else
                 {
@@ -105,15 +109,15 @@ namespace ElectionAlerts.Controller
         {
             try
             {
-               return Ok( _loginService.InsertConfigureDBbyUser(configureDB));
+                return Ok(_loginService.InsertConfigureDBbyUser(configureDB));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/InsertUpdateDBConfigure");
                 return BadRequest(ex);
             }
         }
-     
+
         [HttpGet("DeleteDBConfigure")]
         public IActionResult DeleteDBConfigure(int Id)
         {
@@ -121,7 +125,7 @@ namespace ElectionAlerts.Controller
             {
                 return Ok(_loginService.DeleteConfigureDBbyUser(Id));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/DeleteDBConfigure");
                 return BadRequest(ex);
@@ -157,13 +161,13 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("UpdateMessageSent")]
-        public IActionResult UpdateMessageSent(int Id,string Type)
+        public IActionResult UpdateMessageSent(int Id, string Type)
         {
             try
             {
-                return Ok(_loginService.UpdateMessageSent(Id,Type));
+                return Ok(_loginService.UpdateMessageSent(Id, Type));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/UpdateMessageSent");
                 return BadRequest(ex);
@@ -176,9 +180,9 @@ namespace ElectionAlerts.Controller
             try
             {
                 IEnumerable<AdminUser> users = _loginService.GetAllUser();
-                if (user.Id>0)
+                if (user.Id > 0)
                 {
-                    var result = from u in users where (u.Id!=user.Id) && (u.Contact == user.Contact || u.Password == user.Password) select u;
+                    var result = from u in users where (u.Id != user.Id) && (u.Contact == user.Contact || u.Password == user.Password) select u;
                     if (result.Count() != 0)
                         return BadRequest(0);
                     else
@@ -198,16 +202,15 @@ namespace ElectionAlerts.Controller
                         return Ok(_loginService.InsertUser(user));
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/CreateUser");
                 return BadRequest(ex);
             }
         }
 
-        
         [HttpPost("UpdatePassword")]
-        public IActionResult UpdatePassword(int Id,string PassWord )
+        public IActionResult UpdatePassword(int Id, string PassWord)
         {
             try
             {
@@ -265,7 +268,7 @@ namespace ElectionAlerts.Controller
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken(issuer: _config["Jwt:Issuer"], audience: _config["Jwt:Audience"],
-            expires: DateTime.Now.AddMinutes(30), claims: claims,
+            expires: DateTime.Now.AddMinutes(120), claims: claims,
             signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
@@ -290,7 +293,7 @@ namespace ElectionAlerts.Controller
 
                 System.IO.File.WriteAllText(appSettingsPath, newJson);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -303,13 +306,26 @@ namespace ElectionAlerts.Controller
             {
                 return Ok(_loginService.GetAllUser());
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/GetAllUser");
                 return BadRequest(ex);
             }
         }
 
+        [HttpPost("EnableDisableUser")]
+        public IActionResult EnableDisableUser(int Id, string IsActive)
+        {
+            try
+            {
+                return Ok(_loginService.EnableDisableUser(Id, IsActive));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/EnableDisableUser");
+                return BadRequest(ex);
+            }
+        }
         [HttpGet("GetAdminbySuperAdminId")]
         public IActionResult GetAdminbySuperAdminId(int superid)
         {
@@ -408,6 +424,19 @@ namespace ElectionAlerts.Controller
             }
         }
 
+        [HttpGet("Otp")]
+        public IActionResult Getotp(string Contact)
+        {
+            try
+            {
+                return Ok(_loginService.GetOtp(Contact));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "AuthenticationController/Otp");
+                return BadRequest(ex);
+            }
+        }
     }
 
 }

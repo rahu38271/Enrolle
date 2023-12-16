@@ -137,7 +137,6 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("EditSubLetterbyId")]
-
         public IActionResult EditSubLetterbyId(int Id)
         {
             try
@@ -147,6 +146,20 @@ namespace ElectionAlerts.Controller
             catch(Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "SubLetterController/EditSubLetterbyId");
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("SubletterbyLetterNo")]
+        public IActionResult SubletterbyLetterNo(string LetterNO)
+        {
+            try
+            {
+                return Ok(_subLetterService.SubletterbyLetterNo(LetterNO));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "SubLetterController/SubletterbyLetterNo");
                 return BadRequest(ex.Message);
             }
         }

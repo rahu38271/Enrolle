@@ -76,5 +76,17 @@ namespace ElectionAlerts.Services.ServiceClasses
                 throw ex;
             }
         }
+
+        public IEnumerable<SubLetterDTO> SubletterbyLetterNo(string LetterNo)
+        {
+            try
+            {
+                return _subLetterRepository.SubletterbyLetterNo(LetterNo);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

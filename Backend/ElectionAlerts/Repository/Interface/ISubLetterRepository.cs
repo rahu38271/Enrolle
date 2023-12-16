@@ -14,5 +14,6 @@ namespace ElectionAlerts.Repository.Interface
         IEnumerable<SubLetter> GetSubLetterbyId(int Id);
         int DeleteSubLetterbyId(int Id);
         IEnumerable<SubLetter> GetSubLettersbyLetterId(int Id);
+        IEnumerable<SubLetterDTO> SubletterbyLetterNo(string LetterNo);
     }
 }

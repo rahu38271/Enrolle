@@ -24,7 +24,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _customContext.Database.ExecuteSqlRaw("Exec USP_InsertUpdateSubLetter {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}", subLetter.Id, subLetter.Letter_No, subLetter.Letter_Realese_Date, subLetter.To_Other_Department, subLetter.Department_Name, subLetter.Office_Name, subLetter.Remark, subLetter.FileName, subLetter.Status, subLetter.UserId, subLetter.UserName, DateTime.Now.ToShortDateString(),subLetter.LetterID);
+                return _customContext.Database.ExecuteSqlRaw("Exec USP_InsertUpdateSubLetter {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12}", subLetter.Id, subLetter.Letter_No, subLetter.Letter_Realese_Date, subLetter.To_Other_Department, subLetter.Department_Name, subLetter.Office_Name, subLetter.Remark, subLetter.FileName, subLetter.Status, subLetter.UserId, subLetter.UserName, DateTime.Now,subLetter.LetterID);
             }
             catch(Exception ex)
             {
@@ -73,6 +73,18 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             try
             {
                 return _customContext.Set<SubLetter>().FromSqlRaw("Exec USP_DownloadFilebyId {0}", Id);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<SubLetterDTO> SubletterbyLetterNo(string LetterNo)
+        {
+            try
+            {
+                return _customContext.Set<SubLetterDTO>().FromSqlRaw("Exec Usp_SubletterbyLetterNo {0}", LetterNo);
             }
             catch (Exception ex)
             {
