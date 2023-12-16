@@ -111,4 +111,10 @@ export class SuperadminService {
     });
     return this.http.get<any>(this.url+'Auth/GetPartNoAssignedOtherthanThisuser?userid='+userID+'&roleid='+role,{ headers })
   }
+
+  // enable disable user
+  enableDisableUser(Id:any, IsActive:any){
+    debugger;
+    return this.http.post(this.url+'Login/EnableDisableUser?Id='+Id+'&IsActive='+IsActive,Id)
+  }
 }

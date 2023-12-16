@@ -11,7 +11,7 @@ import {
   NavigationExtras
 } from '@angular/router';
 import { filter } from 'rxjs/operators';
-import { MenuController, PopoverController, AlertController } from '@ionic/angular';
+import { MenuController, PopoverController, AlertController   } from '@ionic/angular';
 import { NotificationComponent } from './notification/notification.component';
 import { ProfileComponent } from './profile/profile.component';
 import { Platform } from '@ionic/angular';
@@ -93,6 +93,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private router: Router,
+    //private menu: MenuController,
     //private menu: MenuController,
     public popoverController: PopoverController,
     //private socialSharing: SocialSharing,
@@ -239,12 +240,12 @@ export class AppComponent implements OnInit {
     })
     // keeps user logged in for android app so that user doesnt have to login every time app opens
     // but dont use this code for web view bcoz when i refresh from any page in the app, it redirects me to dashboard page
-    if (localStorage.getItem('loginId') != undefined || null) {
-      this.router.navigate(['/image']);
-    }
-    else {
-     this.router.navigate(['/login']);
-    }
+    // if (localStorage.getItem('loginId') != undefined || null) {
+    //   this.router.navigate(['/image']);
+    // }
+    // else {
+    //  this.router.navigate(['/login']);
+    // }
     
 
   }
@@ -254,9 +255,15 @@ export class AppComponent implements OnInit {
   // }
 
 
+  // toggleMenuWidth() {
+  //   this.menuWidth = this.menuWidth === 218 ? 90 : 218; // Toggle between widths
+  // }
+
+
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
   }
+
 
 
   initializeApp() {

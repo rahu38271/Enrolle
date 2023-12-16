@@ -23,4 +23,11 @@ export class DashboardService {
     });
     return this.http.get<any>(this.url+'Voter/GetMainDashBoards',{ headers })
   }
+
+  getBirthdayGraph(){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'notifications/LastSevenDayCountsbyEvent?Type=Birthday',{ headers })
+  }
 }

@@ -52,7 +52,7 @@
             <ion-label position="floating"> Village Name </ion-label>
               <ion-input maxlength="30"  name="vilageName" [(ngModel)]="EditData.vilageName" (keypress)="onKeyPress($event)" #vilageName="ngModel" class="form-control" ></ion-input>
           </ion-col>
-
+          <!-- max={{maxDate}} -->
           <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="calendar">
             <ion-label>BirthDate </ion-label>
               <ion-input
@@ -68,7 +68,7 @@
                 [backdropDismiss]="false" >
                   <ng-template>
                     <ion-datetime
-                    max={{maxDate}}
+                    
                       presentation="date"
                       [(ngModel)]="birthDate"
                       name="birthDate"

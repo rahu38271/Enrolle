@@ -195,8 +195,8 @@
                   <ion-list class="graphDiv">
                     <ejs-chart height='350' id="chart" [width]="width" [primaryXAxis]='primaryXAxisP' [primaryYAxis]='primaryYAxisP' [palettes]='paletteP' [title]='titleP'  [chartArea]='chartAreaP' >
                       <e-series-collection>
-                          <e-series groupName="A" [dataSource]='birthData' type='Column' columnWidth='0.2' xName='x' yName='y' name='Birthday' > </e-series>
-                          <e-series groupName="B" [dataSource]='anniData' type='Column' columnWidth='0.2' xName='x' yName='y' name='Anniversary'> </e-series>
+                          <e-series groupName="A" [dataSource]='birthData' type='Column' columnWidth='0.2' xName='date' yName='BirthdayCount' name='Birthday' > </e-series>
+                          <!-- <e-series groupName="B" [dataSource]='anniData' type='Column' columnWidth='0.2' xName='x' yName='y' name='Anniversary'> </e-series> -->
                         </e-series-collection>
                     </ejs-chart>
                   </ion-list>

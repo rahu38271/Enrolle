@@ -2,6 +2,7 @@
 using ElectionAlerts.Model;
 using ElectionAlerts.Model.Data;
 using ElectionAlerts.Repository.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,13 @@ namespace ElectionAlerts.Repository.RepositoryClasses
 {
     public class ActivityLogRepository : IActivityLogRepository
     {
-        private CustomContext _custonContext = new CustomContext();
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private CustomContext _custonContext;
+        public ActivityLogRepository(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            _custonContext = new CustomContext(_httpContextAccessor); 
+        }
 
         public IEnumerable<ActivityLogDTO> GetActivityLogbyUserId(int UserId, int PageNo, int NoofRow, string FromDate, string ToDate)
         {

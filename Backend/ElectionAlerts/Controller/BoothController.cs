@@ -16,7 +16,7 @@ namespace ElectionAlerts.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
-   // [Authorize]
+    [Authorize]
     public class BoothController : ControllerBase
     {
         private readonly IBoothService _boothService;

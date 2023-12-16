@@ -15,10 +15,10 @@ import { CsvService } from 'src/app/services/csv.service';
   styleUrls: ['./annapurna.component.css']
 })
 export class AnnapurnaComponent implements OnInit {
-  
+  foodModal:any={}
+  isModalOpenFood = false;
   isModalOpen = false;
   familyModalList = false;
-
   year : number = new Date().getFullYear();
   searchWeb:string;
   myForm1: any;
@@ -39,6 +39,9 @@ export class AnnapurnaComponent implements OnInit {
   checkedFamily:string[]=[];
   changedFamily:any;
   remFamModal={};
+  PageNo:any=1;
+  NoofRow:any=25;
+  totalItems:any;
   @ViewChild('epltable', { static: false }) epltable: ElementRef;
 
   onKeyPress(event) {
@@ -77,12 +80,17 @@ export class AnnapurnaComponent implements OnInit {
     }
 
     ionViewWillEnter(){
-      this.annapurnaList();
+      this.annapurnaList(this.PageNo,this.NoofRow);
         this.familyList();
     }
 
     family(event){
       this.isModalOpen = true;
+      this.anpId = Number(event.target.id)
+    }
+
+    food(event){
+      this.isModalOpenFood = true;
       this.anpId = Number(event.target.id)
     }
 
@@ -99,13 +107,11 @@ export class AnnapurnaComponent implements OnInit {
     }
 
     newFamily(){
-      debugger;
       this.remFamModal = this.checkedFamily;
       this.annapurna.removeFamily(this.remFamModal).subscribe(data=>{
         if(data){
-          //this.remFamModal={};
           this.familyModalList = false;
-          this.annapurnaList();
+          this.annapurnaList(this.PageNo,this.NoofRow);
           this.toast.presentToast("Created new family successfully!", "success", 'checkmark-circle-sharp');
         }
         else{
@@ -119,19 +125,23 @@ export class AnnapurnaComponent implements OnInit {
       this.isModalOpen = false;
     }
 
+    closeFood(){
+      this.isModalOpenFood = false;
+    }
+
     closeFamilyList(){
       this.familyModalList = false;
     }
 
    
-  annapurnaList(){
+  annapurnaList(PageNo:any,NoofRow:any){
     //this.loader.showLoading();
-    this.annapurna.getAnnapurnaList().subscribe(data=>{
+    this.annapurna.getAnnapurnaList(PageNo,NoofRow).subscribe(data=>{
       if(data != 0){
         //this.loader.hideLoader();
         this.getAnnapurna = data
         this.anpID = data[0].id;
-        
+        this.totalItems = data[0].totalCount;
         if(this.getAnnapurna.cardDone == "Y"){
           this.checked = true;
         }
@@ -156,7 +166,6 @@ export class AnnapurnaComponent implements OnInit {
   }
 
   addFamily(){
-    debugger;
     this.FamilyModal.ANPId = this.anpId;
     this.FamilyModal.ANPId = Number(this.FamilyModal.ANPId)
     this.annapurna.addAnnapurnaFamily(this.FamilyModal).subscribe(data=>{
@@ -243,6 +252,33 @@ export class AnnapurnaComponent implements OnInit {
 
     // Old monolithic-style usage:
     html2pdf(element, opt);
+  }
+
+  event(event:any){
+    this.PageNo=event;
+    this.annapurnaList(event,this.NoofRow);
+  }
+
+  foodGiven(){
+    debugger;
+    this.loader.showLoading();
+    if(this.foodModal.SupplyGiven==true){
+      this.foodModal.SupplyGiven = "Y"
+    }
+    this.foodModal.ANPId = this.anpId;
+    this.annapurna.beneficiaryAdded(this.foodModal).subscribe(data=>{
+      if(data){
+        this.loader.hideLoader();
+        this.foodModal = {};
+        this.closeFood();
+        this.toast.presentToast("Benefited successfully!", "success", 'checkmark-circle-sharp');
+      }else{
+        this.loader.hideLoader();
+        this.toast.presentToast("Not benefited saved", "danger", 'alert-circle-sharp');
+      }
+    },(err)=>{
+      this.loader.hideLoader();
+    })
   }
 
 }

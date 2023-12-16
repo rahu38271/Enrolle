@@ -41,7 +41,16 @@ export class MobileDashboardPage implements OnInit {
   mainCounts:any;
   isVoterList:any;
   isCom = false;
-
+  todayDate:any;
+  todayCount:any;
+  tomDate:any;
+  tomCount:any;
+  dayAftrTomDate:any;
+  dayAftrTomCount:any;
+  yesterdayDate:any;
+  yesterdayCount:any;
+  dayBforYestrdayDate:any;
+  dayBforYestrdayCount:any;
   // complaint graph
   public primaryXAxis: Object;
   public chartData: Object[];
@@ -179,7 +188,7 @@ export class MobileDashboardPage implements OnInit {
       this.isMarathi = !this.isMarathi
     }
     
-
+    this.birthDayGraph();
     
     this.primaryXAxisP = {
       majorGridLines: { width: 0 },
@@ -189,7 +198,7 @@ export class MobileDashboardPage implements OnInit {
       interval: 1,
       lineStyle: { width: 0 },
       valueType: "Category",
-      title: 'Week'
+      title: 'Date'
     };
     this.primaryYAxisP = {
       title: "Count",
@@ -199,34 +208,44 @@ export class MobileDashboardPage implements OnInit {
       labelFormat: "{value}"
     };
 
-    this.paletteP = ["#0067b5", "#00e29c"];
-    this.titleP = 'Weekly Count of Birthday and Anniversary';
+    this.paletteP = ["#0067b5"];
+    this.titleP = 'Datewise Count of Birthday and Anniversary';
     this.chartAreaP = {
       border: {
         width: 0
       }
     };
 
-    this.birthData = [
-      { x: "Mon", y: 111},
-      { x: "Tue", y: 127},
-      { x: "Mar", y: 143},
-      { x: "Wed", y: 159},
-      { x: "Thu", y: 159},
-      { x: "Fri", y: 149 },
-      { x: "Sat", y: 144 },
-      { x: "Sun", y: 142 }
-    ];
-    this.anniData = [
-      { x: "Mon", y: 111},
-      { x: "Tue", y: 127},
-      { x: "Mar", y: 143},
-      { x: "Wed", y: 159},
-      { x: "Thu", y: 159 },
-      { x: "Fri", y: 149 },
-      { x: "Sat", y: 144 },
-      { x: "Sun", y: 142 }
-    ];
+    // this.birthData = [
+    //   { x: this.dayBforYestrdayDate, y: this.dayBforYestrdayCount},
+    //   { x: this.yesterdayDate, y: this.yesterdayCount},
+    //   { x: this.todayDate, y: this.todayCount},
+    //   { x: this.tomDate, y: this.tomCount},
+    //   { x: this.dayAftrTomDate, y: this.dayAftrTomCount},
+    // ];
+    //this.birthData = [{'BirthdayCount':10,'date':'08-12-2023'},{'BirthdayCount':7,'date':'09-12-2023'}];
+    // this.birthData = [
+      
+    //   { x: "Mon", y: 111},
+    //   { x: "Tue", y: 127},
+    //   { x: "Mar", y: 143},
+    //   { x: "Wed", y: 159},
+    //   { x: "Thu", y: 159},
+    //   { x: "Fri", y: 149 },
+    //   { x: "Sat", y: 144 },
+    //   { x: "Sun", y: 142 }
+    // ];
+    // this.anniData = [
+    //   { x: "Mon", y: 111},
+    //   { x: "Tue", y: 127},
+    //   { x: "Mar", y: 143},
+    //   { x: "Wed", y: 159},
+    //   { x: "Thu", y: 159 },
+    //   { x: "Fri", y: 149 },
+    //   { x: "Sat", y: 144 },
+    //   { x: "Sun", y: 142 }
+    // ];
+    
 
   }
 
@@ -256,6 +275,7 @@ export class MobileDashboardPage implements OnInit {
     this.allComplaintCount();
     this.allLetterCount();
     this.countOfDashboard();
+    
   }
 
   apmCountData(){
@@ -398,7 +418,6 @@ export class MobileDashboardPage implements OnInit {
   countOfDashboard(){
     this.dashboard.getMainDashoardCount().subscribe(data=>{
       if(data){
-        console.log(data);
         this.mainCounts = data;
       }else{
 
@@ -440,6 +459,23 @@ export class MobileDashboardPage implements OnInit {
   //   console.log('onDidDismiss resolved with role and data', role, data);
   // }
 
+  birthDayGraph(){
+    this.dashboard.getBirthdayGraph().subscribe(data=>{
+     if(data){
+        this.birthData = [
+          {'BirthdayCount':data[0].countThree,'date':data[0].dateThree},
+          {'BirthdayCount':data[0].countTwo,'date':data[0].dateTwo},
+          {'BirthdayCount':data[0].countOne,'date':data[0].dateOne},
+          {'BirthdayCount':data[0].countFour,'date':data[0].dateFour},
+          {'BirthdayCount':data[0].countFive,'date':data[0].dateFive}
+        ];
+       }else{
+
+      }
+     },(err)=>{
+
+     })
+  }
 }
 
 

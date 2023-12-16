@@ -17,11 +17,11 @@ export class AnnapurnaService {
    }
 
   // get all list of annapurna
-  getAnnapurnaList():Observable<any>{
+  getAnnapurnaList(PageNo:any,NoofRow:any):Observable<any>{
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
-    return this.http.get<any>(this.url+'Annapurna/GetAllAnnapurna',{ headers })
+    return this.http.get<any>(this.url+'Annapurna/GetAllAnnapurnaPage?PageNo='+PageNo+'&NoofRow='+NoofRow,{ headers })
   }
 
   // add / edit single annapurna
@@ -58,11 +58,35 @@ export class AnnapurnaService {
 
   //remove family 
   removeFamily(remFamModal:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post(this.url+'Annapurna/RemoveFamily',remFamModal,{ headers }   )
+  }
+
+  //beneficiary added 
+  beneficiaryAdded(foodModal:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.post<any>(this.url+'Annapurna/InsertUpdateAnnapurnaBeneficiary',foodModal,{ headers })
+  }
+
+  // annapurna datewise report
+  annapurnaByDate(Name:any, FromDate:any, ToDate:any){
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${this.token}`
+    });
+    return this.http.get<any>(this.url+'Annapurna/GetAnnapurnaFromTo?Name='+Name+'&FromDate='+FromDate+'&ToDate='+ToDate,{ headers })
+  }
+
+  //beneficiary report
+  getBeneficiaryReport(Name:any, FromDate:any, ToDate:any){
     debugger;
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
-    return this.http.post(this.url+'Annapurna/RemoveFamily',remFamModal,{ headers })
+    return this.http.get<any>(this.url+'Annapurna/GetAnnapurnaBeneficiariesFromTo?Name='+Name+'&FromDate='+FromDate+'&ToDate='+ToDate,{ headers })
   }
 
 }

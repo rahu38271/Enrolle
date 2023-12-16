@@ -30,6 +30,16 @@ namespace ElectionAlerts.Dto
         public DateTime? BirthDate { get; set; }
         public string Occupation { get; set; }
         public string Email { get; set; }
+        public string BoothName { get; set; }
+        public string PrintSlip { get; set; }
+        public int? Pincode { get; set; }
+        public string PoliticalParty { get; set; }
+        public string PartyWorker { get; set; }
+        public string IsSuspisious { get; set; }
+        public string IsOutStation { get; set; }
+        public string FamilyHead { get; set; }
+        public string District { get; set; }
+        public string Taluka { get; set; }
         public int? TotalCount { get; set; }
     }
 }

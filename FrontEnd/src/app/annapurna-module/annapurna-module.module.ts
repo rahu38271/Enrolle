@@ -7,20 +7,32 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
-
+import { NgxPaginationModule} from 'ngx-pagination';
+import { ReportComponent } from './report/report.component';
+import { BeneficiaryReportComponent } from './beneficiary-report/beneficiary-report.component';
 
 @NgModule({
   declarations: [
     AnnapurnaComponent,
     AddAnnapurnaComponent,
-    EditAnnapurnaComponent
+    EditAnnapurnaComponent,
+    ReportComponent,
+    BeneficiaryReportComponent
   ],
   imports: [
     CommonModule,
     IonicModule,
     FormsModule,
     Ng2SearchPipeModule,
-    RouterModule.forChild([{path:'', component:AnnapurnaComponent},{path:'add-annapurna', component:AddAnnapurnaComponent},{path:'edit-annapurna', component:EditAnnapurnaComponent}])
+    NgxPaginationModule,
+    RouterModule.forChild([
+      {path:'', component:AnnapurnaComponent},
+      {path:'add-annapurna', component:AddAnnapurnaComponent},
+      {path:'edit-annapurna', component:EditAnnapurnaComponent},
+      {path:'report', component:ReportComponent},
+      {path:'beneficiary-report', component:BeneficiaryReportComponent}
+      
+    ])
   ]
 })
 export class AnnapurnaModuleModule { }

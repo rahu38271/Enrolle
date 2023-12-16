@@ -1,4 +1,5 @@
 ﻿using ElectionAlerts.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -11,6 +12,7 @@ namespace ElectionAlerts.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ActivityLogController : ControllerBase
     {
         private readonly IActivityLogService _activityLogService;
@@ -111,7 +113,6 @@ namespace ElectionAlerts.Controller
         }
 
         [HttpGet("GetActivityLogbyUserId")]
-
         public IActionResult GetActivityLogbyUserId(int UserId, int PageNo, int NoofRow, string FromDate, string ToDate)
         {
             try

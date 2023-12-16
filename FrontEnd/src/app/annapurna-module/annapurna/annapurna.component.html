@@ -20,13 +20,14 @@
           <ion-row>
             <ion-col size-xs="12" size-sm="6">
               <ion-card-header>
-                <ion-card-title>Annapurna <span> </span></ion-card-title>
+                <ion-card-title>Annapurna, <span> Total - {{totalItems}} </span></ion-card-title>
                 <div class="headerLine"></div>
               </ion-card-header>
             </ion-col>
             <ion-col size-xs="12" size-sm="6" class="ion-text-right">
               <ion-button class="button-download" color="primary" routerLink="/annapurna/add-annapurna"> Annapurna <ion-icon name="add-sharp"></ion-icon></ion-button>
-              <!-- <ion-button class="button-download" fill="outline" color="primary" ><ion-icon name="refresh-circle-sharp"></ion-icon>Refresh</ion-button> -->
+              <ion-button class="button-download" color="primary" routerLink="/annapurna/report">Report <ion-icon name="add-sharp"></ion-icon></ion-button>
+              <ion-button class="button-download" color="primary" routerLink="/annapurna/beneficiary-report">Beneficiary Report <ion-icon name="add-sharp"></ion-icon></ion-button>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -95,7 +96,7 @@
                 </tr>
               </thead>
               <tbody>
-                  <tr *ngFor="let item of getAnnapurna | filter:searchWeb;let i=index">
+                  <tr *ngFor="let item of getAnnapurna  | paginate: { itemsPerPage: NoofRow,currentPage:PageNo ,totalItems:totalItems }">
                     <td>{{item.id}}</td>
                     <td>
                       {{item.firstName}} {{item.middleName}} {{item.lastName}}
@@ -124,6 +125,7 @@
                       <ion-icon (click)="editAnnapurna(item)" name="create-sharp"></ion-icon>
                       <ion-icon (click)="family($event)" id="{{item.id}}" name="add-circle-sharp"></ion-icon>
                       <ion-icon (click)="deleteAnp(item.id)" class="delete" name="trash-bin-sharp"></ion-icon>
+                      <ion-icon (click)="food($event)" id="{{item.id}}" name="add-sharp"></ion-icon>
                     </td>
                   </tr>
     
@@ -132,6 +134,7 @@
             <div *ngIf="!getAnnapurna || getAnnapurna.length === 0" class="ion-text-center">
               <p>No data</p>
             </div>
+            <pagination-controls (pageChange)="event($event)"></pagination-controls>
           </div>
         </ion-card-content>
       </ion-card>
@@ -163,8 +166,8 @@
               </ion-col>
 
               <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
-                <ion-label> Phone No.  <span>*</span> </ion-label>
-                <ion-input name="phone" (keypress)="keyPressNumbers($event)" [(ngModel)]="FamilyModal.ContactNo" minlength="10" maxlength="12" class="form-control" required></ion-input>
+                <ion-label> Phone No.  </ion-label>
+                <ion-input name="phone" (keypress)="keyPressNumbers($event)" [(ngModel)]="FamilyModal.ContactNo" minlength="10" maxlength="12" class="form-control"></ion-input>
               </ion-col>
 
               <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
@@ -240,6 +243,77 @@
         </ng-template>
       </ion-modal>
     </div>
+
+    <ion-modal [isOpen]="isModalOpenFood" [backdropDismiss]="false">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Beneficiary </ion-title>
+            <ion-buttons color="danger" slot="end">
+              <ion-button  (click)="closeFood()">
+                <ion-icon name="close-sharp"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+            <ion-row>
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-sm="12" size-xs="12">
+                <ion-label> Name <span>*</span> </ion-label>
+                <ion-input name="FullName" [(ngModel)]="foodModal.FullName" (keypress)="onKeyPress($event)" maxlength="50" class="form-control" ></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-sm="12" size-xs="12">
+                <ion-label> Relation <span>*</span> </ion-label>
+                <ion-input name="Relation" [(ngModel)]="foodModal.Relation" (keypress)="onKeyPress($event)" maxlength="30" class="form-control"></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Phone No.  </ion-label>
+                <ion-input name="phone" (keypress)="keyPressNumbers($event)" [(ngModel)]="foodModal.PhoneNo" minlength="10" maxlength="12" class="form-control"></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Date </ion-label>
+                <ion-input
+                value="{{ BenefittedDate | date: 'yyyy-MM-dd' }}"
+                id="BenefittedDate"
+                class="form-control"
+                name="BenefittedDate" 
+                [(ngModel)]="foodModal.BenefittedDate" 
+              ></ion-input>
+
+              <ion-popover trigger="BenefittedDate" size="cover">
+                <ng-template>
+                  <ion-datetime
+                    presentation="date"
+                    name="BenefittedDate"
+                    [(ngModel)]="BenefittedDate"
+                    
+                  >
+                  </ion-datetime>
+                </ng-template>
+              </ion-popover>
+            </ion-col>
+
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                <ion-label> Food Suply Given  </ion-label>
+                <ion-checkbox name="SupplyGiven" [(ngModel)]="foodModal.SupplyGiven"></ion-checkbox>
+              </ion-col>
+
+              <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                <div class="ion-text-center">
+                  <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
+                  <ion-button type="submit" size="medium" [disabled]="!f.form.valid" (click)="foodGiven()">Save</ion-button>
+                </div>
+              </ion-col>
+                  
+        </ion-row>
+        </form>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
   </ion-content>
 
   

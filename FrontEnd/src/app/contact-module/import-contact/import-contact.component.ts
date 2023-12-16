@@ -57,7 +57,9 @@ export class ImportContactComponent implements OnInit {
 
   ReadExcelData() {
     debugger;
+    debugger;
     var reader = new FileReader();
+    var data = reader.result;
     var data = reader.result;
     reader.readAsBinaryString(this.file);
     reader.onload = (event) => {
@@ -84,7 +86,7 @@ export class ImportContactComponent implements OnInit {
         this.toast.presentToast("List is Empty!", "danger", 'alert-circle-sharp')
         this.disabled = true;
       }
-
+      
       //arraylist = arraylist.map((u: any) => ({ value: u.vin }));
       if (this.arraylist.length > 0) {
         for (var i = 0; i < this.arraylist.length; i++) {
@@ -188,7 +190,9 @@ export class ImportContactComponent implements OnInit {
           }
           debugger;
           console.log(this.excelUploadedData);
+          console.log(this.excelUploadedData);
           this.excelUploadedData.push(obj);
+       
         }
       }
       else {
@@ -208,6 +212,7 @@ export class ImportContactComponent implements OnInit {
   }
 
   upload(f: NgForm) {
+    debugger;
     this.loader.showLoading();
     this.contact.UploadExcel(this.excelUploadedData).subscribe((data) => {
       if (data) {
@@ -224,6 +229,7 @@ export class ImportContactComponent implements OnInit {
     }, (err) => {
       f.resetForm();
       this.loader.hideLoader();
+      //this.toast.presentToast("File uploding failed!", "danger", 'alert-circle-sharp')
       //this.toast.presentToast("File uploding failed!", "danger", 'alert-circle-sharp')
     }
     )

@@ -13,7 +13,9 @@ import { IonicToastService } from 'src/app/services/ionic-toast.service'
   styleUrls: ['./superadmin.component.css']
 })
 export class SuperadminComponent implements OnInit {
-
+  toggleValue: boolean = false;
+  IsActive:any;
+  isActive:any;
   isDB = false;
   Template = '';
   Content = '';
@@ -23,7 +25,7 @@ export class SuperadminComponent implements OnInit {
   searchWeb: string;
   cp: number = 1;
   getAdminList: any[] = [];
-
+  Id:any;
   currentDate = new Date();
   roleId: any;
   superId: any;
@@ -78,6 +80,7 @@ export class SuperadminComponent implements OnInit {
       this.dbList = this.dbList;
     }
     this.getAllAdminList();
+    
   }
 
   getAllAdminList() {
@@ -267,6 +270,27 @@ export class SuperadminComponent implements OnInit {
     });
 
     await alert.present();
+  }
+
+  // toggle(id:any){
+  //   debugger;
+  //   this.Id = id;
+  //   this.toggleValue = this.toggleValue;
+  //   if(this.toggleValue==true){
+  //     this.IsActive = "Y"
+  //   }else{
+  //     this.IsActive = "N"
+  //   }
+  //   this.sadmin.enableDisableUser(this.Id,this.IsActive).subscribe(data=>{
+  //     if(data){
+  //       console.log(data);
+  //     }
+  //   })
+  // }
+
+  disableUser(id:any){
+    debugger;
+    this.Id = id;
   }
 
 }

@@ -79,6 +79,11 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.GetAllVoter(UserId,RoleId, PageNo,NoofRow, Language, SearcText);
         }
 
+        public IEnumerable<GetVoterByPartNo> GetAllVoterSurvey(int userid, int RoleId, int PageNo, int NoofRow, string Language, string SearcText)
+        {
+            return _voterRepository.GetAllVoterSurvey(userid, RoleId, PageNo, NoofRow, Language, SearcText);
+        }
+
         public IEnumerable<BoothName> GetBoothNamebyUserId(int userid,int roleid, int PageNo, int NoofRow)
         {
             return _voterRepository.GetBoothNamebyUserId(userid,roleid,PageNo,NoofRow);
@@ -89,9 +94,19 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.GetDistinctPartNo(Role, UserId);
         }
 
+        public IEnumerable<MainDashBoard> GetMainDashBoards()
+        {
+            return _voterRepository.GetMainDashBoards();
+        }
+
         public IEnumerable<MemberDetail> GetMemberDetailsbyVId(int voterid)
         {
             return _voterRepository.GetMemberDetailsbyVId(voterid);
+        }
+
+        public IEnumerable<VoterMobile> GetMobileMatch(string VoterName)
+        {
+            return _voterRepository.GetMobileMatch(VoterName);
         }
 
         public IEnumerable<GetVoterByPartNo> GetStarVoterbyUserId(int userid,int roleid, int PageNo, int NoofRow, string Language, string SearchText)
@@ -144,7 +159,7 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.GetVoterCountbyLastName(userid, roleid,PageNo,NoofRow,Language,SearchText);
         }
 
-        public GetVoterByPartNo GetVoterDetailbyId(int Id, string Language)
+        public IEnumerable<GetVoterByPartNo> GetVoterDetailbyId(int Id, string Language)
         {
             return _voterRepository.GetVoterDetailbyId(Id,Language);
         }
@@ -154,19 +169,39 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.GetVoterInclinationUserId(inclination, userid,roleid,PageNo,NoofRow,Language,SearchText);
         }
 
+        public IEnumerable<GetVoterByPartNo> GetVoterOldAddress(int userid, int RoleId, int PageNo, int NoofRow, string Language, string SearcText)
+        {
+            return _voterRepository.GetVoterOldAddress(userid, RoleId, PageNo, NoofRow, Language, SearcText);
+        }
+
+        public IEnumerable<GetVoterByPartNo> GetVoterRelative(int Id, int PageNo, int NoofRow, string Language)
+        {
+            return _voterRepository.GetVoterRelative(Id, PageNo, NoofRow, Language);
+        }
+
+        public IEnumerable<GetVoterByPartNo> GetVoterwithMobileNoFile(int userid, int RoleId)
+        {
+            return _voterRepository.GetVoterwithMobileNoFile(userid, RoleId);
+        }
+
         public WhatAppContent GetWhatAppContentbyUserId(int UserId)
         {
             return _voterRepository.GetWhatAppContentbyUserId(UserId);
         }
 
-        public int InsertBulkMobile(List<Mobile> mobiles)
+        public int InsertBulkMobile(List<VoterMobileBulk> mobiles)
         {
             return _voterRepository.InsertBulkMobile(mobiles);
         }
 
-        public int InsertBulkVoter(List<Voter> voters)
+        public int InsertBulkVoter(List<VoterBulk> voters)
         {
             return _voterRepository.InsertBulkVoter(voters);
+        }
+
+        public int InsertCast(CastebyLanguage Caste)
+        {
+            return _voterRepository.InsertCast(Caste);
         }
 
         public int InsertLandingPage(string ImageName, string ImagePath, int UserId)
@@ -174,12 +209,17 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _voterRepository.InsertLandingPage(ImageName, ImagePath,UserId);
         }
 
+        public int InsertMatchedMobileinContact()
+        {
+            return _voterRepository.InsertMatchedMobileinContact();
+        }
+
         public int InsertMemberDetail(MemberDetail memberDetail)
         {
             return _voterRepository.InsertMemberDetail(memberDetail);
         }
 
-        public int InsertProfession(string ProfessionName)
+        public int InsertProfession(Profession ProfessionName)
         {
             return _voterRepository.InsertProfession(ProfessionName);
         }
@@ -192,6 +232,16 @@ namespace ElectionAlerts.Services.ServiceClasses
         public int InsertUpdateWhatUpContent(WhatAppContent whatAppContent)
         {
             return _voterRepository.InsertUpdateWhatUpContent(whatAppContent);
+        }
+
+        public IEnumerable<VoterMobileDTO> MatchMobileDetails(int userid, int RoleId, int PageNo, int NoofRow)
+        {
+            return _voterRepository.MatchMobileDetails(userid, RoleId, PageNo, NoofRow);
+        }
+
+        public IEnumerable<VoterMobileDTO> MobileMatchFile(int userid, int RoleId)
+        {
+            return _voterRepository.MobileMatchFile(userid, RoleId);
         }
 
         public int UpadateAltMobileVoter(int Id, string AltMobileNo)
@@ -212,6 +262,11 @@ namespace ElectionAlerts.Services.ServiceClasses
         public int UpdateAddressVoter(int Id, string Address)
         {
             return _voterRepository.UpdateAddressVoter(Id, Address);
+        }
+
+        public int UpdateBirthDateandMobileinVoter(int userid, int RoleId)
+        {
+            return _voterRepository.UpdateBirthDateandMobileinVoter(userid, RoleId);
         }
 
         public int UpdateColoumnTbl(int Id, string ColoumnName, string ColoumnValue)
@@ -242,6 +297,16 @@ namespace ElectionAlerts.Services.ServiceClasses
         public int UpdateVoterInclination(int id, string Colour)
         {
             return _voterRepository.UpdateVoterInclination(id, Colour);
+        }
+
+        public IEnumerable<VoterDashBoard> VoterDashBoard(int userid, int RoleId)
+        {
+            return _voterRepository.VoterDashBoard(userid, RoleId);
+        }
+
+        public IEnumerable<VoterDashBoardwithMobCount> VoterDashBoardwithMatchMobCount(int userid, int RoleId)
+        {
+            return _voterRepository.VoterDashBoardwithMatchMobCount(userid, RoleId);
         }
 
         public IEnumerable<GetVoterByPartNo> VoterDetailsbyColumn(string ColoumnName, string ColoumnValue,int UserId,int RoleId, int PageNo, int NoofRow, string Language, string SearchText)

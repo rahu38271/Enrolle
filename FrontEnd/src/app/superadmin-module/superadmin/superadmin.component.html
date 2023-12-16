@@ -140,9 +140,9 @@
                       <td class="action">
                         <ion-icon (click)="EditSA(item)" name="create-sharp"></ion-icon>
                         <ion-icon *ngIf="isDB" (click)="LinkDB(item.id)" name="server-sharp"></ion-icon>
-                        <ion-icon (click)="deleteUser(item.id)" class="delete" name="trash-bin-sharp"></ion-icon> 
+                        <ion-icon (click)="deleteUser(item.id)" class="delete" name="trash-bin-sharp"></ion-icon>
                       </td>
-                    </tr>
+                    </tr>                    
                   </tbody>
                 </table>
                 <div *ngIf="!getAdminList || getAdminList.length === 0 " class="text-center">

@@ -42,9 +42,19 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _societyRepository.GetComplaintCount();
         }
 
-        public IEnumerable<SocietyComplaintDTO> GetComplaintsbyStatus(string Status, int PageNo, int NoofRow, string SearchText)
+        public IEnumerable<ComplaintCount> GetComplaintCountbyUserId(int UserId, int RoleId)
         {
-            return _societyRepository.GetComplaintsbyStatus(Status,PageNo,NoofRow,SearchText);
+            return _societyRepository.GetComplaintCountbyUserId(UserId, RoleId);
+        }
+
+        public IEnumerable<SocietyComplaintDTO> GetComplaintsbyStatus(int UserId, int RoleId,string Status, int PageNo, int NoofRow, string SearchText)
+        {
+            return _societyRepository.GetComplaintsbyStatus( UserId, RoleId,Status,PageNo,NoofRow,SearchText);
+        }
+
+        public IEnumerable<SocietyComplaintDTO> GetSocietyComplaintbyDate(int UserId, int RoleId, string Subject, string FromDate, string ToDate, string UserName)
+        {
+            return _societyRepository.GetSocietyComplaintbyDate( UserId, RoleId,Subject, FromDate, ToDate, UserName);
         }
 
         public SocietyComplaint GetSocietyComplaintbyId(int Id)
@@ -52,22 +62,27 @@ namespace ElectionAlerts.Services.ServiceClasses
             return _societyRepository.GetSocietyComplaintbyId(Id);
         }
 
-        public SocietyComplaint GetSocietyComplaintbyUserId(int UserId)
+        public IEnumerable<SocietyComplaintDTO> GetSocietyComplaintbyUserId(int UserId)
         {
             return _societyRepository.GetSocietyComplaintbyUserId(UserId);
         }
 
-        public IEnumerable<SocietyComplaintDTO> GetSocietyComplaints(int PageNo, int NoofRow, string SearchText)
+        public IEnumerable<SocietyComplaintDTO> GetSocietyComplaintFromDate(int UserId, int RoleId, string FromDate, string ToDate, string Status)
         {
-            return _societyRepository.GetSocietyComplaints(PageNo,NoofRow,SearchText);
+            return _societyRepository.GetSocietyComplaintFromDate(UserId, RoleId,FromDate, ToDate, Status);
         }
 
-        public IEnumerable<SocietyComplaintDTO> GetTodayComplaint(int PageNo, int NoofRow, string SearchText)
+        public IEnumerable<SocietyComplaintDTO> GetSocietyComplaints(int UserId, int RoleId,int PageNo, int NoofRow, string SearchText)
         {
-            return _societyRepository.GetTodayComplaint(PageNo,NoofRow,SearchText);
+            return _societyRepository.GetSocietyComplaints(UserId, RoleId,PageNo, NoofRow,SearchText);
         }
 
-        public int InsertUpdateSocietyComplaint(SocietyModel societyModel)
+        public IEnumerable<SocietyComplaintDTO> GetTodayComplaint(int UserId, int RoleId, int PageNo, int NoofRow, string SearchText)
+        {
+            return _societyRepository.GetTodayComplaint(UserId, RoleId, PageNo, NoofRow, SearchText);
+        }
+
+        public int InsertUpdateSocietyComplaint(SocietyComplaint societyModel)
         {
             return _societyRepository.InsertUpdateSocietyComplaint(societyModel);
         }

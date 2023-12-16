@@ -133,6 +133,7 @@
 
         <div  class="subnav" *ngIf="isVoterList">
           <button class="subnavbtn"><img src="assets/img/shopping-list.png" alt=""><br> {{'Election' | translate}}  </button>
+          <button class="subnavbtn"><img src="assets/img/shopping-list.png" alt=""><br> {{'Election' | translate}}  </button>
           <div class="subnav-content">
             <!-- <ion-item lines="full" class="sub-menu" routerLink="/dashboard">
                {{'Voter Dashboard' | translate}}
@@ -143,9 +144,15 @@
 
             <ion-item lines="full" class="sub-menu" routerLink="/voter-summary">
                {{'Voter List' | translate}}
+               {{'Voter List' | translate}}
             </ion-item>
       
             <ion-item lines="full" class="sub-menu" routerLink="/list">
+               {{'Voter Search' | translate}}
+            </ion-item>
+
+            <ion-item lines="full" class="sub-menu" routerLink="/mobile-match">
+               {{'Match Mobile No.' | translate}}
                {{'Voter Search' | translate}}
             </ion-item>
 
@@ -159,6 +166,7 @@
             
             <ion-item lines="none" class="sub-menu" routerLink="/survey">
                {{'Survey' | translate}}
+               {{'Survey' | translate}}
             </ion-item>
             
           </div>
@@ -171,6 +179,7 @@
         </div>
 
         <div *ngIf="isComBook" class="subnav" routerLink="/complaint-book" >
+          <button class="subnavbtn"><img src="assets/img/list1.png" alt=""><br> {{'Complaint Book' | translate}} </button>
           <button class="subnavbtn"><img src="assets/img/list1.png" alt=""><br> {{'Complaint Book' | translate}} </button>
         </div>
 
@@ -483,6 +492,7 @@
     </ion-item> -->
 
     <!-- [style.width.px]="menuWidth" -->
+    <!-- [style.width.px]="menuWidth" -->
     <ion-split-pane content-id="main-content" class="dashboard">
       <ion-menu side="start" contentId="main-content">
         <ion-content class="mobileMenu">
@@ -500,7 +510,7 @@
             </ion-list>
             <ion-list class="actualMenu">
               <ion-item *ngIf="isDashboard" routerDirection="root" [routerLink]="['/home/mobile-dashboard']" routerLinkActive="active">
-                <img class="icon-images" src="assets/img/png/dashboard.png" alt="">
+                <i class="icofont icofont-ui-user"></i>
                 <ion-label>  {{'Dashboard' | translate}}</ion-label>
               </ion-item>
 
@@ -526,7 +536,7 @@
               </ion-item>
 
               <ion-item *ngIf="isUser" [routerLink]="['/superadmin']" routerDirection="root" [routerLinkActive]="'active'">
-                <img class="icon-images" src="assets/img/png/user.png" alt="">
+                <!-- <i class="icofont icofont-ui-user"></i> -->
                 <ion-label> {{'User' | translate}} </ion-label>
               </ion-item>
 
@@ -559,27 +569,27 @@
               <ion-accordion-group *ngIf="isOffice">
                 <ion-accordion value="setting">
                   <ion-item slot="header" color="light">
-                    <img class="icon-images" src="assets/img/png/office.png" alt="">
+                    <i class="icofont icofont-ui-user"></i>
                     <ion-label>  {{'Office' | translate}} </ion-label>
                   </ion-item>
                   <div slot="content">
                     <ion-item color="light" lines="none" [routerLink]="['/appointment']" routerDirection="root">
-                      <img class="icon-images" src="assets/img/png/appointment.png" alt="">
+                      <i class="icofont icofont-ui-user"></i>
                       <ion-label> {{'Appointment' | translate}}</ion-label>
                     </ion-item>
 
                     <ion-item color="light" lines="none" [routerLink]="['/annapurna']" routerDirection="root">
-                      <img class="icon-images" src="assets/img/png/annapurna.png" alt="">
+                      <i class="icofont icofont-ui-user"></i>
                       <ion-label> {{'Annapurna' | translate}}</ion-label>
                     </ion-item>
 
                     <ion-item color="light" lines="none" [routerLink]="['/society']" routerDirection="root">
-                      <img class="icon-images" src="assets/img/png/society.png" alt="">
+                      <i class="icofont icofont-ui-user"></i>
                       <ion-label> {{'Society' | translate}}</ion-label>
                     </ion-item>
 
                     <ion-item routerDirection="root" routerLink="/letter-tracking" [routerLinkActive]="'active'" >
-                      <img class="icon-images" src="assets/img/png/letter tracking.png" alt="">
+                      <i class="icofont icofont-ui-user"></i>
                           <ion-label>  Letter Tracking </ion-label>
                     </ion-item>
                     
@@ -589,7 +599,7 @@
 
               <ion-item [routerLink]="['/general-enquiry']" routerDirection="root" [routerLinkActive]="'active'" *ngIf="isEnquiry">
                 <!-- <i class="icofont icofont-ui-contact-list"></i> -->
-                <img class="icon-images" src="assets/img/png/general enquiry.png" alt="">
+                <i class="icofont icofont-ui-user"></i>
                 <ion-label>  {{'General Enquiry' | translate}}</ion-label>
               </ion-item>
 

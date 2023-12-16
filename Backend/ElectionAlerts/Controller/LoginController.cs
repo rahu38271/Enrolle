@@ -1,6 +1,7 @@
 ﻿using ElectionAlerts.Model;
 using ElectionAlerts.Repository;
 using ElectionAlerts.Services.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
@@ -25,12 +26,14 @@ namespace ElectionAlerts.Controller
         private readonly ILoginService _loginService;
         private readonly IConfiguration _config;
         private readonly IExceptionLogService _exceptionLogService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LoginController(ILoginService loginService,IConfiguration config, IExceptionLogService exceptionLogService)
+        public LoginController(ILoginService loginService,IConfiguration config, IExceptionLogService exceptionLogService, IHttpContextAccessor httpContextAccessor)
         {
             _loginService = loginService;
             _config = config;
             _exceptionLogService = exceptionLogService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         [HttpGet("LoginUser")]
@@ -65,7 +68,11 @@ namespace ElectionAlerts.Controller
                         {
                             string cnstr = "Server=" + configDB.IPAddress + ";Database=" + configDB.DBName + ";User Id=" + configDB.UserName + ";Password =" + configDB.Password + ";pooling=false;";
                             Startup.ElectionAlertConStr = cnstr;
-                            token = GenerateJSONWebToken(configDB);
+                            
+                            token = GenerateJSONWebToken(cnstr);
+                            //string UserId = null;
+                           
+                            //HttpContext.Session.SetString(UserId, cnstr);
                         }
                         else
                             msg = "No DB Config Found";
@@ -148,6 +155,21 @@ namespace ElectionAlerts.Controller
                 return BadRequest(ex);
             }
         }
+
+        [HttpGet("UpdateMessageSent")]
+        public IActionResult UpdateMessageSent(int Id,string Type)
+        {
+            try
+            {
+                return Ok(_loginService.UpdateMessageSent(Id,Type));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/UpdateMessageSent");
+                return BadRequest(ex);
+            }
+        }
+
         [HttpPost("CreateUpdateUser")]
         public IActionResult CreateUser(AdminUser user)
         {
@@ -236,10 +258,10 @@ namespace ElectionAlerts.Controller
             }
         }
 
-        private string GenerateJSONWebToken(ConfigureDB ConfigureDB)
+        private string GenerateJSONWebToken(string constr)
         {
-            var claims = new[] { new Claim(ClaimTypes.PrimarySid, ConfigureDB.IPAddress), new Claim(ClaimTypes.Name, ConfigureDB.DBName), new Claim(ClaimTypes.Role, ConfigureDB.UserName), new Claim(ClaimTypes.Authentication, ConfigureDB.Password) };
-            // var claims = new[] { new Claim("IP", ConfigureDB.IPAddress), new Claim("DBname", ConfigureDB.DBName), new Claim("UserName", ConfigureDB.UserName), new Claim("Password", ConfigureDB.Password) };
+            // var claims = new[] { new Claim(ClaimTypes.PrimarySid, ConfigureDB.IPAddress), new Claim(ClaimTypes.Name, ConfigureDB.DBName), new Claim(ClaimTypes.Role, ConfigureDB.UserName), new Claim(ClaimTypes.Authentication, ConfigureDB.Password) };
+            var claims = new[] { new Claim(ClaimTypes.Name, constr) };
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken(issuer: _config["Jwt:Issuer"], audience: _config["Jwt:Audience"],

@@ -14,6 +14,9 @@ namespace ElectionAlerts.Dto
         public int? FemaleVoter { get; set; }
         public int? MobileNoCount { get; set; }
         public int? SurveyDone { get; set; }
+        public int? matching_count { get; set; }
+        public int? Voted { get; set; }
+
 
     }
 }

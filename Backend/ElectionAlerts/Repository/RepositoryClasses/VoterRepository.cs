@@ -31,10 +31,10 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             try
             {
                 return _customContext.Database.ExecuteSqlRaw("EXEC Usp_CreateVoter {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21}," +
-                                                            "{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44},{45},{46},{47},{48},{49},{50},{51},{52},{53},{54}", voter.SrNo, voter.FullName, voter.BirthDate, voter.Age, voter.Gender, voter.HouseNo, voter.VotingCardNo,
+                                                            "{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44},{45},{46},{47},{48},{49},{50},{51},{52},{53},{54},{55},{56},{57}", voter.SrNo, voter.FullName, voter.BirthDate, voter.Age, voter.Gender, voter.HouseNo, voter.VotingCardNo,
                                                               voter.MobileNo, voter.Caste, voter.District, voter.Assembly, voter.Taluka, voter.Ward, voter.Booth, voter.Village, voter.Pincode, voter.Address, voter.Email, voter.FamilyHead, voter.IsSuspisious,
                                                               voter.IsOutStation, voter.IsAlive, voter.Occupation, voter.PartyWorker, voter.VotingInclination, voter.PoliticalParty, voter.UserId, voter.ExtraInfo, voter.WorkLeft, voter.HappywithService, voter.IsDisable,
-                                                              voter.PartNo, voter.AlternateMobileNo, voter.StarVoter, voter.Education, voter.FamilyMember, voter.IsSurvey,voter.AssemblyNo,voter.IsVoted,voter.AssemblyName_KR,voter.FullName_KR,voter.Village_KR,voter.Address_KR, voter.AssemblyName_HN, voter.FullName_HN, voter.Village_HN, voter.Address_HN,voter.Zone,voter.Family,voter.Religion,voter.Society,voter.FilePath,DateTime.Now,voter.AdminId,voter.UserName);
+                                                              voter.PartNo, voter.AlternateMobileNo, voter.StarVoter, voter.Education, voter.FamilyMember, voter.IsSurvey,voter.AssemblyNo,voter.IsVoted,voter.AssemblyName_KR,voter.FullName_KR,voter.Village_KR,voter.Address_KR, voter.AssemblyName_HN, voter.FullName_HN, voter.Village_HN, voter.Address_HN,voter.Zone,voter.Family,voter.Religion,voter.Society,voter.FilePath,DateTime.Now,voter.AdminId,voter.UserName,voter.BoothName,voter.BoothName_HN,voter.BoothName_RG);
             }
             catch (Exception ex)
             {
@@ -135,7 +135,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                return _customContext.Set<VoterbyBooth>().FromSqlRaw("USP_VoterGroupbyBooth {0},{1}", userid, roleid).ToList();
+                return _customContext.Set<VoterbyBooth>().FromSqlRaw("USP_VoterGroupbyBoothTotal {0},{1}", userid, roleid).ToList();
             }
             catch (Exception ex)
             {
@@ -184,7 +184,8 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                var Names = _customContext.Set<GetVoterByPartNo>().FromSqlRaw("USP_GetVoterbyRelation {0},{1},{2},{3},{4},{5}", Id, UserId, RoleId,PageNo,NoofRow,Language).ToList();
+                //var Names = _customContext.Set<GetVoterByPartNo>().FromSqlRaw("USP_GetVoterbyRelation {0},{1},{2},{3},{4},{5}", Id, UserId, RoleId,PageNo,NoofRow,Language).ToList();
+                var Names = _customContext.Set<GetVoterByPartNo>().FromSqlRaw("Usp_GetMemberofFamily {0},{1},{2},{3},{4},{5}", Id, UserId, RoleId, PageNo, NoofRow, Language).ToList();
                 return Names;
             }
             catch (Exception ex)
@@ -231,11 +232,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public GetVoterByPartNo GetVoterDetailbyId(int Id,string Language)
+        public IEnumerable<GetVoterByPartNo> GetVoterDetailbyId(int Id,string Language)
         {
             try
             {
-                var voter = _customContext.Set<GetVoterByPartNo>().FromSqlRaw("EXEC USP_GetVoterbyId {0},{1}", Id,Language).AsEnumerable().First();
+                var voter = _customContext.Set<GetVoterByPartNo>().FromSqlRaw("EXEC USP_GetVoterbyId {0},{1}", Id,Language);
                 return voter;
             }
             catch (Exception ex)
@@ -244,23 +245,23 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public int InsertBulkVoter(List<Voter> voters)
+        public int InsertBulkVoter(List<VoterBulk> voters)
         {
             var partitions = voters.partition(10000);
 
-
-            foreach (List<Voter> voters1 in partitions)
+ 
+            foreach (List<VoterBulk> voters1 in partitions)
             {
                 try
                 {
                     DataTable dt = new DataTable();
-                    PropertyInfo[] Props = typeof(Voter).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                    PropertyInfo[] Props = typeof(VoterBulk).GetProperties(BindingFlags.Public | BindingFlags.Instance);
                     foreach (PropertyInfo prop in Props)
                     {
                         //Setting column names as Property names
                         dt.Columns.Add(prop.Name);
                     }
-                    foreach (Voter item in voters1)
+                    foreach (VoterBulk item in voters1)
                     {
                         var values = new object[Props.Length];
                         for (int i = 0; i < Props.Length; i++)
@@ -301,8 +302,8 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                     throw ex;
                 }
             }
-
-            InsertDistinctPartNoBooth(voters);
+            var targetList = voters.Select(x => new Voter() { PartNo = x.PartNo,Booth=x.Booth }).ToList();
+            InsertDistinctPartNoBooth(targetList);
             return 1;
 
         }
@@ -395,13 +396,13 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             try
             {
                 return _customContext.Database.ExecuteSqlRaw("EXEC Usp_UpdateVoterbyId {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21}," +
-                                                            "{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44},{45},{46},{47},{48},{40},{50},{51},{52},{53},{54},{55}", voter.Id, voter.SrNo, voter.FullName, voter.BirthDate, voter.Age, voter.Gender, voter.HouseNo, voter.VotingCardNo,
+                                                            "{22},{23},{24},{25},{26},{27},{28},{29},{30},{31},{32},{33},{34},{35},{36},{37},{38},{39},{40},{41},{42},{43},{44},{45},{46},{47},{48},{40},{50},{51},{52},{53},{54},{55},{56},{57},{58}", voter.Id, voter.SrNo, voter.FullName, voter.BirthDate, voter.Age, voter.Gender, voter.HouseNo, voter.VotingCardNo,
                                                               voter.MobileNo, voter.Caste, voter.District, voter.Assembly, voter.Taluka, voter.Ward, voter.Booth, voter.Village,
                                                               voter.Pincode, voter.Address, voter.Email, voter.FamilyHead, voter.IsSuspisious, voter.IsOutStation, voter.IsAlive,
                                                               voter.Occupation, voter.PartyWorker, voter.VotingInclination, voter.PoliticalParty, voter.UserId, voter.ExtraInfo, 
                                                               voter.WorkLeft, voter.HappywithService, voter.IsDisable, voter.PartNo, voter.AlternateMobileNo,
                                                               voter.StarVoter, voter.Education, voter.FamilyMember, voter.IsSurvey,voter.AssemblyNo, voter.IsVoted,voter.AssemblyName_KR, voter.FullName_KR,
-                                                              voter.Village_KR,voter.Address_KR, voter.AssemblyName_HN, voter.FullName_HN, voter.Village_HN, voter.Address_HN,voter.Zone,voter.Family,voter.Religion,voter.Society,voter.FilePath,voter.AdminId,DateTime.Now,voter.UserName);
+                                                              voter.Village_KR,voter.Address_KR, voter.AssemblyName_HN, voter.FullName_HN, voter.Village_HN, voter.Address_HN,voter.Zone,voter.Family,voter.Religion,voter.Society,voter.FilePath,voter.AdminId,DateTime.Now,voter.UserName,voter.BoothName,voter.BoothName_HN,voter.BoothName_RG);
             }
             catch (Exception ex)
             {
@@ -530,7 +531,7 @@ namespace ElectionAlerts.Repository.RepositoryClasses
         {
             try
             {
-                var result= _customContext.Set<GetVoterByPartNo>().FromSqlRaw("EXEC USP_AdvancedSearchSP {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20}", searchDTO.LastName, searchDTO.FirstName, searchDTO.MiddleName, searchDTO.VotingCardNo, searchDTO.PartNo, searchDTO.MobileNo, searchDTO.HouseNo, searchDTO.FromAge, searchDTO.ToAge, searchDTO.Gender, searchDTO.Village, searchDTO.Occupation, searchDTO.Education,searchDTO.Caste,searchDTO.Religion,searchDTO.Society, searchDTO.UserId, searchDTO.RoleId,searchDTO.PageNo,searchDTO.NoofRow,searchDTO.Language).ToList();
+                var result= _customContext.Set<GetVoterByPartNo>().FromSqlRaw("EXEC USP_AdvancedSearchSP {0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13},{14},{15},{16},{17},{18},{19},{20},{21},{22},{23}", searchDTO.LastName, searchDTO.FirstName, searchDTO.MiddleName, searchDTO.VotingCardNo, searchDTO.PartNo, searchDTO.MobileNo, searchDTO.HouseNo, searchDTO.FromAge, searchDTO.ToAge, searchDTO.Gender, searchDTO.Village, searchDTO.Occupation, searchDTO.Education,searchDTO.Caste,searchDTO.Religion,searchDTO.Society,searchDTO.VotingInclination,searchDTO.IsVoted,searchDTO.PrintSlip,searchDTO.UserId, searchDTO.RoleId,searchDTO.PageNo,searchDTO.NoofRow,searchDTO.Language).ToList();
                 return result;
             }
             catch (Exception ex)
@@ -663,23 +664,23 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public int InsertBulkMobile(List<Mobile> mobiles)
+        public int InsertBulkMobile(List<VoterMobileBulk> mobiles)
         {
 
             var partitions = mobiles.partition(10000);
 
-            foreach (List<Mobile> mobileData1 in partitions)
+            foreach (List<VoterMobileBulk> mobileData1 in partitions)
             {
                 try
                 {
                     DataTable dt = new DataTable();
-                    PropertyInfo[] Props = typeof(Mobile).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+                    PropertyInfo[] Props = typeof(VoterMobileBulk).GetProperties(BindingFlags.Public | BindingFlags.Instance);
                     foreach (PropertyInfo prop in Props)
                     {
                         //Setting column names as Property names
                         dt.Columns.Add(prop.Name);
                     }
-                    foreach (Mobile item in mobileData1)
+                    foreach (VoterMobileBulk item in mobileData1)
                     {
                         var values = new object[Props.Length];
                         for (int i = 0; i < Props.Length; i++)
@@ -694,21 +695,19 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                     if (dt.Rows.Count > 0)
                     {
 
-                        using (SqlConnection con = new SqlConnection("Data Source=.;Initial Catalog=MobileData;Integrated Security=True"))
+                        using (SqlConnection con = new SqlConnection(_customContext.Database.GetConnectionString()))
                         {
-                            using (SqlCommand cmd = new SqlCommand("USP_InsertBulkMobile"))
+                            using (SqlCommand cmd = new SqlCommand("USP_InsertBulkVoterMobile"))
                             {
                                 cmd.CommandType = CommandType.StoredProcedure;
                                 cmd.Connection = con;
-                                cmd.Parameters.AddWithValue("@MobileType", dt);
+                                cmd.Parameters.AddWithValue("@VoterMobileType", dt);
                                 con.Open();
                                 cmd.ExecuteNonQuery();
                                 con.Close();
                             }
                         }
                     }
-
-
                 }
                 catch (Exception ex)
                 {
@@ -716,7 +715,6 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 }
             }
             return 1;
-
         }
 
         public int UpdateColoumnTbl(int Id, string ColoumnName, string ColoumnValue)
@@ -815,11 +813,11 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
-        public int InsertProfession(string ProfessionName)
+        public int InsertProfession(Profession ProfessionName)
         {
             try
             {
-                return _customContext.Database.ExecuteSqlRaw("Exec Usp_InsertProfession {0}", ProfessionName);
+                return _customContext.Database.ExecuteSqlRaw("Exec Usp_InsertProfession {0}", ProfessionName.ProfessionName);
             }
             catch(Exception ex)
             {
@@ -870,6 +868,163 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 return _customContext.Set<WhatAppContent>().FromSqlRaw("Exec Usp_GetWhatUpContentbyUserId {0}", UserId).ToList().FirstOrDefault();
             }
             catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<VoterMobile> GetMobileMatch(string VoterName)
+        {
+            try
+            {
+                return _customContext.Set<VoterMobile>().FromSqlRaw("Exec USP_MobileMatching {0}", VoterName).ToList();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<GetVoterByPartNo> GetAllVoterSurvey(int userid, int RoleId, int PageNo, int NoofRow, string Language, string SearcText)
+        {
+            try
+            {
+                return _customContext.Set<GetVoterByPartNo>().FromSqlRaw("EXEC USP_GetAllVoter_Survey {0},{1},{2},{3},{4},{5}", userid, RoleId, PageNo, NoofRow, Language, SearcText).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<GetVoterByPartNo> GetVoterOldAddress(int userid, int RoleId, int PageNo, int NoofRow, string Language, string SearcText)
+        {
+            try
+            {
+                return _customContext.Set<GetVoterByPartNo>().FromSqlRaw("Exec USP_GetOldAddress {0},{1},{2},{3},{4},{5}", userid, RoleId, PageNo, NoofRow, Language, SearcText).ToList();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<VoterMobileDTO> MatchMobileDetails(int userid, int RoleId, int PageNo, int NoofRow)
+        {
+            try
+            {
+                return _customContext.Set<VoterMobileDTO>().FromSqlRaw("Exec USP_MatchREcordDetails {0},{1},{2},{3}", userid, RoleId, PageNo, NoofRow).ToList();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<VoterDashBoard> VoterDashBoard(int userid, int RoleId)
+        {
+            try
+            {
+                return _customContext.Set<VoterDashBoard>().FromSqlRaw("Exec Usp_GetCountofVoter {0},{1}", userid, RoleId);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<VoterDashBoardwithMobCount> VoterDashBoardwithMatchMobCount(int userid, int RoleId)
+        {
+            try
+            {
+                return _customContext.Set<VoterDashBoardwithMobCount>().FromSqlRaw("Exec Usp_GetCountofVoterwithmobCount {0},{1}", userid, RoleId);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+
+        }
+
+        public int InsertCast(CastebyLanguage Caste)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("Exec InsertCastEnglish {0}", Caste.CasteName);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int InsertMatchedMobileinContact()
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("Exec Usp_InsertMatchRecordinContact");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<GetVoterByPartNo> GetVoterwithMobileNoFile(int userid, int RoleId)
+        {
+            try
+            {
+                return _customContext.Set<GetVoterByPartNo>().FromSqlRaw("USP_GetAllVoterMobileNoFile {0},{1}",userid,RoleId);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<MainDashBoard> GetMainDashBoards()
+        {
+            try
+            {
+                return _customContext.Set<MainDashBoard>().FromSqlRaw("Exec Usp_MainDashBoard");
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<VoterMobileDTO> MobileMatchFile(int userid, int RoleId)
+        {
+            try
+            {
+                return _customContext.Set<VoterMobileDTO>().FromSqlRaw("Exec USP_MatchREcordDetailsFile {0},{1}",userid, RoleId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public int UpdateBirthDateandMobileinVoter(int userid, int RoleId)
+        {
+            try
+            {
+                return _customContext.Database.ExecuteSqlRaw("Exec USP_UpdateBirthDateandMobileinVoter {0},{1}", userid, RoleId);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public IEnumerable<GetVoterByPartNo> GetVoterRelative(int Id, int PageNo, int NoofRow, string Language)
+        {
+            try
+            {
+                return _customContext.Set<GetVoterByPartNo>().FromSqlRaw("Exec Usp_GetVoterRelationbyAddress {0},{1},{2},{3}", Id, PageNo, NoofRow, Language);
+            }
+            catch (Exception ex)
             {
                 throw ex;
             }
