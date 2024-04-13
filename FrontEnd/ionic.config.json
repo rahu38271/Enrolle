@@ -1,7 +1,0 @@
-{
-  "name": "election-project",
-  "integrations": {
-    "cordova": {}
-  },
-  "type": "angular"
-}
