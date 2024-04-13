@@ -1,6 +1,7 @@
 ﻿using ElectionAlerts.Model;
 using ElectionAlerts.Repository;
 using ElectionAlerts.Services.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
@@ -25,68 +26,81 @@ namespace ElectionAlerts.Controller
         private readonly ILoginService _loginService;
         private readonly IConfiguration _config;
         private readonly IExceptionLogService _exceptionLogService;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public LoginController(ILoginService loginService,IConfiguration config, IExceptionLogService exceptionLogService)
+        public LoginController(ILoginService loginService, IConfiguration config, IExceptionLogService exceptionLogService, IHttpContextAccessor httpContextAccessor)
         {
             _loginService = loginService;
             _config = config;
             _exceptionLogService = exceptionLogService;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         [HttpGet("LoginUser")]
         public IActionResult LoginUser(string Username, string Password)
         {
-            string msg="DB Changed";
-            string token = "";
-            Startup.ElectionAlertConStr = null;
-            List<AdminUser> adminUsers=new List<AdminUser>();
-            var user = _loginService.LoginUser(Username, Password);
-            if (user != null)
+            try
             {
-                adminUsers.Add(user);
-                msg = "User Logined";
-                if (user.RoleId>1)
+                string msg = "DB Changed";
+                string token = "";
+                Startup.ElectionAlertConStr = null;
+                List<AdminUser> adminUsers = new List<AdminUser>();
+                var user = _loginService.LoginUser(Username, Password);
+                if (user != null)
                 {
-                    try
+                    if (user.IsActive == "N")
                     {
+                        return Ok("User is Disabled");
+                    }
+                    adminUsers.Add(user);
+                    msg = "User Logined";
+                    if (user.RoleId > 1)
+                    {
+
                         ConfigureDB configDB = null;
                         if (user.RoleId == 2)
                         {
 
-                             configDB = _loginService.GetConfigureDBbyUser(Convert.ToInt32(user.Id));
+                            configDB = _loginService.GetConfigureDBbyUser(Convert.ToInt32(user.Id));
                         }
                         else
                         {
-                             configDB = _loginService.GetConfigureDBbyUser(Convert.ToInt32(user.SuperAdminId));
+                            configDB = _loginService.GetConfigureDBbyUser(Convert.ToInt32(user.SuperAdminId));
                         }
-                        
+
                         if (configDB != null)
                         {
                             string cnstr = "Server=" + configDB.IPAddress + ";Database=" + configDB.DBName + ";User Id=" + configDB.UserName + ";Password =" + configDB.Password + ";pooling=false;";
                             Startup.ElectionAlertConStr = cnstr;
-                            token = GenerateJSONWebToken(configDB);
+
+                            token = GenerateJSONWebToken(cnstr);
+                            //string UserId = null;
+
+                            //HttpContext.Session.SetString(UserId, cnstr);
                         }
                         else
                             msg = "No DB Config Found";
+
                     }
-                    catch(Exception ex)
+                    if (user.RoleId == 3 || user.RoleId == 4)
                     {
-                        msg = ex.InnerException + "  Message : " + ex.Message;
-                    }              
+                        var User = _loginService.GetAllUser();
+                        var userdet = from us in User where us.Contact == Username select us;
+                        var SuperAdmin = from u in User where u.Id == user.SuperAdminId select u;
+                        var UserDetails = (from u in userdet join s in SuperAdmin on u.SuperAdminId equals s.Id select new { Id = u.Id, Name = u.Name, Contact = u.Contact, UserName = u.UserName, Password = u.Password, Email = u.Email, State = s.State, District = s.District, Taluka = s.Taluka, AssemblyName = s.AssemblyName, Village = s.Village, RoleId = u.RoleId, CreatedDate = u.CreatedDate, IsActive = u.IsActive, AdminId = u.AdminId, SuperAdminId = u.SuperAdminId, SuperAdminName = s.Name }).ToList();
+                        return Ok(new { token = token, ExpiryTime = 1800, User = UserDetails });
+                    }
+                    return Ok(new { token = token, ExpiryTime = 120, User = adminUsers });
                 }
-                if (user.RoleId == 3|| user.RoleId==4)
+                else
                 {
-                    var User = _loginService.GetAllUser();
-                    var userdet = from us in User where us.Contact == Username select us;
-                    var SuperAdmin = from u in User where u.Id == user.SuperAdminId select u;
-                    var UserDetails = (from u in userdet join s in SuperAdmin on u.SuperAdminId equals s.Id select new { Id = u.Id, Name = u.Name, Contact = u.Contact, UserName = u.UserName, Password = u.Password, Email = u.Email, State = s.State, District = s.District, Taluka = s.Taluka, AssemblyName = s.AssemblyName, Village = s.Village, RoleId = u.RoleId, CreatedDate = u.CreatedDate, IsActive = u.IsActive, AdminId = u.AdminId, SuperAdminId = u.SuperAdminId, SuperAdminName = s.Name }).ToList();
-                    return Ok(new { token = token, ExpiryTime = 1800, User = UserDetails });
+                    return Ok("Invalid Username or Password!");
                 }
-                return Ok(new { token = token, ExpiryTime = 1800, User = adminUsers });
             }
-            else
+            catch (Exception ex)
             {
-                return Ok("Invalid Username or Password!");
+                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/LoginUser");
+                return BadRequest(ex);
             }
         }
 
@@ -95,15 +109,15 @@ namespace ElectionAlerts.Controller
         {
             try
             {
-               return Ok( _loginService.InsertConfigureDBbyUser(configureDB));
+                return Ok(_loginService.InsertConfigureDBbyUser(configureDB));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/InsertUpdateDBConfigure");
                 return BadRequest(ex);
             }
         }
-     
+
         [HttpGet("DeleteDBConfigure")]
         public IActionResult DeleteDBConfigure(int Id)
         {
@@ -111,7 +125,7 @@ namespace ElectionAlerts.Controller
             {
                 return Ok(_loginService.DeleteConfigureDBbyUser(Id));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/DeleteDBConfigure");
                 return BadRequest(ex);
@@ -145,17 +159,32 @@ namespace ElectionAlerts.Controller
                 return BadRequest(ex);
             }
         }
+
+        [HttpGet("UpdateMessageSent")]
+        public IActionResult UpdateMessageSent(int Id, string Type)
+        {
+            try
+            {
+                return Ok(_loginService.UpdateMessageSent(Id, Type));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/UpdateMessageSent");
+                return BadRequest(ex);
+            }
+        }
+
         [HttpPost("CreateUpdateUser")]
         public IActionResult CreateUser(AdminUser user)
         {
             try
             {
                 IEnumerable<AdminUser> users = _loginService.GetAllUser();
-                if (user.Id>0)
+                if (user.Id > 0)
                 {
-                    var result = from u in users where (u.Id!=user.Id) && (u.Contact == user.Contact || u.Password == user.Password) select u;
+                    var result = from u in users where (u.Id != user.Id) && (u.Contact == user.Contact || u.Password == user.Password) select u;
                     if (result.Count() != 0)
-                        return Ok("User or Password Already Exist");
+                        return BadRequest(0);
                     else
                         return Ok(_loginService.InsertUser(user));
                 }
@@ -165,7 +194,7 @@ namespace ElectionAlerts.Controller
                     {
                         var result = from u in users where u.Contact == user.Contact || u.Password == user.Password select u;
                         if (result.Count() != 0)
-                            return Ok("User or Password Already Exist");
+                            return BadRequest(0);
                         else
                             return Ok(_loginService.InsertUser(user));
                     }
@@ -173,16 +202,15 @@ namespace ElectionAlerts.Controller
                         return Ok(_loginService.InsertUser(user));
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/CreateUser");
                 return BadRequest(ex);
             }
         }
 
-        
         [HttpPost("UpdatePassword")]
-        public IActionResult UpdatePassword(int Id,string PassWord )
+        public IActionResult UpdatePassword(int Id, string PassWord)
         {
             try
             {
@@ -233,14 +261,14 @@ namespace ElectionAlerts.Controller
             }
         }
 
-        private string GenerateJSONWebToken(ConfigureDB ConfigureDB)
+        private string GenerateJSONWebToken(string constr)
         {
-            var claims = new[] { new Claim(ClaimTypes.PrimarySid, ConfigureDB.IPAddress), new Claim(ClaimTypes.Name, ConfigureDB.DBName), new Claim(ClaimTypes.Role, ConfigureDB.UserName), new Claim(ClaimTypes.Authentication, ConfigureDB.Password) };
-            // var claims = new[] { new Claim("IP", ConfigureDB.IPAddress), new Claim("DBname", ConfigureDB.DBName), new Claim("UserName", ConfigureDB.UserName), new Claim("Password", ConfigureDB.Password) };
+            // var claims = new[] { new Claim(ClaimTypes.PrimarySid, ConfigureDB.IPAddress), new Claim(ClaimTypes.Name, ConfigureDB.DBName), new Claim(ClaimTypes.Role, ConfigureDB.UserName), new Claim(ClaimTypes.Authentication, ConfigureDB.Password) };
+            var claims = new[] { new Claim(ClaimTypes.Name, constr) };
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
             var token = new JwtSecurityToken(issuer: _config["Jwt:Issuer"], audience: _config["Jwt:Audience"],
-            expires: DateTime.Now.AddMinutes(30), claims: claims,
+            expires: DateTime.Now.AddMinutes(120), claims: claims,
             signingCredentials: credentials);
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
@@ -265,7 +293,7 @@ namespace ElectionAlerts.Controller
 
                 System.IO.File.WriteAllText(appSettingsPath, newJson);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw ex;
             }
@@ -278,13 +306,26 @@ namespace ElectionAlerts.Controller
             {
                 return Ok(_loginService.GetAllUser());
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/GetAllUser");
                 return BadRequest(ex);
             }
         }
 
+        [HttpPost("EnableDisableUser")]
+        public IActionResult EnableDisableUser(int Id, string IsActive)
+        {
+            try
+            {
+                return Ok(_loginService.EnableDisableUser(Id, IsActive));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/EnableDisableUser");
+                return BadRequest(ex);
+            }
+        }
         [HttpGet("GetAdminbySuperAdminId")]
         public IActionResult GetAdminbySuperAdminId(int superid)
         {
@@ -369,6 +410,33 @@ namespace ElectionAlerts.Controller
             }
         }
 
+        [HttpGet("GetAllSocietyMember")]
+        public IActionResult GetAllSocietyMember(int userid)
+        {
+            try
+            {
+                return Ok(_loginService.GetAllSocietyMember(userid));
+            }
+            catch(Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "LoginController/GetAllSocietyMember");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("Otp")]
+        public IActionResult Getotp(string Contact)
+        {
+            try
+            {
+                return Ok(_loginService.GetOtp(Contact));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "AuthenticationController/Otp");
+                return BadRequest(ex);
+            }
+        }
     }
 
 }

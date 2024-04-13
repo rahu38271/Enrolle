@@ -1,0 +1,203 @@
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-icon (click)="goBack()" name="arrow-back-sharp"></ion-icon>
+      </ion-buttons>
+      <ion-title> Users, {{getAdminList.length}} </ion-title>
+      <ion-buttons slot="primary">
+        <ion-button (click)="search()">
+          <ion-icon name="search-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <ion-grid class="web">
+      <ion-row>
+        <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
+          <ion-grid class="header">
+            <ion-row>
+              <ion-col size-xs="12" size-sm="6" class="webBack">
+                <div class="flex">
+                  <ion-icon (click)="goBack()" name="arrow-back-sharp"></ion-icon>
+                  <ion-card-header>
+                    <ion-card-title>
+                      <ion-text> Users </ion-text>
+                    </ion-card-title>
+                  </ion-card-header>
+                </div>
+              </ion-col>
+              <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+                <ion-button class="button-download" routerLink="/superadmin/add-superadmin" color="primary">
+                  Add User <ion-icon name="add-sharp"></ion-icon>
+                </ion-button>
+
+
+                <!-- <ion-button class="button-download" fill="outline" color="success" (click)="exportexcel()">
+                      <ion-icon name="document-sharp"></ion-icon>Excel
+                    </ion-button>
+                    <ion-button class="button-download" fill="outline" color="danger" (click)="downloadPDF()">
+                      <ion-icon name="cloud-download-sharp"></ion-icon>PDF
+                    </ion-button> -->
+
+
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-card>
+            <ion-card-content>
+              
+              <div class="headSection">
+                <div class="search">
+                  <ion-searchbar [(ngModel)]="searchWeb" (ionChange)="onSearchChange($event)" animated="true"></ion-searchbar>
+                </div>
+                <div class="btns">
+                  <ion-button class="button-download" color="tertiary"  *ngIf="dbList" (click)="dbLink()">
+                    DB List 
+                  </ion-button>
+                </div>
+              </div>
+
+              <div class="horizontal-scroll">
+                <table id="userAdminTable" #epltable class="table">
+                  <thead>
+                    <tr>
+
+                      <th>
+                        Sr.No.
+                      </th>
+                      <th>
+                        Name
+                      </th>
+                      <th>
+                        Username
+                      </th>
+                      <th>
+                        Password
+                      </th>
+                      <th>
+                        Role
+                      </th>
+
+                      <th>
+                        State
+                      </th>
+                      <th>
+                        District
+                      </th>
+                      <th>
+                        Assembly
+                      </th>
+                      <th>
+                        Taluka
+                      </th>
+                      <th>
+                        Village
+                      </th>
+                      <th class="PartAssigned">
+                        Part Assigned
+                      </th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <!-- <tr>
+                      <td>{{item.id}}</td>
+                      <td class="text-capitalize">{{item.name}}</td>
+                      <td>{{item.mobile_Id}}</td>
+                      <td>{{item.password}}</td>
+                      <td>{{item.userRole}}</td>
+                      <td>{{item.state}}</td>
+                      <td>{{item.district}}</td>
+                      <td>{{item.assemblyNo}} {{item.assemblyName}}</td>
+                      <td>{{item.taluka}}</td>
+                      <td>{{item.village}}</td>
+                      <td>{{item.validity}} year</td>
+                      <td class="action">
+                        <ion-icon routerLink="/useradmin/edit-useradmin" name="pencil-sharp"></ion-icon> 
+                        <ion-icon (click)="EditSA(item)" name="create-sharp"></ion-icon>
+                        <ion-icon class="delete" (click)="deleteSA()" name="trash-bin-sharp"></ion-icon> 
+                      </td>
+                    </tr> -->
+                    <tr *ngFor="let item of getAdminList | filter:searchWeb | paginate: { itemsPerPage: 10, currentPage: cp  }">
+                      <td>{{item.id}}</td>
+                      <td class="text-capitalize" 
+                        [routerLink]="['/superadmin/assign-data',item.id,item.Partnoassigned?item.Partnoassigned:0,item.roleId]">
+                        <a>{{item.name}}</a>
+                      </td>
+                      <td>{{item.contact}}</td>
+                      <td>{{item.password}}</td>
+                      <td>{{item.roleName}}</td>
+                      <td>{{item.state}}</td>
+                      <td>{{item.district}}</td>
+                      <td>{{item.assemblyName}}</td>
+                      <td>{{item.taluka}}</td>
+                      <td>{{item.village}}</td>
+                      <td class="PartAssigned">{{item.Partnoassigned}}</td>
+                      <!-- <td>Katraj</td>
+                      <td>1 year</td> -->
+                      <td class="action">
+                        <ion-icon (click)="EditSA(item)" name="create-sharp"></ion-icon>
+                        <ion-icon *ngIf="isDB" (click)="LinkDB(item.id)" name="server-sharp"></ion-icon>
+                        <ion-icon (click)="deleteUser(item.id)" class="delete" name="trash-bin-sharp"></ion-icon>
+                      </td>
+                    </tr>                    
+                  </tbody>
+                </table>
+                <div *ngIf="!getAdminList || getAdminList.length === 0 " class="text-center">
+                  <p>No data available</p>
+                </div>
+                <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+
+
+
+    <ion-grid class="android">
+      <ion-searchbar [(ngModel)]="searchWeb" *ngIf="isShow"></ion-searchbar>
+      <ion-list *ngFor="let item of getAdminList | filter:searchWeb | paginate: { itemsPerPage: 10, currentPage: cp  }" (click)="SAdetails(item.id)">
+        <ion-item-sliding>
+          <ion-item-options side="end">
+            <a>
+              <ion-icon class="edit" name="pencil-sharp"></ion-icon>
+            </a>
+            <a>
+              <ion-icon (click)="deleteSA()" class="delete" name="trash-sharp"></ion-icon>
+            </a>
+          </ion-item-options>
+          <ion-item routerLink="/superadmin/account" lines="none">
+            <ion-avatar slot="start">
+              <img src="assets/img/profile.png" />
+            </ion-avatar>
+            <ion-label>
+              <h3 class="text-capitalize">{{item.name}}</h3>
+              <div class="details">
+                <h4>{{item.contact}}</h4>
+                <h4>{{item.roleName}}</h4>
+              </div>
+            </ion-label>
+          </ion-item>
+        </ion-item-sliding>
+      </ion-list>
+      <div *ngIf="!getAdminList || getAdminList.length === 0 " class="text-center">
+        <p>No data available</p>
+      </div>
+      <ion-list>
+        <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+      </ion-list>
+    </ion-grid>
+  </div>
+</ion-content>
+
+<ion-fab horizontal="end" vertical="bottom" slot="fixed" routerLink="/superadmin/add-superadmin">
+  <ion-fab-button color="primary">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

@@ -13,6 +13,7 @@ namespace ElectionAlerts.Services.Interface
         IEnumerable<ConfigureDB> GetConfigureDB();
         int InsertConfigureDBbyUser(ConfigureDB configureDB);
         int DeleteConfigureDBbyUser(int Id);
+        int UpdateMessageSent(int Id, string Type);
         int InsertUser(AdminUser user);
         int DeleteUser(int Id);
         int ChangeUserPassword(int id, string password);
@@ -24,5 +25,8 @@ namespace ElectionAlerts.Services.Interface
         List<Districts> GetAllDistricts();
         List<Taluka> GetAllTaluka(int DId);
         IEnumerable<Assembly> GetAssembly();
+        IEnumerable<AdminUser> GetAllSocietyMember(int userid);
+        int EnableDisableUser(int Id, string IsActive);
+        string GetOtp(string contact);
     }
 }

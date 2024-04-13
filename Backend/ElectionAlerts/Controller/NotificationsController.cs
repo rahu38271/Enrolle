@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ElectionAlerts.Model;
 using ElectionAlerts.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,7 @@ namespace ElectionAlerts.Controller
 {
     [Route("api/notifications")]
     [ApiController]
+    [Authorize]
     public class NotificationsController : ControllerBase
     {
         private INotificationService _notificationService;
@@ -49,6 +51,34 @@ namespace ElectionAlerts.Controller
                 return BadRequest(ex);
             }
 
+        }
+
+        [HttpGet("GetNotificationbyDate")]
+        public IActionResult GetNotificationbyDate(string NotifiactionType, string Date, string Name, int PageNo, int NoofRow, string SearchText)
+        {
+            try
+            {
+                return Ok(_notificationService.GetNotificationbyDate(NotifiactionType, Date, Name,PageNo, NoofRow, SearchText));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "NotificationsController/GetNotificationbyDate");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("LastSevenDayCountsbyEvent")]
+        public IActionResult LastSevenDayCountsbyEvent(string Type)
+        {
+            try
+            {
+                return Ok(_notificationService.LastSevenDayCountsbyEvent(Type));
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exception", "NotificationsController/LastSevenDayCountsbyEvent");
+                return BadRequest(ex);
+            }
         }
 
     }

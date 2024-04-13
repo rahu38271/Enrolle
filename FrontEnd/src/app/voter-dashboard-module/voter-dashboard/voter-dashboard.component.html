@@ -1,0 +1,110 @@
+<ion-content>
+    <ion-header class="android">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button (click)="goBack()" defaultHref=""></ion-back-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-menu-button auto-hide="false"></ion-menu-button>
+        </ion-buttons>
+        <ion-title> {{'Lists' | translate}} </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <div class="main-content">
+      <ion-grid class="web">
+        <ion-row>
+          <ion-grid class="header">
+            <ion-row>
+              <ion-col size-xs="12" size-sm="12" class="webBack">
+                <div class="flexArrow">
+                  <ion-icon (click)="goBack()" name="arrow-back-sharp"></ion-icon>
+                  <ion-card-header>
+                    <ion-card-title class="header1"> Voter Dashboard </ion-card-title>
+                    <div class="headerLine"></div>
+                  </ion-card-header>
+                </div>
+              </ion-col>
+              <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+                
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-row>
+        <ion-row>
+          <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="4" class="graph">
+            <ion-card>
+              <ejs-accumulationchart height='250' id="vilModal" [tooltip]='tooltip' [title]='title1'>
+                <e-accumulation-series-collection>
+                    <e-accumulation-series [dataSource]='vilModal' xName='columnName' yName='count' [dataLabel]='totalDataLael' radius="80%" innerRadius='50%' [palettes]='palette1'></e-accumulation-series>
+                </e-accumulation-series-collection>
+              </ejs-accumulationchart> 
+              <div *ngIf="!vilModal || vilModal === 0" class="ion-text-center">
+                <p>No data available</p>
+              </div>
+            </ion-card>
+          </ion-col>
+          <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="4" class="graph">
+            <ion-card>
+                <ejs-accumulationchart height='250' id="casteData" [tooltip]='casteTooltip' [title]='casteTitle'  >
+                    <e-accumulation-series-collection>
+                        <e-accumulation-series [dataSource]='casteData' xName='columnName' yName='count' [dataLabel]='casteDataLael' radius="80%" innerRadius='50%'></e-accumulation-series>
+                    </e-accumulation-series-collection>
+                  </ejs-accumulationchart> 
+                  <div *ngIf="!casteData || casteData === 0" class="ion-text-center">
+                    <p>No data available</p>
+                  </div>  
+            </ion-card>
+          </ion-col>
+          <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="4" class="graph">
+            <ion-card>
+                <ejs-accumulationchart height='250' id="occuList" [tooltip]='occuTooltip' [title]='occuTitle' >
+                    <e-accumulation-series-collection>
+                        <e-accumulation-series [dataSource]='occuList' xName='columnName' yName='count' [dataLabel]='occuDataLael' radius="80%" innerRadius='50%'></e-accumulation-series>
+                    </e-accumulation-series-collection>
+                  </ejs-accumulationchart> 
+                  <div *ngIf="!occuList || occuList === 0" class="ion-text-center">
+                    <p>No data available</p>
+                  </div>    
+            </ion-card>
+          </ion-col>
+          <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="4" class="graph">
+            <ion-card>
+                <ejs-accumulationchart height='250' id="voterVoted" [tooltip]='voteTooltip' [title]='voteTitle' >
+                    <e-accumulation-series-collection>
+                        <e-accumulation-series [dataSource]='voterVoted' xName='columnName' yName='columnValue' [dataLabel]='voteDataLael' radius="80%" innerRadius='50%'></e-accumulation-series>
+                    </e-accumulation-series-collection>
+                  </ejs-accumulationchart> 
+                  <div *ngIf="!voterVoted || voterVoted === 0" class="ion-text-center">
+                    <p>No data available</p>
+                  </div>      
+            </ion-card>
+          </ion-col>
+          <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="4" class="graph">
+            <ion-card>
+                <ejs-accumulationchart height='250' id="chart-container" [tooltip]='colorTooltip' [title]='colorTitle' [enableAnimation]= 'enableAnimation'>
+                    <e-accumulation-series-collection>
+                        <e-accumulation-series [dataSource]='colorList' xName='x' yName='y' [dataLabel]='colorDatalabel' [palettes]='colorPalette' radius="80%" innerRadius='50%' ></e-accumulation-series>
+                    </e-accumulation-series-collection>
+                  </ejs-accumulationchart>   
+                  <div *ngIf="!colorList || colorList === 0" class="ion-text-center">
+                    <p>No data available</p>
+                  </div>       
+            </ion-card>
+          </ion-col>
+          <ion-col size-xs="12" size-sm="12" size-md="6" size-lg="4" class="graph">
+            <ion-card>
+              <ejs-accumulationchart height='250' id="sociList" [tooltip]='sociTooltip' [title]='sociTitle' >
+                <e-accumulation-series-collection>
+                    <e-accumulation-series [dataSource]='sociList' xName='columnName' yName='count' [dataLabel]='sociDataLael' radius="80%" innerRadius='50%'></e-accumulation-series>
+                </e-accumulation-series-collection>
+              </ejs-accumulationchart> 
+              <div *ngIf="!sociList || sociList === 0" class="ion-text-center">
+                <p>No data available</p>
+              </div>   
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  
+    </div>
+  </ion-content>

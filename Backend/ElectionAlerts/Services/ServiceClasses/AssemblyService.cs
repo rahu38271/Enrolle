@@ -40,6 +40,11 @@ namespace ElectionAlerts.Services.ServiceClasses
 
         }
 
+        public IEnumerable<Assembly> GetAssemblyRegLang(int Assembly)
+        {
+            return _assembly.GetAssemblyRegLang(Assembly);
+        }
+
         public int InsertAssembly(Assembly assembly)
         {
             return _assembly.InsertAssembly(assembly);

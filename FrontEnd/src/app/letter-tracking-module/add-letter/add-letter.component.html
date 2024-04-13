@@ -1,0 +1,328 @@
+
+
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button color="primary" defaultHref="/letter-tracking"></ion-back-button>
+      </ion-buttons>
+      <ion-title> Add Letter </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <ion-grid>
+      <ion-row>
+        <ion-text class="form-header">
+          <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>Add Letter
+        </ion-text>
+      </ion-row>
+      <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+        <ion-row>
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" class="bg">
+              <ion-label > Subject  <span>*</span>  </ion-label>
+                <ion-textarea name="Subject" [(ngModel)]="letter.Subject" maxlength="200" class="form-control" required></ion-textarea>
+            </ion-col> 
+
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+              <ion-label position="floating"> Case No.  </ion-label>
+                <ion-input   
+                  name="CaseNo" 
+                  class="form-control"
+                  [(ngModel)]="letter.CaseNo"
+                  maxlength="10"
+
+                  >
+                </ion-input>
+            </ion-col>
+
+          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" >
+            <ion-label position="floating"> Letter Request Person  <span>*</span> </ion-label>
+              <ion-input 
+                name="Letter_Request_Person" 
+                [(ngModel)]="letter.Letter_Request_Person" 
+                class="text-capitalize form-control" 
+                maxlength="50"
+                required
+                ></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+              <ion-label position="floating"> Mobile No.  <span>*</span> </ion-label>
+                <ion-input 
+                  minlength="10" 
+                  maxlength="12"  
+                  name="MobileNo" 
+                  class="form-control"
+                  [(ngModel)]="letter.Mobile_No"
+                  >
+                </ion-input>
+                <div *ngIf="f.submitted && MobileNo.invalid" class="invalid-feedback">
+                  <div *ngIf="MobileNo.errors.required">
+                    Please enter mobile number
+                  </div>
+                  <div *ngIf="MobileNo.errors.minlength">
+                    Please enter valid mobile number
+                  </div>
+                </div>
+            </ion-col>
+
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+              <div class="flex">
+                <ion-label> Office <span>*</span> </ion-label>
+                <ion-icon id="Office" name="add-outline"></ion-icon>
+              </div>
+              <ng-select name="District" placeholder="Select Office" [(ngModel)]="letter.Office">
+                  <ng-option class="select_option" *ngFor="let item of allOffice" [value]="item.office_Name"> 
+                    {{item.office_Name}}
+                  </ng-option>
+              </ng-select>
+            </ion-col>
+
+            <ion-popover trigger="Office" triggerAction="click" [canDismiss]="canDismiss" 
+            [backdropDismiss]="false">
+              <ng-template>
+                  <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+                      <ion-grid>
+                          <ion-row>
+                              <ion-col size="12">
+                                  <ion-input 
+                                    maxlength="50" 
+                                    name="Office_Name" 
+                                    placeholder="Add Office" 
+                                    class="form-control"
+                                    [(ngModel)]="officeModal.Office_Name"
+                                    required
+                                     >
+                                  </ion-input>
+                              </ion-col>
+                              <ion-col size="12" class="ion-text-center">
+                                  <ion-button 
+                                    color="danger" 
+                                    size="small" 
+                                    type="reset"
+                                    (click)="DismissClick()">
+                                      Cancel
+                                  </ion-button>
+                                  <ion-button 
+                                    type="submit" 
+                                    color="success" 
+                                    size="small" 
+                                    [disabled]="!f.form.valid"
+                                    (click)="addOfficeName();DismissClick()"
+                                    >
+                                      Submit
+                                  </ion-button>
+                              </ion-col>
+                          </ion-row>
+                      </ion-grid>
+                  </form>
+              </ng-template>
+          </ion-popover>
+
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+              <div class="flex">
+                <ion-label> Department  </ion-label>
+                <ion-icon id="Department" name="add-outline"></ion-icon>
+              </div>
+              <ng-select name="District" placeholder="Select Department" [(ngModel)]="letter.Department">
+                  <ng-option class="select_option" *ngFor="let item of allDept" [value]="item.department_Name">
+                    {{item.department_Name}}
+                  </ng-option>
+              </ng-select>
+            </ion-col>
+
+
+            <ion-popover trigger="Department" triggerAction="click" [canDismiss]="canDismiss" 
+            [backdropDismiss]="false">
+              <ng-template>
+                  <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+                      <ion-grid>
+                          <ion-row>
+                              <ion-col size="12">
+                                  <ion-input 
+                                    maxlength="50" 
+                                    name="Department_Name" 
+                                    placeholder="Add Department" 
+                                    class="form-control"
+                                     [(ngModel)]="deptModal.Department_Name"
+                                     required
+                                     >
+                                  </ion-input>
+                              </ion-col>
+                              <ion-col size="12" class="ion-text-center">
+                                  <ion-button 
+                                    color="danger" 
+                                    size="small" 
+                                    type="reset"
+                                    (click)="DismissClick()">
+                                      Cancel
+                                  </ion-button>
+                                  <ion-button 
+                                    type="submit" 
+                                    color="success" 
+                                    size="small" 
+                                    [disabled]="!f.form.valid"
+                                    (click)="adddeptName();DismissClick()"
+                                    >
+                                      Submit
+                                  </ion-button>
+                              </ion-col>
+                          </ion-row>
+                      </ion-grid>
+                  </form>
+              </ng-template>
+          </ion-popover>
+
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="calendar">
+              <ion-label> BirthDate  </ion-label>
+              <ion-input
+                value="{{ BirthDate | date: 'yyyy-MM-dd' }}"
+                id="BirthDate"
+                class="form-control"
+                name="BirthDate" 
+                [(ngModel)]="letter.BirthDate"
+                
+              ></ion-input>
+              
+              <ion-modal trigger="BirthDate" size="cover">
+                <ng-template>
+                  <ion-datetime
+                    presentation="date"
+                    name="BirthDate"
+                    [(ngModel)]="BirthDate"
+                    show-default-buttons="true"
+                    max={{maxDate}}
+                  >
+                  <span slot="title"> {{ year }} </span>
+                </ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </ion-col>
+
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+              <ion-label position="floating"> Refference Name   </ion-label>
+                <ion-input name="refference" [(ngModel)]="letter.Refference_Name"  class="text-capitalize form-control" maxlength="50"  ></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="6" size-lg="6" size-md="12" size-sm="12" size-xs="12">
+              <ion-label position="floating"> Address   </ion-label>
+              <ion-input name="Address" [(ngModel)]="letter.Address"  class="text-capitalize form-control" maxlength="160" ></ion-input>
+            </ion-col> 
+
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" >
+              <ion-label>District</ion-label>
+              <ng-select name="District" placeholder="Select District" [(ngModel)]="letter.DistrictId" (change)="getTaluka(letter.DistrictId)">
+                <ng-option *ngFor="let item of districtList" [value]="item.dId">
+                  {{ item.districtName }}
+                </ng-option>
+             </ng-select>
+            
+            </ion-col>
+
+          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+              <ion-label>Taluka</ion-label>
+              <ng-select 
+                name="Taluka" 
+                placeholder="Select Taluka"
+                [(ngModel)]="letter.Taluka"
+              >
+                <ng-option 
+                  class="select_option"
+                  *ngFor="let item of talukaList" 
+                  [value]="item.talukaName"
+                >
+                  {{ item.talukaName }}
+                </ng-option>
+             </ng-select>
+             
+            </ion-col>
+          
+          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+            <ion-label position="floating"> Village   </ion-label>
+              <ion-input name="Village" [(ngModel)]="letter.Village" class="text-capitalize form-control" maxlength="50"></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+              <ion-label position="floating"> Letter Outward No. <span>*</span> </ion-label>
+                <ion-input name="Letter_Outward_No" [(ngModel)]="letter.Letter_Outward_No"  class="text-capitalize form-control" maxlength="10" required></ion-input>
+            </ion-col>
+
+          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="calendar">
+            <ion-label> Letter Release Date </ion-label>
+              <ion-input
+              value="{{ Letter_Release_Date | date: 'yyyy-MM-dd' }}"
+              id="Letter_Release_Date"
+              class="form-control"
+              name="Letter_Release_Date" 
+              [(ngModel)]="letter.Letter_Release_Date"
+            ></ion-input>
+            <ion-modal trigger="Letter_Release_Date" size="cover">
+              <ng-template>
+                <ion-datetime
+                  presentation="date"
+                  name="Letter_Release_Date"
+                  [(ngModel)]="Letter_Release_Date"
+                  show-default-buttons="true"
+                  
+                >
+                <span slot="title"> {{ year }} </span>
+              </ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="calendar">
+              <ion-label> Letter Submit Date <span>*</span></ion-label>
+                <ion-input
+                value="{{ Letter_Submit_Date | date: 'yyyy-MM-dd' }}"
+                id="Letter_Submit_Date"
+                class="form-control"
+                name="Letter_Submit_Date"
+                [(ngModel)]="letter.Letter_Submit_Date" 
+                required
+              ></ion-input>
+              <ion-modal trigger="Letter_Submit_Date" size="cover">
+                <ng-template>
+                  <ion-datetime
+                    presentation="date"
+                    name="Letter_Submit_Date"
+                    [(ngModel)]="Letter_Submit_Date" 
+                    show-default-buttons="true"
+                    
+                  >
+                  <span slot="title"> {{ year }} </span>
+                </ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </ion-col>
+
+            <!-- <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+              <ion-label position="floating"> Branch   </ion-label>
+                <ion-input name="Branch" class="text-capitalize form-control" ></ion-input>
+            </ion-col> -->
+
+            <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12" class="fileUpload">
+              <div class="flex">
+                <ion-label> File <span>*</span> <span>( image, video, pdf )</span> </ion-label>
+                <ion-label> Size - <span> {{fileSize}} </span> </ion-label>
+              </div>
+                <input type="file" name="file" (change)="onFileSelected($event)" class="form-control" required>
+                <div class="progress-container" *ngIf="uploading">
+                  <div class="progress-bar" [style.width.%]="progress">{{ progress }}%</div>
+                </div>
+            </ion-col>
+
+          <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+            <div class="ion-text-center">
+              <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
+              <ion-button  type="submit" size="medium"  (click)="addLetter()" [disabled]="disabled">Add Letter</ion-button>
+              <ion-button routerLink="/letter-tracking/all-letters" color="success" type="button" size="medium">Back To List</ion-button>
+            </div>
+          </ion-col>
+          
+        </ion-row>
+      </form>
+    </ion-grid>
+  </div>
+</ion-content>
+

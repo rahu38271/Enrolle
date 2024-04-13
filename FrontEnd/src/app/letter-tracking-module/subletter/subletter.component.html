@@ -1,0 +1,346 @@
+<ion-content>
+    <ion-header class="android">
+        <ion-toolbar>
+            <ion-buttons slot="start">
+                <ion-back-button defaultHref="/letter-tracking/all-letters"></ion-back-button>
+            </ion-buttons>
+            <ion-title> Subletter </ion-title>
+            <ion-buttons slot="primary">
+                <ion-button (click)="search()">
+                    <ion-icon name="search-outline"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+        </ion-toolbar>
+    </ion-header>
+    <div class="main-content">
+        <ion-grid class="web">
+            <ion-row>
+                <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
+                    <ion-grid class="header">
+                        <ion-row>
+                            <ion-col size-xs="12" size-sm="6" class="webBack">
+                                <div class="flex">
+                                    <ion-icon (click)="goBack()" name="arrow-back-sharp"></ion-icon>
+                                    <ion-card-header>
+                                        <ion-card-title>
+                                            <ion-text> Subletter </ion-text>
+                                        </ion-card-title>
+                                    </ion-card-header>
+                                </div>
+                            </ion-col>
+                            <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                    <ion-card>
+                        <ion-card-content>
+                            <div class="horizontal-scroll">
+                                <table id="userAdminTable" #epltable class="table">
+                                    <thead>
+                                        <tr role="row">
+                                            <th colspan="9" rowspan="1">Work Done</th>
+                                            <th rowspan="2" colspan="1">Action</th>
+                                        </tr>
+                                        <tr role="row">
+                                            <th rowspan="1" colspan="1">Sr. No</th>
+                                            <th rowspan="1" colspan="1">Complete</th>
+                                            <th rowspan="1" colspan="1">Pending</th>
+                                            <th rowspan="1" colspan="1">To other departments</th>
+                                            <th rowspan="1" colspan="1">Department Name</th>
+                                            <th rowspan="1" colspan="1">Letter No.</th>
+                                            <th rowspan="1" colspan="1">Office Name</th>
+                                            <th rowspan="1" colspan="1">Remark</th>
+                                            <th rowspan="1" colspan="1">File</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let item of allSubLetters">
+                                            <td>{{item.id}}</td>
+                                            <td>
+                                                <input type="checkbox" name="status" [(ngModel)]="isCompleted1" readonly>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" name="status" [(ngModel)]="isPending1" readonly>
+                                            </td>
+                                            <td>
+                                                {{item.letter_Submit_Date}}
+                                            </td>
+                                            <td>
+                                                {{item.department}}                                           
+                                            </td>
+                                            
+                                            <td>
+                                              {{item.letter_No}}
+                                            </td>
+                                            <td>
+                                                {{item.office}}                                            
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td class="file">
+                                                <ion-icon name="cloud-download-sharp" (click)="downloadLetterFile(this.id)" >
+
+                                                </ion-icon>
+                                            </td>
+                                            <td class="action">
+                                                <ion-icon id="{{item.letter_Outward_No}}" (click)="openSubLetter(item.letter_Outward_No)" name="add-circle-sharp"></ion-icon>
+                                            </td>
+                                        </tr>
+                                        <tr *ngFor="let item of addedSubletter">
+                                            <td>{{item.id}}</td>
+                                            <td>
+                                                <!-- <input type="checkbox" (click)="checked($event)"> -->
+                                                <input type="checkbox" name="status" [(ngModel)]="isCompleted" readonly>
+                                            </td>
+                                            <td>
+                                                <input type="checkbox" name="status" [(ngModel)]="isPending" readonly >
+                                            </td>
+                                            <td>
+                                                {{item.letter_Realese_Date}}
+                                            </td>
+                                            <td>
+                                                {{item.department_Name}}                                           
+                                            </td>
+                                            <td>
+                                                {{item.letter_No}}                                          
+                                            </td>
+                                            <td>
+                                                {{item.office_Name}}                                            
+                                            </td>
+                                            <td>
+                                                {{item.remark}}
+                                            </td>
+                                            <td class="file">
+                                                <ion-icon name="cloud-download-sharp" (click)="downloadFile($event)" id="{{item.id}}">
+
+                                                </ion-icon>
+                                            </td>
+                                            <td class="action">
+                                                <ion-icon id="{{item.letter_Outward_No}}" (click)="openSubLetter(item.letter_Outward_No)" name="add-circle-sharp"></ion-icon>
+                                                <!-- <ion-icon (click)="EditSubltr(item)" name="create-sharp"></ion-icon> -->
+                                                <ion-icon class="delete" name="trash-bin-sharp" (click)="letterDelete(item.id)"></ion-icon>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </ion-card-content>
+                    </ion-card>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+
+        <ion-modal [isOpen]="isModalOpen" [backdropDismiss]="false">
+            <ng-template>
+              <ion-header>
+                <ion-toolbar>
+                  <ion-title>Add Subletter Details</ion-title>
+                  <ion-buttons slot="end">
+                    <ion-button (click)="closeFamily()">
+                      <ion-icon name="close-sharp"></ion-icon>
+                    </ion-button>
+                  </ion-buttons>
+                </ion-toolbar>
+              </ion-header>
+              <ion-content class="ion-padding">
+                <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+                  <ion-row>
+                    <ion-col size-xl="4" size-lg="4" size-md="4" size-sm="12" size-xs="12">
+                        <ion-label>Status <span>*</span> </ion-label>
+                    </ion-col>
+                    
+                    <ion-col size-xl="8" size-lg="8" size-md="8" size-sm="12" size-xs="12">
+                        <div class="aliveRadioBtn">
+                            <ion-radio-group name="status" [(ngModel)]="subletter.status" required>
+                              <div class="radioBtn">
+                                <ion-radio value="Completed"></ion-radio>
+                                <ion-label> Completed </ion-label>
+                                <ion-radio value="Pending"></ion-radio>
+                                <ion-label> Pending </ion-label>
+                              </div>
+                            </ion-radio-group>
+                          </div>
+                    </ion-col>
+                    <!-- <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
+                      <ion-label> Case No. <span>*</span> </ion-label>
+                      <ion-input name="Letter_No" [(ngModel)]="subletter.Letter_No" class="form-control" maxlength="10" required></ion-input>
+                    </ion-col> -->
+
+                    <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
+                        <ion-label> Letter Release Date <span>*</span> </ion-label>
+                        <ion-input value="{{ Letter_Release_Date | date: 'yyyy-MM-dd' }}" id="Letter_Release_Date" class="form-control"
+                            name="Letter_Release_Date" [(ngModel)]="subletter.Letter_Realese_Date" required></ion-input>
+                            <ion-modal trigger="Letter_Release_Date" size="cover">
+                                <ng-template>
+                                  <ion-datetime
+                                    presentation="date"
+                                    name="Letter_Release_Date"
+                                    [(ngModel)]="Letter_Release_Date"
+                                    show-default-buttons="true"
+                                    
+                                  >
+                                  <span slot="title"> {{ year }} </span>
+                                </ion-datetime>
+                                </ng-template>
+                              </ion-modal>
+                      </ion-col>
+      
+                    <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
+                        <div class="flex">
+                            <ion-label> Office <span>*</span> </ion-label>
+                          </div>
+                      <ng-select name="Office_Name" placeholder="Select Office" [(ngModel)]="subletter.Office_Name" required>
+                        <ng-option class="select_option" *ngFor="let item of allOffice" [value]="item.office_Name"> 
+                          {{item.office_Name}}
+                        </ng-option>
+                    </ng-select>
+                    </ion-col>
+
+                    <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
+                        <div class="flex">
+                            <ion-label> Department  </ion-label>
+                          </div>
+                        <ng-select name="Department_Name" placeholder="Select Department" [(ngModel)]="subletter.Department_Name">
+                            <ng-option class="select_option" *ngFor="let item of allDept" [value]="item.department_Name"> 
+                              {{item.department_Name}}
+                            </ng-option>
+                        </ng-select>
+                      </ion-col>
+      
+                   
+      
+                    <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                      <ion-label>Remark </ion-label>
+                      <ion-textarea name="Remark" [(ngModel)]="subletter.Remark" class="form-control" maxlength="160" rows="2"></ion-textarea>
+                    </ion-col>
+
+                    <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                        <div class="flex">
+                            <ion-label> File <span>*</span> <span>( image, video, pdf )</span> </ion-label>
+                            <ion-label> Size - <span> {{fileSize}} </span> </ion-label>
+                          </div>
+                        <input type="file" name="file" (change)="onFileSelected($event)" class="form-control" required>
+                      </ion-col>
+      
+                    <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                      <div class="ion-text-center">
+                        <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
+                        <ion-button type="submit" size="medium" (click)="subLetter()" [disabled]="!f.form.valid">Save</ion-button>
+                      </div>
+                    </ion-col>
+                        
+              </ion-row>
+              </form>
+              </ion-content>
+            </ng-template>
+          </ion-modal>
+
+          <ion-modal [isOpen]="isModalEdit" [backdropDismiss]="false">
+            <ng-template>
+              <ion-header>
+                <ion-toolbar>
+                  <ion-title>Edit Subletter Details</ion-title>
+                  <ion-buttons slot="end">
+                    <ion-button (click)="closeEditLtr()">
+                      <ion-icon name="close-sharp"></ion-icon>
+                    </ion-button>
+                  </ion-buttons>
+                </ion-toolbar>
+              </ion-header>
+              <ion-content class="ion-padding">
+                <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+                  <ion-row>
+                    <ion-col size-xl="4" size-lg="4" size-md="4" size-sm="12" size-xs="12">
+                        <ion-label>Status</ion-label>
+                    </ion-col>
+                    
+                    <ion-col size-xl="8" size-lg="8" size-md="8" size-sm="12" size-xs="12">
+                        <div class="aliveRadioBtn">
+                            <ion-radio-group name="status" required>
+                              <div class="radioBtn">
+                                <ion-radio value="Completed"></ion-radio>
+                                <ion-label> Completed </ion-label>
+                                <ion-radio value="Pending"></ion-radio>
+                                <ion-label> Pending </ion-label>
+                              </div>
+                            </ion-radio-group>
+                          </div>
+                    </ion-col>
+                    <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
+                      <ion-label> Case No. <span>*</span> </ion-label>
+                      <ion-input name="Letter_No" value="{{subletter.Letter_No}}" class="form-control" maxlength="10" required></ion-input>
+                    </ion-col>
+
+                    <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
+                        <ion-label> Letter Release Date <span>*</span> </ion-label>
+                        <ion-input value="{{ Letter_Release_Date | date: 'yyyy-MM-dd' }}" id="Letter_Release_Date" class="form-control"
+                            name="Letter_Release_Date"></ion-input>
+                            <ion-modal trigger="Letter_Release_Date" size="cover">
+                                <ng-template>
+                                  <ion-datetime
+                                    presentation="date"
+                                    name="Letter_Release_Date"
+                                    [(ngModel)]="Letter_Release_Date"
+                                    show-default-buttons="true"
+                                    
+                                  >
+                                  <span slot="title"> {{ year }} </span>
+                                </ion-datetime>
+                                </ng-template>
+                              </ion-modal>
+                      </ion-col>
+      
+                    <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
+                        <div class="flex">
+                            <ion-label> Office <span>*</span> </ion-label>
+                          </div>
+                      <ng-select name="Office_Name" placeholder="Select Office" [(ngModel)]="subletter.Office_Name">
+                        <ng-option class="select_option" *ngFor="let item of allOffice" [value]="item.office_Name"> 
+                          {{item.office_Name}}
+                        </ng-option>
+                    </ng-select>
+                    </ion-col>
+
+                    <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
+                        <div class="flex">
+                            <ion-label> Department  </ion-label>
+                          </div>
+                        <ng-select name="Department_Name" placeholder="Select Department" [(ngModel)]="subletter.Department_Name">
+                            <ng-option class="select_option" *ngFor="let item of allDept" [value]="item.department_Name"> 
+                              {{item.department_Name}}
+                            </ng-option>
+                        </ng-select>
+                      </ion-col>
+      
+                   
+      
+                    <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                      <ion-label>Remark </ion-label>
+                      <ion-textarea name="Remark" class="form-control" maxlength="160" required rows="2"></ion-textarea>
+                    </ion-col>
+
+                    <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                        <div class="flex">
+                            <ion-label> File <span>*</span> <span>( image, video, pdf )</span> </ion-label>
+                            <ion-label> Size - <span> {{fileSize}} </span> </ion-label>
+                          </div>
+                        <input type="file" name="file" (change)="onFileSelected($event)" class="form-control" >
+                      </ion-col>
+      
+                    <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                      <div class="ion-text-center">
+                        <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
+                        <ion-button type="submit" size="medium" (click)="EditsubLetter()">Update</ion-button>
+                      </div>
+                    </ion-col>
+                        
+              </ion-row>
+              </form>
+              </ion-content>
+            </ng-template>
+          </ion-modal>
+
+    </div>
+</ion-content>

@@ -1,0 +1,230 @@
+
+
+<ion-content>
+    <ion-header class="android">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button color="primary" defaultHref="/letter-tracking"></ion-back-button>
+        </ion-buttons>
+        <ion-title> Edit Letter </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <div class="main-content">
+      <ion-grid>
+        <ion-row>
+          <ion-text class="form-header">
+            <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>Edit Letter
+          </ion-text>
+        </ion-row>
+        <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+          <ion-row>
+            <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                <ion-label position="floating"> Subject  <span>*</span>  </ion-label>
+                  <ion-textarea name="subject" [(ngModel)]="letter.subject" maxlength="200" class="form-control" rows="2"  ></ion-textarea>
+              </ion-col> 
+
+              <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                <ion-label position="floating"> Case No.  <span>*</span> </ion-label>
+                  <ion-input   
+                    name="caseNo" 
+                    class="form-control"
+                    [(ngModel)]="letter.caseNo"
+                    maxlength="10"
+                    >
+                  </ion-input>
+                  
+              </ion-col>
+
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" >
+              <ion-label position="floating"> Letter Request Person  <span>*</span> </ion-label>
+                <ion-input 
+                  name="letter_Request_Person" 
+                  [(ngModel)]="letter.letter_Request_Person" 
+                  class="text-capitalize form-control"
+                  maxlength="50" 
+                  required
+                  ></ion-input>
+            </ion-col>
+
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                <ion-label position="floating"> Mobile No.  <span>*</span> </ion-label>
+                  <ion-input 
+                    minlength="10" 
+                    maxlength="12"  
+                    name="mobile_No" 
+                    class="form-control"
+                    [(ngModel)]="letter.mobile_No"
+                    maxlength="10"
+                    >
+                  </ion-input>
+                  
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                <ion-label position="floating"> Office  </ion-label>
+                <ng-select name="office" placeholder="Select Office" [(ngModel)]="letter.office">
+                    <ng-option class="select_option" *ngFor="let item of allOffice" [value]="item.office_Name">
+                      {{item.office_Name}}
+                    </ng-option>
+                </ng-select>
+                
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                <ion-label position="floating"> Department  </ion-label>
+                <ng-select name="department" placeholder="Select Department" [(ngModel)]="letter.department">
+                    <ng-option class="select_option" *ngFor="let item of allDept" [value]="item.department_Name">
+                      {{item.department_Name}}
+                    </ng-option>
+                </ng-select>
+                
+              </ion-col>
+  
+              <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="calendar">
+                <ion-label> BirthDate  </ion-label>
+                <ion-input
+                  value="{{ birthDate | date: 'yyyy-MM-dd' }}"
+                  id="birthDate"
+                  class="form-control"
+                  name="birthDate" 
+                  [(ngModel)]="letter.birthDate"
+                ></ion-input>
+                
+                <ion-modal trigger="birthDate" size="cover">
+                  <ng-template>
+                    <ion-datetime
+                      presentation="date"
+                      name="birthDate"
+                      [(ngModel)]="birthDate"
+                      show-default-buttons="true"
+                    max={{maxDate}}
+                    >
+                    <span slot="title"> {{ year }} </span>
+                  </ion-datetime>
+                  </ng-template>
+                </ion-modal>
+              </ion-col>
+
+              <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                <ion-label position="floating"> Refference Name   </ion-label>
+                  <ion-input name="refference_Name" [(ngModel)]="letter.refference_Name"  class="text-capitalize form-control" maxlength="50" ></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-sm="12" size-xs="12">
+                <ion-label position="floating"> Address   </ion-label>
+                <ion-input name="address" [(ngModel)]="letter.address" class="text-capitalize form-control" maxlength="160" ></ion-input>
+              </ion-col> 
+
+              <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" >
+                <ion-label>District</ion-label>
+                <ng-select name="district" placeholder="Select District" [(ngModel)]="letter.district" (change)="getTaluka(letter.district)">
+                  <ng-option *ngFor="let item of districtList" [value]="item.dId">
+                    {{ item.districtName }}
+                  </ng-option>
+               </ng-select>
+              
+              </ion-col>
+
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                <ion-label>Taluka</ion-label>
+                <ng-select 
+                  name="taluka" 
+                  placeholder="Select Taluka"
+                  [(ngModel)]="letter.taluka"
+                >
+                  <ng-option 
+                    class="select_option"
+                    *ngFor="let item of talukaList" 
+                    [value]="item.talukaName"
+                  >
+                    {{ item.talukaName }}
+                  </ng-option>
+               </ng-select>
+               
+              </ion-col>
+            
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+              <ion-label position="floating"> Village   </ion-label>
+                <ion-input name="village"  [(ngModel)]="letter.village" class="text-capitalize form-control" maxlength="50"></ion-input>
+            </ion-col>
+  
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+                <ion-label position="floating"> Letter Outward No. <span>*</span> </ion-label>
+                  <ion-input name="letter_Outward_No" [(ngModel)]="letter.letter_Outward_No"  class="text-capitalize form-control" maxlength="10"></ion-input>
+              </ion-col>
+  
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="calendar">
+              <ion-label> Letter Release Date </ion-label>
+                <ion-input
+                value="{{ letter_Release_Date | date: 'yyyy-MM-dd' }}"
+                id="letter_Release_Date"
+                class="form-control"
+                name="letter_Release_Date"
+                [(ngModel)]="letter.letter_Release_Date" 
+              ></ion-input>
+              <ion-modal trigger="letter_Release_Date" size="cover">
+                <ng-template>
+                  <ion-datetime
+                    presentation="date"
+                    name="letter_Release_Date"
+                    [(ngModel)]="letter_Release_Date"
+                    show-default-buttons="true"
+                    max={{maxDate}}
+                  >
+                  <span slot="title"> {{ year }} </span>
+                </ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </ion-col>
+
+            <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="12" size-xs="12" class="calendar">
+                <ion-label> Letter Submit Date </ion-label>
+                  <ion-input
+                  value="{{ letter_Submit_Date| date: 'yyyy-MM-dd' }}"
+                  id="letter_Submit_Date"
+                  class="form-control"
+                  name="letter_Submit_Date" 
+                  [(ngModel)]="letter.letter_Submit_Date"
+                ></ion-input>
+                <ion-modal trigger="letter_Submit_Date" size="cover">
+                  <ng-template>
+                    <ion-datetime
+                      presentation="date"
+                      name="letter_Submit_Date"
+                      [(ngModel)]="letter_Submit_Date"
+                      show-default-buttons="true"
+                    max={{maxDate}}
+                    >
+                    <span slot="title"> {{ year }} </span>
+                  </ion-datetime>
+                  </ng-template>
+                </ion-modal>
+              </ion-col>
+
+             
+              <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+                <div class="flex">
+                  <ion-label> File <span>*</span> <span>( image, video, pdf )</span> </ion-label>
+                  <ion-label> Size - <span> {{fileSize}} </span> </ion-label>
+                </div>
+                  <input type="file" #file name="file" [(ngModel)]="letter.fileName" (change)="onFileSelected($event)" value="this.letter.fileName" class="form-control">
+                  <div class="progress-container" *ngIf="uploading">
+                    <div class="progress-bar" [style.width.%]="progress">{{ progress }}%</div>
+                  </div>
+              </ion-col>
+  
+            <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+              <div class="ion-text-center">
+                <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
+                <ion-button  type="submit" size="medium"  (click)="updateLetter()">Update</ion-button>
+                <ion-button routerLink="/letter-tracking/all-letters" color="success" type="button" size="medium">Back To List</ion-button>
+              </div>
+            </ion-col>
+            
+          </ion-row>
+        </form>
+      </ion-grid>
+    </div>
+  </ion-content>
+  
+  

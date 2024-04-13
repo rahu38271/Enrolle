@@ -1,0 +1,242 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>Add User</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/survey"></ion-back-button>
+      </ion-buttons>
+      <ion-title> {{'Add Survey' | translate}} </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <ion-grid>
+      <ion-row class="form-header">
+        <ion-col size-lg="2" size-md="4" size-sm="4" size-xs="12" class="survey">
+          <ion-text class="pl-10">
+            <ion-icon name="add-circle-outline" class="pr-1"></ion-icon> Survey 
+          </ion-text>
+        </ion-col>
+        <ion-col size-lg="10" size-md="8" size-sm="8" size-xs="12">
+          <ion-text class="pl-10">
+             Village Name : <span> ANCHALVADI </span> 
+          </ion-text>
+        </ion-col>
+      </ion-row>
+      <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate >
+        <ion-row>
+
+          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+            <ion-label>  {{'Name' | translate}} </ion-label>
+              <ion-input name="Name" [(ngModel)]="surveyModel.FullName" (keypress)="onKeyPress($event)" class="form-control text-capitalize" required></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="1" size-lg="2" size-md="6" size-sm="6" size-xs="12">
+            <ion-label>  {{'House No.' | translate}} </ion-label>
+              <ion-input name="House" [(ngModel)]="surveyModel.HouseNo"  maxlength="6" class="form-control text-capitalize"></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="2" size-lg="2" size-md="6" size-sm="6" size-xs="12">
+            <ion-label>  {{'Gender' | translate}} </ion-label>
+              <ion-radio-group name="Gender" [(ngModel)]="surveyModel.Gender" class="form-control">
+                <div class="radioBtn">
+                  <ion-radio value="M"></ion-radio>
+                  <ion-label>{{'M' | translate}}</ion-label>
+                  <ion-radio value="F" class="female"></ion-radio>
+                  <ion-label>{{'F' | translate}}</ion-label>
+                </div>
+              </ion-radio-group>
+          </ion-col>
+
+          <ion-col size-xl="2" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+            <ion-label>   {{'DOB' | translate}} </ion-label>
+             <ion-input
+              value="{{ BirthDate | date : 'yyyy-MM-dd'}}"
+              id="BirthDate"
+              name="BirthDate"
+              class="form-control"
+              [(ngModel)]="surveyModel.BirthDate"
+             ></ion-input>
+             <ion-modal trigger="BirthDate" size="cover" [canDismiss]="canDismiss" 
+             [backdropDismiss]="false">
+               <ng-template>
+                 <ion-datetime
+                  presentation="date"
+                  [(ngModel)]="BirthDate"
+                  name="BirthDate"
+                  (click)="CalculateAge()"
+                  max={{maxDate}}
+                  show-default-buttons="true"
+                 >
+                 <div slot="title">{{ year }}</div>
+                </ion-datetime>
+               </ng-template>
+             </ion-modal>
+          </ion-col>
+
+          <ion-col size-xl="1" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+            <ion-label>   {{'Age' | translate}}</ion-label>
+              <ion-input [(ngModel)]="surveyModel.Age" name="Age" maxlength="3" class="form-control">
+              </ion-input>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+            <ion-label>  {{'Mobile' | translate}} </ion-label>
+              <ion-input [(ngModel)]="surveyModel.MobileNo" name="Mobile" minlength="10" maxlength="12" (keypress)="keyPressNumbers($event)" class="form-control"></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+            <ion-label>{{'Alt. No.' | translate}}  </ion-label>
+              <ion-input name="AltMobile" [(ngModel)]="surveyModel.AlternateMobileNo"  minlength="10" maxlength="12"  (keypress)="keyPressNumbers($event)" class="form-control"></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="4" size-lg="6" size-md="12" size-sm="12" size-xs="12">
+            <ion-label>   {{'Address' | translate}}   </ion-label>
+              <ion-textarea name="Address" [(ngModel)]="surveyModel.Address" class="form-control"></ion-textarea>
+          </ion-col>
+
+          <ion-col size-xl="2" size-lg="3" size-md="6" size-sm="6" size-xs="12">
+            <ion-label>  {{'Family Members' | translate}}  </ion-label>
+              <ion-input name="Family" [(ngModel)]="surveyModel.Family" maxlength="2" (keypress)="keyPressNumbers($event)" class="text-capitalize" class="form-control"></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="2" size-lg="3" size-md="6" size-sm="6">
+            <ion-label> {{'Disability' | translate}} </ion-label>
+              <ion-radio-group name="Disability" [(ngModel)]="surveyModel.IsDisable">
+                <div class="radioBtn">
+                  <ion-radio value="Y" ></ion-radio>
+                    <ion-label>{{'Yes' | translate}}</ion-label>
+                    <ion-radio value="N" class="female"></ion-radio>
+                    <ion-label>{{'No' | translate}}</ion-label>
+                </div>
+              </ion-radio-group>
+          </ion-col>
+
+          <ion-col size-xl="1" size-lg="2" size-md="6" size-sm="6" size-xs="12">
+            <ion-label>  {{'Education' | translate}} </ion-label>
+              <ion-input name="Education" [(ngModel)]="surveyModel.Education"  class="form-control"></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+            <ion-label> {{'Occupation' | translate}}  </ion-label>
+              <ng-select name="Occupation" [(ngModel)]="surveyModel.Occupation"  placeholder="Select Occupation">
+                <ng-option *ngFor="let item of allProfession" [value]="item.professionName">
+                  {{ item.professionName }}
+                </ng-option>
+             </ng-select>
+          </ion-col>
+
+          
+
+          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+            <ion-label>  {{'Caste' | translate}} </ion-label>
+              <ng-select name="Caste" [(ngModel)]="surveyModel.Caste"  placeholder="Select Caste">
+                <ng-option *ngFor="let item of AllCasts" [value]="item.casteName">
+                  {{ item.casteName }}
+                </ng-option>
+             </ng-select>
+          </ion-col>
+
+          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>  {{'Extra Information' | translate}}  </ion-label>
+              <ion-textarea name="Info" [(ngModel)]="surveyModel.ExtraInfo" class="form-control"></ion-textarea>
+          </ion-col>
+
+          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>  {{'What works are left in your area ?' | translate}}   </ion-label>
+              <ion-textarea name="WorkLeft" [(ngModel)]="surveyModel.WorkLeft" class="form-control"></ion-textarea>
+          </ion-col>
+
+          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6">
+            <ion-label>   {{' Right now you are happy with the service ?' | translate}} </ion-label>
+              <ion-radio-group name="Service" [(ngModel)]="surveyModel.HappywithService">
+                <!-- <div class="radioBtn" >
+                  <div>
+                    <ion-radio value="Y" ></ion-radio>
+                    <ion-label>{{'Yes' | translate}}</ion-label>
+                  </div>
+                  <div>
+                    <ion-radio value="N" ></ion-radio>
+                    <ion-label>{{'No' | translate}}</ion-label>
+                  </div>
+                  <div>
+                    <ion-radio value="O" ></ion-radio>
+                    <ion-label>{{'Other' | translate}}</ion-label>
+                  </div>
+                </div> -->
+                <div class="radioBtn">
+                  <ion-radio value="Y" ></ion-radio>
+                    <ion-label>{{'Yes' | translate}}</ion-label>
+                    <ion-radio value="N" class="female" ></ion-radio>
+                    <ion-label>{{'No' | translate}}</ion-label>
+                    <ion-radio value="O" class="female"></ion-radio>
+                    <ion-label>{{'Other' | translate}}</ion-label>
+                </div>
+              </ion-radio-group>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <div class="flex">
+              <h6>Member Details Form</h6>
+              <ion-icon name="add-circle-outline" (click)="addMember()"></ion-icon>
+            </div>
+          </ion-col>
+        </ion-row>
+          
+        <ion-row *ngIf="isShow">
+          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+            <ion-label> Name </ion-label>
+              <ion-input name="Name" [(ngModel)]="surveyModel.MemberName"  class="text-capitalize form-control" ></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+            <ion-label> Education </ion-label>
+              <ion-input name="Education" [(ngModel)]="surveyModel.MemberEducation" class="text-capitalize form-control"></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+            <ion-label> Age </ion-label>
+              <ion-input name="Age" [(ngModel)]="surveyModel.MemberAge" class="form-control"></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+            <ion-label> Mobile </ion-label>
+              <ion-input name="Mobile" [(ngModel)]="surveyModel.MemberMobileNo" class="form-control"></ion-input>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="4" size-md="6" size-sm="6" size-xs="12">
+            <ion-label> Gender </ion-label>
+            <ion-radio-group name="Gender" [(ngModel)]="surveyModel.MemberGender">
+              <div class="radioBtn" >
+                <div>
+                  <ion-radio value="M" ></ion-radio>
+                  <ion-label>{{'Male' | translate}}</ion-label>
+                </div>
+                <div>
+                  <ion-radio value="F" ></ion-radio>
+                  <ion-label>{{'Female' | translate}}</ion-label>
+                </div>
+              </div>
+              </ion-radio-group>
+          </ion-col>
+         
+        </ion-row>
+        <ion-row>
+          <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+            <div class="ion-text-center">
+              <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
+              <ion-button type="submit" size="medium" (click)="addSurvey()" >Save</ion-button>
+              <ion-button routerLink="/survey" color="success" type="button" size="medium">Back To List</ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+
+      </form>
+    </ion-grid>
+  </div>
+</ion-content>

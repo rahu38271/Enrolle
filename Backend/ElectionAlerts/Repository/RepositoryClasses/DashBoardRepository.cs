@@ -1,6 +1,7 @@
 ﻿using ElectionAlerts.Dto;
 using ElectionAlerts.Model.Data;
 using ElectionAlerts.Repository.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,8 +14,13 @@ namespace ElectionAlerts.Repository.RepositoryClasses
 {
     public class DashBoardRepository : IDashBoardRepository
     {
-        CustomContext _customContext = new CustomContext();
-
+        private CustomContext _customContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public DashBoardRepository(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            _customContext = new CustomContext(_httpContextAccessor);
+        }
         public IEnumerable<AssemblyDashboard> GetAssemblyCount(string Type)
         {
             try

@@ -2,6 +2,7 @@
 using ElectionAlerts.Helper;
 using ElectionAlerts.Model;
 using ElectionAlerts.Services.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,7 @@ namespace ElectionAlerts.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AssemblyController : ControllerBase
     {
         private readonly IAssemblyService _assemblyservice;
@@ -110,14 +112,14 @@ namespace ElectionAlerts.Controller
                         for (int row = 2; row <= rowCount; row++)
                         {
                             Assembly assembly = new Assembly();
-                            if (worksheet.Cells[row, 1].Value != null)
-                                assembly.AssemblyNo = int.Parse(worksheet.Cells[row, 1].Value.ToString().Trim());
-                            if (worksheet.Cells[row, 2].Value != null)
-                                assembly.AssemblyName = worksheet.Cells[row, 2].Value.ToString().Trim();
-                            if (worksheet.Cells[row, 3].Value != null)
-                               assembly.District = worksheet.Cells[row, 3].Value.ToString().Trim();
                             if (worksheet.Cells[row, 4].Value != null)
-                                assembly.State = worksheet.Cells[row, 4].Value.ToString().Trim();
+                                assembly.AssemblyNo = int.Parse(worksheet.Cells[row, 4].Value.ToString().Trim());
+                            if (worksheet.Cells[row, 3].Value != null)
+                                assembly.AssemblyName = worksheet.Cells[row, 3].Value.ToString().Trim();
+                            if (worksheet.Cells[row, 5].Value != null)
+                               assembly.District = worksheet.Cells[row, 5].Value.ToString().Trim();
+                            if (worksheet.Cells[row, 2].Value != null)
+                                assembly.State = worksheet.Cells[row, 2].Value.ToString().Trim();
                             assemblies.Add(assembly);
                         }
                     }
@@ -193,6 +195,29 @@ namespace ElectionAlerts.Controller
             catch(Exception ex)
             {
                 _exceptionLogService.ErrorLog(ex, "Exceptuion", "AssemblyController/GetAssemblybyDistrict");
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet("GetAssemblyRegLang")]
+        public IActionResult GetAssemblyRegLang(string Assembly)
+        {
+            try
+            {
+                int assemno = 0;
+                var resultset = Assembly.Split(' ');
+                if (resultset[0] != null)
+                {
+                    assemno = Convert.ToInt32(resultset[0]);
+                    var assembly = _assemblyservice.GetAssemblyRegLang(assemno);
+                    var assename = (from a in assembly select new { Assembly = a.AssemblyName, AssemblyNo=a.AssemblyNo }).ToList();
+                    return Ok(assename);
+                }
+                return Ok(0);
+            }
+            catch (Exception ex)
+            {
+                _exceptionLogService.ErrorLog(ex, "Exceptuion", "AssemblyController/GetAssemblyRegLang");
                 return BadRequest(ex);
             }
         }

@@ -15,6 +15,7 @@ namespace ElectionAlerts.Model
         public string Password { get; set; }
         public int? SuperAdminId { get; set; }
         public DateTime? CreatedDate { get; set; }
+        public string MessageSent { get; set; }
 
     }
 }

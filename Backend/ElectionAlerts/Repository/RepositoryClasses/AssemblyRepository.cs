@@ -74,6 +74,18 @@ namespace ElectionAlerts.Repository.RepositoryClasses
             }
         }
 
+        public IEnumerable<Assembly> GetAssemblyRegLang(int Assembly)
+        {
+            try
+            {
+                return _customContext.Set<Assembly>().FromSqlRaw("USP_GetAssembly {0}", Assembly).ToList();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public int InsertAssembly(Assembly assembly)
         {
             try

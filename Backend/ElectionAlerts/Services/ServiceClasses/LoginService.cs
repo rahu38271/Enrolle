@@ -95,5 +95,25 @@ namespace ElectionAlerts.Services.ServiceClasses
         {
             return _loginRepository.GetConfigureDB();
         }
+
+        public IEnumerable<AdminUser> GetAllSocietyMember(int userid)
+        {
+            return _loginRepository.GetAllSocietyMember(userid);
+        }
+
+        public int UpdateMessageSent(int Id,string Type)
+        {
+            return _loginRepository.UpdateMessageSent(Id,Type);
+        }
+
+        public int EnableDisableUser(int Id, string IsActive)
+        {
+            return _loginRepository.EnableDisableUser(Id, IsActive);
+        }
+
+        public string GetOtp(string contact)
+        {
+            return _loginRepository.GetOtp(contact);
+        }
     }
 }

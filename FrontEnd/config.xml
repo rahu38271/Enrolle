@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget android-versionCode="10023" id="io.ionic.pollmaster" version="1.0.23" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <hook src="hooks/updateAppName.js" type="before_build" />
+    <name>Matadarmaza</name>
+    <description>An awesome Ionic/Cordova app.</description>
+    <author email="hi@ionicframework.com" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <preference name="android-targetSdkVersion" value="33" />
+    <preference name="AndroidXEnabled" value="true" />
+    <preference name="ScrollEnabled" value="false" />
+    <preference name="BackupWebStorage" value="none" />
+    <preference name="SplashMaintainAspectRatio" value="true" />
+    <preference name="FadeSplashScreenDuration" value="300" />
+    <preference name="SplashShowOnlyFirstTime" value="false" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="SplashScreenDelay" value="300" />
+    <preference name="AutoHideSplashScreen" value="false" />
+    <preference name="FadeSplashScreen" value="false" />
+    <platform name="android">
+        <preference name="Scheme" value="http" />
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="resources/android/splash/drawable-land-ldpi-screen.png" />
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="resources/android/splash/drawable-land-mdpi-screen.png" />
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="resources/android/splash/drawable-land-hdpi-screen.png" />
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="resources/android/splash/drawable-land-xhdpi-screen.png" />
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="resources/android/splash/drawable-land-xxhdpi-screen.png" />
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="resources/android/splash/drawable-land-xxxhdpi-screen.png" />
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="resources/android/splash/drawable-port-ldpi-screen.png" />
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="resources/android/splash/drawable-port-mdpi-screen.png" />
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="resources/android/splash/drawable-port-hdpi-screen.png" />
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="resources/android/splash/drawable-port-xhdpi-screen.png" />
+        <preference name="AndroidWindowSplashScreenAnimatedIcon" value="resources/android/splash/drawable-port-xxhdpi-screen.png" />
+        <engine name="android" spec="11.0.0" />
+        <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
+            <application android:networkSecurityConfig="@xml/network_security_config" />
+        </edit-config>
+        <resource-file src="resources/android/xml/network_security_config.xml" target="app/src/main/res/xml/network_security_config.xml" />
+        <allow-intent href="market:*" />
+        <icon density="ldpi" src="resources/android/icon/36.png" />
+        <icon density="mdpi" src="resources/android/icon/48.png" />
+        <icon density="hdpi" src="resources/android/icon/72.png" />
+        <icon density="xhdpi" src="resources/android/icon/96.png" />
+        <icon density="xxhdpi" src="resources/android/icon/144.png" />
+        <icon density="xxxhdpi" src="resources/android/icon/192.png" />
+    </platform>
+    <plugin name="cordova-plugin-device" spec="2.0.2" />
+    <plugin name="cordova-plugin-ionic-webview" spec="^5.0.0" />
+    <plugin name="cordova-plugin-ionic-keyboard" spec="^2.0.5" />
+</widget>

@@ -2,6 +2,7 @@
 using ElectionAlerts.Model;
 using ElectionAlerts.Model.Data;
 using ElectionAlerts.Repository.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,13 @@ namespace ElectionAlerts.Repository.RepositoryClasses
 {
     public class GeneralEnquiryRepository : IGeneralEnquiryRepository
     {
-        private CustomContext _customContext = new CustomContext();
-
+        private CustomContext _customContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public GeneralEnquiryRepository(IHttpContextAccessor httpContextAccessor)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            _customContext = new CustomContext(_httpContextAccessor);
+        }
         public IEnumerable<TypeOfComplaint> GetAllTypeOfComplaints()
         {
             try

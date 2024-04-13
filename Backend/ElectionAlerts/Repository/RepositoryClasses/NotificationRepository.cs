@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ElectionAlerts.Dto;
 using ElectionAlerts.Model;
 using ElectionAlerts.Model.Data;
 using ElectionAlerts.Repository.Interface;
@@ -20,6 +21,20 @@ namespace ElectionAlerts.Repository.RepositoryClasses
              _httpContextAccessor = httpContextAccessor;
             _customContext = new CustomContext(_httpContextAccessor);
         }
+
+        public IEnumerable<ContactwithCount> GetNotificationbyDate(string NotifiactionType, string Date,string Name, int PageNo, int NoofRow, string SearchText)
+        {
+            try
+            {
+                return _customContext.Set<ContactwithCount>().FromSqlRaw("Exec USP_GetNotificationsbyDate {0},{1},{2},{3},{4},{5}", NotifiactionType, Date,Name,PageNo,NoofRow, SearchText);
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+
         public IEnumerable<Contact> GetTodaysNotifications(string NotifiactionType)
         {
             try
@@ -31,6 +46,18 @@ namespace ElectionAlerts.Repository.RepositoryClasses
                 throw ex;
             }
             
+        }
+
+        public IEnumerable<LastSevenDayCount> LastSevenDayCountsbyEvent(string Type)
+        {
+            try
+            {
+                return _customContext.Set<LastSevenDayCount>().FromSqlRaw("EXEC Usp_LastSevenDayEventCount {0}", Type);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public string SendNotifications(Contact cnt)
