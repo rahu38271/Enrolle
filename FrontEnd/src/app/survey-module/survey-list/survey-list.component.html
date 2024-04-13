@@ -1,0 +1,200 @@
+
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button auto-hide="false"></ion-menu-button>
+      </ion-buttons>
+
+      <ion-title>Survey</ion-title>
+      
+      <ion-buttons slot="primary">
+        <ion-button (click)="search()">
+          <ion-icon name="search-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
+    <ion-fab-button color="primary" routerLink="/survey/add-survey">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
+  <div class="main-content">
+
+    <ion-grid class="web">
+      <ion-row>
+        <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
+          <ion-grid class="header">
+            <ion-row>
+              <ion-col size-xs="12" size-sm="6">
+                <ion-card-header>
+                  <ion-card-title>Survey</ion-card-title>
+                  <div class="headerLine"></div>
+                </ion-card-header>
+              </ion-col>
+              <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+                <ion-button class="button-download" color="primary" routerLink="/survey/add-survey">
+                  <ion-icon name="add-circle-sharp"></ion-icon> Survey
+                </ion-button>
+                <ion-button class="button-download" fill="outline" color="primary" (click)="exportexcel()">
+                  <ion-icon name="document-sharp"></ion-icon>Excel
+                </ion-button>
+                <!-- <ion-button class="button-download mr-2" color="primary" routerLink="/survey/add-village">
+                  <ion-icon name="add-circle-sharp"></ion-icon>Village
+                </ion-button> -->
+                <!-- <ion-button class="button-download" fill="outline" color="primary" (click)="toggleSlider()">
+                  <ion-icon name="cloud-download-sharp"></ion-icon>Send SMS
+                </ion-button> -->
+
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          <ion-card>
+            
+            <ion-card-content>
+              <div class="horizontal-scroll">
+                <table id="surveyTable" #epltable class="table">
+                  <thead>
+                    <tr>
+                      <th>
+                        अ.क्र.
+                      </th>
+                      <th>
+                        गावाचे नाव
+                      </th>
+                      <th>
+                        संपूर्ण नाव
+                      </th>
+                      
+                      <th>
+                        मोबाइल
+                      </th>
+                      <th>
+                        Age
+                      </th>
+                      <th>
+                        Gender
+                      </th>
+                      <th>
+                        पत्ता
+                      </th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+
+                      <td>1</td>
+                      <td>खडकवासला</td>
+                      <td>सागर मानाजी साळुंखे</td>
+                      
+                      <td>9975292679</td>
+                      <td>26</td>
+                      <td>Male</td>
+                      <td>
+                        एटेल मीडिया प्रा. लिमिटेड,
+                        कार्यालय क्रमांक 39, सी विंग,
+                        चौथा मजला, के.के. बाजार,
+                        बालाजी नगर, पुणे 411 037 महाराष्ट्र.
+                      </td>
+                    </tr>
+                    <tr>
+
+                      <td>2</td>
+                      <td>खडकवासला</td>
+                      <td>सागर मानाजी साळुंखे</td>
+                      
+                      <td>9975292679</td>
+                      <td>26</td>
+                      <td>Male</td>
+                      <td>
+                        एटेल मीडिया प्रा. लिमिटेड,
+                        कार्यालय क्रमांक 39, सी विंग,
+                        चौथा मजला, के.के. बाजार,
+                        बालाजी नगर, पुणे 411 037 महाराष्ट्र.
+                      </td>
+                    </tr>
+                    <tr>
+
+                      <td>3</td>
+                      <td>खडकवासला</td>
+                      <td>सागर मानाजी साळुंखे</td>
+                      
+                      <td>9975292679</td>
+                      <td>26</td>
+                      <td>Male</td>
+                      <td>
+                        एटेल मीडिया प्रा. लिमिटेड,
+                        कार्यालय क्रमांक 39, सी विंग,
+                        चौथा मजला, के.के. बाजार,
+                        बालाजी नगर, पुणे 411 037 महाराष्ट्र.
+                      </td>
+                    </tr>
+                    <tr>
+
+                      <td>4</td>
+                      <td>खडकवासला</td>
+                      <td>सागर मानाजी साळुंखे</td>
+                      
+                      <td>9975292679</td>
+                      <td>26</td>
+                      <td>Male</td>
+                      <td>
+                        एटेल मीडिया प्रा. लिमिटेड,
+                        कार्यालय क्रमांक 39, सी विंग,
+                        चौथा मजला, के.के. बाजार,
+                        बालाजी नगर, पुणे 411 037 महाराष्ट्र.
+                      </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+              </div>
+            </ion-card-content>
+            <ion-card-content>
+
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+    
+      <ion-grid class="userList android">
+        <ion-searchbar (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value);trimInput($events)" *ngIf="isShow"></ion-searchbar>
+        <ion-list *ngFor="let item of surveyByVoter | paginate: { itemsPerPage:NoofRow, currentPage: PageNo, totalItems:totalItems }" (click)="EditSurvey(item)">
+          <ion-item-sliding>
+            <ion-item-options side="end">
+              <a routerLink="/survey/edit-survey"> <ion-icon class="edit" name="pencil-sharp"></ion-icon> </a> 
+            </ion-item-options>
+          <ion-item lines="none">
+            <ion-label>
+              <div class="firstLine">
+                <h3>{{item.fullName}}</h3>
+              </div>
+              <div class="details">
+                <p>{{'Part No.' | translate}} <span> {{item.partNo}} </span></p>
+                <p> {{'Age' | translate}} : <span> {{item.age}} </span> </p>
+                <p>{{'Gender' | translate}} : <span> {{item.gender}} </span></p>
+              </div>
+            </ion-label>
+          </ion-item>
+          <div *ngIf="!surveyByVoter || surveyByVoter.length === 0" class="text-center noData">
+            <img src="assets/img/question.png" />
+            <p>No data available</p>
+            <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
+          </div>
+          </ion-item-sliding>
+        </ion-list>
+        <ion-list>
+          <pagination-controls (pageChange)="event($event)"></pagination-controls>
+        </ion-list>
+      </ion-grid>
+  </div>
+</ion-content>
+
+

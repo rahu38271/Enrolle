@@ -1,0 +1,151 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>Add User</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/home"></ion-back-button>
+      </ion-buttons>
+      <ion-title>SMS Setting</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <ion-grid>
+      <ion-row>
+        <ion-text class="form-header">
+          <ion-icon name="add-circle-sharp" class="pr-1"></ion-icon>SMS Setting
+        </ion-text>
+      </ion-row>
+      <form name="smsForm" (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+        <ion-row>
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="6" size-xs="8">
+            <ion-radio-group name="MType" [(ngModel)]="smsSetting.MType">
+              <div class="radioBtn">
+                <div>
+                  <ion-radio value="Birthday"></ion-radio>
+                  <ion-label>Birthday </ion-label>
+                </div>
+          
+                <div>
+                  <ion-radio value="Anniversary"></ion-radio>
+                  <ion-label>Anniversary </ion-label>
+                </div>
+
+          
+              </div>
+            </ion-radio-group>
+          </ion-col>
+        </ion-row>
+          <ion-row>
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" >
+            <ion-label> URL <span>*</span> </ion-label>
+              <ion-input name="Url" [(ngModel)]="smsSetting.Url" #Url="ngModel" [ngClass]="{'is-invalid': f.submitted && Url.invalid}" class="form-control">
+                <!-- https://app.imsscall.in/api/send.php -->
+              </ion-input>
+              <div *ngIf="f.submitted && Url.invalid" class="invalid-feedback">
+                <div *ngIf="Url.errors.required">
+                   url is required
+                </div>
+              </div>
+          </ion-col>
+
+          <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" >
+            <ion-label> Username <span>*</span> </ion-label>
+              <ion-input name="UserName" [(ngModel)]="smsSetting.UserName" #UserName="ngModel" [ngClass]="{'is-invalid': f.submitted && UserName.invalid}" class="form-control">
+              </ion-input>
+              <div *ngIf="f.submitted && UserName.invalid" class="invalid-feedback">
+                <div *ngIf="UserName.errors.required">
+                  username is required
+                </div>
+              </div>
+          </ion-col>
+
+          <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" >
+            <ion-label> Password <span>*</span> </ion-label>
+              <ion-input name="url" [(ngModel)]="smsSetting.Password" #Password="ngModel" [ngClass]="{'is-invalid': f.submitted && Password.invalid}" class="form-control">
+              </ion-input>
+              <div *ngIf="f.submitted && Password.invalid" class="invalid-feedback">
+                <div *ngIf="password.errors.required">
+                  password is required
+                </div>
+              </div>
+          </ion-col>
+
+          <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" >
+            <ion-label> SenderId <span>*</span> </ion-label>
+              <ion-input name="SenderId" maxlength="6" minlength="6" [(ngModel)]="smsSetting.SenderId" #SenderId="ngModel" [ngClass]="{'is-invalid': f.submitted && SenderId.invalid}" class="form-control">
+              </ion-input>
+              <div *ngIf="f.submitted && SenderId.invalid" class="invalid-feedback">
+                <div *ngIf="SenderId.errors.required">
+                  senderId is required
+                </div>
+              </div>
+          </ion-col>
+
+          <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" >
+            <ion-label> Type <span>*</span></ion-label>
+            <ng-select 
+            name="Type" 
+            [(ngModel)]="smsSetting.Type" 
+            #Taluka="ngModel"  
+            placeholder="Select Type"
+          >
+            <ng-option class="select_option" value="0">0</ng-option>
+            <ng-option class="select_option" value="8">8</ng-option>
+         </ng-select>
+          </ion-col>
+
+          <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" >
+            <ion-label> PeId <span>*</span> </ion-label>
+              <ion-input (keypress)="keyPressNumbers($event)" maxlength="19" minlength="19"  name="PeId" [(ngModel)]="smsSetting.PeId" #PeId="ngModel" [ngClass]="{'is-invalid': f.submitted && PeId.invalid}" class="form-control">
+              </ion-input>
+              <div *ngIf="f.submitted && PeId.invalid" class="invalid-feedback">
+                <div *ngIf="PeId.errors.required">
+                  peId is required
+                </div>
+              </div>
+          </ion-col>
+
+         
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" *ngIf="smsSetting.MType =='Birthday'">
+            <div class="d-flex labels"> 
+              <ion-label>Birthday  Message <span>*</span>  </ion-label>
+            </div>
+              <ion-textarea name="Text" [(ngModel)]="smsSetting.Text" #Text="ngModel" [ngClass]="{'is-invalid': f.submitted && Text.invalid}" class="form-control text-style" rows="3"></ion-textarea>
+              <div *ngIf="f.submitted && Text.invalid" class="invalid-feedback">
+                <div *ngIf="Text.errors.required">
+                  Message is required
+                </div>
+              </div>
+          </ion-col>
+
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" *ngIf="smsSetting.MType =='Anniversary'">
+            <div class="d-flex labels"> 
+              <ion-label>Anniversary  Message <span>*</span>  </ion-label>
+            </div>
+              <ion-textarea name="Text" [(ngModel)]="smsSetting.Text" #Text="ngModel" [ngClass]="{'is-invalid': f.submitted && Text.invalid}" class="form-control text-style" rows="3"></ion-textarea>
+              <div *ngIf="f.submitted && Text.invalid" class="invalid-feedback">
+                <div *ngIf="Text.errors.required">
+                  Message is required
+                </div>
+              </div>
+          </ion-col>
+          
+          <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+            <div class="ion-text-center">
+              <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
+              <ion-button  type="submit" size="medium" (click)="addSMSSetting()">
+                Add SMS Setting
+              </ion-button>
+              <!-- <ion-button routerLink="/setting" color="success" type="button" size="medium">Back To List</ion-button> -->
+            </div>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-grid>
+  </div>
+</ion-content>

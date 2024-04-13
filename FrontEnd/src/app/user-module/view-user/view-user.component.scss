@@ -1,0 +1,106 @@
+.grid-bg { width: 75%; background: #FFF;  box-shadow: 0 0 10px rgb(232 234 237 / 50%); }
+
+ion-label { color: #6688fb !important; --font-weight: 400 !important; }
+
+ion-select {background: #fafafa; border: solid 1px #cccccc;  color: #949494 !important; --font-weight: 400 !important; --placeholder-color: #a7a7a7; --placeholder-opacity: 1 }
+
+ion-input {background: #fafafa; border: solid 1px #cccccc;  color: #949494 !important; }
+
+
+ion-textarea {--background: #fafafa; border: solid 1px #cccccc;  color: #949494 !important; }
+
+
+//ion-item { --background: #fafafa; border: solid 1px #cccccc; }
+
+h2 { color: #1a3353; font-weight: 500; }
+
+.profileImg { border-radius: 0.625rem !important; background: #FFF; padding: 10px; box-shadow: rgb(0 0 0 / 8%) 0px 0.125rem 0.25rem !important;
+    margin-top: -50px; margin-left: 20px;
+} 
+
+.pl-10 { padding-left: 10px; }
+
+ion-input ion-icon { --font-size: 10px !important; }
+
+table tr th:nth-child(1) {
+    width: 150px;
+    text-align: left !important;
+}
+table tr td:nth-child(1) {
+    width: 150px;
+    text-align: left !important;
+}
+
+table { text-align: center; margin-top: 10px; }
+
+h3 {
+    color: #f95e93 !important;
+    width: 100%;
+}
+
+.banner {
+    position: relative;
+    height: 250px;
+    width: 100%;
+    background-image: url('/assets/img/profile.jpg');
+    background-position: center;
+    background-size: cover;
+}
+
+.details {
+    position: absolute;
+    top: 200px;
+    width: 85%;
+    left: 6%;
+    border: 1px solid #e6ebf1;
+    background: #fff;
+    border-radius: 0.625rem;
+    z-index: 999;
+}
+
+@media screen and (max-width: 768px) {
+    .details {
+        position: absolute;
+        top: 200px;
+        width: 100%;
+        left: 0%;
+        border: 1px solid #e6ebf1;
+        background: #fff;
+        border-radius: 0.625rem;
+        z-index: 999;
+    }
+}
+
+
+@media screen and (max-width: 992px) {
+    .details {
+        position: absolute;
+        top: 200px;
+        width: 96%;
+        left: 2%;
+        border: 1px solid #e6ebf1;
+        background: #fff;
+        border-radius: 0.625rem;
+        z-index: 999;
+    }
+}
+
+
+
+.name {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+ion-text {
+    color: rgb(26, 51, 83);
+    font-weight: 500;
+}
+
+.leftSide ion-text {
+    float: right;
+}
+
+.borderTop {
+    border-top: solid 2px #e9e9e9 !important;
+}

@@ -1,0 +1,104 @@
+<ion-content>
+    <ion-header class="android">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button  auto-hide="false"></ion-menu-button>
+        </ion-buttons>
+        <ion-title> Reports </ion-title>
+        <ion-buttons slot="primary">
+          <ion-button (click)="search()">
+            <ion-icon name="search-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <div class="main-content">
+      <!-- <ion-searchbar></ion-searchbar> -->
+      <ion-grid class="web">
+        <ion-row>
+          <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
+            <ion-grid class="header">
+              <ion-row>
+                <ion-col size-xs="12" size-sm="6">
+                  <ion-card-header>
+                    <ion-card-title>
+                       Reports <span>  </span>
+                    </ion-card-title>
+                    <div class="headerLine"></div>
+                  </ion-card-header>
+                </ion-col>
+                
+              </ion-row>
+            </ion-grid>
+  
+            <ion-card>
+              <ion-card-content>
+                <!-- <div class="headSection">
+                  <div class="search">
+                    <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+                  </div>
+                  <div class="btns">
+                    <ion-button class="button-download" color="success" (click)="exportExcel()">
+                      <ion-icon name="document-sharp"></ion-icon>Excel
+                    </ion-button>
+                    <ion-button class="button-download" color="success" (click)="exportToCSV()" id="export">
+                      <ion-icon name="document-sharp"></ion-icon>CSV
+                    </ion-button>
+                  </div>
+                  
+                </div> -->
+                <div>
+                  <table id="contactTable" class="table">
+                    <thead>
+                      <tr>
+                        <th style="width: 20px !important;">
+                          Sr.No.
+                        </th>
+                        <th>Name</th>
+                        <th>
+                          Module
+                        </th>
+                        <th>
+                          Action
+                        </th>
+                        <th>
+                          Description
+                        </th>
+                        
+                        <th>
+                          Date
+                        </th>
+                      </tr>
+                      
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of getReports | paginate: { itemsPerPage: NoofRow, currentPage: PageNo , totalItems:totalItems }; let i=index" >
+                        <td> {{ item.id  }} </td>
+                        <td>{{item.userName}}</td>
+                        <td> {{ item.module }} </td>
+                        <td> {{ item.action }} </td>
+                        <td> {{ item.description }} </td>
+                        <td> {{ item.date }} </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div *ngIf="!getReports || getReports.length === 0">
+                    <p>No data</p>
+                  </div>
+                  <pagination-controls (pageChange)="event($event)"></pagination-controls>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-content>
+  
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed" routerLink="/contact/add-contact">
+    <ion-fab-button color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
+  

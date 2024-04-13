@@ -1,0 +1,141 @@
+<ion-content>
+    <ion-header class="android">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/home/mobile-dashboard"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Completed Letters  </ion-title>
+        <ion-buttons slot="primary">
+          <ion-button (click)="search()">
+            <ion-icon name="search-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <div class="main-content">
+      <ion-grid class="web">
+        <ion-row>
+          <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
+            <ion-grid class="header">
+              <ion-row>
+                <ion-col size-xs="12" size-sm="6" class="webBack">
+                  <div class="flex">
+                    <ion-icon (click)="goBack()" name="arrow-back-sharp"></ion-icon>
+                    <ion-card-header>
+                      <ion-card-title>
+                        <ion-text> Completed Letters, <span> Total - {{totalItems}} </span> </ion-text>
+                      </ion-card-title>
+                    </ion-card-header>
+                  </div>
+                </ion-col>
+                <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+                  
+  
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card>
+              <ion-card-content>
+                <div class="headSection">
+                  <div class="search">
+                    <ion-searchbar (keypress)="omit_special_char($event)" (keyup)="keyPress($event.target.value)" (change)="onSearchChange($event.target.value)"  animated="true"></ion-searchbar>
+                  </div>
+                  <div class="btns">
+                    <ion-button class="button-download" color="tertiary" (click)="exportExcel()" >
+                      Excel 
+                    </ion-button>
+                    <ion-button class="button-download" color="tertiary" (click)="exportToCSV()" >
+                      CSV 
+                    </ion-button>
+                  </div>
+                </div>
+                <div class="horizontal-scroll">
+                  <table id="userAdminTable" #epltable class="table">
+                    <thead>
+                      <tr>
+  
+                        <th rowspan="2">
+                          Sr.No.
+                        </th>
+                        <th rowspan="2">
+                          Case No.
+                        </th>
+                        <th rowspan="2">
+                           Name
+                        </th>
+                        <th rowspan="2">
+                          Mobile
+                        </th>
+                        <th rowspan="2">
+                          Subject
+                        </th>
+  
+                        <th rowspan="2">
+                          Refference
+                        </th>
+                        <th rowspan="2">
+                          Village
+                        </th>
+                        
+                        <th rowspan="2">
+                          Date
+                        </th>
+                        
+                        <th colspan="5">
+                            Work Done
+                        </th>
+                        
+                      </tr>
+                      <tr>
+                        <th>Completed</th>
+                        <th>Pending</th>
+                        <th>To Other Dept.</th>
+                        <th>Department Name</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of lettersCompleted | paginate:{ itemsPerPage:NoofRow, currentPage:PageNo,totalItems:totalItems}">
+                        <td>{{item.id}}</td>
+                        <td>{{item.caseNo}}</td>
+                        <td>{{item.letter_Request_Person}}</td>
+                        <td>{{item.mobile_No}}</td>
+                        <td>{{item.subject}}</td>
+                        <td>{{item.refference_Name}}</td>
+                        <td>{{item.village}}</td>
+                        <td>{{item.letter_Release_Date}}</td>
+                        <td>
+                          <input type="checkbox" [(ngModel)]="isCompleted" disabled>
+                       </td>
+                       <td>
+                         <input type="checkbox" disabled>
+                      </td>
+                      <td>
+                       {{item.letter_Release_Date}}
+                      </td>
+                      <td>
+                       {{item.department}}
+                      </td>
+                      <td class="view">
+                        <ion-icon  name="eye-sharp" id="{{item.id}}" (click)="subLetter(item.id)"></ion-icon>
+                      </td>
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                  <div *ngIf="!lettersCompleted || lettersCompleted.length === 0" class="text-center">
+                    <p>No data available</p>
+                  </div>
+                  <pagination-controls (pageChange)="event($event)"></pagination-controls>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+  
+        </ion-row>
+      </ion-grid>
+  
+  
+    </div>
+  </ion-content>
+  

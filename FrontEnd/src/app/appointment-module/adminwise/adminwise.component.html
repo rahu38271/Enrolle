@@ -1,0 +1,86 @@
+<ion-content>
+    <ion-header class="android">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button auto-hide="false"></ion-menu-button>
+        </ion-buttons>
+        <ion-title></ion-title>
+        <ion-buttons slot="primary">
+          <ion-button (click)="search()">
+            <ion-icon name="search-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <div class="main-content">
+      <!-- <ion-searchbar></ion-searchbar> -->
+      <ion-grid class="web">
+        <ion-row>
+          <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
+            <ion-grid class="header">
+              <ion-row>
+                <ion-col size-xs="12" size-sm="6">
+                  <ion-card-header>
+                    <ion-card-title class="header1">Appointment By Admin  <span>    </span> </ion-card-title>
+                    <div class="headerLine"></div>
+                  </ion-card-header>
+  
+                </ion-col>
+                <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+                  <!-- <ion-button class="button-download" fill="outline" color="success" >
+                    <ion-icon name="document-sharp"></ion-icon>Excel
+                  </ion-button>
+                  <ion-button class="button-download" fill="outline" color="danger" >
+                    <ion-icon name="cloud-download-sharp"></ion-icon>PDF
+                  </ion-button>
+                   -->
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card>
+  
+              <ion-card-content>
+                
+                <div class="horizontal-scroll">
+                  <table id="villageTable" #epltable class="table">
+                    <thead>
+                      <tr>
+                        <th>
+                         UserId
+                        </th>
+                        <th>
+                          Admin Name
+                        </th>
+                        <th>
+                          Total Appointments
+                        </th>
+                        <th>Today's Appointment</th>
+                        <th>Approved Appointments</th>
+                        <th>Rejected Appointments</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of apmByAdmin">
+                        <td>{{item.userId}}</td>
+                        <td (click)="adminWiseApm(item.userId)">
+                          <a> {{item.adminName}} </a>
+                        </td>
+                        <td>{{item.totalAppointment}}</td>
+                        <td>{{item.todayAppointment}}</td>
+                        <td>{{item.approved}}</td>
+                        <td>{{item.rejected}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </ion-card-content>
+  
+            </ion-card>
+          </ion-col>
+  
+        </ion-row>
+      </ion-grid>
+  
+      
+    </div>
+  </ion-content>

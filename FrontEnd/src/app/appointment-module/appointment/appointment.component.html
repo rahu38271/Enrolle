@@ -1,0 +1,177 @@
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button auto-hide="false"></ion-menu-button>
+      </ion-buttons>
+      <ion-title> Appointments </ion-title>
+      <ion-buttons slot="primary">
+        <ion-button (click)="search()">
+          <ion-icon name="search-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+
+    <div class="web">
+      <ion-grid class="header">
+        <ion-row>
+          <ion-col size-xs="12" size-sm="6" class="webBack">
+            <div class="flex">
+              <ion-card-header>
+                <ion-card-title>
+                  Appointments
+                </ion-card-title>
+                <div class="headerLine"></div>
+              </ion-card-header>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size-xs="12" size-sm="12" size-md="12">
+
+          <ion-row>
+            <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6">
+              <ion-list class="survey-list" routerLink="/appointment/all-appointments">
+                <ion-item lines="none">
+                  <ion-label class="contact">
+
+                    <div>
+                      <h3> All Appointments </h3>
+                      <h4> {{totalApm}} </h4>
+                    </div>
+                    <i class="icofont icofont-search-document"></i>
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+
+            <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6">
+              <ion-list class="survey-list" routerLink="/appointment/add-appointment">
+                <ion-item lines="none">
+                  <ion-label>
+                    <div class="contact">
+
+                      <div>
+                        <h3> Add Appointment </h3>
+                        <h4> - </h4>
+                      </div>
+                      <i class="icofont icofont-ui-clock"></i>
+                    </div>
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+
+            <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6">
+              <ion-list class="survey-list" routerLink="/appointment/today-appointment">
+                <ion-item lines="none">
+                  <ion-label>
+                    <!-- <img src="assets/img/contact-book.png" alt="" class="brightness"> -->
+                    <div class="contact">
+
+                      <div>
+                        <h3> Today's </h3>
+                        <h4> {{todayApm}} </h4>
+                      </div>
+                      <i class="icofont icofont-contact-add"></i>
+                    </div>
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+
+            <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6">
+              <ion-list class="survey-list" routerLink="/approved-appointment">
+                <ion-item lines="none">
+                  <ion-label>
+                    <div class="contact">
+                      <!-- <img src="assets/img/cake.png" alt=""> -->
+
+                      <div>
+                        <h3> Approved </h3>
+                        <h4> {{approvedApm}} </h4>
+                      </div>
+                      <i class="icofont icofont-ui-check"></i>
+                    </div>
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+            <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6">
+              <ion-list class="survey-list" routerLink="/approved-appointment/rejected">
+                <ion-item lines="none">
+                  <ion-label>
+                    <!-- <img src="assets/img/anniversary.png" alt=""> -->
+                    <div class="contact">
+
+                      <div>
+                        <h3> Rejected </h3>
+                        <h4> {{rejectedApm}} </h4>
+                      </div>
+                      <i class="icofont icofont-ui-close"></i>
+                    </div>
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+
+            <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6">
+              <ion-list class="survey-list" routerLink="/appointment/appointment-byDate">
+                <ion-item lines="none">
+                  <ion-label>
+                    <!-- <img src="assets/img/anniversary.png" alt=""> -->
+                    <div class="contact">
+
+                      <div>
+                        <h3> Report by Date </h3>
+                        <h4> - </h4>
+                      </div>
+                      <i class="icofont icofont-calendar"></i>
+                    </div>
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+
+            <ion-col size-lg="3" size-md="4" size-sm="4" size-xs="6">
+              <ion-list class="survey-list" routerLink="/appointment/appointment-adminwise">
+                <ion-item lines="none">
+                  <ion-label>
+                    <!-- <img src="assets/img/anniversary.png" alt=""> -->
+                    <div class="contact">
+
+                      <div>
+                        <h3> Adminwise </h3>
+                        <h4> - </h4>
+                      </div>
+                      <i class="icofont icofont-ui-user-group"></i>
+                    </div>
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-col>
+            
+          </ion-row>
+          <ion-row>
+            <ion-col size-lg="4" size-md="6" size-sm="6" size-xs="12">
+              <ion-card>
+                <ejs-accumulationchart height="300px" id="chart-container" [tooltip]='tooltip' [title]='title' [legendSettings]='legendSettings'>
+                  <e-accumulation-series-collection>
+                      <e-accumulation-series [dataSource]='apmCount' xName='x' yName='y' [dataLabel]='datalabel' [palettes]='palette1' radius="80%" innerRadius='60%'></e-accumulation-series>
+                  </e-accumulation-series-collection>
+                </ejs-accumulationchart>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>
+

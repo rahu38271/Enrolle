@@ -1,0 +1,67 @@
+
+
+<ion-content>
+    <ion-header class="android">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/superadmin"></ion-back-button>
+        </ion-buttons>
+        <ion-title> Configure DB </ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <div class="main-content">
+      <ion-grid>
+        <ion-row>
+          <ion-text class="form-header">
+            <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>Configure DB
+          </ion-text>
+        </ion-row>
+        <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+          <ion-row>
+            <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
+              <img src="/assets/img/database.png" alt="">
+            </ion-col>
+            <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
+              <ion-row>
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" >
+                  <ion-label position="floating"> DB Name   <span>*</span> </ion-label>
+                    <ion-input name="dbName" [(ngModel)]="DBConfigModal.dbName" class="form-control" required></ion-input>
+                </ion-col>
+    
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" >
+                  <ion-label position="floating"> IP   <span>*</span> </ion-label>
+                    <ion-input name="ipAddress" [(ngModel)]="DBConfigModal.ipAddress" class="form-control" required></ion-input>
+                </ion-col>
+    
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" >
+                  <ion-label position="floating"> Hostname  </ion-label>
+                    <ion-input name="hostName" [(ngModel)]="DBConfigModal.hostName" class="form-control"></ion-input>
+                </ion-col>
+    
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" >
+                  <ion-label position="floating"> Username   <span>*</span> </ion-label>
+                    <ion-input name="userName" [(ngModel)]="DBConfigModal.userName" class="form-control" required></ion-input>
+                </ion-col>
+    
+                <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" >
+                  <ion-label position="floating"> Password   <span>*</span> </ion-label>
+                    <ion-input name="password" [(ngModel)]="DBConfigModal.password" class="form-control" required></ion-input>
+                </ion-col>
+    
+                
+                <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                  <div class="ion-text-center">
+                    <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
+                    <ion-button  type="submit" size="medium" (click)="dbAssign()" [disabled]="!f.form.valid">Save</ion-button>
+                    <!-- <ion-button routerLink="/contact" color="success" type="button" size="medium">Back To List</ion-button> -->
+                  </div>
+                </ion-col>
+              </ion-row>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-grid>
+    </div>
+  </ion-content>
+  
+  

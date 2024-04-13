@@ -1,0 +1,67 @@
+
+
+<ion-content [fullscreen]="true">
+  <div class="main-content">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-lg="6">
+          <table>
+            <thead>
+              <tr>
+                <th>Inclination</th>
+                <th>Count</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>In Favor</td>
+                <td>1</td>
+                <td>
+                  <ion-button routerLink="/voterdata-management" color="success" size="small"><ion-icon name="eye-sharp"></ion-icon></ion-button>
+                </td>
+              </tr>
+              <tr>
+                <td>Neutral</td>
+                <td>1</td>
+                <td>
+                  <ion-button routerLink="" color="success" size="small"><ion-icon name="eye-sharp"></ion-icon></ion-button>
+                </td>
+              </tr>
+              <tr>
+                <td>Opponent</td>
+                <td>1</td>
+                <td>
+                  <ion-button routerLink="" color="success" size="small"><ion-icon name="eye-sharp"></ion-icon></ion-button>
+                </td>
+              </tr>
+              <tr>
+                <td>Supporter</td>
+                <td>2</td>
+                <td>
+                  <ion-button routerLink="" color="success" size="small"><ion-icon name="eye-sharp"></ion-icon></ion-button>
+                </td>
+              </tr>
+              <tr>
+                <td>Unassigned</td>
+                <td>25891 </td>
+                <td>
+                  <ion-button routerLink="" color="success" size="small"><ion-icon name="eye-sharp"></ion-icon></ion-button>
+                </td>
+              </tr>
+              
+            </tbody>
+          </table>
+        </ion-col>
+        <ion-col size-lg="6">
+          <ejs-accumulationchart id="chart-container" [tooltip]='tooltip' [title]='title' (pointClick)='pointClick($event)'>
+            <e-accumulation-series-collection>
+                <e-accumulation-series [dataSource]='piedata' xName='x' yName='y' [dataLabel]='datalabel' radius="70%"></e-accumulation-series>
+            </e-accumulation-series-collection>
+        </ejs-accumulationchart>
+         
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

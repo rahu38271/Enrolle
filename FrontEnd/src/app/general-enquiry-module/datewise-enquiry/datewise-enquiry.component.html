@@ -1,0 +1,233 @@
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button auto-hide="false"></ion-menu-button>
+      </ion-buttons>
+      <ion-title> Reports </ion-title>
+      <ion-buttons slot="primary">
+        <ion-button (click)="search()">
+          <ion-icon name="search-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+
+    <div class="web">
+      <ion-grid class="header">
+        <ion-row>
+          <ion-col size-xs="12" size-sm="6" class="webBack">
+            <div class="flex">
+              <ion-icon (click)="goBack()" name="arrow-back-sharp"></ion-icon>
+              <ion-card-header>
+                <ion-card-title>Reports By Date</ion-card-title>
+                <div class="headerLine"></div>
+              </ion-card-header>
+            </div>
+          </ion-col>
+          <!-- <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+              <ion-button class="button-download" color="primary" routerLink="/appointment/add-appointment"><ion-icon name="add-circle-sharp"></ion-icon>Add Appointment</ion-button>
+              <ion-button class="button-download" fill="outline" routerLink="/appointment/today-appointment" color="primary" ><ion-icon name="refresh-circle-sharp"></ion-icon>Today's Appointments</ion-button>
+            </ion-col> -->
+        </ion-row>
+      </ion-grid>
+    </div>
+
+
+    <ion-grid class="topForm">
+      <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+        <ion-row>
+          
+          <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
+            <ion-label> From Date <span>*</span> </ion-label>
+            <ion-input value="{{ FromDate | date: 'yyyy-MM-dd' }}" id="FromDate" name="FromDate"
+              [(ngModel)]="searchEnqModal.FromDate" class="form-control" required>
+            </ion-input>
+
+            <ion-modal trigger="FromDate" size="cover" [canDismiss]="canDismiss" [backdropDismiss]="false">
+              <ng-template>
+                <ion-datetime presentation="date" [(ngModel)]="FromDate" name="FromDate" show-default-buttons="true">
+                  <span slot="title"> {{ year }} </span>
+                </ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-col>
+
+          <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
+            <ion-label> To Date </ion-label>
+            <ion-input value="{{ ToDate | date: 'yyyy-MM-dd' }}" id="ToDate" name="ToDate"
+              [(ngModel)]="searchEnqModal.ToDate" class="form-control">
+            </ion-input>
+
+            <ion-modal trigger="ToDate" size="cover" [canDismiss]="canDismiss" [backdropDismiss]="false">
+              <ng-template>
+                <ion-datetime presentation="date" [(ngModel)]="ToDate" name="ToDate" show-default-buttons="true">
+                  <span slot="title"> {{ year }} </span>
+                </ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-col>
+
+          <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
+            <ion-label> Type of Work </ion-label>
+            <ng-select name="TypeofWork" [(ngModel)]="searchEnqModal.TypeofWork" #TypeofWork="ngModel"
+              placeholder="Select">
+              <ng-option *ngFor="let item of workList" [value]="item.workName">
+                {{item.workName}}
+              </ng-option>
+            </ng-select>
+          </ion-col>
+
+          <ion-col size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="12" class="mt-1">
+            <ion-button class="searchBtn" type="submit" [disabled]="!f.form.valid" (click)="datewiseList()">Search
+            </ion-button>
+            <ion-button type="reset" (click)="resetForm()" class="searchBtn" color="danger">Clear
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-grid>
+
+    <ion-card class="web">
+      <ion-card-content>
+        <div class="headSection">
+          <div class="search">
+            <ion-searchbar animated="true"></ion-searchbar>
+          </div>
+          <div class="btns">
+            <ion-button class="button-download" color="tertiary" (click)="exportExcel()">
+              Excel 
+            </ion-button>
+            <ion-button class="button-download" color="tertiary" (click)="exportToCSV()">
+              CSV 
+            </ion-button>
+          </div>
+        </div>
+        <div class="horizontal-scroll">
+          <table class="table" id="table13" #epltable>
+            <thead>
+              <tr>
+                <th>
+                  Sr.No.
+                </th>
+                <th>
+                  Work
+                </th>
+                <th>
+                  Name
+                </th>
+                <th>
+                  Gender
+                </th>
+                <th>
+                  Mobile No.
+                </th>
+                <th>
+                  Alt. Mob. No.
+                </th>
+                <th>
+                  BirthDate
+                </th>
+
+                <th>
+                  Email
+                </th>
+                <th>
+                  BillBook No.
+                </th>
+                <th>
+                  Society / Building Name
+                </th>
+                <th>
+                  Flat / House No.
+                </th>
+                <th>
+                  Acknowledgement No.
+                </th>
+                <th>
+                  Type of Form
+                </th>
+                <th>
+                  Type of Complaint
+                </th>
+                <th>
+                  Landmark / Locality
+                </th>
+                <th>
+                  Epic No.
+                </th>
+                <th>
+                  Aadhar Card No.
+                </th>
+                <th>
+                  FullName Student
+                </th>
+                <th>
+                  FullName Parent
+                </th>
+                <th>
+                  Area
+                </th>
+                <th>
+                  Year
+                </th>
+                <th>
+                  Reference
+                </th>
+                <th>
+                  Reference Id
+                </th>
+                <th>
+                  Created By
+                </th>
+
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let item of searchedList | paginate: { itemsPerPage: NoofRow,currentPage:PageNo ,totalItems:totalItems }; let i=index">
+                <td>{{item.id}} </td>
+                <td>{{item.typeofWork}} </td>
+                <td> {{item.fullName}} </td>
+                <td>{{item.gender}}</td>
+                <td> {{item.mobileNo}} </td>
+                <td>{{item.alternateMobile}} </td>
+                <td> {{item.birthDate}} </td>
+                <td>{{item.email}}</td>
+                <td> {{item.billBookNo}} </td>
+                <td> {{item.society_BuildingName}} </td>
+                <td>{{item.flat_HouseNo}}</td>
+                <td> {{item.acknowledgementNumber}} </td>
+                <td>{{item.typeofForm}}</td>
+                <td>{{item.typeofComplaints}}</td>
+                <td>{{item.landmark_Locality}}</td>
+                <td>{{item.epicNo}}</td>
+                <td>{{item.aaddharCardNumber}}</td>
+                <td>{{item.fullNameStudent}}</td>
+                <td>{{item.fullNameParent}}</td>
+                <td>{{item.area}}</td>
+                <td>{{item.year}}</td>
+                <td>{{item.reference}}</td>
+                <td>{{item.referenceId}}</td>
+                <td>{{item.personEnteringData}}</td>
+
+                <td class="action">
+                  <ion-icon (click)="editEnq(item)" routerLink="/general-enquiry/edit-enquiry" name="create-sharp">
+                  </ion-icon>
+                  <ion-icon (click)="deleteEnq(item.id)" class="delete" name="trash-bin-sharp"></ion-icon>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div *ngIf="!searchedList || searchedList.length === 0" class="ion-text-center">
+            <p>No data</p>
+          </div>
+          <pagination-controls (pageChange)="event($event)"></pagination-controls>
+
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

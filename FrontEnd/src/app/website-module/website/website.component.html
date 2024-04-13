@@ -1,0 +1,193 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-grid>
+      <ion-row>
+        <ion-col class="logo">
+          <img src="/assets/img/matamarmaza.png" alt="">
+        </ion-col>
+        <ion-col>
+          <ion-segment value="all">
+            <ion-segment-button class="websiteView" value="about" (click)="scrollTo('aboutUs')">About Us</ion-segment-button>
+            <ion-segment-button class="mobileView" value="services" (click)="scrollTo('services')">services</ion-segment-button>
+            <ion-segment-button class="websiteView"  value="privacy" routerLink="/privacy-policy">Privacy Policy</ion-segment-button>
+            <!-- <ion-segment-button class="websiteView"  value="contacts" (click)="scrollTo('contactUs')">Contact Us</ion-segment-button> -->
+            <ion-segment-button class="mobileView" value="login" routerLink="/login">
+              <ion-button color="primary">Login</ion-button>
+            </ion-segment-button>
+          </ion-segment>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-toolbar>
+  <ion-title></ion-title>
+</ion-header>
+<ion-content>
+  <div class="banner">
+    <img src="assets/img/Obicas-slider-01.jpg" alt="">
+  </div>
+  <div class="counterSec">
+    <ion-grid>
+      <ion-row>
+        <ion-col size-lg="3" size-md="3" size-sm="6" size="6">
+          <div class="counter">
+            <h5> 3215 + </h5>
+            <p> Happy Clients </p>
+          </div>
+        </ion-col>
+        <ion-col size-lg="3" size-md="3" size-sm="6" size="6">
+          <div class="counter">
+            <h5> 9 + </h5>
+            <p> Years Experience </p>
+          </div>
+        </ion-col>
+        <ion-col size-lg="3" size-md="3" size-sm="6" size="6">
+          <div class="counter">
+            <h5> 200 + </h5>
+            <p> Current Users </p>
+          </div>
+        </ion-col>
+        <ion-col size-lg="3" size-md="3" size-sm="6" size="6">
+          <div class="counter">
+            <h5> 25 + </h5>
+            <p> Employees </p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+    <ion-grid id="aboutUs">
+        <ion-row>
+            <ion-col size-lg="5" size-md="5" size-sm="12" size="12">
+                <img src="/assets/img/about.png" alt="">
+            </ion-col>
+            <ion-col size-lg="2" size-md="2" size-sm="12"></ion-col>
+            <ion-col size-lg="5" size-md="5" size-sm="12" size="12" class="textPadding">
+                <h3>We complete every project with extra care as customer need.</h3>
+                <p>
+                    We are a leading IT firm in digital world since 2015.We deliver digital transformation to your business towords the success. We provide Quality solutions in multiple technologies under one umbrella in fair cost.We provide Digital Marketing, Digital Branding and SEO for help to build your Brand.
+                </p>
+                <p>
+                    We serve customer requirements by elevating and exploring IT expertise and domain knowledge. Make extra ordinary things happen for brands, businesses and our customer. We provides the solutions beyond boundaries and discover opportunities to sustain in a market
+                </p>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-grid id="services">
+        <ion-row class="title">
+            <ion-col>
+              <ion-text>Services</ion-text>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+          
+          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size="12">
+            <div class="card">
+              <div class="cardImg">
+                <img src="assets/img/1.svg" alt="">
+              </div>
+              <div class="cardHeader">
+                <h5>Election Management Software</h5>
+              </div>
+              <div class="cardBody">
+                <p>
+                  Election management software refers to specialized computer programs or systems designed to assist election officials in managing various aspects of the electoral process. These software solutions are used by electoral commissions, government agencies, or other organizations responsible for conducting elections to streamline and automate tasks related to voter registration, candidate nomination, ballot creation, voter authentication, vote counting, and result tabulation.
+                </p>
+              </div>
+            </div>
+          </ion-col>
+
+          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size="12">
+            <div class="card">
+              <div class="cardImg">
+                <img src="assets/img/2.svg" alt="">
+              </div>
+              <div class="cardHeader">
+                <h5>Opinion Poll Survey</h5>
+              </div>
+              <div class="cardBody">
+                <p>
+                  We are conducting an opinion poll survey to gauge public sentiment on [specific topic or issue]. Your participation in this survey is valuable and will help us better understand the perspectives of the community. The survey consists of a series of questions designed to gather opinions, preferences, and insights regarding [topic]. Your responses will remain anonymous and confidential. Your honest feedback is greatly appreciated and will contribute to shaping future decisions and initiatives. Thank you for taking the time to participate in this survey.
+                </p>
+              </div>
+            </div>
+          </ion-col>
+
+          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size="12">
+            <div class="card">
+              <div class="cardImg">
+                <img src="assets/img/3.svg" alt="">
+              </div>
+              <div class="cardHeader">
+                <h5>LED Van Advertising</h5>
+              </div>
+              <div class="cardBody">
+                <p>
+                  Introducing the future of mobile advertising: LED Van Advertising! Our state-of-the-art vans are equipped with vibrant LED screens, strategically positioned to capture attention wherever they go. With dynamic displays that can showcase high-resolution images, videos, and customizable messages, our LED vans offer unparalleled visibility for your brand. Whether it's cruising through busy city streets, parked at popular events, or driving along highways, your message will shine brightly, reaching audiences far and wide. Say goodbye to traditional static billboards and hello to the dynamic, eye-catching power of LED Van Advertising.
+                </p>
+              </div>
+            </div>
+          </ion-col>
+
+          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size="12">
+            <div class="card">
+              <div class="cardImg">
+                <img src="assets/img/4.svg" alt="">
+              </div>
+              <div class="cardHeader">
+                <h5>Door2Door Survey</h5>
+              </div>
+              <div class="cardBody">
+                <p>
+                  Door-to-door surveys remain a classic method for collecting primary data in market research, political campaigns, and social science studies. This approach involves sending trained personnel directly to people's homes to ask questions and gather information. Despite the rise of digital technologies and online surveys, door-to-door surveys offer unique advantages. They allow for a more personal interaction with respondents, potentially yielding deeper insights and higher response rates. Additionally, they can reach populations that might be underrepresented in online surveys, such as the elderly or those without internet access.
+                </p>
+              </div>
+            </div>
+          </ion-col>
+
+        </ion-row>
+    </ion-grid>
+
+    <!-- <ion-grid id="contactUs" class="footer">
+      <ion-row>
+        <ion-col size-lg="2" size-md="2" size-sm="2" size="6">
+          <h2>Logo</h2>
+        </ion-col>
+        <ion-col size-lg="4" size-md="4" size-sm="4" size="6">
+          <div class="services">
+            <h6>Our Services</h6>
+            <ul>
+              <li> Business Solutions </li>
+              <li> Web Development </li>
+              <li> Digital Marketing </li>
+              <li> Mobile Applications </li>
+              <li> Data Science & Analytics </li>
+              <li> Business Stratiges </li>
+            </ul>
+          </div>
+        </ion-col>
+        <ion-col size-lg="6" size-md="6" size-sm="6" size="6">
+          <div class="services">
+            <h6>Contact Us</h6>
+            <div class="address">
+              <h6>Address - </h6>
+              <p>
+                Obicas Infotech, Office No. 39, C Wing, 4th floor, K.K. Market, Balaji Nagar, Pune 411037, Maharashtra.
+              </p>
+            </div>
+            <div class="address">
+              <h6>Email - </h6>
+              <p>
+                info@obicas.com
+              </p>
+            </div>
+            <div class="address">
+              <h6>Mobile - </h6>
+              <p>
+                8600202690
+              </p>
+            </div>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid> -->
+</ion-content>

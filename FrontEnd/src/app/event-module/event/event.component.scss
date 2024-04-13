@@ -1,0 +1,83 @@
+
+ion-select { color: #a7a7a7 !important; width: 100%; --font-weight: 400 !important; --placeholder-color: #a7a7a7; --placeholder-opacity: 1; }
+
+ion-input { --color: #a7a7a7 !important; --padding-top: 4px;  --padding-bottom: 4px; border: solid 1px #F00;}
+
+//ion-item { --background: #fff; border: solid 1px #cccccc; height: 40px;  }
+
+h2 { color: #435fbe; padding-left: 10px; font-weight: 500; }
+
+.header { width: 97%; margin: 0 auto; }
+
+ion-label { color: #737373; font-weight: 600; }
+
+table { margin-top: 10px; }
+
+td ion-icon { 
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    background: #f1f2f2;
+    padding: 7px;
+    border-radius: 20px;
+    margin-left: 3px;
+ }
+
+table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !important; }
+
+table td:last-child { padding: 0.25rem 0.1rem !important; width: 58px !important; }
+
+.file { font-size: 20px !important; color: #3880ff !important; font-weight: 600;}
+
+
+@media screen and (min-width:768px){
+    ion-card {
+        width: 95%;
+        margin: 0px auto;
+    }
+}
+
+@media screen and (max-width:1200px) {
+    table { width: 700px; }
+  }
+
+table td {
+       border-bottom: 1px solid rgb(230, 235, 241) !important;
+    }
+
+table thead th:nth-child(1){
+    width: 30px;
+}
+
+table thead th:nth-child(2){
+    width: 300px;
+}
+
+table thead th:nth-child(3){
+    width: 100px;
+}
+
+table thead th:nth-child(4){
+    width: 100px;
+}
+
+table td:nth-child(1){
+    width: 30px;
+}
+
+table td:nth-child(2){
+    width: 300px;
+}
+
+table td:nth-child(3){
+    width: 100px;
+}
+
+table td:nth-child(4){
+    width: 100px;
+}
+
+.headSection {
+    display: flex;
+    justify-content: space-between;
+  }

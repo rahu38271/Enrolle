@@ -1,0 +1,108 @@
+
+
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button color="primary" defaultHref="/officer-directory"></ion-back-button>
+      </ion-buttons>
+      <ion-title> ऑफिसर डिरेक्टरी </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <ion-grid>
+      <ion-row>
+        <ion-text class="form-header">
+          <ion-icon name="add-circle-outline" class="pr-1"></ion-icon>ऑफिसर डिरेक्टरी
+        </ion-text>
+      </ion-row>
+      <form #myForm="ngForm">
+        <ion-row>
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label>  पदनाम <span>*</span>  </ion-label>
+
+              <ion-select placeholder="Please Select" interface="popover" name="designation" [(ngModel)]="designation" class="form-control" required>
+                <ion-select-option class="select_option" value="पदनाम 1">पदनाम 1 </ion-select-option>
+                <ion-select-option class="select_option" value="पदनाम 2">पदनाम 2  </ion-select-option>
+              </ion-select>
+          </ion-col>
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label position="floating">  विभाग <span>*</span>  </ion-label>
+            
+              <ion-select placeholder="Please Select"  name="department" [(ngModel)]="department" interface="popover" class="form-control">
+                <ion-select-option class="select_option" value="विभाग 1">विभाग  1 </ion-select-option>
+                <ion-select-option class="select_option" value="विभाग 2">विभाग  2  </ion-select-option>
+                
+              </ion-select>
+            
+          </ion-col>
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label position="floating">  पदभार    </ion-label>
+            
+              <ion-input [(ngModel)]="work" name="work" class="form-control"></ion-input>
+            
+          </ion-col>
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label position="floating">  नाव    <span>*</span> </ion-label>
+            
+              <ion-input [(ngModel)]="name" name="name" (keypress)="onKeyPress($event)" class="text-capitalize form-control" required></ion-input>
+           
+          </ion-col>
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label position="floating">  मोबाइल क्रमांक <span>*</span> </ion-label>
+            
+              <ion-input name="mobile" [(ngModel)]="mobile" maxlength="10" (keypress)="keyPressNumbers($event)" class="form-control" required></ion-input>
+           
+          </ion-col>
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label position="floating">   कार्यालय फोन  </ion-label>
+            
+              <ion-input name="office" [(ngModel)]="office" (keypress)="keyPressNumbers($event)" class="form-control"></ion-input>
+          
+          </ion-col>
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label position="floating">   निवास फोन   </ion-label>
+            
+              <ion-input name="home" [(ngModel)]="home" (keypress)="keyPressNumbers($event)" class="form-control"></ion-input>
+          
+          </ion-col>
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label position="floating">   ईमेल   </ion-label>
+            
+              <ion-input type="email" name="email" [(ngModel)]="email" class="form-control"></ion-input>
+            
+          </ion-col>
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label position="floating">   मजला   </ion-label>
+            
+              <ion-input name="floor" [(ngModel)]="floor" class="form-control"></ion-input>
+            
+          </ion-col>
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label position="floating">   डेस्क क्र.   </ion-label>
+            
+              <ion-input name="desk" [(ngModel)]="desk" class="form-control"></ion-input>
+          </ion-col>
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label position="floating">  स्वीय सह्हायक    </ion-label>
+            
+              <ion-input name="assistant" [(ngModel)]="assistant" (keypress)="onKeyPress($event)" class="text-capitalize form-control"></ion-input>
+          </ion-col>
+          <ion-col size-xl="4" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label position="floating">   स्वीय सह्हायक मोबाईल   </ion-label>
+            
+              <ion-input name="Amobile" [(ngModel)]="Amobile" (keypress)="keyPressNumbers($event)" class="form-control"></ion-input>
+          </ion-col>
+         
+          <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+            <div class="ion-text-center">
+              <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
+              <ion-button [disabled]="!myForm.form.valid"  type="submit" size="medium">Save</ion-button>
+              <ion-button routerLink="/officer-directory" color="success" type="button" size="medium">Back To List</ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-grid>
+  </div>
+</ion-content>

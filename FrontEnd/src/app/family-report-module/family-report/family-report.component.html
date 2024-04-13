@@ -1,0 +1,142 @@
+<ion-content>
+  <div class="main-content">
+    <ion-grid class="header">
+      <ion-row>
+        <ion-col>
+          <ion-card-header>
+            <ion-card-title>Family Report</ion-card-title>
+            <div class="headerLine"></div>
+          </ion-card-header>
+        </ion-col>
+        <ion-col class="ion-text-right">
+          <ion-button class="download-button" fill="outline" color="success" (click)="downloadExcel()"><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
+          <ion-button class="download-button" fill="outline" color="danger" (click)="downloadPDF()"><ion-icon name="cloud-download-sharp"></ion-icon>PDF</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-grid class="topForm">
+      <form #myForm1="ngForm">
+        <ion-row>
+          
+          <ion-col size-lg="5" size-md="6" size-sm="6" size-xs="12">
+            <ion-label>  Booth </ion-label>
+              <ion-select class="form-control" name="Booth" [(ngModel)]="Booth" placeholder="Select" interface="popover" size="cover"  required>
+                <ion-select-option value="Booth 1">जिल्हा परिषद शाळा, खडकवासला, उत्तरमुखी पूर्वेकडून खोली क्र.1</ion-select-option>
+                <ion-select-option value="Booth 2">जिल्हा परिषद शाळा, खडकवासला, उत्तरमुखी पूर्वेकडून खोली क्र.2</ion-select-option>
+              </ion-select>
+          </ion-col>
+          
+          
+          <ion-col size-lg="2" size-md="3" size-sm="6" size-xs="12">
+            <ion-label>   Surname  </ion-label>
+              <ion-input class="form-control" name="Surname" [(ngModel)]="Surname"></ion-input>
+          </ion-col>
+
+          <ion-col size-lg="2" size-md="3" size-sm="6" size-xs="12">
+            <ion-label>   Name  </ion-label>
+              <ion-input class="form-control" name="Name" [(ngModel)]="Name"></ion-input>
+          </ion-col>
+          <ion-col size-lg="3" size-md="4" size-sm="6" size-xs="12">
+              <ion-button class="mt-3" type="submit" (click)="presentLoading()">Search</ion-button>
+              <!-- <ion-button shape="round" type="reset" (click)="resetForm()" class="mt-5" color="danger">Clear</ion-button> -->
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-grid>
+    <ion-card>
+      
+      <ion-card-content>
+        <div>
+          <ion-button>Add Family</ion-button>
+        </div>
+        <table id="table55" #epltable>
+          <thead>
+            <tr>
+              <th>
+                
+              </th>
+              <th style="width: 40px;">
+                Booth No.		
+              </th>
+              <th>
+                Sr.No.
+              </th>
+              <th>
+                IsHead
+              </th>
+              <th>
+                Name
+              </th>
+              <th>
+                Age	
+              </th>
+              <th>
+                Gender
+              </th>
+              <th>
+                Voting Card No.
+              </th>
+              <th>
+                House
+              </th>
+              <th>
+                Address
+              </th>
+              <th>
+                Mobile No.
+              </th>
+              <th>
+                Birth Date
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <input type="checkbox">
+              </td>
+              <td>334	</td>
+              <td>502	</td>
+              <td>No</td>
+              <td>अविनाश दत्ताञय थोरात	</td>
+              <td>59</td>
+              <td>M	</td>
+              <td>DFF2589794</td>
+              <td></td>
+              <td>
+                Ap Khadakwasal R S Nr Shiavji Bld NAGPR 411024	
+              </td>
+              <td>
+                9960441718,8007546811
+              </td>
+              <td>11/06/1994</td>
+              
+            </tr>
+            <tr>
+              <td>
+                <input type="checkbox">
+              </td>
+              <td>334	</td>
+              <td>502	</td>
+              <td>No</td>
+              <td>अविनाश दत्ताञय थोरात	</td>
+              <td>59</td>
+              <td>M	</td>
+              <td>DFF2589794</td>
+              <td></td>
+              <td>
+                Ap Khadakwasal R S Nr Shiavji Bld NAGPR 411024	
+              </td>
+              <td>
+                9960441718,8007546811
+              </td>
+              <td>11/06/1994</td>
+              
+            </tr>
+          </tbody>
+        </table>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+						

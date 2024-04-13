@@ -1,0 +1,151 @@
+<ion-content>
+    <ion-header class="android">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button auto-hide="false"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>  Total - {{colorWiseVoter.length}} </ion-title>
+        <ion-buttons slot="primary">
+          <ion-button (click)="search()">
+            <ion-icon name="search-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+  
+    <div class="main-content">
+  
+      <ion-grid class="web">
+        <ion-row>
+          <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
+            <ion-grid class="header">
+              <ion-row>
+                <ion-col size-xs="12" size-sm="6">
+                  <ion-card-header>
+                    <ion-card-title class="header1">चिंचवड <span> ( 44 ) </span> </ion-card-title>
+                    <div class="headerLine"></div>
+                  </ion-card-header>
+  
+                </ion-col>
+                <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+                  <!-- <ion-button class="button-download" fill="outline" color="success" >
+                    <ion-icon name="document-sharp"></ion-icon>Excel
+                  </ion-button>
+                  <ion-button class="button-download" fill="outline" color="danger" >
+                    <ion-icon name="cloud-download-sharp"></ion-icon>PDF
+                  </ion-button>
+                   -->
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+            <ion-card>
+              <ion-card-content>
+                <div class="headSection">
+                  <div class="search">
+                    <ion-searchbar animated="true"></ion-searchbar>
+                  </div>
+                  <ion-button class="button-download" color="success" (click)="exportExcel()">
+                    <ion-icon name="document-sharp"></ion-icon>Excel
+                  </ion-button>
+                </div>
+                <div class="horizontal-scroll">
+                  <table id="villageTable" #epltable class="table">
+                    <thead>
+                      <tr>
+  
+                        <th>
+                          Sr.No.
+                        </th>
+                        <th>
+                          Booth No.
+                        </th>
+                        <th>
+                          Name
+                        </th>
+                        <th>
+                          Age
+                        </th>
+                        <th>
+                          Gender
+                        </th>
+                        <th>
+                          Voting Card
+                        </th>
+                        <th>
+                          Booth Name
+                        </th>
+  
+                        <th>
+                          House
+                        </th>
+                        <th>
+                          Address
+                        </th>
+                        <th>
+                          Mobile No.
+                        </th>
+  
+                        <th id="element-to-hide" data-html2canvas-ignore="true">
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+  
+                        <td>1</td>
+                        <td>44</td>
+                        <td>
+                          Sagar Salunkhe
+                        </td>
+                        <td>28</td>
+                        <td>Male</td>
+                        <td>121123123</td>
+                        <td>Kondhwa bk.</td>
+                        <td>11</td>
+                        <td>Pune</td>
+                        <td>9579743709</td>
+                        <td id="element-to-hide" data-html2canvas-ignore="true">
+                          <ion-button routerLink="/daily-news/edit-daily-news" color="success" size="small">
+                            <ion-icon name="pencil-sharp"></ion-icon>
+                          </ion-button>
+                          <ion-button color="danger" size="small" (click)="deleteNews()">
+                            <ion-icon name="trash-sharp"></ion-icon>
+                          </ion-button>
+                        </td>
+                      </tr>
+  
+                    </tbody>
+                  </table>
+                </div>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+  
+        </ion-row>
+      </ion-grid>
+
+      <!-- <ion-grid class="android userList">
+        <ion-searchbar [(ngModel)]="searchMob" animated="true" *ngIf="isShow"></ion-searchbar>
+        <ion-list (click)="voterDetails(item.id)" *ngFor="let item of colorWiseVoter | filter:searchMob">
+          <ion-item lines="none">
+            <ion-label>
+              <div class="firstLine">
+                <h3>{{item.fullName}}</h3>
+              </div>
+              <div class="details">
+                <p>Part No. : <span> {{item.partNo}} </span></p>
+                <p> Age : <span> {{item.age}}</span> </p>
+                <p>Gender : <span> {{item.gender}} </span></p>
+              </div>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+        <div *ngIf="!colorWiseVoter || colorWiseVoter.length === 0" class="text-center noData">
+          <img src="assets/img/question.png" />
+          <p>No data available</p>
+          <ion-button fill="outline" routerLink="/home/mobile-dashboard">Go Home</ion-button>
+        </div>
+      </ion-grid> -->
+    </div>
+  </ion-content>

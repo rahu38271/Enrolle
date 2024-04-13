@@ -1,0 +1,105 @@
+
+.header { width: 100%; }
+
+table { margin-top: 10px; }
+td ion-icon { cursor: pointer; font-size: 12px; font-weight: 600;  }
+
+table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !important; }
+
+
+ion-label span {  color: #F00 !important; font-weight: 500;}
+
+td ion-icon { cursor: pointer; font-size: 18px; color: #3880ff !important; font-weight: 600;  }
+
+table td:last-child { padding: 0.25rem 0.1rem !important; width: 58px !important; }
+
+.file { font-size: 20px !important; color: #3880ff !important; font-weight: 600;}
+
+/* @media screen and (min-width:768px){
+  ion-modal {
+    --width: 750px;
+ } */
+
+ 
+.calender ion-modal {
+  --width: 290px !important;
+  --border-radius: 8px;
+  --height: auto !important;
+}
+
+
+/* ion-modal {
+    --width: 290px;
+  --border-radius: 8px;
+  --height: auto !important;
+ } */
+
+
+.headSection {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media screen and (max-width:576px){
+    .web {
+      display: none;
+    }
+  }
+
+  .table ion-button {
+    font-size: 12px !important;
+}
+
+.horizontal-scroll {
+    overflow: scroll;
+}
+
+/* .table {
+    width: 1800px;
+} */
+
+.action ion-icon {
+  font-size: 20px;
+  color: #3c7ff9;
+  cursor: pointer;
+}
+
+.action .delete {
+  font-size: 19px;
+  color: #ff4646 !important;
+  cursor: pointer;
+}
+
+table tr:nth-child(even) {background: #f7f7f8}
+table tr:nth-child(odd) {background: #FFF}
+
+.familyTable thead tr th:nth-child(1){
+  width: 10px;
+}
+
+.familyTable tbody tr td:nth-child(1){
+  width: 10px;
+}
+
+.familyTable thead tr th:nth-child(6){
+  width: 200px;
+}
+
+.familyTable tbody tr td:nth-child(6){
+  width: 200px;
+}
+
+ion-title {
+  color: #3b5e74;
+}
+
+ion-buttons ion-button  {
+  background-color: #ff4646;
+}
+
+
+.calender ion-modal {
+  --width: 290px;
+  --border-radius: 8px;
+  --height: auto !important;
+}

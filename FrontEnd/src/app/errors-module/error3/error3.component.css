@@ -1,0 +1,28 @@
+
+.errDiv {
+    width: 50%;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 10px;
+}
+
+h5 {
+    color: #495057;
+    font-weight: 600;
+}
+
+p {
+    color: #878a99;
+    font-size: 14px;
+    width: 60%;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 250px;
+    color: #878a99;
+}
+
+ion-button {
+    margin-top: 20px;
+}

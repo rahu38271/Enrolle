@@ -1,0 +1,93 @@
+
+
+<ion-content>
+  <div class="main-content">
+    <ion-card>
+      <ion-grid class="header">
+        <ion-row>
+          <ion-col>
+            <ion-card-header>
+              <ion-card-title>View Reports</ion-card-title>
+            </ion-card-header>
+          </ion-col>
+          <ion-col class="ion-text-right">
+            <ion-button class="button-download" fill="outline" color="success" (click)="downloadExcel()"><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
+            <ion-button class="button-download" fill="outline" color="danger" (click)="downloadPDF()"><ion-icon name="cloud-download-sharp"></ion-icon>PDF</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="topForm">
+        <form #myForm1="ngForm">
+          <ion-row>
+            <ion-col size-lg="3" size-md="3" size-sm="6" size-xs="12">
+              <ion-label> From </ion-label>
+              <ion-item lines="none">
+                <ion-datetime displayFormat="DD/MM/YYYY" name="FromDate" [(ngModel)]="FromDate"></ion-datetime>
+              </ion-item>
+            </ion-col>
+
+            <ion-col size-lg="3" size-md="3" size-sm="6" size-xs="12">
+              <ion-label> To </ion-label>
+              <ion-item lines="none">
+                <ion-datetime displayFormat="DD/MM/YYYY" name="ToDate" [(ngModel)]="ToDate"></ion-datetime>
+              </ion-item>
+            </ion-col>
+            
+            <ion-col size-lg="2" size-md="4" size-sm="6" size-xs="12">
+                <ion-button shape="round" class="mt-5" type="submit" (click)="presentLoading()">View</ion-button>
+                <ion-button shape="round" type="reset" (click)="resetForm()" class="mt-5" color="danger">Clear</ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-grid>
+      <ion-card-content>
+        
+        
+        <table id="table39" #epltable>
+          <thead>
+            <tr>
+              <th style="width: 40px;">
+                Compaign Name				
+              </th>
+              <th>
+                Mobile Number Count
+              </th>
+              <th>
+                Message Content	
+              </th>
+              <th>
+                Message Type			
+              </th>
+              <th>
+                SMS Units		
+              </th>
+              <th>
+                Total Units
+              </th>
+              <th>
+                Date
+              </th>
+              <th>
+                Status
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+            
+          </tbody>
+        </table>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+						

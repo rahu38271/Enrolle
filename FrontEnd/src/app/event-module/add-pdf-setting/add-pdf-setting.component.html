@@ -1,0 +1,117 @@
+
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-back-button color="primary" defaultHref="/daily-news"></ion-back-button>
+      </ion-buttons>
+      <ion-title> PDF Setting </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <ion-grid>
+      <ion-row>
+        <ion-text class="form-header">
+          <ion-icon name="add-circle-sharp" class="pr-1"></ion-icon>PDF Setting
+        </ion-text>
+      </ion-row>
+      <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <ion-row>
+          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12" >
+            <ion-label position="floating">  लोगो <span>*</span> </ion-label>
+            <!-- <ngx-dropzone (change)="onSelect($event)" [multiple]="false" name="Logo" [(ngModel)]="Logo" required>
+              <ngx-dropzone-label>Drop your file here!</ngx-dropzone-label>
+              <ngx-dropzone-preview *ngFor="let f of files"  [removable]="true" (removed)="onRemove(f)">
+                <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+              </ngx-dropzone-preview>
+            </ngx-dropzone> -->
+            <ion-input type="file" name="Logo" [(ngModel)]="Logo" class="form-control" required></ion-input>
+          </ion-col>          
+
+          <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="12" size-xs="12">
+            <ion-label position="floating">  शीर्षक <span>*</span>  </ion-label>
+              <ion-textarea name="Title" [(ngModel)]="pdfModel.Title" #Title="ngModel" [ngClass]="{'is-invalid': f.submitted && Title.invalid}" rows="3" class="form-control" required></ion-textarea>
+              <div *ngIf="f.submitted && Title.invalid" class="invalid-feedback">
+                <div *ngIf="Title.errors.required">
+                  शीर्षक टाइप करा
+                </div>
+              </div>
+          </ion-col> 
+
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12" >
+            <ion-label position="floating">  कार्यालयाचे दूरध्वनी क्रमांक  <span>*</span> </ion-label>
+              <ion-input name="ofcPhone" [(ngModel)]="pdfModel.ofcPhone" #ofcPhone="ngModel" [ngClass]="{'is-invalid': f.submitted && ofcPhone.invalid}" (keypress)="onKeyPress($event)" class="form-control" required></ion-input>
+              <div *ngIf="f.submitted && ofcPhone.invalid" class="invalid-feedback">
+                <div *ngIf="ofcPhone.errors.required">
+                  कार्यालयाचे दूरध्वनी क्रमांक टाइप करा
+                </div>
+              </div>
+          </ion-col>
+
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+            <ion-label position="floating">  टीप <span>*</span>  </ion-label>
+              <ion-textarea name="Note" [(ngModel)]="pdfModel.Note" #Note="ngModel" [ngClass]="{'is-invalid': f.submitted && Note.invalid}" rows="3" class="form-control" required></ion-textarea>
+              <div *ngIf="f.submitted && Note.invalid" class="invalid-feedback">
+                <div *ngIf="Note.errors.required">
+                  टीप टाइप करा
+                </div>
+              </div>
+          </ion-col> 
+
+          <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12" >
+            <ion-label position="floating">  संपूर्ण नाव  <span>*</span> </ion-label>
+              <ion-input name="fullName" [(ngModel)]="pdfModel.fullName" #fullName="ngModel" [ngClass]="{'is-invalid': f.submitted && fullName.invalid}" (keypress)="onKeyPress($event)" class="text-capitalize form-control" required></ion-input>
+              <div *ngIf="f.submitted && fullName.invalid" class="invalid-feedback">
+                <div *ngIf="fullName.errors.required">
+                  संपूर्ण नाव टाइप करा
+                </div>
+              </div>
+          </ion-col>
+
+          <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+            <ion-label position="floating">  मोबाइल क्रमांक <span>*</span> </ion-label>
+              <ion-input minlength="10" maxlength="10" (keypress)="keyPressNumbers($event)" name="Mobile" [(ngModel)]="pdfModel.Mobile" #Mobile="ngModel" [ngClass]="{'is-invalid': f.submitted && Mobile.invalid}" class="form-control"  required></ion-input>
+              <div *ngIf="f.submitted && Mobile.invalid" class="invalid-feedback">
+                <div *ngIf="Mobile.errors.required">
+                  मोबाइल क्रमांक टाइप करा
+                </div>
+                <div *ngIf="Mobile.errors.minlength">
+                  योग्य मोबाइल क्रमांक टाइप करा
+                </div>
+              </div>
+          </ion-col>
+
+          <ion-col size-xl="4" size-lg="4" size-md="6" size-sm="12" size-xs="12">
+            <ion-label position="floating"> पदनाम <span>*</span> </ion-label>
+              <ion-input name="Designation" [(ngModel)]="pdfModel.Designation" #Designation="ngModel" [ngClass]="{'is-invalid': f.submitted && Designation.invalid}" class="form-control" required ></ion-input>
+              <div *ngIf="f.submitted && Designation.invalid" class="invalid-feedback">
+                <div *ngIf="Designation.errors.required">
+                  पदनाम टाइप करा
+                </div>
+              </div>
+          </ion-col>
+
+          
+          <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+            <ion-label position="floating">  प्रति <span>*</span>  </ion-label>
+              <ion-textarea name="To" [(ngModel)]="pdfModel.To" #To="ngModel" [ngClass]="{'is-invalid': f.submitted && To.invalid}" rows="3" class="form-control" required></ion-textarea>
+              <div *ngIf="f.submitted && To.invalid" class="invalid-feedback">
+                <div *ngIf="To.errors.required">
+                  प्रति टाइप करा
+                </div>
+              </div>
+          </ion-col> 
+          
+          <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+            <div class="ion-text-center">
+              <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
+              <ion-button  type="submit" size="medium">Save</ion-button>
+              <ion-button routerLink="/event/event-details" color="success" type="button" size="medium">Back To List</ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-grid>
+  </div>
+</ion-content>
+

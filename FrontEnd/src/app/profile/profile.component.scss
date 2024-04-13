@@ -1,0 +1,43 @@
+
+
+ion-icon {
+    font-size: 20px;
+    color: #F00;
+}
+
+.list ion-item span {
+    font-size: 14px;
+    color: #455560;
+    margin-left: 14px;
+}
+
+.list img {
+    width: 20px;
+}
+
+ion-list-header {
+    padding-inline-start: calc(var(--ion-safe-area-left, 0) + 0px) !important;
+}
+
+ion-list {
+    padding-top: 0px;
+}
+
+h2 {
+    color: #fff;
+    font-size: 15px;
+    line-height: 22px;
+    font-weight: 600;
+}
+
+h3 {
+    color: #fff;
+    font-size: 12px;
+    line-height: 22px;
+}
+
+ion-item i {
+    color: #0aaca1;
+}
+
+.userDetails ion-item  { --background: #0aaca1; }

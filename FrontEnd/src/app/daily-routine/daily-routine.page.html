@@ -1,0 +1,67 @@
+
+<ion-content>
+  <div class="main-content">
+    <ion-card>
+      <ion-grid class="header">
+        <ion-row>
+          <ion-col size-xs="12" size-sm="6">
+            <ion-card-header>
+              <ion-card-title>दैनंदिन कार्यक्रम <span> ( {{currentDate | date:'dd/MM/yyyy'}} ) </span></ion-card-title>
+            </ion-card-header>
+          </ion-col>
+          <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+            <ion-button class="button-download" fill="outline" color="success" (click)="downloadExcel()"><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
+            <ion-button class="button-download" fill="outline" color="danger" (click)="downloadPDF()"><ion-icon name="cloud-download-sharp"></ion-icon>PDF</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-card-content>
+        <div class="horizontal-scroll"> 
+          <table id="table4" #epltable class="table">
+            <thead>
+              <tr>
+                
+                <th style="width: 20px !important;">
+                  अ.क्र.				
+                </th>
+                <th>
+                  कार्यक्रम वेळ	
+                </th>
+                <th>
+                  कार्यक्रम	
+                </th>
+                <th>
+                  कार्यक्रम पत्ता		
+                </th>
+                <th>
+                  द्वारे/निमंत्रण		
+                </th>
+                <th>
+                  द्वारा/निमंत्रक 
+                </th>
+                <th>
+                  मोबाइल क्रमांक
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>test</td>
+                <td>
+                  <span>test</span>
+                </td>
+                <td>test</td>
+                <td>test</td>
+                <td>test</td> 
+                <td>test</td> 
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+						
+

@@ -1,0 +1,196 @@
+<ion-content>
+  <div class="main-content">
+    <!-- <ion-searchbar></ion-searchbar> -->
+    <ion-grid class="web">
+      <ion-row>
+        <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
+          <ion-card>
+            <ion-grid class="header">
+              <ion-row>
+                <ion-col size-xs="12" size-sm="6">
+                  <ion-card-header>
+                    <ion-card-title>आजचे वाढदिवस <span> ( {{currentDate | date:'dd/MM/yyyy'}} ) </span></ion-card-title>
+                  </ion-card-header>
+                </ion-col>
+                <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+                  <ion-button class="button-download" fill="outline" color="success" (click)="downloadExcel()">
+                    <ion-icon name="document-sharp"></ion-icon>Excel
+                  </ion-button>
+                  <ion-button class="button-download" fill="outline" color="danger" (click)="downloadPDF()">
+                    <ion-icon name="cloud-download-sharp"></ion-icon>PDF
+                  </ion-button>
+                  <ion-button class="button-download" fill="outline" color="primary" >
+                    <ion-icon name="cloud-download-sharp"></ion-icon>Send SMS
+                  </ion-button>
+
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+
+            <ion-card-content>
+              <div class="horizontal-scroll">
+                <table id="table61" #epltable class="table">
+                  <thead>
+                    <tr>
+                      <th>
+                        
+                      </th>
+                      <th style="width: 20px !important;">
+                        अ.क्र.
+                      </th>
+                      <th>
+                        गावाचे नाव
+                      </th>
+                      <th>
+                        संपूर्ण नाव
+                      </th>
+                      <th>
+                        वाढदिवस
+                      </th>
+                      <th>
+                        मोबाइल
+                      </th>
+                      <th>
+                        पत्ता
+                      </th>
+  
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <ion-checkbox></ion-checkbox>
+                      </td>
+                      <td>1</td>
+                      <td>खडकवासला</td>
+                      <td>Ganesh Laxman Kadam</td>
+                      <td>25/01/1995</td>
+                      <td>9975292679</td>
+                      <td>galli no-24 dhayari punePune City dhayari punePune City Pune City Maharashtra</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <ion-checkbox></ion-checkbox>
+                      </td>
+                      <td>2</td>
+                      <td>खडकवासला</td>
+                      <td>Ganesh Laxman Kadam</td>
+                      <td>25/01/1995</td>
+                      <td>9975292679</td>
+                      <td>galli no-24 dhayari punePune City dhayari punePune City Pune City Maharashtra</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <ion-checkbox></ion-checkbox>
+                      </td>
+                      <td>3</td>
+                      <td>खडकवासला</td>
+                      <td>Ganesh Laxman Kadam</td>
+                      <td>25/01/1995</td>
+                      <td>9975292679</td>
+                      <td>galli no-24 dhayari punePune City dhayari punePune City Pune City Maharashtra</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <ion-checkbox></ion-checkbox>
+                      </td>
+                      <td>4</td>
+                      <td>खडकवासला</td>
+                      <td>Ganesh Laxman Kadam</td>
+                      <td>25/01/1995</td>
+                      <td>9975292679</td>
+                      <td>galli no-24 dhayari punePune City dhayari punePune City Pune City Maharashtra</td>
+                    </tr>
+  
+                  </tbody>
+                </table>
+              </div>
+            </ion-card-content>
+            <ion-card-content>
+              
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="android">
+      <ion-row>
+        <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="12">
+          <ion-card>
+              <ion-list>
+                <ion-list-header lines="full" class="header1">यादीभागानुसार </ion-list-header>
+                <ion-list-header lines="full" class="header2"> एकूण : ( <span>  44 </span> )</ion-list-header>
+                <ion-item  routerLink="/voterdata-management">
+                 <ion-avatar slot="start">
+                    <ion-icon name="list-circle-sharp"></ion-icon>
+                  </ion-avatar>
+                  <ion-label>
+                    <h3>चिंचवड (160 ) Jan 2022 List</h3>
+                    <h4> एकूण : <span> 1398 </span> </h4>
+                  </ion-label>
+                </ion-item>
+        
+                <ion-item >
+                 <ion-avatar slot="start">
+                    <ion-icon name="list-circle-sharp"></ion-icon>
+                  </ion-avatar>
+                  <ion-label>
+                    <h3>चिंचवड (161 ) Jan 2022 List</h3>
+                    <h4> एकूण : <span> 1244 </span> </h4>
+                  </ion-label>
+                </ion-item>
+        
+                <ion-item >
+                 <ion-avatar slot="start">
+                    <ion-icon name="list-circle-sharp"></ion-icon>
+                  </ion-avatar>
+                  <ion-label>
+                    <h3>चिंचवड (162 ) Jan 2022 List</h3>
+                    <h4> एकूण : <span> 610 </span> </h4>
+                  </ion-label>
+                </ion-item>
+                <ion-item >
+                 <ion-avatar slot="start">
+                    <ion-icon name="list-circle-sharp"></ion-icon>
+                  </ion-avatar>
+                  <ion-label>
+                    <h3>चिंचवड (164 ) Jan 2022 List</h3>
+                    <h4> एकूण : <span> 1099 </span> </h4>
+                  </ion-label>
+                </ion-item>
+              </ion-list>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+ 
+  
+</ion-content>
+
+
+<!-- <table datatable class="row-border hover">
+  <thead>
+    <tr>
+      <th>Sr.No.</th>
+      <th>Name</th>
+      <th>Country</th>
+      <th>IPL Team</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Virat Kohli</td>
+      <td>India</td>
+      <td>Banglore</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>MS Dhoni</td>
+      <td>India</td>
+      <td>Chennai</td>
+    </tr>
+    </tbody>
+    </table> -->

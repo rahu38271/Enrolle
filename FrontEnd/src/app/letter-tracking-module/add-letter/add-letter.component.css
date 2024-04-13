@@ -1,0 +1,50 @@
+
+ion-grid { width: 95%; margin-top: 10px; background: #FFF;  box-shadow: 0 0 10px rgb(232 234 237 / 50%); }
+
+@media screen and (min-width:768px) {
+    ion-grid { width: 85%; }
+}
+
+ion-radio-group ion-item { --background: none !important; border: none !important; }
+
+h2 { color: #435fbe; padding-left: 10px; font-weight: 500; padding-top: 10px; }
+
+
+.pl-10 { padding-left: 130px; }
+
+ion-grid form { padding: 10px; }
+
+ion-label span {  color: #F00 !important; font-weight: 500; }
+
+
+@media screen and (max-width:576px){
+  ion-grid form { padding: 5px; }
+}
+     
+ ion-modal {
+  --width: 290px;
+  --border-radius: 8px;
+  --height: auto !important;
+}
+
+.flex {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex ion-icon {
+  cursor: pointer;
+    font-size: 16px;
+    background: #747474;
+    padding: 1px;
+    color: #fff;
+    font-weight: bold;
+}
+
+/* .bg {
+  background: #F00;
+} */
+
+.fileUpload span {
+  font-size: 13px !important;
+}

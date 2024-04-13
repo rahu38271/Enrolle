@@ -1,0 +1,173 @@
+ion-toolbar ion-button {
+    --padding-top: 12px;
+    --padding-end: 6px;
+    --padding-bottom: 12px;
+    --padding-start: 6px;
+    --border-radius: 0% !important;
+    width: 80px; 
+   
+}
+
+.title {
+    width: 100% !important;
+    margin: 0 auto !important;
+    text-align: center;
+    color: #13287e;
+    font-size: 40px;
+    font-weight: 600;
+    padding: 40px 0px;
+}
+
+@media screen and (max-width:576px) {
+    ion-toolbar .mobileView {
+        display: block;
+    }
+    ion-toolbar .websiteView {
+        display: none;
+    }
+    
+}
+
+ion-content {
+    --background: #FFF !important;
+    --width: 90%;
+    margin: 0 auto;
+}
+
+/* .header {
+    position: relative;
+}
+
+.navbar {
+    position: absolute;
+    top: 10px;
+    width: 100%;
+    background-color: #F00;
+} */
+
+.card {
+    padding: 30px 15px 30px;
+    background: #fff;
+    margin-bottom: 30px;
+    border: 1px solid #46b6cf;
+    border-radius: 15px;
+    text-align: center;
+}
+.cardHeader {
+    margin: 10px 0px;
+}
+
+.cardImg {
+    margin: 10px 0px;
+}
+
+.cardHeader h5 {
+    color: #13287e;
+    font-weight: 600;
+}
+
+.cardImg img {
+    width: 60px;
+}
+
+.cardBody p {
+    margin: 10px 0px;
+    color: #888;
+}
+
+.textPadding h3 {
+    color: #13287e;
+    font-weight: 600;
+}
+
+.textPadding p {
+    padding-top: 20px;
+    color: #888;
+}
+
+.ion-segment-button {
+    color: #13287e !important;
+}
+
+#contactUs {
+    background-color: #13287e;
+}
+
+.counterSec {
+    padding: 40px 0px;
+}
+
+.counter {
+    background: #fff;
+border: 1px solid #25cbd3;
+border-bottom: 3px solid #25cbd3;
+border-radius: 0 0 20px 20px;
+padding: 30px;
+overflow: hidden;
+margin-bottom: 30px;
+text-align: center;
+}
+
+.counter h5 {
+    font-size: 35px;
+    font-weight: 600;
+    margin-top: 0 !important;
+    margin-top: 15px;
+    color: #13287e !important;
+}
+
+.counter p {
+    font-size: 14px;
+margin-bottom: 0;
+color: #13287e !important;
+text-transform: uppercase;
+}
+
+.services h6 {
+    color: #FFF;
+    font-size: 16px;
+    text-transform: uppercase !important;
+}
+
+.services ul li {
+    list-style-type: none;
+    color: #d3cdcd;
+}
+
+.services ul {
+    padding-inline-start: 0px !important;
+}
+
+.address {
+    display: flex;
+}
+
+.address p {
+    padding-left: 10px;
+    color: #d3cdcd;
+}
+
+.address h6 {
+    padding-top: 3px;
+}
+
+.footer {
+    padding: 40px 0px;
+}
+
+ion-grid {
+    width: 90%;
+}
+
+ion-segment-button {
+    color: #13287e !important;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.logo img {
+    width: 70px;
+}
+
+
+

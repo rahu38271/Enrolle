@@ -1,0 +1,142 @@
+
+
+<ion-content>
+  <ion-header class="android">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-menu-button color="primary" auto-hide="false"></ion-menu-button>
+      </ion-buttons>
+      <ion-title> डॉक्युमेंट रेपोसिटोरी </ion-title>
+      <ion-buttons slot="primary">
+        <ion-button (click)="search()">
+          <ion-icon name="search-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  <div class="main-content">
+    <ion-grid class="web header">
+      <ion-row>
+        <ion-col size-xs="12" size-sm="6">
+          <ion-card-header>
+            <ion-card-title>डॉक्युमेंट रेपोसिटोरी <span> ( 1 ) </span></ion-card-title>
+            <div class="headerLine"></div>
+          </ion-card-header>
+        </ion-col>
+        <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+          <ion-button class="button-download" color="primary" routerLink="/document-repository/add-document-repository"><ion-icon name="add-circle-sharp"></ion-icon>Document</ion-button>
+          <ion-button class="button-download" fill="outline" class="button-download" color="primary"><ion-icon name="refresh-circle-sharp"></ion-icon>Refresh</ion-button>
+          <!-- <ion-button class="button-download" fill="outline" color="danger" (click)="downloadPDF()"><ion-icon name="cloud-download-sharp"></ion-icon>PDF</ion-button> -->
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-grid class="topForm">
+      <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+        <ion-row>
+          <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
+            <ion-label>    प्रकार   </ion-label>
+              <ion-select name="Type" [(ngModel)]="Type" placeholder="Select" interface="popover" class="form-control" required>
+                <ion-select-option class="select_option" value="बातमी / लेख"> बातमी / लेख</ion-select-option>
+                <ion-select-option class="select_option" value=" न्यायालय निकाल"> न्यायालय निकाल</ion-select-option>
+                <ion-select-option class="select_option" value=" न्यायालय याचिका"> न्यायालय याचिका</ion-select-option>
+                <ion-select-option class="select_option" value=" संदर्भ साहित्य"> संदर्भ साहित्य</ion-select-option>
+                <ion-select-option class="select_option" value=" इतर"> इतर</ion-select-option>
+              </ion-select>
+          </ion-col>
+
+          <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
+            <ion-label>  वापरकर्ता      </ion-label>
+              <ion-select name="User" [(ngModel)]="User" placeholder="Select" interface="popover" class="form-control">
+                <ion-select-option class="select_option" value="वापरकर्ता  1"> वापरकर्ता   1</ion-select-option>
+                <ion-select-option class="select_option" value="वापरकर्ता  2"> वापरकर्ता   2 </ion-select-option>
+            </ion-select>
+          </ion-col>
+
+          <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
+            <ion-label>  संबंधित विभाग      </ion-label>
+              <ion-select name="Department" [(ngModel)]="Department" placeholder="Select" interface="popover" class="form-control">
+                <ion-select-option class="select_option" value="विभाग 1"> विभाग 1</ion-select-option>
+                <ion-select-option class="select_option" value="विभाग 2"> विभाग 2 </ion-select-option>
+                <ion-select-option class="select_option" value="विभाग 3"> विभाग 3 </ion-select-option>
+              </ion-select>
+          </ion-col>
+          
+          <ion-col size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="12">
+              <ion-button class="searchBtn" type="submit" (click)="presentLoading()" [disabled]="!f.form.valid">Search</ion-button>
+              <ion-button type="reset" (click)="resetForm()" class="searchBtn" color="danger">Clear</ion-button>
+          </ion-col>
+        </ion-row>
+      </form>
+    </ion-grid> 
+
+    <ion-card>
+      <ion-card-content>
+        <div class="headSection">
+          <div class="search">
+            <ion-searchbar [(ngModel)]="searchWeb" animated="true"></ion-searchbar>
+          </div>
+          <ion-button class="button-download" color="success" (click)="exportExcel()">
+            <ion-icon name="document-sharp"></ion-icon>Excel
+          </ion-button>
+        </div>
+        <div class="horizontal-scroll">
+        <table id="table18" #epltable>
+          <thead>
+            <tr>
+              
+              <th style="width: 40px;">
+                अ.क्र.							
+              </th>
+              <th>
+                प्रकार					
+              </th>
+              <th>
+                दिनांक				
+              </th>
+              <th>
+                शीर्षक						
+              </th>
+              <th>
+                वापरकर्ता			
+              </th>
+              <th>
+                संबंधित विभाग	
+              </th>
+              
+              <th id="element-to-hide" data-html2canvas-ignore="true">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              
+              <td>1</td>
+              <td>talegoan</td>
+              <td>ayushman bharat</td>
+              <td>santosh maskar</td>
+              <td>मंजूर</td>
+              <td>9011900800</td>
+              
+              <td id="element-to-hide" data-html2canvas-ignore="true">
+                <ion-button routerLink="/document-repository/edit-document-repository" color="success" size="small"><ion-icon name="pencil-sharp"></ion-icon></ion-button>
+                <ion-button color="danger" size="small" (click)="deleteRepository()"><ion-icon name="trash-sharp"></ion-icon></ion-button>
+              </td>
+            </tr>
+            
+          </tbody>
+        </table>
+        <pagination-controls (pageChange)="cp = $event"></pagination-controls>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+						
+
+<ion-fab horizontal="end" vertical="bottom" slot="fixed" routerLink="/document-repository/add-document-repository">
+  <ion-fab-button color="primary">
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

@@ -1,0 +1,325 @@
+
+
+<ion-content>
+    <ion-header class="android">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-menu-button color="primary" auto-hide="false"></ion-menu-button>
+        </ion-buttons>
+        <ion-title> Annapurna </ion-title>
+        <ion-buttons slot="primary">
+          <ion-button (click)="search()">
+            <ion-icon name="search-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <div class="main-content">
+      <div class="web">
+        <ion-grid class="header">
+          <ion-row>
+            <ion-col size-xs="12" size-sm="6">
+              <ion-card-header>
+                <ion-card-title>Annapurna, <span> Total - {{totalItems}} </span></ion-card-title>
+                <div class="headerLine"></div>
+              </ion-card-header>
+            </ion-col>
+            <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+              <ion-button class="button-download" color="primary" routerLink="/annapurna/add-annapurna"> Annapurna <ion-icon name="add-sharp"></ion-icon></ion-button>
+              <ion-button class="button-download" color="primary" routerLink="/annapurna/report">Report <ion-icon name="add-sharp"></ion-icon></ion-button>
+              <ion-button class="button-download" color="primary" routerLink="/annapurna/beneficiary-report">Beneficiary Report <ion-icon name="add-sharp"></ion-icon></ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+  
+      <!-- <ion-grid class="topForm">
+        <form (ngSubmit)="f.form.valid && onSubmit(f)" #f="ngForm" novalidate>
+          <ion-row>
+            <ion-col size-xl="2" size-lg="3" size-md="3" size-sm="6" size-xs="12">
+              <ion-label>   Appointment Date   </ion-label>
+              <ion-input value="{{ appoDate | date: 'yyyy-MM-dd' }}" id="appoDate" class="form-control" required>
+              </ion-input>
+  
+              <ion-modal trigger="appoDate" size="cover">
+                <ng-template>
+                  <ion-datetime presentation="date" [(ngModel)]="appoDate" name="appoDate">
+                    <span slot="title"> {{ year }} </span>
+                  </ion-datetime>
+                </ng-template>
+              </ion-modal>
+            </ion-col>
+            
+            <ion-col size-xl="3" size-lg="3" size-md="4" size-sm="6" size-xs="12">
+                <ion-button class="searchBtn" type="submit" (click)="presentLoading()" [disabled]="!f.form.valid">Search</ion-button>
+                <ion-button type="reset" (click)="resetForm()" class="searchBtn" color="danger">Clear</ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-grid> -->
+  
+      <ion-card>
+        <ion-card-content>
+          <div class="headSection">
+            <div class="search">
+              
+            </div>
+            <div class="btns">
+              <ion-button class="button-download" color="tertiary" (click)="exportExcel()" > Excel </ion-button>
+              <ion-button class="button-download" color="tertiary" (click)="exportToCSV()" > CSV </ion-button>
+            </div>
+          </div>
+          <div class="horizontal-scroll">
+            <table class="table" #epltable>
+              <thead>
+                <tr>
+                  <th>Sr.No.</th>
+                  <th>Name</th>
+                  <th>Phone No.</th>
+                  <th>Alt. Phone No.</th>
+                  <th>Relation</th>
+                  <th>Chal / Society Name</th>
+                  <th>Present Address Near Landmark</th>
+                  <th>Area</th>
+                  <th>Yadi No.</th>
+                  <th>Sr. No.</th>
+                  <th>Epic No. </th>
+                  <th>Voter No. </th>
+                  <th>Token Date</th>
+                  <th>Token No.</th>
+                  <th>Volunteers Name</th>
+                  <th>Card Done</th>
+                  <th>New Entry ( Remark )</th>
+                  <th id="element-to-hide" data-html2canvas-ignore="true">
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let item of getAnnapurna  | paginate: { itemsPerPage: NoofRow,currentPage:PageNo ,totalItems:totalItems }">
+                    <td>{{item.id}}</td>
+                    <td>
+                      {{item.firstName}} {{item.middleName}} {{item.lastName}}
+                      <ion-icon (click)="seeFamily($event)" id="{{item.id}}" name="add-circle-sharp"></ion-icon>
+                    </td>
+                    <td>{{item.phoneNo}}</td>
+                    <td>{{item.altPhoneNo}}</td>
+                    <td>{{item.relation}}</td>
+                    <td>{{item.chal_SocietyName}}</td>
+                    <td>{{item.presentAddress}}</td>
+                    <td>{{item.area}}</td>
+                    <td>{{item.yadiNo_PartNo}}</td>
+                    <td>{{item.srNo}}</td>
+                    <td>{{item.epicNo}}</td>
+                    <td>{{item.voterNo}}</td>
+                    <td>{{item.tokenDate}}</td>
+                    <td>{{item.tokenNo}}</td>
+                    <td>{{item.volunterName}}</td>
+                    <td>
+                        <input type="checkbox" 
+                        name="anpCheckBox"
+                        >
+                    </td>
+                    <td>{{item.newEntry_Remarks}}</td>
+                    <td id="element-to-hide" data-html2canvas-ignore="true" class="action">
+                      <ion-icon (click)="editAnnapurna(item)" name="create-sharp"></ion-icon>
+                      <ion-icon (click)="family($event)" id="{{item.id}}" name="add-circle-sharp"></ion-icon>
+                      <ion-icon (click)="deleteAnp(item.id)" class="delete" name="trash-bin-sharp"></ion-icon>
+                      <ion-icon (click)="food($event)" id="{{item.id}}" name="add-sharp"></ion-icon>
+                    </td>
+                  </tr>
+    
+              </tbody>
+            </table>
+            <div *ngIf="!getAnnapurna || getAnnapurna.length === 0" class="ion-text-center">
+              <p>No data</p>
+            </div>
+            <pagination-controls (pageChange)="event($event)"></pagination-controls>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <ion-modal [isOpen]="isModalOpen" [backdropDismiss]="false">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Add Family</ion-title>
+            <ion-buttons color="danger" slot="end">
+              <ion-button  (click)="closeFamily()">
+                <ion-icon name="close-sharp"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+            <ion-row>
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-sm="12" size-xs="12">
+                <ion-label> Name <span>*</span> </ion-label>
+                <ion-input name="FullName" [(ngModel)]="FamilyModal.FullName" (keypress)="onKeyPress($event)" maxlength="50" class="form-control" required></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-sm="12" size-xs="12">
+                <ion-label> Relation <span>*</span> </ion-label>
+                <ion-input name="Relation" [(ngModel)]="FamilyModal.Relation" (keypress)="onKeyPress($event)" maxlength="30" class="form-control" required></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Phone No.  </ion-label>
+                <ion-input name="phone" (keypress)="keyPressNumbers($event)" [(ngModel)]="FamilyModal.ContactNo" minlength="10" maxlength="12" class="form-control"></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Alt. Phone No. </ion-label>
+                <ion-input name="altPhone" (keypress)="keyPressNumbers($event)" [(ngModel)]="FamilyModal.AltContactNo" minlength="12" maxlength="12" class="form-control"></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                <ion-label>Present Address / Near Landmark </ion-label>
+                <ion-textarea name="address" [(ngModel)]="FamilyModal.Address" maxlength="100" class="form-control" ></ion-textarea>
+              </ion-col>
+
+              <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                <div class="ion-text-center">
+                  <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
+                  <ion-button type="submit" size="medium" [disabled]="!f.form.valid" (click)="addFamily()">Save</ion-button>
+                </div>
+              </ion-col>
+                  
+        </ion-row>
+        </form>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+
+    <div class="familyList">
+      <ion-modal [isOpen]="familyModalList" [backdropDismiss]="false">
+        <ng-template>
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>Family List</ion-title>
+              <ion-buttons slot="end">
+                <ion-button (click)="closeFamilyList()">
+                  <ion-icon name="close-sharp"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-content class="ion-padding">
+              <table class="table familyTable">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Alt. Mobile</th>
+                    <th>Relation</th>
+                    <th>Address</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of familyData">
+                    <td> 
+                      <input type="checkbox" [(ngModel)]="item.checked" (change)="changeFamily(item)">
+                    </td>
+                    <td>{{item.fullName}}</td>
+                    <td>{{item.contactNo}}</td>
+                    <td>{{item.altContactNo}}</td>
+                    <td>{{item.relation}}</td>
+                    <td>{{item.address}}</td>
+                  </tr>
+                  <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                    <div class="ion-text-center">
+                      <ion-button type="submit" size="medium" (click)="newFamily()">New Family</ion-button>
+                    </div>
+                  </ion-col>
+                </tbody>
+              </table>
+              <div *ngIf="!familyData || familyData.length === 0" class="ion-text-center">
+                <p>No data</p>
+              </div>
+          </ion-content>
+        </ng-template>
+      </ion-modal>
+    </div>
+
+    <ion-modal [isOpen]="isModalOpenFood" [backdropDismiss]="false">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Beneficiary </ion-title>
+            <ion-buttons color="danger" slot="end">
+              <ion-button  (click)="closeFood()">
+                <ion-icon name="close-sharp"></ion-icon>
+              </ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+          <form (ngSubmit)="f.form.valid" #f="ngForm" novalidate>
+            <ion-row>
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-sm="12" size-xs="12">
+                <ion-label> Name <span>*</span> </ion-label>
+                <ion-input name="FullName" [(ngModel)]="foodModal.FullName" (keypress)="onKeyPress($event)" maxlength="50" class="form-control" ></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="6" size-lg="6" size-md="12" size-sm="12" size-xs="12">
+                <ion-label> Relation <span>*</span> </ion-label>
+                <ion-input name="Relation" [(ngModel)]="foodModal.Relation" (keypress)="onKeyPress($event)" maxlength="30" class="form-control"></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Phone No.  </ion-label>
+                <ion-input name="phone" (keypress)="keyPressNumbers($event)" [(ngModel)]="foodModal.PhoneNo" minlength="10" maxlength="12" class="form-control"></ion-input>
+              </ion-col>
+
+              <ion-col size-xl="6" size-lg="6" size-md="6" size-sm="6" size-xs="12">
+                <ion-label> Date </ion-label>
+                <ion-input
+                value="{{ BenefittedDate | date: 'yyyy-MM-dd' }}"
+                id="BenefittedDate"
+                class="form-control"
+                name="BenefittedDate" 
+                [(ngModel)]="foodModal.BenefittedDate" 
+              ></ion-input>
+
+              <ion-popover trigger="BenefittedDate" size="cover">
+                <ng-template>
+                  <ion-datetime
+                    presentation="date"
+                    name="BenefittedDate"
+                    [(ngModel)]="BenefittedDate"
+                    
+                  >
+                  </ion-datetime>
+                </ng-template>
+              </ion-popover>
+            </ion-col>
+
+              <ion-col size-xl="12" size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                <ion-label> Food Suply Given  </ion-label>
+                <ion-checkbox name="SupplyGiven" [(ngModel)]="foodModal.SupplyGiven"></ion-checkbox>
+              </ion-col>
+
+              <ion-col size-lg="12" size-md="12" size-sm="12" size-xs="12">
+                <div class="ion-text-center">
+                  <ion-button type="reset" (click)="resetForm()" color="danger" size="medium">Clear</ion-button>
+                  <ion-button type="submit" size="medium" [disabled]="!f.form.valid" (click)="foodGiven()">Save</ion-button>
+                </div>
+              </ion-col>
+                  
+        </ion-row>
+        </form>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </ion-content>
+
+  
+                          
+  <ion-fab horizontal="end" vertical="bottom" slot="fixed" routerLink="/appointment/add-appointment">
+    <ion-fab-button color="primary">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>

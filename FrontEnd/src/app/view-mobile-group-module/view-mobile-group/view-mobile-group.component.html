@@ -1,0 +1,114 @@
+
+
+<ion-content>
+  <div class="main-content">
+    <ion-card>
+      <ion-grid class="header">
+        <ion-row>
+          <ion-col>
+            <ion-card-header>
+              <ion-card-title>View MobileData Group </ion-card-title>
+            </ion-card-header>
+          </ion-col>
+          <ion-col class="ion-text-right">
+            <ion-button class="button-download" fill="outline" color="success" (click)="downloadExcel()"><ion-icon name="document-sharp"></ion-icon>Excel</ion-button>
+            <ion-button class="button-download" fill="outline" color="danger" (click)="downloadPDF()"><ion-icon name="cloud-download-sharp"></ion-icon>PDF</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-grid class="topForm">
+        <form #myForm1="ngForm">
+          <ion-row>
+            
+            <ion-col size-lg="3" size-md="3" size-sm="6" size-xs="12">
+              <ion-label> Select MobileData Group </ion-label>
+              <ion-item lines="none">
+                <ion-select name="Group" [(ngModel)]="Group" placeholder="Select" [interfaceOptions]="GroupHeader"  required>
+                  <ion-select-option value="Group 1"> Group 1</ion-select-option>
+                  <ion-select-option value=" Group 2"> Group 2</ion-select-option>
+                  <ion-select-option value=" Group 3"> Group 3</ion-select-option>
+                  
+                </ion-select>
+              </ion-item>
+            </ion-col>
+            <ion-col size-lg="3" size-md="3" size-sm="6" size-xs="12">
+              <ion-label>  .   </ion-label>
+              <ion-item lines="none">
+                <ion-select name="Select" [(ngModel)]="Select" placeholder="Select" [interfaceOptions]="selectHeader" >
+                  <ion-select-option value="All"> All</ion-select-option>
+                  <ion-select-option value="Matched"> Matched </ion-select-option>
+                  <ion-select-option value="Not Matched"> Not Matched </ion-select-option>
+                </ion-select>
+              </ion-item>
+            </ion-col>
+            
+           
+            <ion-col size-lg="3" size-md="4" size-sm="6" size-xs="12">
+                <ion-button shape="round" class="mt-5" type="submit" (click)="presentLoading()">Search</ion-button>
+                <ion-button shape="round" type="reset" (click)="resetForm()" class="mt-5" color="danger">Clear</ion-button>
+            </ion-col>
+          </ion-row>
+        </form>
+      </ion-grid>
+      <ion-card-content>
+        
+        <table id="table40">
+          <thead>
+            <tr>
+              <th>Total Count</th>
+              <th>PinCode</th>
+              <th>Address</th>
+              <th>Name</th>
+              <th>Excluded Address</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </ion-card-content>
+    </ion-card>
+    <ion-card>
+      <ion-card-content>
+        <table id="table38" #epltable>
+          <thead>
+            <tr>
+              <th style="width: 40px;">
+                Sr.No.			
+              </th>
+              <th>
+                Name				
+              </th>
+              <th>
+                Phone No.				
+              </th>
+              <th>
+                Address							
+              </th>
+              <th>
+                Pincode			
+              </th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            <tr> 
+              <td>1</td>
+              <td>Sagar salunkhe</td>
+              <td>9158490455</td>
+              <td>Pune</td>
+              <td>411048</td>
+            </tr>
+          </tbody>
+        </table>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
+						

@@ -1,0 +1,227 @@
+<ion-content>
+    <ion-header class="android">
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button defaultHref="/list"></ion-back-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-menu-button auto-hide="false"></ion-menu-button>
+        </ion-buttons>
+        <ion-title>  {{'By Color' | translate}}</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <div class="main-content">
+      <!-- <ion-searchbar></ion-searchbar> -->
+      <ion-grid class="web">
+        <ion-row>
+          <ion-grid class="header">
+            <ion-row>
+              <ion-col size-xs="12" size-sm="6" class="webBack">
+                
+                <div class="flexArrow">
+                  <ion-icon (click)="goBack()" name="arrow-back-sharp"></ion-icon>
+                  <ion-card-header>
+                    <ion-card-title class="header1"> {{'By Color' | translate}} <span>  </span> </ion-card-title>
+                    <div class="headerLine"></div>
+                  </ion-card-header>
+                </div>
+              </ion-col>
+              <ion-col size-xs="12" size-sm="6" class="ion-text-right">
+                
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-row>
+        <ion-row>
+          <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="6">
+            
+            <ion-card>
+              <ion-card-content>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Type</th>
+                      <th>{{'Total' | translate}}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr (click)="supporter()">
+                      <td>
+                        {{'Supporter' | translate}}
+                      </td>
+                      <td>
+                         <span> {{supporterVoter}} </span>
+                      </td>
+                    </tr>
+                    <tr (click)="opposition()">
+                      <td>
+                        {{'Opposite' | translate}}
+                      </td>
+                      <td>
+                         <span> {{oppositionVoter}} </span>
+                      </td>
+                    </tr>
+                    <tr (click)="doubtful()">
+                      <td>
+                        {{'Doubtful' | translate}}
+                      </td>
+                      <td>
+                         <span> {{doubtfulVoter}} </span>
+                      </td>
+                    </tr>
+                    <tr (click)="other()">
+                      <td>
+                        {{'Other' | translate}}
+                      </td>
+                      <td>
+                         <span> {{otherVoter}} </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <!-- <div *ngFor="let item of colorList">
+                  <ion-list>
+                      <ion-item lines="none" class="ion-text-center" (click)="supporter()">
+                          <ion-label>
+                              <h3>
+                                   {{'Supporter' | translate}}
+                              </h3>
+                              <h4>  {{'Total' | translate}} : <span> {{item.supporter}} </span> </h4>
+                          </ion-label>
+                      </ion-item>
+                  </ion-list>
+                  <ion-list>
+                      <ion-item lines="none" class="ion-text-center" (click)="opposition()">
+                          <ion-label>
+                              <h3>
+                                   {{'Opposite' | translate}}
+                              </h3>
+                              <h4> {{'Total' | translate}} : <span> {{item.opposition}} </span> </h4>
+                          </ion-label>
+                      </ion-item>
+                  </ion-list>
+                  <ion-list >
+                      <ion-item lines="none" class="ion-text-center" (click)="doubtful()">
+                          <ion-label>
+                              <h3>
+                                   {{'Doubtful' | translate}}
+                              </h3>
+                              <h4> {{'Total' | translate}} : <span> {{item.doubtful}} </span> </h4>
+                          </ion-label>
+                      </ion-item>
+                  </ion-list>
+                  <ion-list >
+                      <ion-item lines="none" class="ion-text-center" (click)="other()">
+                          <ion-label>
+                              <h3>
+                                   {{'Other' | translate}}
+                              </h3>
+                              <h4> {{'Total' | translate}} : <span> {{item.other}} </span> </h4>
+                          </ion-label>
+                      </ion-item>
+                  </ion-list>
+              </div> -->
+              </ion-card-content>
+  
+            </ion-card>
+          </ion-col>
+          <ion-col size-xs="12" size-sm="12" size-md="12" size-lg="6" class="graph">
+            <ion-card>
+              <ejs-accumulationchart id="chart-container" height='250' [tooltip]='tooltip' [title]='title' [legendSettings]='legendSettings'>
+                <e-accumulation-series-collection>
+                    <e-accumulation-series [dataSource]='colorList' xName='x' yName='y' [dataLabel]='datalabel' [palettes]='palette1' radius="80%" innerRadius='60%'></e-accumulation-series>
+                </e-accumulation-series-collection>
+              </ejs-accumulationchart>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+  
+      <ion-grid class="android">
+        <!-- <div *ngFor="let item of colorList">
+            <ion-list>
+                <ion-item lines="none" class="ion-text-center" (click)="supporter()">
+                    <ion-label>
+                        <h3>
+                             {{'Supporter' | translate}}
+                        </h3>
+                        <h4>  {{'Total' | translate}} : <span> {{item.supporter}} </span> </h4>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+            <ion-list>
+                <ion-item lines="none" class="ion-text-center" (click)="opposition()">
+                    <ion-label>
+                        <h3>
+                             {{'Opposite' | translate}}
+                        </h3>
+                        <h4> {{'Total' | translate}} : <span> {{item.opposition}} </span> </h4>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+            <ion-list >
+                <ion-item lines="none" class="ion-text-center" (click)="doubtful()">
+                    <ion-label>
+                        <h3>
+                             {{'Doubtful' | translate}}
+                        </h3>
+                        <h4> {{'Total' | translate}} : <span> {{item.doubtful}} </span> </h4>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+            <ion-list >
+                <ion-item lines="none" class="ion-text-center" (click)="other()">
+                    <ion-label>
+                        <h3>
+                             {{'Other' | translate}}
+                        </h3>
+                        <h4> {{'Total' | translate}} : <span> {{item.other}} </span> </h4>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+        </div> -->
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>{{'Total' | translate}}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr (click)="supporter()">
+              <td>
+                {{'Supporter' | translate}}
+              </td>
+              <td>
+                 <span> {{supporterVoter}} </span>
+              </td>
+            </tr>
+            <tr (click)="opposition()">
+              <td>
+                {{'Opposite' | translate}}
+              </td>
+              <td>
+                 <span> {{oppositionVoter}} </span>
+              </td>
+            </tr>
+            <tr (click)="doubtful()">
+              <td>
+                {{'Doubtful' | translate}}
+              </td>
+              <td>
+                 <span> {{doubtfulVoter}} </span>
+              </td>
+            </tr>
+            <tr (click)="other()">
+              <td>
+                {{'Other' | translate}}
+              </td>
+              <td>
+                 <span> {{otherVoter}} </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ion-grid>
+    </div>
+  </ion-content>

@@ -1,0 +1,205 @@
+.send-sms { width: 100%; background: #FFF !important; height: 400px; overflow: hidden;  }
+
+
+h2 { color: #4e7db4; padding-left: 10px; font-weight: 500; }
+
+// h3 { color: #3880ff;  }
+
+h4 { color: #7a7a7a; }
+
+
+table { margin-top: 10px; }
+
+td ion-icon { cursor: pointer; font-size: 12px; font-weight: 600;  }
+
+table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !important; }
+
+.file { font-size: 20px !important; color: #3880ff !important; font-weight: 600;}
+
+
+#slide-nav{
+    position: absolute;
+    right: 0px;
+    top: 138px;
+    width: 350px;
+    background-color: #f6f3ea;
+    z-index: 999;
+    box-shadow: 0px 9px 24px -9px rgb(0 0 0 / 51%);
+    border: 1px solid #e1d1a1;
+  }
+
+  .close { color: #1c1a1a !important; padding: 4px 5px; background: #e1e1e1 !important; cursor: pointer; }
+
+  ion-card { margin-inline: 1px; margin-top: 1px; width: 99%; margin: 0 auto; }
+
+  @media screen and (max-width:576px){
+    ion-card-title {
+        font-size: 14px;
+    }
+    ion-button { font-size: 12px;}
+    table th,td  { font-size: 13px !important; }
+    .dataTables_paginate a { font-size: 12px !important; }
+    
+  }
+
+  ion-col {
+    padding-inline-start: var(--ion-grid-column-padding-xs, var(--ion-grid-column-padding, 4px));
+      padding-inline-end: var(--ion-grid-column-padding-xs, var(--ion-grid-column-padding, 4px));
+  }
+
+
+  ion-avatar img { width: 40px; }
+
+  @media screen and (max-width:576px){
+    .web { display: none; }
+    .android ion-list { 
+      padding-top: 0px;
+      box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+      border: 1px solid #e6ebf1;
+      border-radius: 0.625rem;
+     }
+    .header1 {
+      color: #f03d9e !important;
+       width: 37% !important; 
+       float: left; 
+      font-size: 17px !important;
+    } 
+
+    .header2 {
+      width: 63% !important;
+      text-align: right;
+      font-size: 17px !important;
+    }
+   
+  }
+
+  @media screen and (min-width:576px){
+    .android { display: none; }
+  }
+
+  @media screen and (max-width:1200px) {
+    table { width: 1000px; }
+  }
+
+  .header1 {
+    color: #f03d9e !important;
+     width: 86% !important; 
+     float: left; 
+    font-size: 17px !important;
+  } 
+
+  .header2 {
+    width: 63% !important;
+    text-align: right;
+    font-size: 17px !important;
+    display: none;
+  }
+
+  .header3 {
+    text-align: right;
+    font-size: 17px !important;
+    width: 10% !important;
+  }
+
+
+.nameDate {
+  display: flex;
+  justify-content: space-between;
+}
+
+ion-item-options ion-icon {
+  font-size: 23px;
+  font-weight: 500;
+}
+
+
+.whatsapp{
+  background-color: #25D366;
+  color: #FFF;
+  padding: 10px;
+}
+
+.call{
+  background-color: #1771e7;
+  color: #FFF;
+  padding: 10px;
+}
+
+.message{
+  background-color: #ff6a30;
+  color: #FFF;
+  padding: 10px;
+}
+
+.edit {
+  background-color: #37bfd5;
+  color: #FFF;
+  padding: 10px;
+}
+
+.search { width: 250px; }
+
+// table td:nth-child(1),:nth-child(4), :nth-child(5), :nth-child(6), :nth-child(7){
+//   font-size: 13px !important;
+// }
+
+table td:nth-child(4), :nth-child(5){
+  width: 85px;
+}
+
+table th:nth-child(4), :nth-child(5){
+  width: 85px;
+}
+
+.android p {
+  text-align: center;
+  color: #8b8787;
+  padding-top: 20px;
+}
+
+.noData {
+  padding: 20%;
+}
+
+ .noData img {
+  width: 125px !important;
+ }
+
+.action ion-icon {
+  font-size: 18px;
+  color: #3c7ff9;
+}
+
+.table td:last-child {
+  text-align: center;
+}
+
+.action .delete {
+  font-size: 19px;
+  color: #ff4646;
+  cursor: pointer;
+}
+
+.table th:nth-child(2){
+  max-width: 130px;
+}
+
+.table td:nth-child(2){
+  max-width: 130px;
+}
+
+.table th:nth-child(3){
+  max-width: 100px;
+}
+
+.table td:nth-child(3){
+  max-width: 100px;
+}
+
+.table th:nth-child(8){
+  max-width: 130px;
+}
+
+.table td:nth-child(8){
+  max-width: 130px;
+}

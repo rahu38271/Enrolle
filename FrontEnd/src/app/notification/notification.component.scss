@@ -1,0 +1,70 @@
+
+
+.birthday ion-icon {
+    font-size: 20px;
+    color: #008cff;
+    background-color: #e4effe;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.anniversary ion-icon {
+    font-size: 20px;
+    color: #fd3550;
+    background-color: #ffe4e7;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.list ion-item span {
+    font-size: 14px;
+    color: #697a8d;
+    margin-left: 14px;
+}
+
+.list img {
+    width: 20px;
+}
+
+ion-list-header {
+    padding-inline-start: calc(var(--ion-safe-area-left, 0) + 0px) !important;
+}
+
+ion-list {
+    padding-top: 0px;
+}
+
+h2 {
+    line-height: 22px;
+    font-weight: 600;
+    font-size: 15px;
+    color: #1a3353;
+}
+
+.list h2 {
+    font-weight: 500;
+}
+
+h3 {
+    color: #212529;
+    font-size: 11px;
+    line-height: 22px;
+}
+
+ion-item i {
+    color: #8f9ca5;
+}
+
+.userDetails {
+    padding-bottom: 0px;
+}
+
+ion-label {
+    margin: 5px 0px 5px !important;
+}
+
+ion-item {
+    --padding-start: 10px;
+    --inner-padding-end: 10px;
+}
+

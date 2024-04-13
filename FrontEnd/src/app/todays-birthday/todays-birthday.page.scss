@@ -1,0 +1,209 @@
+.send-sms { width: 100%; background: #FFF !important; height: 400px; overflow: hidden;  }
+
+ion-label { color: #6688fb !important; --font-weight: 400 !important; }
+
+ion-select { color: #a7a7a7 !important; --font-weight: 400 !important; --placeholder-color: #c8c9c8; --placeholder-opacity: 1 }
+
+ion-input { --color: #a7a7a7 !important; --padding-top: 4px;  --padding-bottom: 4px;}
+
+h2 { color: #4e7db4; padding-left: 10px; font-weight: 500; }
+
+// h3 { color: #3880ff;  }
+
+h3 { color: #228bd2;  }
+
+h4 { color: #7a7a7a; }
+
+.sc-ion-input-md-h {
+    --padding-top: 4px !important;
+    --padding-bottom: 4px !important;
+}
+
+.header { width: 100% !important; }
+
+ion-label span {  color: #a2a2a2 !important; font-weight: 500;}
+
+table { margin-top: 10px; }
+
+td ion-icon { cursor: pointer; font-size: 12px; font-weight: 600;  }
+
+table ion-button { --padding-start: 0.4em !important; --padding-end: 0.4em !important; }
+
+.file { font-size: 20px !important; color: #3880ff !important; font-weight: 600;}
+
+
+#slide-nav{
+    position: absolute;
+    right: 0px;
+    top: 138px;
+    width: 350px;
+    background-color: #f6f3ea;
+    z-index: 999;
+    box-shadow: 0px 9px 24px -9px rgb(0 0 0 / 51%);
+    border: 1px solid #e1d1a1;
+  }
+
+  .close { color: #1c1a1a !important; padding: 4px 5px; background: #e1e1e1 !important; cursor: pointer; }
+
+  ion-card { margin-inline: 1px; margin-top: 1px; width: 100%;
+    margin: 0 auto;
+    border: 1px solid rgb(230, 235, 241);
+    border-radius: 0.625rem;
+    background-color: rgb(255, 255, 255);
+   }
+
+  @media screen and (max-width:576px){
+    ion-card-title {
+        font-size: 14px;
+    }
+    ion-button { font-size: 12px;}
+    table th,td  { font-size: 13px !important; }
+    .dataTables_paginate a { font-size: 12px !important; }
+    
+  }
+
+  ion-col {
+    padding-inline-start: var(--ion-grid-column-padding-xs, var(--ion-grid-column-padding, 4px));
+      padding-inline-end: var(--ion-grid-column-padding-xs, var(--ion-grid-column-padding, 4px));
+  }
+
+  h4 { margin-bottom: 1px; font-size: 13px !important; }
+
+  ion-avatar img { width: 40px; }
+
+  @media screen and (max-width:576px){
+    .web { display: none; }
+    .android ion-list { 
+      padding-top: 0px;
+      box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+      border: 1px solid #e6ebf1;
+      border-radius: 0.625rem;
+     }
+    .header1 {
+      color: #f03d9e !important;
+       width: 86% !important; 
+       float: left; 
+      font-size: 17px !important;
+    } 
+
+    .header2 {
+      width: 63% !important;
+      text-align: right;
+      font-size: 17px !important;
+      display: none;
+    }
+
+    .header3 {
+      text-align: right;
+      font-size: 17px !important;
+      width: 10% !important;
+    }
+
+    h3 { font-size: 14px; }
+   
+  }
+
+  @media screen and (min-width:576px){
+    .android { display: none; }
+  }
+
+  @media screen and (max-width:1200px) {
+    table { width: 1000px; }
+  }
+
+  .header2 {
+    width: 40%;
+    text-align: right;
+    font-size: 20px;
+  }
+
+  .header1 {
+    color: #f03d9e !important;
+    width: 60%;
+    float: left;
+    font-size: 20px;
+}
+
+.nameDate {
+  display: flex;
+  justify-content: space-between;
+}
+
+ion-item-options ion-icon {
+  font-size: 23px;
+  font-weight: 500;
+}
+
+.date {  color: #178ace;}
+
+.whatsapp{
+  background-color: #25D366;
+  color: #FFF;
+  padding: 10px;
+}
+
+.call{
+  background-color: #1771e7;
+  color: #FFF;
+  padding: 10px;
+}
+
+.message{
+  background-color: #ff6a30;
+  color: #FFF;
+  padding: 10px;
+}
+
+
+ion-searchbar {
+  --background: #fff;
+}
+
+.search { width: 250px; }
+
+table td:nth-child(2), th:nth-child(2) {
+  width: 20%;
+}
+
+// table td:nth-child(3), th:nth-child(3) {
+//   width: 14%;
+// }
+
+table td:nth-child(4), th:nth-child(4) {
+  width: 14%;
+}
+
+table td:nth-child(5), th:nth-child(5) {
+  width: 14%;
+}
+
+table td:nth-child(6), th:nth-child(6) {
+  width: 14%;
+}
+
+table td:nth-child(7), th:nth-child(7) {
+  width: 14%;
+}
+
+table td:nth-child(8), th:nth-child(8) {
+  width: 24%;
+}
+
+.android p {
+  text-align: center;
+  color: #8b8787;
+  padding-top: 20px;
+}
+
+.noData {
+  padding: 20%;
+}
+
+ .noData img {
+  width: 125px !important;
+ }
+
+ .headSection {
+  display: flex;
+  justify-content: space-between;
+}
